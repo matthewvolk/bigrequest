@@ -1,3 +1,5 @@
+import https from 'https';
+
 interface BigCommerceAPICredentials {
   ACCESS_TOKEN: string;
   STORE_HASH: string;
@@ -32,4 +34,26 @@ export default class BigRequest {
     this.CLIENT_SECRET = CLIENT_SECRET;
     this.STORE_URL = STORE_URL;
   }
+
+  request = async () => {
+    return new Promise((resolve, reject) => {
+      const req = https.get('https://jsonplaceholder.typicode.com/todos/1', response => {
+        let body: Buffer[] = [];
+
+        console.log('===== Response =====');
+        console.log(response.headers);
+        console.log('===== End Response =====');
+
+        response.on('data', chunk => {
+          body.push(chunk);
+        });
+
+        response.on('end', () => {
+          return resolve(JSON.parse(body.join('')));
+        });
+      });
+
+      req.on('error', e => reject(e));
+    });
+  };
 }
