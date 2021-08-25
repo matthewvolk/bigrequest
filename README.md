@@ -1,5 +1,7 @@
 <p align="center">
-<img src="bigRequest.png">
+<img src="BigRequest.png">
 </p>
 
-<h1 align="center">Node.js HTTP Request Library for BigCommerce</h1>
+# BigRequest
+
+A Node.js based HTTP Request client for the BigCommerce API
