@@ -37,7 +37,7 @@ export default class BigRequest {
 
   get = async (path: string) => {
     const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}${path}`;
-    const headers = {'X-Auth-Token': this.ACCESS_TOKEN};
+    const headers = {'X-Auth-Token': this.ACCESS_TOKEN, Accept: 'application/json'};
     const request = new Request();
     return request.run('get', url, headers);
   };
