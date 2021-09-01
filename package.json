@@ -2,19 +2,22 @@
   "name": "bigrequest",
   "version": "1.0.0",
   "description": "A Node.js based HTTP Request client for the BigCommerce API",
-  "main": "index.js",
+  "main": "lib/index.js",
   "files": [
     "lib/**/*"
   ],
-  "types": "lib/index.d.ts",
+  "types": "lib",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "dev": "nodemon lib/index.js",
-    "test": "ts-mocha test/**/*.spec.ts",
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "npm run test && npm run format",
+    "preversion": "npm run format",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -26,14 +29,20 @@
     "Commerce",
     "API",
     "Node",
+    "ecommerce",
     "bigrequest"
   ],
   "author": "Matthew Volk",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^16.7.10",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   },
   "bugs": {
