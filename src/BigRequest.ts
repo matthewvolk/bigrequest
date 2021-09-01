@@ -55,12 +55,31 @@ export default class BigRequest {
 
           console.log('Response Content Type', res.headers['content-type']);
 
+          if (res.statusCode === 429) {
+            const error = new Error(`API Limit Reached`);
+            return reject(error);
+          }
+
           res.on('data', chunk => {
             body.push(chunk);
           });
 
           res.on('end', () => {
-            return resolve(JSON.parse(body.join('')));
+            if (res.statusCode! >= 400 && res.statusCode! <= 600) {
+              const error = new Error(
+                `Request returned error code: ${res.statusCode} ${res.statusMessage}`
+              );
+              return reject(error);
+            }
+            if (!/application\/json/.test(res.headers['content-type']!) || body.length === 0) {
+              return resolve({body, status: res.statusCode});
+            }
+            const json = JSON.parse(body.join(''));
+            if (json.error || json.errors) {
+              const err = new Error(json.error || JSON.stringify(json.errors));
+              return reject(err);
+            }
+            return resolve(json);
           });
         }
       );
@@ -89,12 +108,31 @@ export default class BigRequest {
 
           console.log('Response Content Type', res.headers['content-type']);
 
+          if (res.statusCode === 429) {
+            const error = new Error(`API Limit Reached`);
+            return reject(error);
+          }
+
           res.on('data', chunk => {
             body.push(chunk);
           });
 
           res.on('end', () => {
-            return resolve(JSON.parse(body.join('')));
+            if (res.statusCode! >= 400 && res.statusCode! <= 600) {
+              const error = new Error(
+                `Request returned error code: ${res.statusCode} ${res.statusMessage}`
+              );
+              return reject(error);
+            }
+            if (!/application\/json/.test(res.headers['content-type']!) || body.length === 0) {
+              return resolve({body, status: res.statusCode});
+            }
+            const json = JSON.parse(body.join(''));
+            if (json.error || json.errors) {
+              const err = new Error(json.error || JSON.stringify(json.errors));
+              return reject(err);
+            }
+            return resolve(json);
           });
         }
       );
@@ -124,12 +162,31 @@ export default class BigRequest {
 
           console.log('Response Content Type', res.headers['content-type']);
 
+          if (res.statusCode === 429) {
+            const error = new Error(`API Limit Reached`);
+            return reject(error);
+          }
+
           res.on('data', chunk => {
             body.push(chunk);
           });
 
           res.on('end', () => {
-            return resolve(JSON.parse(body.join('')));
+            if (res.statusCode! >= 400 && res.statusCode! <= 600) {
+              const error = new Error(
+                `Request returned error code: ${res.statusCode} ${res.statusMessage}`
+              );
+              return reject(error);
+            }
+            if (!/application\/json/.test(res.headers['content-type']!) || body.length === 0) {
+              return resolve({body, status: res.statusCode});
+            }
+            const json = JSON.parse(body.join(''));
+            if (json.error || json.errors) {
+              const err = new Error(json.error || JSON.stringify(json.errors));
+              return reject(err);
+            }
+            return resolve(json);
           });
         }
       );
@@ -157,13 +214,31 @@ export default class BigRequest {
 
           console.log('Response Content Type', res.headers['content-type']);
 
+          if (res.statusCode === 429) {
+            const error = new Error(`API Limit Reached`);
+            return reject(error);
+          }
+
           res.on('data', chunk => {
             body.push(chunk);
           });
 
           res.on('end', () => {
-            // @todo no json to parse, just a 204 response
-            return resolve(JSON.parse(body.join('')));
+            if (res.statusCode! >= 400 && res.statusCode! <= 600) {
+              const error = new Error(
+                `Request returned error code: ${res.statusCode} ${res.statusMessage}`
+              );
+              return reject(error);
+            }
+            if (!/application\/json/.test(res.headers['content-type']!) || body.length === 0) {
+              return resolve({body, status: res.statusCode});
+            }
+            const json = JSON.parse(body.join(''));
+            if (json.error || json.errors) {
+              const err = new Error(json.error || JSON.stringify(json.errors));
+              return reject(err);
+            }
+            return resolve(json);
           });
         }
       );
