@@ -12,6 +12,7 @@
     "watch": "tsc -w",
     "dev": "nodemon lib/index.js",
     "test": "ts-mocha test/**/*.spec.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
   },
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/node": "^16.7.10",
     "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
     "typescript": "^4.3.5"
   },
   "bugs": {
