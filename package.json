@@ -32,7 +32,9 @@
     "ecommerce",
     "bigreq",
     "big",
-    "req"
+    "req",
+    "typescript",
+    "zero dependency"
   ],
   "author": "Matthew Volk",
   "license": "ISC",
