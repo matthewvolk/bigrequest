@@ -11,14 +11,14 @@ BigReq is a Node.js based HTTP Request client for the BigCommerce API
 ```javascript
 import BigReq from 'BigReq';
 
-const storeName = new BigReq({
+const store = new BigReq({
   ACCESS_TOKEN: 'YOUR API CLIENT ACCESS TOKEN',
   STORE_HASH: 'YOUR STORE HASH',
   CLIENT_ID: 'YOUR API CLIENT ID',
   CLIENT_SECRET: 'YOUR API CLIENT SECRET',
 });
 
-storeName
+store
   .get('/catalog/products')
   .then(data => console.log(data))
   .catch(err => console.error(err));
