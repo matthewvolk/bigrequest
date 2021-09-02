@@ -1,10 +1,10 @@
 <p align="center">
-<img src="BigRequest.png">
+<img src="BigReq.png">
 </p>
 
-# BigRequest
+# BigReq (pronounced "BigRequest")
 
-A Node.js based HTTP Request client for the BigCommerce API
+BigReq is a Node.js based HTTP Request client for the BigCommerce API
 
 ## Getting Started
 

@@ -1,2 +1,2 @@
-import BigRequest from './BigRequest';
-export default BigRequest;
+import BigReq from './BigReq';
+export default BigReq;

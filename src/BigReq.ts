@@ -7,7 +7,7 @@ interface BigCommerceAPICredentials {
   CLIENT_SECRET: string;
 }
 
-export default class BigRequest {
+export default class BigReq {
   private ACCESS_TOKEN: string;
   private STORE_HASH: string;
   private CLIENT_ID: string;
