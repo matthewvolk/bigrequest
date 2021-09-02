@@ -1,2 +1,2 @@
-import BigReq from './BigReq';
-export default BigReq;
+import BigReq = require('./BigReq');
+export = Object.assign(BigReq, {default: BigReq});
