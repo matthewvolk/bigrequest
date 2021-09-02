@@ -9,9 +9,9 @@ BigReq is a Node.js based HTTP Request client for the BigCommerce API
 ## Getting Started
 
 ```javascript
-import BigRequest from 'BigRequest';
+import BigReq from 'BigReq';
 
-const storeName = new BigRequest({
+const storeName = new BigReq({
   ACCESS_TOKEN: 'YOUR API CLIENT ACCESS TOKEN',
   STORE_HASH: 'YOUR STORE HASH',
   CLIENT_ID: 'YOUR API CLIENT ID',
@@ -37,6 +37,6 @@ storeName
 ## Contributing
 
 1. Clone this repository
-2. `cd bigrequest`
+2. `cd bigreq`
 3. `yarn watch` in one terminal
 4. `yarn dev` in another terminal
