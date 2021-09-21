@@ -12,7 +12,6 @@ export default class BigReq {
   private STORE_HASH: string;
   private CLIENT_ID: string;
   private CLIENT_SECRET: string;
-  private API_VERSION: string;
 
   constructor({ACCESS_TOKEN, STORE_HASH, CLIENT_ID, CLIENT_SECRET}: BigCommerceAPICredentials) {
     if (!ACCESS_TOKEN) throw new SyntaxError('ACCESS_TOKEN is a required parameter.');
@@ -24,21 +23,10 @@ export default class BigReq {
     this.STORE_HASH = STORE_HASH;
     this.CLIENT_ID = CLIENT_ID;
     this.CLIENT_SECRET = CLIENT_SECRET;
-    this.API_VERSION = 'v3';
   }
 
-  v2 = () => {
-    this.API_VERSION = 'v2';
-    return this;
-  };
-
-  v3 = () => {
-    this.API_VERSION = 'v3';
-    return this;
-  };
-
-  get = async (path: string) => {
-    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${this.API_VERSION}${path}`;
+  get = async (path: string, version: string = 'v3') => {
+    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${version}${path}`;
     const headers = {
       'X-Auth-Token': this.ACCESS_TOKEN,
       Accept: 'application/json',
@@ -88,9 +76,9 @@ export default class BigReq {
     });
   };
 
-  post = async (path: string, body: {}) => {
+  post = async (path: string, body: {}, version: string = 'v3') => {
     const jsonBody = JSON.stringify(body);
-    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${this.API_VERSION}${path}`;
+    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${version}${path}`;
     const headers = {
       'X-Auth-Token': this.ACCESS_TOKEN,
       Accept: 'application/json',
@@ -142,9 +130,9 @@ export default class BigReq {
     });
   };
 
-  put = async (path: string, body: {}) => {
+  put = async (path: string, body: {}, version: string = 'v3') => {
     const jsonBody = JSON.stringify(body);
-    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${this.API_VERSION}${path}`;
+    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${version}${path}`;
     const headers = {
       'X-Auth-Token': this.ACCESS_TOKEN,
       Accept: 'application/json',
@@ -196,8 +184,8 @@ export default class BigReq {
     });
   };
 
-  delete = async (path: string) => {
-    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${this.API_VERSION}${path}`;
+  delete = async (path: string, version: string = 'v3') => {
+    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${version}${path}`;
     const headers = {
       'X-Auth-Token': this.ACCESS_TOKEN,
       Accept: 'application/json',

@@ -42,29 +42,31 @@ store
 
 ## API
 
-**.get(path)**
+**.get(path[, version])**
 
 - `path`: A valid [BigCommerce API endpoint](https://developer.bigcommerce.com/api-reference)
+- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
-**IMPORTANT:** For all paths, only include the path _after_ the `/v3` or `/v2` part of the URL. For
-example, most BigCommerce API endpoints look similar to:
+**IMPORTANT:** For all paths, be sure to prepend the path with a forward slash, both when including
+and not including the version. example, most BigCommerce API endpoints look similar to:
 https://api.bigcommerce.com/stores/{STORE_HASH}/v3/customers
 
 So, your `.get` path would look like: `get("/customers")`
 
-By default, BigReq uses the v3 API. If you need to switch between API versions, simply run `.v2()`
-or `.v3()` before the `get`/`post`/`put`/`delete` method. For example:
+By default, BigReq uses the v3 API. If you need to switch between API versions, each API method
+accepts a second parameter `version` which is a two character string of either `"v2"` or `"v3"`. For
+example:
 
-```javascript
-// switch to v2
-store.v2().get("/pages").then(...)
+```js
+// v3 Endpoint:
+store.get('/orders/{order_id}/transactions').then(...);
 
-// switch back to v3
-store.v3().get("/customers").then(...)
+// v2 Endpoint:
+store.get('/orders', 'v2').then(...);
 ```
 
-**.post(path[, data])**
+**.post(path, data[, version])**
 
 - `path`: A valid BigCommerce API endpoint, following the same format described above.
 - `data`: A Javascript object or array that will be subsequently turned in JSON by the `.post`
@@ -72,18 +74,21 @@ store.v3().get("/customers").then(...)
   such as the
   [Customer Attributes POST endpoint](https://developer.bigcommerce.com/api-reference/store-management/customers-v3/customer-attributes/customersattributespost).
   You'll want to pass that array of objects to the `data` parameter above.
+- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
-**.put(path[, data])**
+**.put(path, data[, version])**
 
 - `path`: A valid BigCommerce API endpoint, following the same format described above.
 - `data`: A Javascript object or array that will be subsequently turned into JSON by the `.put`
   method.
+- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
-**.delete(path)**
+**.delete(path[, version])**
 
 - `path`: A valid BigCommerce API endpoint, following the same format described above.
+- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
 ## Contributing
