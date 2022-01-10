@@ -7,7 +7,7 @@
 BigReq is a **zero-dependency**, **Typescript based** Node.js HTTP Request client for the
 BigCommerce API.
 
-## Getting Started
+# Getting Started
 
 First, install using `npm` or `yarn`:
 
@@ -40,9 +40,9 @@ store
   .catch(err => console.error(err));
 ```
 
-## API
+# API
 
-**.get(path[, version])**
+## .get(path[, version])
 
 - `path`: A valid [BigCommerce API endpoint](https://developer.bigcommerce.com/api-reference)
 - `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
@@ -52,7 +52,7 @@ store
 and not including the version. example, most BigCommerce API endpoints look similar to:
 https://api.bigcommerce.com/stores/{STORE_HASH}/v3/customers
 
-So, your `.get` path would look like: `get("/customers")`
+So, your `.get` path to the endpoint above would look like: `get("/customers")`
 
 By default, BigReq uses the v3 API. If you need to switch between API versions, each API method
 accepts a second parameter `version` which is a two character string of either `"v2"` or `"v3"`. For
@@ -66,7 +66,7 @@ store.get('/orders/{order_id}/transactions').then(...);
 store.get('/orders', 'v2').then(...);
 ```
 
-**.post(path, data[, version])**
+## .post(path, data[, version])
 
 - `path`: A valid BigCommerce API endpoint, following the same format described above.
 - `data`: A Javascript object or array that will be subsequently turned in JSON by the `.post`
@@ -77,7 +77,7 @@ store.get('/orders', 'v2').then(...);
 - `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
-**.put(path, data[, version])**
+## .put(path, data[, version])
 
 - `path`: A valid BigCommerce API endpoint, following the same format described above.
 - `data`: A Javascript object or array that will be subsequently turned into JSON by the `.put`
@@ -85,15 +85,12 @@ store.get('/orders', 'v2').then(...);
 - `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
-**.delete(path[, version])**
+## .delete(path[, version])
 
 - `path`: A valid BigCommerce API endpoint, following the same format described above.
 - `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
 - **Returns**: `Promise<unknown>`
 
-## Contributing
+# Contributing
 
-1. `git clone git@github.com:matthewvolk/bigreq.git`
-2. `cd bigreq`
-3. `yarn watch` in one terminal
-4. `yarn dev` in another terminal
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md)
