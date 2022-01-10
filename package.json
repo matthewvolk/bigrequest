@@ -11,7 +11,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "dev": "nodemon lib/index.js",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "test": "jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && npm run format",
@@ -39,15 +39,14 @@
   "author": "Matthew Volk",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.2.21",
-    "@types/mocha": "^9.0.0",
+    "@types/jest": "^27.4.0",
     "@types/node": "^16.7.10",
-    "chai": "^4.3.4",
-    "mocha": "^9.1.1",
+    "jest": "^27.4.7",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
+    "ts-jest": "^27.1.2",
     "ts-node": "^10.2.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.4"
   },
   "bugs": {
     "url": "https://github.com/matthewvolk/bigreq/issues"
