@@ -9,8 +9,11 @@ interface BigCommerceAPICredentials {
 
 export default class BigReq {
   private ACCESS_TOKEN: string;
+
   private STORE_HASH: string;
+
   private CLIENT_ID: string;
+
   private CLIENT_SECRET: string;
 
   constructor({ACCESS_TOKEN, STORE_HASH, CLIENT_ID, CLIENT_SECRET}: BigCommerceAPICredentials) {
@@ -25,7 +28,7 @@ export default class BigReq {
     this.CLIENT_SECRET = CLIENT_SECRET;
   }
 
-  get = async (path: string, version: string = 'v3') => {
+  get = async (path: string, version = 'v3') => {
     const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${version}${path}`;
     const headers = {
       'X-Auth-Token': this.ACCESS_TOKEN,
@@ -39,7 +42,7 @@ export default class BigReq {
           headers,
         },
         res => {
-          let body: Buffer[] = [];
+          const body: Buffer[] = [];
 
           console.log('Response Content Type', res.headers['content-type']);
 
@@ -71,7 +74,9 @@ export default class BigReq {
           });
         }
       );
-      req.on('error', error => reject(error));
+      req.on('error', error => {
+        return reject(error);
+      });
       req.end();
     });
   };
@@ -124,7 +129,9 @@ export default class BigReq {
           });
         }
       );
-      req.on('error', error => reject(error));
+      req.on('error', error => {
+        return reject(error);
+      });
       req.write(jsonBody);
       req.end();
     });
@@ -178,7 +185,9 @@ export default class BigReq {
           });
         }
       );
-      req.on('error', error => reject(error));
+      req.on('error', error => {
+        return reject(error);
+      });
       req.write(jsonBody);
       req.end();
     });
@@ -230,7 +239,9 @@ export default class BigReq {
           });
         }
       );
-      req.on('error', error => reject(error));
+      req.on('error', error => {
+        return reject(error);
+      });
       req.end();
     });
   };
