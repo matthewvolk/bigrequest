@@ -78,7 +78,7 @@ parameter. These are the aavailable configuration options for making requests:
 ```js
 {
   // (Optional): Either 'v2' or 'v3'. Defaults to 'v3'.
-  version: 'v3',
+  version: 'v3', // default
 
   // Custom headers to be sent with the request. By default,
   // X-Auth-Token is set automatically for each request.
