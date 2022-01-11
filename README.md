@@ -25,7 +25,7 @@ Then, import `BigReq` into your file and instantiate the class with your
 ```javascript
 import BigReq from 'bigreq';
 // or
-const BigReq = require('bigreq');
+// const BigReq = require('bigreq');
 
 const store = new BigReq({
   ACCESS_TOKEN: 'YOUR API CLIENT ACCESS TOKEN',
@@ -42,54 +42,57 @@ store
 
 # API
 
-## .get(path[, version])
+## .get(path[, RequestConfig])
 
-- `path`: A valid [BigCommerce API endpoint](https://developer.bigcommerce.com/api-reference)
-- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
-- **Returns**: `Promise<unknown>`
+- `path`: A valid [BigCommerce API endpoint](https://developer.bigcommerce.com/api-reference). For
+  all paths, be sure to prepend the path with a forward slash, both when including and not including
+  the version. example, most BigCommerce API endpoints look similar to:
+  https://api.bigcommerce.com/stores/{STORE_HASH}/v3/customers. So, your `.get` path to the endpoint
+  above would look like: `get("/customers")`
+- `RequestConfig` (optional): See [RequestConfig](#requestconfig)
+- **Returns**: `Promise`
 
-**IMPORTANT:** For all paths, be sure to prepend the path with a forward slash, both when including
-and not including the version. example, most BigCommerce API endpoints look similar to:
-https://api.bigcommerce.com/stores/{STORE_HASH}/v3/customers
+## .post(path[, RequestConfig])
 
-So, your `.get` path to the endpoint above would look like: `get("/customers")`
+- `path`: A valid BigCommerce API endpoint, following the same format described above.
+- `RequestConfig` (optional): See [RequestConfig](#requestconfig)
+- **Returns**: `Promise`
 
-By default, BigReq uses the v3 API. If you need to switch between API versions, each API method
-accepts a second parameter `version` which is a two character string of either `"v2"` or `"v3"`. For
-example:
+## .put(path[, RequestConfig])
+
+- `path`: A valid BigCommerce API endpoint, following the same format described above.
+- `RequestConfig` (optional): See [RequestConfig](#requestconfig)
+- **Returns**: `Promise`
+
+## .delete(path[, RequestConfig])
+
+- `path`: A valid BigCommerce API endpoint, following the same format described above.
+- `RequestConfig` (optional): See [RequestConfig](#requestconfig)
+- **Returns**: `Promise`
+
+## RequestConfig
+
+The `RequestConfig` object can be passed to any of the request methods above as an optional
+parameter. These are the aavailable configuration options for making requests:
 
 ```js
-// v3 Endpoint:
-store.get('/orders/{order_id}/transactions').then(...);
+{
+  // (Optional): Either 'v2' or 'v3'. Defaults to 'v3'.
+  version: 'v3',
 
-// v2 Endpoint:
-store.get('/orders', 'v2').then(...);
+  // Custom headers to be sent with the request. By default,
+  // X-Auth-Token is set automatically for each request.
+  headers: {
+    Accept: 'application/json', // default
+    'Content-Type': 'application/json' // default
+  },
+
+  // Data to be sent as the request body
+  body: {
+    some_data: "Test"
+  }
+}
 ```
-
-## .post(path, data[, version])
-
-- `path`: A valid BigCommerce API endpoint, following the same format described above.
-- `data`: A Javascript object or array that will be subsequently turned in JSON by the `.post`
-  method. Be careful, some BigCommerce API endpoints require data to be sent as an array of objects
-  such as the
-  [Customer Attributes POST endpoint](https://developer.bigcommerce.com/api-reference/store-management/customers-v3/customer-attributes/customersattributespost).
-  You'll want to pass that array of objects to the `data` parameter above.
-- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
-- **Returns**: `Promise<unknown>`
-
-## .put(path, data[, version])
-
-- `path`: A valid BigCommerce API endpoint, following the same format described above.
-- `data`: A Javascript object or array that will be subsequently turned into JSON by the `.put`
-  method.
-- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
-- **Returns**: `Promise<unknown>`
-
-## .delete(path[, version])
-
-- `path`: A valid BigCommerce API endpoint, following the same format described above.
-- `version` (optional): Either `"v2"` or `"v3"`. Default is `"v3"`.
-- **Returns**: `Promise<unknown>`
 
 # Contributing
 
