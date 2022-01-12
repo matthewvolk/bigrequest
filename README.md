@@ -80,14 +80,14 @@ parameter. These are the aavailable configuration options for making requests:
   // (Optional): Either 'v2' or 'v3'. Defaults to 'v3'.
   version: 'v3', // default
 
-  // Custom headers to be sent with the request. By default,
-  // X-Auth-Token is set automatically for each request.
+  // (Optional): Custom headers to be sent with the request. By
+  // default, X-Auth-Token is set automatically for each request.
   headers: {
     Accept: 'application/json', // default
     'Content-Type': 'application/json' // default
   },
 
-  // Data to be sent as the request body
+  // (Optional): Data to be sent as the request body
   body: {
     some_data: "Test"
   }
