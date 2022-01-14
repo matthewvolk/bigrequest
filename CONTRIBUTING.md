@@ -18,3 +18,8 @@ We are open to, and grateful for, any contributions made by the community!
 ├── src         # Main application source
 ├── tests       # Integration/unit tests with Jest
 ```
+
+# Publishing to NPM
+
+1. Bump version: https://docs.npmjs.com/cli/v8/commands/npm-version#synopsis
+2. Publish: `npm publish`
