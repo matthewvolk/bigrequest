@@ -1,23 +1,27 @@
 import https from 'https';
-import {OutgoingHttpHeaders} from 'http2';
+import { OutgoingHttpHeaders } from 'http2';
 
 export type Method = 'GET' | 'DELETE' | 'POST' | 'PUT';
 export type Headers = OutgoingHttpHeaders;
 
+interface RequestConfig {
+  url: string;
+  method: Method;
+  headers: Headers;
+  body: object | null;
+}
+
 export default class Request {
   private method: Method;
-
   private url: string;
-
   private headers: Headers;
-
   private body: object | null;
 
-  constructor(method: Method, url: string, headers: Headers, body: object | null) {
-    this.method = method;
-    this.url = url;
-    this.headers = headers;
-    this.body = body;
+  constructor(config: RequestConfig) {
+    this.url = config.url;
+    this.method = config.method;
+    this.headers = config.headers;
+    this.body = config.body;
   }
 
   run = () => {
@@ -26,9 +30,9 @@ export default class Request {
         this.url,
         {
           method: this.method,
-          headers: {...this.headers},
+          headers: { ...this.headers },
         },
-        res => {
+        (res) => {
           const body: Buffer[] = [];
 
           console.log('Response Content Type', res.headers['content-type']);
@@ -38,7 +42,7 @@ export default class Request {
             return reject(error);
           }
 
-          res.on('data', chunk => {
+          res.on('data', (chunk) => {
             body.push(chunk);
           });
 
@@ -50,7 +54,7 @@ export default class Request {
               return reject(error);
             }
             if (!/application\/json/.test(res.headers['content-type']!) || body.length === 0) {
-              return resolve({body, status: res.statusCode});
+              return resolve({ body, status: res.statusCode });
             }
             const json = JSON.parse(body.join(''));
             if (json.error || json.errors) {
@@ -61,7 +65,7 @@ export default class Request {
           });
         }
       );
-      req.on('error', error => {
+      req.on('error', (error) => {
         return reject(error);
       });
       if (this.body) {

@@ -1,4 +1,4 @@
-import Request, {Headers, Method} from './Request';
+import Request, { Headers, Method } from './Request';
 
 export type Version = 'v2' | 'v3';
 
@@ -9,7 +9,7 @@ export interface BigCommerceAPICredentials {
   CLIENT_SECRET: string;
 }
 
-export interface RequestConfig {
+export interface BigReqRequestConfig {
   version?: Version;
   headers?: Headers;
   body?: object;
@@ -17,16 +17,12 @@ export interface RequestConfig {
 
 export default class BigReq {
   private ACCESS_TOKEN: string;
-
   private STORE_HASH: string;
-
   private CLIENT_ID: string;
-
   private CLIENT_SECRET: string;
-
   private defaultVersion: Version = 'v3';
 
-  constructor({ACCESS_TOKEN, STORE_HASH, CLIENT_ID, CLIENT_SECRET}: BigCommerceAPICredentials) {
+  constructor({ ACCESS_TOKEN, STORE_HASH, CLIENT_ID, CLIENT_SECRET }: BigCommerceAPICredentials) {
     if (!ACCESS_TOKEN || !STORE_HASH || !CLIENT_ID || !CLIENT_SECRET) {
       throw new SyntaxError(
         'BigReq must be initialized with a configuration object containing values for' +
@@ -40,39 +36,43 @@ export default class BigReq {
     this.CLIENT_SECRET = CLIENT_SECRET;
   }
 
-  private request = (path: string, method: Method, config?: RequestConfig) => {
-    // Check if version is explicitly set, otherwise default to 'v3'
-    const version = config?.version || this.defaultVersion;
+  private request = (method: Method, path: string, config?: BigReqRequestConfig) => {
+    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${
+      config?.version || this.defaultVersion
+    }${path}`;
 
-    // Construct URL from API host, STORE_HASH, version, and path
-    const url = `https://api.bigcommerce.com/stores/${this.STORE_HASH}/${version}${path}`;
+    const headers = {
+      ...config?.headers,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-Auth-Token': this.ACCESS_TOKEN,
+    };
 
-    // Define request body for POST/PUT/DELETE
-    const configBody = config?.body || null;
+    const body = config?.body || null;
 
-    // Define HTTP headers, adding some defaults
-    const configHeaders = config?.headers || {};
-    configHeaders.Accept = 'application/json';
-    configHeaders['Content-Type'] = 'application/json';
-    configHeaders['X-Auth-Token'] = this.ACCESS_TOKEN;
+    const req = new Request({
+      url,
+      method,
+      headers,
+      body,
+    });
 
-    const req = new Request(method, url, configHeaders, configBody);
     return req.run();
   };
 
-  get = async (path: string, config?: RequestConfig) => {
-    return this.request(path, 'GET', config);
+  get = async (path: string, config?: BigReqRequestConfig) => {
+    return this.request('GET', path, config);
   };
 
-  post = async (path: string, config?: RequestConfig) => {
-    return this.request(path, 'POST', config);
+  post = async (path: string, config?: BigReqRequestConfig) => {
+    return this.request('POST', path, config);
   };
 
-  put = async (path: string, config?: RequestConfig) => {
-    return this.request(path, 'PUT', config);
+  put = async (path: string, config?: BigReqRequestConfig) => {
+    return this.request('PUT', path, config);
   };
 
-  delete = async (path: string, config?: RequestConfig) => {
-    return this.request(path, 'DELETE', config);
+  delete = async (path: string, config?: BigReqRequestConfig) => {
+    return this.request('DELETE', path, config);
   };
 }
