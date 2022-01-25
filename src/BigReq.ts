@@ -24,8 +24,8 @@ export default class BigReq {
 
   constructor({ ACCESS_TOKEN, STORE_HASH, CLIENT_ID, CLIENT_SECRET }: BigCommerceAPICredentials) {
     if (!ACCESS_TOKEN || !STORE_HASH || !CLIENT_ID || !CLIENT_SECRET) {
-      throw new SyntaxError(
-        'BigReq must be initialized with a configuration object containing values for' +
+      throw new Error(
+        'BigReq must be initialized with a configuration object containing values for ' +
           'properties "ACCESS_TOKEN", "STORE_HASH", "CLIENT_ID", and "CLIENT_SECRET"'
       );
     }
