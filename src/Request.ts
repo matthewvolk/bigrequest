@@ -35,8 +35,6 @@ export default class Request {
         (res) => {
           const body: Buffer[] = [];
 
-          console.log('Response Content Type', res.headers['content-type']);
-
           if (res.statusCode === 429) {
             const error = new Error(`API Limit Reached`);
             return reject(error);
