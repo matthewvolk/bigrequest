@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import Request from './Request';
 import type {
   Version,
@@ -76,6 +77,33 @@ export default class BigReq {
     });
 
     return req.run();
+  };
+
+  verify = async (signedPayload: string) => {
+    const splitPayload = signedPayload.split('.');
+    const json = Buffer.from(splitPayload[0], 'base64').toString('utf8');
+    const data = JSON.parse(json);
+    const signature = Buffer.from(splitPayload[1], 'base64').toString('utf8');
+
+    const expected = crypto
+      .createHmac('sha256', this.CLIENT_SECRET as string)
+      .update(json)
+      .digest('hex');
+
+    if (expected.length !== signature.length) {
+      throw new Error('Signature is invalid.');
+    }
+
+    if (
+      !crypto.timingSafeEqual(
+        Buffer.from(expected, 'utf8'),
+        Buffer.from(signature, 'utf8')
+      )
+    ) {
+      throw new Error('Signature is invalid.');
+    }
+
+    return data;
   };
 
   get = async (path: string, config?: BigReqInternalRequestConfig) => {
