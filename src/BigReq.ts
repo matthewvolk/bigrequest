@@ -39,7 +39,7 @@ export default class BigReq {
       ...config?.headers,
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'X-Auth-Token': this.ACCESS_TOKEN || "",
+      'X-Auth-Token': this.ACCESS_TOKEN || '',
     };
 
     const body = config?.body || null;
@@ -55,24 +55,25 @@ export default class BigReq {
   };
 
   authorize = async (code: string, context: string, scope: string) => {
-    const url = `https://login.bigcommerce.com/oauth2/token`
-      + `?client_id=${this.CLIENT_ID}`
-      + `&client_secret=${this.CLIENT_SECRET}`
-      + `&code=${code}`
-      + `&scope=${scope}`
-      + `&context=${context}`
-      + `&redirect_uri=${this.REDIRECT_URI}`
-      + `&grant_type=authorization_code`;
-    
+    const url =
+      `https://login.bigcommerce.com/oauth2/token` +
+      `?client_id=${this.CLIENT_ID}` +
+      `&client_secret=${this.CLIENT_SECRET}` +
+      `&code=${code}` +
+      `&scope=${scope}` +
+      `&context=${context}` +
+      `&redirect_uri=${this.REDIRECT_URI}` +
+      `&grant_type=authorization_code`;
+
     const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
 
     const req = new Request({
       url,
-      method: "POST",
-      headers
-    })
+      method: 'POST',
+      headers,
+    });
 
     return req.run();
   };

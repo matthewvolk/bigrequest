@@ -1,4 +1,4 @@
-import { OutgoingHttpHeaders } from "http2";
+import { OutgoingHttpHeaders } from 'http2';
 
 export type Version = 'v2' | 'v3';
 export type Method = 'GET' | 'DELETE' | 'POST' | 'PUT';
