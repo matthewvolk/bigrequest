@@ -1,15 +1,5 @@
 import https from 'https';
-import { OutgoingHttpHeaders } from 'http2';
-
-export type Method = 'GET' | 'DELETE' | 'POST' | 'PUT';
-export type Headers = OutgoingHttpHeaders;
-
-interface RequestConfig {
-  url: string;
-  method: Method;
-  headers: Headers;
-  body: object | null;
-}
+import type { Headers, Method, RequestConfig } from './types';
 
 export default class Request {
   private method: Method;
@@ -20,8 +10,8 @@ export default class Request {
   constructor(config: RequestConfig) {
     this.url = config.url;
     this.method = config.method;
-    this.headers = config.headers;
-    this.body = config.body;
+    this.headers = config.headers || {};
+    this.body = config.body || {};
   }
 
   run = () => {
@@ -51,7 +41,10 @@ export default class Request {
               );
               return reject(error);
             }
-            if (!/application\/json/.test(res.headers['content-type']!) || body.length === 0) {
+            if (
+              !/application\/json/.test(res.headers['content-type']!) ||
+              body.length === 0
+            ) {
               return resolve({ body, status: res.statusCode });
             }
             const json = JSON.parse(body.join(''));
