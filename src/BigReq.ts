@@ -6,7 +6,7 @@ import type {
   BigReqConfig,
   BigReqInternalRequestConfig,
   AuthorizeResponse,
-  VerifyResponse
+  VerifyResponse,
 } from './types';
 
 export default class BigReq {
