@@ -24,3 +24,15 @@ export interface RequestConfig {
   headers: Headers;
   body?: object | null;
 }
+
+export interface AuthorizeResponse {
+  access_token: string;
+  scope: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  };
+  context: string;
+  account_uuid: string;
+}

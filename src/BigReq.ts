@@ -5,6 +5,7 @@ import type {
   Method,
   BigReqConfig,
   BigReqInternalRequestConfig,
+  AuthorizeResponse,
 } from './types';
 
 export default class BigReq {
@@ -55,7 +56,11 @@ export default class BigReq {
     return req.run();
   };
 
-  authorize = async (code: string, context: string, scope: string) => {
+  authorize = async (
+    code: string,
+    context: string,
+    scope: string
+  ): Promise<AuthorizeResponse> => {
     const url =
       `https://login.bigcommerce.com/oauth2/token` +
       `?client_id=${this.CLIENT_ID}` +
@@ -76,7 +81,7 @@ export default class BigReq {
       headers,
     });
 
-    return req.run();
+    return req.run() as Promise<AuthorizeResponse>;
   };
 
   verify = async (signedPayload: string) => {
