@@ -6,6 +6,7 @@ import type {
   BigReqConfig,
   BigReqInternalRequestConfig,
   AuthorizeResponse,
+  VerifyResponse
 } from './types';
 
 export default class BigReq {
@@ -84,7 +85,7 @@ export default class BigReq {
     return req.run() as Promise<AuthorizeResponse>;
   };
 
-  verify = async (signedPayload: string) => {
+  verify = (signedPayload: string): VerifyResponse => {
     const splitPayload = signedPayload.split('.');
     const json = Buffer.from(splitPayload[0], 'base64').toString('utf8');
     const data = JSON.parse(json);

@@ -36,3 +36,11 @@ export interface AuthorizeResponse {
   context: string;
   account_uuid: string;
 }
+
+export interface VerifyResponse {
+  user: { id: number; email: string };
+  owner: { id: number; email: string };
+  context: string;
+  store_hash: string;
+  timestamp: number;
+}
