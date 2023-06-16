@@ -23,6 +23,7 @@
     "build": "tsup",
     "lint": "eslint . --max-warnings 0",
     "generate": "node src/generate.mjs",
+    "test": "echo \"No test specified\"",
     "release": "np"
   },
   "dependencies": {
