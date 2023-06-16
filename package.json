@@ -21,11 +21,13 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "generate": "node src/generate.mjs"
   },
   "devDependencies": {
     "@bigcommerce/eslint-config": "^2.7.0",
     "eslint": "^8.42.0",
+    "openapi-typescript": "^6.2.7",
     "prettier": "^2.8.8",
     "tsup": "^6.7.0",
     "typescript": "^5.1.3"

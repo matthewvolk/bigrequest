@@ -5,8 +5,8 @@
     "outDir": "dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false /* eslint */,
+    "noUnusedParameters": false /* eslint */,
     "skipLibCheck": true
   }
 }

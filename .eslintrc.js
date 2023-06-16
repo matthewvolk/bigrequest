@@ -2,5 +2,5 @@ require('@bigcommerce/eslint-config/patch');
 
 module.exports = {
   extends: ['@bigcommerce/eslint-config'],
-  ignorePatterns: ['/dist/**'],
+  ignorePatterns: ['/node_modules/**', '/dist/**', '/src/generated/**'],
 };
