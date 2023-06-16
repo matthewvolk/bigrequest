@@ -24,6 +24,9 @@
     "lint": "eslint . --max-warnings 0",
     "generate": "node src/generate.mjs"
   },
+  "dependencies": {
+    "openapi-fetch": "^0.3.0"
+  },
   "devDependencies": {
     "@bigcommerce/eslint-config": "^2.7.0",
     "eslint": "^8.42.0",
@@ -50,8 +53,5 @@
     "url": "https://github.com/matthewvolk/bigreq/issues"
   },
   "homepage": "https://github.com/matthewvolk/bigreq#readme",
-  "prettier": "@bigcommerce/eslint-config/prettier",
-  "dependencies": {
-    "openapi-fetch": "^0.3.0"
-  }
+  "prettier": "@bigcommerce/eslint-config/prettier"
 }
