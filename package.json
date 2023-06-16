@@ -22,7 +22,8 @@
   "scripts": {
     "build": "tsup",
     "lint": "eslint . --max-warnings 0",
-    "generate": "node src/generate.mjs"
+    "generate": "node src/generate.mjs",
+    "release": "np"
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.0",
@@ -33,6 +34,7 @@
     "@bigcommerce/eslint-config": "^2.7.0",
     "@types/jsonwebtoken": "^9.0.2",
     "eslint": "^8.42.0",
+    "np": "^8.0.4",
     "openapi-typescript": "^6.2.7",
     "prettier": "^2.8.8",
     "tsup": "^6.7.0",
