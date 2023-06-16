@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2022" /* Node.js 18 */,
+    "module": "commonjs",
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true
+  }
+}
