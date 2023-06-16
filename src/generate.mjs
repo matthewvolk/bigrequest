@@ -128,7 +128,7 @@ async function generate() {
    */
 
   const filesToCreate = typeDefinitionContents.map((output, index) =>
-    fs.writeFile(localSpecFilePaths[index], output),
+    fs.writeFile(localSpecFilePaths[index], `// @ts-nocheck\n${output}`),
   );
 
   /**
@@ -188,6 +188,7 @@ async function generate() {
    */
 
   const v2File = `
+    // @ts-nocheck
     ${v2TypeDefinitionFiles
       .map(
         (file) =>
@@ -221,6 +222,7 @@ async function generate() {
    */
 
   const v3File = `
+    // @ts-nocheck
     ${v3TypeDefinitionFiles
       .map(
         (file) =>

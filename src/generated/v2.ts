@@ -1,4 +1,5 @@
 
+    // @ts-nocheck
     import * as currencies_v2 from './currencies.v2';
 import * as customers_v2 from './customers.v2';
 import * as geography_v2 from './geography.v2';

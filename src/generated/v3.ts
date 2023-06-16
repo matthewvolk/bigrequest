@@ -1,4 +1,5 @@
 
+    // @ts-nocheck
     import * as abandoned_cart_emails_v3 from './abandoned_cart_emails.v3';
 import * as abandoned_carts_v3 from './abandoned_carts.v3';
 import * as carts_v3 from './carts.v3';
