@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2022" /* Node.js 18 */,
+    "module": "commonjs",
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noUnusedLocals": false /* eslint */,
+    "noUnusedParameters": false /* eslint */,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"]
+}
