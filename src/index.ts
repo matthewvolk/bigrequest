@@ -1,1 +1,7 @@
-export const hello = () => 'world';
+import { rest } from './rest';
+
+const bigreq = {
+  rest,
+};
+
+export = bigreq;

@@ -50,5 +50,8 @@
     "url": "https://github.com/matthewvolk/bigreq/issues"
   },
   "homepage": "https://github.com/matthewvolk/bigreq#readme",
-  "prettier": "@bigcommerce/eslint-config/prettier"
+  "prettier": "@bigcommerce/eslint-config/prettier",
+  "dependencies": {
+    "openapi-fetch": "^0.3.0"
+  }
 }
