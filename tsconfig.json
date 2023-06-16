@@ -8,5 +8,6 @@
     "noUnusedLocals": false /* eslint */,
     "noUnusedParameters": false /* eslint */,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src/**/*.ts"]
 }
