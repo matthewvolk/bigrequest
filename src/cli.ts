@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
+const userNodeVersion = process.versions.node;
+const userNodeMajorVersion = parseInt(userNodeVersion.split('.')[0], 10);
+const minimumMajorVersion = 18;
+
+if (userNodeMajorVersion < minimumMajorVersion) {
+  console.error(`\nError: Your Node.js version is ${userNodeVersion}`);
+  console.error(`Please use Node.js v${minimumMajorVersion} or higher.\n`);
+  process.exit(1);
+}
+
 import { input, select } from '@inquirer/prompts';
 import { blue, green } from 'chalk';
 import { mind } from 'gradient-string';
