@@ -9,5 +9,5 @@
     "noUnusedParameters": false /* eslint */,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "tsup.config.ts"]
 }
