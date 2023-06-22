@@ -1,6 +1,8 @@
 # BigReq ("BigRequest")
 
-### ✨ Inspired by Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
+#### ✨ Inspired by Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
+
+## Overview
 
 This module is available in two formats:
 
