@@ -1,8 +1,6 @@
 # BigReq ("BigRequest")
 
-#### ✨ Inspired by the work done by Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
-
-_A Node.js module for authentication and communication with the BigCommerce API._
+### ✨ Inspired by Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
 
 This module is available in two formats:
 
