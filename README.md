@@ -1,10 +1,6 @@
-<p align="center">
-<img src="BigReq.png">
-</p>
-
 # BigReq ("BigRequest")
 
-#### ✨ Inspired by our partners at Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
+#### ✨ Inspired by the work done by Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
 
 _A Node.js module for authentication and communication with the BigCommerce API._
 
