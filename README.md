@@ -141,20 +141,22 @@ git clone git@github.com:matthewvolk/bigreq.git && cd bigreq
 npm i
 ```
 
-**3. Generate types**
+### Generating Types
+
+The BigCommerce API is constantly changing. There's a good chance that by the time you've cloned this repository, it might be out of date with recent changes pushed to the BigCommerce OpenAPI Specs repository: https://github.com/bigcommerce/api-specs
+
+Before releasing a new package version, you'll want to regenerate types to ensure this package is published with the latest OpenAPI Spec changes, if any. To regenerate types, run the following command:
 
 ```sh
 npm run generate
 ```
-
-### Generating Types
 
 If you run the `npm run generate` command above as-is, you'll likely see a rate limiting error returned from GitHub. For unauthenticated requests, GitHub's rate limit [currently allows for up to 60 requests per hour](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting).
 
 However, user access token requests increase that limit to 5,000 requests per hour, per authenticated user. The `npm run generate` command accepts an access token as an argument:
 
 1. [Create a GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) (for scopes, only "Public Repositories (read-only)" is required)
-2. Re-run the `npm run generate` command:
+2. Re-run the `npm run generate` command as follows, replacing `YOUR_ACCESS_TOKEN` with your actual access token:
 
 ```sh
 npm run generate -- YOUR_ACCESS_TOKEN
