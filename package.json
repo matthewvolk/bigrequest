@@ -25,6 +25,7 @@
     "lint": "eslint . --max-warnings 0 && tsc",
     "generate": "node src/generate.mjs",
     "test": "echo \"No test specified\"",
+    "prerelease": "npm run build",
     "release": "np"
   },
   "dependencies": {
