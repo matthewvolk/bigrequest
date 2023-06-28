@@ -22,7 +22,7 @@
   "bin": "./dist/cli.js",
   "scripts": {
     "build": "tsup",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --max-warnings 0 && tsc",
     "generate": "node src/generate.mjs",
     "test": "echo \"No test specified\"",
     "release": "np"
