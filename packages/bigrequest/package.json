@@ -22,11 +22,10 @@
   "bin": "./dist/cli.js",
   "scripts": {
     "build": "tsup",
-    "lint": "eslint . --max-warnings 0 && tsc",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
     "generate": "node src/generate.mjs",
-    "test": "echo \"No test specified\"",
-    "prerelease": "pnpm run build",
-    "release": "np"
+    "test": "echo \"No test specified\""
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.0",
@@ -35,13 +34,8 @@
   },
   "devDependencies": {
     "@bigcommerce/eslint-config": "^2.7.0",
-    "@inquirer/prompts": "^2.2.0",
-    "@types/gradient-string": "^1.1.2",
     "@types/jsonwebtoken": "^9.0.2",
-    "chalk": "^4.1.2",
     "eslint": "^8.43.0",
-    "gradient-string": "^2.0.2",
-    "np": "^8.0.4",
     "openapi-typescript": "^6.2.7",
     "prettier": "^2.8.8",
     "tsup": "^7.1.0",

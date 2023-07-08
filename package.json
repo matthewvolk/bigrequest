@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "lint": "turbo lint",
+    "check-types": "turbo check-types",
     "build": "turbo build"
   },
   "devDependencies": {

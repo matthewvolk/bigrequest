@@ -11,11 +11,10 @@ if (userNodeMajorVersion < minimumMajorVersion) {
 }
 
 import { input, select } from '@inquirer/prompts';
+import bigreq from 'bigreq';
 import { blue, green } from 'chalk';
 import { mind } from 'gradient-string';
 import { z } from 'zod';
-
-import { rest } from './rest';
 
 const logo = [
   '                                   ,%',
@@ -47,7 +46,7 @@ const promptAndValidateChannelSite = async (
       z.string().url().safeParse(val).success || 'Please enter a valid URL including scheme',
   });
 
-  const bc = rest({ storeHash, accessToken });
+  const bc = bigreq.rest({ storeHash, accessToken });
 
   const channelSiteRes = await bc.v3.post('/channels/{channel_id}/site', {
     params: {
@@ -109,7 +108,7 @@ const main = async () => {
     message: 'Please enter a name for your headless channel',
   });
 
-  const bc = rest({ storeHash, accessToken });
+  const bc = bigreq.rest({ storeHash, accessToken });
 
   const createChannelRes = await bc.v3.post('/channels', {
     body: {
