@@ -5,6 +5,20 @@ on:
       - "**"
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm build
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +31,7 @@ jobs:
           node-version: 18.x
 
       - run: pnpm i --frozen-lockfile
+      - run: pnpm build
       - run: pnpm lint
 
   check-types:
@@ -31,18 +46,5 @@ jobs:
           node-version: 18.x
 
       - run: pnpm i --frozen-lockfile
-      - run: pnpm check-types
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-
-      - run: pnpm i --frozen-lockfile
       - run: pnpm build
+      - run: pnpm check-types
