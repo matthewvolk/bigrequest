@@ -1,6 +1,6 @@
 {
-  "name": "bigreq",
-  "version": "4.4.5",
+  "name": "bigrequest",
+  "version": "0.0.0",
   "description": "A Node.js-based HTTP Request client for the BigCommerce API",
   "author": "Matthew Volk",
   "license": "MIT",
@@ -53,11 +53,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matthewvolk/bigreq.git"
+    "url": "git+https://github.com/matthewvolk/bigrequest.git"
   },
   "bugs": {
-    "url": "https://github.com/matthewvolk/bigreq/issues"
+    "url": "https://github.com/matthewvolk/bigrequest/issues"
   },
-  "homepage": "https://github.com/matthewvolk/bigreq#readme",
+  "homepage": "https://github.com/matthewvolk/bigrequest#readme",
   "prettier": "@bigcommerce/eslint-config/prettier"
 }

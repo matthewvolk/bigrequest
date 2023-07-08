@@ -26,7 +26,7 @@
   "prettier": "@bigcommerce/eslint-config/prettier",
   "dependencies": {
     "@inquirer/prompts": "^2.2.0",
-    "bigreq": "workspace:*",
+    "bigrequest": "workspace:*",
     "chalk": "^4.1.2",
     "gradient-string": "^2.0.2",
     "zod": "^3.21.4"

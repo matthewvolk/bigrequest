@@ -17,7 +17,7 @@ importers:
       '@inquirer/prompts':
         specifier: ^2.2.0
         version: 2.2.0
-      bigreq:
+      bigrequest:
         specifier: workspace:*
         version: link:../bigrequest
       chalk:

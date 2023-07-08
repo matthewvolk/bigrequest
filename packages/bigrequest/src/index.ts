@@ -1,9 +1,9 @@
 import { oauth } from './oauth';
 import { rest } from './rest';
 
-const bigreq = {
+const bigrequest = {
   oauth,
   rest,
 };
 
-export = bigreq;
+export = bigrequest;

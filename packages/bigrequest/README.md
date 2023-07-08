@@ -1,4 +1,4 @@
-# BigReq ("BigRequest")
+# BigRequest
 
 #### ✨ Inspired by Space48: [Space48/bigcommerce-api-js](https://github.com/Space48/bigcommerce-api-js)
 
@@ -16,30 +16,30 @@ This module is available in two formats:
 ## Installation
 
 ```sh
-npm i bigreq
+npm i bigrequest
 ```
 
 ## Usage
 
 ```js
 // CommonJS
-const bigreq = require('bigreq');
+const bigrequest = require('bigrequest');
 ```
 
 ```js
 // ES Module
-import bigreq from 'bigreq';
+import bigrequest from 'bigrequest';
 ```
 
 ```ts
 // Typescript (recommended)
-import bigreq from 'bigreq';
+import bigrequest from 'bigrequest';
 ```
 
 ### OAuth
 
 ```ts
-const oauth = bigreq.oauth({
+const oauth = bigrequest.oauth({
   clientId: 'YOUR_CLIENT_ID',
   clientSecret: 'YOUR_CLIENT_SECRET',
   authCallback: 'https://devtools.bigcommerce.com/my/apps',
@@ -132,7 +132,7 @@ _Ensure you are using Node.js v18 or higher._
 **1. Clone the repo**
 
 ```sh
-git clone git@github.com:matthewvolk/bigreq.git && cd bigreq
+git clone git@github.com:matthewvolk/bigrequest.git && cd bigrequest
 ```
 
 **2. Install dependencies**
