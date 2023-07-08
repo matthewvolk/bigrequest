@@ -1,6 +1,10 @@
 {
   "name": "bigrequest-monorepo",
   "private": true,
+  "scripts": {
+    "lint": "turbo lint",
+    "build": "turbo build"
+  },
   "devDependencies": {
     "turbo": "^1.10.7"
   },
