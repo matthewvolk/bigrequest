@@ -1,0 +1,69 @@
+{
+  "name": "bigreq",
+  "version": "4.4.5",
+  "description": "A Node.js-based HTTP Request client for the BigCommerce API",
+  "author": "Matthew Volk",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": "./dist/cli.js",
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint . --max-warnings 0 && tsc",
+    "generate": "node src/generate.mjs",
+    "test": "echo \"No test specified\"",
+    "prerelease": "pnpm run build",
+    "release": "np"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0",
+    "openapi-fetch": "^0.3.0",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@bigcommerce/eslint-config": "^2.7.0",
+    "@inquirer/prompts": "^2.2.0",
+    "@types/gradient-string": "^1.1.2",
+    "@types/jsonwebtoken": "^9.0.2",
+    "chalk": "^4.1.2",
+    "eslint": "^8.43.0",
+    "gradient-string": "^2.0.2",
+    "np": "^8.0.4",
+    "openapi-typescript": "^6.2.7",
+    "prettier": "^2.8.8",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.5"
+  },
+  "keywords": [
+    "bigcommerce",
+    "big",
+    "commerce",
+    "api",
+    "node",
+    "typescript",
+    "javascript",
+    "ecommerce"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewvolk/bigreq.git"
+  },
+  "bugs": {
+    "url": "https://github.com/matthewvolk/bigreq/issues"
+  },
+  "homepage": "https://github.com/matthewvolk/bigreq#readme",
+  "prettier": "@bigcommerce/eslint-config/prettier"
+}
