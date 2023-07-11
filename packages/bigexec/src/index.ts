@@ -72,7 +72,7 @@ const main = async () => {
   const menuSelection = await select({
     message: 'What would you like to do today?',
     choices: [
-      { name: 'Create a Next.js Commerce Channel', value: 'nextjs' },
+      { name: 'Create a Headless Storefront Channel', value: 'headless' },
       { name: 'Quit', value: 'quit' },
     ],
   });
@@ -108,12 +108,26 @@ const main = async () => {
     message: 'Please enter a name for your headless channel',
   });
 
+  const platform = await select({
+    message: 'Please choose a platform for your headless channel',
+    choices: [
+      { name: 'Gatsby', value: 'gatsby' },
+      { name: 'Wordpress', value: 'wordpress' },
+      { name: 'Drupal', value: 'drupal' },
+      { name: 'Acquia', value: 'acquia' },
+      { name: 'Bloomreach', value: 'bloomreach' },
+      { name: 'Deity', value: 'deity' },
+      { name: 'Next.js', value: 'next' },
+      { name: 'Vue', value: 'vue' },
+    ],
+  });
+
   const bc = bigrequest.rest({ storeHash, accessToken });
 
   const createChannelRes = await bc.v3.post('/channels', {
     body: {
       name: newChannelName,
-      platform: 'next',
+      platform,
       type: 'storefront',
       status: 'active',
       is_visible: true,
@@ -135,11 +149,36 @@ const main = async () => {
 
   await promptAndValidateChannelSite(storeHash, accessToken, channelId);
 
+  const createCITRes = await bc.v3.post('/storefront/api-token-customer-impersonation', {
+    params: {
+      header: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    },
+    body: {
+      channel_id: channelId,
+      expires_at: Math.floor(
+        new Date(new Date().setFullYear(new Date().getFullYear() + 1)).getTime() / 1000,
+      ),
+    },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (createCITRes.error) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    console.error(createCITRes.error);
+  }
+
+  const cit = createCITRes.data.data?.token;
+
   console.log(green('\nChannel Created!'));
-  console.log('Please use the information below for your new Next.js Commerce Channel.\n');
+  console.log('Please use the information below for your new Headless Storefront Channel.\n');
   console.log(`BigCommerce Channel ID: ${green(channelId)}`);
   console.log(`BigCommerce Store Hash: ${green(storeHash)}`);
-  console.log(`BigCommerce Access Token: ${green(accessToken)}\n`);
+  console.log(`BigCommerce Access Token: ${green(accessToken)}`);
+  console.log(`Customer Impersonation Token: ${green(cit)}\n`);
 };
 
 void main();
