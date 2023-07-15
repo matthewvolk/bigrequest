@@ -23,7 +23,7 @@ const ghRepoBranch = 'main';
  * https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
  *
  * Usage:
- * npm run generate -- YOUR_TOKEN_HERE
+ * pnpm run generate YOUR_TOKEN_HERE
  */
 
 const ghAccessToken = process.argv[2] ?? '';
