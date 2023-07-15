@@ -94,6 +94,13 @@ const signedJwtPayload = await oauth.verify('signed_payload_jwt');
 ### REST Management API
 
 ```ts
+// Create a REST client
+const bc = bigrequest.rest({
+  storeHash: 'your_store_hash',
+  accessToken: 'your_access_token',
+});
+
+// Use the REST client
 const product = await bc.v3.get('/catalog/products/{product_id}', {
   params: {
     header: { Accept: 'application/json' },
@@ -123,4 +130,4 @@ const product = await bc.v3.get('/catalog/products/{product_id}', {
 
 ## Contributing
 
-See [matthewvolk/bigrequest/README.md](../../README.md)
+See [matthewvolk/bigrequest/README.md](https://github.com/matthewvolk/bigrequest/tree/main#readme)

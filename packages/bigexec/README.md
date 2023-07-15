@@ -16,4 +16,4 @@ Takes a BigCommerce store hash, access token, channel name, and channel site and
 
 ## Contributing
 
-See [matthewvolk/bigrequest/README.md](../../README.md)
+See [matthewvolk/bigrequest/README.md](https://github.com/matthewvolk/bigrequest/tree/main#readme)
