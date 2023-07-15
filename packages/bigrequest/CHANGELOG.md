@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.3
+
+### Patch Changes
+
+- [#12](https://github.com/matthewvolk/bigrequest/pull/12) [`343e4d9`](https://github.com/matthewvolk/bigrequest/commit/343e4d98fd2b18901eb09a0aa4e5c4b2ff26a50f) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Fixes `bigrequest` REST usage documentation, fixes contributing urls for all packages
+
 ## 0.0.2
 
 ### Patch Changes
