@@ -1,5 +1,7 @@
 # BigRequest
 
+A Node.js HTTP request client for the BigCommerce API. Includes OAuth2 authorization flows for Single-Click App developers.
+
 ## Overview
 
 This module is available in two formats:
@@ -19,6 +21,13 @@ npm i bigrequest
 
 ## Usage
 
+> ⚠️ Typescript is highly recommended due to its autocompletion for request paths and options. If you are unable to use Typescript, you can find valid request paths to pass the client [in the BigCommerce OpenAPI Specifications repository](https://github.com/bigcommerce/api-specs/tree/main/reference).
+
+```ts
+// Typescript (recommended)
+import bigrequest from 'bigrequest';
+```
+
 ```js
 // CommonJS
 const bigrequest = require('bigrequest');
@@ -29,9 +38,40 @@ const bigrequest = require('bigrequest');
 import bigrequest from 'bigrequest';
 ```
 
+### REST Management API
+
 ```ts
-// Typescript (recommended)
-import bigrequest from 'bigrequest';
+const bc = bigrequest.rest({
+  storeHash: 'your_store_hash',
+  accessToken: 'your_access_token',
+});
+
+// Use the REST client
+const product = await bc.v3.get('/catalog/products/{product_id}', {
+  params: {
+    header: { Accept: 'application/json' },
+    path: { product_id: 111 },
+  },
+});
+
+/**
+ * product: {
+ *   data: {
+ *     id?: number | undefined;
+ *     name: string;
+ *     type: "physical" | "digital";
+ *     sku?: string | undefined;
+ *     ...
+ *   } | undefined;
+ *   errors: {
+ *     status?: number | undefined;
+ *     title?: string | undefined;
+ *     type?: string | undefined;
+ *     instance?: string | undefined;
+ *   } | undefined;
+ *   response: Response;
+ * }
+ */
 ```
 
 ### OAuth
@@ -87,43 +127,6 @@ const signedJwtPayload = await oauth.verify('signed_payload_jwt');
  *   }
  *   url: string;
  *   channel_id: number | null;
- * }
- */
-```
-
-### REST Management API
-
-```ts
-// Create a REST client
-const bc = bigrequest.rest({
-  storeHash: 'your_store_hash',
-  accessToken: 'your_access_token',
-});
-
-// Use the REST client
-const product = await bc.v3.get('/catalog/products/{product_id}', {
-  params: {
-    header: { Accept: 'application/json' },
-    path: { product_id: 111 },
-  },
-});
-
-/**
- * product: {
- *   data: {
- *     id?: number | undefined;
- *     name: string;
- *     type: "physical" | "digital";
- *     sku?: string | undefined;
- *     ...
- *   } | undefined;
- *   errors: {
- *     status?: number | undefined;
- *     title?: string | undefined;
- *     type?: string | undefined;
- *     instance?: string | undefined;
- *   } | undefined;
- *   response: Response;
  * }
  */
 ```
