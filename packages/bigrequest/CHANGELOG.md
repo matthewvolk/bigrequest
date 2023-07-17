@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.4
+
+### Patch Changes
+
+- [#14](https://github.com/matthewvolk/bigrequest/pull/14) [`6f56f68`](https://github.com/matthewvolk/bigrequest/commit/6f56f680bc3b84b13f8caa0bcc4304b871cc8f2e) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Exclude unnecessary files from being published to npm for `bigexec`. Minor documentation changes for both `bigexec` and `bigrequest`
+
 ## 0.0.3
 
 ### Patch Changes
