@@ -8,11 +8,21 @@
     "node": ">=18"
   },
   "bin": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "test": "echo \"No test specified\""
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^2.2.0",
+    "bigrequest": "workspace:*",
+    "chalk": "^4.1.2",
+    "gradient-string": "^2.0.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@bigcommerce/eslint-config": "^2.7.0",
@@ -22,13 +32,6 @@
     "prettier": "^2.8.8",
     "tsup": "^7.1.0",
     "typescript": "^5.1.5"
-  },
-  "dependencies": {
-    "@inquirer/prompts": "^2.2.0",
-    "bigrequest": "workspace:*",
-    "chalk": "^4.1.2",
-    "gradient-string": "^2.0.2",
-    "zod": "^3.21.4"
   },
   "keywords": [
     "bigcommerce",
