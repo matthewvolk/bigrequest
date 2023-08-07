@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.1",
-    "openapi-fetch": "^0.3.0",
+    "openapi-fetch": "^0.7.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
