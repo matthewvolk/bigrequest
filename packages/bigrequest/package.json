@@ -1,6 +1,6 @@
 {
   "name": "bigrequest",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A Node.js HTTP request client for the BigCommerce API",
   "author": "Matthew Volk",
   "license": "MIT",

@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.5
+
+### Patch Changes
+
+- [#16](https://github.com/matthewvolk/bigrequest/pull/16) [`aeeffa0`](https://github.com/matthewvolk/bigrequest/commit/aeeffa06a988e84bf169baaf69baa32d93fd678b) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Updates outdated dependencies, reconciles `@types/node` version to match minimum supported Node.js version, add `directory` property to `repository` field of `package.json` files
+
 ## 0.0.4
 
 ### Patch Changes
