@@ -18,7 +18,7 @@
     "test": "echo \"No test specified\""
   },
   "dependencies": {
-    "@inquirer/prompts": "^2.2.0",
+    "@inquirer/prompts": "^3.0.2",
     "bigrequest": "workspace:*",
     "chalk": "^4.1.2",
     "gradient-string": "^2.0.2",
@@ -27,11 +27,11 @@
   "devDependencies": {
     "@bigcommerce/eslint-config": "^2.7.0",
     "@types/gradient-string": "^1.1.2",
-    "@types/node": "^20.4.1",
-    "eslint": "^8.43.0",
-    "prettier": "^2.8.8",
-    "tsup": "^7.1.0",
-    "typescript": "^5.1.5"
+    "@types/node": "18.0.0",
+    "eslint": "^8.46.0",
+    "prettier": "^3.0.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
   },
   "keywords": [
     "bigcommerce",
@@ -45,7 +45,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matthewvolk/bigrequest.git"
+    "url": "git+https://github.com/matthewvolk/bigrequest.git",
+    "directory": "packages/bigexec"
   },
   "bugs": {
     "url": "https://github.com/matthewvolk/bigrequest/issues"

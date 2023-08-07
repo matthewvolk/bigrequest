@@ -27,18 +27,19 @@
     "test": "echo \"No test specified\""
   },
   "dependencies": {
-    "jsonwebtoken": "^9.0.0",
+    "jsonwebtoken": "^9.0.1",
     "openapi-fetch": "^0.3.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@bigcommerce/eslint-config": "^2.7.0",
     "@types/jsonwebtoken": "^9.0.2",
-    "eslint": "^8.43.0",
+    "@types/node": "18.0.0",
+    "eslint": "^8.46.0",
     "openapi-typescript": "^6.2.7",
-    "prettier": "^2.8.8",
-    "tsup": "^7.1.0",
-    "typescript": "^5.1.5"
+    "prettier": "^3.0.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6"
   },
   "keywords": [
     "bigcommerce",
@@ -52,7 +53,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matthewvolk/bigrequest.git"
+    "url": "git+https://github.com/matthewvolk/bigrequest.git",
+    "directory": "packages/bigrequest"
   },
   "bugs": {
     "url": "https://github.com/matthewvolk/bigrequest/issues"
