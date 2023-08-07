@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.7
+
+### Patch Changes
+
+- [#20](https://github.com/matthewvolk/bigrequest/pull/20) [`f7efea0`](https://github.com/matthewvolk/bigrequest/commit/f7efea0e8a36f38ec03fa38b2db9c293591f5059) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Regenerates type definitions for BigCommerce API using latest `openapi-typescript` package version
+
 ## 0.0.6
 
 ### Patch Changes
