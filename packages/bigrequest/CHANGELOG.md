@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.8
+
+### Patch Changes
+
+- [#22](https://github.com/matthewvolk/bigrequest/pull/22) [`926cac9`](https://github.com/matthewvolk/bigrequest/commit/926cac98b7ec2ea818d06d52548960d2586ae717) Thanks [@matthewvolk](https://github.com/matthewvolk)! - ⚠️ BREAKING: Updates `openapi-fetch` dependency to latest version (`0.7.1`). All REST methods are now UPPERCASE (`GET()`, `POST()`, etc.)
+
 ## 0.0.7
 
 ### Patch Changes
