@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.6
+
+### Patch Changes
+
+- [#18](https://github.com/matthewvolk/bigrequest/pull/18) [`b74cd30`](https://github.com/matthewvolk/bigrequest/commit/b74cd307bbf8e29c9d75f9ebe5fee063e3d70b25) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Updates `openapi-typescript` dependency to latest version
+
 ## 0.0.5
 
 ### Patch Changes
