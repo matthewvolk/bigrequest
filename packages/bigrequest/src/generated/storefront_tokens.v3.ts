@@ -8,15 +8,15 @@
 export interface paths {
   "/storefront/api-token": {
     /**
-     * Create a Token 
+     * Create a Token
      * @description Creates a Storefront API token.
-     * 
+     *
      * **Required Scopes**
      * * `Manage` `Storefront API Tokens`
      */
     post: operations["createToken"];
     /**
-     * Revoke a Token 
+     * Revoke a Token
      * @description Revoke access for a Storefront API token. Only revoke compromised tokens under emergency situations. Let uncompromised short-lived tokens expire naturally, as you do not need to revoke these.
      */
     delete: operations["revokeToken"];
@@ -28,9 +28,9 @@ export interface paths {
   };
   "/storefront/api-token-customer-impersonation": {
     /**
-     * Create a Token 
+     * Create a Token
      * @description Returns a Storefront API token that allows your application to impersonate customers when making GraphQL `POST` requests. For more information on how to use the returned token, see [customer impersonation tokens](/docs/storefront-auth/tokens/customer-impersonation-token#create-a-token).
-     * 
+     *
      * **Required Scopes**
      * * `Manage` `Storefront API Customer Impersonation Tokens`
      */
@@ -49,19 +49,19 @@ export interface components {
   schemas: {
     TokenPostImpersonation: {
       /**
-       * @description Channel ID for requested token 
+       * @description Channel ID for requested token
        * @example 1
        */
       channel_id: number;
       /**
-       * @description Unix timestamp (UTC time) defining when the token should expire. 
+       * @description Unix timestamp (UTC time) defining when the token should expire. Supports seconds, but does not support milliseconds, microseconds, or nanoseconds.
        * @example 1885635176
        */
       expires_at: number;
     };
     TokenPostSimple: {
       /** @description List of allowed domains for Cross-Origin Request Sharing. Currently only accepts a single element. */
-      allowed_cors_origins?: (string)[];
+      allowed_cors_origins?: string[];
     };
     Token_Full: {
       data?: components["schemas"]["Token_Base"];
@@ -112,9 +112,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Create a Token 
+   * Create a Token
    * @description Creates a Storefront API token.
-   * 
+   *
    * **Required Scopes**
    * * `Manage` `Storefront API Tokens`
    */
@@ -154,7 +154,7 @@ export interface operations {
     };
   };
   /**
-   * Revoke a Token 
+   * Revoke a Token
    * @description Revoke access for a Storefront API token. Only revoke compromised tokens under emergency situations. Let uncompromised short-lived tokens expire naturally, as you do not need to revoke these.
    */
   revokeToken: {
@@ -189,9 +189,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Token 
+   * Create a Token
    * @description Returns a Storefront API token that allows your application to impersonate customers when making GraphQL `POST` requests. For more information on how to use the returned token, see [customer impersonation tokens](/docs/storefront-auth/tokens/customer-impersonation-token#create-a-token).
-   * 
+   *
    * **Required Scopes**
    * * `Manage` `Storefront API Customer Impersonation Tokens`
    */

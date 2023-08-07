@@ -8,7 +8,7 @@
 export interface paths {
   "/payments": {
     /**
-     * Process Payments 
+     * Process Payments
      * @description Process payments for an order. See [Payment Processing](/api-docs/store-management/payments-api-overview) for more information.
      */
     post: operations["PaymentsPost"];
@@ -22,8 +22,8 @@ export interface components {
     /** Card */
     Card: {
       /**
-       * @description Type to classify this payment instrument (required) 
-       * @default card 
+       * @description Type to classify this payment instrument (required)
+       * @default card
        * @example card
        */
       type?: string;
@@ -32,29 +32,29 @@ export interface components {
       /** @description Credit card number (required) */
       number?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Expiry month of this card (required)
        */
       expiry_month?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Expiry year of this card (required)
        */
       expiry_year?: number;
       /** @description Verification value of this card (CVV) */
       verification_value?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Issue month of this card
        */
       issue_month?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Issue year of this card
        */
       issue_year?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Issue number of this card
        */
       issue_number?: number;
@@ -62,8 +62,8 @@ export interface components {
     /** Stored Card */
     StoredCard: {
       /**
-       * @description Type to classify this payment instrument (required) 
-       * @default stored_card 
+       * @description Type to classify this payment instrument (required)
+       * @default stored_card
        * @example stored_card
        */
       type?: string;
@@ -75,7 +75,7 @@ export interface components {
     /** StoredPayPalAccount */
     StoredPayPalAccount: {
       /**
-       * @description Type to classify this payment instrument (required) 
+       * @description Type to classify this payment instrument (required)
        * @enum {string}
        */
       type?: "stored_paypal_account";
@@ -112,7 +112,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Process Payments 
+   * Process Payments
    * @description Process payments for an order. See [Payment Processing](/api-docs/store-management/payments-api-overview) for more information.
    */
   PaymentsPost: {
@@ -144,15 +144,15 @@ export interface operations {
             /** @description Identifier for this transaction */
             id?: string;
             /**
-             * Transaction Type 
-             * @description Transaction type for this payment 
-             * @example authorization 
+             * Transaction Type
+             * @description Transaction type for this payment
+             * @example authorization
              * @enum {string}
              */
             transaction_type?: "authorization" | "purchase";
             /**
-             * Status 
-             * @description Status to indicate a success response 
+             * Status
+             * @description Status to indicate a success response
              * @enum {string}
              */
             status?: "success" | "pending";
@@ -164,7 +164,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -175,7 +175,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -190,7 +190,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -201,7 +201,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -216,7 +216,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -227,7 +227,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -242,7 +242,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -253,7 +253,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;

@@ -8,31 +8,31 @@
 export interface paths {
   "/hooks": {
     /**
-     * Get Webhooks 
+     * Get Webhooks
      * @description Returns a list of all webhooks on a store associated to the `client_id` used to authenticate the request.
-     * 
+     *
      * *Note: BigCommerce determines the `client_id` from the `access_token`.*
      */
     get: operations["getAllWebhooks"];
     /**
-     * Create a Webhook 
+     * Create a Webhook
      * @description Creates a webhook. Only one webhook at a time can be created. Custom headers can be added. Destination URL must be served on port 443 (custom ports are not currently supported).
      */
     post: operations["createWebhooks"];
   };
   "/hooks/{webhook_id}": {
     /**
-     * Get a Webhook 
+     * Get a Webhook
      * @description Return a webhook by ID.
      */
     get: operations["getWebhook"];
     /**
-     * Update a Webhook 
+     * Update a Webhook
      * @description Updates a webhook. Custom headers can be added.
      */
     put: operations["updateAWebhook"];
     /**
-     * Delete a Webhook 
+     * Delete a Webhook
      * @description Deletes a webhook. Only one webhook at a time can be deleted. When a webhook is deleted, it is returned in the response as a 200 OK.
      */
     delete: operations["deleteAWebhook"];
@@ -44,20 +44,20 @@ export interface paths {
   };
   "/hooks/admin": {
     /**
-     * Get Admin Info 
+     * Get Admin Info
      * @description List all notification emails, webhooks, and denylisted domains associated with the API account.
      */
     get: operations["getHooksAdmin"];
     /**
-     * Upsert Email Notifications 
+     * Upsert Email Notifications
      * @description Update email addresses that are sent notification emails when any domain associated with the API account is denylisted or when a webhook is deactivated. Supports `upsert` functionality in the case that no email address exists yet.
      */
     put: operations["putHooksAdmin"];
   };
   "/hooks/events": {
     /**
-     * Get Events 
-     * @deprecated 
+     * Get Events
+     * @deprecated
      * @description Get a list of events that were sent but not successfully received. Events are stored for not less than one week.
      */
     get: operations["getWebhookEvents"];
@@ -69,7 +69,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * store/cart/* 
+     * store/cart/*
      * @description Fires for each of the following events:
      * * `store/cart/created`
      * * `store/cart/updated`
@@ -78,19 +78,19 @@ export interface components {
      * * `store/cart/abandoned`
      * * `store/cart/converted`
      * * `store/cart/lineItem`
-     * 
+     *
      * See individual events for more information.
      */
     store_cart_wildcard: unknown;
     /**
-     * store/cart/created 
+     * store/cart/created
      * @description This webhook fires on new cart creation when any of the following occur:
      * * a storefront shopper adds their first product to a cart during a new session
      * * an application makes a successful `POST` request to `/carts` using either the [REST Storefront](/docs/rest-storefront/carts#create-a-cart) API or the [REST Management](/docs/rest-management/carts/carts-single#create-a-cart) API
      * * a storefront makes a successful call to create a cart using the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout)
-     * 
+     *
      * Cart creation also fires the `store/cart/updated` webhook.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -109,30 +109,30 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
-         * @example cart 
+         * @description can be `cart` or `cart_line_item`
+         * @example cart
          * @enum {string}
          */
         type?: "cart" | "cart_line_item";
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
       };
     });
     /**
-     * store/cart/updated 
+     * store/cart/updated
      * @description Fires when one of the following occurs:
      * * A cartʼs line items are modified by adding a new item to a cart, updating an existing itemʼs quantity, or deleting an item.
      * * A shopper enters or changes their email address during guest checkout. This includes signing in to a customer account after creating a guest cart, which associates the accountʼs email address with the cart.
-     * 
-     * The `store/cart/created` webhook firing also triggers this webhook because adding a product to an empty cart is considered an update. 
-     * 
+     *
+     * The `store/cart/created` webhook firing also triggers this webhook because adding a product to an empty cart is considered an update.
+     *
      * Changes to the following fields trigger this event:
      * * Quantity
      * * Item Price
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -151,22 +151,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
+         * @description can be `cart` or `cart_line_item`
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
       };
     };
     /**
-     * store/cart/deleted 
+     * store/cart/deleted
      * @description Fires when a cart is deleted. Carts are deleted in two ways; when all items are removed from a cart, and when an API consumer explicitly removes the cart using a `DELETE` request. Cart deletion ends the cart lifecycle. The `store/cart/updated` webhook also fires when the last item is removed.
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -185,21 +185,21 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
+         * @description can be `cart` or `cart_line_item`
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
       };
     };
     /**
-     * store/cart/couponApplied 
+     * store/cart/couponApplied
      * @description Fires when a new coupon code is applied to a cart. The webhook request body includes the ID of the coupon code.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -219,27 +219,27 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
+         * @description can be `cart` or `cart_line_item`
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
         /**
-         * @description ID of the coupon 
+         * @description ID of the coupon
          * @example 1
          */
         couponId?: number;
       };
     };
     /**
-     * store/cart/abandoned 
+     * store/cart/abandoned
      * @description This webhook fires after a cart is abandoned. BigCommerce considers a cart abandoned when it has no activity for at least one hour. This webhook is available for all store plans, regardless of whether the Abandoned Cart Saver feature is enabled.
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -259,27 +259,27 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
+         * @description can be `cart` or `cart_line_item`
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
         /**
-         * @description Use this token to obtain cart data. 
+         * @description Use this token to obtain cart data.
          * @example 1eed6d2d979776ff18e695ceeb10ea61
          */
         token?: string;
       };
     };
     /**
-     * store/cart/converted 
+     * store/cart/converted
      * @description Fires when a cart/checkout is converted into an order, which is typically after the checkout payment step on the storefront. At this point, the cart is automatically deleted and no longer accessible. This webhook returns both the cart/checkout ID and order ID for correlation purposes.
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -299,26 +299,26 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `cart`. 
+         * @description The type will always be `cart`.
          * @default cart
          */
         type?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
         /**
-         * @description ID of the order created. 
+         * @description ID of the order created.
          * @example 252
          */
         orderId?: number;
       };
     };
     /**
-     * store/cart/lineItem/* 
-     * @description This webhook subscribes to all cart line item events. 
-     * 
+     * store/cart/lineItem/*
+     * @description This webhook subscribes to all cart line item events.
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -346,9 +346,9 @@ export interface components {
       };
     };
     /**
-     * store/cart/lineItem/created 
+     * store/cart/lineItem/created
      * @description Fires when a new item is added to the cart.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -359,7 +359,7 @@ export interface components {
      *   "data": {
      *     "type": "cart",
      *     "id": "09346904-4175-44fd-be53-f7e598531b6c",
-     *     "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"            
+     *     "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"
      *   }
      * }
      * ```
@@ -368,30 +368,30 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
+         * @description can be `cart` or `cart_line_item`
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the line item 
+         * @description ID of the line item
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example b0386708-fef3-45de-9d8b-fbe3031450a4
          */
         cartId?: string;
       };
     };
     /**
-     * store/cart/lineItem/updated 
+     * store/cart/lineItem/updated
      * @description Fires when an item’s quantity has changed or the product options change.
-     * 
+     *
      * Changes to the following fields trigger this event:
      * * Quantity
      * * Item Price
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -402,7 +402,7 @@ export interface components {
      *   "data": {
      *     "type": "cart",
      *     "id": "09346904-4175-44fd-be53-f7e598531b6c",
-     *     "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"            
+     *     "cartId": "b0386708-fef3-45de-9d8b-fbe3031450a4"
      *   }
      * }
      * ```
@@ -411,26 +411,26 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
+         * @description can be `cart` or `cart_line_item`
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the line item 
+         * @description ID of the line item
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
         /**
-         * @description ID of the cart 
+         * @description ID of the cart
          * @example b0386708-fef3-45de-9d8b-fbe3031450a4
          */
         cartId?: string;
       };
     };
     /**
-     * store/cart/lineItem/deleted 
+     * store/cart/lineItem/deleted
      * @description Fires when an item is deleted from the cart.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -450,31 +450,31 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description Can be `cart` or `cart_line_item`. 
+         * @description Can be `cart` or `cart_line_item`.
          * @example cart
          */
         type?: string;
         /**
-         * @description ID of the line item. 
+         * @description ID of the line item.
          * @example 09346904-4175-44fd-be53-f7e598531b6c
          */
         id?: string;
         /**
-         * @description ID of the cart. 
+         * @description ID of the cart.
          * @example b0386708-fef3-45de-9d8b-fbe3031450a4
          */
         cartId?: string;
       };
     };
     /**
-     * store/category/* 
+     * store/category/*
      * @description Fires for all `store/category` events.
      */
     store_category_wildcard: unknown;
     /**
-     * store/category/created 
+     * store/category/created
      * @description Fires when a category is created.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -491,9 +491,9 @@ export interface components {
      */
     store_category_created: components["schemas"]["webhook_callback_base"] & components["schemas"]["callback_category_data"];
     /**
-     * store/category/updated 
-     * @description Fires when a category is updated. 
-     * 
+     * store/category/updated
+     * @description Fires when a category is updated.
+     *
      * Changes to the following fields trigger this event:
      * * URL
      * * Name
@@ -510,8 +510,8 @@ export interface components {
      * * Search Keywords
      * * Google Product Category
      * * Enable Google Shopping
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -530,21 +530,21 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `category`. 
+         * @description The type will always be `category`.
          * @default category
          */
         type?: string;
         /**
-         * @description ID of the category 
+         * @description ID of the category
          * @example 42
          */
         id?: number;
       };
     };
     /**
-     * store/category/deleted 
+     * store/category/deleted
      * @description Fires when a category is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -563,27 +563,27 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `category`. 
-         * @default category 
+         * @description The type will always be `category`.
+         * @default category
          * @example category
          */
         type?: string;
         /**
-         * @description ID of the category 
+         * @description ID of the category
          * @example 42
          */
         id?: number;
       };
     };
     /**
-     * store/channel/* 
+     * store/channel/*
      * @description Fires for all `store/channel` events.
      */
     store_channel_wildcard: unknown;
     /**
-     * store/channel/created 
+     * store/channel/created
      * @description Fires when a channel is created in the control panel or by API.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -602,22 +602,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `channel`. 
-         * @default channel 
+         * @description The type will always be `channel`.
+         * @default channel
          * @example channel
          */
         type?: string;
         /**
-         * @description ID of the channel 
+         * @description ID of the channel
          * @example 173331
          */
         id?: number;
       };
     };
     /**
-     * store/channel/updated 
-     * @description This webhook is triggered when a channel is updated in the control panel or by API. 
-     * 
+     * store/channel/updated
+     * @description This webhook is triggered when a channel is updated in the control panel or by API.
+     *
      * Changes to the following fields trigger this event:
      * * name
      * * external_id
@@ -625,8 +625,8 @@ export interface components {
      * * is_listable_from_ui
      * * is_visible
      * * config_meta
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -645,27 +645,27 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `channel`. 
-         * @default channel 
+         * @description The type will always be `channel`.
+         * @default channel
          * @example channel
          */
         type?: string;
         /**
-         * @description ID of the channel 
+         * @description ID of the channel
          * @example 173331
          */
         id?: number;
       };
     };
     /**
-     * store/customer/* 
+     * store/customer/*
      * @description Fires for all `store/customer` events.
      */
     store_customer_wildcard: unknown;
     /**
-     * store/customer/created 
+     * store/customer/created
      * @description Fires when a new customer is created.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -684,23 +684,23 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `customer`. 
-         * @default customer 
+         * @description The type will always be `customer`.
+         * @default customer
          * @example customer
          */
         type?: string;
         /**
-         * @description ID of the customer 
+         * @description ID of the customer
          * @example 32
          */
         id?: number;
       };
     };
     /**
-     * store/customer/updated 
+     * store/customer/updated
      * @description This webhook is triggered when a customer is updated. In addition, this webhook is triggered when a shopper initially enters custom form field values within the account sign-up form. Please note that neither changing existing data in customer form fields nor changing a customerʼs address will trigger the webhook.
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -719,22 +719,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `customer`. 
-         * @default customer 
+         * @description The type will always be `customer`.
+         * @default customer
          * @example customer
          */
         type?: string;
         /**
-         * @description ID of the customer 
+         * @description ID of the customer
          * @example 32
          */
         id?: number;
       };
     };
     /**
-     * store/customer/deleted 
+     * store/customer/deleted
      * @description This webhook is triggered when a customer is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -753,22 +753,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `customer`. 
-         * @default customer 
+         * @description The type will always be `customer`.
+         * @default customer
          * @example customer
          */
         type?: string;
         /**
-         * @description ID of the customer. 
+         * @description ID of the customer.
          * @example 32
          */
         id?: number;
       };
     };
     /**
-     * store/customer/address/updated 
+     * store/customer/address/updated
      * @description Fires when a customer address is updated.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -790,18 +790,18 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `customer`. 
+         * @description The type will always be `customer`.
          * @example customer
          */
         type?: string;
         /**
-         * @description ID of the customer address. 
+         * @description ID of the customer address.
          * @example 60
          */
         id?: number;
         address?: {
           /**
-           * @description ID of the customer. 
+           * @description ID of the customer.
            * @example 32
            */
           customer_id?: number;
@@ -809,9 +809,9 @@ export interface components {
       };
     };
     /**
-     * store/customer/address/created 
+     * store/customer/address/created
      * @description Fires when a customer address is created.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -833,18 +833,18 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `customer`. 
+         * @description The type will always be `customer`.
          * @example customer
          */
         type?: string;
         /**
-         * @description ID of the customer address. 
+         * @description ID of the customer address.
          * @example 60
          */
         id?: number;
         address?: {
           /**
-           * @description ID of the customer. 
+           * @description ID of the customer.
            * @example 32
            */
           customer_id?: number;
@@ -852,9 +852,9 @@ export interface components {
       };
     };
     /**
-     * store/customer/address/deleted 
+     * store/customer/address/deleted
      * @description Fires when a customer address is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -876,18 +876,18 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `customer`. 
+         * @description The type will always be `customer`.
          * @example customer
          */
         type?: string;
         /**
-         * @description ID of the customer address. 
+         * @description ID of the customer address.
          * @example 60
          */
         id?: number;
         address?: {
           /**
-           * @description ID of the customer. 
+           * @description ID of the customer.
            * @example 32
            */
           customer_id?: number;
@@ -895,9 +895,9 @@ export interface components {
       };
     };
     /**
-     * store/customer/payment/instrument/default/updated 
+     * store/customer/payment/instrument/default/updated
      * @description Fires when a customer default payment instrument is updated.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -916,27 +916,27 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description can be `cart` or `cart_line_item` 
-         * @default "customer" 
+         * @description can be `cart` or `cart_line_item`
+         * @default "customer"
          * @example "customer"
          */
         type?: string;
         /**
-         * @description ID of the customer. 
+         * @description ID of the customer.
          * @example 32
          */
         id?: number;
       };
     };
     /**
-     * store/order/* 
+     * store/order/*
      * @description Fires for all `store/order` events.
      */
     store_order_wildcard: Record<string, never>;
     /**
-     * store/order/created 
+     * store/order/created
      * @description This webhook is triggered when an order is created in the control panel, using an app, or by API.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -955,23 +955,23 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `order`. 
-         * @default order 
+         * @description The type will always be `order`.
+         * @default order
          * @example order
          */
         type?: string;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 250
          */
         id?: number;
       };
     };
     /**
-     * store/order/updated 
-     * @description Fires when a previously-created order is updated.  
-     * 
-     * Changes to the following fields trigger this event: 
+     * store/order/updated
+     * @description Fires when a previously-created order is updated.
+     *
+     * Changes to the following fields trigger this event:
      * * Status
      * * Coupon Code
      * * Billing and Shipping Address
@@ -990,7 +990,7 @@ export interface components {
      * * Purchasability
      * * Release Date
      * * Remove pre-order status on this date
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1009,22 +1009,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `order`. 
-         * @default order 
+         * @description The type will always be `order`.
+         * @default order
          * @example order
          */
         type?: string;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 250
          */
         id?: number;
       };
     };
     /**
-     * store/order/archived 
+     * store/order/archived
      * @description Fires when an order is archived.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1043,22 +1043,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `order`. 
-         * @default order 
+         * @description The type will always be `order`.
+         * @default order
          * @example order
          */
         type?: string;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 250
          */
         id?: number;
       };
     };
     /**
-     * store/order/statusUpdated 
+     * store/order/statusUpdated
      * @description This webhook is triggered when an order status changes; for example, from `Pending` to `Awaiting Payment`.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1081,23 +1081,23 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `order`. 
+         * @description The type will always be `order`.
          * @example order
          */
         type?: string;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 250
          */
         id?: number;
         status?: {
           /**
-           * @description ID of the previous status. 
+           * @description ID of the previous status.
            * @example 1
            */
           previous_status_id?: number;
           /**
-           * @description ID of the updated status. 
+           * @description ID of the updated status.
            * @example 11
            */
           new_status_id?: number;
@@ -1105,9 +1105,9 @@ export interface components {
       };
     };
     /**
-     * store/order/message/created 
+     * store/order/message/created
      * @description This webhook is triggered when an order message is created by a customer or in the control panel.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1129,18 +1129,18 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `order`. 
+         * @description The type will always be `order`.
          * @example order
          */
         type?: string;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 250
          */
         id?: number;
         message?: {
           /**
-           * @description ID of the message on the order. 
+           * @description ID of the message on the order.
            * @example 3
            */
           order_message_id?: number;
@@ -1148,9 +1148,9 @@ export interface components {
       };
     };
     /**
-     * store/order/refund/created 
+     * store/order/refund/created
      * @description This webhook is triggered when a refund is submitted against an order.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1172,18 +1172,18 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `order`. 
+         * @description The type will always be `order`.
          * @example order
          */
         type?: string;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 250
          */
         id?: number;
         refund?: {
           /**
-           * @description ID of the refund submitted against the order. 
+           * @description ID of the refund submitted against the order.
            * @example 3
            */
           refund_id?: number;
@@ -1191,14 +1191,14 @@ export interface components {
       };
     };
     /**
-     * store/product/* 
+     * store/product/*
      * @description Fires for all `store/product` events.
      */
     store_product_wildcard: Record<string, never>;
     /**
-     * store/product/deleted 
+     * store/product/deleted
      * @description This webhook is triggered when a product is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1217,22 +1217,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type ill always be `product`. 
-         * @default product 
+         * @description The type ill always be `product`.
+         * @default product
          * @example product
          */
         type?: string;
         /**
-         * @description ID of the product. 
+         * @description ID of the product.
          * @example 205
          */
         id?: number;
       };
     };
     /**
-     * store/product/created 
+     * store/product/created
      * @description Fires when a new product is created.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1251,22 +1251,22 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `product`. 
-         * @default product 
+         * @description The type will always be `product`.
+         * @default product
          * @example product
          */
         type?: string;
         /**
-         * @description ID of the product. 
+         * @description ID of the product.
          * @example 205
          */
         id?: number;
       };
     };
     /**
-     * store/product/updated 
-     * @description Fires when product details are edited. 
-     * 
+     * store/product/updated
+     * @description Fires when product details are edited.
+     *
      * Changes to the following fields trigger this event:
      * * Product Type
      * * Search Keywords
@@ -1308,9 +1308,9 @@ export interface components {
      * * Categories
      * * Product URL
      * * Set as a Featured Product on my Storefront
-     * 
+     *
      * However, changes to the following fields don't trigger this event:
-     * 
+     *
      * * Manufacturer Part Number (MPN)
      * * Global Trade Number (GTN)
      * * Tax Provider Tax Code
@@ -1318,7 +1318,7 @@ export interface components {
      * * Product Image Description
      * * Product Files
      * * Customs Information
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1337,30 +1337,30 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type ill always be `product`. 
-         * @default product 
+         * @description The type ill always be `product`.
+         * @default product
          * @example product
          */
         type?: string;
         /**
-         * @description ID of the product. 
+         * @description ID of the product.
          * @example 205
          */
         id?: number;
       };
     };
     /**
-     * store/product/inventory/updated 
-     * @description This webhook is triggered when product inventory is updated. 
-     * 
-     * Changes to the following fields trigger this event: 
+     * store/product/inventory/updated
+     * @description This webhook is triggered when product inventory is updated.
+     *
+     * Changes to the following fields trigger this event:
      * * Inventory Stock
-     * 
+     *
      * However, changes to the following fields don't trigger this event:
      * * Track Inventory
      * * Inventory Low Stock
-     * 
-     * 
+     *
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1384,30 +1384,30 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `product`. 
+         * @description The type will always be `product`.
          * @example product
          */
         type?: string;
         /**
-         * @description ID of the product. 
+         * @description ID of the product.
          * @example 167
          */
         id?: number;
         inventory?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 167
            */
           product_id?: number;
           /**
            * @description How the inventory was adjusted. Value will be one of the following:
            * * `absolute` - inventory updated through the API or the control panel.
-           * * `relative` - inventory updated by an order. 
+           * * `relative` - inventory updated by an order.
            * @enum {string}
            */
           method?: "absolute" | "relative";
           /**
-           * @description This value is the difference between an item’s inventory count before and after the inventory updates. This value is negative if an item’s inventory count decreases. For example, reducing inventory by three returns a value of `-3`. This value is positive if an item’s inventory count increases. For example, returning two items to the inventory returns a value of `2`. 
+           * @description This value is the difference between an item’s inventory count before and after the inventory updates. This value is negative if an item’s inventory count decreases. For example, reducing inventory by three returns a value of `-3`. This value is positive if an item’s inventory count increases. For example, returning two items to the inventory returns a value of `2`.
            * @example 2
            */
           value?: number;
@@ -1415,12 +1415,12 @@ export interface components {
       };
     });
     /**
-     * store/product/inventory/order/updated 
-     * @description This webhook is triggered when a product’s inventory increases or decreases. 
-     * 
-     * Changes to the following fields trigger this event: 
+     * store/product/inventory/order/updated
+     * @description This webhook is triggered when a product’s inventory increases or decreases.
+     *
+     * Changes to the following fields trigger this event:
      * * Quantity
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1444,30 +1444,30 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description Type will always be `product`. 
+         * @description Type will always be `product`.
          * @example product
          */
         type?: string;
         /**
-         * @description ID of the product. 
+         * @description ID of the product.
          * @example 167
          */
         id?: number;
         inventory?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 167
            */
           product_id?: number;
           /**
            * @description How the inventory was adjusted. Value will be one of the following:
            * * `absolute` - inventory updated using the API or the control panel.
-           * * `relative` - inventory updated by an order. 
+           * * `relative` - inventory updated by an order.
            * @enum {string}
            */
           method?: "absolute" | "relative";
           /**
-           * @description This value is the difference between an item’s inventory count before and after the inventory updates. This value is negative if an item’s inventory count decreases. For example, reducing inventory by three returns a value of `-3`. This value is positive if an item’s inventory count increases. For example, returning two items to the inventory returns a value of `2`. 
+           * @description This value is the difference between an item’s inventory count before and after the inventory updates. This value is negative if an item’s inventory count decreases. For example, reducing inventory by three returns a value of `-3`. This value is positive if an item’s inventory count increases. For example, returning two items to the inventory returns a value of `2`.
            * @example 2
            */
           value?: number;
@@ -1475,14 +1475,14 @@ export interface components {
       };
     });
     /**
-     * store/shipment/* 
+     * store/shipment/*
      * @description Fires for all `store/shipment` events.
      */
     store_shipment_wildcard: Record<string, never>;
     /**
-     * store/shipment/created 
+     * store/shipment/created
      * @description Fires when a shipment is created.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1502,29 +1502,29 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `shipment`. 
+         * @description The type will always be `shipment`.
          * @example shipment
          */
         type?: string;
         /**
-         * @description ID of the shipment. 
+         * @description ID of the shipment.
          * @example 12
          */
         id?: number;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 251
          */
         orderId?: number;
       };
     };
     /**
-     * store/shipment/updated 
+     * store/shipment/updated
      * @description Fires when a shipment is updated.
-     * 
+     *
      * Changes to the following fields trigger this event:
      * * Shipping Tracking Number
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1544,26 +1544,26 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `shipment`. 
+         * @description The type will always be `shipment`.
          * @example shipment
          */
         type?: string;
         /**
-         * @description ID of the shipment. 
+         * @description ID of the shipment.
          * @example 12
          */
         id?: number;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 251
          */
         orderId?: number;
       };
     };
     /**
-     * store/shipment/deleted 
+     * store/shipment/deleted
      * @description This webhook is triggered when a shipment is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1583,31 +1583,31 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `shipment`. 
+         * @description The type will always be `shipment`.
          * @example shipment
          */
         type?: string;
         /**
-         * @description ID of the shipment. 
+         * @description ID of the shipment.
          * @example 12
          */
         id?: number;
         /**
-         * @description ID of the order. 
+         * @description ID of the order.
          * @example 251
          */
         orderId?: number;
       };
     };
     /**
-     * store/sku/* 
+     * store/sku/*
      * @description Fires for all `store/sku` events.
      */
     store_sku_wildcard: Record<string, never>;
     /**
-     * store/sku/created 
+     * store/sku/created
      * @description This webhook is triggered when a new SKU is created.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1630,23 +1630,23 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `"sku"`. 
+         * @description The type will always be `"sku"`.
          * @example sku
          */
         type?: string;
         /**
-         * @description ID of the SKU. 
+         * @description ID of the SKU.
          * @example 461
          */
         id?: number;
         sku?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 206
            */
           product_id?: number;
           /**
-           * @description ID of the variant. 
+           * @description ID of the variant.
            * @example 509
            */
           variant_id?: number;
@@ -1654,9 +1654,9 @@ export interface components {
       };
     };
     /**
-     * store/sku/updated 
+     * store/sku/updated
      * @description Fires when a SKU is updated.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1679,23 +1679,23 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `"sku"`. 
+         * @description The type will always be `"sku"`.
          * @example sku
          */
         type?: string;
         /**
-         * @description ID of the SKU. 
+         * @description ID of the SKU.
          * @example 461
          */
         id?: number;
         sku?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 206
            */
           product_id?: number;
           /**
-           * @description ID of the variant. 
+           * @description ID of the variant.
            * @example 509
            */
           variant_id?: number;
@@ -1703,9 +1703,9 @@ export interface components {
       };
     };
     /**
-     * store/sku/deleted 
+     * store/sku/deleted
      * @description Fires when a SKU is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1728,23 +1728,23 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `"sku"`. 
+         * @description The type will always be `"sku"`.
          * @example sku
          */
         type?: string;
         /**
-         * @description ID of the SKU. 
+         * @description ID of the SKU.
          * @example 461
          */
         id?: number;
         sku?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 206
            */
           product_id?: number;
           /**
-           * @description ID of the variant. 
+           * @description ID of the variant.
            * @example 509
            */
           variant_id?: number;
@@ -1752,9 +1752,9 @@ export interface components {
       };
     };
     /**
-     * store/sku/inventory/updated 
+     * store/sku/inventory/updated
      * @description Fires when a SKU is updated.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1779,35 +1779,35 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `sku`. 
+         * @description The type will always be `sku`.
          * @example sku
          */
         type?: string;
         /**
-         * @description ID of the SKU. 
+         * @description ID of the SKU.
          * @example 461
          */
         id?: number;
         inventory?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 167
            */
           product_id?: number;
           /**
            * @description How the inventory was adjusted. Value will be one of the following:
            * * `absolute` - inventory updated by an order.
-           * * `relative` - inventory updated using the API or the control panel. 
+           * * `relative` - inventory updated using the API or the control panel.
            * @enum {string}
            */
           method?: "absolute" | "relative";
           /**
-           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2` 
+           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2`
            * @example 2
            */
           value?: number;
           /**
-           * @description ID of the variant. 
+           * @description ID of the variant.
            * @example 509
            */
           variant_id?: number;
@@ -1815,12 +1815,12 @@ export interface components {
       };
     });
     /**
-     * store/sku/inventory/order/updated 
+     * store/sku/inventory/order/updated
      * @description Fires when the inventory is updated.
-     * 
+     *
      * Changes to the following fields trigger this event:
      * * Quantity
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1845,35 +1845,35 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `sku`. 
+         * @description The type will always be `sku`.
          * @example sku
          */
         type?: string;
         /**
-         * @description ID of the SKU. 
+         * @description ID of the SKU.
          * @example 461
          */
         id?: number;
         inventory?: {
           /**
-           * @description ID of the product. 
+           * @description ID of the product.
            * @example 167
            */
           product_id?: number;
           /**
            * @description How the inventory was adjusted. Value will be one of the following:
            * * `absolute` - inventory updated by an order.
-           * * `relative` - inventory updated using the API or the control panel. 
+           * * `relative` - inventory updated using the API or the control panel.
            * @enum {string}
            */
           method?: "absolute" | "relative";
           /**
-           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2` 
+           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2`
            * @example 2
            */
           value?: number;
           /**
-           * @description ID of the variant. 
+           * @description ID of the variant.
            * @example 509
            */
           variant_id?: number;
@@ -1881,9 +1881,9 @@ export interface components {
       };
     });
     /**
-     * store/app/uninstalled 
+     * store/app/uninstalled
      * @description Fires when a client store is canceled and uninstalled from the platform.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1901,16 +1901,16 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `store`. 
+         * @description The type will always be `store`.
          * @example store
          */
         type?: string;
       };
     };
     /**
-     * store/information/updated 
-     * @description Fires when changes are made to store settings. 
-     * 
+     * store/information/updated
+     * @description Fires when changes are made to store settings.
+     *
      * Changes to the following fields trigger this event:
      * * Store Name
      * * Store Address
@@ -1918,7 +1918,7 @@ export interface components {
      * * Address Type
      * * Email
      * * Phone
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1940,14 +1940,14 @@ export interface components {
       };
     };
     /**
-     * store/subscriber/* 
+     * store/subscriber/*
      * @description Fires for all `store/subscriber` events.
      */
     store_subscriber_wildcard: Record<string, never>;
     /**
-     * store/subscriber/created 
-     * @description Fires when a subscriber is created. 
-     * 
+     * store/subscriber/created
+     * @description Fires when a subscriber is created.
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1966,21 +1966,21 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description Will always be `subscriber` 
+         * @description Will always be `subscriber`
          * @example subscriber
          */
         type?: string;
         /**
-         * @description ID of the subscriber 
+         * @description ID of the subscriber
          * @example 5
          */
         id?: number;
       };
     };
     /**
-     * store/subscriber/updated 
-     * @description The webhook fires when a subscriber is updated. 
-     * 
+     * store/subscriber/updated
+     * @description The webhook fires when a subscriber is updated.
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -1999,21 +1999,21 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `subscriber`. 
+         * @description The type will always be `subscriber`.
          * @example subscriber
          */
         type?: string;
         /**
-         * @description ID of the subscriber. 
+         * @description ID of the subscriber.
          * @example 5
          */
         id?: number;
       };
     };
     /**
-     * store/subscriber/deleted 
+     * store/subscriber/deleted
      * @description This webhook is triggered when a subscriber is deleted.
-     * 
+     *
      * ```json title="Example callback object" lineNumbers
      * {
      *   "created_at": 1561482670,
@@ -2032,12 +2032,12 @@ export interface components {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description The type will always be `subscriber`. 
+         * @description The type will always be `subscriber`.
          * @example subscriber
          */
         type?: string;
         /**
-         * @description ID of the subscriber. 
+         * @description ID of the subscriber.
          * @example 5
          */
         id?: number;
@@ -2065,23 +2065,23 @@ export interface components {
     /** webhook_Base */
     webhook_Base: {
       /**
-       * @description Event you subscribe to. 
+       * @description Event you subscribe to.
        * @example store/order/*
        */
       scope: string;
       /**
-       * @description URL must be active, return a 200 response, and be served on port 443 (custom ports not currently supported). 
+       * @description URL must be active, return a 200 response, and be served on port 443 (custom ports not currently supported).
        * @example https://665b65a6.ngrok.io/webhooks
        */
       destination: string;
       /**
-       * @description Boolean value that indicates whether the webhook is active or not. 
+       * @description Boolean value that indicates whether the webhook is active or not.
        * @example true
        */
       is_active?: boolean;
       /**
-       * @deprecated 
-       * @description Deprecated. Boolean value that identifies whether events are stored that could not be received. 
+       * @deprecated
+       * @description Deprecated. Boolean value that identifies whether events are stored that could not be received.
        * @example true
        */
       events_history_enabled?: boolean;
@@ -2092,27 +2092,27 @@ export interface components {
     };
     webhook_Full: components["schemas"]["webhook_Base"] & {
       /**
-       * @description ID of the webhook. 
+       * @description ID of the webhook.
        * @example 18048287
        */
       id?: number;
       /**
-       * @description Client ID, unique to the store or app. 
+       * @description Client ID, unique to the store or app.
        * @example m9r6keqmo7h7f23btnpwernbez1kglkl
        */
       client_id?: string;
       /**
-       * @description Permanent ID of the BigCommerce store. 
+       * @description Permanent ID of the BigCommerce store.
        * @example sftg45fsd
        */
       store_hash?: string;
       /**
-       * @description Time when the webhook was created. 
+       * @description Time when the webhook was created.
        * @example 1561488106
        */
       created_at?: number;
       /**
-       * @description Time when the webhook was updated. 
+       * @description Time when the webhook was updated.
        * @example 1561488106
        */
       updated_at?: number;
@@ -2127,7 +2127,7 @@ export interface components {
       /** @description The payload data encoded in JSON format and then passed through SH1 encryption. */
       hash?: string;
       /**
-       * Format: int64 
+       * Format: int64
        * @description UTC timestamp, in seconds, that the events was created.
        */
       created_at?: number;
@@ -2157,45 +2157,45 @@ export interface components {
     };
     webhook_callback_base: {
       /**
-       * @description Hook creation date, in Unix timestamp format. 
+       * @description Hook creation date, in Unix timestamp format.
        * @example 1561482670
        */
       created_at?: number;
       /**
-       * @description A numerical identifier that is unique to each store. 
+       * @description A numerical identifier that is unique to each store.
        * @example 1025646
        */
       store_id?: string;
       /**
-       * @description Will always follow the pattern `stores/store_hash`. This is the store that created the webhook. 
+       * @description Will always follow the pattern `stores/store_hash`. This is the store that created the webhook.
        * @example stores/{store_hash}
        */
       producer?: string;
       /**
-       * @description The event registered when the webhook was created. 
+       * @description The event registered when the webhook was created.
        * @example store/cart/created
        */
       scope?: string;
       /**
-       * @description The payload data encoded in JSON format and then passed through SH1 encryption. 
+       * @description The payload data encoded in JSON format and then passed through SH1 encryption.
        * @example 352e4afc6dd3fc85ea26bfdf3f91852604d57528
        */
       hash?: string;
     };
     /**
-     * callback_category_data 
+     * callback_category_data
      * @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered.
      */
     callback_category_data: {
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
       data?: {
         /**
-         * @description This type will always be `category`. 
+         * @description This type will always be `category`.
          * @default category
          */
         type?: string;
         /**
-         * @description ID of the category. 
+         * @description ID of the category.
          * @example 42
          */
         id?: number;
@@ -2322,9 +2322,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Webhooks 
+   * Get Webhooks
    * @description Returns a list of all webhooks on a store associated to the `client_id` used to authenticate the request.
-   * 
+   *
    * *Note: BigCommerce determines the `client_id` from the `access_token`.*
    */
   getAllWebhooks: {
@@ -2348,7 +2348,7 @@ export interface operations {
     };
   };
   /**
-   * Create a Webhook 
+   * Create a Webhook
    * @description Creates a webhook. Only one webhook at a time can be created. Custom headers can be added. Destination URL must be served on port 443 (custom ports are not currently supported).
    */
   createWebhooks: {
@@ -2380,7 +2380,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Webhook 
+   * Get a Webhook
    * @description Return a webhook by ID.
    */
   getWebhook: {
@@ -2401,7 +2401,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Webhook 
+   * Update a Webhook
    * @description Updates a webhook. Custom headers can be added.
    */
   updateAWebhook: {
@@ -2424,7 +2424,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Webhook 
+   * Delete a Webhook
    * @description Deletes a webhook. Only one webhook at a time can be deleted. When a webhook is deleted, it is returned in the response as a 200 OK.
    */
   deleteAWebhook: {
@@ -2442,7 +2442,7 @@ export interface operations {
     };
   };
   /**
-   * Get Admin Info 
+   * Get Admin Info
    * @description List all notification emails, webhooks, and denylisted domains associated with the API account.
    */
   getHooksAdmin: {
@@ -2458,9 +2458,9 @@ export interface operations {
           "application/json": {
             data?: {
               /** @description Email addresses to be sent notifications. */
-              emails?: (string)[];
+              emails?: string[];
               /** @description List of all the webhooks associated with the provider API account, filtered by the "active" parameter. */
-              hooks_list?: ({
+              hooks_list?: {
                   /** @description ID of the webhook */
                   id?: number;
                   /** @description Client ID, unique to the store or app. */
@@ -2468,7 +2468,7 @@ export interface operations {
                   /** @description Permanent ID of the BigCommerce store. */
                   store_hash?: string;
                   /**
-                   * @description Event you subscribe to 
+                   * @description Event you subscribe to
                    * @example store/order/*
                    */
                   scope?: string;
@@ -2477,7 +2477,7 @@ export interface operations {
                   /** @description You can pass in any number of custom headers to validate webhooks being returned. */
                   headers?: Record<string, never>;
                   /**
-                   * @description If webhook is active or not 
+                   * @description If webhook is active or not
                    * @default true
                    */
                   is_active?: boolean;
@@ -2485,26 +2485,26 @@ export interface operations {
                   created_at?: number;
                   /** @description Updated time */
                   updated_at?: number;
-                })[];
+                }[];
               /** @description List of domains (destinations) that are currently on the denylist and are not being sent webhooks. */
-              blocked_domains?: ({
+              blocked_domains?: {
                   /**
-                   * Format: url 
+                   * Format: url
                    * @description Domain URL to which webhooks are sent.
                    */
                   destination?: string;
                   /** @description Remaining time in seconds that the domain is on the denylist. */
                   time_left?: number;
-                  reasons?: ({
+                  reasons?: {
                       failure_description?: string;
                       count?: number;
                       /**
-                       * Format: int64 
+                       * Format: int64
                        * @description UTC timestamp in seconds that the events was created
                        */
                       timestamp?: number;
-                    })[];
-                })[];
+                    }[];
+                }[];
             };
             meta?: {
               pagination?: components["schemas"]["Pagination"];
@@ -2517,7 +2517,7 @@ export interface operations {
     };
   };
   /**
-   * Upsert Email Notifications 
+   * Upsert Email Notifications
    * @description Update email addresses that are sent notification emails when any domain associated with the API account is denylisted or when a webhook is deactivated. Supports `upsert` functionality in the case that no email address exists yet.
    */
   putHooksAdmin: {
@@ -2525,7 +2525,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          emails?: (string)[];
+          emails?: string[];
         };
       };
     };
@@ -2538,8 +2538,8 @@ export interface operations {
     };
   };
   /**
-   * Get Events 
-   * @deprecated 
+   * Get Events
+   * @deprecated
    * @description Get a list of events that were sent but not successfully received. Events are stored for not less than one week.
    */
   getWebhookEvents: {
@@ -2556,7 +2556,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["HistoryEvent"])[];
+            data?: components["schemas"]["HistoryEvent"][];
             meta?: {
               pagination?: components["schemas"]["Pagination"];
             };

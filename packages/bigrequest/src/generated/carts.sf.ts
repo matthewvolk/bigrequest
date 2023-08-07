@@ -13,82 +13,82 @@ type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A
 export interface paths {
   "/carts": {
     /**
-     * Get a Cart 
+     * Get a Cart
      * @description Returns a *Cart*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     get: operations["getACart"];
     /**
-     * Create a Cart 
+     * Create a Cart
      * @description Creates a *Cart*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["createACart"];
   };
   "/carts/{cartId}": {
     /**
-     * Delete a Cart 
+     * Delete a Cart
      * @description Deletes a *Cart*. Once a *Cart* has been deleted it can not be recovered.
-     * 
-     * 
+     *
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteACart"];
   };
   "/carts/{cartId}/items": {
     /**
-     * Add Cart Line Items 
+     * Add Cart Line Items
      * @description Adds a line items to the *Cart*.
-     * 
-     * 
+     *
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["addCartLineItem"];
   };
   "/carts/{cartId}/items/{itemId}": {
     /**
-     * Update Cart Line Item 
+     * Update Cart Line Item
      * @description Updates a *Cart* line item. Updates an existing, single line item quantity and the price of custom items in a cart.
-     * 
+     *
      * If a modified product or variant needs to be changed or updated, you can remove and re-add the product to the cart with the correct variants using the [Delete Cart Line Item](/docs/rest-storefront/carts/cart-items#delete-cart-line-item) and the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoints. You can also use carts mutations that are part of the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
-     * 
-     * 
+     *
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["updateCartLineItem"];
     /**
-     * Delete Cart Line Item 
+     * Delete Cart Line Item
      * @description Deletes a *Cart* line item.
-     * 
+     *
      * Removing the last `line_item` in the *Cart* deletes the *Cart*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCartLineItem"];
   };
   "/carts/{cartId}/currency": {
     /**
-     * Update Cart Currency 
-     * @description Update currency of the *Cart*. 
+     * Update Cart Currency
+     * @description Update currency of the *Cart*.
      * Promotions and gift certificates that don't apply to the new currency will be removed from your cart.
      * You cannot update the cart currency if the draft order cart or the cart contains a manual discount.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["addCartCurrency"];
@@ -115,7 +115,7 @@ export interface components {
          */
         couponType?: number;
         /**
-         * Format: float 
+         * Format: float
          * @description The discounted amount applied within a given context.
          */
         discountedAmount?: number;
@@ -123,22 +123,22 @@ export interface components {
         id?: string;
       })[];
     /** responseCartDiscounts */
-    responseCartDiscounts: ({
+    responseCartDiscounts: {
         /**
-         * Format: float 
+         * Format: float
          * @description The discounted amount applied within a given context.
          */
         discountedAmount?: number;
         /** @description ID of the applied discount. */
         id?: string;
-      })[];
+      }[];
     /**
-     * Cart Read 
+     * Cart Read
      * @description Cart object used in REST Storefront API cart responses.
      */
     responseCart: {
       /**
-       * Format: UUID 
+       * Format: UUID
        * @description Cart ID, provided after creating a cart with a POST.
        */
       id?: string;
@@ -152,7 +152,7 @@ export interface components {
       /** @description Cost of cart’s contents, before applying discounts. */
       baseAmount?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description Order based discounted amount only - Coupon discounts and product based discounts are excluded.
        */
       discountAmount?: number;
@@ -162,12 +162,12 @@ export interface components {
       discounts?: components["schemas"]["responseCartDiscounts"];
       lineItems?: components["schemas"]["responseCartLineItems"];
       /**
-       * Format: ISO-8601 
+       * Format: ISO-8601
        * @description Time when the cart was created.
        */
       createdTime?: string;
       /**
-       * Format: ISO-8601 
+       * Format: ISO-8601
        * @description Time when the cart was last updated.
        */
       updatedTime?: string;
@@ -175,24 +175,24 @@ export interface components {
       locale?: string;
     };
     /**
-     * Create Cart Request Object 
+     * Create Cart Request Object
      * @description Cart object used in create cart requests.
      */
-    requestCart: OneOf<[{
-      lineItems: (components["schemas"]["requestCartPostLineItem"])[];
+    requestCart: Record<string, never> & OneOf<[{
+      lineItems: components["schemas"]["requestCartPostLineItem"][];
       locale?: string;
     }, {
-      giftCertificates: (components["schemas"]["requestLineItemGiftCertificate"])[];
+      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
       locale?: string;
     }, {
-      lineItems: (components["schemas"]["requestCartPostLineItem"])[];
+      lineItems: components["schemas"]["requestCartPostLineItem"][];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
       locale?: string;
     }]>;
     /** Gift Wrapping */
     responseCartLineItemsPhysicalItemGiftWrapping: {
       /**
-       * Format: float 
+       * Format: float
        * @description Gift-wrapping price per product.
        */
       amount?: number;
@@ -216,19 +216,19 @@ export interface components {
       theme: string;
     };
     /**
-     * requestLineItems 
+     * requestLineItems
      * @description Cart object used in add items requests.
      */
-    LineItemsRequest: OneOf<[{
-      lineItems: (components["schemas"]["requestCartPostLineItem"])[];
+    LineItemsRequest: Record<string, never> & OneOf<[{
+      lineItems: components["schemas"]["requestCartPostLineItem"][];
     }, {
-      giftCertificates: (components["schemas"]["requestLineItemGiftCertificate"])[];
+      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
     }, {
-      lineItems: (components["schemas"]["requestCartPostLineItem"])[];
+      lineItems: components["schemas"]["requestCartPostLineItem"][];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
     }]>;
     /** requestLineItemPut */
-    requestLineItemPut: OneOf<[{
+    requestLineItemPut: Record<string, never> & OneOf<[{
       lineItem: components["schemas"]["requestCartPostLineItem"];
     }, {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
@@ -237,53 +237,53 @@ export interface components {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
     }]>;
     /**
-     * Currency 
+     * Currency
      * @description This will always be the same between cart and checkout.
      */
     responseCartCurrency: {
       /**
-       * Format: ISO-4217 
+       * Format: ISO-4217
        * @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.)
        */
       code?: string;
     };
     /** Response Line Items Object */
     responseCartLineItems: {
-      customItems?: (components["schemas"]["responseCartLineItemsCustomItems"])[];
+      customItems?: components["schemas"]["responseCartLineItemsCustomItems"][];
       /** @description Array of `ItemDigital` objects. */
-      digitalItems?: (components["schemas"]["responseCartLineItemsDigitalItems"])[];
+      digitalItems?: components["schemas"]["responseCartLineItemsDigitalItems"][];
       /** @description Array of `ItemGiftCertificate` objects. */
-      giftCertificates?: (components["schemas"]["responseCartLineItemsGiftCertificates"])[];
+      giftCertificates?: components["schemas"]["responseCartLineItemsGiftCertificates"][];
       /** @description Array of `ItemPhysical` objects. */
-      physicalItems?: (components["schemas"]["responseCartLineItemsItemsPhysicalItemsItems"])[];
+      physicalItems?: components["schemas"]["responseCartLineItemsItemsPhysicalItemsItems"][];
     };
     /**
-     * Item Custom 
+     * Item Custom
      * @description **Read Only**
-     * 
+     *
      * This will return in the Cart Response if the Cart was created using the [REST Management API](/docs/rest-management/carts). A custom item can only be added to a cart using the REST Management API.
      */
     responseCartLineItemsCustomItems: {
       extendedListPrice?: number;
       /**
-       * @description Id of the custom item 
+       * @description Id of the custom item
        * @example f1f3a531-fbcf-439b-bac1-40d5ae5c2bff
        */
       id?: string;
       /**
-       * @description Price of the item. With or without tax depending on your stores set up. 
+       * @description Price of the item. With or without tax depending on your stores set up.
        * @example 10
        */
       listPrice?: number;
       /**
-       * @description Name of the custom item. 
+       * @description Name of the custom item.
        * @example Custom Item Name
        */
       name?: string;
       /** @example 1 */
       quantity?: number;
       /**
-       * @description SKU of the custom item. 
+       * @description SKU of the custom item.
        * @example SM-456
        */
       sku?: string;
@@ -293,29 +293,29 @@ export interface components {
     /** Base Item */
     responseCartLineItemsDigitalItemsAllOf0: {
       /** @description The list of selected options for this product. */
-      options?: (components["schemas"]["responseCartLineItemsDigitalItemsAllOf0OptionsItems"])[];
+      options?: components["schemas"]["responseCartLineItemsDigitalItemsAllOf0OptionsItems"][];
       /** @description The products brand */
       brand?: string;
       /** @description The total value of all coupons applied to this item. */
       couponAmount?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The total value of all discounts applied to this item (excluding coupon).
        */
       discountAmount?: number;
       /** @description List of discounts applied to this item, as an array of AppliedDiscount objects. */
-      discounts?: (components["schemas"]["responseCartLineItemsDigitalItemsAllOf0DiscountsItems"])[];
+      discounts?: components["schemas"]["responseCartLineItemsDigitalItemsAllOf0DiscountsItems"][];
       /** @description Item's list price multiplied by the quantity. */
       extendedListPrice?: number;
       /** @description Item's sale price multiplied by the quantity. */
       extendedSalePrice?: number;
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 4
        */
       id?: string;
       /**
-       * Format: uri 
+       * Format: uri
        * @description URL of an image of this item, accessible on the internet.
        */
       imageUrl?: string;
@@ -328,7 +328,7 @@ export interface components {
       /** @description The item's product name. */
       name?: string;
       /**
-       * @description The product is part of a bundle such as a product pick list, then the parentId or the main product id will populate. 
+       * @description The product is part of a bundle such as a product pick list, then the parentId or the main product id will populate.
        * @example 6
        */
       parentId?: string;
@@ -341,12 +341,12 @@ export interface components {
       /** @description SKU of the variant. */
       sku?: string;
       /**
-       * Format: uri 
+       * Format: uri
        * @description The product URL.
        */
       url?: string;
       /**
-       * @description ID of the variant. 
+       * @description ID of the variant.
        * @example 7
        */
       variantId?: number;
@@ -354,7 +354,7 @@ export interface components {
     /** Applied Discount */
     responseCartLineItemsDigitalItemsAllOf0DiscountsItems: {
       /**
-       * Format: float 
+       * Format: float
        * @description The discounted amount applied within a given context.
        */
       discountedAmount?: number;
@@ -366,14 +366,14 @@ export interface components {
       /** @description The product option name. For example, Color or Size */
       name?: string;
       /**
-       * @description The product option identifier. It is the same as the `optionId` used in the request.  
+       * @description The product option identifier. It is the same as the `optionId` used in the request.
        * @example 125
        */
       nameId?: number;
       /** @description The product option value. For example, Red or Medium */
       value?: string;
       /**
-       * @description The product option value identifier. It is the same as the `optionValue` used in the request. 
+       * @description The product option value identifier. It is the same as the `optionValue` used in the request.
        * @example 127
        */
       valueId?: number;
@@ -398,7 +398,7 @@ export interface components {
     /** Contact Entity */
     responseCartLineItemsGiftCertificatesRecipient: {
       /**
-       * Format: email 
+       * Format: email
        * @description Contact's email address.
        */
       email?: string;
@@ -408,7 +408,7 @@ export interface components {
     /** Contact Entity */
     responseCartLineItemsGiftCertificatesSender: {
       /**
-       * Format: email 
+       * Format: email
        * @description Contact's email address.
        */
       email?: string;
@@ -420,13 +420,13 @@ export interface components {
     /** Base Item */
     responseCartBaseItem: {
       /** @description The list of selected options for this product. */
-      options?: (components["schemas"]["responseCartLineItemsItemsPhysicalItemsItemsAllOf0OptionsItems"])[];
+      options?: components["schemas"]["responseCartLineItemsItemsPhysicalItemsItemsAllOf0OptionsItems"][];
       /** @description The products brand */
       brand?: string;
       /** @description The total value of all coupons applied to this item. */
       couponAmount?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The total value of all discounts applied to this item (excluding coupon).
        */
       discountAmount?: number;
@@ -436,12 +436,12 @@ export interface components {
       /** @description Item's sale price multiplied by the quantity. */
       extendedSalePrice?: number;
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 4
        */
       id?: string;
       /**
-       * Format: uri 
+       * Format: uri
        * @description URL of an image of this item, accessible on the internet.
        */
       imageUrl?: string;
@@ -454,7 +454,7 @@ export interface components {
       /** @description The item's product name. */
       name?: string;
       /**
-       * @description The product is part of a bundle such as a product pick list, then the parentId or the main product id will populate. 
+       * @description The product is part of a bundle such as a product pick list, then the parentId or the main product id will populate.
        * @example 6
        */
       parentId?: number;
@@ -467,12 +467,12 @@ export interface components {
       /** @description SKU of the variant. */
       sku?: string;
       /**
-       * Format: uri 
+       * Format: uri
        * @description The product URL.
        */
       url?: string;
       /**
-       * @description ID of the variant. 
+       * @description ID of the variant.
        * @example 7
        */
       variantId?: number;
@@ -482,14 +482,14 @@ export interface components {
       /** @description The product option name. For example, Color or Size */
       name?: string;
       /**
-       * @description The product option identifier. It is the same as the `optionId` used in the request. 
+       * @description The product option identifier. It is the same as the `optionId` used in the request.
        * @example 125
        */
       nameId?: number;
       /** @description The product option value. For example, Red or Medium */
       value?: string;
       /**
-       * @description The product option value identifier. It is the same as the `optionValue` used in the request. 
+       * @description The product option value identifier. It is the same as the `optionValue` used in the request.
        * @example 127
        */
       valueId?: number;
@@ -512,32 +512,11 @@ export interface components {
       quantity: number;
       /** @description ID of the variant. */
       variantId: number;
-    } | {
-      /** @description ID of the product. */
-      productId: number;
-      /** @description Quantity of this item. */
-      quantity: number;
-      variantId: number;
-      /** @description Array of `OptionSelection` objects. */
-      optionSelections: (OneOf<[{
-          /**
-           * @description ID of the option, same as the `nameId`. 
-           * @example 10
-           */
-          optionId?: number;
-        }, {
-          /** @description Value of the option, same as the `valueId`. */
-          optionValue?: OneOf<[string, number, {
-            month?: string;
-            day?: string;
-            year?: string;
-          }]>;
-        }]>)[];
     };
     /** Contact Entity */
     requestLineItemGiftCertificateRecipient: {
       /**
-       * Format: email 
+       * Format: email
        * @description Contact's email address.
        */
       email?: string;
@@ -547,7 +526,7 @@ export interface components {
     /** Contact Entity */
     requestLineItemGiftCertificateSender: {
       /**
-       * Format: email 
+       * Format: email
        * @description Contact's email address.
        */
       email?: string;
@@ -574,7 +553,7 @@ export interface components {
     };
     getCarts: {
       content: {
-        "application/json": (components["schemas"]["responseCart"])[];
+        "application/json": components["schemas"]["responseCart"][];
       };
     };
     /** @description NOTE: Discounted line items are re-evaluated on cart actions and may be automatically added back to your cart with a new line item ID to satisfy promotional requirements. */
@@ -603,11 +582,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get a Cart 
+   * Get a Cart
    * @description Returns a *Cart*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   getACart: {
@@ -621,11 +600,11 @@ export interface operations {
     };
   };
   /**
-   * Create a Cart 
+   * Create a Cart
    * @description Creates a *Cart*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   createACart: {
@@ -644,12 +623,12 @@ export interface operations {
     };
   };
   /**
-   * Delete a Cart 
+   * Delete a Cart
    * @description Deletes a *Cart*. Once a *Cart* has been deleted it can not be recovered.
-   * 
-   * 
+   *
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   deleteACart: {
@@ -665,12 +644,12 @@ export interface operations {
     };
   };
   /**
-   * Add Cart Line Items 
+   * Add Cart Line Items
    * @description Adds a line items to the *Cart*.
-   * 
-   * 
+   *
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   addCartLineItem: {
@@ -678,11 +657,11 @@ export interface operations {
       query?: {
         /**
          * @description To return product options add one of the following include:
-         * 
+         *
          * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
-         * 
+         *
          * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
-         * 
+         *
          * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
          */
         include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
@@ -702,14 +681,14 @@ export interface operations {
     };
   };
   /**
-   * Update Cart Line Item 
+   * Update Cart Line Item
    * @description Updates a *Cart* line item. Updates an existing, single line item quantity and the price of custom items in a cart.
-   * 
+   *
    * If a modified product or variant needs to be changed or updated, you can remove and re-add the product to the cart with the correct variants using the [Delete Cart Line Item](/docs/rest-storefront/carts/cart-items#delete-cart-line-item) and the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoints. You can also use carts mutations that are part of the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
-   * 
-   * 
+   *
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   updateCartLineItem: {
@@ -717,11 +696,11 @@ export interface operations {
       query?: {
         /**
          * @description To return product options add one of the following include:
-         * 
+         *
          * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
-         * 
+         *
          * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
-         * 
+         *
          * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
          */
         include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
@@ -743,13 +722,13 @@ export interface operations {
     };
   };
   /**
-   * Delete Cart Line Item 
+   * Delete Cart Line Item
    * @description Deletes a *Cart* line item.
-   * 
+   *
    * Removing the last `line_item` in the *Cart* deletes the *Cart*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   deleteCartLineItem: {
@@ -757,11 +736,11 @@ export interface operations {
       query?: {
         /**
          * @description To return product options add one of the following include:
-         * 
+         *
          * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
-         * 
+         *
          * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
-         * 
+         *
          * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
          */
         include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
@@ -778,13 +757,13 @@ export interface operations {
     };
   };
   /**
-   * Update Cart Currency 
-   * @description Update currency of the *Cart*. 
+   * Update Cart Currency
+   * @description Update currency of the *Cart*.
    * Promotions and gift certificates that don't apply to the new currency will be removed from your cart.
    * You cannot update the cart currency if the draft order cart or the cart contains a manual discount.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   addCartCurrency: {

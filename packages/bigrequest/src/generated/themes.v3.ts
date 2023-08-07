@@ -8,14 +8,14 @@
 export interface paths {
   "/themes": {
     /**
-     * Get all Themes 
+     * Get all Themes
      * @description Returns a list of store *Themes*.
      */
     get: operations["getStoreThemes"];
     /**
-     * Upload a Theme 
+     * Upload a Theme
      * @description Uploads a new *Theme* to your BigCommerce store.
-     * 
+     *
      * **Required Fields**
      * * file
      */
@@ -28,12 +28,12 @@ export interface paths {
   };
   "/themes/{uuid}": {
     /**
-     * Get a Theme 
+     * Get a Theme
      * @description Returns a store *Theme*. The theme variation is not available at this endpoint.
      */
     get: operations["getStoreTheme"];
     /**
-     * Delete a Theme 
+     * Delete a Theme
      * @description Deletes a store *Theme*.
      * Theme variations can not be deleted using this endpoint. This will delete the theme and all variations.
      */
@@ -49,7 +49,7 @@ export interface paths {
   };
   "/themes/{uuid}/actions/download": {
     /**
-     * Download a Theme 
+     * Download a Theme
      * @description Downloads a stores *Theme*.
      */
     post: operations["downloadTheme"];
@@ -64,9 +64,9 @@ export interface paths {
   };
   "/themes/actions/activate": {
     /**
-     * Activate a Theme 
+     * Activate a Theme
      * @description Actives a store *Theme*.
-     * 
+     *
      * This returns a 204 response upon success.
      */
     post: operations["activateStoreTheme"];
@@ -78,7 +78,7 @@ export interface paths {
   };
   "/themes/jobs/{job_id}": {
     /**
-     * Get a Theme Job 
+     * Get a Theme Job
      * @description Returns a theme *Job*. If job is completed, the result is included in the response.
      */
     get: operations["getJob"];
@@ -93,9 +93,9 @@ export interface paths {
   };
   "/themes/{uuid}/configurations": {
     /**
-     * Get Theme Configuration 
+     * Get Theme Configuration
      * @description Returns a list of theme's configurations.
-     * 
+     *
      * **Usage Notes**:
      * * At least one filter must be provided.
      */
@@ -103,9 +103,9 @@ export interface paths {
       parameters: {
         query: {
           /** @description Filter configurations by a list of site_ids */
-          "site_id:in": (number)[];
+          "site_id:in": number[];
           /** @description Filter configurations by a list of configuration UUIDs. */
-          "uuid:in"?: (string)[];
+          "uuid:in"?: string[];
           /** @description Filter configurations by a variation_uuid. */
           variation_uuid?: string;
           /** @description Specifies the page number in a limited (paginated) list. */
@@ -113,7 +113,7 @@ export interface paths {
           /** @description Controls the number of items per page in a limited (paginated) list of products. */
           limit?: number;
           /** @description Filter configurations by a list of channel_ids. */
-          "channel_id:in"?: (number)[];
+          "channel_id:in"?: number[];
           page?: components["parameters"]["PageParam"];
           limit?: components["parameters"]["LimitParam"];
         };
@@ -132,9 +132,9 @@ export interface paths {
     parameters: {
       query: {
         /** @description Filter configurations by a list of site_ids */
-        "site_id:in": (number)[];
+        "site_id:in": number[];
         /** @description Filter configurations by a list of configuration UUIDs */
-        "uuid:in"?: (string)[];
+        "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid */
         variation_uuid?: string;
         /** @description Specifies the page number in a limited (paginated) list. */
@@ -152,7 +152,7 @@ export interface paths {
   };
   "/themes/{uuid}/configurations/validate": {
     /**
-     * Validate Theme Configuration 
+     * Validate Theme Configuration
      * @description Validates a theme configuration against the theme's schema without creating it. Useful for testing schemas before creation.
      */
     post: {
@@ -196,7 +196,7 @@ export interface paths {
   };
   "/themes/custom-templates/{version_uuid}": {
     /**
-     * Get Custom Templates 
+     * Get Custom Templates
      * @description Enumerate available custom templates for in the theme files in a specific theme version for each supported entity type.
      */
     get: operations["get-themes-theme_uuid-custom-templates"];
@@ -216,42 +216,42 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Collection Meta 
+     * Collection Meta
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
       /**
-       * Pagination 
+       * Pagination
        * @description Data about the response, including pagination and collection totals.
        */
       pagination?: {
         /**
          * @description Total number of items in the result set.
-         *  
+         *
          * @example 36
          */
         total?: number;
         /**
          * @description Total number of items in the collection response.
-         *  
+         *
          * @example 36
          */
         count?: number;
         /**
          * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *  
+         *
          * @example 50
          */
         per_page?: number;
         /**
          * @description The page you are currently on within the collection.
-         *  
+         *
          * @example 1
          */
         current_page?: number;
         /**
          * @description The total number of pages in the collection.
-         *  
+         *
          * @example 1
          */
         total_pages?: number;
@@ -261,7 +261,7 @@ export interface components {
           previous?: string;
           /**
            * @description Link to the current page returned in the response.
-           *  
+           *
            * @example ?page=1&limit=50
            */
           current?: string;
@@ -271,37 +271,37 @@ export interface components {
       };
     };
     /**
-     * Pagination 
+     * Pagination
      * @description Data about the response, including pagination and collection totals.
      */
     Pagination: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -311,7 +311,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -320,42 +320,42 @@ export interface components {
       };
     };
     /**
-     * Collection Meta 
+     * Collection Meta
      * @description Data about the response, including pagination and collection totals.
      */
     Meta: {
       /**
-       * Pagination 
+       * Pagination
        * @description Data about the response, including pagination and collection totals.
        */
       pagination?: {
         /**
          * @description Total number of items in the result set.
-         *  
+         *
          * @example 36
          */
         total?: number;
         /**
          * @description Total number of items in the collection response.
-         *  
+         *
          * @example 36
          */
         count?: number;
         /**
          * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *  
+         *
          * @example 50
          */
         per_page?: number;
         /**
          * @description The page you are currently on within the collection.
-         *  
+         *
          * @example 1
          */
         current_page?: number;
         /**
          * @description The total number of pages in the collection.
-         *  
+         *
          * @example 1
          */
         total_pages?: number;
@@ -365,7 +365,7 @@ export interface components {
           previous?: string;
           /**
            * @description Link to the current page returned in the response.
-           *  
+           *
            * @example ?page=1&limit=50
            */
           current?: string;
@@ -389,7 +389,7 @@ export interface components {
       };
     };
     /**
-     * Base Error 
+     * Base Error
      * @description Error payload for the BigCommerce API.
      */
     BaseError: {
@@ -405,7 +405,7 @@ export interface components {
       [key: string]: unknown;
     };
     /**
-     * Not Found 
+     * Not Found
      * @description Error payload for the BigCommerce API.
      */
     NotFound: {
@@ -417,7 +417,7 @@ export interface components {
       instance?: string;
     };
     /**
-     * Job Id 
+     * Job Id
      * @description The job identifier for theme upload or download.
      */
     JobId: {
@@ -425,7 +425,7 @@ export interface components {
       job_id?: string;
     };
     /**
-     * No Content 
+     * No Content
      * @description No-content response for the BigCommerce API.
      */
     NoContent: {
@@ -437,17 +437,17 @@ export interface components {
       instance?: string;
     };
     /**
-     * Job 
+     * Job
      * @description The job for theme upload or download
      */
     Job: {
       /** @description The errors. */
-      errors?: ({
+      errors?: {
           /** @description The error. */
           error?: string;
           /** @description The message. */
           message?: string;
-        })[];
+        }[];
       /** @description The identifier. */
       id?: string;
       /** @description The percent complete. */
@@ -457,27 +457,27 @@ export interface components {
         [key: string]: unknown;
       };
       /**
-       * @description The status. 
+       * @description The status.
        * @enum {string}
        */
       status?: "COMPLETED" | "QUEUED" | "WORKING" | "FAILED";
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The time.
        */
       time?: string;
       /** @description The warnings. */
-      warnings?: ({
+      warnings?: {
           /** @description The message. */
           message?: string;
           /** @description The warning. */
           warning?: string;
-        })[];
+        }[];
     };
     /** @description A theme. */
     Theme: {
       /** @description The variations. */
-      variations?: ({
+      variations?: {
           /** @description The description. */
           description?: string;
           /** @description The external identifier. */
@@ -486,7 +486,7 @@ export interface components {
           name?: string;
           /** @description The identifier. */
           uuid?: string;
-        })[];
+        }[];
       /** @description The identifier. */
       uuid?: string;
       /** @description The theme name identifier. */
@@ -495,14 +495,14 @@ export interface components {
       is_private?: boolean;
     };
     /**
-     * Activate 
+     * Activate
      * @description Request definition for activation endpoint.
      */
     Activate: {
       /** @description The identifier for the variation to activate. */
       variation_id: string;
       /**
-       * @description Which configuration to use. 
+       * @description Which configuration to use.
        * @enum {string}
        */
       which: "original" | "last_activated" | "last_created";
@@ -519,13 +519,13 @@ export interface components {
       uuid?: string;
     };
     /**
-     * Themes Collection Response 
+     * Themes Collection Response
      * @description Response payload for the BigCommerce API.
      */
     ThemesCollectionResponse: {
-      data?: ({
+      data?: {
           /** @description The variations. */
-          variations?: ({
+          variations?: {
               /** @description The description. */
               description?: string;
               /** @description The external identifier. */
@@ -534,51 +534,51 @@ export interface components {
               name?: string;
               /** @description The identifier. */
               uuid?: string;
-            })[];
+            }[];
           /** @description The identifier. */
           uuid?: string;
           /** @description The theme name identifier. */
           name?: string;
           /** @description Flag to identify private themes. */
           is_private?: boolean;
-        })[];
+        }[];
       /**
-       * Collection Meta 
+       * Collection Meta
        * @description Data about the response, including pagination and collection totals.
        */
       meta?: {
         /**
-         * Pagination 
+         * Pagination
          * @description Data about the response, including pagination and collection totals.
          */
         pagination?: {
           /**
            * @description Total number of items in the result set.
-           *  
+           *
            * @example 36
            */
           total?: number;
           /**
            * @description Total number of items in the collection response.
-           *  
+           *
            * @example 36
            */
           count?: number;
           /**
            * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-           *  
+           *
            * @example 50
            */
           per_page?: number;
           /**
            * @description The page you are currently on within the collection.
-           *  
+           *
            * @example 1
            */
           current_page?: number;
           /**
            * @description The total number of pages in the collection.
-           *  
+           *
            * @example 1
            */
           total_pages?: number;
@@ -588,7 +588,7 @@ export interface components {
             previous?: string;
             /**
              * @description Link to the current page returned in the response.
-             *  
+             *
              * @example ?page=1&limit=50
              */
             current?: string;
@@ -599,7 +599,7 @@ export interface components {
       };
     };
     /**
-     * Theme Response 
+     * Theme Response
      * @description Response payload for the BigCommerce API.
      */
     ThemeResponse: {
@@ -607,22 +607,22 @@ export interface components {
       meta?: components["schemas"]["CollectionMeta"];
     };
     /**
-     * Job Response 
+     * Job Response
      * @description Response for /GET Jobs by Id.
      */
     JobResponse: {
       /**
-       * Job 
+       * Job
        * @description The job for theme upload or download
        */
       data?: {
         /** @description The errors. */
-        errors?: ({
+        errors?: {
             /** @description The error. */
             error?: string;
             /** @description The message. */
             message?: string;
-          })[];
+          }[];
         /** @description The identifier. */
         id?: string;
         /** @description The percent complete. */
@@ -632,38 +632,38 @@ export interface components {
           [key: string]: unknown;
         };
         /**
-         * @description The status. 
+         * @description The status.
          * @enum {string}
          */
         status?: "COMPLETED" | "QUEUED" | "WORKING" | "FAILED";
         /**
-         * Format: date-time 
+         * Format: date-time
          * @description The time.
          */
         time?: string;
         /** @description The warnings. */
-        warnings?: ({
+        warnings?: {
             /** @description The message. */
             message?: string;
             /** @description The warning. */
             warning?: string;
-          })[];
+          }[];
       };
       meta?: components["schemas"]["OpenMeta"];
     };
     /**
-     * Which Theme To Download 
+     * Which Theme To Download
      * @description An object specifying which theme to download. One of: `original`: the original Marketplace or uploaded custom theme; `last_activated`: the theme version most recently applied to the store; `last_created`: the theme version most recently created.
      */
     WhichThemeToDownload: {
       /**
-       * @description Which revision to use. 
+       * @description Which revision to use.
        * @enum {string}
        */
       which?: "original" | "last_activated" | "last_created";
     };
     /**
-     * Request Headers 
+     * Request Headers
      * @description These are the minium request headers needed for BigCommerce.
      */
     RequestHeaders: {
@@ -671,7 +671,7 @@ export interface components {
       Accepts?: string;
     };
     /**
-     * themeConfiguration_Full 
+     * themeConfiguration_Full
      * @description A theme.
      */
     themeConfiguration_Full: {
@@ -687,7 +687,7 @@ export interface components {
       site_id?: number;
     };
     /**
-     * themeConfiguration_Write 
+     * themeConfiguration_Write
      * @description A theme.
      */
     themeConfiguration_Write: {
@@ -697,7 +697,7 @@ export interface components {
       settings?: Record<string, never>;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     OpenMeta: {
@@ -708,7 +708,7 @@ export interface components {
     themesConfigurations_RespCollection: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["themeConfiguration_Full"])[];
+          data?: components["schemas"]["themeConfiguration_Full"][];
           meta?: components["schemas"]["CollectionMeta"];
         };
       };
@@ -738,7 +738,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get all Themes 
+   * Get all Themes
    * @description Returns a list of store *Themes*.
    */
   getStoreThemes: {
@@ -756,9 +756,9 @@ export interface operations {
     };
   };
   /**
-   * Upload a Theme 
+   * Upload a Theme
    * @description Uploads a new *Theme* to your BigCommerce store.
-   * 
+   *
    * **Required Fields**
    * * file
    */
@@ -773,7 +773,7 @@ export interface operations {
       content: {
         "multipart/form-data": {
           /**
-           * Format: binary 
+           * Format: binary
            * @description The file.
            */
           file: string;
@@ -808,7 +808,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Theme 
+   * Get a Theme
    * @description Returns a store *Theme*. The theme variation is not available at this endpoint.
    */
   getStoreTheme: {
@@ -847,7 +847,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Theme 
+   * Delete a Theme
    * @description Deletes a store *Theme*.
    * Theme variations can not be deleted using this endpoint. This will delete the theme and all variations.
    */
@@ -883,7 +883,7 @@ export interface operations {
     };
   };
   /**
-   * Download a Theme 
+   * Download a Theme
    * @description Downloads a stores *Theme*.
    */
   downloadTheme: {
@@ -929,9 +929,9 @@ export interface operations {
     };
   };
   /**
-   * Activate a Theme 
+   * Activate a Theme
    * @description Actives a store *Theme*.
-   * 
+   *
    * This returns a 204 response upon success.
    */
   activateStoreTheme: {
@@ -975,7 +975,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Theme Job 
+   * Get a Theme Job
    * @description Returns a theme *Job*. If job is completed, the result is included in the response.
    */
   getJob: {
@@ -1014,7 +1014,7 @@ export interface operations {
     };
   };
   /**
-   * Get Custom Templates 
+   * Get Custom Templates
    * @description Enumerate available custom templates for in the theme files in a specific theme version for each supported entity type.
    */
   "get-themes-theme_uuid-custom-templates": {
@@ -1032,10 +1032,10 @@ export interface operations {
         content: {
           "application/json": {
             data?: {
-              product?: (string)[];
-              category?: (string)[];
-              brand?: (string)[];
-              page?: (string)[];
+              product?: string[];
+              category?: string[];
+              brand?: string[];
+              page?: string[];
             };
             meta?: components["schemas"]["OpenMeta"];
           };

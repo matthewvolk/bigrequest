@@ -8,12 +8,12 @@
 export interface paths {
   "/marketing/abandoned-cart-emails": {
     /**
-     * Get all email templates 
+     * Get all email templates
      * @description An array of abandoned cart emails pertaining to a store.
      */
     get: operations["getAbandonedCartEmails"];
     /**
-     * Create email template 
+     * Create email template
      * @description Create an Abandoned Cart Email template.
      */
     post: operations["createEmailTemplate"];
@@ -25,17 +25,17 @@ export interface paths {
   };
   "/marketing/abandoned-cart-emails/{id}": {
     /**
-     * Get an email template 
+     * Get an email template
      * @description Get a single Abandoned Cart Email template.
      */
     get: operations["getAbandonedCartEmailTemplateId"];
     /**
-     * Update an email template 
+     * Update an email template
      * @description Update an email template.
      */
     put: operations["updateAbandonedCartEmailsId"];
     /**
-     * Delete email template 
+     * Delete email template
      * @description Delete Abandoned Cart Email template.
      */
     delete: operations["deleteAbandonedCartEmailTemplateId"];
@@ -51,7 +51,7 @@ export interface paths {
   };
   "/marketing/abandoned-cart-emails/default": {
     /**
-     * Get default email template 
+     * Get default email template
      * @description Return default Abandoned Cart Email template.
      */
     get: operations["GetDefaultAbandonedCartEmailTemplate"];
@@ -63,12 +63,12 @@ export interface paths {
   };
   "/marketing/abandoned-cart-emails/settings": {
     /**
-     * Get email template settings 
+     * Get email template settings
      * @description Read Abandoned Cart Email Template settings.
      */
     get: operations["GetAbandonedCartEmailTemplateSettings"];
     /**
-     * Update email template settings 
+     * Update email template settings
      * @description Update Abandoned Cart Email template settings.
      */
     put: operations["updateEmailTemplateSettings"];
@@ -89,7 +89,7 @@ export interface components {
       status?: number;
       title?: string;
       type?: string;
-      errors?: (string)[];
+      errors?: string[];
     };
     /** BaseError */
     BaseError: {
@@ -119,12 +119,12 @@ export interface components {
       subject: string;
       /** @example 'Complete your purchase <a href="{{ notification.checkout_link }}">{{notification.checkout.link}}' */
       body: string;
-      translation?: (components["schemas"]["TranslationDefinition"])[];
+      translation?: components["schemas"]["TranslationDefinition"][];
     };
     /** TranslationDefinition */
     TranslationDefinition: {
       /**
-       * @description Locale code for this language, such as 'en', 'en-us', 'fr-ca'. 
+       * @description Locale code for this language, such as 'en', 'en-us', 'fr-ca'.
        * @example en
        */
       locale: string;
@@ -133,14 +133,14 @@ export interface components {
       additionalProperties?: string;
     };
     /**
-     * NotifyAtMinutes 
-     * @description Describes when this email will be sent, in minutes. Only supports certain intervals described in the enum. 
-     * @example 60 
+     * NotifyAtMinutes
+     * @description Describes when this email will be sent, in minutes. Only supports certain intervals described in the enum.
+     * @example 60
      * @enum {integer}
      */
     NotifyAtMinutes: 60 | 120 | 180 | 240 | 300 | 360 | 420 | 480 | 540 | 600 | 660 | 720 | 780 | 840 | 900 | 960 | 1020 | 1080 | 1140 | 1200 | 1260 | 1320 | 1380 | 1440 | 2880 | 4320 | 5760 | 7200 | 8640 | 10080 | 11520 | 12960 | 14400;
     /**
-     * Coupon Code Field 
+     * Coupon Code Field
      * @example FF11-22X4
      */
     CouponCode: string;
@@ -155,7 +155,7 @@ export interface components {
       sent_num?: number;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaCollection_open: {
@@ -183,7 +183,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get all email templates 
+   * Get all email templates
    * @description An array of abandoned cart emails pertaining to a store.
    */
   getAbandonedCartEmails: {
@@ -200,7 +200,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["AbandondedCartEmail"])[];
+            data?: components["schemas"]["AbandondedCartEmail"][];
             meta?: components["schemas"]["metaCollection_open"];
           };
         };
@@ -208,7 +208,7 @@ export interface operations {
     };
   };
   /**
-   * Create email template 
+   * Create email template
    * @description Create an Abandoned Cart Email template.
    */
   createEmailTemplate: {
@@ -245,7 +245,7 @@ export interface operations {
     };
   };
   /**
-   * Get an email template 
+   * Get an email template
    * @description Get a single Abandoned Cart Email template.
    */
   getAbandonedCartEmailTemplateId: {
@@ -271,7 +271,7 @@ export interface operations {
     };
   };
   /**
-   * Update an email template 
+   * Update an email template
    * @description Update an email template.
    */
   updateAbandonedCartEmailsId: {
@@ -309,7 +309,7 @@ export interface operations {
     };
   };
   /**
-   * Delete email template 
+   * Delete email template
    * @description Delete Abandoned Cart Email template.
    */
   deleteAbandonedCartEmailTemplateId: {
@@ -328,7 +328,7 @@ export interface operations {
     };
   };
   /**
-   * Get default email template 
+   * Get default email template
    * @description Return default Abandoned Cart Email template.
    */
   GetDefaultAbandonedCartEmailTemplate: {
@@ -344,19 +344,19 @@ export interface operations {
           "application/json": {
             subject: string;
             body: string;
-            translations: ({
+            translations: {
                 locale: string;
                 keys: {
                   hello_phrase?: string;
                 };
-              })[];
+              }[];
           };
         };
       };
     };
   };
   /**
-   * Get email template settings 
+   * Get email template settings
    * @description Read Abandoned Cart Email Template settings.
    */
   GetAbandonedCartEmailTemplateSettings: {
@@ -378,7 +378,7 @@ export interface operations {
     };
   };
   /**
-   * Update email template settings 
+   * Update email template settings
    * @description Update Abandoned Cart Email template settings.
    */
   updateEmailTemplateSettings: {

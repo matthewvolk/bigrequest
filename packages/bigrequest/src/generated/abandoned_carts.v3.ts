@@ -8,12 +8,12 @@
 export interface paths {
   "/abandoned-carts/settings": {
     /**
-     * Get Global Abandoned Cart Settings 
+     * Get Global Abandoned Cart Settings
      * @description Returns the global abandoned cart settings of a store.
      */
     get: operations["getGlobalAbandonedCartSettings"];
     /**
-     * Update Global Abandoned Cart Settings 
+     * Update Global Abandoned Cart Settings
      * @description Updates the global abandoned cart settings of a store.
      */
     put: operations["UpdateGlobalAbandonedCartSettings"];
@@ -25,17 +25,17 @@ export interface paths {
   };
   "/abandoned-carts/settings/channels/{channel_id}": {
     /**
-     * Get Channel Abandoned Cart Settings 
+     * Get Channel Abandoned Cart Settings
      * @description Returns the per-channel overrides for the abandoned cart settings of a store.
      */
     get: operations["getChannelAbandonedCartSettings"];
     /**
-     * Update Channel Abandoned Cart Settings 
+     * Update Channel Abandoned Cart Settings
      * @description Updates the per-channel overrides for the abandoned cart settings of a store.
-     * 
+     *
      * #### OAuth Scopes
      * | UI Name                                      | Permission | Parameter                                     |
-     * |----------------------------------------------|------------|-----------------------------------------------|     
+     * |----------------------------------------------|------------|-----------------------------------------------|
      * | Information & Settings                       | modify     | `store_v2_information`                        |
      */
     put: operations["UpdateChannelAbandonedCartSettings"];
@@ -50,9 +50,9 @@ export interface paths {
   };
   "/abandoned-carts/{token}": {
     /**
-     * Get an Abandoned Cart 
+     * Get an Abandoned Cart
      * @description Returns the `cart_id` corresponding to the abandoned cart `{token}` passed in.
-     * 
+     *
      * **Usage Notes**:
      * * `{token}` is the token in the query string of the abandoned cart link found in abandoned cart email notifications to shoppers
      */
@@ -64,7 +64,7 @@ export interface paths {
       path: {
         /**
          * @description Unique cart `UUID`.
-         * 
+         *
          * Unique cart `UUID` token that is generated for abandoned cart emails.
          */
         token: string;
@@ -78,7 +78,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
@@ -117,12 +117,12 @@ export interface components {
       /** @description Indicates whether or not a merchant should receive a notification email when a cart is abandoned */
       email_merchant_when_cart_is_abandoned?: boolean;
       /**
-       * Format: email 
+       * Format: email
        * @description The email address for receiving merchant notifications
        */
       merchant_email_address?: string;
       /**
-       * @description Indicates whether to send an email for every abandoned cart, or to send a digest email after X number of abandoned carts 
+       * @description Indicates whether to send an email for every abandoned cart, or to send a digest email after X number of abandoned carts
        * @enum {string}
        */
       merchant_abandoned_cart_email_frequency_type?: "digest" | "individual";
@@ -142,12 +142,12 @@ export interface components {
       /** @description Indicates whether or not a merchant should receive a notification email when a cart is abandoned. If it is null, it means there is no override for the specified channel. */
       email_merchant_when_cart_is_abandoned?: boolean | null;
       /**
-       * Format: email 
+       * Format: email
        * @description The email address for receiving merchant notifications. If it is null, it means there is no override for the specified channel.
        */
       merchant_email_address?: string | null;
       /**
-       * @description Indicates whether to send an email for every abandoned cart or to send a digest email after X number of abandoned carts. If it is null, it means there is no override for the specified channel. 
+       * @description Indicates whether to send an email for every abandoned cart or to send a digest email after X number of abandoned carts. If it is null, it means there is no override for the specified channel.
        * @enum {string|null}
        */
       merchant_abandoned_cart_email_frequency_type?: "digest" | "individual" | null;
@@ -246,7 +246,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Global Abandoned Cart Settings 
+   * Get Global Abandoned Cart Settings
    * @description Returns the global abandoned cart settings of a store.
    */
   getGlobalAbandonedCartSettings: {
@@ -271,7 +271,7 @@ export interface operations {
     };
   };
   /**
-   * Update Global Abandoned Cart Settings 
+   * Update Global Abandoned Cart Settings
    * @description Updates the global abandoned cart settings of a store.
    */
   UpdateGlobalAbandonedCartSettings: {
@@ -308,7 +308,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Abandoned Cart Settings 
+   * Get Channel Abandoned Cart Settings
    * @description Returns the per-channel overrides for the abandoned cart settings of a store.
    */
   getChannelAbandonedCartSettings: {
@@ -337,12 +337,12 @@ export interface operations {
     };
   };
   /**
-   * Update Channel Abandoned Cart Settings 
+   * Update Channel Abandoned Cart Settings
    * @description Updates the per-channel overrides for the abandoned cart settings of a store.
-   * 
+   *
    * #### OAuth Scopes
    * | UI Name                                      | Permission | Parameter                                     |
-   * |----------------------------------------------|------------|-----------------------------------------------|     
+   * |----------------------------------------------|------------|-----------------------------------------------|
    * | Information & Settings                       | modify     | `store_v2_information`                        |
    */
   UpdateChannelAbandonedCartSettings: {
@@ -383,9 +383,9 @@ export interface operations {
     };
   };
   /**
-   * Get an Abandoned Cart 
+   * Get an Abandoned Cart
    * @description Returns the `cart_id` corresponding to the abandoned cart `{token}` passed in.
-   * 
+   *
    * **Usage Notes**:
    * * `{token}` is the token in the query string of the abandoned cart link found in abandoned cart email notifications to shoppers
    */
@@ -397,7 +397,7 @@ export interface operations {
       path: {
         /**
          * @description Unique cart `UUID`.
-         * 
+         *
          * Unique cart `UUID` token that is generated for abandoned cart emails.
          */
         token: string;

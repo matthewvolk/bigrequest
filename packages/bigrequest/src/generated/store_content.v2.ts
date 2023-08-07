@@ -8,7 +8,7 @@
 export interface paths {
   "/blog/tags": {
     /**
-     * Get All Blog Tags 
+     * Get All Blog Tags
      * @description Returns a list of *Blog Tags*.
      */
     get: operations["getAllBlogTags"];
@@ -20,27 +20,27 @@ export interface paths {
   };
   "/blog/posts": {
     /**
-     * Get All Blog Posts 
+     * Get All Blog Posts
      * @description Returns all *Blog Posts*. Default sorting is by published_date, beginning with the most recent post.
      */
     get: operations["getAllBlogPosts"];
     /**
-     * Create a Blog Post 
+     * Create a Blog Post
      * @description Creates a *Blog Post*.
-     * 
+     *
      * **Required Fields**
      * *   `title`
      * *   `body`
-     * 
+     *
      * **Notes**
-     * 
+     *
      * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
      */
     post: operations["createABlogPosts"];
     /**
-     * Delete Blog Posts 
+     * Delete Blog Posts
      * @description Deletes a page of `Blog Posts`.
      */
     delete: operations["deleteAllBlogPosts"];
@@ -52,23 +52,23 @@ export interface paths {
   };
   "/blog/posts/{id}": {
     /**
-     * Get a Blog Post 
+     * Get a Blog Post
      * @description Returns a single *Blog Post*.
      */
     get: operations["getABlogPost"];
     /**
-     * Update a Blog Post 
+     * Update a Blog Post
      * @description Updates a *Blog Post*.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
-     * 
+     *
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      */
     put: operations["updateABlogPost"];
     /**
-     * Delete a Blog Post 
+     * Delete a Blog Post
      * @description Deletes a *Blog Post*.
      */
     delete: operations["deleteABlogPost"];
@@ -84,7 +84,7 @@ export interface paths {
   };
   "/blog/posts/count": {
     /**
-     * Get A Count of All Blog Posts 
+     * Get A Count of All Blog Posts
      * @description Returns a count of all *Blog Posts*.
      */
     get: operations["getACountOfAllBlogPosts"];
@@ -96,10 +96,10 @@ export interface paths {
   };
   "/pages": {
     /**
-     * Get All Pages 
-     * @deprecated 
+     * Get All Pages
+     * @deprecated
      * @description Returns a list of *Pages*. Default sorting is by auto-generated ID from oldest to newest.
-     * 
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -107,24 +107,24 @@ export interface paths {
      */
     get: operations["getAllPages"];
     /**
-     * Create a Page 
-     * @deprecated 
+     * Create a Page
+     * @deprecated
      * @description Creates a *Page*. The request payload limit is 1MB.
-     * 
+     *
      * **Required Fields**
      * *   `type`
      * *   `name`
      * *   `link` (for a page of `type: link`)
      * *   `feed` (for a page of `type: rss_feed`)
      * *   `body` (for a page of `type: raw`)
-     * 
+     *
      * **Read Only Fields**
      * *   `id`
-     * 
+     *
      * ## Content Type
-     * 
+     *
      * The default value for `content_type` is `text/html`; however, if `page_type` is set to `raw`, `content_type` can be changed to `text/javascript` or `application/json`. Updating this field allows you to place a JavaScript or a JSON file in the root directory.
-     * 
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -139,10 +139,10 @@ export interface paths {
   };
   "/pages/{id}": {
     /**
-     * Get A Page 
-     * @deprecated 
-     * @description Returns a *Page*. 
-     * 
+     * Get A Page
+     * @deprecated
+     * @description Returns a *Page*.
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -150,13 +150,13 @@ export interface paths {
      */
     get: operations["getAPage"];
     /**
-     * Update a Page 
-     * @deprecated 
+     * Update a Page
+     * @deprecated
      * @description Updates a *Page*. The request payload limit is 1MB.
-     * 
+     *
      * **Read Only Fields**
      * * id
-     * 
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -164,10 +164,10 @@ export interface paths {
      */
     put: operations["updateAPage"];
     /**
-     * Delete a Page 
-     * @deprecated 
+     * Delete a Page
+     * @deprecated
      * @description Deletes a *Page*.
-     * 
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -186,10 +186,10 @@ export interface paths {
   };
   "/redirects": {
     /**
-     * Get All Redirects 
-     * @deprecated 
-     * @description Returns a list all *Redirect URLs*. 
-     * 
+     * Get All Redirects
+     * @deprecated
+     * @description Returns a list all *Redirect URLs*.
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -197,17 +197,17 @@ export interface paths {
      */
     get: operations["getAListofRedirects"];
     /**
-     * Create a Redirect 
+     * Create a Redirect
      * @description Creates a *Redirect URL*.
-     * 
+     *
      * **Required Fields**
      * *   path
      * *   forward
-     * 
+     *
      * **Read Only**
      * *   url
-     * 
-     * 
+     *
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -215,11 +215,11 @@ export interface paths {
      */
     post: operations["createARedirect"];
     /**
-     * Delete All Redirects 
-     * @deprecated 
-     * @description By default, it deletes all *Redirect URLs* in a store. 
-     * 
-     * 
+     * Delete All Redirects
+     * @deprecated
+     * @description By default, it deletes all *Redirect URLs* in a store.
+     *
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -234,28 +234,28 @@ export interface paths {
   };
   "/redirects/{id}": {
     /**
-     * Get a Redirect 
-     * @deprecated 
+     * Get a Redirect
+     * @deprecated
      * @description Returns a single *Redirect URL*.
-     * 
+     *
      * > #### Warning
-     * > **Deprecated** 
+     * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To get a redirect URL, use Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
      */
     get: operations["getARedirectURL"];
     /**
-     * Update a Redirect 
+     * Update a Redirect
      * @description Updates a *Redirect URL*.
-     * 
+     *
      * **Required Fields**
      * *   path
      * *   forward
-     * 
+     *
      * **Read Only Fields**
      * *   url
-     * 
-     * 
+     *
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -263,11 +263,11 @@ export interface paths {
      */
     put: operations["updateARedirectURL"];
     /**
-     * Delete a Redirect 
+     * Delete a Redirect
      * @description Deletes a *Redirect URL*.
-     * 
+     *
      * > #### Warning
-     * > **Deprecated** 
+     * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To delete a redirect URL, use Redirects V3ʼs [Delete redirects](/docs/rest-management/redirects#delete-redirects) endpoint.
      */
@@ -284,10 +284,10 @@ export interface paths {
   };
   "/redirects/count": {
     /**
-     * Get a Count of Redirects 
-     * @deprecated 
+     * Get a Count of Redirects
+     * @deprecated
      * @description Gets a count of *Redirect URLs* in a store.
-     * 
+     *
      * > #### Warning
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -309,7 +309,7 @@ export interface components {
     /** blogPost_Full */
     blogPost_Full: {
       /**
-       * @description ID of this blog post. (READ-ONLY) 
+       * @description ID of this blog post. (READ-ONLY)
        * @example 3
        */
       id?: number;
@@ -317,12 +317,12 @@ export interface components {
     /** addresses */
     addresses: {
       /**
-       * @description Full URL of where the resource is located. 
+       * @description Full URL of where the resource is located.
        * @example https://api.bigcommerce.com/stores/{store_hash}/v2/customers/5/addresses
        */
       url?: string;
       /**
-       * @description Resource being accessed. 
+       * @description Resource being accessed.
        * @example /customers/5/addresses
        */
       resource?: string;
@@ -330,12 +330,12 @@ export interface components {
     /** formField */
     formField: {
       /**
-       * @description Name of the form field 
+       * @description Name of the form field
        * @example License Id
        */
       name?: string;
       /**
-       * @description Value of the form field 
+       * @description Value of the form field
        * @example 123BAF
        */
       value?: string;
@@ -343,13 +343,13 @@ export interface components {
     /** page_Full */
     page_Full: {
       /**
-       * @description ID of the page. 
+       * @description ID of the page.
        * @example 44
        */
       id?: number;
     } & components["schemas"]["page_Base_Res"];
     /**
-     * redirect 
+     * redirect
      * @example {
      *   "id": 1,
      *   "path": "/smith-journal-13/",
@@ -362,18 +362,18 @@ export interface components {
      */
     redirect: {
       /**
-       * @description Numeric ID of the redirect. 
+       * @description Numeric ID of the redirect.
        * @example 1
        */
       id?: number;
       /**
-       * @description The path from which to redirect. 
+       * @description The path from which to redirect.
        * @example /smith-journal-13/
        */
       path: string;
       forward: components["schemas"]["forward"];
       /**
-       * @description URL of the redirect. READ-ONLY 
+       * @description URL of the redirect. READ-ONLY
        * @example http://store-url.mybigcommerce.com/towels/bath-towels/hand-towels/
        */
       url?: string;
@@ -381,12 +381,12 @@ export interface components {
     /** forward */
     forward: {
       /**
-       * @description The type of redirect. If it is a `manual` redirect then type will always be manual. Dynamic redirects will have the type of the page. Such as product or category. 
+       * @description The type of redirect. If it is a `manual` redirect then type will always be manual. Dynamic redirects will have the type of the page. Such as product or category.
        * @example product
        */
       type?: string;
       /**
-       * @description Reference of the redirect. Dynamic redirects will have the category or product number. Manual redirects will have the url that is being directed to. 
+       * @description Reference of the redirect. Dynamic redirects will have the category or product number. Manual redirects will have the url that is being directed to.
        * @example 111
        */
       ref?: number;
@@ -394,7 +394,7 @@ export interface components {
     /** customer_Full */
     customer_Full: {
       /**
-       * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. 
+       * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
        * @example 1
        */
       id?: number;
@@ -405,52 +405,52 @@ export interface components {
         password_confirmation?: string;
       };
       /**
-       * @description The name of the company for which the customer works. 
+       * @description The name of the company for which the customer works.
        * @example BigCommerce
        */
       company?: string;
       /**
-       * @description First name of the customer. 
+       * @description First name of the customer.
        * @example Jane
        */
       first_name: string;
       /**
-       * @description Last name of the customer. 
+       * @description Last name of the customer.
        * @example Doe
        */
       last_name: string;
       /**
-       * @description Email address of the customer. 
+       * @description Email address of the customer.
        * @example janedoe@example.com
        */
       email: string;
       /**
-       * @description Phone number of the customer. 
+       * @description Phone number of the customer.
        * @example 1234567890
        */
       phone?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date on which the customer registered from the storefront or was created in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
        */
       date_modified?: string;
       /**
-       * @description The amount of credit the customer has. (Float, Float as String, Integer) 
+       * @description The amount of credit the customer has. (Float, Float as String, Integer)
        * @example 0
        */
       store_credit?: string;
       /**
-       * @description The customer’s IP address when they signed up. 
+       * @description The customer’s IP address when they signed up.
        * @example 12.345.678.910
        */
       registration_ip_address?: string;
       /**
-       * @description The group to which the customer belongs. 
+       * @description The group to which the customer belongs.
        * @example 2
        */
       customer_group_id?: number;
@@ -460,15 +460,15 @@ export interface components {
       tax_exempt_category?: string;
       /**
        * @description Records whether the customer would like to receive marketing content from this store. READ-ONLY.This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
-       *  
+       *
        * @example true
        */
       accepts_marketing?: boolean;
       addresses?: components["schemas"]["addresses"];
       /** @description Array of custom fields. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-      form_fields?: (components["schemas"]["formField"])[];
+      form_fields?: components["schemas"]["formField"][];
       /**
-       * @description Force a password change on next login. 
+       * @description Force a password change on next login.
        * @example false
        */
       reset_pass_on_login?: boolean;
@@ -478,44 +478,44 @@ export interface components {
       /**
        * @description + `all` - Customers can access all categories
        *  + `specific`  - Customers can access a specific list of categories
-       * + `none` - Customers are prevented from viewing any of the categories in this group. 
+       * + `none` - Customers are prevented from viewing any of the categories in this group.
        * @enum {string}
        */
       type?: "all" | "specific" | "none";
       /**
-       * @description Is an array of category IDs and should be supplied only if `type` is specific. 
+       * @description Is an array of category IDs and should be supplied only if `type` is specific.
        * @example [
        *   "18,19,23,34"
        * ]
        */
-      categories?: (string)[];
+      categories?: string[];
     };
     /** timeZone */
     timeZone: {
       /**
-       * @description A string identifying the time zone, in the format: <Continent-name>/<City-name>. 
+       * @description A string identifying the time zone, in the format: <Continent-name>/<City-name>.
        * @example America/Chicago
        */
       name?: string;
       /**
-       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during winter/standard time. 
+       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during winter/standard time.
        * @example -21600
        */
       raw_offset?: number;
       /**
-       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during summer/daylight saving time. 
+       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during summer/daylight saving time.
        * @example -18000
        */
       dst_offset?: number;
       /**
-       * @description A boolean indicating whether this time zone observes daylight saving time. 
+       * @description A boolean indicating whether this time zone observes daylight saving time.
        * @example true
        */
       dst_correction?: boolean;
       date_format?: components["schemas"]["dateFormat"];
     };
     /**
-     * count_Response 
+     * count_Response
      * @example {
      *   "count": 27
      * }
@@ -527,23 +527,23 @@ export interface components {
     /** dateFormat */
     dateFormat: {
       /**
-       * @description A string that defines dates’ display formats, in the pattern: M jS Y 
+       * @description A string that defines dates’ display formats, in the pattern: M jS Y
        * @example M jS Y
        */
       display?: string;
       /**
-       * @description A string that defines the CSV export format for orders, customers, and products, in the pattern: M jS Y 
+       * @description A string that defines the CSV export format for orders, customers, and products, in the pattern: M jS Y
        * @example M jS Y
        */
       export?: string;
       /**
-       * @description A string that defines dates’ extended-display format, in the pattern: M jS Y @ g:i A. 
+       * @description A string that defines dates’ extended-display format, in the pattern: M jS Y @ g:i A.
        * @example M jS Y @ g:i A
        */
       extended_display?: string;
     };
     /** blogTags */
-    blogTags: ({
+    blogTags: {
         /** @example Blog */
         tag?: string;
         /**
@@ -553,47 +553,47 @@ export interface components {
          *   4
          * ]
          */
-        post_ids?: (number)[];
-      })[];
+        post_ids?: number[];
+      }[];
     /**
-     * blogPost_Base_Post 
+     * blogPost_Base_Post
      * @description blogPost base for POST requests
      */
     blogPost_Base_Post: {
       /**
-       * @description Title of this blog post. 
+       * @description Title of this blog post.
        * @example Welcome to BigCommerce
        */
       title: string;
       /**
-       * @description URL for the public blog post. 
+       * @description URL for the public blog post.
        * @example /blog/welcome-bigcommerce/
        */
       url?: string;
       /**
-       * @description Text body of the blog post. 
+       * @description Text body of the blog post.
        * @example <p>Customize your site, manage shipping and payments, and list your products on Amazon, eBay, and Facebook by Meta with the #1 ecommerce platform. </p>
        */
       body: string;
       /** @description Tags to characterize the blog post. */
-      tags?: (string)[];
+      tags?: string[];
       /**
-       * @description Whether the blog post is published. 
+       * @description Whether the blog post is published.
        * @example true
        */
       is_published?: boolean;
       /**
-       * @description Description text for this blog post’s `<meta/>` element. 
+       * @description Description text for this blog post’s `<meta/>` element.
        * @example Welcome Post
        */
       meta_description?: string;
       /**
-       * @description Keywords for this blog post’s `<meta/>` element. 
+       * @description Keywords for this blog post’s `<meta/>` element.
        * @example BigCommerce, welcome, ecommerce
        */
       meta_keywords?: string;
       /**
-       * @description Name of the blog post’s author. 
+       * @description Name of the blog post’s author.
        * @example BigCommerce
        */
       author?: string;
@@ -605,55 +605,55 @@ export interface components {
     /** blogPost_Base */
     blogPost_Base: {
       /**
-       * @description Title of this blog post. 
+       * @description Title of this blog post.
        * @example Welcome to BigCommerce
        */
       title: string;
       /**
-       * @description URL for the public blog post. 
+       * @description URL for the public blog post.
        * @example /blog/welcome-bigcommerce/
        */
       url?: string;
       /**
-       * @description URL to preview the blog post. (READ-ONLY) 
+       * @description URL to preview the blog post. (READ-ONLY)
        * @example /blog/welcome-bigcommerce/
        */
       preview_url?: string;
       /**
-       * @description Text body of the blog post. 
+       * @description Text body of the blog post.
        * @example <p>Customize your site, manage shipping and payments, and list your products on Amazon, eBay, and Facebook by Meta with the #1 ecommerce platform. </p>
        */
       body: string;
       /** @description Tags to characterize the blog post. */
-      tags?: (string)[];
+      tags?: string[];
       /**
-       * @description Summary of the blog post. (READ-ONLY) 
+       * @description Summary of the blog post. (READ-ONLY)
        * @example <p>We power ecommerce websites for successful retailers all over the world</p>
        */
       summary?: string;
       /**
-       * @description Whether the blog post is published. 
+       * @description Whether the blog post is published.
        * @example true
        */
       is_published?: boolean;
       published_date?: components["schemas"]["publishedDate"];
       /**
-       * @description Published date in `ISO 8601` format. 
+       * @description Published date in `ISO 8601` format.
        * @example 5/18/2018 1:26:42 PM
        */
       published_date_iso8601?: string;
       /**
-       * @description Description text for this blog post’s `<meta/>` element. 
+       * @description Description text for this blog post’s `<meta/>` element.
        * @example Welcome Post
        */
       meta_description?: string;
       /**
-       * @description Keywords for this blog post’s `<meta/>` element. 
+       * @description Keywords for this blog post’s `<meta/>` element.
        * @example BigCommerce, welcome, ecommerce
        */
       meta_keywords?: string;
       /**
-       * @description Name of the blog post’s author. 
+       * @description Name of the blog post’s author.
        * @example BigCommerce
        */
       author?: string;
@@ -661,60 +661,60 @@ export interface components {
       thumbnail_path?: string;
     };
     /**
-     * blogPost_Base_Res 
+     * blogPost_Base_Res
      * @description blog post base response
      */
     blogPost_Base_Res: {
       /**
-       * @description Title of this blog post. 
+       * @description Title of this blog post.
        * @example Welcome to BigCommerce
        */
       title?: string;
       /**
-       * @description URL for the public blog post. 
+       * @description URL for the public blog post.
        * @example /blog/welcome-bigcommerce/
        */
       url?: string;
       /**
-       * @description URL to preview the blog post. (READ-ONLY) 
+       * @description URL to preview the blog post. (READ-ONLY)
        * @example /blog/welcome-bigcommerce/
        */
       preview_url?: string;
       /**
-       * @description Text body of the blog post. 
+       * @description Text body of the blog post.
        * @example <p>Customize your site, manage shipping and payments, and list your products on Amazon, eBay, and Facebook by Meta with the #1 ecommerce platform. </p>
        */
       body?: string;
       /** @description Tags to characterize the blog post. */
-      tags?: (string)[];
+      tags?: string[];
       /**
-       * @description Summary of the blog post. (READ-ONLY) 
+       * @description Summary of the blog post. (READ-ONLY)
        * @example <p>We power ecommerce websites for successful retailers all over the world</p>
        */
       summary?: string;
       /**
-       * @description Whether the blog post is published. 
+       * @description Whether the blog post is published.
        * @example true
        */
       is_published?: boolean;
       published_date?: components["schemas"]["publishedDate"];
       /**
-       * @description Published date in `ISO 8601` format. 
+       * @description Published date in `ISO 8601` format.
        * @example 5/18/2018 1:26:42 PM
        */
       published_date_iso8601?: string;
       /**
-       * @description Description text for this blog post’s `<meta/>` element. 
+       * @description Description text for this blog post’s `<meta/>` element.
        * @example Welcome Post
        */
       meta_description?: string | null;
       /**
-       * @description Keywords for this blog post’s `<meta/>` element. 
+       * @description Keywords for this blog post’s `<meta/>` element.
        * @example BigCommerce, welcome, ecommerce
        */
       meta_keywords?: string | null;
       /**
-       * @description Name of the blog post’s author. 
+       * @description Name of the blog post’s author.
        * @example BigCommerce
        */
       author?: string | null;
@@ -725,7 +725,7 @@ export interface components {
       /** @example 1 */
       timezone_type?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @example 2022-08-10 14:39:15.000000
        */
       date?: string;
@@ -743,76 +743,76 @@ export interface components {
     /** page_Base */
     page_Base: {
       /**
-       * @description ID of any parent Web page. 
+       * @description ID of any parent Web page.
        * @example 5
        */
       parent_id?: number;
       /**
-       * @description `page`: free-text page  
-       * `link`: link to another web address  
-       * `rss_feed`: syndicated content from an RSS feed  
+       * @description `page`: free-text page
+       * `link`: link to another web address
+       * `rss_feed`: syndicated content from an RSS feed
        * `contact_form`: When the store's contact form is used.
-       * 
-       * 	 
+       *
+       *
        * @enum {string}
        */
       type: "page" | "rss_feed" | "contact_form" | "raw" | "link";
       /**
-       * @description Where the page’s type is a contact form: object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname`: full name of the customer submitting the form; `phone`: customer’s phone number, as submitted on the form; `companyname`: customer’s submitted company name; `orderno`: customer’s submitted order number; `rma`: customer’s submitted RMA (Return Merchandise Authorization) number. 
+       * @description Where the page’s type is a contact form: object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname`: full name of the customer submitting the form; `phone`: customer’s phone number, as submitted on the form; `companyname`: customer’s submitted company name; `orderno`: customer’s submitted order number; `rma`: customer’s submitted RMA (Return Merchandise Authorization) number.
        * @example fullname,companyname,phone,orderno,rma
        */
       contact_fields?: string;
       /**
-       * @description Where the page’s type is a contact form: email address that receives messages sent via the form. 
+       * @description Where the page’s type is a contact form: email address that receives messages sent via the form.
        * @example janedoes@example.com
        */
       email?: string;
       /**
-       * @description Page name, as displayed on the storefront. 
+       * @description Page name, as displayed on the storefront.
        * @example Contact Form
        */
       name: string;
       /**
-       * @description Relative URL on the storefront for this page. 
+       * @description Relative URL on the storefront for this page.
        * @example /contact-us/
        */
       url?: string;
       /** @description Description contained within this page’s `<meta/>` element. */
       meta_description?: string;
       /**
-       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`. 
+       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`.
        * @example <p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>
        */
       body: string;
       /**
-       * @description HTML to use for this page's body when viewed in the mobile template (deprecated). 
+       * @description HTML to use for this page's body when viewed in the mobile template (deprecated).
        * @example 0
        */
       mobile_body?: string;
       /**
-       * @description If true, this page has a mobile version. 
+       * @description If true, this page has a mobile version.
        * @example false
        */
       has_mobile_version?: boolean;
       /**
-       * @description If true, this page appears in the storefront’s navigation menu. 
+       * @description If true, this page appears in the storefront’s navigation menu.
        * @example true
        */
       is_visible?: boolean;
       /**
-       * @description If true, this page is the storefront’s home page. 
+       * @description If true, this page is the storefront’s home page.
        * @example false
        */
       is_homepage?: boolean;
       /** @description Text specified for this page’s `<title>` element. (If empty, the value of the name property is used.) */
       meta_title?: string;
       /**
-       * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied. 
+       * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied.
        * @example page.html
        */
       layout_file?: string;
       /**
-       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.) 
+       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.)
        * @example 3
        */
       sort_order?: number;
@@ -825,7 +825,7 @@ export interface components {
       /** @description If page type is `link` this field is returned. Required in  POST to create a `link` page. */
       link?: string;
       /**
-       * @example text/html 
+       * @example text/html
        * @enum {string}
        */
       content_type?: "application/json" | "text/javascript" | "text/html";
@@ -833,76 +833,76 @@ export interface components {
     /** page_Base_Res */
     page_Base_Res: {
       /**
-       * @description ID of any parent Web page. 
+       * @description ID of any parent Web page.
        * @example 5
        */
       parent_id?: number;
       /**
-       * @description `page`: free-text page  
-       * `link`: link to another web address  
-       * `rss_feed`: syndicated content from an RSS feed  
+       * @description `page`: free-text page
+       * `link`: link to another web address
+       * `rss_feed`: syndicated content from an RSS feed
        * `contact_form`: When the store's contact form is used.
-       * 
-       * 	 
+       *
+       *
        * @enum {string}
        */
       type?: "page" | "rss_feed" | "contact_form" | "raw" | "link";
       /**
-       * @description Where the page’s type is a contact form: object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname`: full name of the customer submitting the form; `phone`: customer’s phone number, as submitted on the form; `companyname`: customer’s submitted company name; `orderno`: customer’s submitted order number; `rma`: customer’s submitted RMA (Return Merchandise Authorization) number. 
+       * @description Where the page’s type is a contact form: object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname`: full name of the customer submitting the form; `phone`: customer’s phone number, as submitted on the form; `companyname`: customer’s submitted company name; `orderno`: customer’s submitted order number; `rma`: customer’s submitted RMA (Return Merchandise Authorization) number.
        * @example fullname,companyname,phone,orderno,rma
        */
       contact_fields?: string;
       /**
-       * @description Where the page’s type is a contact form: email address that receives messages sent via the form. 
+       * @description Where the page’s type is a contact form: email address that receives messages sent via the form.
        * @example janedoes@example.com
        */
       email?: string;
       /**
-       * @description Page name, as displayed on the storefront. 
+       * @description Page name, as displayed on the storefront.
        * @example Contact Form
        */
       name?: string;
       /**
-       * @description Relative URL on the storefront for this page. 
+       * @description Relative URL on the storefront for this page.
        * @example /contact-us/
        */
       url?: string;
       /** @description Description contained within this page’s `<meta/>` element. */
       meta_description?: string;
       /**
-       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`. 
+       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`.
        * @example <p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>
        */
       body?: string;
       /**
-       * @description HTML to use for this page's body when viewed in the mobile template (deprecated). 
+       * @description HTML to use for this page's body when viewed in the mobile template (deprecated).
        * @example 0
        */
       mobile_body?: string;
       /**
-       * @description If true, this page has a mobile version. 
+       * @description If true, this page has a mobile version.
        * @example false
        */
       has_mobile_version?: boolean;
       /**
-       * @description If true, this page appears in the storefront’s navigation menu. 
+       * @description If true, this page appears in the storefront’s navigation menu.
        * @example true
        */
       is_visible?: boolean;
       /**
-       * @description If true, this page is the storefront’s home page. 
+       * @description If true, this page is the storefront’s home page.
        * @example false
        */
       is_homepage?: boolean;
       /** @description Text specified for this page’s `<title>` element. (If empty, the value of the name property is used.) */
       meta_title?: string;
       /**
-       * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied. 
+       * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied.
        * @example page.html
        */
       layout_file?: string;
       /**
-       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.) 
+       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.)
        * @example 3
        */
       sort_order?: number;
@@ -915,7 +915,7 @@ export interface components {
       /** @description If page type is `link` this field is returned. */
       link?: string;
       /**
-       * @example text/html 
+       * @example text/html
        * @enum {string}
        */
       content_type?: "application/json" | "text/javascript" | "text/html";
@@ -938,7 +938,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Blog Tags 
+   * Get All Blog Tags
    * @description Returns a list of *Blog Tags*.
    */
   getAllBlogTags: {
@@ -950,13 +950,13 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["blogTags"])[];
+          "application/json": components["schemas"]["blogTags"][];
         };
       };
     };
   };
   /**
-   * Get All Blog Posts 
+   * Get All Blog Posts
    * @description Returns all *Blog Posts*. Default sorting is by published_date, beginning with the most recent post.
    */
   getAllBlogPosts: {
@@ -982,21 +982,21 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["blogPost_Full"])[];
+          "application/json": components["schemas"]["blogPost_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Blog Post 
+   * Create a Blog Post
    * @description Creates a *Blog Post*.
-   * 
+   *
    * **Required Fields**
    * *   `title`
    * *   `body`
-   * 
+   *
    * **Notes**
-   * 
+   *
    * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
@@ -1028,7 +1028,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Blog Posts 
+   * Delete Blog Posts
    * @description Deletes a page of `Blog Posts`.
    */
   deleteAllBlogPosts: {
@@ -1051,7 +1051,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Blog Post 
+   * Get a Blog Post
    * @description Returns a single *Blog Post*.
    */
   getABlogPost: {
@@ -1073,13 +1073,13 @@ export interface operations {
     };
   };
   /**
-   * Update a Blog Post 
+   * Update a Blog Post
    * @description Updates a *Blog Post*.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
-   * 
+   *
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    */
   updateABlogPost: {
@@ -1113,7 +1113,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Blog Post 
+   * Delete a Blog Post
    * @description Deletes a *Blog Post*.
    */
   deleteABlogPost: {
@@ -1134,7 +1134,7 @@ export interface operations {
     };
   };
   /**
-   * Get A Count of All Blog Posts 
+   * Get A Count of All Blog Posts
    * @description Returns a count of all *Blog Posts*.
    */
   getACountOfAllBlogPosts: {
@@ -1152,10 +1152,10 @@ export interface operations {
     };
   };
   /**
-   * Get All Pages 
-   * @deprecated 
+   * Get All Pages
+   * @deprecated
    * @description Returns a list of *Pages*. Default sorting is by auto-generated ID from oldest to newest.
-   * 
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1176,31 +1176,31 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["page_Full"])[];
+          "application/json": components["schemas"]["page_Full"][];
           "Example": unknown;
         };
       };
     };
   };
   /**
-   * Create a Page 
-   * @deprecated 
+   * Create a Page
+   * @deprecated
    * @description Creates a *Page*. The request payload limit is 1MB.
-   * 
+   *
    * **Required Fields**
    * *   `type`
    * *   `name`
    * *   `link` (for a page of `type: link`)
    * *   `feed` (for a page of `type: rss_feed`)
    * *   `body` (for a page of `type: raw`)
-   * 
+   *
    * **Read Only Fields**
    * *   `id`
-   * 
+   *
    * ## Content Type
-   * 
+   *
    * The default value for `content_type` is `text/html`; however, if `page_type` is set to `raw`, `content_type` can be changed to `text/javascript` or `application/json`. Updating this field allows you to place a JavaScript or a JSON file in the root directory.
-   * 
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1233,10 +1233,10 @@ export interface operations {
     };
   };
   /**
-   * Get A Page 
-   * @deprecated 
-   * @description Returns a *Page*. 
-   * 
+   * Get A Page
+   * @deprecated
+   * @description Returns a *Page*.
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1261,13 +1261,13 @@ export interface operations {
     };
   };
   /**
-   * Update a Page 
-   * @deprecated 
+   * Update a Page
+   * @deprecated
    * @description Updates a *Page*. The request payload limit is 1MB.
-   * 
+   *
    * **Read Only Fields**
    * * id
-   * 
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1304,10 +1304,10 @@ export interface operations {
     };
   };
   /**
-   * Delete a Page 
-   * @deprecated 
+   * Delete a Page
+   * @deprecated
    * @description Deletes a *Page*.
-   * 
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1331,10 +1331,10 @@ export interface operations {
     };
   };
   /**
-   * Get All Redirects 
-   * @deprecated 
-   * @description Returns a list all *Redirect URLs*. 
-   * 
+   * Get All Redirects
+   * @deprecated
+   * @description Returns a list all *Redirect URLs*.
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1355,24 +1355,24 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["redirect"])[];
+          "application/json": components["schemas"]["redirect"][];
           "Response Schema": unknown;
         };
       };
     };
   };
   /**
-   * Create a Redirect 
+   * Create a Redirect
    * @description Creates a *Redirect URL*.
-   * 
+   *
    * **Required Fields**
    * *   path
    * *   forward
-   * 
+   *
    * **Read Only**
    * *   url
-   * 
-   * 
+   *
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1399,11 +1399,11 @@ export interface operations {
     };
   };
   /**
-   * Delete All Redirects 
-   * @deprecated 
-   * @description By default, it deletes all *Redirect URLs* in a store. 
-   * 
-   * 
+   * Delete All Redirects
+   * @deprecated
+   * @description By default, it deletes all *Redirect URLs* in a store.
+   *
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1423,12 +1423,12 @@ export interface operations {
     };
   };
   /**
-   * Get a Redirect 
-   * @deprecated 
+   * Get a Redirect
+   * @deprecated
    * @description Returns a single *Redirect URL*.
-   * 
+   *
    * > #### Warning
-   * > **Deprecated** 
+   * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To get a redirect URL, use Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
    */
@@ -1451,17 +1451,17 @@ export interface operations {
     };
   };
   /**
-   * Update a Redirect 
+   * Update a Redirect
    * @description Updates a *Redirect URL*.
-   * 
+   *
    * **Required Fields**
    * *   path
    * *   forward
-   * 
+   *
    * **Read Only Fields**
    * *   url
-   * 
-   * 
+   *
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
@@ -1482,30 +1482,30 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description Numeric ID of the redirect. 
+           * @description Numeric ID of the redirect.
            * @example 1
            */
           id?: number;
           /**
-           * @description The path from which to redirect. 
+           * @description The path from which to redirect.
            * @example /smith-journal-13/
            */
           path: string;
           forward: {
             /**
              * @description The type of redirect. If it is a manual redirect then type will always be manual. Dynamic redirects will have the type of the page. Such as product or category.
-             *  
+             *
              * @example product
              */
             type?: string;
             /**
-             * @description Reference of the redirect. Dynamic redirects will have the category or product number. Manual redirects will have the url that is being directed to. 
+             * @description Reference of the redirect. Dynamic redirects will have the category or product number. Manual redirects will have the url that is being directed to.
              * @example 111
              */
             ref?: string;
           };
           /**
-           * @description URL of the redirect. READ-ONLY 
+           * @description URL of the redirect. READ-ONLY
            * @example http://store-url.mybigcommerce.com/towels/bath-towels/hand-towels/
            */
           url?: string;
@@ -1521,11 +1521,11 @@ export interface operations {
     };
   };
   /**
-   * Delete a Redirect 
+   * Delete a Redirect
    * @description Deletes a *Redirect URL*.
-   * 
+   *
    * > #### Warning
-   * > **Deprecated** 
+   * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To delete a redirect URL, use Redirects V3ʼs [Delete redirects](/docs/rest-management/redirects#delete-redirects) endpoint.
    */
@@ -1547,10 +1547,10 @@ export interface operations {
     };
   };
   /**
-   * Get a Count of Redirects 
-   * @deprecated 
+   * Get a Count of Redirects
+   * @deprecated
    * @description Gets a count of *Redirect URLs* in a store.
-   * 
+   *
    * > #### Warning
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.

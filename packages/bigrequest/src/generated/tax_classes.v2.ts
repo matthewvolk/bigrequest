@@ -8,16 +8,16 @@
 export interface paths {
   "/tax_classes": {
     /**
-     * Get All Tax Classes 
+     * Get All Tax Classes
      * @description Returns a list of all *Tax Classes* in a store.
-     * 
+     *
      * Default sorting is by tax-class id, from lowest to highest.
      */
     get: operations["getAllTaxClasses"];
   };
   "/tax_classes/{id}": {
     /**
-     * Get a Tax Class 
+     * Get a Tax Class
      * @description Returns a single *Tax Class*.
      */
     get: operations["getATaxClass"];
@@ -29,7 +29,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * taxClass_Full 
+     * taxClass_Full
      * @example {
      *   "id": "1",
      *   "name": "Shipping",
@@ -39,24 +39,24 @@ export interface components {
      */
     taxClass_Full: {
       /**
-       * @description The unique numerical ID of the tax class. A read-only value which is automatically assigned and increments sequentially. 
+       * @description The unique numerical ID of the tax class. A read-only value which is automatically assigned and increments sequentially.
        * @example 1
        */
       id?: string;
       /**
-       * @description The name of the tax class. 
+       * @description The name of the tax class.
        * @example Shipping
        */
       name?: string;
       /**
-       * Format: date-time 
-       * @description Date and time of the tax class' creation. Read-Only. 
+       * Format: date-time
+       * @description Date and time of the tax class' creation. Read-Only.
        * @example "2018-05-07T20:14:17.000Z"
        */
       created_at?: string;
       /**
-       * Format: date-time 
-       * @description Date and time when the tax class was last updated. Read-Only. 
+       * Format: date-time
+       * @description Date and time when the tax class was last updated. Read-Only.
        * @example "2018-05-07T20:14:17.000Z"
        */
       updated_at?: string;
@@ -79,9 +79,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Tax Classes 
+   * Get All Tax Classes
    * @description Returns a list of all *Tax Classes* in a store.
-   * 
+   *
    * Default sorting is by tax-class id, from lowest to highest.
    */
   getAllTaxClasses: {
@@ -99,13 +99,13 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["taxClass_Full"])[];
+          "application/json": components["schemas"]["taxClass_Full"][];
         };
       };
     };
   };
   /**
-   * Get a Tax Class 
+   * Get a Tax Class
    * @description Returns a single *Tax Class*.
    */
   getATaxClass: {

@@ -8,13 +8,13 @@
 export interface paths {
   "/coupons": {
     /**
-     * Get All Coupons 
+     * Get All Coupons
      * @description Returns a list of *Coupons*. Default sorting is by coupon/discount id, from lowest to highest. Optional filter parameters can be passed in.
-     * 
+     *
      * ## Usage Notes
-     * 
+     *
      * Available types for `type` and `exclude_type` filters:
-     * 
+     *
      * |Type|
      * |-|
      * |`per_item_discount`|
@@ -23,9 +23,9 @@ export interface paths {
      * |`shipping_discount`|
      * |`free_shipping`|
      * |`promotion`|
-     * 
+     *
      * Coupons with `type=promotion` will not populate usable data for the following fields but instead be set to the following default values:
-     * 
+     *
      * ```json
      * ...
      * amount : 0.0000
@@ -38,35 +38,35 @@ export interface paths {
      */
     get: operations["getAllCoupons"];
     /**
-     * Create a New Coupon 
+     * Create a New Coupon
      * @description Creates a *Coupon*.
-     * 
+     *
      * **Required Fields**
      * *   `name`
      * *   `code`
      * *   `type`
      * *   `amount`
      * *   `applies_to`
-     * 
+     *
      * **Read Only Fields**
      * *   `id`
      * *   `num_uses`
-     * 
+     *
      * **Notes**
-     * 
+     *
      * The coupon type can be one of the following:
-     * 
+     *
      * *   `per_item_discount`
      * *   `per_total_discount`
      * *   `shipping_discount`
      * *   `free_shipping`
      * *   `percentage_discount`
-     * 
+     *
      * Legacy coupon codes only work with the store's default currency. Applying a coupon with any other currency other than the store's default will result in the error: "Coupons only apply to default currency."
      */
     post: operations["createANewCoupon"];
     /**
-     * Delete All Coupons 
+     * Delete All Coupons
      * @description ## Usage Notes
      * * Deleting a coupon via this endpoint will delete the coupon but not the promotion it is attached to
      */
@@ -79,7 +79,7 @@ export interface paths {
   };
   "/coupons/count": {
     /**
-     * Get a Count of Coupons 
+     * Get a Count of Coupons
      * @description Returns a count of all *Coupons* in the store.
      */
     get: operations["getACountOfCoupons"];
@@ -91,23 +91,23 @@ export interface paths {
   };
   "/coupons/{id}": {
     /**
-     * Update a Coupon 
+     * Update a Coupon
      * @description Updates a *Coupon*.
-     * 
-     * 
+     *
+     *
      * **Read Only Fields**
-     * 
+     *
      * * `id`
      * * `num_uses`
      * * `date_created`
-     * 
+     *
      * **Notes**
-     * 
+     *
      * If the `applies_to` value is cleared, you can restore it to the coupon by reapplying the `applies_to` value in a new `PUT` request.
      */
     put: operations["updateACoupon"];
     /**
-     * Delete a Coupon 
+     * Delete a Coupon
      * @description Deletes a *Coupon*.
      */
     delete: operations["deleteACoupon"];
@@ -123,28 +123,28 @@ export interface paths {
   };
   "/banners": {
     /**
-     * Get All Banners 
+     * Get All Banners
      * @description Returns a list of *Banners*. Default sorting is by banner id, from lowest to highest.
      */
     get: operations["getAllBanners"];
     /**
-     * Create a Banner 
+     * Create a Banner
      * @description Creates a *Banner*.
-     * 
+     *
      * **Required Fields**
      * * name
      * * content
      * * page
      * * location
      * * date_type
-     * 
+     *
      * **Read Only Fields**
      * * date_created
      * * id
      */
     post: operations["createABanner"];
     /**
-     * Delete All Banners 
+     * Delete All Banners
      * @description By default, it deletes all *Banners*.
      */
     delete: operations["deleteAllBanners"];
@@ -156,21 +156,21 @@ export interface paths {
   };
   "/banners/{id}": {
     /**
-     * Get a Banner 
+     * Get a Banner
      * @description Returns a single *Banner*
      */
     get: operations["getABanner"];
     /**
-     * Update a Banner 
+     * Update a Banner
      * @description Updates a *Banner*.
-     * 
+     *
      * **Read Only Fields**
      * * date_created
      * * id
      */
     put: operations["updateABanner"];
     /**
-     * Delete a Banner 
+     * Delete a Banner
      * @description Deletes a *Banner*.
      */
     delete: operations["deleteABanner"];
@@ -186,7 +186,7 @@ export interface paths {
   };
   "/banners/count": {
     /**
-     * Get a Count of Store Banners 
+     * Get a Count of Store Banners
      * @description Returns a count of *Banners*.
      */
     get: operations["getACountOfBanners"];
@@ -198,21 +198,21 @@ export interface paths {
   };
   "/gift_certificates/{id}": {
     /**
-     * Get a Gift Certificate 
+     * Get a Gift Certificate
      * @description Returns a single *Gift Certificate*.
      */
     get: operations["getAGiftCertificate"];
     /**
-     * Update a Gift Certificate 
+     * Update a Gift Certificate
      * @description Updates a *Gift Certificate*.
-     * 
+     *
      * **Read Only Fields**
      * * id
      * * order_id
      */
     put: operations["updateAGiftCertificate"];
     /**
-     * Delete a Gift Certificate 
+     * Delete a Gift Certificate
      * @description Deletes a *Gift Certificate*.
      */
     delete: operations["deleteAGiftCertificate"];
@@ -228,37 +228,37 @@ export interface paths {
   };
   "/gift_certificates": {
     /**
-     * Get All Gift Certificates 
+     * Get All Gift Certificates
      * @description Returns a list of *Gift Certificates*. Optional filter parameters can be passed in.
-     * 
+     *
      * Default sorting is by gift-certificate id, from lowest to highest.
-     * 
+     *
      * The maximum limit is 250. If a limit isn’t provided, up to 50 gift_certificates are returned by default.
      */
     get: operations["getAllGiftCertificates"];
     /**
-     * Create a Gift Certificate 
+     * Create a Gift Certificate
      * @description Creates a *Gift Certificate*.
-     * 
-     * 
+     *
+     *
      * **Required Fields**
      * * to_name
      * * to_email
      * * from_name
      * * from_email
      * * amount
-     * 
+     *
      * **Read Only Fields**
      * * id
      * * order_id
-     * 
+     *
      * **Notes**
-     * 
+     *
      * When a gift certificate is created through the API, no email notification is triggered to the specified recipient.
      */
     post: operations["createAGiftCertificate"];
     /**
-     * Delete All Gift Certificates 
+     * Delete All Gift Certificates
      * @description By default, it deletes all *Gift Certificates*.
      */
     delete: operations["deleteAllGiftCertificates"];
@@ -277,12 +277,12 @@ export interface components {
     /** Coupon Resource */
     CouponsResource: {
       /**
-       * @description URL of the coupons for api requests 
+       * @description URL of the coupons for api requests
        * @example https://api.bigcommerce.com/stores/{store_hash}/v2/orders/129/coupons
        */
       url?: string;
       /**
-       * @description resource of the coupons 
+       * @description resource of the coupons
        * @example /orders/129/coupons
        */
       resource?: string;
@@ -290,23 +290,23 @@ export interface components {
     /** coupon_Full */
     coupon_Full: {
       /**
-       * @description The coupon's ID. This is a read-only field; do not set or modify its value in a POST or PUT request. 
+       * @description The coupon's ID. This is a read-only field; do not set or modify its value in a POST or PUT request.
        * @example 2
        */
       id: number;
       /**
-       * @description Date Created 
+       * @description Date Created
        * @example Tue, 13 Mar 2018 16:18:59 +0000
        */
       date_created?: string;
       /**
-       * @description Number of times this coupon has been used. This is a read-only field; do not set or modify its value in a POST or PUT request. 
+       * @description Number of times this coupon has been used. This is a read-only field; do not set or modify its value in a POST or PUT request.
        * @example 0
        */
       num_uses?: number;
     } & components["schemas"]["coupon_Base"];
     /**
-     * coupon_Base 
+     * coupon_Base
      * @example {
      *   "id": 2,
      *   "name": "Australia Customers Discount",
@@ -337,48 +337,48 @@ export interface components {
      */
     coupon_Base: {
       /**
-       * @description The name of the coupon. 
+       * @description The name of the coupon.
        * @example Australia Customers Discount
        */
       name: string;
       /** @enum {string} */
       type: "per_item_discount" | "per_total_discount" | "shipping_discount" | "free_shipping" | "percentage_discount" | "promotion";
       /**
-       * @description The discount to apply to an order, as either an amount or a percentage. This field’s usage is determined by the coupon `type`. For example, a `type` of + `percentage_discount` would determine a percentage here. 
+       * @description The discount to apply to an order, as either an amount or a percentage. This field’s usage is determined by the coupon `type`. For example, a `type` of + `percentage_discount` would determine a percentage here.
        * @example 5
        */
       amount: string;
       /**
-       * @description Specifies a minimum value that an order must have before the coupon can be applied to it. 
+       * @description Specifies a minimum value that an order must have before the coupon can be applied to it.
        * @example 25
        */
       min_purchase?: string;
       /** @description Specifies when a coupon expires. Coupons need not have an expiry date – you can also control expiry via + `max_uses` or `max_uses_per_customer`. If you do use this date field, the value must be in <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a> format. */
       expires?: string;
       /**
-       * @description If the coupon is enabled, this field’s value is `true`; otherwise, `false`. 
+       * @description If the coupon is enabled, this field’s value is `true`; otherwise, `false`.
        * @example true
        */
       enabled?: boolean;
       /**
-       * @description The coupon code that customers will use to receive their discounts. Value must be unique. Only letters, numbers, white space, underscores, and hyphens are allowed. 
+       * @description The coupon code that customers will use to receive their discounts. Value must be unique. Only letters, numbers, white space, underscores, and hyphens are allowed.
        * @example S2549JM0Y
        */
       code: string;
       /** @description If it is not included in the PUT request, its existing value on the coupon will be cleared. Also required to be set on the POST request */
       applies_to: {
         /** @description ID of either the products or categories */
-        ids?: (number)[];
+        ids?: number[];
         /** @description What the discount applies to. Can be products or categories. */
         entity?: string;
       };
       /**
-       * @description Maximum number of times this coupon can be used. 
+       * @description Maximum number of times this coupon can be used.
        * @example 25
        */
       max_uses?: number;
       /**
-       * @description Maximum number of times each customer can use this coupon. 
+       * @description Maximum number of times each customer can use this coupon.
        * @example 0
        */
       max_uses_per_customer?: number;
@@ -387,53 +387,53 @@ export interface components {
         null?: string;
       };
       /** @description This is a list of shipping-method names. A shipping method must be enabled on the store to use it with a coupon. To check which shipping methods are enabled, please use the [List Shipping Methods](/api/v2#list-shipping-methods) endpoint. */
-      shipping_methods?: (string)[];
+      shipping_methods?: string[];
     };
     /** banner_Base */
     banner_Base: {
       /**
-       * @description Name of the banner. 
+       * @description Name of the banner.
        * @example Sale Banner
        */
       name: string;
       /**
-       * @description Contains the banner content. Returned as a string and includes HTML formatting. 
+       * @description Contains the banner content. Returned as a string and includes HTML formatting.
        * @example <p> Sale! Tuesday at 9am! </p>
        */
       content: string;
       /**
-       * @description Page the Banner is located on. 
+       * @description Page the Banner is located on.
        * @enum {string}
        */
       page: "home_page" | "category_page" | "brand_page" | "search_page";
       /**
-       * @description Location on the page. 
-       * @example top 
+       * @description Location on the page.
+       * @example top
        * @enum {string}
        */
       location: "top" | "bottom";
       /**
-       * @description This specifies whether the banner should be visible during a specific date range. 
+       * @description This specifies whether the banner should be visible during a specific date range.
        * @enum {string}
        */
       date_type: "always" | "custom";
       /**
-       * @description If the datetype is set as 'custom’, this field specifies the date when the banner should become visible on the storefront. 
+       * @description If the datetype is set as 'custom’, this field specifies the date when the banner should become visible on the storefront.
        * @example 0
        */
       date_from?: string;
       /**
-       * @description If the datetype is set as 'custom’, this field specifies the date when the banner should stop being visible on the storefront. 
+       * @description If the datetype is set as 'custom’, this field specifies the date when the banner should stop being visible on the storefront.
        * @example 0
        */
       date_to?: string;
       /**
-       * @description Integer value denoting whether or not the banner is visible on the storefront: 1 = visible; 0 = not visible 
+       * @description Integer value denoting whether or not the banner is visible on the storefront: 1 = visible; 0 = not visible
        * @example 1
        */
       visible?: string;
       /**
-       * @description If the banner is on a specific category or brand page, then the item_id will correspond the category or brand ID. 
+       * @description If the banner is on a specific category or brand page, then the item_id will correspond the category or brand ID.
        * @example 35
        */
       item_id?: string;
@@ -443,7 +443,7 @@ export interface components {
       /**
        * @description Id of the banner.
        * This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
-       *  
+       *
        * @example 1
        */
       id?: number;
@@ -455,27 +455,27 @@ export interface components {
     /** giftCertificate_Base */
     giftCertificate_Base: {
       /**
-       * @description Name of the recipient. 
+       * @description Name of the recipient.
        * @example John Doe
        */
       to_name: string;
       /**
-       * @description Email of the recipient. 
+       * @description Email of the recipient.
        * @example johndoe@example.com
        */
       to_email: string;
       /**
-       * @description Name of the customer who purchased the gift certificate. 
+       * @description Name of the customer who purchased the gift certificate.
        * @example Jane Doe
        */
       from_name: string;
       /**
-       * @description Email of the customer who purchased the gift certificate. 
+       * @description Email of the customer who purchased the gift certificate.
        * @example janedoe@example.com
        */
       from_email: string;
       /**
-       * @description Value of the gift certificate. 
+       * @description Value of the gift certificate.
        * @example 10
        */
       amount: string;
@@ -483,151 +483,165 @@ export interface components {
     /** giftCertificate_Full */
     giftCertificate_Full: components["schemas"]["giftCertificate_Base"] & ({
       /**
-       * @description The ID of the gift certificate.This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. 
+       * @description The ID of the gift certificate. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
        * @example 1
        */
       id?: number;
       /**
-       * @description The ID of the customer placing the order. 
+       * @description The ID of the customer placing the order.
        * @example 5
        */
       customer_id?: number;
       /**
-       * @description The ID of the order. 
+       * @description The ID of the order.
        * @example 116
        */
       order_id?: number;
       /**
-       * @description Remaining value of the gift certificate. If not set, will default to the amount. 
+       * @description Remaining value of the gift certificate. If not set, will default to the amount.
        * @example 0
        */
       balance?: string;
       /**
-       * @description Date the gift certificate was purchased. If not assigned, this will be set to today’s date. Date displays in the [RFC 2822](https://www.rfc-editor.org/rfc/rfc2822#section-3.3) timestamp format. 
+       * @description Date the gift certificate was purchased. If not assigned, this will be set to today’s date. Date displays in the [RFC 2822](https://www.rfc-editor.org/rfc/rfc2822#section-3.3) timestamp format.
        * @example Tue, 20 Jan 1970 08:45:38 CST
        */
       purchase_date?: string;
       /**
-       * @description Date on which the gift certificate is set to expire. Date displays in the [RFC 2822](https://www.rfc-editor.org/rfc/rfc2822#section-3.3) timestamp format. 
+       * @description Date on which the gift certificate is set to expire. Date displays in the [RFC 2822](https://www.rfc-editor.org/rfc/rfc2822#section-3.3) timestamp format.
        * @example Mon, 2 Jan 2023 08:45:38 CST
        */
       expiry_date?: string;
       /**
-       * @description The email theme to use in the message sent to the recipient. 
-       * @example Celebration 
+       * @description The email theme to use in the message sent to the recipient.
+       * @example Celebration
        * @enum {string}
        */
       template?: "Birthday" | "Girl" | "Boy" | "Celebration" | "Christmas" | "General";
       /**
-       * @description Text that will be sent to the recipient, such as “Congratulations.” 
+       * @description Text that will be sent to the recipient, such as “Congratulations.”
        * @example Congratulations!
        */
       message?: string;
       /**
        * @description A unique string that a customer can input to redeem a gift certificate. Values greater than 20 characters will be trimmed down to the first 20 characters and returned in the response.
-       * If this field is not set, a value will be autogenerated. 
+       * If this field is not set, a value will be autogenerated.
        * @example FFZ-5N4-C7M-S78
        */
       code?: string;
       /**
-       * @example active 
+       * @example active
        * @enum {string}
        */
       status?: "active" | "pending" | "disabled" | "expired";
+      /**
+       * @description A currency code, following the ISO 4217 standard. The currency has to exist in the store first.
+       *
+       * Gift Certificates can only be used if the transactional currency of the cart is the same as the one defined in the gift certificate. If this value is not provided, the gift certificate is created using the store's default transactional currency.
+       * @example USD
+       */
+      currency_code?: string;
     });
     /** giftCertificate_Put */
     giftCertificate_Put: components["schemas"]["giftCertificate_Base"] & ({
       /**
-       * @description Remaining value of the gift certificate. If not set, will default to the amount. 
+       * @description The remaining value of the gift certificate. If not set, will default to the amount.
        * @example 0
        */
       balance?: string;
       /**
-       * @description Date the gift certificate was purchased. If not assigned, this will be set to today’s date. Enter date in RFC-2822 format. 
+       * @description Date the gift certificate was purchased. If not assigned, this will be set to today’s date. Enter date in RFC-2822 format.
        * @example Mon, 19 Jan 1970 07:21:46 CST
        */
       purchase_date?: string;
       /**
-       * @description Date on which the gift certificate is set to expire. 
+       * @description Date on which the gift certificate is set to expire.
        * @example Mon, 02 Jan 2023 08:45:38 CST
        */
       expiry_date?: string;
       /**
-       * @description The ID of the customer placing the order. 
+       * @description The ID of the customer placing the order.
        * @example 5
        */
       customer_id?: number;
       /**
-       * @description The email theme to use in the message sent to the recipient. 
-       * @example Celebration 
+       * @description The email theme to use in the message sent to the recipient.
+       * @example Celebration
        * @enum {string}
        */
       template?: "Birthday" | "Boy" | "Girl" | "Celebration" | "Christmas" | "General";
       /**
-       * @description Text that will be sent to the recipient, such as “Congratulations.” 
+       * @description Text that will be sent to the recipient, such as “Congratulations.”
        * @example Congratulations!
        */
       message?: string;
       /**
        * @description A unique string that a customer can input to redeem a gift certificate. Values greater than 20 characters will be trimmed down to the first 20 characters and returned in the response.
-       * If this field is not set, a value will be autogenerated. 
+       * If this field is not set, a value will be autogenerated.
        * @example FFZ-5N4-C7M-S78
        */
       code?: string;
       /**
-       * @example active 
+       * @example active
        * @enum {string}
        */
       status?: "active" | "pending" | "expired" | "disabled";
+      /**
+       * @description A currency code, following the ISO 4217 standard. The currency has to exist in the store first.
+       *
+       * Gift Certificates can only be used if the transactional currency of the cart is the same as the one defined in the gift certificate. If this value is not provided, the gift certificate is created using the store's default transactional currency.
+       * @example USD
+       */
+      currency_code?: string;
     });
     /** giftCertificate_Post */
     giftCertificate_Post: components["schemas"]["giftCertificate_Base"] & ({
       /**
-       * @description Remaining value of the gift certificate. If not set, will default to the amount. 
+       * @description Remaining value of the gift certificate. If not set, will default to the amount.
        * @example 0
        */
       balance?: string;
       /**
-       * @description Date the gift certificate was purchased. If not assigned, this will be set to today’s date. Enter date in RFC-2822 format. 
+       * @description Date the gift certificate was purchased. If not assigned, this will be set to today’s date. Enter date in RFC-2822 format.
        * @example Mon, 19 Jan 1970 07:21:46 CST
        */
       purchase_date?: string;
       /**
-       * @description Date on which the gift certificate is set to expire. The date must be in [RFC 2822](https://www.rfc-editor.org/rfc/rfc2822#section-3.3) format. 
+       * @description Date on which the gift certificate is set to expire. The date must be in [RFC 2822](https://www.rfc-editor.org/rfc/rfc2822#section-3.3) format.
        * @example Tue, 20 Jan 1970 08:45:38 CST
        */
       expiry_date?: string;
       /**
-       * @description The ID of the customer placing the order. 
+       * @description The ID of the customer placing the order.
        * @example 5
        */
       customer_id?: number;
       /**
-       * @description The email theme to use in the message sent to the recipient. 
-       * @example Celebration 
+       * @description The email theme to use in the message sent to the recipient.
+       * @example Celebration
        * @enum {string}
        */
       template?: "Birthday" | "Boy" | "Girl" | "Celebration" | "Christmas" | "General";
       /**
-       * @description Text that will be sent to the recipient, such as “Congratulations.” 
+       * @description Text that will be sent to the recipient, such as “Congratulations.”
        * @example Congratulations!
        */
       message?: string;
       /**
        * @description A unique string that a customer can input to redeem a gift certificate. Values greater than 20 characters will be trimmed down to the first 20 characters and returned in the response.
-       * If this field is not set, a value will be autogenerated. 
+       * If this field is not set, a value will be autogenerated.
        * @example FFZ-5N4-C7M-S78
        */
       code?: string;
       /**
-       * @example active 
+       * @example active
        * @enum {string}
        */
       status?: "active" | "pending" | "expired" | "disabled";
       /**
-       * @description A currency code, following the ISO 4217 standard. The currency has to exists in the store first.
-       * 
-       * Gift Certificates can only be used if the transactional currency of the cart is the same to the one defined in the gift certificate. If this value is not provided, the gift certificate is created using the store's default transactional currency 
+       * @description A currency code, following the ISO 4217 standard. The currency has to exist in the store first.
+       *
+       * Gift Certificates can only be used if the transactional currency of the cart is the same as the one defined in the gift certificate. If this value is not provided, the gift certificate is created using the store's default transactional currency.
        * @example USD
        */
       currency_code?: string;
@@ -636,7 +650,7 @@ export interface components {
   responses: {
     bannerCollection_Resp: {
       content: {
-        "application/json": (components["schemas"]["banner_Full"])[];
+        "application/json": components["schemas"]["banner_Full"][];
       };
     };
     banner_Resp: {
@@ -658,12 +672,12 @@ export interface components {
     };
     coupon_Resp_Collection: {
       content: {
-        "application/json": (components["schemas"]["coupon_Full"])[];
+        "application/json": components["schemas"]["coupon_Full"][];
       };
     };
     giftCertificateCollection_Resp: {
       content: {
-        "application/json": (components["schemas"]["giftCertificate_Full"])[];
+        "application/json": components["schemas"]["giftCertificate_Full"][];
       };
     };
     giftCertificate_Resp: {
@@ -688,13 +702,13 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Coupons 
+   * Get All Coupons
    * @description Returns a list of *Coupons*. Default sorting is by coupon/discount id, from lowest to highest. Optional filter parameters can be passed in.
-   * 
+   *
    * ## Usage Notes
-   * 
+   *
    * Available types for `type` and `exclude_type` filters:
-   * 
+   *
    * |Type|
    * |-|
    * |`per_item_discount`|
@@ -703,9 +717,9 @@ export interface operations {
    * |`shipping_discount`|
    * |`free_shipping`|
    * |`promotion`|
-   * 
+   *
    * Coupons with `type=promotion` will not populate usable data for the following fields but instead be set to the following default values:
-   * 
+   *
    * ```json
    * ...
    * amount : 0.0000
@@ -763,36 +777,36 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["coupon_Full"])[];
+          "application/json": components["schemas"]["coupon_Full"][];
         };
       };
     };
   };
   /**
-   * Create a New Coupon 
+   * Create a New Coupon
    * @description Creates a *Coupon*.
-   * 
+   *
    * **Required Fields**
    * *   `name`
    * *   `code`
    * *   `type`
    * *   `amount`
    * *   `applies_to`
-   * 
+   *
    * **Read Only Fields**
    * *   `id`
    * *   `num_uses`
-   * 
+   *
    * **Notes**
-   * 
+   *
    * The coupon type can be one of the following:
-   * 
+   *
    * *   `per_item_discount`
    * *   `per_total_discount`
    * *   `shipping_discount`
    * *   `free_shipping`
    * *   `percentage_discount`
-   * 
+   *
    * Legacy coupon codes only work with the store's default currency. Applying a coupon with any other currency other than the store's default will result in the error: "Coupons only apply to default currency."
    */
   createANewCoupon: {
@@ -816,7 +830,7 @@ export interface operations {
     };
   };
   /**
-   * Delete All Coupons 
+   * Delete All Coupons
    * @description ## Usage Notes
    * * Deleting a coupon via this endpoint will delete the coupon but not the promotion it is attached to
    */
@@ -838,7 +852,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Count of Coupons 
+   * Get a Count of Coupons
    * @description Returns a count of all *Coupons* in the store.
    */
   getACountOfCoupons: {
@@ -858,18 +872,18 @@ export interface operations {
     };
   };
   /**
-   * Update a Coupon 
+   * Update a Coupon
    * @description Updates a *Coupon*.
-   * 
-   * 
+   *
+   *
    * **Read Only Fields**
-   * 
+   *
    * * `id`
    * * `num_uses`
    * * `date_created`
-   * 
+   *
    * **Notes**
-   * 
+   *
    * If the `applies_to` value is cleared, you can restore it to the coupon by reapplying the `applies_to` value in a new `PUT` request.
    */
   updateACoupon: {
@@ -897,7 +911,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Coupon 
+   * Delete a Coupon
    * @description Deletes a *Coupon*.
    */
   deleteACoupon: {
@@ -918,7 +932,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Banners 
+   * Get All Banners
    * @description Returns a list of *Banners*. Default sorting is by banner id, from lowest to highest.
    */
   getAllBanners: {
@@ -940,22 +954,22 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["banner_Full"])[];
+          "application/json": components["schemas"]["banner_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Banner 
+   * Create a Banner
    * @description Creates a *Banner*.
-   * 
+   *
    * **Required Fields**
    * * name
    * * content
    * * page
    * * location
    * * date_type
-   * 
+   *
    * **Read Only Fields**
    * * date_created
    * * id
@@ -981,7 +995,7 @@ export interface operations {
     };
   };
   /**
-   * Delete All Banners 
+   * Delete All Banners
    * @description By default, it deletes all *Banners*.
    */
   deleteAllBanners: {
@@ -998,7 +1012,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Banner 
+   * Get a Banner
    * @description Returns a single *Banner*
    */
   getABanner: {
@@ -1020,9 +1034,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Banner 
+   * Update a Banner
    * @description Updates a *Banner*.
-   * 
+   *
    * **Read Only Fields**
    * * date_created
    * * id
@@ -1052,7 +1066,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Banner 
+   * Delete a Banner
    * @description Deletes a *Banner*.
    */
   deleteABanner: {
@@ -1073,7 +1087,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Count of Store Banners 
+   * Get a Count of Store Banners
    * @description Returns a count of *Banners*.
    */
   getACountOfBanners: {
@@ -1093,7 +1107,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Gift Certificate 
+   * Get a Gift Certificate
    * @description Returns a single *Gift Certificate*.
    */
   getAGiftCertificate: {
@@ -1115,9 +1129,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Gift Certificate 
+   * Update a Gift Certificate
    * @description Updates a *Gift Certificate*.
-   * 
+   *
    * **Read Only Fields**
    * * id
    * * order_id
@@ -1147,7 +1161,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Gift Certificate 
+   * Delete a Gift Certificate
    * @description Deletes a *Gift Certificate*.
    */
   deleteAGiftCertificate: {
@@ -1168,11 +1182,11 @@ export interface operations {
     };
   };
   /**
-   * Get All Gift Certificates 
+   * Get All Gift Certificates
    * @description Returns a list of *Gift Certificates*. Optional filter parameters can be passed in.
-   * 
+   *
    * Default sorting is by gift-certificate id, from lowest to highest.
-   * 
+   *
    * The maximum limit is 250. If a limit isn’t provided, up to 50 gift_certificates are returned by default.
    */
   getAllGiftCertificates: {
@@ -1196,29 +1210,29 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["giftCertificate_Full"])[];
+          "application/json": components["schemas"]["giftCertificate_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Gift Certificate 
+   * Create a Gift Certificate
    * @description Creates a *Gift Certificate*.
-   * 
-   * 
+   *
+   *
    * **Required Fields**
    * * to_name
    * * to_email
    * * from_name
    * * from_email
    * * amount
-   * 
+   *
    * **Read Only Fields**
    * * id
    * * order_id
-   * 
+   *
    * **Notes**
-   * 
+   *
    * When a gift certificate is created through the API, no email notification is triggered to the specified recipient.
    */
   createAGiftCertificate: {
@@ -1242,7 +1256,7 @@ export interface operations {
     };
   };
   /**
-   * Delete All Gift Certificates 
+   * Delete All Gift Certificates
    * @description By default, it deletes all *Gift Certificates*.
    */
   deleteAllGiftCertificates: {

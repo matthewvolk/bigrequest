@@ -8,9 +8,9 @@
 export interface paths {
   "/marketing/email-templates": {
     /**
-     * Get Email Templates 
+     * Get Email Templates
      * @description Get a list of email templates.
-     * 
+     *
      * > #### Note
      * > The `/marketing/email-templates` endpoints only work after opting into the new email management experience from your storeʼs control panel. You can opt-in by visiting Email Templates. If you have already opted in, visiting the Email Templates page will return a `404` error, and you will be able to access the new Transactional Emails page.
      */
@@ -23,20 +23,20 @@ export interface paths {
   };
   "/marketing/email-templates/{template-name}": {
     /**
-     * Get an Email Template 
+     * Get an Email Template
      * @description Get a single global email template or a channel-specific email template override.
-     * 
+     *
      * > #### Note
      * > The `/marketing/email-templates` endpoints only work after opting into the new email management experience from your storeʼs control panel. You can opt-in by visiting [Email Templates](https://login.bigcommerce.com/deep-links/manage/marketing/email-templates). If you have already opted in, visiting the [Email Templates](https://login.bigcommerce.com/deep-links/manage/marketing/email-templates) page will return a `404` error, and you will be able to access the new [Transactional Emails](https://login.bigcommerce.com/deep-links/manage/transactional-emails) page.
      */
     get: operations["getEmailTemplate"];
     /**
-     * Update a Template 
+     * Update a Template
      * @description Update a global template or create a channel-specific email template override.
      */
     put: operations["updateEmailTemplate"];
     /**
-     * Delete Email Template Override 
+     * Delete Email Template Override
      * @description Removes a channel-specific email template override.
      */
     delete: operations["deleteEmailTemplateOverride"];
@@ -71,17 +71,17 @@ export interface components {
       [key: string]: string | undefined;
     };
     /**
-     * EmailTemplatesCollection 
+     * EmailTemplatesCollection
      * @description A collection of all email templates.
      */
-    EmailTemplatesCollection: (components["schemas"]["EmailTemplate"])[];
+    EmailTemplatesCollection: components["schemas"]["EmailTemplate"][];
     /**
-     * EmailTemplate 
+     * EmailTemplate
      * @description Data for a particular email template
      */
     EmailTemplate: {
       /**
-       * @example account_reset_password_email 
+       * @example account_reset_password_email
        * @enum {string}
        */
       type_id?: "abandoned_cart_email" | "account_details_changed_email" | "combined_order_status_email" | "createaccount_email" | "createguestaccount_email" | "giftcertificate_email" | "invoice_email" | "ordermessage_notification" | "return_confirmation_email" | "return_statuschange_email" | "product_review_email" | "account_reset_password_email";
@@ -92,17 +92,17 @@ export interface components {
       subject?: string;
     };
     /**
-     * LocaleObject 
+     * LocaleObject
      * @description A particular localeʼs translations.
      */
     LocaleObject: {
       /**
-       * @description Locale code for this language, such as "en", "en-us", "fr-ca". 
+       * @description Locale code for this language, such as "en", "en-us", "fr-ca".
        * @example en
        */
       locale?: string;
       /**
-       * @description Language keys for the template. User-defined. Should match any lang keys used in the template. 
+       * @description Language keys for the template. User-defined. Should match any lang keys used in the template.
        * @example {
        *   "reset_password": "To change your customer account password at {{name}} please click this link or copy and paste it into your browser:"
        * }
@@ -110,12 +110,12 @@ export interface components {
       keys?: Record<string, never>;
     };
     /**
-     * LocaleCollection 
+     * LocaleCollection
      * @description A collection of locale translations for the static language.
      */
-    LocaleCollection: (components["schemas"]["LocaleObject"])[];
+    LocaleCollection: components["schemas"]["LocaleObject"][];
     /**
-     * EmailTemplateUpdate 
+     * EmailTemplateUpdate
      * @description Data for updated template
      */
     EmailTemplateUpdate: {
@@ -151,9 +151,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Email Templates 
+   * Get Email Templates
    * @description Get a list of email templates.
-   * 
+   *
    * > #### Note
    * > The `/marketing/email-templates` endpoints only work after opting into the new email management experience from your storeʼs control panel. You can opt-in by visiting Email Templates. If you have already opted in, visiting the Email Templates page will return a `404` error, and you will be able to access the new Transactional Emails page.
    */
@@ -182,9 +182,9 @@ export interface operations {
     };
   };
   /**
-   * Get an Email Template 
+   * Get an Email Template
    * @description Get a single global email template or a channel-specific email template override.
-   * 
+   *
    * > #### Note
    * > The `/marketing/email-templates` endpoints only work after opting into the new email management experience from your storeʼs control panel. You can opt-in by visiting [Email Templates](https://login.bigcommerce.com/deep-links/manage/marketing/email-templates). If you have already opted in, visiting the [Email Templates](https://login.bigcommerce.com/deep-links/manage/marketing/email-templates) page will return a `404` error, and you will be able to access the new [Transactional Emails](https://login.bigcommerce.com/deep-links/manage/transactional-emails) page.
    */
@@ -216,7 +216,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Template 
+   * Update a Template
    * @description Update a global template or create a channel-specific email template override.
    */
   updateEmailTemplate: {
@@ -259,7 +259,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Email Template Override 
+   * Delete Email Template Override
    * @description Removes a channel-specific email template override.
    */
   deleteEmailTemplateOverride: {

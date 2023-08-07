@@ -8,26 +8,26 @@
 export interface paths {
   "/catalog/brands": {
     /**
-     * Get All Brands 
+     * Get All Brands
      * @description Returns a list of *Brands*. Optional filter parameters can be passed in.
      */
     get: operations["getBrands"];
     /**
-     * Create a Brand 
+     * Create a Brand
      * @description Creates a *Brand*.
-     * 
+     *
      * **Required Fields**
      * - name
-     * 
+     *
      * **Read-Only Fields**
      * - id
-     * 
+     *
      * **Limits**
      * - 30,000 brands per store limit
      */
     post: operations["createBrand"];
     /**
-     * Delete Brands 
+     * Delete Brands
      * @description By default, it deletes all *Brand* objects. A filter should be added to avoid deleting all *Brand* objects in a store.
      */
     delete: operations["deleteBrands"];
@@ -39,25 +39,25 @@ export interface paths {
   };
   "/catalog/brands/{brand_id}": {
     /**
-     * Get a Brand 
+     * Get a Brand
      * @description Returns a single *Brand*. Optional filter parameters can be passed in.
      */
     get: operations["getBrandById"];
     /**
-     * Update a Brand 
+     * Update a Brand
      * @description Updates a *Brand*.
-     * 
+     *
      * **Required Fields**
      * - None
-     * 
+     *
      * **Read-Only Fields**
      * - id
-     * 
+     *
      * To update a *Brand Image*, send a request with an `image_url`.
      */
     put: operations["updateBrand"];
     /**
-     * Delete a Brand 
+     * Delete a Brand
      * @description Deletes a *Brand*.
      */
     delete: operations["deleteBrandById"];
@@ -72,23 +72,23 @@ export interface paths {
   };
   "/catalog/brands/{brand_id}/metafields": {
     /**
-     * Get All Brand Metafields 
+     * Get All Brand Metafields
      * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
      */
     get: operations["getBrandMetafieldsByBrandId"];
     /**
-     * Create a Brand Metafield 
+     * Create a Brand Metafield
      * @description Creates a *Brand Metafield*.
-     * 
+     *
      * **Required Fields**
      * - permission_set
      * - namespace
      * - key
      * - value
-     * 
+     *
      * **Read-Only Fields**
      * - id
-     * 
+     *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createBrandMetafield"];
@@ -103,31 +103,31 @@ export interface paths {
   };
   "/catalog/brands/{brand_id}/metafields/{metafield_id}": {
     /**
-     * Get a Brand Metafields 
+     * Get a Brand Metafields
      * @description Returns a *Brand Metafield*. Optional filter parameters can be passed in.
      */
     get: operations["getBrandMetafieldByBrandId"];
     /**
-     * Update a Brand Metafield 
+     * Update a Brand Metafield
      * @description Updates a *Brand Metafield*.
-     * 
-     * **Required Fields**  
+     *
+     * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      * * These fields can only be modified by the app (API credentials) that created the metafield:
      * 	* namespace
      * 	* key
      * 	* permission_set
-     * 
+     *
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
      * * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     put: operations["updateBrandMetafield"];
     /**
-     * Delete a Brand Metafield 
+     * Delete a Brand Metafield
      * @description Deletes a *Brand Metafield*.
      */
     delete: operations["deleteBrandMetafieldById"];
@@ -143,20 +143,20 @@ export interface paths {
   };
   "/catalog/brands/{brand_id}/image": {
     /**
-     * Create a Brand Image 
+     * Create a Brand Image
      * @description Creates a *Brand Image*.
-     * 
+     *
      * **Required Fields**
      * - image_file: Form posts are the only accepted upload option.
-     * 
+     *
      * **Read-Only Fields**
      * - id
-     * 
+     *
      * Only one image at a time can be created. To update a *Brand Image*, use the [Update a brand](/docs/rest-catalog/brands#update-a-brand) endpoint and an `image_url`.
      */
     post: operations["createBrandImage"];
     /**
-     * Delete a Brand Image 
+     * Delete a Brand Image
      * @description Deletes a *Brand Image*.
      */
     delete: operations["deleteBrandImage"];
@@ -176,7 +176,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * brand_Full 
+     * brand_Full
      * @description Common Brand properties.
      */
     brand_Full: {
@@ -184,83 +184,83 @@ export interface components {
       id?: number;
       /**
        * @description The name of the brand. Must be unique.
-       * Required in POST. 
+       * Required in POST.
        * @example Common Good
        */
       name: string;
       /**
        * @description The title shown in the browser while viewing the brand.
-       *  
+       *
        * @example Common Good
        */
       page_title?: string;
       /** @description Comma-separated list of meta keywords to include in the HTML. */
-      meta_keywords?: (string)[];
+      meta_keywords?: string[];
       /**
        * @description A meta description to include.
-       *  
+       *
        * @example Common Good is a modern brand.
        */
       meta_description?: string;
       /**
        * @description A comma-separated list of keywords that can be used to locate this brand.
-       *  
+       *
        * @example kitchen, laundry, cart, storage
        */
       search_keywords?: string;
       /**
        * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-12345/product_images/k/your-image-name.png
        */
       image_url?: string;
       custom_url?: components["schemas"]["customUrl_Full"];
     };
     /**
-     * metafield_Base 
+     * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Base: {
       /**
        * @description The name of the field, for example: `location_id`, `color`. Required for POST.
-       *  
+       *
        * @example Location
        */
       key: string;
       /**
        * @description The value of the field, for example: `1`, `blue`. Required for POST.
-       *  
+       *
        * @example 4HG
        */
       value: string;
       /**
        * @description Namespace for the metafield, for organizational purposes. This is set by the developer. Required for POST.
-       *  
+       *
        * @example Warehouse Locations
        */
       namespace: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
     };
     /**
-     * customUrl_Full 
+     * customUrl_Full
      * @description The custom URL for the product on the storefront.
      */
     customUrl_Full: {
@@ -270,44 +270,44 @@ export interface components {
       is_customized?: boolean;
     };
     /**
-     * metaCollection_Full 
+     * metaCollection_Full
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
     /**
-     * pagination_Full 
+     * pagination_Full
      * @description Data about the response, including pagination and collection totals.
      */
     pagination_Full: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -317,7 +317,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -326,14 +326,14 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
       [key: string]: unknown;
     };
     /**
-     * error_Base 
+     * error_Base
      * @description Error payload for the BigCommerce API.
      */
     error_Base: {
@@ -347,35 +347,35 @@ export interface components {
     /** metafield_Full */
     metafield_Full: {
       /**
-       * @description Unique ID of the *Metafield*. Read-Only. 
+       * @description Unique ID of the *Metafield*. Read-Only.
        * @example 6
        */
       id?: number;
     } & components["schemas"]["metafield_Base"] & ({
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example product 
+       *
+       * @example product
        * @enum {string}
        */
       resource_type?: "category" | "brand" | "product" | "variant";
       /**
        * @description The ID of the resource with which the metafield is associated.
-       *  
+       *
        * @example 111
        */
       resource_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time of the metafield's creation. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time when the metafield was last updated. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_modified?: string;
@@ -409,7 +409,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Brands 
+   * Get All Brands
    * @description Returns a list of *Brands*. Optional filter parameters can be passed in.
    */
   getBrands: {
@@ -417,14 +417,16 @@ export interface operations {
       query?: {
         /** @description Filter items by ID. */
         id?: number;
-        "id:in"?: (number)[];
-        "id:not_in"?: (number)[];
-        "id:min"?: (number)[];
-        "id:max"?: (number)[];
-        "id:greater"?: (number)[];
-        "id:less"?: (number)[];
+        "id:in"?: number[];
+        "id:not_in"?: number[];
+        "id:min"?: number[];
+        "id:max"?: number[];
+        "id:greater"?: number[];
+        "id:less"?: number[];
         /** @description Filter items by name. */
         name?: string;
+        /** @description Filter items by part of a name. For example, `name:like=new` returns brands with names that include `new`. */
+        "name:like"?: string;
         /** @description Filter items by page_title. */
         page_title?: string;
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -435,6 +437,8 @@ export interface operations {
         include_fields?: string;
         /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
         exclude_fields?: string;
+        /** @description Field name to sort by. */
+        sort?: "name";
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -444,7 +448,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["brand_Full"])[];
+            data?: components["schemas"]["brand_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -452,15 +456,15 @@ export interface operations {
     };
   };
   /**
-   * Create a Brand 
+   * Create a Brand
    * @description Creates a *Brand*.
-   * 
+   *
    * **Required Fields**
    * - name
-   * 
+   *
    * **Read-Only Fields**
    * - id
-   * 
+   *
    * **Limits**
    * - 30,000 brands per store limit
    */
@@ -476,50 +480,50 @@ export interface operations {
         "application/json": {
           /**
            * @description The name of the brand. Must be unique.
-           * Required in POST. 
+           * Required in POST.
            * @example Common Good
            */
           name: string;
           /**
            * @description The title shown in the browser while viewing the brand.
-           *  
+           *
            * @example Common Good
            */
           page_title?: string;
           /** @description Comma-separated list of meta keywords to include in the HTML. */
-          meta_keywords?: (string)[];
+          meta_keywords?: string[];
           /**
            * @description A meta description to include.
-           *  
+           *
            * @example Common Good is a modern brand.
            */
           meta_description?: string;
           /**
            * @description A comma-separated list of keywords that can be used to locate this brand.
-           *  
+           *
            * @example kitchen, laundry, cart, storage
            */
           search_keywords?: string;
           /**
            * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.
-           *  
+           *
            * @example https://cdn8.bigcommerce.com/s-12345/product_images/k/your-image-name.png
            */
           image_url?: string;
           /**
-           * Custom Url Brand 
+           * Custom Url Brand
            * @description The custom URL for the brand on the storefront.
            */
           custom_url?: {
             /**
              * @description Brand URL on the storefront.
-             *  
+             *
              * @example /shoes
              */
             url?: string;
             /**
              * @description Returns `true` if the URL has been changed from its default state (the auto-assigned URL that BigCommerce provides).
-             *  
+             *
              * @example true
              */
             is_customized?: boolean;
@@ -532,7 +536,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Brand 
+             * Brand
              * @description Common Brand properties.
              */
             data?: {
@@ -540,50 +544,50 @@ export interface operations {
               id?: number;
               /**
                * @description The name of the brand. Must be unique.
-               * Required in POST. 
+               * Required in POST.
                * @example Common Good
                */
               name?: string;
               /**
                * @description The title shown in the browser while viewing the brand.
-               *  
+               *
                * @example Common Good
                */
               page_title?: string;
               /** @description Comma-separated list of meta keywords to include in the HTML. */
-              meta_keywords?: (string)[];
+              meta_keywords?: string[];
               /**
                * @description A meta description to include.
-               *  
+               *
                * @example Common Good is a modern brand.
                */
               meta_description?: string;
               /**
                * @description A comma-separated list of keywords that can be used to locate this brand.
-               *  
+               *
                * @example kitchen, laundry, cart, storage
                */
               search_keywords?: string;
               /**
                * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.
-               *  
+               *
                * @example https://cdn8.bigcommerce.com/s-12345/product_images/k/your-image-name.png
                */
               image_url?: string;
               /**
-               * Custom Url Brand 
+               * Custom Url Brand
                * @description The custom URL for the brand on the storefront.
                */
               custom_url?: {
                 /**
                  * @description Brand URL on the storefront.
-                 *  
+                 *
                  * @example /shoes
                  */
                 url?: string;
                 /**
                  * @description Returns `true` if the URL has been changed from its default state (the auto-assigned URL that BigCommerce provides).
-                 *  
+                 *
                  * @example true
                  */
                 is_customized?: boolean;
@@ -631,7 +635,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Brands 
+   * Delete Brands
    * @description By default, it deletes all *Brand* objects. A filter should be added to avoid deleting all *Brand* objects in a store.
    */
   deleteBrands: {
@@ -654,7 +658,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Brand 
+   * Get a Brand
    * @description Returns a single *Brand*. Optional filter parameters can be passed in.
    */
   getBrandById: {
@@ -699,15 +703,15 @@ export interface operations {
     };
   };
   /**
-   * Update a Brand 
+   * Update a Brand
    * @description Updates a *Brand*.
-   * 
+   *
    * **Required Fields**
    * - None
-   * 
+   *
    * **Read-Only Fields**
    * - id
-   * 
+   *
    * To update a *Brand Image*, send a request with an `image_url`.
    */
   updateBrand: {
@@ -729,56 +733,56 @@ export interface operations {
           id?: number;
           /**
            * @description The name of the brand. Must be unique.
-           * Required in POST. 
+           * Required in POST.
            * @example Common Good
            */
           name: string;
           /**
            * @description The title shown in the browser while viewing the brand.
-           *  
+           *
            * @example Common Good
            */
           page_title?: string;
           /**
            * @description Comma-separated list of meta keywords to include in the HTML.
-           *  
+           *
            * @example [
            *   "modern, clean, contemporary"
            * ]
            */
-          meta_keywords?: (string)[];
+          meta_keywords?: string[];
           /**
            * @description A meta description to include.
-           *  
+           *
            * @example Common Good is a modern brand.
            */
           meta_description?: string;
           /**
            * @description A comma-separated list of keywords that can be used to locate this brand.
-           *  
+           *
            * @example kitchen, laundry, cart, storage
            */
           search_keywords?: string;
           /**
            * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.
-           *  
+           *
            * @example https://cdn8.bigcommerce.com/s-12345/product_images/k/your-image-name.png
            */
           image_url?: string;
           /**
-           * Custom Url Brand 
+           * Custom Url Brand
            * @description The custom URL for the brand on the storefront.
            */
           custom_url?: {
             /**
              * @description Brand URL on the storefront.
-             *  
+             *
              * @example /shoes
              */
             url?: string;
             /**
              * @description Returns `true` if the URL has been changed from its default state (the auto-assigned URL that BigCommerce provides).
-             *  
+             *
              * @example true
              */
             is_customized?: boolean;
@@ -791,7 +795,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Brand 
+             * Brand
              * @description Common Brand properties.
              */
             data?: {
@@ -799,56 +803,56 @@ export interface operations {
               id?: number;
               /**
                * @description The name of the brand. Must be unique.
-               * Required in POST. 
+               * Required in POST.
                * @example Common Good
                */
               name: string;
               /**
                * @description The title shown in the browser while viewing the brand.
-               *  
+               *
                * @example Common Good
                */
               page_title?: string;
               /**
                * @description Comma-separated list of meta keywords to include in the HTML.
-               *  
+               *
                * @example [
                *   "modern, clean, contemporary"
                * ]
                */
-              meta_keywords?: (string)[];
+              meta_keywords?: string[];
               /**
                * @description A meta description to include.
-               *  
+               *
                * @example Common Good is a modern brand.
                */
               meta_description?: string;
               /**
                * @description A comma-separated list of keywords that can be used to locate this brand.
-               *  
+               *
                * @example kitchen, laundry, cart, storage
                */
               search_keywords?: string;
               /**
                * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.
-               *  
+               *
                * @example https://cdn8.bigcommerce.com/s-12345/product_images/k/your-image-name.png
                */
               image_url?: string;
               /**
-               * Custom Url Brand 
+               * Custom Url Brand
                * @description The custom URL for the brand on the storefront.
                */
               custom_url?: {
                 /**
                  * @description Brand URL on the storefront.
-                 *  
+                 *
                  * @example /shoes
                  */
                 url?: string;
                 /**
                  * @description Returns `true` if the URL has been changed from its default state (the auto-assigned URL that BigCommerce provides).
-                 *  
+                 *
                  * @example true
                  */
                 is_customized?: boolean;
@@ -909,7 +913,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Brand 
+   * Delete a Brand
    * @description Deletes a *Brand*.
    */
   deleteBrandById: {
@@ -931,7 +935,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Brand Metafields 
+   * Get All Brand Metafields
    * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
    */
   getBrandMetafieldsByBrandId: {
@@ -939,12 +943,12 @@ export interface operations {
       query?: {
         /** @description Filter items by ID. */
         id?: number;
-        "id:in"?: (number)[];
-        "id:not_in"?: (number)[];
-        "id:min"?: (number)[];
-        "id:max"?: (number)[];
-        "id:greater"?: (number)[];
-        "id:less"?: (number)[];
+        "id:in"?: number[];
+        "id:not_in"?: number[];
+        "id:min"?: number[];
+        "id:max"?: number[];
+        "id:greater"?: number[];
+        "id:less"?: number[];
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
@@ -971,7 +975,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["metafield_Full"])[];
+            data?: components["schemas"]["metafield_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -992,18 +996,18 @@ export interface operations {
     };
   };
   /**
-   * Create a Brand Metafield 
+   * Create a Brand Metafield
    * @description Creates a *Brand Metafield*.
-   * 
+   *
    * **Required Fields**
    * - permission_set
    * - namespace
    * - key
    * - value
-   * 
+   *
    * **Read-Only Fields**
    * - id
-   * 
+   *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createBrandMetafield: {
@@ -1029,7 +1033,7 @@ export interface operations {
           "application/json": {
             data?: components["schemas"]["metafield_Full"];
             /**
-             * Meta 
+             * Meta
              * @description Empty meta object; may be used later.
              */
             meta?: Record<string, never>;
@@ -1073,7 +1077,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Brand Metafields 
+   * Get a Brand Metafields
    * @description Returns a *Brand Metafield*. Optional filter parameters can be passed in.
    */
   getBrandMetafieldByBrandId: {
@@ -1121,19 +1125,19 @@ export interface operations {
     };
   };
   /**
-   * Update a Brand Metafield 
+   * Update a Brand Metafield
    * @description Updates a *Brand Metafield*.
-   * 
-   * **Required Fields**  
+   *
+   * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    * * These fields can only be modified by the app (API credentials) that created the metafield:
    * 	* namespace
    * 	* key
    * 	* permission_set
-   * 
+   *
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
    * * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
@@ -1183,7 +1187,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Brand Metafield 
+   * Delete a Brand Metafield
    * @description Deletes a *Brand Metafield*.
    */
   deleteBrandMetafieldById: {
@@ -1208,15 +1212,15 @@ export interface operations {
     };
   };
   /**
-   * Create a Brand Image 
+   * Create a Brand Image
    * @description Creates a *Brand Image*.
-   * 
+   *
    * **Required Fields**
    * - image_file: Form posts are the only accepted upload option.
-   * 
+   *
    * **Read-Only Fields**
    * - id
-   * 
+   *
    * Only one image at a time can be created. To update a *Brand Image*, use the [Update a brand](/docs/rest-catalog/brands#update-a-brand) endpoint and an `image_url`.
    */
   createBrandImage: {
@@ -1289,7 +1293,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Brand Image 
+   * Delete a Brand Image
    * @description Deletes a *Brand Image*.
    */
   deleteBrandImage: {

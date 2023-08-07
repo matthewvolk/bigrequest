@@ -8,7 +8,7 @@
 export interface paths {
   "/countries": {
     /**
-     * Get All Countries 
+     * Get All Countries
      * @description Get a list of all countries available. A country or territory, identifiable by an ISO 3166 country code.
      */
     get: {
@@ -34,7 +34,7 @@ export interface paths {
   };
   "/countries/{id}": {
     /**
-     * Get a Country 
+     * Get a Country
      * @description Returns a single *Country*.  Gets a country. A country or territory, identifiable by an ISO 3166 country code.
      */
     get: {
@@ -60,8 +60,8 @@ export interface paths {
   };
   "/countries/{country_id}/states": {
     /**
-     * Get All Country's States 
-     * @description Returns a list of *States* belonging to a *Country*. 
+     * Get All Country's States
+     * @description Returns a list of *States* belonging to a *Country*.
      * A state or province, identifiable by an ISO 3166 subdivision code.
      */
     get: {
@@ -97,8 +97,8 @@ export interface paths {
   };
   "/countries/{country_id}/states/{id}": {
     /**
-     * Get a Country's State 
-     * @description Returns a *State*. 
+     * Get a Country's State
+     * @description Returns a *State*.
      * A state or province, identifiable by an ISO 3166 subdivision code.
      */
     get: {
@@ -127,14 +127,14 @@ export interface paths {
   };
   "/countries/count": {
     /**
-     * Get a Count of All Countries 
+     * Get a Count of All Countries
      * @description Returns a count of all countries.
      */
     get: operations["countriesCount"];
   };
   "/countries/states/count": {
     /**
-     * Get a Count of All States 
+     * Get a Count of All States
      * @description Returns a count of all states.
      */
     get: {
@@ -145,7 +145,7 @@ export interface paths {
   };
   "/countries/states": {
     /**
-     * Get All States 
+     * Get All States
      * @description Returns a list of all states.
      */
     get: {
@@ -164,7 +164,7 @@ export interface paths {
   };
   "/countries/{country_id}/states/count": {
     /**
-     * Get a Count of Country’s States  
+     * Get a Count of Country’s States
      * @description Returns a count of a country's states.
      */
     get: {
@@ -190,7 +190,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * country_Full 
+     * country_Full
      * @example {
      *   "id": 13,
      *   "country": "Australia",
@@ -204,7 +204,7 @@ export interface components {
      */
     country_Full: {
       /**
-       * @description Id of the country. 
+       * @description Id of the country.
        * @example 13
        */
       id?: number;
@@ -212,7 +212,7 @@ export interface components {
       states?: components["schemas"]["countriesStates_Full"];
     };
     /**
-     * countriesStates_Full 
+     * countriesStates_Full
      * @description Refers to the `states` object return in `GET` countries requests.
      */
     countriesStates_Full: {
@@ -222,8 +222,8 @@ export interface components {
       resource?: string;
     };
     /**
-     * countriesState_Full 
-     * @description Refers to the state returned in `GET` states requests.  
+     * countriesState_Full
+     * @description Refers to the state returned in `GET` states requests.
      * @example {
      *   "id": 208,
      *   "state": "Australian Capital Territory",
@@ -233,22 +233,22 @@ export interface components {
      */
     countriesState_Full: {
       /**
-       * @description Numeric ID of the state/province. 
+       * @description Numeric ID of the state/province.
        * @example 208
        */
       id?: number;
       /**
-       * @description Name of the state/province. 
+       * @description Name of the state/province.
        * @example Australian Capital Territory
        */
       state?: string;
       /**
-       * @description Abbreviation for the state/province. 
+       * @description Abbreviation for the state/province.
        * @example ACT
        */
       state_abbreviation?: string;
       /**
-       * @description Numeric ID of the state’s/province’s associated country. 
+       * @description Numeric ID of the state’s/province’s associated country.
        * @example 13
        */
       country_id?: number;
@@ -256,17 +256,17 @@ export interface components {
     /** country_Base */
     country_Base: {
       /**
-       * @description Country name. 
+       * @description Country name.
        * @example Australia
        */
       country?: string;
       /**
-       * @description 2-letter country code. 
+       * @description 2-letter country code.
        * @example AU
        */
       country_iso2?: string;
       /**
-       * @description 3-letter country code. 
+       * @description 3-letter country code.
        * @example AUS
        */
       country_iso3?: string;
@@ -288,12 +288,12 @@ export interface components {
     };
     countryCollection_Resp: {
       content: {
-        "application/json": (components["schemas"]["country_Full"])[];
+        "application/json": components["schemas"]["country_Full"][];
       };
     };
     countriesStatesCollectionResponse: {
       content: {
-        "application/json": (components["schemas"]["countriesState_Full"])[];
+        "application/json": components["schemas"]["countriesState_Full"][];
       };
     };
     countResponse: {
@@ -313,7 +313,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get a Count of All Countries 
+   * Get a Count of All Countries
    * @description Returns a count of all countries.
    */
   countriesCount: {

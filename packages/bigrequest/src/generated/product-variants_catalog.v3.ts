@@ -8,25 +8,25 @@
 export interface paths {
   "/catalog/products/{product_id}/variants": {
     /**
-     * Get All Product Variants 
+     * Get All Product Variants
      * @description Returns a list of product *Variants*. Optional parameters can be passed in.
      */
     get: operations["getVariantsByProductId"];
     /**
-     * Create a Product Variant 
+     * Create a Product Variant
      * @description Creates a *Product Variant*.
-     * 
+     *
      * **Required Fields**
      * * sku
      * * option_values
-     * 
+     *
      * **Read-Only Fields**
      * * id
-     * 
+     *
      * **Limits**
      * * 600 SKUs per product limit.
      * * 255 characters SKU length limit.
-     * 
+     *
      * Variants need to be created one at a time using this endpoint. To use a variant array and create products and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) during the initial product creation.
      */
     post: operations["createVariant"];
@@ -41,17 +41,17 @@ export interface paths {
   };
   "/catalog/products/{product_id}/variants/{variant_id}": {
     /**
-     * Get a Product Variant 
+     * Get a Product Variant
      * @description Returns a single product *Variant*. Optional parameters can be passed in.
      */
     get: operations["getVariantById"];
     /**
-     * Update a Product Variant 
+     * Update a Product Variant
      * @description Updates a product *Variant*.
      */
     put: operations["updateVariant"];
     /**
-     * Delete a Product Variant 
+     * Delete a Product Variant
      * @description Deletes a product *Variant*.
      */
     delete: operations["deleteVariantById"];
@@ -67,23 +67,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/variants/{variant_id}/metafields": {
     /**
-     * Get All Product Variant Metafields 
+     * Get All Product Variant Metafields
      * @description Returns a list of product variant *Metafields*. Optional parameters can be passed in.
      */
     get: operations["getVariantMetafieldsByProductIdAndVariantId"];
     /**
-     * Create a Product Variant Metafield 
+     * Create a Product Variant Metafield
      * @description Creates a product variant *Metafield*.
-     * 
+     *
      * **Required Fields:**
      * * permission_set
      * * namespace
      * * key
      * * value
-     * 
+     *
      * **Read-Only Fields**
      * * id
-     * 
+     *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createVariantMetafield"];
@@ -99,30 +99,30 @@ export interface paths {
   };
   "/catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}": {
     /**
-     * Get a Product Variant Metafields 
+     * Get a Product Variant Metafields
      * @description Returns a single product variant *Metafield*. Optional parameters can be passed in.
      */
     get: operations["getVariantMetafieldByProductIdAndVariantId"];
     /**
-     * Update Product Variant Metafields 
+     * Update Product Variant Metafields
      * @description Updates a product variant *Metafield*.
-     * 
+     *
      * **Required Fields:**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      * * These fields can only be modified by the app (API credentials) that created the metafield:
      * 	* namespace
      * 	* key
      * 	* permission_set
-     * 
+     *
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
      */
     put: operations["updateVariantMetafield"];
     /**
-     * Delete a Variant Metafield 
+     * Delete a Variant Metafield
      * @description Deletes a product variant *Metafield*.
      */
     delete: operations["deleteVariantMetafieldById"];
@@ -139,13 +139,13 @@ export interface paths {
   };
   "/catalog/products/{product_id}/variants/{variant_id}/image": {
     /**
-     * Create a Variant Image 
+     * Create a Variant Image
      * @description Creates a *Variant Image*.
-     * 
+     *
      * Only one image can be explicitly associated with a Variant. If the Variant already has an associated image, overwrites the existing Variant Image.
-     * 
+     *
      * The image displays on the storefront when the Variant is selected.
-     * 
+     *
      *  **Required Fields**
      * - image_file: Form posts. Files larger than 1 MB are not accepted
      * - image_url: Any publicly available URL
@@ -163,13 +163,25 @@ export interface paths {
   };
   "/catalog/variants": {
     /**
-     * Get All Variants 
+     * Get All Variants
      * @description Returns a list of all variants in your catalog. Optional parameters can be passed in.
      */
     get: operations["getVariants"];
     /**
-     * Update Variants (Batch) 
-     * @description Updates a batch of `variant` objects. At the time of writing, the limit is 50 variants. This limit is subject to change.
+     * Update Variants (Batch)
+     * @description Updates a batch of `variant` objects. Currently the limit is 50 variants however this is subject to change.
+     *
+     * **Required Fields**
+     *
+     * To update an existing variant:
+     * * id (variant id)
+     *
+     * To create a new variant:
+     * * product_id
+     * * sku
+     * * option_values
+     *   - id (option_value ID - Example: 146)
+     *   - option_id (Option ID - Example: 151)
      */
     put: operations["updateVariantsBatch"];
     parameters: {
@@ -185,98 +197,98 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * categoriesTree_Resp 
+     * categoriesTree_Resp
      * @description Returns the categories tree, a nested lineage of the categories with parent->child relationship. The Category objects returned are simplified versions of the category objects returned in the rest of this API.
      */
     categoriesTree_Resp: {
-      data?: (components["schemas"]["categoriesTreeNode_Full"])[];
+      data?: components["schemas"]["categoriesTreeNode_Full"][];
       meta?: components["schemas"]["metaEmpty_Full"];
     };
     /**
-     * categoriesTreeNode_Full 
+     * categoriesTreeNode_Full
      * @description Used to reflect parent <> child category relationships. Used by Category Tree.
      */
     categoriesTreeNode_Full: {
       /**
        * @description The unique numeric ID of the category; increments sequentially.
-       *  
+       *
        * @example 26
        */
       id?: number;
       /**
        * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-       *  
+       *
        * @example 25
        */
       parent_id?: number;
       /**
        * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-       *  
+       *
        * @example Bath
        */
       name?: string;
       /**
        * @description Flag to determine whether the product should be displayed to customers browsing the store. If `true`, the category will be displayed. If `false`, the category will be hidden from view.
-       *  
+       *
        * @example true
        */
       is_visible?: boolean;
       /**
        * @description The custom URL for the category on the storefront.
-       *  
+       *
        * @example /towels/bath-towels/
        */
       url?: string;
     };
     /**
-     * productVariant_Base 
+     * productVariant_Base
      * @description Common Variant properties.
      */
     productVariant_Base: {
       /**
-       * Format: double 
+       * Format: double
        * @description The cost price of the variant. Not affected by Price List prices.
        */
       cost_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
        */
       price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
        */
       sale_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
        */
       retail_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
        */
       weight?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
        */
       width?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
        */
       height?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
        */
       depth?: number | null;
       /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
       is_free_shipping?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
        */
       fixed_cost_shipping_price?: number | null;
@@ -288,11 +300,11 @@ export interface components {
       upc?: string | null;
       /**
        * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-       * 
-       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-       * 
+       *
+       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+       *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-       * 
+       *
        * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
@@ -313,63 +325,63 @@ export interface components {
       /** @description Read-only reference to v2 API's SKU ID. Null if it is a base variant. */
       sku_id?: number | null;
       /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant. */
-      option_values?: (components["schemas"]["productVariantOptionValue_Full"])[];
+      option_values?: components["schemas"]["productVariantOptionValue_Full"][];
       /**
-       * Format: double 
+       * Format: double
        * @description The price of the variant as seen on the storefront. This price takes into account `sale_price` and any price adjustment rules that are applicable to this variant.
        */
       calculated_price?: number;
       calculated_weight?: number;
     });
     /**
-     * productVariant_Post 
+     * productVariant_Post
      * @description The model for a POST to create variants on a product.
      */
     productVariant_Post: ({
       /**
-       * Format: double 
+       * Format: double
        * @description The cost price of the variant. Not affected by Price List prices.
        */
       cost_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
        */
       price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
        */
       sale_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
        */
       retail_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
        */
       weight?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
        */
       width?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
        */
       height?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
        */
       depth?: number | null;
       /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
       is_free_shipping?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
        */
       fixed_cost_shipping_price?: number | null;
@@ -381,11 +393,11 @@ export interface components {
       upc?: string | null;
       /**
        * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-       * 
-       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-       * 
+       *
+       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+       *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-       * 
+       *
        * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
@@ -396,12 +408,12 @@ export interface components {
       /** @description Publicly available image url */
       image_url?: string;
       /**
-       * @description Global Trade Item Number 
+       * @description Global Trade Item Number
        * @example 012345678905
        */
       gtin?: string;
       /**
-       * @description Manufacturer Part Number 
+       * @description Manufacturer Part Number
        * @example HV-HM02
        */
       mpn?: string;
@@ -409,121 +421,121 @@ export interface components {
       product_id?: number;
       sku?: string;
       /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant. */
-      option_values?: (components["schemas"]["productVariantOptionValue_Full"])[];
+      option_values?: components["schemas"]["productVariantOptionValue_Full"][];
     };
     /** productVariantOptionValue_Full */
     productVariantOptionValue_Full: {
       /**
        * @description The name of the option.
-       *  
+       *
        * @example Color
        */
       option_display_name?: string;
       /**
        * @description The label of the option value.
-       *  
+       *
        * @example Beige
        */
       label?: string;
     } & components["schemas"]["productVariantOptionValue_Base"];
     /**
-     * productVariantOptionValue_Base 
+     * productVariantOptionValue_Base
      * @description Common Product Variant Option properties.
      */
     productVariantOptionValue_Base: {
       /**
-       * @description `option_value` ID. 
+       * @description `option_value` ID.
        * @example 146
        */
       id?: number;
       /**
-       * @description `option` ID. 
+       * @description `option` ID.
        * @example 151
        */
       option_id?: number;
     };
     /**
-     * metafield_Base 
+     * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Base: {
       /**
        * @description The name of the field, for example: `location_id`, `color`. Required for POST.
-       *  
+       *
        * @example Location
        */
       key: string;
       /**
        * @description The value of the field, for example: `1`, `blue`. Required for POST.
-       *  
+       *
        * @example 4HG
        */
       value: string;
       /**
        * @description Namespace for the metafield, for organizational purposes. This is set by the developer. Required for POST.
-       *  
+       *
        * @example Warehouse Locations
        */
       namespace: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
     };
     /**
-     * metaCollection_Full 
+     * metaCollection_Full
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
     /**
-     * pagination_Full 
+     * pagination_Full
      * @description Data about the response, including pagination and collection totals.
      */
     pagination_Full: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -533,7 +545,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -542,7 +554,7 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
@@ -559,7 +571,7 @@ export interface components {
       errors?: components["schemas"]["DetailedErrors"];
     };
     /**
-     * DetailedErrors 
+     * DetailedErrors
      * @description Each key-value pair describes a failure or partial success case.
      */
     DetailedErrors: {
@@ -568,41 +580,41 @@ export interface components {
     /** metafield_Full */
     metafield_Full: {
       /**
-       * @description Unique ID of the *Metafield*. Read-Only. 
+       * @description Unique ID of the *Metafield*. Read-Only.
        * @example 6
        */
       id?: number;
     } & components["schemas"]["metafield_Base"] & ({
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example product 
+       *
+       * @example product
        * @enum {string}
        */
       resource_type?: "category" | "brand" | "product" | "variant";
       /**
        * @description The ID of the resource with which the metafield is associated.
-       *  
+       *
        * @example 111
        */
       resource_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time of the metafield's creation. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time when the metafield was last updated. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_modified?: string;
     });
     /**
-     * productVariant_Put 
+     * productVariant_Put
      * @description The model for a PUT to update variants on a product.
      */
     productVariant_Put: components["schemas"]["productVariant_Base"] & {
@@ -633,7 +645,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Product Variants 
+   * Get All Product Variants
    * @description Returns a list of product *Variants*. Optional parameters can be passed in.
    */
   getVariantsByProductId: {
@@ -659,7 +671,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["productVariant_Full"])[];
+            data?: components["schemas"]["productVariant_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -680,20 +692,20 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Variant 
+   * Create a Product Variant
    * @description Creates a *Product Variant*.
-   * 
+   *
    * **Required Fields**
    * * sku
    * * option_values
-   * 
+   *
    * **Read-Only Fields**
    * * id
-   * 
+   *
    * **Limits**
    * * 600 SKUs per product limit.
    * * 255 characters SKU length limit.
-   * 
+   *
    * Variants need to be created one at a time using this endpoint. To use a variant array and create products and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) during the initial product creation.
    */
   createVariant: {
@@ -721,8 +733,8 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update. 
-       * 
+       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       *
        * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
        */
       207: {
@@ -750,7 +762,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Variant 
+   * Get a Product Variant
    * @description Returns a single product *Variant*. Optional parameters can be passed in.
    */
   getVariantById: {
@@ -796,7 +808,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Variant 
+   * Update a Product Variant
    * @description Updates a product *Variant*.
    */
   updateVariant: {
@@ -827,8 +839,8 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update. 
-       * 
+       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       *
        * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
        */
       207: {
@@ -856,7 +868,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Variant 
+   * Delete a Product Variant
    * @description Deletes a product *Variant*.
    */
   deleteVariantById: {
@@ -879,7 +891,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Variant Metafields 
+   * Get All Product Variant Metafields
    * @description Returns a list of product variant *Metafields*. Optional parameters can be passed in.
    */
   getVariantMetafieldsByProductIdAndVariantId: {
@@ -912,7 +924,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["metafield_Full"])[];
+            data?: components["schemas"]["metafield_Full"][];
             meta?: components["schemas"]["categoriesTree_Resp"];
           };
         };
@@ -933,18 +945,18 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Variant Metafield 
+   * Create a Product Variant Metafield
    * @description Creates a product variant *Metafield*.
-   * 
+   *
    * **Required Fields:**
    * * permission_set
    * * namespace
    * * key
    * * value
-   * 
+   *
    * **Read-Only Fields**
    * * id
-   * 
+   *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createVariantMetafield: {
@@ -1011,7 +1023,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Variant Metafields 
+   * Get a Product Variant Metafields
    * @description Returns a single product variant *Metafield*. Optional parameters can be passed in.
    */
   getVariantMetafieldByProductIdAndVariantId: {
@@ -1060,19 +1072,19 @@ export interface operations {
     };
   };
   /**
-   * Update Product Variant Metafields 
+   * Update Product Variant Metafields
    * @description Updates a product variant *Metafield*.
-   * 
+   *
    * **Required Fields:**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    * * These fields can only be modified by the app (API credentials) that created the metafield:
    * 	* namespace
    * 	* key
    * 	* permission_set
-   * 
+   *
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
    */
@@ -1122,7 +1134,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Variant Metafield 
+   * Delete a Variant Metafield
    * @description Deletes a product variant *Metafield*.
    */
   deleteVariantMetafieldById: {
@@ -1148,13 +1160,13 @@ export interface operations {
     };
   };
   /**
-   * Create a Variant Image 
+   * Create a Variant Image
    * @description Creates a *Variant Image*.
-   * 
+   *
    * Only one image can be explicitly associated with a Variant. If the Variant already has an associated image, overwrites the existing Variant Image.
-   * 
+   *
    * The image displays on the storefront when the Variant is selected.
-   * 
+   *
    *  **Required Fields**
    * - image_file: Form posts. Files larger than 1 MB are not accepted
    * - image_url: Any publicly available URL
@@ -1190,7 +1202,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Resource Image 
+             * Resource Image
              * @description An object containing a publicly accessible image URL, or a form post that contains an image file.
              */
             data?: {
@@ -1257,7 +1269,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Variants 
+   * Get All Variants
    * @description Returns a list of all variants in your catalog. Optional parameters can be passed in.
    */
   getVariants: {
@@ -1290,49 +1302,49 @@ export interface operations {
           "application/json": {
             data?: ({
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description The cost price of the variant. Not affected by Price List prices.
                  */
                 cost_price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
                  */
                 price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
                  */
                 sale_price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
                  */
                 retail_price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
                  */
                 weight?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
                  */
                 width?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
                  */
                 height?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
                  */
                 depth?: number;
                 /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
                 is_free_shipping?: boolean;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
                  */
                 fixed_cost_shipping_price?: number;
@@ -1344,11 +1356,11 @@ export interface operations {
                 upc?: string;
                 /**
                  * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-                 * 
-                 * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-                 * 
+                 *
+                 * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+                 *
                  * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-                 * 
+                 *
                  * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
                  */
                 inventory_level?: number;
@@ -1366,13 +1378,13 @@ export interface operations {
                 option_values?: ({
                     /**
                      * @description The name of the option.
-                     *  
+                     *
                      * @example Color
                      */
                     option_display_name?: string;
                     /**
                      * @description The label of the option value.
-                     *  
+                     *
                      * @example Beige
                      */
                     label?: string;
@@ -1381,7 +1393,7 @@ export interface operations {
                     option_id?: number;
                   })[];
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description The price of the variant as seen on the storefront. This price takes into account `sale_price` and any price adjustment rules that are applicable to this variant.
                  */
                 calculated_price?: number;
@@ -1406,8 +1418,20 @@ export interface operations {
     };
   };
   /**
-   * Update Variants (Batch) 
-   * @description Updates a batch of `variant` objects. At the time of writing, the limit is 50 variants. This limit is subject to change.
+   * Update Variants (Batch)
+   * @description Updates a batch of `variant` objects. Currently the limit is 50 variants however this is subject to change.
+   *
+   * **Required Fields**
+   *
+   * To update an existing variant:
+   * * id (variant id)
+   *
+   * To create a new variant:
+   * * product_id
+   * * sku
+   * * option_values
+   *   - id (option_value ID - Example: 146)
+   *   - option_id (Option ID - Example: 151)
    */
   updateVariantsBatch: {
     parameters: {
@@ -1420,49 +1444,60 @@ export interface operations {
       content: {
         "application/json": ({
             /**
-             * Format: double 
+             * Format: double
              * @description The cost price of the variant. Not affected by Price List prices.
+             * @example 40
              */
             cost_price?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
+             * @example 40
              */
             price?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
+             * @example 40
              */
             sale_price?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
+             * @example 40
              */
             retail_price?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
+             * @example 5
              */
             weight?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
+             *
+             * @example 5
              */
             width?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
+             *
+             * @example 5
              */
             height?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
+             *
+             * @example 5
              */
             depth?: number;
             /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
             is_free_shipping?: boolean;
             /**
-             * Format: double 
+             * Format: double
              * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
              */
             fixed_cost_shipping_price?: number;
@@ -1470,23 +1505,31 @@ export interface operations {
             purchasing_disabled?: boolean;
             /** @description If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected. */
             purchasing_disabled_message?: string;
-            /** @description The UPC code used in feeds for shopping comparison sites and external channel integrations. */
+            /**
+             * @description The UPC code used in feeds for shopping comparison sites and external channel integrations.
+             * @example 1234
+             */
             upc?: string;
             /**
              * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-             * 
-             * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-             * 
+             *
+             * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+             *
              * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-             * 
+             *
              * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+             * @example 21474
              */
             inventory_level?: number;
-            /** @description When the variant hits this inventory level, it is considered low stock. */
+            /**
+             * @description When the variant hits this inventory level, it is considered low stock.
+             * @example 5474
+             */
             inventory_warning_level?: number;
             /** @description Identifies where in a warehouse the variant is located. */
             bin_picking_number?: string;
           } & {
+            /** @example 154 */
             id?: number;
           })[];
       };
@@ -1497,49 +1540,49 @@ export interface operations {
           "application/json": {
             data?: ({
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description The cost price of the variant. Not affected by Price List prices.
                  */
                 cost_price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
                  */
                 price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
                  */
                 sale_price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
                  */
                 retail_price?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
                  */
                 weight?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
                  */
                 width?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
                  */
                 height?: number;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
                  */
                 depth?: number;
                 /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
                 is_free_shipping?: boolean;
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
                  */
                 fixed_cost_shipping_price?: number;
@@ -1551,11 +1594,11 @@ export interface operations {
                 upc?: string;
                 /**
                  * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-                 * 
-                 * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-                 * 
+                 *
+                 * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+                 *
                  * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-                 * 
+                 *
                  * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
                  */
                 inventory_level?: number;
@@ -1573,13 +1616,13 @@ export interface operations {
                 option_values?: ({
                     /**
                      * @description The name of the option.
-                     *  
+                     *
                      * @example Color
                      */
                     option_display_name?: string;
                     /**
                      * @description The label of the option value.
-                     *  
+                     *
                      * @example Beige
                      */
                     label?: string;
@@ -1588,48 +1631,48 @@ export interface operations {
                     option_id?: number;
                   })[];
                 /**
-                 * Format: double 
+                 * Format: double
                  * @description The price of the variant as seen on the storefront. This price takes into account `sale_price` and any price adjustment rules that are applicable to this variant.
                  */
                 calculated_price?: number;
               }))[];
             /**
-             * Collection Meta 
+             * Collection Meta
              * @description Data about the response, including pagination and collection totals.
              */
             meta?: {
               /**
-               * Pagination 
+               * Pagination
                * @description Data about the response, including pagination and collection totals.
                */
               pagination?: {
                 /**
                  * @description Total number of items in the result set.
-                 *  
+                 *
                  * @example 36
                  */
                 total?: number;
                 /**
                  * @description Total number of items in the collection response.
-                 *  
+                 *
                  * @example 36
                  */
                 count?: number;
                 /**
                  * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-                 *  
+                 *
                  * @example 50
                  */
                 per_page?: number;
                 /**
                  * @description The page you are currently on within the collection.
-                 *  
+                 *
                  * @example 1
                  */
                 current_page?: number;
                 /**
                  * @description The total number of pages in the collection.
-                 *  
+                 *
                  * @example 1
                  */
                 total_pages?: number;
@@ -1639,7 +1682,7 @@ export interface operations {
                   previous?: string;
                   /**
                    * @description Link to the current page returned in the response.
-                   *  
+                   *
                    * @example ?page=1&limit=50
                    */
                   current?: string;

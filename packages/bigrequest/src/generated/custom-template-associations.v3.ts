@@ -8,17 +8,17 @@
 export interface paths {
   "/storefront/custom-template-associations": {
     /**
-     * Get Custom Template Associations 
+     * Get Custom Template Associations
      * @description Get a collection of the storeʼs custom template associations across all storefronts
      */
     get: operations["GetCustomTemplateAssociations"];
     /**
-     * Upsert Custom Template Associations 
+     * Upsert Custom Template Associations
      * @description Upsert new custom template associations data across all storefronts. If an existing record is found for the combination of channel ID, entity ID, and type, the existing record will be overwritten with the new template.
      */
     put: operations["UpsertCustomTemplateAssociations"];
     /**
-     * Delete Custom Template Associations 
+     * Delete Custom Template Associations
      * @description Delete custom template associations. At least one query parameter must be used.
      */
     delete: operations["DeleteCustomTemplateAssociations"];
@@ -126,7 +126,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Custom Template Associations 
+   * Get Custom Template Associations
    * @description Get a collection of the storeʼs custom template associations across all storefronts
    */
   GetCustomTemplateAssociations: {
@@ -154,7 +154,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["CustomTemplateAssociation"])[];
+            data?: components["schemas"]["CustomTemplateAssociation"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -162,7 +162,7 @@ export interface operations {
     };
   };
   /**
-   * Upsert Custom Template Associations 
+   * Upsert Custom Template Associations
    * @description Upsert new custom template associations data across all storefronts. If an existing record is found for the combination of channel ID, entity ID, and type, the existing record will be overwritten with the new template.
    */
   UpsertCustomTemplateAssociations: {
@@ -174,7 +174,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["CustomTemplateAssociationUpsert"])[];
+        "application/json": components["schemas"]["CustomTemplateAssociationUpsert"][];
       };
     };
     responses: {
@@ -193,7 +193,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Custom Template Associations 
+   * Delete Custom Template Associations
    * @description Delete custom template associations. At least one query parameter must be used.
    */
   DeleteCustomTemplateAssociations: {

@@ -8,29 +8,29 @@
 export interface paths {
   "/estimate": {
     /**
-     * Estimate Taxes 
+     * Estimate Taxes
      * @description Submit the quote request to retrieve an estimate from the enabled third-party tax provider. Estimates are not expected to be persisted by the tax provider.
-     * 
+     *
      * > Server URL
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
-     * 
+     *
      * The following actions can trigger tax estimate requests multiple times during a standard checkout on a BigCommerce storefront, depending on the BigCommerce merchant’s settings.
-     * 
+     *
      * - After selecting a Shipping Method during the “Estimate Shipping & Tax” facility on the Cart page.
      * - After specifying a Shipping Address during a Checkout.
      * - After selecting a Shipping Method during a Checkout.
      * - After specifying a Billing Address during a Checkout.
-     * 
+     *
      * The following actions are not expected to trigger estimate requests.
-     * 
+     *
      * - While anonymously browsing a store’s product catalog.
      * - On the Cart page prior to a Shopper selecting a Shipping Method via “Estimate Shipping & Tax”.
      * - On the Checkout page prior to specifying a Shipping Address.
      * - On the Checkout page, when toggling any option related to using the shopper’s Shipping Address as their Billing Address.
-     * 
+     *
      * The following control panel actions can also trigger tax estimate requests.
-     * 
+     *
      * - Order refund.
      * - Edit order.
      * - Test connection feature in Tax Settings.
@@ -39,9 +39,9 @@ export interface paths {
   };
   "/void": {
     /**
-     * Void Tax Quote 
+     * Void Tax Quote
      * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations or when moving an order from a paid status to an unpaid status.
-     * 
+     *
      * > Server URL
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
@@ -50,9 +50,9 @@ export interface paths {
   };
   "/commit": {
     /**
-     * Commit Tax Quote 
+     * Commit Tax Quote
      * @description Submit the quote request to be persisted by the enabled third-party tax provider. A commit operation is intended to be submitted once only, when the Order has been confirmed and paid.
-     * 
+     *
      * > Server URL
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
@@ -61,13 +61,13 @@ export interface paths {
   };
   "/adjust": {
     /**
-     * Adjust Tax Quote 
+     * Adjust Tax Quote
      * @description Replace the persisted tax quote (identified by the given unique ID) with the provided quote request (represented by the **AdjustRequest**).
-     * 
+     *
      * Relevant for partial refunds, full refunds, returns, and other Order modifications where there have been changes to the tax liabilities.
-     * 
+     *
      * The returned **Tax Quote** response is expected to be the same to a response returned by an equivalent response to **estimate** or **commit** methods.
-     * 
+     *
      * > Server URL
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
@@ -81,7 +81,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * ItemRequest 
+     * ItemRequest
      * @description An **ItemRequest** represents required information relating to completing tax calculations for a specific line item.
      */
     "request-item": {
@@ -96,13 +96,13 @@ export interface components {
       /** @description The final sale price (after discounts, bulk pricing, price lists, etc.) prior to having taxes calculated. If the merchant lists prices inclusive of tax, this price will already be tax inclusive, and so the tax provider will instead calculate the amount of tax that was already included in this price. For multiple quantities, this price includes that multiplication. */
       price: {
         /**
-         * Format: double 
-         * @description Note: This amount will be **negative** for order-level refunds and may be **zero** for line item refunds. 
+         * Format: double
+         * @description Note: This amount will be **negative** for order-level refunds and may be **zero** for line item refunds.
          * @example 1.5
          */
         amount: number;
         /**
-         * @description Note: **Tax Inclusive** and **Tax Exclusive** prices cannot be added together. 
+         * @description Note: **Tax Inclusive** and **Tax Exclusive** prices cannot be added together.
          * @default false
          */
         tax_inclusive: boolean;
@@ -110,31 +110,31 @@ export interface components {
       quantity: number;
       tax_class?: components["schemas"]["TaxClass"];
       /**
-       * @description Flag whether or not this item is always tax-exempt. For example, gift certificate purchases and order-level refunds are tax-exempt. Tax-exempt items are included in the request for auditing purposes. 
+       * @description Flag whether or not this item is always tax-exempt. For example, gift certificate purchases and order-level refunds are tax-exempt. Tax-exempt items are included in the request for auditing purposes.
        * @default false
        */
       tax_exempt?: boolean;
       /** @description Merchants may opt to include additional properties that a tax provider can choose to support, factoring these values into tax calculation. */
-      tax_properties?: (components["schemas"]["request-item-tax-property"])[];
+      tax_properties?: components["schemas"]["request-item-tax-property"][];
     };
     /**
-     * TaxProperty 
+     * TaxProperty
      * @description A simple key value pairing allowing merchants to provide an additional input into a tax providerʼs tax calculation.
      */
     "request-item-tax-property": {
       /**
-       * @description Used by tax providers to programmatically identify a specific calculation input. 
+       * @description Used by tax providers to programmatically identify a specific calculation input.
        * @example alcohol-percentage
        */
       code: string;
       /**
-       * @description The value that will be factored into the tax providerʼs tax calculation rules, where supported. 
+       * @description The value that will be factored into the tax providerʼs tax calculation rules, where supported.
        * @example 4.9
        */
       value: string;
     };
     /**
-     * DocumentRequest 
+     * DocumentRequest
      * @description Each **DocumentRequest** represents an order or part of an order of items fulfilled from a single origin address to a single destination address. In addition to shipping and billing details, a document request includes the collection of items in the shipment, with tax-relevant information for each item. Multi-address orders, in which items ship to or from multiple addresses, require at least one **DocumentRequest** per combination of sender-recipient addresses. These are similar to "consignments" or "shipments" in other BigCommerce APIs.
      */
     "request-document": {
@@ -161,7 +161,7 @@ export interface components {
         }))[];
     };
     /**
-     * QuoteRequest 
+     * QuoteRequest
      * @description Each **QuoteRequest** represents an order. In addition to transaction details, it contains a `documents` array of one or more **DocumentRequest** objects, which represent distinct combinations of origin and fulfillment addresses and the tax-relevant contents of those consignments. This is similar to an "order" in other BigCommerce APIs.
      */
     "request-quote": {
@@ -174,7 +174,7 @@ export interface components {
         /** @description The ID of the shoppers customer account in BigCommerce. May be provided as a UUID. */
         customer_id: string;
         /**
-         * @description The BigCommerce customer group ID assigned to this customer. The default value will be provided if the customer has no group assigned. May be provided as a UUID. 
+         * @description The BigCommerce customer group ID assigned to this customer. The default value will be provided if the customer has no group assigned. May be provided as a UUID.
          * @default 0
          */
         customer_group_id: string;
@@ -182,15 +182,15 @@ export interface components {
         taxability_code?: string;
       };
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description ISO 8601 formatted date the shopper placed this order. Dates will be provided in UTC.
        */
       transaction_date: string;
       /** @description One or more consignments containing items being purchased by the shopper, including shipping and handling fees that are charged for each consignment. Most orders will contain a single consignment (to a single shipping address), however the BigCommerce platform also supports "Multi-address orders" which allow shoppers to place a single order with items shipped to different addresses. */
-      documents: (components["schemas"]["request-document"])[];
+      documents: components["schemas"]["request-document"][];
     };
     /**
-     * AdjustRequest 
+     * AdjustRequest
      * @description An **AdjustRequest** contains the same data as a standard **QuoteRequest** with added detail of the adjustment operation.
      */
     "request-adjust": {
@@ -204,37 +204,37 @@ export interface components {
       /** @description Apartment, unit, suite, building, floor, etc. */
       line2?: string;
       /**
-       * @description City, suburb, township, etc. 
+       * @description City, suburb, township, etc.
        * @example Sydney
        */
       city?: string;
       /**
-       * @description State, province, territory, etc. 
+       * @description State, province, territory, etc.
        * @example New South Wales
        */
       region_name?: string;
       /**
-       * @description If available, the short code/acronym for the region. For example, "CA" for "California" or "NSW" for "New South Wales". 
+       * @description If available, the short code/acronym for the region. For example, "CA" for "California" or "NSW" for "New South Wales".
        * @example NSW
        */
       region_code?: string;
       /**
-       * @description The human-readable country name. 
+       * @description The human-readable country name.
        * @example Australia
        */
       country_name?: string;
       /**
-       * @description ISO 3166-1 alpha-2 format country code. 
+       * @description ISO 3166-1 alpha-2 format country code.
        * @example AU
        */
       country_code?: string;
       /**
-       * @description Postcode, ZIP, etc. Optional. 
+       * @description Postcode, ZIP, etc. Optional.
        * @example 2007
        */
       postal_code?: string;
       /**
-       * @deprecated 
+       * @deprecated
        * @description If this is a commercial address, the associated company’s name.
        */
       company_name?: string;
@@ -254,7 +254,7 @@ export interface components {
       /** @description The unique identifier of the tax quote that was requested. This must match the ID of the requested quote. */
       id: string;
       /** @description Represents an order quote or part of an order quote of tax-relevant items fulfilled from a single origin address to a single destination address, including arrays of shipping and handling fee objects for each item. Most order quotes contain a single document; however, BigCommerce supports "multi-address orders", which may come from or go to distinct sets of addresses and thus require multiple documents per quote. */
-      documents: (components["schemas"]["response-document"])[];
+      documents: components["schemas"]["response-document"][];
     };
     /** Document */
     "response-document": {
@@ -280,9 +280,9 @@ export interface components {
       };
     };
     /**
-     * Item 
+     * Item
      * @description The tax liabilities calculated for a specific item.
-     * 
+     *
      * Note: Tax liabilities should be calculated with **quantity** accounted for.
      */
     "response-item": {
@@ -299,57 +299,57 @@ export interface components {
       /** @description The total amount of tax that applied to this line item. Must be equal to **amount_inclusive** - **amount_exclusive**. */
       total_tax: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The total tax rate that applied to this item. This is the aggregated rate of the individual rates in **sales_tax_summary**.
        */
       tax_rate: number;
       /** @description Breakdown of the sales taxes that applied to this item. */
-      sales_tax_summary: (components["schemas"]["SalesTax"])[];
+      sales_tax_summary: components["schemas"]["SalesTax"][];
     };
     SalesTax: {
       /** @description The human-readable name of this tax. Used for reporting. Depending on store configuration, may also be visible in the itemization of taxes at checkout, on invoices, and in control panel views. May not be empty. */
       name: string;
       /**
-       * Format: double 
-       * @description Decimal tax rate applied by this component tax rate. Tax rates support up to four decimal places. For example "0.1" for 10% and "0.0125" for 1.25%. 
+       * Format: double
+       * @description Decimal tax rate applied by this component tax rate. Tax rates support up to four decimal places. For example "0.1" for 10% and "0.0125" for 1.25%.
        * @example 0.1
        */
       rate: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The absolute amount of tax applied to the item this SalesTax component is attached to, for this component rate. For example, if an item was $10 and this was a 5% component tax rate, the amount would be 0.50 (50 cents)
        */
       amount: number;
       tax_class?: components["schemas"]["TaxClass"];
       /**
        * @description Optional unique identifier for this sales tax, describing the relevant tax classification rule on the Tax Provider platform.
-       * 
+       *
        * Supplying an identifier allows BigCommerce to group related taxes together from all items in the order.
-       * 
-       * This identifier is persisted by BigCommerce and may be desirable for auditing purposes between BigCommerce and the Tax Provider. Currently supports persisting integer values only (the string type indicates we may support UUID values in the future). 
+       *
+       * This identifier is persisted by BigCommerce and may be desirable for auditing purposes between BigCommerce and the Tax Provider. Currently supports persisting integer values only (the string type indicates we may support UUID values in the future).
        * @example 1701
        */
       id?: string;
     };
     /**
      * @description The type of item for the line item in the document.
-     * 
-     * Tax estimate requests for order-level refunds have an additional line item with the type `refund`. 
+     *
+     * Tax estimate requests for order-level refunds have an additional line item with the type `refund`.
      * @enum {string}
      */
     item_type: "item" | "refund";
     /**
-     * @description The type of item for the line item in the document. 
+     * @description The type of item for the line item in the document.
      * @enum {string}
      */
     shipping_type: "shipping";
     /**
-     * @description The type of item for the line item in the document. 
+     * @description The type of item for the line item in the document.
      * @enum {string}
      */
     handling_type: "handling";
     /**
-     * @description The type of item for the line item in the document. 
+     * @description The type of item for the line item in the document.
      * @enum {string}
      */
     wrapping_type: "wrapping";
@@ -369,29 +369,29 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Estimate Taxes 
+   * Estimate Taxes
    * @description Submit the quote request to retrieve an estimate from the enabled third-party tax provider. Estimates are not expected to be persisted by the tax provider.
-   * 
+   *
    * > Server URL
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
-   * 
+   *
    * The following actions can trigger tax estimate requests multiple times during a standard checkout on a BigCommerce storefront, depending on the BigCommerce merchant’s settings.
-   * 
+   *
    * - After selecting a Shipping Method during the “Estimate Shipping & Tax” facility on the Cart page.
    * - After specifying a Shipping Address during a Checkout.
    * - After selecting a Shipping Method during a Checkout.
    * - After specifying a Billing Address during a Checkout.
-   * 
+   *
    * The following actions are not expected to trigger estimate requests.
-   * 
+   *
    * - While anonymously browsing a store’s product catalog.
    * - On the Cart page prior to a Shopper selecting a Shipping Method via “Estimate Shipping & Tax”.
    * - On the Checkout page prior to specifying a Shipping Address.
    * - On the Checkout page, when toggling any option related to using the shopper’s Shipping Address as their Billing Address.
-   * 
+   *
    * The following control panel actions can also trigger tax estimate requests.
-   * 
+   *
    * - Order refund.
    * - Edit order.
    * - Test connection feature in Tax Settings.
@@ -424,9 +424,9 @@ export interface operations {
     };
   };
   /**
-   * Void Tax Quote 
+   * Void Tax Quote
    * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations or when moving an order from a paid status to an unpaid status.
-   * 
+   *
    * > Server URL
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
@@ -453,9 +453,9 @@ export interface operations {
     };
   };
   /**
-   * Commit Tax Quote 
+   * Commit Tax Quote
    * @description Submit the quote request to be persisted by the enabled third-party tax provider. A commit operation is intended to be submitted once only, when the Order has been confirmed and paid.
-   * 
+   *
    * > Server URL
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
@@ -487,13 +487,13 @@ export interface operations {
     };
   };
   /**
-   * Adjust Tax Quote 
+   * Adjust Tax Quote
    * @description Replace the persisted tax quote (identified by the given unique ID) with the provided quote request (represented by the **AdjustRequest**).
-   * 
+   *
    * Relevant for partial refunds, full refunds, returns, and other Order modifications where there have been changes to the tax liabilities.
-   * 
+   *
    * The returned **Tax Quote** response is expected to be the same to a response returned by an equivalent response to **estimate** or **commit** methods.
-   * 
+   *
    * > Server URL
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.

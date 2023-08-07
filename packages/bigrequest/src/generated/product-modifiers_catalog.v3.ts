@@ -8,22 +8,22 @@
 export interface paths {
   "/catalog/products/{product_id}/modifiers": {
     /**
-     * Get All Product Modifiers 
+     * Get All Product Modifiers
      * @description Returns a list of all *Product Modifiers*. Optional parameters can be passed in.
      */
     get: operations["getModifiers"];
     /**
-     * Create a Product Modifier 
+     * Create a Product Modifier
      * @description Creates a *Product Modifier*.
-     * 
+     *
      * **Required Fields**
      * * `required`
      * * `display_name`
      * * `type`
-     * 
+     *
      * **Read-Only Fields**
      * * `id`
-     * 
+     *
      * **Notes**
      * It takes two separate requests to create a new checkbox modifier with option values. Perform a request to create a modifier, then perform a second request to update option values.
      */
@@ -39,17 +39,17 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}": {
     /**
-     * Get a Modifier 
+     * Get a Modifier
      * @description Returns a single *Product Modifier*. Optional parameters can be passed in.
      */
     get: operations["getModifierById"];
     /**
-     * Update a Modifier 
+     * Update a Modifier
      * @description Updates a *Product Modifier*.
      */
     put: operations["updateModifier"];
     /**
-     * Delete a Modifier 
+     * Delete a Modifier
      * @description Deletes a *Product Modifier*.
      */
     delete: operations["deleteModifierById"];
@@ -65,18 +65,18 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values": {
     /**
-     * Get All Modifier Values 
+     * Get All Modifier Values
      * @description Returns a list of all product *Modifier Values*. Optional parameters can be passed in.
      */
     get: operations["getModifierValues"];
     /**
-     * Create Modifier Value 
+     * Create Modifier Value
      * @description Creates a *Modifier Value*.
-     * 
+     *
      * **Required Fields**
      * * label
      * * sort_order
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
@@ -93,23 +93,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}": {
     /**
-     * Get a Modifier Value 
+     * Get a Modifier Value
      * @description Returns a single *Modifier Value*. Optional parameters can be passed in.
      */
     get: operations["getModifierValueById"];
     /**
-     * Update a Modifier Value 
+     * Update a Modifier Value
      * @description Updates a *Modifier Value*.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
     put: operations["updateModifierValue"];
     /**
-     * Delete Modifier Value 
+     * Delete Modifier Value
      * @description Deletes a *Modifier Value*.
      */
     delete: operations["deleteModifierValueById"];
@@ -126,11 +126,11 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}/image": {
     /**
-     * Create Modifier Image 
+     * Create Modifier Image
      * @description Creates a *Modifier Image*.
-     * 
+     *
      * The image will show on the storefront when the value is selected.
-     * 
+     *
      *  **Required Fields**
      * - image_file: Form posts are the only accepted upload option.
      */
@@ -153,13 +153,13 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * productModifier_Base 
+     * productModifier_Base
      * @description Common Modifier properties.
      */
     productModifier_Base: {
       /**
        * @description BigCommerce API, which determines how it will display on the storefront. Acceptable values: `date`, `checkbox`, `file`, `text`, `multi_line_text`, `numbers_only_text`, `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. Required in a /POST.
-       *  
+       *
        * @enum {string}
        */
       type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
@@ -172,50 +172,50 @@ export interface components {
       display_name?: string;
     };
     /**
-     * productModifier_Full 
+     * productModifier_Full
      * @description Product Modifier
      */
     productModifier_Full: components["schemas"]["productModifier_Base"] & {
       /**
        * @description The unique numeric ID of the modifier; increments sequentially.
-       *  
+       *
        * @example 12
        */
       id?: number;
       /**
        * @description The unique numeric ID of the product to which the option belongs.
-       *  
+       *
        * @example 77
        */
       product_id?: number;
       /**
        * @description The unique option name. Auto-generated from the display name, a timestamp, and the product ID.
-       *  
+       *
        * @example Add-a-$5-Donation1535039590-191
        */
       name?: string;
-      option_values?: (components["schemas"]["productModifierOptionValue_Full"])[];
+      option_values?: components["schemas"]["productModifierOptionValue_Full"][];
     };
     /**
-     * productModifierOptionValue_Base 
+     * productModifierOptionValue_Base
      * @description Common Product Modifer `option_value` properties.
      */
     productModifierOptionValue_Base: {
       /**
        * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-       *  
+       *
        * @example false
        */
       is_default?: boolean;
       /**
        * @description The text display identifying the value on the storefront. Required in a /POST.
-       *  
+       *
        * @example Green
        */
       label: string;
       /**
        * @description The order in which the value will be displayed on the product page. Required in a /POST.
-       *  
+       *
        * @example 0
        */
       sort_order: number;
@@ -224,7 +224,7 @@ export interface components {
       adjusters?: components["schemas"]["adjusters_Full"];
     };
     /**
-     * productModifierOptionValue_Full 
+     * productModifierOptionValue_Full
      * @description Product Modifer `option_value`.
      */
     productModifierOptionValue_Full: components["schemas"]["productModifierOptionValue_Base"] & {
@@ -233,62 +233,62 @@ export interface components {
       option_id?: number;
     };
     /**
-     * adjuster_Full 
+     * adjuster_Full
      * @description Adjuster for Complex Rules.
      */
     adjuster_Full: {
       /**
        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-       *  
+       *
        * @enum {string|null}
        */
       adjuster?: "relative" | "percentage" | null;
       /**
        * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-       *  
+       *
        * @example 5
        */
       adjuster_value?: number;
     };
     /**
-     * metaCollection_Full 
+     * metaCollection_Full
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
     /**
-     * pagination_Full 
+     * pagination_Full
      * @description Data about the response, including pagination and collection totals.
      */
     pagination_Full: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -298,7 +298,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -307,14 +307,14 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
       [key: string]: unknown;
     };
     /**
-     * config_Full 
+     * config_Full
      * @description The values for option config can vary based on the Modifier created.
      */
     config_Full: {
@@ -328,25 +328,25 @@ export interface components {
       date_limited?: boolean;
       /**
        * @description (date) The type of limit that is allowed to be entered on a date option.
-       *  
-       * @example range 
+       *
+       * @example range
        * @enum {string}
        */
       date_limit_mode?: "earliest" | "range" | "latest";
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_earliest_value?: string;
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_latest_value?: string;
       /**
        * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-       *  
-       * @example specific 
+       *
+       * @example specific
        * @enum {string}
        */
       file_types_mode?: "specific" | "all";
@@ -355,12 +355,12 @@ export interface components {
        *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
        *   `other` - Allows file types defined in the `file_types_other` array.
        */
-      file_types_supported?: (string)[];
+      file_types_supported?: string[];
       /** @description (file) A list of other file types allowed with the file upload option. */
-      file_types_other?: (string)[];
+      file_types_other?: string[];
       /**
        * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-       *  
+       *
        * @example 5
        */
       file_max_size?: number;
@@ -368,44 +368,44 @@ export interface components {
       text_characters_limited?: boolean;
       /**
        * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-       *  
+       *
        * @example 1
        */
       text_min_length?: number;
       /**
        * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-       *  
+       *
        * @example 55
        */
       text_max_length?: number;
       /**
        * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example true
        */
       text_lines_limited?: boolean;
       /**
        * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example 4
        */
       text_max_lines?: number;
       /**
        * @description (numbers_only_text) Flag to limit the value of a number option.
-       *  
+       *
        * @example true
        */
       number_limited?: boolean;
       /**
        * @description (numbers_only_text) The type of limit on values entered for a number option.
-       *  
-       * @example lowest 
+       *
+       * @example lowest
        * @enum {string}
        */
       number_limit_mode?: "lowest" | "highest" | "range";
       /**
        * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-       *  
+       *
        * @example 100
        */
       number_lowest_value?: number;
@@ -413,7 +413,7 @@ export interface components {
       number_highest_value?: number;
       /**
        * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-       *  
+       *
        * @example false
        */
       number_integers_only?: boolean;
@@ -423,8 +423,8 @@ export interface components {
       product_list_adjusts_pricing?: boolean;
       /**
        * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-       *  
-       * @example weight 
+       *
+       * @example weight
        * @enum {string}
        */
       product_list_shipping_calc?: "none" | "weight" | "package";
@@ -435,7 +435,7 @@ export interface components {
       weight?: components["schemas"]["adjuster_Full"];
       /**
        * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
        */
       image_url?: string;
@@ -470,7 +470,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Product Modifiers 
+   * Get All Product Modifiers
    * @description Returns a list of all *Product Modifiers*. Optional parameters can be passed in.
    */
   getModifiers: {
@@ -496,7 +496,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["productModifier_Full"])[];
+            data?: components["schemas"]["productModifier_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -504,17 +504,17 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Modifier 
+   * Create a Product Modifier
    * @description Creates a *Product Modifier*.
-   * 
+   *
    * **Required Fields**
    * * `required`
    * * `display_name`
    * * `type`
-   * 
+   *
    * **Read-Only Fields**
    * * `id`
-   * 
+   *
    * **Notes**
    * It takes two separate requests to create a new checkbox modifier with option values. Perform a request to create a modifier, then perform a second request to update option values.
    */
@@ -533,7 +533,7 @@ export interface operations {
         "application/json": ({
           /**
            * @description BigCommerce API, which determines how it will display on the storefront. Acceptable values: `date`, `checkbox`, `file`, `text`, `multi_line_text`, `numbers_only_text`, `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. Required in a /POST.
-           *  
+           *
            * @enum {string}
            */
           type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
@@ -542,7 +542,7 @@ export interface operations {
           /** @description The order the modifiers display on the product detail page. */
           sort_order?: number;
           /**
-           * Option Config 
+           * Option Config
            * @description The values for option config can vary based on the Modifier created.
            */
           config?: {
@@ -556,29 +556,29 @@ export interface operations {
             date_limited?: boolean;
             /**
              * @description (date) The type of limit that is allowed to be entered on a date option.
-             *  
-             * @example range 
+             *
+             * @example range
              * @enum {string}
              */
             date_limit_mode?: "earliest" | "range" | "latest";
             /**
-             * Format: date-time 
+             * Format: date-time
              * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
-             *  
+             *
              * @example 2018-08-31T00:00:00+00:00
              */
             date_earliest_value?: string;
             /**
-             * Format: date-time 
+             * Format: date-time
              * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
-             *  
+             *
              * @example 2019-01-01T00:00:00+00:00
              */
             date_latest_value?: string;
             /**
              * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-             *  
-             * @example specific 
+             *
+             * @example specific
              * @enum {string}
              */
             file_types_mode?: "specific" | "all";
@@ -586,26 +586,26 @@ export interface operations {
              * @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. Values:
              *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
              *   `other` - Allows file types defined in the `file_types_other` array.
-             *  
+             *
              * @example [
              *   "images",
              *   "documents",
              *   "other"
              * ]
              */
-            file_types_supported?: (string)[];
+            file_types_supported?: string[];
             /**
              * @description (file) A list of other file types allowed with the file upload option.
-             *  
+             *
              * @example [
              *   "pdf",
              *   "txt"
              * ]
              */
-            file_types_other?: (string)[];
+            file_types_other?: string[];
             /**
              * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-             *  
+             *
              * @example 5
              */
             file_max_size?: number;
@@ -613,44 +613,44 @@ export interface operations {
             text_characters_limited?: boolean;
             /**
              * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-             *  
+             *
              * @example 1
              */
             text_min_length?: number;
             /**
              * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-             *  
+             *
              * @example 55
              */
             text_max_length?: number;
             /**
              * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example true
              */
             text_lines_limited?: boolean;
             /**
              * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example 4
              */
             text_max_lines?: number;
             /**
              * @description (numbers_only_text) Flag to limit the value of a number option.
-             *  
+             *
              * @example true
              */
             number_limited?: boolean;
             /**
              * @description (numbers_only_text) The type of limit on values entered for a number option.
-             *  
-             * @example lowest 
+             *
+             * @example lowest
              * @enum {string}
              */
             number_limit_mode?: "lowest" | "highest" | "range";
             /**
              * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-             *  
+             *
              * @example 100
              */
             number_lowest_value?: number;
@@ -658,7 +658,7 @@ export interface operations {
             number_highest_value?: number;
             /**
              * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-             *  
+             *
              * @example false
              */
             number_integers_only?: boolean;
@@ -668,8 +668,8 @@ export interface operations {
             product_list_adjusts_pricing?: boolean;
             /**
              * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-             *  
-             * @example weight 
+             *
+             * @example weight
              * @enum {string}
              */
             product_list_shipping_calc?: "none" | "weight" | "package";
@@ -677,19 +677,19 @@ export interface operations {
           option_values?: (({
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -698,44 +698,44 @@ export interface operations {
             } & ({
               adjusters?: {
                 /**
-                 * Adjuster 
+                 * Adjuster
                  * @description Adjuster for Complex Rules.
                  */
                 price?: {
                   /**
                    * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @enum {string}
                    */
                   adjuster?: "relative" | "percentage";
                   /**
                    * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @example 5
                    */
                   adjuster_value?: number;
                 };
                 /**
-                 * Adjuster 
+                 * Adjuster
                  * @description Adjuster for Complex Rules.
                  */
                 weight?: {
                   /**
                    * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @enum {string}
                    */
                   adjuster?: "relative" | "percentage";
                   /**
                    * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @example 5
                    */
                   adjuster_value?: number;
                 };
                 /**
                  * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-                 *  
+                 *
                  * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
                  */
                 image_url?: string;
@@ -753,7 +753,7 @@ export interface operations {
         }) & {
           /**
            * @description The name of the option shown on the storefront.
-           *  
+           *
            * @example Donation
            */
           display_name: string;
@@ -765,13 +765,13 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Modifer 
+             * Modifer
              * @description Product Modifier
              */
             data?: ({
               /**
                * @description BigCommerce API, which determines how it will display on the storefront. Acceptable values: `date`, `checkbox`, `file`, `text`, `multi_line_text`, `numbers_only_text`, `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. Required in a /POST.
-               *  
+               *
                * @enum {string}
                */
               type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
@@ -780,7 +780,7 @@ export interface operations {
               /** @description The order the modifiers display on the product detail page. */
               sort_order?: number;
               /**
-               * Option Config 
+               * Option Config
                * @description The values for option config can vary based on the Modifier created.
                */
               config?: {
@@ -794,25 +794,25 @@ export interface operations {
                 date_limited?: boolean;
                 /**
                  * @description (date) The type of limit that is allowed to be entered on a date option.
-                 *  
-                 * @example range 
+                 *
+                 * @example range
                  * @enum {string}
                  */
                 date_limit_mode?: "earliest" | "range" | "latest";
                 /**
-                 * Format: date 
+                 * Format: date
                  * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_earliest_value?: string;
                 /**
-                 * Format: date 
+                 * Format: date
                  * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_latest_value?: string;
                 /**
                  * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-                 *  
-                 * @example specific 
+                 *
+                 * @example specific
                  * @enum {string}
                  */
                 file_types_mode?: "specific" | "all";
@@ -821,12 +821,12 @@ export interface operations {
                  *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
                  *   `other` - Allows file types defined in the `file_types_other` array.
                  */
-                file_types_supported?: (string)[];
+                file_types_supported?: string[];
                 /** @description (file) A list of other file types allowed with the file upload option. */
-                file_types_other?: (string)[];
+                file_types_other?: string[];
                 /**
                  * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-                 *  
+                 *
                  * @example 5
                  */
                 file_max_size?: number;
@@ -834,44 +834,44 @@ export interface operations {
                 text_characters_limited?: boolean;
                 /**
                  * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-                 *  
+                 *
                  * @example 1
                  */
                 text_min_length?: number;
                 /**
                  * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-                 *  
+                 *
                  * @example 55
                  */
                 text_max_length?: number;
                 /**
                  * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example true
                  */
                 text_lines_limited?: boolean;
                 /**
                  * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example 4
                  */
                 text_max_lines?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the value of a number option.
-                 *  
+                 *
                  * @example true
                  */
                 number_limited?: boolean;
                 /**
                  * @description (numbers_only_text) The type of limit on values entered for a number option.
-                 *  
-                 * @example lowest 
+                 *
+                 * @example lowest
                  * @enum {string}
                  */
                 number_limit_mode?: "lowest" | "highest" | "range";
                 /**
                  * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-                 *  
+                 *
                  * @example 100
                  */
                 number_lowest_value?: number;
@@ -879,7 +879,7 @@ export interface operations {
                 number_highest_value?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-                 *  
+                 *
                  * @example false
                  */
                 number_integers_only?: boolean;
@@ -889,8 +889,8 @@ export interface operations {
                 product_list_adjusts_pricing?: boolean;
                 /**
                  * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-                 *  
-                 * @example weight 
+                 *
+                 * @example weight
                  * @enum {string}
                  */
                 product_list_shipping_calc?: "none" | "weight" | "package";
@@ -898,19 +898,19 @@ export interface operations {
               option_values?: (({
                   /**
                    * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-                   *  
+                   *
                    * @example false
                    */
                   is_default?: boolean;
                   /**
                    * @description The text display identifying the value on the storefront. Required in a /POST.
-                   *  
+                   *
                    * @example Green
                    */
                   label: string;
                   /**
                    * @description The order in which the value will be displayed on the product page. Required in a /POST.
-                   *  
+                   *
                    * @example 0
                    */
                   sort_order: number;
@@ -919,44 +919,44 @@ export interface operations {
                 } & ({
                   adjusters?: {
                     /**
-                     * Adjuster 
+                     * Adjuster
                      * @description Adjuster for Complex Rules.
                      */
                     price?: {
                       /**
                        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @enum {string}
                        */
                       adjuster?: "relative" | "percentage";
                       /**
                        * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @example 5
                        */
                       adjuster_value?: number;
                     };
                     /**
-                     * Adjuster 
+                     * Adjuster
                      * @description Adjuster for Complex Rules.
                      */
                     weight?: {
                       /**
                        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @enum {string}
                        */
                       adjuster?: "relative" | "percentage";
                       /**
                        * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @example 5
                        */
                       adjuster_value?: number;
                     };
                     /**
                      * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-                     *  
+                     *
                      * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
                      */
                     image_url?: string;
@@ -974,25 +974,25 @@ export interface operations {
             }) & {
               /**
                * @description The unique numeric ID of the modifier; increments sequentially.
-               *  
+               *
                * @example 12
                */
               id?: number;
               /**
                * @description The unique numeric ID of the product to which the option belongs.
-               *  
+               *
                * @example 77
                */
               product_id?: number;
               /**
                * @description The unique option name. Auto-generated from the display name, a timestamp, and the product ID.
-               *  
+               *
                * @example Add-a-$5-Donation1535039590-191
                */
               name?: string;
               /**
                * @description The name of the option shown on the storefront.
-               *  
+               *
                * @example Donation
                */
               display_name?: string;
@@ -1038,7 +1038,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Modifier 
+   * Get a Modifier
    * @description Returns a single *Product Modifier*. Optional parameters can be passed in.
    */
   getModifierById: {
@@ -1084,7 +1084,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Modifier 
+   * Update a Modifier
    * @description Updates a *Product Modifier*.
    */
   updateModifier: {
@@ -1105,16 +1105,16 @@ export interface operations {
         "application/json": {
           /**
            * @description BigCommerce API, which determines how it will display on the storefront. Acceptable values: `date`, `checkbox`, `file`, `text`, `multi_line_text`, `numbers_only_text`, `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. Required in a /POST.
-           *  
+           *
            * @enum {string}
            */
           type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
-          /** @description Whether or not this modifer is required or not at checkout. Required in a /POST. */
+          /** @description Whether or not this modifier is required or not at checkout. Required in a /POST. */
           required: boolean;
           /** @description The order the modifiers display on the product detail page. */
           sort_order?: number;
           /**
-           * Option Config 
+           * Option Config
            * @description The values for option config can vary based on the Modifier created.
            */
           config?: {
@@ -1128,25 +1128,25 @@ export interface operations {
             date_limited?: boolean;
             /**
              * @description (date) The type of limit that is allowed to be entered on a date option.
-             *  
-             * @example range 
+             *
+             * @example range
              * @enum {string}
              */
             date_limit_mode?: "earliest" | "range" | "latest";
             /**
-             * Format: date 
+             * Format: date
              * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
              */
             date_earliest_value?: string;
             /**
-             * Format: date 
+             * Format: date
              * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
              */
             date_latest_value?: string;
             /**
              * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-             *  
-             * @example specific 
+             *
+             * @example specific
              * @enum {string}
              */
             file_types_mode?: "specific" | "all";
@@ -1155,12 +1155,12 @@ export interface operations {
              *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
              *   `other` - Allows file types defined in the `file_types_other` array.
              */
-            file_types_supported?: (string)[];
+            file_types_supported?: string[];
             /** @description (file) A list of other file types allowed with the file upload option. */
-            file_types_other?: (string)[];
+            file_types_other?: string[];
             /**
              * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-             *  
+             *
              * @example 5
              */
             file_max_size?: number;
@@ -1168,44 +1168,44 @@ export interface operations {
             text_characters_limited?: boolean;
             /**
              * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-             *  
+             *
              * @example 1
              */
             text_min_length?: number;
             /**
              * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-             *  
+             *
              * @example 55
              */
             text_max_length?: number;
             /**
              * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example true
              */
             text_lines_limited?: boolean;
             /**
              * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example 4
              */
             text_max_lines?: number;
             /**
              * @description (numbers_only_text) Flag to limit the value of a number option.
-             *  
+             *
              * @example true
              */
             number_limited?: boolean;
             /**
              * @description (numbers_only_text) The type of limit on values entered for a number option.
-             *  
-             * @example lowest 
+             *
+             * @example lowest
              * @enum {string}
              */
             number_limit_mode?: "lowest" | "highest" | "range";
             /**
              * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-             *  
+             *
              * @example 100
              */
             number_lowest_value?: number;
@@ -1213,7 +1213,7 @@ export interface operations {
             number_highest_value?: number;
             /**
              * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-             *  
+             *
              * @example false
              */
             number_integers_only?: boolean;
@@ -1223,16 +1223,22 @@ export interface operations {
             product_list_adjusts_pricing?: boolean;
             /**
              * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-             *  
-             * @example weight 
+             *
+             * @example weight
              * @enum {string}
              */
             product_list_shipping_calc?: "none" | "weight" | "package";
           };
-          option_values?: ({
+          option_values?: {
               /** @description The unique numeric ID of the value; increments sequentially. */
               id?: number;
-            })[];
+            }[];
+          /**
+           * @description The name of the option shown on the storefront.
+           *
+           * @example Donation
+           */
+          display_name?: string;
         };
       };
     };
@@ -1241,13 +1247,13 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Modifer 
+             * Modifer
              * @description Product Modifier
              */
             data?: ({
               /**
                * @description BigCommerce API, which determines how it will display on the storefront. Acceptable values: `date`, `checkbox`, `file`, `text`, `multi_line_text`, `numbers_only_text`, `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. Required in a /POST.
-               *  
+               *
                * @enum {string}
                */
               type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
@@ -1256,7 +1262,7 @@ export interface operations {
               /** @description The order the modifiers display on the product detail page. */
               sort_order?: number;
               /**
-               * Option Config 
+               * Option Config
                * @description The values for option config can vary based on the Modifier created.
                */
               config?: {
@@ -1270,25 +1276,25 @@ export interface operations {
                 date_limited?: boolean;
                 /**
                  * @description (date) The type of limit that is allowed to be entered on a date option.
-                 *  
-                 * @example range 
+                 *
+                 * @example range
                  * @enum {string}
                  */
                 date_limit_mode?: "earliest" | "range" | "latest";
                 /**
-                 * Format: date 
+                 * Format: date
                  * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_earliest_value?: string;
                 /**
-                 * Format: date 
+                 * Format: date
                  * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_latest_value?: string;
                 /**
                  * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-                 *  
-                 * @example specific 
+                 *
+                 * @example specific
                  * @enum {string}
                  */
                 file_types_mode?: "specific" | "all";
@@ -1297,12 +1303,12 @@ export interface operations {
                  *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
                  *   `other` - Allows file types defined in the `file_types_other` array.
                  */
-                file_types_supported?: (string)[];
+                file_types_supported?: string[];
                 /** @description (file) A list of other file types allowed with the file upload option. */
-                file_types_other?: (string)[];
+                file_types_other?: string[];
                 /**
                  * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-                 *  
+                 *
                  * @example 5
                  */
                 file_max_size?: number;
@@ -1310,44 +1316,44 @@ export interface operations {
                 text_characters_limited?: boolean;
                 /**
                  * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-                 *  
+                 *
                  * @example 1
                  */
                 text_min_length?: number;
                 /**
                  * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-                 *  
+                 *
                  * @example 55
                  */
                 text_max_length?: number;
                 /**
                  * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example true
                  */
                 text_lines_limited?: boolean;
                 /**
                  * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example 4
                  */
                 text_max_lines?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the value of a number option.
-                 *  
+                 *
                  * @example true
                  */
                 number_limited?: boolean;
                 /**
                  * @description (numbers_only_text) The type of limit on values entered for a number option.
-                 *  
-                 * @example lowest 
+                 *
+                 * @example lowest
                  * @enum {string}
                  */
                 number_limit_mode?: "lowest" | "highest" | "range";
                 /**
                  * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-                 *  
+                 *
                  * @example 100
                  */
                 number_lowest_value?: number;
@@ -1355,7 +1361,7 @@ export interface operations {
                 number_highest_value?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-                 *  
+                 *
                  * @example false
                  */
                 number_integers_only?: boolean;
@@ -1365,8 +1371,8 @@ export interface operations {
                 product_list_adjusts_pricing?: boolean;
                 /**
                  * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-                 *  
-                 * @example weight 
+                 *
+                 * @example weight
                  * @enum {string}
                  */
                 product_list_shipping_calc?: "none" | "weight" | "package";
@@ -1374,19 +1380,19 @@ export interface operations {
               option_values?: (({
                   /**
                    * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-                   *  
+                   *
                    * @example false
                    */
                   is_default?: boolean;
                   /**
                    * @description The text display identifying the value on the storefront. Required in a /POST.
-                   *  
+                   *
                    * @example Green
                    */
                   label: string;
                   /**
                    * @description The order in which the value will be displayed on the product page. Required in a /POST.
-                   *  
+                   *
                    * @example 0
                    */
                   sort_order: number;
@@ -1395,44 +1401,44 @@ export interface operations {
                 } & ({
                   adjusters?: {
                     /**
-                     * Adjuster 
+                     * Adjuster
                      * @description Adjuster for Complex Rules.
                      */
                     price?: {
                       /**
                        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @enum {string}
                        */
                       adjuster?: "relative" | "percentage";
                       /**
                        * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @example 5
                        */
                       adjuster_value?: number;
                     };
                     /**
-                     * Adjuster 
+                     * Adjuster
                      * @description Adjuster for Complex Rules.
                      */
                     weight?: {
                       /**
                        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @enum {string}
                        */
                       adjuster?: "relative" | "percentage";
                       /**
                        * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                       *  
+                       *
                        * @example 5
                        */
                       adjuster_value?: number;
                     };
                     /**
                      * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-                     *  
+                     *
                      * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
                      */
                     image_url?: string;
@@ -1450,25 +1456,25 @@ export interface operations {
             }) & {
               /**
                * @description The unique numeric ID of the modifier; increments sequentially.
-               *  
+               *
                * @example 12
                */
               id?: number;
               /**
                * @description The unique numeric ID of the product to which the option belongs.
-               *  
+               *
                * @example 77
                */
               product_id?: number;
               /**
                * @description The unique option name. Auto-generated from the display name, a timestamp, and the product ID.
-               *  
+               *
                * @example Add-a-$5-Donation1535039590-191
                */
               name?: string;
               /**
                * @description The name of the option shown on the storefront.
-               *  
+               *
                * @example Donation
                */
               display_name?: string;
@@ -1514,7 +1520,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Modifier 
+   * Delete a Modifier
    * @description Deletes a *Product Modifier*.
    */
   deleteModifierById: {
@@ -1537,7 +1543,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Modifier Values 
+   * Get All Modifier Values
    * @description Returns a list of all product *Modifier Values*. Optional parameters can be passed in.
    */
   getModifierValues: {
@@ -1566,7 +1572,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["productModifierOptionValue_Full"])[];
+            data?: components["schemas"]["productModifierOptionValue_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -1574,13 +1580,13 @@ export interface operations {
     };
   };
   /**
-   * Create Modifier Value 
+   * Create Modifier Value
    * @description Creates a *Modifier Value*.
-   * 
+   *
    * **Required Fields**
    * * label
    * * sort_order
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -1602,19 +1608,19 @@ export interface operations {
         "application/json": {
           /**
            * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-           *  
+           *
            * @example false
            */
           is_default?: boolean;
           /**
            * @description The text display identifying the value on the storefront. Required in a /POST.
-           *  
+           *
            * @example Green
            */
           label: string;
           /**
            * @description The order in which the value will be displayed on the product page. Required in a /POST.
-           *  
+           *
            * @example 0
            */
           sort_order: number;
@@ -1623,44 +1629,44 @@ export interface operations {
         } & ({
           adjusters?: {
             /**
-             * Adjuster 
+             * Adjuster
              * @description Adjuster for Complex Rules.
              */
             price?: {
               /**
                * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @enum {string|null}
                */
               adjuster?: "relative" | "percentage" | null;
               /**
                * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @example 5
                */
               adjuster_value?: number;
             };
             /**
-             * Adjuster 
+             * Adjuster
              * @description Adjuster for Complex Rules.
              */
             weight?: {
               /**
                * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @enum {string|null}
                */
               adjuster?: "relative" | "percentage" | null;
               /**
                * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @example 5
                */
               adjuster_value?: number;
             };
             /**
              * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-             *  
+             *
              * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
              */
             image_url?: string;
@@ -1679,25 +1685,25 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Modifier Value 
+             * Modifier Value
              * @description Part of Modifier Value Response
              */
             data?: ({
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -1706,44 +1712,44 @@ export interface operations {
             } & ({
               adjusters?: {
                 /**
-                 * Adjuster 
+                 * Adjuster
                  * @description Adjuster for Complex Rules.
                  */
                 price?: {
                   /**
                    * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @enum {string}
                    */
                   adjuster?: "relative" | "percentage";
                   /**
                    * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @example 5
                    */
                   adjuster_value?: number;
                 };
                 /**
-                 * Adjuster 
+                 * Adjuster
                  * @description Adjuster for Complex Rules.
                  */
                 weight?: {
                   /**
                    * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @enum {string}
                    */
                   adjuster?: "relative" | "percentage";
                   /**
                    * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @example 5
                    */
                   adjuster_value?: number;
                 };
                 /**
                  * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-                 *  
+                 *
                  * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
                  */
                 image_url?: string;
@@ -1782,7 +1788,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Modifier Value 
+   * Get a Modifier Value
    * @description Returns a single *Modifier Value*. Optional parameters can be passed in.
    */
   getModifierValueById: {
@@ -1831,12 +1837,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Modifier Value 
+   * Update a Modifier Value
    * @description Updates a *Modifier Value*.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -1861,19 +1867,19 @@ export interface operations {
         "application/json": ({
           /**
            * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-           *  
+           *
            * @example false
            */
           is_default?: boolean;
           /**
            * @description The text display identifying the value on the storefront. Required in a /POST.
-           *  
+           *
            * @example Green
            */
           label: string;
           /**
            * @description The order in which the value will be displayed on the product page. Required in a /POST.
-           *  
+           *
            * @example 0
            */
           sort_order: number;
@@ -1882,44 +1888,44 @@ export interface operations {
         } & ({
           adjusters?: {
             /**
-             * Adjuster 
+             * Adjuster
              * @description Adjuster for Complex Rules.
              */
             price?: {
               /**
                * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @enum {string|null}
                */
               adjuster?: "relative" | "percentage" | null;
               /**
                * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @example 5
                */
               adjuster_value?: number;
             };
             /**
-             * Adjuster 
+             * Adjuster
              * @description Adjuster for Complex Rules.
              */
             weight?: {
               /**
                * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @enum {string|null}
                */
               adjuster?: "relative" | "percentage" | null;
               /**
                * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-               *  
+               *
                * @example 5
                */
               adjuster_value?: number;
             };
             /**
              * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-             *  
+             *
              * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
              */
             image_url?: string;
@@ -1941,25 +1947,25 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Modifier Value 
+             * Modifier Value
              * @description Part of Modifier Value Response
              */
             data?: ({
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -1968,44 +1974,44 @@ export interface operations {
             } & ({
               adjusters?: {
                 /**
-                 * Adjuster 
+                 * Adjuster
                  * @description Adjuster for Complex Rules.
                  */
                 price?: {
                   /**
                    * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @enum {string}
                    */
                   adjuster?: "relative" | "percentage";
                   /**
                    * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @example 5
                    */
                   adjuster_value?: number;
                 };
                 /**
-                 * Adjuster 
+                 * Adjuster
                  * @description Adjuster for Complex Rules.
                  */
                 weight?: {
                   /**
                    * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @enum {string}
                    */
                   adjuster?: "relative" | "percentage";
                   /**
                    * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                   *  
+                   *
                    * @example 5
                    */
                   adjuster_value?: number;
                 };
                 /**
                  * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-                 *  
+                 *
                  * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
                  */
                 image_url?: string;
@@ -2044,7 +2050,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Modifier Value 
+   * Delete Modifier Value
    * @description Deletes a *Modifier Value*.
    */
   deleteModifierValueById: {
@@ -2070,11 +2076,11 @@ export interface operations {
     };
   };
   /**
-   * Create Modifier Image 
+   * Create Modifier Image
    * @description Creates a *Modifier Image*.
-   * 
+   *
    * The image will show on the storefront when the value is selected.
-   * 
+   *
    *  **Required Fields**
    * - image_file: Form posts are the only accepted upload option.
    */
@@ -2107,7 +2113,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Resource Image 
+             * Resource Image
              * @description An object containing a publicly accessible image URL, or a form post that contains an image file.
              */
             data?: {

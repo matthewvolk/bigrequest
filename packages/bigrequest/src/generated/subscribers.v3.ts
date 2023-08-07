@@ -8,23 +8,23 @@
 export interface paths {
   "/customers/subscribers": {
     /**
-     * Get Subscribers 
+     * Get Subscribers
      * @description Returns a list of *Subscribers*. Optional filter parameters can be passed in.
      */
     get: operations["getSubscribers"];
     /**
-     * Create a Subscriber 
+     * Create a Subscriber
      * @description Creates a *Subscriber*.
-     * 
+     *
      * **Required Fields**
      * * email
-     * 
+     *
      * **Read Only Fields**
      * * id
      */
     post: operations["createSubscriber"];
     /**
-     * Delete Subscribers 
+     * Delete Subscribers
      * @description By default, it deletes all *Subscribers*. A filter should be added to avoid deleting all subscribers in a store.
      */
     delete: operations["deleteSubscribers"];
@@ -36,20 +36,20 @@ export interface paths {
   };
   "/customers/subscribers/{subscriber_id}": {
     /**
-     * Get a Subscriber 
+     * Get a Subscriber
      * @description Returns a *Subscriber*.
      */
     get: operations["getSubscriberById"];
     /**
-     * Update a Subscriber 
+     * Update a Subscriber
      * @description Updates a *Subscriber*.
-     * 
+     *
      * **Read Only Fields**
      * * id
      */
     put: operations["updateSubscriber"];
     /**
-     * Delete a Subscriber 
+     * Delete a Subscriber
      * @description Deletes a *Subscriber*.
      */
     delete: operations["deleteSubscriberById"];
@@ -66,25 +66,25 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * subscriber_Full 
+     * subscriber_Full
      * @description Full subscriber object returned in responses.
      */
     subscriber_Full: components["schemas"]["subscriber_Base"] & {
       /** @description The unique numeric ID of the subscriber; increments sequentially. */
       id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date on which the subscriber was modified.
        */
       date_modified?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date of which the subscriber was created.
        */
       date_created?: string;
     };
     /**
-     * subscriber_Base 
+     * subscriber_Base
      * @description Common Subscriber properties.
      */
     subscriber_Base: {
@@ -116,63 +116,63 @@ export interface components {
       order_id?: number | null;
     }) & {
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date on which the subscriber was modified.
        */
       date_modified?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date of which the subscriber was created.
        */
       date_created?: string;
     };
     /**
-     * subscriber_Post 
+     * subscriber_Post
      * @description The model for a POST to create a subscriber.
      */
     subscriber_Post: components["schemas"]["subscriber_Base"];
     /**
-     * subscriber_Put 
+     * subscriber_Put
      * @description The model for a PUT to update a subscriber.
      */
     subscriber_Put: components["schemas"]["subscriber_Base"];
     /**
-     * Collection Meta 
+     * Collection Meta
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
       /**
-       * Pagination 
+       * Pagination
        * @description Data about the response, including pagination and collection totals.
        */
       pagination?: {
         /**
          * @description Total number of items in the result set.
-         *  
+         *
          * @example 36
          */
         total?: number;
         /**
          * @description Total number of items in the collection response.
-         *  
+         *
          * @example 36
          */
         count?: number;
         /**
          * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *  
+         *
          * @example 50
          */
         per_page?: number;
         /**
          * @description The page you are currently on within the collection.
-         *  
+         *
          * @example 1
          */
         current_page?: number;
         /**
          * @description The total number of pages in the collection.
-         *  
+         *
          * @example 1
          */
         total_pages?: number;
@@ -182,7 +182,7 @@ export interface components {
           previous?: string;
           /**
            * @description Link to the current page returned in the response.
-           *  
+           *
            * @example ?page=1&limit=50
            */
           current?: string;
@@ -192,37 +192,37 @@ export interface components {
       };
     };
     /**
-     * Pagination 
+     * Pagination
      * @description Data about the response, including pagination and collection totals.
      */
     Pagination: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -232,7 +232,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -241,7 +241,7 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     OpenMeta: {
@@ -262,7 +262,7 @@ export interface components {
       };
     };
     /**
-     * Base Error 
+     * Base Error
      * @description Error payload for the BigCommerce API.
      */
     BaseError: {
@@ -274,7 +274,7 @@ export interface components {
       instance?: string;
     };
     /**
-     * Not Found 
+     * Not Found
      * @description Error payload for the BigCommerce API.
      */
     NotFound: {
@@ -294,7 +294,7 @@ export interface components {
     subrscriberCollection_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["subscriber_Full"])[];
+          data?: components["schemas"]["subscriber_Full"][];
           meta?: components["schemas"]["CollectionMeta"];
         };
       };
@@ -348,7 +348,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Subscribers 
+   * Get Subscribers
    * @description Returns a list of *Subscribers*. Optional filter parameters can be passed in.
    */
   getSubscribers: {
@@ -383,7 +383,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["subscriber_Full"])[];
+            data?: components["schemas"]["subscriber_Full"][];
             meta?: components["schemas"]["CollectionMeta"];
           };
         };
@@ -391,12 +391,12 @@ export interface operations {
     };
   };
   /**
-   * Create a Subscriber 
+   * Create a Subscriber
    * @description Creates a *Subscriber*.
-   * 
+   *
    * **Required Fields**
    * * email
-   * 
+   *
    * **Read Only Fields**
    * * id
    */
@@ -458,7 +458,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Subscribers 
+   * Delete Subscribers
    * @description By default, it deletes all *Subscribers*. A filter should be added to avoid deleting all subscribers in a store.
    */
   deleteSubscribers: {
@@ -491,7 +491,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Subscriber 
+   * Get a Subscriber
    * @description Returns a *Subscriber*.
    */
   getSubscriberById: {
@@ -529,9 +529,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Subscriber 
+   * Update a Subscriber
    * @description Updates a *Subscriber*.
-   * 
+   *
    * **Read Only Fields**
    * * id
    */
@@ -610,7 +610,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Subscriber 
+   * Delete a Subscriber
    * @description Deletes a *Subscriber*.
    */
   deleteSubscriberById: {

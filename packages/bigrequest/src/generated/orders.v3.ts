@@ -8,7 +8,7 @@
 export interface paths {
   "/orders/{order_id}/payment_actions/capture": {
     /**
-     * Capture order payment 
+     * Capture order payment
      * @description Capture the payment for an order. When there are no payment method validation issues, the capture process is successful, the `payment_status` updates to `capture pending`, and the payment request is scheduled. The payment request itself occurs asynchronously.
      * Requires at least one of the following scopes:
      * * `store_v2_orders`
@@ -26,9 +26,9 @@ export interface paths {
   };
   "/orders/{order_id}/payment_actions/void": {
     /**
-     * Void 
+     * Void
      * @description Void the payment for an order. When there are no payment method validation issues, the void process is successful, the `payment_status` updates to `void pending`, and the void payment request is scheduled. The payment request itself occurs asynchronously.
-     * 
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_orders`
      * * `store_v2_transactions`
@@ -45,13 +45,13 @@ export interface paths {
   };
   "/orders/{order_id}/transactions": {
     /**
-     * Get Transactions 
+     * Get Transactions
      * @description Returns an **order's** transactions.
-     * 
+     *
      * **Usage Notes**
      * * Depending on the payment method, different information will be available (not all payment gateways return full card or fraud detail).
-     * 
-     * 
+     *
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_transactions_read_only`
      * * `store_v2_transactions`
@@ -68,13 +68,13 @@ export interface paths {
   };
   "/orders/{order_id}/payment_actions/refund_quotes": {
     /**
-     * Create a Refund Quote 
+     * Create a Refund Quote
      * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-     * 
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_orders`
      * * `store_v2_transactions`
-     * 
+     *
      * **Note:**
      * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
      */
@@ -90,9 +90,9 @@ export interface paths {
   };
   "/orders/{order_id}/payment_actions/refunds": {
     /**
-     * Get Refunds for Order 
+     * Get Refunds for Order
      * @description Returns a list of refunds ordered by refund ID in ascending order for the given order.
-     * 
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_transactions_read_only`
      * * `store_v2_transactions`
@@ -101,13 +101,13 @@ export interface paths {
      */
     get: operations["getorderrefunds"];
     /**
-     * Create a Refund 
+     * Create a Refund
      * @description Creates a refund. When there are no payment method validation issues, the refund process is successful and the refund payment request is scheduled. The payment request itself occurs asynchronously.
-     * 
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_orders`
      * * `store_v2_transactions`
-     * 
+     *
      * **Note:**
      * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
      */
@@ -123,7 +123,7 @@ export interface paths {
   };
   "/orders/payment_actions/refunds/{refund_id}": {
     /**
-     * Get a Refund 
+     * Get a Refund
      * @description Returns a refund by refund ID.
      */
     get: operations["RefundID_Get"];
@@ -146,11 +146,11 @@ export interface paths {
   };
   "/stores/{store_hash}/v3/orders/payment_actions/refund_quotes": {
     /**
-     * Create Refund Quotes - BATCH 
+     * Create Refund Quotes - BATCH
      * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-     * 
+     *
      * This endpoint will accept a batch of one or more.
-     * 
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_orders`
      * * `store_v2_transactions`
@@ -164,9 +164,9 @@ export interface paths {
   };
   "/stores/{store_hash}/v3/orders/payment_actions/refunds": {
     /**
-     * Get All Refunds 
+     * Get All Refunds
      * @description Returns a list of refunds ordered by refund ID in ascending order.
-     * 
+     *
      * Requires at least one of the following scopes:
      * * `store_v2_transactions_read_only`
      * * `store_v2_transactions`
@@ -177,16 +177,16 @@ export interface paths {
   };
   "/orders/{order_id}/metafields": {
     /**
-     * Get Metafields 
+     * Get Metafields
      * @description Gets a `Metafield` object list, by `order_id`.
-     * 
+     *
      * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
      */
     get: operations["getOrderMetafieldsByOrderId"];
     /**
-     * Create Metafields 
+     * Create Metafields
      * @description Creates an order `Metafield`.
-     * 
+     *
      * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
      */
     post: operations["createOrderMetafield"];
@@ -201,19 +201,19 @@ export interface paths {
   };
   "/orders/{order_id}/metafields/{metafield_id}": {
     /**
-     * Get a Metafield 
+     * Get a Metafield
      * @description Gets a `Metafield`, by `order_id`.
      */
     get: operations["getOrderMetafieldByOrderIdAndMetafieldId"];
     /**
-     * Update a Metafield 
+     * Update a Metafield
      * @description Updates a `Metafield` object.
-     * 
+     *
      * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
      */
     put: operations["updateOrderMetafield"];
     /**
-     * Delete a Metafield 
+     * Delete a Metafield
      * @description Deletes a `Metafield`.
      */
     delete: operations["deleteOrderMetafieldById"];
@@ -230,12 +230,12 @@ export interface paths {
   };
   "/orders/settings": {
     /**
-     * Get Global Order Settings 
+     * Get Global Order Settings
      * @description Returns global order settings.
      */
     get: operations["GetGlobalOrderSettings"];
     /**
-     * Update Global Order Settings 
+     * Update Global Order Settings
      * @description Updates global order settings.
      */
     put: operations["UpdateGlobalOrderSettings"];
@@ -247,14 +247,14 @@ export interface paths {
   };
   "/orders/settings/channels/{channel_id}": {
     /**
-     * Get Channel Order Settings 
+     * Get Channel Order Settings
      * @description Returns order settings for a specific channel.
      */
     get: operations["GetChannelOrderSettings"];
     /**
-     * Update Channel Order Settings 
+     * Update Channel Order Settings
      * @description Updates order settings for a specific channel.
-     * 
+     *
      *  **Note:** You must override both notifications `email_addresses` or neither, i.e. either both notification `email_addresses` are an array of valid email addresses, or both `email_addresses` must be null. You may not have one set to an array of addresses and the other set to `null`.
      */
     put: operations["UpdateChannelOrderSettings"];
@@ -275,8 +275,8 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     GetReturnsSettings: {
-      reasons?: (components["schemas"]["Reason"])[];
-      preferred_outcomes?: (components["schemas"]["PreferredOutcome"])[];
+      reasons?: components["schemas"]["Reason"][];
+      preferred_outcomes?: components["schemas"]["PreferredOutcome"][];
     };
     Reason: {
       /** Format: int64 */
@@ -297,7 +297,7 @@ export interface components {
     /** CreateReturnRequest */
     CreateReturnRequest: {
       /** @description A collection of items to be returned. */
-      items: (components["schemas"]["CreateReturnRequestItem"])[];
+      items: components["schemas"]["CreateReturnRequestItem"][];
       /** @description A comment provided to the merchant for review. */
       comment?: string;
     };
@@ -312,14 +312,14 @@ export interface components {
     CreateReturn: components["schemas"]["Return_Full"];
     /** @description A view of a return. */
     Return_Full: {
-      items?: (components["schemas"]["ReturnItem"])[];
+      items?: components["schemas"]["ReturnItem"][];
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The total price of the items being returned.
        */
       total?: string;
       /**
-       * Format: iso-4217 
+       * Format: iso-4217
        * @description The transactional currency of the return and the associated order.
        */
       currency?: string;
@@ -338,7 +338,7 @@ export interface components {
     /** @description A view of a returned item. */
     ReturnItem: {
       /**
-       * Format: int64 
+       * Format: int64
        * @description The unique identifier of this returned item.
        */
       id?: number;
@@ -346,13 +346,13 @@ export interface components {
       /** @description The quantity of items for which a return was requested. */
       quantity?: number;
       /**
-       * Format: decimal 
+       * Format: decimal
        * @description The total price of the line item.
        */
       total?: string;
       preferred_outcome?: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description Unique identifier of the preferred outcome.
          */
         id?: number;
@@ -361,7 +361,7 @@ export interface components {
       };
       reason?: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description Unique identifier of the reason.
          */
         id?: number;
@@ -386,35 +386,35 @@ export interface components {
     /** StatusUpdate_Full */
     StatusUpdate_Full: {
       /**
-       * Format: int64 
+       * Format: int64
        * @description The ID of the return for which the status should be updated.
        */
       return_id?: number;
       new_status?: components["schemas"]["Status_Full"];
     };
     /**
-     * Status_Full 
-     * @description The status of the return. 
+     * Status_Full
+     * @description The status of the return.
      * @enum {string}
      */
     Status_Full: "CLOSED" | "OPEN" | "REMOVED";
     /** UpdateReturnStatusesRequest */
-    UpdateReturnStatusesRequest: (components["schemas"]["StatusUpdate_Full"])[];
-    UpdateReturnStatuses: ({
+    UpdateReturnStatusesRequest: components["schemas"]["StatusUpdate_Full"][];
+    UpdateReturnStatuses: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description The ID of the return for which the status was updated.
          */
         id?: number;
         status?: components["schemas"]["Status_Full"];
-      })[];
+      }[];
     Problem: {
       /** @description Status code of the problem. */
       status?: number;
       /** @description A short description of the problem. */
       title?: string;
       /**
-       * Format: url 
+       * Format: url
        * @description A resource describing the problem.
        */
       type?: string;
@@ -428,37 +428,37 @@ export interface components {
       failed?: number;
     };
     /**
-     * Pagination 
+     * Pagination
      * @description Data about the response, including pagination and collection totals.
      */
     Pagination: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -468,7 +468,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -477,9 +477,9 @@ export interface components {
       };
     };
     /** ReceivedItems_Put */
-    ReceivedItems_Put: ({
+    ReceivedItems_Put: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description The item ID for updating the received state.
          */
         item_id: number;
@@ -487,29 +487,29 @@ export interface components {
         received_quantity: number;
         /** @description The quantity of items to be marked as pending. */
         pending_quantity: number;
-      })[];
+      }[];
     /** ReceivedItems_Base */
-    ReceivedItems_Base: ({
+    ReceivedItems_Base: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description The ID of the item for which received item status was updated.
          */
         item_id?: number;
         /**
-         * Format: int64 
+         * Format: int64
          * @description The quantity of items marked as received.
          */
         received_quantity?: number;
         /**
-         * Format: int64 
+         * Format: int64
          * @description The quantity of items marked as pending.
          */
         pending_quantity?: number;
-      })[];
+      }[];
     /** ReviewedItems_Put */
-    ReviewedItems_Put: ({
+    ReviewedItems_Put: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description The item ID for updating the reviewed state.
          */
         item_id: number;
@@ -519,52 +519,52 @@ export interface components {
         rejected_quantity: number;
         /** @description The quantity of items to be marked as pending. */
         pending_quantity: number;
-      })[];
+      }[];
     /** ReviewedItems_Base */
-    ReviewedItems_Base: ({
+    ReviewedItems_Base: {
         /**
-         * Format: int64 
+         * Format: int64
          * @description The ID of the item for which reviewed status was updated.
          */
         item_id?: number;
         /**
-         * Format: int64 
+         * Format: int64
          * @description The quantity of items marked as authorized.
          */
         authorized_quantity?: number;
         /**
-         * Format: int64 
+         * Format: int64
          * @description The quantity of items marked as rejected.
          */
         rejected_quantity?: number;
         /**
-         * Format: int64 
+         * Format: int64
          * @description The quantity of items marked as pending.
          */
         pending_quantity?: number;
-      })[];
-    GetReturnableItems: ({
+      }[];
+    GetReturnableItems: {
         reference_id?: components["schemas"]["ItemReferenceId"];
         /** @description The name of the order product. */
         name?: string;
         /** @description The maximum quantity of this item that can presently be requested for return. */
         returnable_quantity?: number;
         /**
-         * Format: decimal 
+         * Format: decimal
          * @description The total price of this line item.
          */
         total?: string;
         /** @description A collection of options configured for the order product. */
-        options?: ({
+        options?: {
             /** @description A displayable name for the option. */
             display_name?: string;
             /** @description A displayable value for the option. */
             display_value?: string;
-          })[];
-      })[];
+          }[];
+      }[];
     ItemReferenceId: {
       /**
-       * @description The reference type. 
+       * @description The reference type.
        * @enum {string}
        */
       type: "ORDER_PRODUCT";
@@ -572,42 +572,42 @@ export interface components {
       value: string;
     };
     /**
-     * Collection Meta 
+     * Collection Meta
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
       /**
-       * Pagination 
+       * Pagination
        * @description Data about the response, including pagination and collection totals.
        */
       pagination?: {
         /**
          * @description Total number of items in the result set.
-         *  
+         *
          * @example 36
          */
         total?: number;
         /**
          * @description Total number of items in the collection response.
-         *  
+         *
          * @example 36
          */
         count?: number;
         /**
          * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *  
+         *
          * @example 50
          */
         per_page?: number;
         /**
          * @description The page you are currently on within the collection.
-         *  
+         *
          * @example 1
          */
         current_page?: number;
         /**
          * @description The total number of pages in the collection.
-         *  
+         *
          * @example 1
          */
         total_pages?: number;
@@ -617,7 +617,7 @@ export interface components {
           previous?: string;
           /**
            * @description Link to the current page returned in the response.
-           *  
+           *
            * @example ?page=1&limit=50
            */
           current?: string;
@@ -629,37 +629,37 @@ export interface components {
     /** Meta */
     Meta: {
       /**
-       * Pagination 
+       * Pagination
        * @description Data about the response, including pagination and collection totals.
        */
       meta?: {
         /**
          * @description Total number of items in the result set.
-         *  
+         *
          * @example 36
          */
         total?: number;
         /**
          * @description Total number of items in the collection response.
-         *  
+         *
          * @example 36
          */
         count?: number;
         /**
          * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *  
+         *
          * @example 50
          */
         per_page?: number;
         /**
          * @description The page you are currently on within the collection.
-         *  
+         *
          * @example 1
          */
         current_page?: number;
         /**
          * @description The total number of pages in the collection.
-         *  
+         *
          * @example 1
          */
         total_pages?: number;
@@ -669,7 +669,7 @@ export interface components {
           previous?: string;
           /**
            * @description Link to the current page returned in the response.
-           *  
+           *
            * @example ?page=1&limit=50
            */
           current?: string;
@@ -693,36 +693,36 @@ export interface components {
     Transaction_Post: {
       /**
        * @description Store event that created the transaction.
-       *  
+       *
        * @enum {string}
        */
       event: "purchase" | "authorization" | "capture" | "refund" | "void" | "pending" | "settled";
       /**
        * @description The payment method: `credit_card` - a credit-card transaction; `electronic_wallet` - an online wallet; `store_credit` - a transaction using store credit; `gift_certificate` - a transaction using a gift certificate; `custom` - manual payment methods; `token` - payment token; `nonce` - temporary payment token; `offsite` - online payment off the site (e.g., PayPal); `offline` - payment method that takes place offline.
-       *  
+       *
        * @enum {string}
        */
       method: "credit_card" | "electronic_wallet" | "gift_certificate" | "store_credit" | "apple_pay_card" | "apple_pay_token" | "bigpay_token" | "token" | "custom" | "offsite" | "offline" | "nonce";
       /**
-       * Format: float 
+       * Format: float
        * @description Amount of money in the transaction.
        */
       amount: number;
       /**
-       * Format: ISO-4217 
+       * Format: ISO-4217
        * @description Currency used for the transaction.
        */
       currency: string;
       /**
        * @description The payment gateway, where applicable.
-       *  
+       *
        * @enum {string}
        */
       gateway: "2checkout" | "adyen" | "amazon" | "authorizenet" | "bankdeposit" | "braintree" | "cheque" | "cod" | "custom" | "firstdatagge4" | "giftcertificate" | "hps" | "instore" | "klarna" | "migs" | "moneyorder" | "nmi" | "paypalexpress" | "paypalpaymentsprous" | "paypalpaymentsprouk" | "plugnpay" | "qbmsv2" | "securenet" | "square" | "storecredit" | "stripe" | "testgateway" | "usaepay";
       /** @description The transaction ID returned by the payment gateway for this transaction item. */
       gateway_transaction_id?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date/time of the transaction.
        */
       date_created?: string;
@@ -730,7 +730,7 @@ export interface components {
       test?: boolean;
       /**
        * @description Status of the transaction.
-       *  
+       *
        * @enum {string}
        */
       status?: "ok" | "error";
@@ -742,7 +742,7 @@ export interface components {
       custom?: components["schemas"]["Custom"];
     };
     /**
-     * Not Found 
+     * Not Found
      * @description Error payload for the BigCommerce API.
      */
     NotFound: {
@@ -756,36 +756,36 @@ export interface components {
     Transaction: ({
       /**
        * @description Store event that created the transaction.
-       *  
+       *
        * @enum {string}
        */
       event: "purchase" | "authorization" | "capture" | "refund" | "void" | "pending" | "settled";
       /**
        * @description The payment method: `credit_card` - a credit-card transaction; `electronic_wallet` - an online wallet; `store_credit` - a transaction using store credit; `gift_certificate` - a transaction using a gift certificate; `custom` - manual payment methods; `token` - payment token; `nonce` - temporary payment token; `offsite` - online payment off the site; `offline` - payment method that takes place offline.
-       *  
+       *
        * @enum {string}
        */
       method: "credit_card" | "electronic_wallet" | "gift_certificate" | "store_credit" | "apple_pay_card" | "bigpay_token" | "apple_pay_token" | "token" | "custom" | "offsite" | "offline" | "nonce";
       /**
-       * Format: float 
+       * Format: float
        * @description Amount of money in the transaction.
        */
       amount: number;
       /**
-       * Format: ISO-4217 
+       * Format: ISO-4217
        * @description Currency used for the transaction.
        */
       currency: string;
       /**
        * @description The payment gateway, where applicable.
-       *  
+       *
        * @enum {string}
        */
       gateway: "2checkout" | "adyen" | "amazon" | "authorizenet" | "bankdeposit" | "braintree" | "cheque" | "cod" | "custom" | "firstdatagge4" | "giftcertificate" | "hps" | "instore" | "klarna" | "migs" | "moneyorder" | "nmi" | "paypalexpress" | "paypalpaymentsprous" | "paypalpaymentsprouk" | "plugnpay" | "qbmsv2" | "securenet" | "square" | "storecredit" | "stripe" | "testgateway" | "usaepay";
       /** @description The transaction ID returned by the payment gateway for this transaction item. */
       gateway_transaction_id?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date/time of the transaction.
        */
       date_created?: string;
@@ -793,7 +793,7 @@ export interface components {
       test?: boolean;
       /**
        * @description Status of the transaction.
-       *  
+       *
        * @enum {string}
        */
       status?: "ok" | "error";
@@ -802,7 +802,7 @@ export interface components {
       /** @description Identifier for an existing transaction upon which this transaction acts. */
       reference_transaction_id?: number;
       /**
-       * Offline 
+       * Offline
        * @description Offline payment (e.g., check or purchase order).
        */
       offline?: {
@@ -810,7 +810,7 @@ export interface components {
         display_name?: string;
       };
       /**
-       * Custom 
+       * Custom
        * @description Custom payment from manual order.
        */
       custom?: {
@@ -825,14 +825,14 @@ export interface components {
       /** @description Identifier for the BigCommerce Order with which this transaction is associated. */
       order_id?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date/time of the transaction.
        */
       date_created?: string;
       /** @description This field contains internal BigPay token for stored card that is then mapped to the actual third-party token. We currently do not offer a way to get third party tokens.These tokens are read-only and do not return any information about the payment. */
       payment_instrument_token?: string;
       /**
-       * AVS Results 
+       * AVS Results
        * @description Address Verification Service (AVS) result from the payment gateway.
        */
       avs_result?: {
@@ -846,7 +846,7 @@ export interface components {
         postal_match?: string;
       };
       /**
-       * CVV Result 
+       * CVV Result
        * @description Card Verification Value result from the payment gateway.
        */
       cvv_result?: {
@@ -857,40 +857,40 @@ export interface components {
       };
       credit_card?: components["schemas"]["CreditCard"];
       /**
-       * Gift Certificate 
+       * Gift Certificate
        * @description A gift-certificate model.
        */
       gift_certificate?: {
         /**
          * @description The gift-certificate code.
-         *  
+         *
          * @example MB345
          */
         code?: string;
         /**
-         * Format: float 
+         * Format: float
          * @description The balance on a gift certificate when it was purchased.
-         *  
+         *
          * @example 100
          */
         original_balance?: number;
         /**
-         * Format: float 
+         * Format: float
          * @description The balance on a gift certificate at the time of this purchase.
-         *  
+         *
          * @example 100
          */
         starting_balance?: number;
         /**
-         * Format: float 
+         * Format: float
          * @description The remaining balance on a gift certificate.
-         *  
+         *
          * @example 35.42
          */
         remaining_balance?: number;
         /**
          * @description The status of a gift certificate: `active` - gift certificate is active; `pending` - gift certificate purchase is pending; `disabled` - gift certificate is disabled; `expired` - gift certificate is expired.
-         *  
+         *
          * @enum {string}
          */
         status?: "active" | "pending" | "disabled" | "expired";
@@ -898,21 +898,21 @@ export interface components {
       /** @description A store credit model. */
       store_credit?: {
         /**
-         * Format: float 
+         * Format: float
          * @description Remaining balance of shopper's store credit.
-         *  
+         *
          * @example 35.42
          */
         remaining_balance?: number;
       };
     });
     /**
-     * Credit Card 
+     * Credit Card
      * @description A credit-card model.
      */
     CreditCard: {
       /**
-       * @description **Allowed values**: alelo, alia, american_express, cabal, carnet, dankort, diners_club, discover, elo, forbrugsforeningen, jcb, maestro, master, naranja, sodexo, unionpay, visa, vr 
+       * @description **Allowed values**: alelo, alia, american_express, cabal, carnet, dankort, diners_club, discover, elo, forbrugsforeningen, jcb, maestro, master, naranja, sodexo, unionpay, visa, vr
        * @enum {string}
        */
       card_type?: "alelo" | "alia" | "american_express" | "cabal" | "carnet" | "dankort" | "diners_club" | "discover" | "elo" | "forbrugsforeningen" | "jcb" | "maestro" | "master" | "naranja" | "sodexo" | "unionpay" | "visa" | "vr";
@@ -928,15 +928,15 @@ export interface components {
     /** @description A store credit model. */
     StoreCredit: {
       /**
-       * Format: float 
+       * Format: float
        * @description Remaining balance of shopper's store credit.
-       *  
+       *
        * @example 35.42
        */
       remaining_balance?: number;
     };
     /**
-     * Custom 
+     * Custom
      * @description Custom payment from manual order.
      */
     Custom: {
@@ -944,7 +944,7 @@ export interface components {
       payment_method?: string;
     };
     /**
-     * Offline 
+     * Offline
      * @description Offline payment (e.g., check or purchase order).
      */
     Offline: {
@@ -952,46 +952,46 @@ export interface components {
       display_name?: string;
     };
     /**
-     * Gift Certificate 
+     * Gift Certificate
      * @description A gift-certificate model.
      */
     GiftCertificate: {
       /**
        * @description The gift-certificate code.
-       *  
+       *
        * @example MB345
        */
       code?: string;
       /**
-       * Format: float 
+       * Format: float
        * @description The balance on a gift certificate when it was purchased.
-       *  
+       *
        * @example 100
        */
       original_balance?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The balance on a gift certificate at the time of this purchase.
-       *  
+       *
        * @example 100
        */
       starting_balance?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The remaining balance on a gift certificate.
-       *  
+       *
        * @example 35.42
        */
       remaining_balance?: number;
       /**
        * @description The status of a gift certificate: `active` - gift certificate is active; `pending` - gift certificate purchase is pending; `disabled` - gift certificate is disabled; `expired` - gift certificate is expired.
-       *  
+       *
        * @enum {string}
        */
       status?: "active" | "pending" | "disabled" | "expired";
     };
     /**
-     * AVS Results 
+     * AVS Results
      * @description Address Verification Service (AVS) result from the payment gateway.
      */
     AVSResult: {
@@ -1005,7 +1005,7 @@ export interface components {
       postal_match?: string;
     };
     /**
-     * CVV Result 
+     * CVV Result
      * @description Card Verification Value result from the payment gateway.
      */
     CVVResult: {
@@ -1015,7 +1015,7 @@ export interface components {
       message?: string;
     };
     /**
-     * No Content 
+     * No Content
      * @description No-content response for the BigCommerce API.
      */
     NoContent: {
@@ -1027,7 +1027,7 @@ export interface components {
       instance?: string;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
@@ -1036,27 +1036,27 @@ export interface components {
     /** pagination_Full */
     pagination_Full: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of items in the result set.
        */
       total?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of items in the collection response.
        */
       count?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
        */
       per_page?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The page you are currently on within the collection.
        */
       current_page?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The total number of pages in the collection.
        */
       total_pages?: number;
@@ -1072,7 +1072,7 @@ export interface components {
       previous?: string;
       /**
        * @description Link to the current page returned in the response.
-       *  
+       *
        * @example ?page=1&limit=50
        */
       current?: string;
@@ -1080,7 +1080,7 @@ export interface components {
       next?: string;
     };
     /**
-     * error_Base 
+     * error_Base
      * @description Error payload for the BigCommerce API.
      */
     error_Base: {
@@ -1098,16 +1098,16 @@ export interface components {
       };
     };
     /**
-     * Refund Quotes Request - BATCH 
+     * Refund Quotes Request - BATCH
      * @description Request body for batch refund quotes.
      */
-    PostRefundQuotesRequest: (components["schemas"]["RefundQuote_Post"])[];
+    PostRefundQuotesRequest: components["schemas"]["RefundQuote_Post"][];
     /**
-     * RefundQuote_Post 
+     * RefundQuote_Post
      * @description Request body for refund quotes.
      */
     RefundQuote_Post: {
-      items: (components["schemas"]["ItemsRefund"])[];
+      items: components["schemas"]["ItemsRefund"][];
     };
     /** RefundQuote_Full */
     RefundQuote_Full: {
@@ -1123,9 +1123,9 @@ export interface components {
       tax_inclusive?: boolean;
       /**
        * @description An array of available refund methods.
-       * 
+       *
        * Note that `refund_methods` is an array of refund methods, with each refund method being an array of payment options.
-       * 
+       *
        * For example, if the order was placed by a combination of store credit and bank deposit the refund methods would be:
        * ```json
        * {
@@ -1171,21 +1171,21 @@ export interface components {
        *   ]
        * }
        * ```
-       * 
+       *
        * In this case there are three refund methods available to the merchant:
        * 1. Refund up to the entire order amount to store credit.
        * 2. Mark an amount up to the full order amount as refunded externally, through a provider or means not represented directly in BC ("custom").
        * 3. Refund the amount paid by store credit to store credit, and the amount paid by bank deposit with a manual refund, which will be recorded as being refunded against the bank deposit.
        */
-      refund_methods?: (components["schemas"]["RefundMethod"])[];
+      refund_methods?: components["schemas"]["RefundMethod"][];
     };
     /**
-     * RefundRequest_Post 
+     * RefundRequest_Post
      * @description Request body for refund requests.
      */
     RefundRequest_Post: {
-      items: (components["schemas"]["ItemsRefund"])[];
-      payments: (components["schemas"]["PaymentRequest"])[];
+      items: components["schemas"]["ItemsRefund"][];
+      payments: components["schemas"]["PaymentRequest"][];
       merchant_calculated_override?: components["schemas"]["MerchantOverride"];
     };
     RefundID_Get: {
@@ -1197,7 +1197,7 @@ export interface components {
         /** @description Reference to the user ID who created the refund. This is automatically populated by BigCommerce. */
         user_id?: number;
         /**
-         * Format: date-time 
+         * Format: date-time
          * @description Timestamp of when the refund was created.
          */
         created?: string;
@@ -1205,7 +1205,7 @@ export interface components {
         reason?: string;
         /**
          * @description A non-negative 2 decimal place rounded value that represents the amount that can be refunded with the correct payment provider(s).
-         *  
+         *
          * @example 109.11
          */
         total_amount?: number;
@@ -1213,7 +1213,7 @@ export interface components {
         total_tax?: number;
         /** @description Whether refund amount and tax are provided explicitly by merchant override. */
         uses_merchant_override_values?: boolean;
-        payments?: ({
+        payments?: {
             /** @description Reference to refund payment ID. */
             id?: number;
             /**
@@ -1223,7 +1223,7 @@ export interface components {
             provider_id?: string;
             /**
              * @description A non-negative two decimal place rounded value represents the amount that can be charged/refunded with payment providers.
-             *  
+             *
              * @example 109.11
              */
             amount?: number;
@@ -1233,11 +1233,11 @@ export interface components {
             is_declined?: boolean;
             /** @description Message indicates why the payment was declined. */
             declined_message?: string;
-          })[];
+          }[];
         items?: ({
             /**
              * @description Type of item that was refunded.
-             *  
+             *
              * @enum {string}
              */
             item_type?: "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "ORDER";
@@ -1247,7 +1247,7 @@ export interface components {
             quantity?: number;
             /**
              * @description A non-negative two decimal place rounded value that represents the amount that can be refunded with the payment provider(s).
-             *  
+             *
              * @example 109.11
              */
             requested_amount?: string | null;
@@ -1258,18 +1258,18 @@ export interface components {
       meta?: components["schemas"]["metaEmpty_Full"];
     };
     /**
-     * Refunds Request - BATCH 
+     * Refunds Request - BATCH
      * @description Request body for batch refunds.
      */
-    PostRefundsRequest: (components["schemas"]["RefundRequest_Post"])[];
+    PostRefundsRequest: components["schemas"]["RefundRequest_Post"][];
     /**
-     * FailedQuoteError 
+     * FailedQuoteError
      * @description Failed quote response.
      */
     FailedQuoteError: {
       order_id?: number;
       /**
-       * @description HTTP status code. 
+       * @description HTTP status code.
        * @example 422
        */
       status?: number;
@@ -1281,27 +1281,27 @@ export interface components {
     /** Payment Request */
     PaymentRequest: {
       /**
-       * @description Reference to payment provider. 
+       * @description Reference to payment provider.
        * @example checkout_paypalexpress
        */
       provider_id?: string;
       /**
-       * @description Amount refunded with this provider. 
+       * @description Amount refunded with this provider.
        * @example 9.99
        */
       amount?: number;
       /**
-       * @description Whether the payment was marked as offline or performed through an online payment service. 
+       * @description Whether the payment was marked as offline or performed through an online payment service.
        * @example true
        */
       offline?: boolean;
     };
     /** Refund Method */
-    RefundMethod: (components["schemas"]["PaymentOption"])[];
+    RefundMethod: components["schemas"]["PaymentOption"][];
     /**
-     * Quantity Bound Item 
+     * Quantity Bound Item
      * @description Quantity Bound Item
-     * 
+     *
      * Type of refund item that capture refunding of items in the order that are of type quantity.
      * * `ORDER`
      * * `PRODUCT`
@@ -1312,37 +1312,37 @@ export interface components {
      */
     QuantityBoundItem: {
       /**
-       * @description Type of refund. 
-       * @example PRODUCT 
+       * @description Type of refund.
+       * @example PRODUCT
        * @enum {string}
        */
       item_type?: "ORDER" | "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "TAX";
       /**
-       * @description Order Product ID. 
+       * @description Order Product ID.
        * @example 1
        */
       item_id?: number;
       /** @example 3 */
       quantity?: number;
       /**
-       * @description Reason for refund. 
+       * @description Reason for refund.
        * @example Wrong size.
        */
       reason?: string;
     };
     /**
-     * Tax Exempt (Order Level) 
+     * Tax Exempt (Order Level)
      * @description Use this to refund a custom value at the order level. When `item_type` is set to `ORDER`, tax is not re-calculated.
      */
     TaxExemptItem: {
       /**
-       * @description The type of refund. When `item_type` is set to `ORDER`, tax is not re-calculated. 
-       * @example ORDER 
+       * @description The type of refund. When `item_type` is set to `ORDER`, tax is not re-calculated.
+       * @example ORDER
        * @enum {string}
        */
       item_type?: "ORDER";
       /**
-       * @description Numeric ID of the product in the order. 
+       * @description Numeric ID of the product in the order.
        * @example 1
        */
       item_id?: number;
@@ -1351,9 +1351,9 @@ export interface components {
       reason?: string;
     };
     /**
-     * Amount Bound Item 
+     * Amount Bound Item
      * @description Amount Bound Item
-     * 
+     *
      * Type of refund item that capture refunding of items in the order that are of type amount.
      * * `PRODUCT`
      * * `ORDER`
@@ -1364,36 +1364,36 @@ export interface components {
      */
     AmountBoundItem: {
       /**
-       * @description Type of refund. 
-       * @example SHIPPING 
+       * @description Type of refund.
+       * @example SHIPPING
        * @enum {string}
        */
       item_type?: "PRODUCT" | "ORDER" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "TAX";
       /**
-       * @description Order address ID. 
+       * @description Order address ID.
        * @example 1
        */
       item_id?: number;
       amount?: components["schemas"]["Amount"];
       /**
-       * @description Number of items in refund. 
+       * @description Number of items in refund.
        * @example 3
        */
       quantity?: number;
       /**
-       * @description Explanation of refund. 
+       * @description Explanation of refund.
        * @example Customer requested refund
        */
       reason?: string;
     };
     /**
-     * Merchant Calculated Override 
+     * Merchant Calculated Override
      * @description Merchant explicitly provided override based on their own calculation.
-     * 
+     *
      * This override gives merchants the flexibility to
      * - bypass any tax correction due to tax rate/providers changes between when a customer places an order and a merchant initiates a refund
      * - use explicit values calculated by external systems (e.g., merchants' own Extended Producer Responsibility or Order Management System)
-     * 
+     *
      * Note: when using the override, BC internal tax based refund calculation is skipped and therefore order/taxes records are not updated.
      */
     MerchantOverride: {
@@ -1410,7 +1410,7 @@ export interface components {
       /** @description Reference to the user's ID who create this refund. This is automatically populated by BigCommerce. */
       user_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Timestamp of when this refund was created.
        */
       created?: string;
@@ -1422,14 +1422,14 @@ export interface components {
       /** @description Whether refund amount and tax are provided explicitly by merchant override. */
       uses_merchant_override_values?: boolean;
       /** @description Array of items refunded. */
-      items?: (components["schemas"]["RefundItem"])[];
+      items?: components["schemas"]["RefundItem"][];
       /** @description An array of refund payments made to payment providers. */
-      payments?: (components["schemas"]["RefundPayment"])[];
+      payments?: components["schemas"]["RefundPayment"][];
     };
     /** Refund Item */
     RefundItem: {
       /**
-       * @description Type of item that was refunded. 
+       * @description Type of item that was refunded.
        * @enum {string}
        */
       item_type?: "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "ORDER";
@@ -1446,7 +1446,7 @@ export interface components {
       /** @description Reference to refund payment ID. */
       id?: number;
       /**
-       * @description Reference to payment provider. 
+       * @description Reference to payment provider.
        * @example storecredit
        */
       provider_id?: string;
@@ -1459,7 +1459,7 @@ export interface components {
       declined_message?: string;
     };
     /**
-     * Payment Option 
+     * Payment Option
      * @example {
      *   "provider_id": "checkout_paypalexpress",
      *   "provider_description": "Paypal Express",
@@ -1471,52 +1471,52 @@ export interface components {
      */
     PaymentOption: {
       /**
-       * @description Name of the payment method. 
+       * @description Name of the payment method.
        * @example checkout_paypalexpress
        */
       provider_id?: string;
       /**
-       * @description Description for payment provider. 
+       * @description Description for payment provider.
        * @example Paypal Express
        */
       provider_description?: string;
       /**
-       * @description Amount to be refunded with this payment provider. 
+       * @description Amount to be refunded with this payment provider.
        * @example 9.99
        */
       amount?: number;
       /**
-       * @description Indicates the payment must be done offline due to constraints of the payment provider, such as partial refunds not being supported, or it being offline only such as cash on delivery of bank deposit. 
+       * @description Indicates the payment must be done offline due to constraints of the payment provider, such as partial refunds not being supported, or it being offline only such as cash on delivery of bank deposit.
        * @example true
        */
       offline?: boolean;
       /**
-       * @description Indicates if the payment provider is a strictly offline provider, such as cash on delivery or bank deposit. 
+       * @description Indicates if the payment provider is a strictly offline provider, such as cash on delivery or bank deposit.
        * @example true
        */
       offline_provider?: boolean;
       /**
-       * @description Reason the payment option is offline only, if applicable. 
+       * @description Reason the payment option is offline only, if applicable.
        * @example Multiple online refunds are not available
        */
       offline_reason?: string;
     };
     /**
-     * Amount 
-     * Format: float 
-     * @description A non-negative 2 decimal place rounded value that represents the amount that can be charged/refunded with payment providers. 
+     * Amount
+     * Format: float
+     * @description A non-negative 2 decimal place rounded value that represents the amount that can be charged/refunded with payment providers.
      * @example 1.99
      */
     Amount: number;
     /**
-     * Adjustment Amount 
-     * Format: float 
-     * @description A negative or positive 2 decimal place rounded value that represents the difference between the refund amount requested in the refund quote and the actual amount that is refundable on the order. This value is negative when the refund amount requested in the refund quote is more than the total refundable amount. This value is positive when the total refundable amount has increased, e.g. as a result of rounding. 
+     * Adjustment Amount
+     * Format: float
+     * @description A negative or positive 2 decimal place rounded value that represents the difference between the refund amount requested in the refund quote and the actual amount that is refundable on the order. This value is negative when the refund amount requested in the refund quote is more than the total refundable amount. This value is positive when the total refundable amount has increased, e.g. as a result of rounding.
      * @example -10.2
      */
     AdjustmentAmount: number;
     /**
-     * MetaRefund 
+     * MetaRefund
      * @description Describes refund failures, success and totals.
      */
     MetaRefund: {
@@ -1526,7 +1526,7 @@ export interface components {
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
-      data?: (components["schemas"]["Metafield"])[];
+      data?: components["schemas"]["Metafield"][];
       meta?: components["schemas"]["CollectionMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
@@ -1537,7 +1537,7 @@ export interface components {
     MetafieldBase: {
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description |
        * |:-|:-|
        * |`app_only`|Private to the app that owns the field|
@@ -1545,44 +1545,44 @@ export interface components {
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
        * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
-       *  
+       *
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Namespace for the metafield, for organizational purposes.
-       *  
+       *
        * @example Sales Department
        */
       namespace?: string;
       /**
        * @description The name of the field, for example: `location_id`, `color`.
-       *  
+       *
        * @example Staff Name
        */
       key?: string;
       /**
        * @description The value of the field, for example: `1`, `blue`.
-       *  
+       *
        * @example Ronaldo
        */
       value?: string;
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example order
        */
       description?: string;
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example order 
+       *
+       * @example order
        * @enum {string}
        */
       resource_type?: "order" | "brand" | "product" | "variant" | "category";
       /**
        * @description The unique identifier for the resource with which the metafield is associated.
-       *  
+       *
        * @example 0
        */
       resource_id?: number;
@@ -1591,7 +1591,7 @@ export interface components {
     MetafieldBase_Post: {
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description |
        * |:-|:-|
        * |`app_only`|Private to the app that owns the field|
@@ -1599,31 +1599,31 @@ export interface components {
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
        * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
-       *  
+       *
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Namespace for the metafield, for organizational purposes.
-       *  
+       *
        * @example Sales Department
        */
       namespace: string;
       /**
        * @description The name of the field, for example: `location_id`, `color`.
-       *  
+       *
        * @example Staff Name
        */
       key: string;
       /**
        * @description The value of the field, for example: `1`, `blue`.
-       *  
+       *
        * @example Ronaldo
        */
       value: string;
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Name of Staff Member
        */
       description?: string;
@@ -1633,16 +1633,16 @@ export interface components {
       /** @description The unique identifier for the metafields. */
       id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time of the metafield's creation.
-       *  
+       *
        * @example 2022-06-16T18:39:00+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time when the metafield was last updated.
-       *  
+       *
        * @example 2022-06-16T18:39:00+00:00
        */
       date_modified?: string;
@@ -1652,7 +1652,7 @@ export interface components {
     /** @description The model for a PUT to update metafield. */
     MetafieldPut: components["schemas"]["MetafieldBase_Post"];
     /**
-     * GlobalOrderSettings 
+     * GlobalOrderSettings
      * @example {
      *   "$ref": "components[\"examples\"][\"EnableMultipleOrderNotifications\"][\"value\"]"
      * }
@@ -1663,12 +1663,12 @@ export interface components {
         /** @description Global order notification settings. */
         order_placed?: {
           /** @description Email addresses order notifications will be sent to. Empty array disables order notifications. Not nullable. */
-          email_addresses?: (string)[];
+          email_addresses?: string[];
         };
         /** @description Global order invoice forward settings. */
         forward_invoice?: {
           /** @description Email addresses order invoices will be forwarded to. Empty array disables forwarding order invoices. Not nullable. */
-          email_addresses?: (string)[];
+          email_addresses?: string[];
         };
       };
     };
@@ -1679,12 +1679,12 @@ export interface components {
         /** @description Channel order notification settings. */
         order_placed?: {
           /** @description Email addresses channel order notifications will be sent to. If null will fall back to global value. Empty array disables order notifications for channel. */
-          email_addresses?: (string)[] | null;
+          email_addresses?: string[] | null;
         };
         /** @description Channel order invoice forward settings. */
         forward_invoice?: {
           /** @description Email addresses channel order invoices will be forwarded to. If null will fall back to global value. Empty array disables forwarding order invoices for channel. */
-          email_addresses?: (string)[] | null;
+          email_addresses?: string[] | null;
         };
       };
     };
@@ -1725,7 +1725,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["UpdateReturnStatuses"];
-          errors?: (components["schemas"]["Problem"])[];
+          errors?: components["schemas"]["Problem"][];
           meta?: components["schemas"]["BatchOperationMeta"];
         };
       };
@@ -1748,7 +1748,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["ReceivedItems_Base"];
-          errors?: (components["schemas"]["Problem"])[];
+          errors?: components["schemas"]["Problem"][];
           meta?: components["schemas"]["BatchOperationMeta"];
         };
       };
@@ -1757,7 +1757,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["ReviewedItems_Base"];
-          errors?: (components["schemas"]["Problem"])[];
+          errors?: components["schemas"]["Problem"][];
           meta?: components["schemas"]["BatchOperationMeta"];
         };
       };
@@ -1839,7 +1839,7 @@ export interface components {
       content: {
         "application/json": {
           /** @description Collection of Refunds */
-          data?: (components["schemas"]["Refund"])[];
+          data?: components["schemas"]["Refund"][];
           meta?: components["schemas"]["metaEmpty_Full"];
         };
       };
@@ -1847,8 +1847,8 @@ export interface components {
     refundsBATCH_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["Refund"])[];
-          errors?: (components["schemas"]["FailedQuoteError"])[];
+          data?: components["schemas"]["Refund"][];
+          errors?: components["schemas"]["FailedQuoteError"][];
           meta?: components["schemas"]["MetaRefund"];
         };
       };
@@ -1873,7 +1873,7 @@ export interface components {
     TransactionCollection_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["Transaction"])[];
+          data?: components["schemas"]["Transaction"][];
           meta?: components["schemas"]["metaCollection_Full"];
         };
       };
@@ -1889,7 +1889,7 @@ export interface components {
           /** @description Identifier for the BigCommerce Order with which this transaction is associated. */
           order_id?: string;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description The datetime of the transaction.
            */
           date_created?: string;
@@ -1908,8 +1908,8 @@ export interface components {
     RefundQuotesBATCH_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["RefundQuote_Full"])[];
-          errors?: (components["schemas"]["FailedQuoteError"])[];
+          data?: components["schemas"]["RefundQuote_Full"][];
+          errors?: components["schemas"]["FailedQuoteError"][];
           meta?: components["schemas"]["Meta"];
         };
       };
@@ -1950,7 +1950,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Capture order payment 
+   * Capture order payment
    * @description Capture the payment for an order. When there are no payment method validation issues, the capture process is successful, the `payment_status` updates to `capture pending`, and the payment request is scheduled. The payment request itself occurs asynchronously.
    * Requires at least one of the following scopes:
    * * `store_v2_orders`
@@ -1977,9 +1977,9 @@ export interface operations {
     };
   };
   /**
-   * Void 
+   * Void
    * @description Void the payment for an order. When there are no payment method validation issues, the void process is successful, the `payment_status` updates to `void pending`, and the void payment request is scheduled. The payment request itself occurs asynchronously.
-   * 
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_orders`
    * * `store_v2_transactions`
@@ -2005,13 +2005,13 @@ export interface operations {
     };
   };
   /**
-   * Get Transactions 
+   * Get Transactions
    * @description Returns an **order's** transactions.
-   * 
+   *
    * **Usage Notes**
    * * Depending on the payment method, different information will be available (not all payment gateways return full card or fraud detail).
-   * 
-   * 
+   *
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_transactions_read_only`
    * * `store_v2_transactions`
@@ -2056,13 +2056,13 @@ export interface operations {
     };
   };
   /**
-   * Create a Refund Quote 
+   * Create a Refund Quote
    * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-   * 
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_orders`
    * * `store_v2_transactions`
-   * 
+   *
    * **Note:**
    * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
    */
@@ -2089,9 +2089,9 @@ export interface operations {
     };
   };
   /**
-   * Get Refunds for Order 
+   * Get Refunds for Order
    * @description Returns a list of refunds ordered by refund ID in ascending order for the given order.
-   * 
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_transactions_read_only`
    * * `store_v2_transactions`
@@ -2112,13 +2112,13 @@ export interface operations {
     };
   };
   /**
-   * Create a Refund 
+   * Create a Refund
    * @description Creates a refund. When there are no payment method validation issues, the refund process is successful and the refund payment request is scheduled. The payment request itself occurs asynchronously.
-   * 
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_orders`
    * * `store_v2_transactions`
-   * 
+   *
    * **Note:**
    * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
    */
@@ -2143,7 +2143,7 @@ export interface operations {
       422: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ErrorResponse"])[];
+            data?: components["schemas"]["ErrorResponse"][];
           };
         };
       };
@@ -2151,7 +2151,7 @@ export interface operations {
       503: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["FailedQuoteError"])[];
+            data?: components["schemas"]["FailedQuoteError"][];
             meta?: components["schemas"]["Meta"];
           };
         };
@@ -2159,7 +2159,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Refund 
+   * Get a Refund
    * @description Returns a refund by refund ID.
    */
   RefundID_Get: {
@@ -2177,11 +2177,11 @@ export interface operations {
     };
   };
   /**
-   * Create Refund Quotes - BATCH 
+   * Create Refund Quotes - BATCH
    * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-   * 
+   *
    * This endpoint will accept a batch of one or more.
-   * 
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_orders`
    * * `store_v2_transactions`
@@ -2206,8 +2206,8 @@ export interface operations {
       422: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["RefundQuote_Full"])[];
-            errors?: (components["schemas"]["FailedQuoteError"])[];
+            data?: components["schemas"]["RefundQuote_Full"][];
+            errors?: components["schemas"]["FailedQuoteError"][];
             meta?: components["schemas"]["Meta"];
           };
           "Example 1": unknown;
@@ -2217,8 +2217,8 @@ export interface operations {
       503: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["RefundQuote_Full"])[];
-            errors?: (components["schemas"]["FailedQuoteError"])[];
+            data?: components["schemas"]["RefundQuote_Full"][];
+            errors?: components["schemas"]["FailedQuoteError"][];
             meta?: components["schemas"]["Meta"];
           };
         };
@@ -2226,9 +2226,9 @@ export interface operations {
     };
   };
   /**
-   * Get All Refunds 
+   * Get All Refunds
    * @description Returns a list of refunds ordered by refund ID in ascending order.
-   * 
+   *
    * Requires at least one of the following scopes:
    * * `store_v2_transactions_read_only`
    * * `store_v2_transactions`
@@ -2239,13 +2239,13 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Filter by `order_id`. Accepts multiple as comma-separated values. */
-        "order_id:in"?: (number)[];
+        "order_id:in"?: number[];
         /** @description Filter by refund `id`. Accepts multiple as comma-separated values. */
-        "id:in"?: (number)[];
+        "id:in"?: number[];
         /**
          * @description Filter results so they are later than or equal to provided date.
-         * 
-         * 
+         *
+         *
          * Must be in url-encoded RFC 3339 format.
          * e.g. `2020-01-15T01:02:34-01:00` is RFC 3339 format.
          * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
@@ -2253,8 +2253,8 @@ export interface operations {
         "created:min"?: string;
         /**
          * @description Filter results so they are earlier than or equal to provided date.
-         * 
-         * 
+         *
+         *
          * Must be in url-encoded RFC 3339 format.
          * e.g. `2020-01-15T01:02:34-01:00` is RFC 3339 format.
          * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
@@ -2274,9 +2274,9 @@ export interface operations {
     };
   };
   /**
-   * Get Metafields 
+   * Get Metafields
    * @description Gets a `Metafield` object list, by `order_id`.
-   * 
+   *
    * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
    */
   getOrderMetafieldsByOrderId: {
@@ -2311,9 +2311,9 @@ export interface operations {
     };
   };
   /**
-   * Create Metafields 
+   * Create Metafields
    * @description Creates an order `Metafield`.
-   * 
+   *
    * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
    */
   createOrderMetafield: {
@@ -2354,7 +2354,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Metafield 
+   * Get a Metafield
    * @description Gets a `Metafield`, by `order_id`.
    */
   getOrderMetafieldByOrderIdAndMetafieldId: {
@@ -2384,9 +2384,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Metafield 
+   * Update a Metafield
    * @description Updates a `Metafield` object.
-   * 
+   *
    * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
    */
   updateOrderMetafield: {
@@ -2423,7 +2423,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Metafield 
+   * Delete a Metafield
    * @description Deletes a `Metafield`.
    */
   deleteOrderMetafieldById: {
@@ -2443,7 +2443,7 @@ export interface operations {
     };
   };
   /**
-   * Get Global Order Settings 
+   * Get Global Order Settings
    * @description Returns global order settings.
    */
   GetGlobalOrderSettings: {
@@ -2470,7 +2470,7 @@ export interface operations {
     };
   };
   /**
-   * Update Global Order Settings 
+   * Update Global Order Settings
    * @description Updates global order settings.
    */
   UpdateGlobalOrderSettings: {
@@ -2509,7 +2509,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Order Settings 
+   * Get Channel Order Settings
    * @description Returns order settings for a specific channel.
    */
   GetChannelOrderSettings: {
@@ -2540,9 +2540,9 @@ export interface operations {
     };
   };
   /**
-   * Update Channel Order Settings 
+   * Update Channel Order Settings
    * @description Updates order settings for a specific channel.
-   * 
+   *
    *  **Note:** You must override both notifications `email_addresses` or neither, i.e. either both notification `email_addresses` are an array of valid email addresses, or both `email_addresses` must be null. You may not have one set to an array of addresses and the other set to `null`.
    */
   UpdateChannelOrderSettings: {

@@ -8,17 +8,17 @@
 export interface paths {
   "/storefront/redirects": {
     /**
-     * Get Redirects 
+     * Get Redirects
      * @description Returns a collection of the store's 301 redirects across all sites.
      */
     get: operations["GetRedirects"];
     /**
-     * Upsert Redirects 
+     * Upsert Redirects
      * @description Upserts new redirect data across all storefronts.
      */
     put: operations["UpsertRedirects"];
     /**
-     * Delete Redirects 
+     * Delete Redirects
      * @description Deletes redirects.
      */
     delete: operations["DeleteRedirects"];
@@ -65,8 +65,8 @@ export interface components {
       from_path?: string;
       to?: components["schemas"]["RedirectTo"];
       /**
-       * Format: uri 
-       * @description Full destination URL for the redirect. Must be explicitly included via URL parameter. 
+       * Format: uri
+       * @description Full destination URL for the redirect. Must be explicitly included via URL parameter.
        * @example https://store-domain.com/new-url
        */
       to_url?: string;
@@ -133,7 +133,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Redirects 
+   * Get Redirects
    * @description Returns a collection of the store's 301 redirects across all sites.
    */
   GetRedirects: {
@@ -142,7 +142,7 @@ export interface operations {
         /** @description Filters items by `site_id`. */
         site_id?: number;
         /** @description Filters items by redirect `id`. Also accepts comma-separated values to filter for multiple redirects. */
-        "id:in"?: (string)[];
+        "id:in"?: string[];
         /** @description Controls the number of items to return per page. */
         limit?: number;
         /** @description Specifies the page number in a limited (paginated) list of items. Used to paginate large collections. */
@@ -164,7 +164,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["301RedirectRead"])[];
+            data?: components["schemas"]["301RedirectRead"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -172,7 +172,7 @@ export interface operations {
     };
   };
   /**
-   * Upsert Redirects 
+   * Upsert Redirects
    * @description Upserts new redirect data across all storefronts.
    */
   UpsertRedirects: {
@@ -184,7 +184,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["301RedirectUpsert"])[];
+        "application/json": components["schemas"]["301RedirectUpsert"][];
       };
     };
     responses: {
@@ -192,7 +192,7 @@ export interface operations {
       201: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["301RedirectRead"])[];
+            data?: components["schemas"]["301RedirectRead"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -200,14 +200,14 @@ export interface operations {
     };
   };
   /**
-   * Delete Redirects 
+   * Delete Redirects
    * @description Deletes redirects.
    */
   DeleteRedirects: {
     parameters: {
       query: {
         /** @description List of Redirect IDs to delete explicitly. */
-        "id:in": (number)[];
+        "id:in": number[];
         /** @description Site ID provided to delete all redirects for a given Site. */
         site_id?: number;
       };

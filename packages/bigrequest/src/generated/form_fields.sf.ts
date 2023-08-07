@@ -8,11 +8,11 @@
 export interface paths {
   "/form-fields": {
     /**
-     * Get Form Fields 
+     * Get Form Fields
      * @description Gets form fields.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     get: operations["getFormFields"];
@@ -30,7 +30,7 @@ export interface components {
       billingAddress?: components["schemas"]["FormFields"];
     };
     /** @description List of form fields for the group */
-    FormFields: (components["schemas"]["FormField"])[];
+    FormFields: components["schemas"]["FormField"][];
     /** @description Form Field */
     FormField: {
       /** @description Field unique ID */
@@ -46,12 +46,12 @@ export interface components {
       /** @description The field unique ID */
       default?: string;
       /**
-       * @description Type of the value hold by the field 
+       * @description Type of the value hold by the field
        * @enum {string}
        */
       type?: "integer" | "string" | "array" | "date";
       /**
-       * @description Type of the field 
+       * @description Type of the field
        * @enum {string}
        */
       fieldType?: "checkbox" | "text" | "date" | "multiline" | "radio" | "dropdown";
@@ -68,10 +68,10 @@ export interface components {
         /** @description Placeholder text for dropdown field type. */
         helperLabel?: string;
         /** @description List of possible values for this field. */
-        items?: ({
+        items?: {
             label?: string;
             value?: string;
-          })[];
+          }[];
       };
     };
   };
@@ -87,11 +87,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Form Fields 
+   * Get Form Fields
    * @description Gets form fields.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   getFormFields: {

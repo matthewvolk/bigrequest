@@ -13,12 +13,12 @@ type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A
 export interface paths {
   "/shipping/zones": {
     /**
-     * Get All Shipping Zones 
+     * Get All Shipping Zones
      * @description Returns a list of all *Shipping Zones*.
      */
     get: operations["getAllShippingZones"];
     /**
-     * Create a Shipping Zone 
+     * Create a Shipping Zone
      * @description Creates a *Shipping Zone*.
      */
     post: operations["createAShippingZones"];
@@ -30,23 +30,23 @@ export interface paths {
   };
   "/shipping/zones/{id}": {
     /**
-     * Get a Shipping Zones 
+     * Get a Shipping Zones
      * @description Returns a single *Shipping Zone*.
      */
     get: operations["getAShippingZone"];
     /**
-     * Update a Shipping Zone 
+     * Update a Shipping Zone
      * @description Updates a *Shipping Zone*.
-     * 
+     *
      * **Required Fields**
      * * name
-     * 
+     *
      * **Read Only Fields**
      * * id
      */
     put: operations["updateAShippingZone"];
     /**
-     * Delete a Shipping Zone 
+     * Delete a Shipping Zone
      * @description Deletes a *Shipping Zone*.
      */
     delete: operations["deleteAShippingZone"];
@@ -62,22 +62,22 @@ export interface paths {
   };
   "/shipping/zones/{zone_id}/methods": {
     /**
-     * Get All Shipping Methods in a Zone 
+     * Get All Shipping Methods in a Zone
      * @description Returns a list of *Shipping Methods* in a zone. Default sorting is by shipping method ID, from lowest to highest.
      */
     get: operations["getShippingMethodsZone"];
     /**
-     * Create a Shipping Method 
-     * @description Creates a *Shipping Method* within a shipping zone. Real Time Carrier Connections are also supported by this endpoint. 
-     * 
+     * Create a Shipping Method
+     * @description Creates a *Shipping Method* within a shipping zone. Real Time Carrier Connections are also supported by this endpoint.
+     *
      * ## Carrier Configurations – Current
-     * 
+     *
      * This section provides a sample request and a carrier-specific object/property model, for each supported carrier.
-     * 
+     *
      * ### USPS by Endicia
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "USPS by Endicia",
@@ -92,19 +92,19 @@ export interface paths {
      *     "enabled": true
      * }
      * ```
-     * 
+     *
      * #### USPS by Endicia Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | PriorityExpress, PriorityMailExpressInternational, FirstClassPackageInternationalService, Priority, PriorityMailInternational, First, ParcelSelect, MediaMail |
      * | packaging_type | array | FlatRateLegalEnvelope, FlatRatePaddedEnvelope, Parcel, SmallFlatRateBox, MediumFlatRateBox, LargeFlatRateBox, FlatRateEnvelope, RegionalRateBoxA, RegionalRateBoxB |
      * |show_transit_time | boolean | true, false |
-     * 
+     *
      * ### FedEx
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "FEDEX",
@@ -125,11 +125,11 @@ export interface paths {
      *     },
      *     "enabled": true
      * }
-     * 
+     *
      * ```
-     * 
+     *
      * #### FedEx Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | PRIORITY_OVERNIGHT, STANDARD_OVERNIGHT, FIRST_OVERNIGHT, FEDEX_2_DAY, FEDEX_EXPRESS_SAVER, INTERNATIONAL_PRIORITY, INTERNATIONAL_ECONOMY, INTERNATIONAL_FIRST, FEDEX_1_DAY_FREIGHT, FEDEX_2_DAY_FREIGHT, FEDEX_3_DAY_FREIGHT, FEDEX_GROUND, GROUND_HOME_DELIVERY, INTERNATIONAL_PRIORITY_FREIGHT, INTERNATIONAL_ECONOMY_FREIGHT, EUROPE_FIRST_INTERNATIONAL_PRIORITY |
@@ -139,12 +139,12 @@ export interface paths {
      * | rate_type | string | NONE, LIST |
      * | include_package_value | boolean | true, false |
      * | destination_type | string | residential, business |
-     * 
-     * 
+     *
+     *
      * ### UPS Ready
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "UPS ready",
@@ -163,11 +163,11 @@ export interface paths {
      *     },
      *     "enabled": true
      * }
-     * 
+     *
      * ```
-     * 
+     *
      * #### UPS Ready Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | 2nd_Day_Air, 2nd_Day_Air_AM, 3_Day_Select, Expedited, Express, Express_Plus, Express_Saver, Express_Early_AM, Ground, Next_Day_Air, Next_Day_Air_Early_AM, Next_Day_Air_Saver, Saver, Standard, Today_Dedicated_Courier, Today_Express, Today_Express_Saver, Today_Intercity, Today_Standard, Worldwide_Expedited, Worldwide_Express, Worldwide_Express_Plus, Worldwide_Express_Saver, Worldwide_Saver |
@@ -176,9 +176,9 @@ export interface paths {
      * | packaging_type | string (only codes allowed) | See the following table |
      * | include_package_value | boolean | true, false |
      * | show_transit_time | boolean | true, false |
-     * 
+     *
      * UPS `packaging_type` values include:
-     * 
+     *
      * | Code | Description |
      * |:----:|:------------|
      * | 21 | UPS® Express Box |
@@ -192,12 +192,12 @@ export interface paths {
      * | 2a | Small Express Box |
      * | 2b | Medium Express Box |
      * | 2c | Large Express Box |
-     * 
-     * 
+     *
+     *
      * ### Canada Post
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "Canada Post",
@@ -211,19 +211,19 @@ export interface paths {
      *     },
      *     "enabled": true
      * }
-     * 
+     *
      * ```
-     * 
+     *
      * #### Canada Post Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | DOM.RP, DOM.EP, DOM.XP, DOM.XP.CERT, DOM.PC DOM.LIB, USA.EP, USA.PW.ENV, USA.PW.PAK, USA.PW.PARCEL, USA.SP.AIR, USA.TP, USA.TP.LVM, USA.XP, INT.XP, INT.IP.AIR, INT.IP.SURF, INT.PW.ENV, INT.PW.PAK, INT.PW.PARCEL, INT.SP.AIR, INT.SP.SURF, INT.TP |
-     * 
+     *
      * ### Australia Post
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "Australia Post",
@@ -238,19 +238,19 @@ export interface paths {
      *     },
      *     "enabled": true
      * }
-     * 
+     *
      * ```
-     * 
+     *
      * #### Australia Post Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | AUS_LETTER_REGULAR_SMALL, AUS_LETTER_REGULAR_Large, AUS_LETTER_EXPRESS_SMALL, AUS_LETTER_EXPRESS_MEDIUM, AUS_LETTER_EXPRESS_LARGE, AUS_PARCEL_REGULAR, AUS_PARCEL_REGULAR_SATCHEL_500G, AUS_PARCEL_REGULAR_SATCHEL_3KG, AUS_PARCEL_REGULAR_SATCHEL_5KG, AUS_PARCEL_EXPRESS, AUS_PARCEL_EXPRESS_SATCHEL_500G, AUS_PARCEL_EXPRESS_SATCHEL_3KG, AUS_PARCEL_EXPRESS_SATCHEL_5KG, AUS_PARCEL_COURIER, AUS_PARCEL_COURIER_SATCHEL_MEDIUM, INT_PARCEL_COR_OWN_PACKAGING, INT_PARCEL_EXP_OWN_PACKAGING, INT_PARCEL_STD_OWN_PACKAGING, INT_PARCEL_AIR_OWN_PACKAGING, INT_PARCEL_SEA_OWN_PACKAGING |
-     * 
+     *
      * ### Royal Mail
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "Royal Mail",
@@ -266,17 +266,17 @@ export interface paths {
      *     "enabled": true
      * }
      * ```
-     * 
+     *
      * #### Royal Mail Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | SpecialDelivery1pm, SpecialDelivery9am, SpecialDelivery1pmSaturday, SpecialDelivery9amSaturday, SignedForFirstClass, SignedForSecondClass, Express9, Express10, ExpressAM, Express24, Express48, StandardFirstClass, StandardSecondClass, InternationalStandard, InternationalTracked, InternationalEconomy |
-     * 
+     *
      * ### Zoom2U
-     * 
+     *
      * Example request body:
-     * 
+     *
      * ```json
      * {
      *     "name": "Zoom2U",
@@ -293,27 +293,27 @@ export interface paths {
      *     "enabled": true
      * }
      * ```
-     * 
+     *
      * #### Zoom2U Object Properties
-     * 
+     *
      * | Property | Type | Values |
      * |:---------|:-----|:-------|
      * | delivery_services | array | 3_hour, Same_day, VIP|
-     * 
-     * ### Settings Objects 
-     * 
+     *
+     * ### Settings Objects
+     *
      * A shipping methodʼs `type` and `settings` properties can match one of the following models:
-     * 
-     * #### perorder Object – Properties 
-     * 
+     *
+     * #### perorder Object – Properties
+     *
      * Object model for flat-rate shipping quotes per order.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | rate | number | Flat rate per order. |
-     * 
-     * Example request body: 
-     * 
+     *
+     * Example request body:
+     *
      * ```json
      * {
      *   "name": "Flat Rate per Order",
@@ -323,17 +323,17 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
-     * #### peritem Object – Properties 
-     * 
+     *
+     * #### peritem Object – Properties
+     *
      * Object model for flat-rate shipping quotes per item ordered.
-     * 
+     *
      * | Name | Type | Description |
      * |:-----|:-----|:------------|
      * | rate | number | Flat rate per item. |
-     * 
+     *
      * Ezample request body:
-     * 
+     *
      * ```json
      * {
      *   "name": "Flat Rate per Item",
@@ -343,19 +343,19 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
-     * #### weight Object – Properties 
-     * 
+     *
+     * #### weight Object – Properties
+     *
      * Object model for shipping quotes by weight.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
-     * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+     * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
-     * 
+     *
      * Example request body:
-     *   
+     *
      * ```json
      * {
      *   "name": "Rate per Weight",
@@ -378,22 +378,22 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
-     * #### total Object – Properties 
-     * 
+     *
+     * #### total Object – Properties
+     *
      * Object model for shipping quotes by orderʼs total value.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
-     * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+     * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
-     * 
+     *
      * Example request body:
-     * 
+     *
      * This example sets free shipping above a certain order total:
-     * 
+     *
      * ```json
      * {
      *   "name": "Per Total or Free",
@@ -427,25 +427,25 @@ export interface paths {
      *         "lower_limit": 50,
      *         "upper_limit": 100000,
      *         "shipping_cost": 0
-     *       }       
+     *       }
      *     ]
      *   }
      * }
      * ```
-     * 
-     * #### Range Object – Properties 
-     * 
+     *
+     * #### Range Object – Properties
+     *
      * Object model to define ranges for shipping quotes. Units are defined in the parent object.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | lower_limit | number | Lower limit for order total. |
      * | upper_limit | number | Upper limit for order total. |
      * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
-     * 
-     * 
-     * Example request body: 
-     * 
+     *
+     *
+     * Example request body:
+     *
      * ```json
      * {
      *   "lower_limit": 0,
@@ -467,23 +467,23 @@ export interface paths {
   };
   "/shipping/zones/{zone_id}/methods/{method_id}": {
     /**
-     * Get a Shipping Method 
+     * Get a Shipping Method
      * @description Returns a single *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint.
-     * 
+     *
      * ### Settings Objects
-     * 
+     *
      * A shipping methodʼs `type` and `settings` properties can match one of the following models:
-     * 
+     *
      * ### perorder Object – Properties
-     * 
+     *
      * Object model for flat-rate shipping quotes per order.
-     * 
+     *
      * | Name | Type | Description |
      * | - | - | - |
      * | rate | number | Flat rate per order. |
-     * 
+     *
      * #### JSON Example
-     * 
+     *
      * ```json
      * {
      *     "name": "Flat Rate per Order",
@@ -492,17 +492,17 @@ export interface paths {
      *         "rate": 7
      * },
      * ```
-     * 
+     *
      * ### peritem Object – Properties
-     * 
+     *
      * Object model for flat-rate shipping quotes per item ordered.
-     * 
+     *
      * | Name | Type | Description |
      * | - | - | - |
      * | rate | number | Flat rate per item. |
-     * 
+     *
      * #### JSON Example
-     * 
+     *
      * ```json
      * {
      *     "name": "Flat Rate per Item",
@@ -511,18 +511,18 @@ export interface paths {
      *         "rate": 8
      * },
      * ```
-     * 
+     *
      * ### weight Object – Properties
-     * 
+     *
      * Object model for shipping quotes by weight.
-     * 
+     *
      * | Name | Type | Description |
      * | - | - | - |
-     * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+     * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
-     * 
-     * 
+     *
+     *
      * #### JSON Example
      * ```json
      * {
@@ -546,22 +546,22 @@ export interface paths {
      *     }
      * }
      * ```
-     * 
+     *
      * ### total Object – Properties
-     * 
+     *
      * Object model for shipping quotes by orderʼs total value.
-     * 
+     *
      * | Name | Type | Description |
      * | - | - | - |
-     * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+     * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
-     * 
+     *
      * #### JSON Example
-     * 
+     *
      * This example sets free shipping above a certain order total:
-     * 
+     *
      * ```json
      * {
      *     "name": "Per Total or Free",
@@ -600,19 +600,19 @@ export interface paths {
      *     }
      * }
      * ```
-     * 
+     *
      * ### Range Object – Properties
-     * 
+     *
      * Object model to define ranges for shipping quotes. Units are defined in the parent object.
-     * 
+     *
      * | Name | Type | Description |
      * | - | - | - |
      * | lower_limit | number | Lower limit for order total. |
      * | upper_limit | number | Upper limit for order total. |
      * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
-     * 
+     *
      * #### JSON Example
-     * 
+     *
      * ```json
      * {
      *     "lower_limit": 0,
@@ -623,26 +623,26 @@ export interface paths {
      */
     get: operations["getAShippingMethod"];
     /**
-     * Update a Shipping Method 
-     * @description Updates a *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint. 
-     * 
+     * Update a Shipping Method
+     * @description Updates a *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint.
+     *
      * **Read Only Fields**
      * * id
-     * 
-     * ### Settings Objects 
-     * 
+     *
+     * ### Settings Objects
+     *
      * A shipping methodʼs `type` and `settings` properties can match one of the following models:
-     * 
-     * #### perorder Object – Properties 
-     * 
+     *
+     * #### perorder Object – Properties
+     *
      * Object model for flat-rate shipping quotes per order.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | rate | number | Flat rate per order. |
-     * 
-     * Example response: 
-     * 
+     *
+     * Example response:
+     *
      * ```json
      * {
      *   "name": "Flat Rate per Order",
@@ -652,17 +652,17 @@ export interface paths {
      *   }
      * },
      * ```
-     * 
-     * #### peritem Object – Properties 
-     * 
+     *
+     * #### peritem Object – Properties
+     *
      * Object model for flat-rate shipping quotes per item ordered.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | rate | number | Flat rate per item. |
-     * 
-     * Example response: 
-     * 
+     *
+     * Example response:
+     *
      * ```json
      * {
      *   "name": "Flat Rate per Item",
@@ -672,20 +672,20 @@ export interface paths {
      *   }
      * },
      * ```
-     * 
-     * #### weight Object – Properties 
-     * 
+     *
+     * #### weight Object – Properties
+     *
      * Object model for shipping quotes by weight.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
-     * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+     * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
-     * 
-     * 
-     * Example response: 
-     *   
+     *
+     *
+     * Example response:
+     *
      * ```json
      * {
      *   "name": "Rate per Weight",
@@ -708,22 +708,22 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
-     * #### total Object – Properties 
-     * 
+     *
+     * #### total Object – Properties
+     *
      * Object model for shipping quotes by orderʼs total value.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
-     * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+     * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
-     * 
-     * Example response: 
-     * 
+     *
+     * Example response:
+     *
      * This example sets free shipping above a certain order total:
-     * 
+     *
      * ```json
      * {
      *   "name": "Per Total or Free",
@@ -757,24 +757,24 @@ export interface paths {
      *         "lower_limit": 50,
      *         "upper_limit": 100000,
      *         "shipping_cost": 0
-     *       }       
+     *       }
      *     ]
      *   }
      * }
      * ```
-     * 
-     * #### Range Object – Properties 
-     * 
+     *
+     * #### Range Object – Properties
+     *
      * Object model to define ranges for shipping quotes. Units are defined in the parent object.
-     * 
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | lower_limit | number | Lower limit for order total. |
      * | upper_limit | number | Upper limit for order total. |
      * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
-     * 
-     * Example response: 
-     * 
+     *
+     * Example response:
+     *
      * ```json
      * {
      *   "lower_limit": 0,
@@ -785,7 +785,7 @@ export interface paths {
      */
     put: operations["updateAShippingMethod"];
     /**
-     * Delete a Shipping Method 
+     * Delete a Shipping Method
      * @description Deletes an *Shipping Method*. Real Time Carrier Connections can also be deleted.
      */
     delete: operations["deleteAShippingMethod"];
@@ -803,31 +803,31 @@ export interface paths {
   };
   "/shipping/carrier/connection": {
     /**
-     * Update a Carrier Connection 
+     * Update a Carrier Connection
      * @description Updates a *Carrier Connection*.
-     * 
+     *
      * Updating the carrier connection is done using the same information as creating the connection. This endpoint can be used to update credentials.
      */
     put: operations["updateACarrierConnection"];
     /**
-     * Create a Carrier Connection 
-     * @description Creates a *Carrier Connection*. 
-     * 
+     * Create a Carrier Connection
+     * @description Creates a *Carrier Connection*.
+     *
      * Carrier connections refer to specific settings required to connect to a specific shipping carrier. Each carrier requires your app to supply a unique set of properties/fields to establish a connection with that carrier.
-     * 
+     *
      * *Notes:*
-     * 
+     *
      * - There is no `GET` with this resource. It has `PUT`, `POST` and `DELETE`.
      *     * `PUT` is used to update. The connection can be updated by API.
-     * 
-     * - Connections created here do not enable the shipping method. To enable the carrier for a shipping zone, use the Shipping Methods API. 
-     * 
+     *
+     * - Connections created here do not enable the shipping method. To enable the carrier for a shipping zone, use the Shipping Methods API.
+     *
      * - The Carrier Connection resource returns a 204 for both successful and unsuccessful attempts to connect. If a field is missing, it will return a 400.
-     * 
+     *
      * ### Australia Post
-     * 
+     *
      * PUT or POST example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "auspost",
@@ -837,31 +837,31 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
+     *
      * DELETE example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "auspost"
      * }
      * ```
-     * 
+     *
      * #### Australia Post Connection Object – Properties
-     * 
+     *
      * Australia Post `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-     * 
-     * 
+     *
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | auth_key | string | Australia Post authorization key. |
      * | test_mode | boolean | Whether or not to use Australia Post test-mode settings. Acceptable values are `true` or `false`. |
-     * 
-     * 
+     *
+     *
      * ### Endicia
      * USPS is connected through Endicia.
-     * 
+     *
      * PUT or POST example request:
-     * 
+     *
      * ```json
      * {  "carrier_id" : "endicia",
      *   "connection": {
@@ -870,30 +870,30 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
+     *
      * DELETE example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "endicia"
      * }
      * ```
-     * 
+     *
      * #### Endicia Connection Object – Properties
-     * 
+     *
      * Endicia `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-     * 
-     * 
+     *
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | account_id | string | Endicia account ID. |
      * | passphrase | string | Endicia passphrase. |
-     * 
-     * 
+     *
+     *
      * ### FedEx
-     * 
+     *
      * PUT or POST example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "fedex",
@@ -905,57 +905,83 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
+     *
      * DELETE example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "fedex"
      * }
      * ```
-     * 
+     *
      * #### FedEx Connection Object – Properties
-     * 
+     *
      * FedEx `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-     * 
-     * 
+     *
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
-     * | key | string | FedEx account ID. | 
+     * | key | string | FedEx account ID. |
      * | password | string | FedEx passphrase. |
      * | account_number | string | FedEx account number. |
      * | meter_number | string | FedEx meter number. |
-     * 
+     *
      * ### Royal Mail
-     * 
+     *
      * PUT or POST example request:
-     * 
+     *
      * ```json
      * {
      *     "carrier_id" : "royalmail",
      *     "connection" : {
-     *         
+     *
      *     }
      * }
      * ```
-     * 
+     *
      * DELETE example request:
-     * 
+     *
      * ```json
      * {
      *     "carrier_id" : "royalmail"
      * }
      * ```
-     * 
+     *
      * #### Royal Mail Connection Object - Properties
-     * 
+     *
      * Royal Mail has no connection object properties.
-     * 
-     * 
+     *
+     * ### Shipping Provider API
+     *
+     * Please note that this endpoint is not intended for adding connection settings.
+     *
+     * Its purpose is solely to establish a connection between your BigCommerce store and the carrier. If the carrier has no connection settings configured, please leave the connection property empty. However, if the carrier already has connection settings configured, you can utilize this endpoint to establish the connection using the existing connection properties.
+     *
+     * PUT or POST example request when your carrier is not configured with any connection settings:
+     *
+     * ```json filename="No connection settings configured" showLineNumbers copy
+     * {
+     *   "carrier_id" : "carrier_{your_carrier_id}",
+     *   "connection" : {}
+     * }
+     * ```
+     *
+     * PUT or POST example request when your carrier is configured with connection settings:
+     *
+     * ```json filename="Connection settings configured" showLineNumbers copy
+     * {
+     *   "carrier_id" : "carrier_{your_carrier_id}",
+     *   "connection" : {
+     *     "your_configured_key_1": "value_1",
+     *     "your_configured_key_2": "value_2
+     *   }
+     * }
+     * ```
+     *
      * ### Zoom2U
-     * 
+     *
      * PUT or POST example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "zoom2u",
@@ -965,20 +991,20 @@ export interface paths {
      *   }
      * }
      * ```
-     * 
+     *
      * DELETE example request:
-     * 
+     *
      * ```json
      * {
      *   "carrier_id" : "zoom2u"
      * }
      * ```
-     * 
+     *
      * #### Zoom2U Connection Object – Properties
-     * 
+     *
      * Zoom2U `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-     * 
-     * 
+     *
+     *
      * | Property | Type | Description |
      * |:---------|:-----|:------------|
      * | auth_key | string | Zoom2U authorization key. |
@@ -986,9 +1012,9 @@ export interface paths {
      */
     post: operations["createACarrierConnection"];
     /**
-     * Delete a Carrier Connection 
+     * Delete a Carrier Connection
      * @description Deletes a *Carrier Connection*.
-     * 
+     *
      * **Required Fields**
      * * carrier_id
      */
@@ -1006,89 +1032,89 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Tracking Carrier 
-     * @example auspost 
+     * Tracking Carrier
+     * @example auspost
      * @enum {string}
      */
     TrackingCarrier: "auspost" | "canadapost" | "endicia" | "usps" | "fedex" | "royalmail" | "ups" | "upsready" | "shipperhq";
     /**
-     * Shipping Provider 
-     * @example endicia 
+     * Shipping Provider
+     * @example endicia
      * @enum {string}
      */
     ShippingProvider: "``" | "fedex" | "auspost" | "canadapost" | "endicia" | "usps" | "royalmail" | "ups" | "upsready" | "upsonline" | "shipperhq";
     /** Shipping Zone */
     ShippingZone: {
       /**
-       * @description Zone ID. Read-only. 
+       * @description Zone ID. Read-only.
        * @example 1
        */
       id?: number;
       /**
-       * @description Zone name. Required for PUT requests. 
+       * @description Zone name. Required for PUT requests.
        * @example United States
        */
       name: string;
       /** @enum {string} */
       type?: "zip" | "country" | "state" | "global";
       /** @description Array of zone locations. */
-      locations?: ({
+      locations?: {
           /**
-           * @description Location’s ID. 
+           * @description Location’s ID.
            * @example 3
            */
           id?: number;
           /**
-           * @description Location’s ZIP/postal code. 
+           * @description Location’s ZIP/postal code.
            * @example 12345
            */
           zip?: string;
           /**
-           * @description 2-letter ISO Alpha-2 code for the country. 
+           * @description 2-letter ISO Alpha-2 code for the country.
            * @example US
            */
           country_iso2?: string;
           /**
-           * @description ISO Alpha-2 code for the state. 
+           * @description ISO Alpha-2 code for the state.
            * @example TX
            */
           state_iso2?: string;
-        })[];
+        }[];
       free_shipping?: {
         enabled?: boolean;
         /**
-         * @description (Float, Float-As-String, Integer) 
+         * @description (Float, Float-As-String, Integer)
          * @example 0.0000
          */
         minimum_sub_total?: string;
         exclude_fixed_shipping_products?: boolean;
       };
       /** Shipping Zone Handling Fees */
-      handling_fees?: OneOf<[{
+      handling_fees?: Record<string, never> & OneOf<[{
         /**
-         * @description Flat-rate handling fee applied to shipping cost. 
+         * @description Flat-rate handling fee applied to shipping cost.
          * @example 0
          */
         fixed_surcharge?: string;
         /**
-         * @description Indicates whether store displays handling fee separately at checkout. 
+         * @description Indicates whether store displays handling fee separately at checkout.
          * @example true
          */
         display_separately?: boolean;
       }, {
         /**
-         * @description Percentage handling fee applied to shipping cost. 
+         * @description Percentage handling fee applied to shipping cost.
          * @example 5
          */
         percentage_surcharge?: string;
         /**
-         * @description Indicates whether store displays handling fee separately at checkout. 
+         * @description Indicates whether store displays handling fee separately at checkout.
          * @example true
          */
         display_separately?: boolean;
       }]>;
       /**
-       * @description Whether this shipping zone is enabled. 
+       * @description Whether this shipping zone is enabled.
        * @example true
        */
       enabled?: boolean;
@@ -1096,46 +1122,46 @@ export interface components {
     /** Shipping Zone Locations */
     ShippingZoneLocations: {
       /**
-       * @description Location’s ID. 
+       * @description Location’s ID.
        * @example 3
        */
       id?: number;
       /**
-       * @description Location’s ZIP/postal code. 
+       * @description Location’s ZIP/postal code.
        * @example 12345
        */
       zip?: string;
       /**
-       * @description 2-letter ISO Alpha-2 code for the country. 
+       * @description 2-letter ISO Alpha-2 code for the country.
        * @example US
        */
       country_iso2?: string;
       /**
-       * @description ISO Alpha-2 code for the state. 
+       * @description ISO Alpha-2 code for the state.
        * @example TX
        */
       state_iso2?: string;
     };
     /** Shipping Zone Handling Fees */
-    HandlingFees: OneOf<[{
+    HandlingFees: Record<string, never> & OneOf<[{
       /**
-       * @description Flat-rate handling fee applied to shipping cost. 
+       * @description Flat-rate handling fee applied to shipping cost.
        * @example 0
        */
       fixed_surcharge?: string;
       /**
-       * @description Indicates whether store displays handling fee separately at checkout. 
+       * @description Indicates whether store displays handling fee separately at checkout.
        * @example true
        */
       display_separately?: boolean;
     }, {
       /**
-       * @description Percentage handling fee applied to shipping cost. 
+       * @description Percentage handling fee applied to shipping cost.
        * @example 5
        */
       percentage_surcharge?: string;
       /**
-       * @description Indicates whether store displays handling fee separately at checkout. 
+       * @description Indicates whether store displays handling fee separately at checkout.
        * @example true
        */
       display_separately?: boolean;
@@ -1143,21 +1169,21 @@ export interface components {
     /** shippingMethod_Full */
     shippingMethod_Full: {
       /**
-       * @description Shipping method ID. Read-only. 
+       * @description Shipping method ID. Read-only.
        * @example 1
        */
       id?: number;
     } & components["schemas"]["shippingMethod_Base"];
     /**
-     * Shipping Method Type 
-     * @example perorder 
+     * Shipping Method Type
+     * @example perorder
      * @enum {string}
      */
     ShippingMethodType: "perorder" | "peritem" | "weight" | "total" | "auspost" | "canadapost" | "endicia" | "usps" | "fedex" | "royalmail" | "upsready" | "freeshipping";
     /** shippingMethod_Base */
     shippingMethod_Base: {
       /**
-       * @description Display name for shipping method. 
+       * @description Display name for shipping method.
        * @example Flat Rate
        */
       name?: string;
@@ -1165,31 +1191,31 @@ export interface components {
       /** @description Depends on the shipping method type. See the [supported settings object](#supported-settings). */
       settings?: {
         /**
-         * @description Flat rate per order. 
+         * @description Flat rate per order.
          * @example 7
          */
         rate?: number;
       };
       /**
-       * @description Whether or not this shipping zone method is enabled. 
+       * @description Whether or not this shipping zone method is enabled.
        * @example true
        */
       enabled?: boolean;
-      handling_fees?: OneOf<[{
+      handling_fees?: Record<string, never> & OneOf<[{
         /**
-         * @description Flat-rate handling fee applied to shipping cost. 
+         * @description Flat-rate handling fee applied to shipping cost.
          * @example 0
          */
         fixed_surcharge?: number;
       }, {
         /**
-         * @description Percentage handling fee applied to shipping cost. 
+         * @description Percentage handling fee applied to shipping cost.
          * @example 0
          */
         percentage_surcharge?: number;
       }]>;
       /**
-       * @description Whether or not this shipping zone is the fallback if all others are not valid for the order. 
+       * @description Whether or not this shipping zone is the fallback if all others are not valid for the order.
        * @example false
        */
       is_fallback?: boolean;
@@ -1203,49 +1229,49 @@ export interface components {
       connection?: Record<string, never>;
     };
     /**
-     * metaCollection 
+     * metaCollection
      * @description Meta data relating to pagination.
      */
     metaCollection: {
       pagination?: {
         /**
-         * @description Total number of items returned. 
+         * @description Total number of items returned.
          * @example 3
          */
         total?: number;
         /**
-         * @description Number of items returned on per page. 
+         * @description Number of items returned on per page.
          * @example 1
          */
         count?: number;
         /**
-         * @description Number of items to be displayed per page. 
+         * @description Number of items to be displayed per page.
          * @example 1
          */
         per_page?: number;
         /**
-         * @description Current page number. 
+         * @description Current page number.
          * @example 2
          */
         current_page?: number;
         /**
-         * @description Total number of pages. 
+         * @description Total number of pages.
          * @example 3
          */
         total_page?: number;
         links?: {
           /**
-           * @description Query string appended to the resource to return to the previous page. 
+           * @description Query string appended to the resource to return to the previous page.
            * @example ?limit=1&page=1
            */
           previous?: string;
           /**
-           * @description Query string appended to the resource to proceed to the next page. 
+           * @description Query string appended to the resource to proceed to the next page.
            * @example ?limit=1&page=3
            */
           next?: string;
           /**
-           * @description Query string appended to the resource to show the current page. 
+           * @description Query string appended to the resource to show the current page.
            * @example ?limit=1&page=2
            */
           current?: string;
@@ -1270,7 +1296,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Shipping Zones 
+   * Get All Shipping Zones
    * @description Returns a list of all *Shipping Zones*.
    */
   getAllShippingZones: {
@@ -1284,75 +1310,75 @@ export interface operations {
         content: {
           "application/json": ({
               /**
-               * @description Zone ID 
+               * @description Zone ID
                * @example 1
                */
               id?: number;
               /**
-               * @description Zone name. Required for PUT requests. 
+               * @description Zone name. Required for PUT requests.
                * @example United States
                */
               name?: string;
               /** @enum {string} */
               type?: "zip" | "country" | "state" | "global";
               /** @description Array of zone locations. */
-              locations?: ({
+              locations?: {
                   /**
-                   * @description Location’s ID. 
+                   * @description Location’s ID.
                    * @example 3
                    */
                   id?: number;
                   /**
-                   * @description Location’s ZIP/postal code. 
+                   * @description Location’s ZIP/postal code.
                    * @example 12345
                    */
                   zip?: string;
                   /**
-                   * @description 2-letter ISO Alpha-2 code for the country. 
+                   * @description 2-letter ISO Alpha-2 code for the country.
                    * @example US
                    */
                   country_iso2?: string;
                   /**
-                   * @description ISO Alpha-2 code for the state. 
+                   * @description ISO Alpha-2 code for the state.
                    * @example TX
                    */
                   state_iso2?: string;
-                })[];
+                }[];
               free_shipping?: {
                 enabled?: boolean;
                 /**
-                 * @description (Float, Float-As-String, Integer) 
+                 * @description (Float, Float-As-String, Integer)
                  * @example 0.0000
                  */
                 minimum_sub_total?: string;
                 exclude_fixed_shipping_products?: boolean;
               };
               /** Shipping Zone Handling Fees */
-              handling_fees?: OneOf<[{
+              handling_fees?: Record<string, never> & OneOf<[{
                 /**
-                 * @description Flat-rate handling fee applied to shipping cost. 
+                 * @description Flat-rate handling fee applied to shipping cost.
                  * @example 0
                  */
                 fixed_surcharge?: string;
                 /**
-                 * @description Indicates whether store displays handling fee separately at checkout. 
+                 * @description Indicates whether store displays handling fee separately at checkout.
                  * @example true
                  */
                 display_separately?: boolean;
               }, {
                 /**
-                 * @description Percentage handling fee applied to shipping cost. 
+                 * @description Percentage handling fee applied to shipping cost.
                  * @example 5
                  */
                 percentage_surcharge?: string;
                 /**
-                 * @description Indicates whether store displays handling fee separately at checkout. 
+                 * @description Indicates whether store displays handling fee separately at checkout.
                  * @example true
                  */
                 display_separately?: boolean;
               }]>;
               /**
-               * @description Whether this shipping zone is enabled. 
+               * @description Whether this shipping zone is enabled.
                * @example true
                */
               enabled?: boolean;
@@ -1362,7 +1388,7 @@ export interface operations {
     };
   };
   /**
-   * Create a Shipping Zone 
+   * Create a Shipping Zone
    * @description Creates a *Shipping Zone*.
    */
   createAShippingZones: {
@@ -1376,70 +1402,70 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description Zone name. Required for PUT requests. 
+           * @description Zone name. Required for PUT requests.
            * @example United States
            */
           name: string;
           /** @enum {string} */
           type: "zip" | "country" | "state" | "global";
           /** @description Array of zone locations. */
-          locations?: ({
+          locations?: {
               /**
-               * @description Location’s ID. 
+               * @description Location’s ID.
                * @example 3
                */
               id?: number;
               /**
-               * @description Location’s ZIP/postal code. 
+               * @description Location’s ZIP/postal code.
                * @example 12345
                */
               zip?: string;
               /**
-               * @description 2-letter ISO Alpha-2 code for the country. 
+               * @description 2-letter ISO Alpha-2 code for the country.
                * @example US
                */
               country_iso2?: string;
               /**
-               * @description ISO Alpha-2 code for the state. 
+               * @description ISO Alpha-2 code for the state.
                * @example TX
                */
               state_iso2?: string;
-            })[];
+            }[];
           free_shipping?: {
             enabled?: boolean;
             /**
-             * @description (Float, Float-As-String, Integer) 
+             * @description (Float, Float-As-String, Integer)
              * @example 0.0000
              */
             minimum_sub_total?: string;
             exclude_fixed_shipping_products?: boolean;
           };
           /** Shipping Zone Handling Fees */
-          handling_fees?: OneOf<[{
+          handling_fees?: Record<string, never> & OneOf<[{
             /**
-             * @description Flat-rate handling fee applied to shipping cost. 
+             * @description Flat-rate handling fee applied to shipping cost.
              * @example 0
              */
             fixed_surcharge?: string;
             /**
-             * @description Indicates whether store displays handling fee separately at checkout. 
+             * @description Indicates whether store displays handling fee separately at checkout.
              * @example true
              */
             display_separately?: boolean;
           }, {
             /**
-             * @description Percentage handling fee applied to shipping cost. 
+             * @description Percentage handling fee applied to shipping cost.
              * @example 5
              */
             percentage_surcharge?: string;
             /**
-             * @description Indicates whether store displays handling fee separately at checkout. 
+             * @description Indicates whether store displays handling fee separately at checkout.
              * @example true
              */
             display_separately?: boolean;
           }]>;
           /**
-           * @description Whether this shipping zone is enabled. 
+           * @description Whether this shipping zone is enabled.
            * @example true
            */
           enabled?: boolean;
@@ -1451,75 +1477,75 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * @description Zone ID. 
+             * @description Zone ID.
              * @example 1
              */
             id?: number;
             /**
-             * @description Zone name. 
+             * @description Zone name.
              * @example United States
              */
             name?: string;
             /** @enum {string} */
             type?: "zip" | "country" | "state" | "global";
             /** @description Array of zone locations. */
-            locations?: ({
+            locations?: {
                 /**
-                 * @description Location ID. 
+                 * @description Location ID.
                  * @example 3
                  */
                 id?: number;
                 /**
-                 * @description Location’s ZIP/postal code. 
+                 * @description Location’s ZIP/postal code.
                  * @example 12345
                  */
                 zip?: string;
                 /**
-                 * @description 2-letter ISO Alpha-2 code for the country. 
+                 * @description 2-letter ISO Alpha-2 code for the country.
                  * @example US
                  */
                 country_iso2?: string;
                 /**
-                 * @description ISO Alpha-2 code for the state. 
+                 * @description ISO Alpha-2 code for the state.
                  * @example TX
                  */
                 state_iso2?: string;
-              })[];
+              }[];
             free_shipping?: {
               enabled?: boolean;
               /**
-               * @description (Float, Float-As-String, Integer) 
+               * @description (Float, Float-As-String, Integer)
                * @example 0.0000
                */
               minimum_sub_total?: string;
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: OneOf<[{
+            handling_fees?: Record<string, never> & OneOf<[{
               /**
-               * @description Flat-rate handling fee applied to shipping cost. 
+               * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
                */
               fixed_surcharge?: string;
               /**
-               * @description Indicates whether store displays handling fee separately at checkout. 
+               * @description Indicates whether store displays handling fee separately at checkout.
                * @example true
                */
               display_separately?: boolean;
             }, {
               /**
-               * @description Percentage handling fee applied to shipping cost. 
+               * @description Percentage handling fee applied to shipping cost.
                * @example 5
                */
               percentage_surcharge?: string;
               /**
-               * @description Indicates whether store displays handling fee separately at checkout. 
+               * @description Indicates whether store displays handling fee separately at checkout.
                * @example true
                */
               display_separately?: boolean;
             }]>;
             /**
-             * @description Whether this shipping zone is enabled. 
+             * @description Whether this shipping zone is enabled.
              * @example true
              */
             enabled?: boolean;
@@ -1529,7 +1555,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Shipping Zones 
+   * Get a Shipping Zones
    * @description Returns a single *Shipping Zone*.
    */
   getAShippingZone: {
@@ -1547,75 +1573,75 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * @description Zone ID 
+             * @description Zone ID
              * @example 1
              */
             id?: number;
             /**
-             * @description Zone name. 
+             * @description Zone name.
              * @example United States
              */
             name?: string;
             /** @enum {string} */
             type?: "zip" | "country" | "state" | "global";
             /** @description Array of zone locations. */
-            locations?: ({
+            locations?: {
                 /**
-                 * @description Location’s ID. 
+                 * @description Location’s ID.
                  * @example 3
                  */
                 id?: number;
                 /**
-                 * @description Location’s ZIP/postal code. 
+                 * @description Location’s ZIP/postal code.
                  * @example 12345
                  */
                 zip?: string;
                 /**
-                 * @description 2-letter ISO Alpha-2 code for the country. 
+                 * @description 2-letter ISO Alpha-2 code for the country.
                  * @example US
                  */
                 country_iso2?: string;
                 /**
-                 * @description ISO Alpha-2 code for the state. 
+                 * @description ISO Alpha-2 code for the state.
                  * @example TX
                  */
                 state_iso2?: string;
-              })[];
+              }[];
             free_shipping?: {
               enabled?: boolean;
               /**
-               * @description (Float, Float-As-String, Integer) 
+               * @description (Float, Float-As-String, Integer)
                * @example 0.0000
                */
               minimum_sub_total?: string;
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: OneOf<[{
+            handling_fees?: Record<string, never> & OneOf<[{
               /**
-               * @description Flat-rate handling fee applied to shipping cost. 
+               * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
                */
               fixed_surcharge?: string;
               /**
-               * @description Indicates whether store displays handling fee separately at checkout. 
+               * @description Indicates whether store displays handling fee separately at checkout.
                * @example true
                */
               display_separately?: boolean;
             }, {
               /**
-               * @description Percentage handling fee applied to shipping cost. 
+               * @description Percentage handling fee applied to shipping cost.
                * @example 5
                */
               percentage_surcharge?: string;
               /**
-               * @description Indicates whether store displays handling fee separately at checkout. 
+               * @description Indicates whether store displays handling fee separately at checkout.
                * @example true
                */
               display_separately?: boolean;
             }]>;
             /**
-             * @description Whether this shipping zone is enabled. 
+             * @description Whether this shipping zone is enabled.
              * @example true
              */
             enabled?: boolean;
@@ -1625,12 +1651,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Shipping Zone 
+   * Update a Shipping Zone
    * @description Updates a *Shipping Zone*.
-   * 
+   *
    * **Required Fields**
    * * name
-   * 
+   *
    * **Read Only Fields**
    * * id
    */
@@ -1649,75 +1675,75 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description Zone ID. Read-only. 
+           * @description Zone ID. Read-only.
            * @example 1
            */
           id?: number;
           /**
-           * @description Zone name. Required for PUT requests. 
+           * @description Zone name. Required for PUT requests.
            * @example United States
            */
           name: string;
           /** @enum {string} */
           type?: "zip" | "country" | "state" | "global";
           /** @description Array of zone locations. */
-          locations?: ({
+          locations?: {
               /**
-               * @description Location’s ID. 
+               * @description Location’s ID.
                * @example 3
                */
               id?: number;
               /**
-               * @description Location’s ZIP/postal code. 
+               * @description Location’s ZIP/postal code.
                * @example 12345
                */
               zip?: string;
               /**
-               * @description 2-letter ISO Alpha-2 code for the country. 
+               * @description 2-letter ISO Alpha-2 code for the country.
                * @example US
                */
               country_iso2?: string;
               /**
-               * @description ISO Alpha-2 code for the state. 
+               * @description ISO Alpha-2 code for the state.
                * @example TX
                */
               state_iso2?: string;
-            })[];
+            }[];
           free_shipping?: {
             enabled?: boolean;
             /**
-             * @description (Float, Float-As-String, Integer) 
+             * @description (Float, Float-As-String, Integer)
              * @example 0.0000
              */
             minimum_sub_total?: string;
             exclude_fixed_shipping_products?: boolean;
           };
           /** Shipping Zone Handling Fees */
-          handling_fees?: OneOf<[{
+          handling_fees?: Record<string, never> & OneOf<[{
             /**
-             * @description Flat-rate handling fee applied to shipping cost. 
+             * @description Flat-rate handling fee applied to shipping cost.
              * @example 0
              */
             fixed_surcharge?: string;
             /**
-             * @description Indicates whether store displays handling fee separately at checkout. 
+             * @description Indicates whether store displays handling fee separately at checkout.
              * @example true
              */
             display_separately?: boolean;
           }, {
             /**
-             * @description Percentage handling fee applied to shipping cost. 
+             * @description Percentage handling fee applied to shipping cost.
              * @example 5
              */
             percentage_surcharge?: string;
             /**
-             * @description Indicates whether store displays handling fee separately at checkout. 
+             * @description Indicates whether store displays handling fee separately at checkout.
              * @example true
              */
             display_separately?: boolean;
           }]>;
           /**
-           * @description Whether this shipping zone is enabled. 
+           * @description Whether this shipping zone is enabled.
            * @example true
            */
           enabled?: boolean;
@@ -1729,75 +1755,75 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * @description Zone ID. Read-only. 
+             * @description Zone ID. Read-only.
              * @example 1
              */
             id?: number;
             /**
-             * @description Zone name. Required for PUT requests. 
+             * @description Zone name. Required for PUT requests.
              * @example United States
              */
             name: string;
             /** @enum {string} */
             type?: "zip" | "country" | "state" | "global";
             /** @description Array of zone locations. */
-            locations?: ({
+            locations?: {
                 /**
-                 * @description Location’s ID. 
+                 * @description Location’s ID.
                  * @example 3
                  */
                 id?: number;
                 /**
-                 * @description Location’s ZIP/postal code. 
+                 * @description Location’s ZIP/postal code.
                  * @example 12345
                  */
                 zip?: string;
                 /**
-                 * @description 2-letter ISO Alpha-2 code for the country. 
+                 * @description 2-letter ISO Alpha-2 code for the country.
                  * @example US
                  */
                 country_iso2?: string;
                 /**
-                 * @description ISO Alpha-2 code for the state. 
+                 * @description ISO Alpha-2 code for the state.
                  * @example TX
                  */
                 state_iso2?: string;
-              })[];
+              }[];
             free_shipping?: {
               enabled?: boolean;
               /**
-               * @description (Float, Float-As-String, Integer) 
+               * @description (Float, Float-As-String, Integer)
                * @example 0.0000
                */
               minimum_sub_total?: string;
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: OneOf<[{
+            handling_fees?: Record<string, never> & OneOf<[{
               /**
-               * @description Flat-rate handling fee applied to shipping cost. 
+               * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
                */
               fixed_surcharge?: string;
               /**
-               * @description Indicates whether store displays handling fee separately at checkout. 
+               * @description Indicates whether store displays handling fee separately at checkout.
                * @example true
                */
               display_separately?: boolean;
             }, {
               /**
-               * @description Percentage handling fee applied to shipping cost. 
+               * @description Percentage handling fee applied to shipping cost.
                * @example 5
                */
               percentage_surcharge?: string;
               /**
-               * @description Indicates whether store displays handling fee separately at checkout. 
+               * @description Indicates whether store displays handling fee separately at checkout.
                * @example true
                */
               display_separately?: boolean;
             }]>;
             /**
-             * @description Whether this shipping zone is enabled. 
+             * @description Whether this shipping zone is enabled.
              * @example true
              */
             enabled?: boolean;
@@ -1807,7 +1833,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Shipping Zone 
+   * Delete a Shipping Zone
    * @description Deletes a *Shipping Zone*.
    */
   deleteAShippingZone: {
@@ -1825,7 +1851,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Shipping Methods in a Zone 
+   * Get All Shipping Methods in a Zone
    * @description Returns a list of *Shipping Methods* in a zone. Default sorting is by shipping method ID, from lowest to highest.
    */
   getShippingMethodsZone: {
@@ -1841,23 +1867,23 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["shippingMethod_Full"])[];
+          "application/json": components["schemas"]["shippingMethod_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Shipping Method 
-   * @description Creates a *Shipping Method* within a shipping zone. Real Time Carrier Connections are also supported by this endpoint. 
-   * 
+   * Create a Shipping Method
+   * @description Creates a *Shipping Method* within a shipping zone. Real Time Carrier Connections are also supported by this endpoint.
+   *
    * ## Carrier Configurations – Current
-   * 
+   *
    * This section provides a sample request and a carrier-specific object/property model, for each supported carrier.
-   * 
+   *
    * ### USPS by Endicia
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "USPS by Endicia",
@@ -1872,19 +1898,19 @@ export interface operations {
    *     "enabled": true
    * }
    * ```
-   * 
+   *
    * #### USPS by Endicia Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | PriorityExpress, PriorityMailExpressInternational, FirstClassPackageInternationalService, Priority, PriorityMailInternational, First, ParcelSelect, MediaMail |
    * | packaging_type | array | FlatRateLegalEnvelope, FlatRatePaddedEnvelope, Parcel, SmallFlatRateBox, MediumFlatRateBox, LargeFlatRateBox, FlatRateEnvelope, RegionalRateBoxA, RegionalRateBoxB |
    * |show_transit_time | boolean | true, false |
-   * 
+   *
    * ### FedEx
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "FEDEX",
@@ -1905,11 +1931,11 @@ export interface operations {
    *     },
    *     "enabled": true
    * }
-   * 
+   *
    * ```
-   * 
+   *
    * #### FedEx Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | PRIORITY_OVERNIGHT, STANDARD_OVERNIGHT, FIRST_OVERNIGHT, FEDEX_2_DAY, FEDEX_EXPRESS_SAVER, INTERNATIONAL_PRIORITY, INTERNATIONAL_ECONOMY, INTERNATIONAL_FIRST, FEDEX_1_DAY_FREIGHT, FEDEX_2_DAY_FREIGHT, FEDEX_3_DAY_FREIGHT, FEDEX_GROUND, GROUND_HOME_DELIVERY, INTERNATIONAL_PRIORITY_FREIGHT, INTERNATIONAL_ECONOMY_FREIGHT, EUROPE_FIRST_INTERNATIONAL_PRIORITY |
@@ -1919,12 +1945,12 @@ export interface operations {
    * | rate_type | string | NONE, LIST |
    * | include_package_value | boolean | true, false |
    * | destination_type | string | residential, business |
-   * 
-   * 
+   *
+   *
    * ### UPS Ready
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "UPS ready",
@@ -1943,11 +1969,11 @@ export interface operations {
    *     },
    *     "enabled": true
    * }
-   * 
+   *
    * ```
-   * 
+   *
    * #### UPS Ready Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | 2nd_Day_Air, 2nd_Day_Air_AM, 3_Day_Select, Expedited, Express, Express_Plus, Express_Saver, Express_Early_AM, Ground, Next_Day_Air, Next_Day_Air_Early_AM, Next_Day_Air_Saver, Saver, Standard, Today_Dedicated_Courier, Today_Express, Today_Express_Saver, Today_Intercity, Today_Standard, Worldwide_Expedited, Worldwide_Express, Worldwide_Express_Plus, Worldwide_Express_Saver, Worldwide_Saver |
@@ -1956,9 +1982,9 @@ export interface operations {
    * | packaging_type | string (only codes allowed) | See the following table |
    * | include_package_value | boolean | true, false |
    * | show_transit_time | boolean | true, false |
-   * 
+   *
    * UPS `packaging_type` values include:
-   * 
+   *
    * | Code | Description |
    * |:----:|:------------|
    * | 21 | UPS® Express Box |
@@ -1972,12 +1998,12 @@ export interface operations {
    * | 2a | Small Express Box |
    * | 2b | Medium Express Box |
    * | 2c | Large Express Box |
-   * 
-   * 
+   *
+   *
    * ### Canada Post
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "Canada Post",
@@ -1991,19 +2017,19 @@ export interface operations {
    *     },
    *     "enabled": true
    * }
-   * 
+   *
    * ```
-   * 
+   *
    * #### Canada Post Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | DOM.RP, DOM.EP, DOM.XP, DOM.XP.CERT, DOM.PC DOM.LIB, USA.EP, USA.PW.ENV, USA.PW.PAK, USA.PW.PARCEL, USA.SP.AIR, USA.TP, USA.TP.LVM, USA.XP, INT.XP, INT.IP.AIR, INT.IP.SURF, INT.PW.ENV, INT.PW.PAK, INT.PW.PARCEL, INT.SP.AIR, INT.SP.SURF, INT.TP |
-   * 
+   *
    * ### Australia Post
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "Australia Post",
@@ -2018,19 +2044,19 @@ export interface operations {
    *     },
    *     "enabled": true
    * }
-   * 
+   *
    * ```
-   * 
+   *
    * #### Australia Post Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | AUS_LETTER_REGULAR_SMALL, AUS_LETTER_REGULAR_Large, AUS_LETTER_EXPRESS_SMALL, AUS_LETTER_EXPRESS_MEDIUM, AUS_LETTER_EXPRESS_LARGE, AUS_PARCEL_REGULAR, AUS_PARCEL_REGULAR_SATCHEL_500G, AUS_PARCEL_REGULAR_SATCHEL_3KG, AUS_PARCEL_REGULAR_SATCHEL_5KG, AUS_PARCEL_EXPRESS, AUS_PARCEL_EXPRESS_SATCHEL_500G, AUS_PARCEL_EXPRESS_SATCHEL_3KG, AUS_PARCEL_EXPRESS_SATCHEL_5KG, AUS_PARCEL_COURIER, AUS_PARCEL_COURIER_SATCHEL_MEDIUM, INT_PARCEL_COR_OWN_PACKAGING, INT_PARCEL_EXP_OWN_PACKAGING, INT_PARCEL_STD_OWN_PACKAGING, INT_PARCEL_AIR_OWN_PACKAGING, INT_PARCEL_SEA_OWN_PACKAGING |
-   * 
+   *
    * ### Royal Mail
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "Royal Mail",
@@ -2046,17 +2072,17 @@ export interface operations {
    *     "enabled": true
    * }
    * ```
-   * 
+   *
    * #### Royal Mail Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | SpecialDelivery1pm, SpecialDelivery9am, SpecialDelivery1pmSaturday, SpecialDelivery9amSaturday, SignedForFirstClass, SignedForSecondClass, Express9, Express10, ExpressAM, Express24, Express48, StandardFirstClass, StandardSecondClass, InternationalStandard, InternationalTracked, InternationalEconomy |
-   * 
+   *
    * ### Zoom2U
-   * 
+   *
    * Example request body:
-   * 
+   *
    * ```json
    * {
    *     "name": "Zoom2U",
@@ -2073,27 +2099,27 @@ export interface operations {
    *     "enabled": true
    * }
    * ```
-   * 
+   *
    * #### Zoom2U Object Properties
-   * 
+   *
    * | Property | Type | Values |
    * |:---------|:-----|:-------|
    * | delivery_services | array | 3_hour, Same_day, VIP|
-   * 
-   * ### Settings Objects 
-   * 
+   *
+   * ### Settings Objects
+   *
    * A shipping methodʼs `type` and `settings` properties can match one of the following models:
-   * 
-   * #### perorder Object – Properties 
-   * 
+   *
+   * #### perorder Object – Properties
+   *
    * Object model for flat-rate shipping quotes per order.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | rate | number | Flat rate per order. |
-   * 
-   * Example request body: 
-   * 
+   *
+   * Example request body:
+   *
    * ```json
    * {
    *   "name": "Flat Rate per Order",
@@ -2103,17 +2129,17 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
-   * #### peritem Object – Properties 
-   * 
+   *
+   * #### peritem Object – Properties
+   *
    * Object model for flat-rate shipping quotes per item ordered.
-   * 
+   *
    * | Name | Type | Description |
    * |:-----|:-----|:------------|
    * | rate | number | Flat rate per item. |
-   * 
+   *
    * Ezample request body:
-   * 
+   *
    * ```json
    * {
    *   "name": "Flat Rate per Item",
@@ -2123,19 +2149,19 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
-   * #### weight Object – Properties 
-   * 
+   *
+   * #### weight Object – Properties
+   *
    * Object model for shipping quotes by weight.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
-   * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+   * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
-   * 
+   *
    * Example request body:
-   *   
+   *
    * ```json
    * {
    *   "name": "Rate per Weight",
@@ -2158,22 +2184,22 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
-   * #### total Object – Properties 
-   * 
+   *
+   * #### total Object – Properties
+   *
    * Object model for shipping quotes by orderʼs total value.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
-   * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+   * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
-   * 
+   *
    * Example request body:
-   * 
+   *
    * This example sets free shipping above a certain order total:
-   * 
+   *
    * ```json
    * {
    *   "name": "Per Total or Free",
@@ -2207,25 +2233,25 @@ export interface operations {
    *         "lower_limit": 50,
    *         "upper_limit": 100000,
    *         "shipping_cost": 0
-   *       }       
+   *       }
    *     ]
    *   }
    * }
    * ```
-   * 
-   * #### Range Object – Properties 
-   * 
+   *
+   * #### Range Object – Properties
+   *
    * Object model to define ranges for shipping quotes. Units are defined in the parent object.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | lower_limit | number | Lower limit for order total. |
    * | upper_limit | number | Upper limit for order total. |
    * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
-   * 
-   * 
-   * Example request body: 
-   * 
+   *
+   *
+   * Example request body:
+   *
    * ```json
    * {
    *   "lower_limit": 0,
@@ -2272,23 +2298,23 @@ export interface operations {
     };
   };
   /**
-   * Get a Shipping Method 
+   * Get a Shipping Method
    * @description Returns a single *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint.
-   * 
+   *
    * ### Settings Objects
-   * 
+   *
    * A shipping methodʼs `type` and `settings` properties can match one of the following models:
-   * 
+   *
    * ### perorder Object – Properties
-   * 
+   *
    * Object model for flat-rate shipping quotes per order.
-   * 
+   *
    * | Name | Type | Description |
    * | - | - | - |
    * | rate | number | Flat rate per order. |
-   * 
+   *
    * #### JSON Example
-   * 
+   *
    * ```json
    * {
    *     "name": "Flat Rate per Order",
@@ -2297,17 +2323,17 @@ export interface operations {
    *         "rate": 7
    * },
    * ```
-   * 
+   *
    * ### peritem Object – Properties
-   * 
+   *
    * Object model for flat-rate shipping quotes per item ordered.
-   * 
+   *
    * | Name | Type | Description |
    * | - | - | - |
    * | rate | number | Flat rate per item. |
-   * 
+   *
    * #### JSON Example
-   * 
+   *
    * ```json
    * {
    *     "name": "Flat Rate per Item",
@@ -2316,18 +2342,18 @@ export interface operations {
    *         "rate": 8
    * },
    * ```
-   * 
+   *
    * ### weight Object – Properties
-   * 
+   *
    * Object model for shipping quotes by weight.
-   * 
+   *
    * | Name | Type | Description |
    * | - | - | - |
-   * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+   * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
-   * 
-   * 
+   *
+   *
    * #### JSON Example
    * ```json
    * {
@@ -2351,22 +2377,22 @@ export interface operations {
    *     }
    * }
    * ```
-   * 
+   *
    * ### total Object – Properties
-   * 
+   *
    * Object model for shipping quotes by orderʼs total value.
-   * 
+   *
    * | Name | Type | Description |
    * | - | - | - |
-   * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+   * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
-   * 
+   *
    * #### JSON Example
-   * 
+   *
    * This example sets free shipping above a certain order total:
-   * 
+   *
    * ```json
    * {
    *     "name": "Per Total or Free",
@@ -2405,19 +2431,19 @@ export interface operations {
    *     }
    * }
    * ```
-   * 
+   *
    * ### Range Object – Properties
-   * 
+   *
    * Object model to define ranges for shipping quotes. Units are defined in the parent object.
-   * 
+   *
    * | Name | Type | Description |
    * | - | - | - |
    * | lower_limit | number | Lower limit for order total. |
    * | upper_limit | number | Upper limit for order total. |
    * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
-   * 
+   *
    * #### JSON Example
-   * 
+   *
    * ```json
    * {
    *     "lower_limit": 0,
@@ -2443,12 +2469,12 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * @description Shipping method ID. Read-only. 
+             * @description Shipping method ID. Read-only.
              * @example 1
              */
             id?: number;
             /**
-             * @description Display name for shipping method. 
+             * @description Display name for shipping method.
              * @example Flat Rate
              */
             name?: string;
@@ -2456,25 +2482,25 @@ export interface operations {
             /** @description Depends on the shipping method type. See the [supported settings object](#supported-settings). */
             settings?: Record<string, never>;
             /**
-             * @description Whether or not this shipping zone method is enabled. 
+             * @description Whether or not this shipping zone method is enabled.
              * @example true
              */
             enabled?: boolean;
-            handling_fees?: OneOf<[{
+            handling_fees?: Record<string, never> & OneOf<[{
               /**
-               * @description Flat-rate handling fee applied to shipping cost. 
+               * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
                */
               fixed_surcharge?: number;
             }, {
               /**
-               * @description Percentage handling fee applied to shipping cost. 
+               * @description Percentage handling fee applied to shipping cost.
                * @example 0
                */
               percentage_surcharge?: number;
             }]>;
             /**
-             * @description Whether or not this shipping zone is the fallback if all others are not valid for the order. 
+             * @description Whether or not this shipping zone is the fallback if all others are not valid for the order.
              * @example false
              */
             is_fallback?: boolean;
@@ -2484,26 +2510,26 @@ export interface operations {
     };
   };
   /**
-   * Update a Shipping Method 
-   * @description Updates a *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint. 
-   * 
+   * Update a Shipping Method
+   * @description Updates a *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint.
+   *
    * **Read Only Fields**
    * * id
-   * 
-   * ### Settings Objects 
-   * 
+   *
+   * ### Settings Objects
+   *
    * A shipping methodʼs `type` and `settings` properties can match one of the following models:
-   * 
-   * #### perorder Object – Properties 
-   * 
+   *
+   * #### perorder Object – Properties
+   *
    * Object model for flat-rate shipping quotes per order.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | rate | number | Flat rate per order. |
-   * 
-   * Example response: 
-   * 
+   *
+   * Example response:
+   *
    * ```json
    * {
    *   "name": "Flat Rate per Order",
@@ -2513,17 +2539,17 @@ export interface operations {
    *   }
    * },
    * ```
-   * 
-   * #### peritem Object – Properties 
-   * 
+   *
+   * #### peritem Object – Properties
+   *
    * Object model for flat-rate shipping quotes per item ordered.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | rate | number | Flat rate per item. |
-   * 
-   * Example response: 
-   * 
+   *
+   * Example response:
+   *
    * ```json
    * {
    *   "name": "Flat Rate per Item",
@@ -2533,20 +2559,20 @@ export interface operations {
    *   }
    * },
    * ```
-   * 
-   * #### weight Object – Properties 
-   * 
+   *
+   * #### weight Object – Properties
+   *
    * Object model for shipping quotes by weight.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
-   * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+   * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
-   * 
-   * 
-   * Example response: 
-   *   
+   *
+   *
+   * Example response:
+   *
    * ```json
    * {
    *   "name": "Rate per Weight",
@@ -2569,22 +2595,22 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
-   * #### total Object – Properties 
-   * 
+   *
+   * #### total Object – Properties
+   *
    * Object model for shipping quotes by orderʼs total value.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
-   * | default_cost | number | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. |
+   * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
-   * 
-   * Example response: 
-   * 
+   *
+   * Example response:
+   *
    * This example sets free shipping above a certain order total:
-   * 
+   *
    * ```json
    * {
    *   "name": "Per Total or Free",
@@ -2618,24 +2644,24 @@ export interface operations {
    *         "lower_limit": 50,
    *         "upper_limit": 100000,
    *         "shipping_cost": 0
-   *       }       
+   *       }
    *     ]
    *   }
    * }
    * ```
-   * 
-   * #### Range Object – Properties 
-   * 
+   *
+   * #### Range Object – Properties
+   *
    * Object model to define ranges for shipping quotes. Units are defined in the parent object.
-   * 
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | lower_limit | number | Lower limit for order total. |
    * | upper_limit | number | Upper limit for order total. |
    * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
-   * 
-   * Example response: 
-   * 
+   *
+   * Example response:
+   *
    * ```json
    * {
    *   "lower_limit": 0,
@@ -2681,7 +2707,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Shipping Method 
+   * Delete a Shipping Method
    * @description Deletes an *Shipping Method*. Real Time Carrier Connections can also be deleted.
    */
   deleteAShippingMethod: {
@@ -2701,9 +2727,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Carrier Connection 
+   * Update a Carrier Connection
    * @description Updates a *Carrier Connection*.
-   * 
+   *
    * Updating the carrier connection is done using the same information as creating the connection. This endpoint can be used to update credentials.
    */
   updateACarrierConnection: {
@@ -2733,7 +2759,7 @@ export interface operations {
       204: never;
       /**
        * @description If a required field is not provided, the request will return a 400 response.
-       * 
+       *
        * [
        *     {
        *         "status": 400,
@@ -2749,24 +2775,24 @@ export interface operations {
     };
   };
   /**
-   * Create a Carrier Connection 
-   * @description Creates a *Carrier Connection*. 
-   * 
+   * Create a Carrier Connection
+   * @description Creates a *Carrier Connection*.
+   *
    * Carrier connections refer to specific settings required to connect to a specific shipping carrier. Each carrier requires your app to supply a unique set of properties/fields to establish a connection with that carrier.
-   * 
+   *
    * *Notes:*
-   * 
+   *
    * - There is no `GET` with this resource. It has `PUT`, `POST` and `DELETE`.
    *     * `PUT` is used to update. The connection can be updated by API.
-   * 
-   * - Connections created here do not enable the shipping method. To enable the carrier for a shipping zone, use the Shipping Methods API. 
-   * 
+   *
+   * - Connections created here do not enable the shipping method. To enable the carrier for a shipping zone, use the Shipping Methods API.
+   *
    * - The Carrier Connection resource returns a 204 for both successful and unsuccessful attempts to connect. If a field is missing, it will return a 400.
-   * 
+   *
    * ### Australia Post
-   * 
+   *
    * PUT or POST example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "auspost",
@@ -2776,31 +2802,31 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
+   *
    * DELETE example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "auspost"
    * }
    * ```
-   * 
+   *
    * #### Australia Post Connection Object – Properties
-   * 
+   *
    * Australia Post `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-   * 
-   * 
+   *
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | auth_key | string | Australia Post authorization key. |
    * | test_mode | boolean | Whether or not to use Australia Post test-mode settings. Acceptable values are `true` or `false`. |
-   * 
-   * 
+   *
+   *
    * ### Endicia
    * USPS is connected through Endicia.
-   * 
+   *
    * PUT or POST example request:
-   * 
+   *
    * ```json
    * {  "carrier_id" : "endicia",
    *   "connection": {
@@ -2809,30 +2835,30 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
+   *
    * DELETE example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "endicia"
    * }
    * ```
-   * 
+   *
    * #### Endicia Connection Object – Properties
-   * 
+   *
    * Endicia `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-   * 
-   * 
+   *
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | account_id | string | Endicia account ID. |
    * | passphrase | string | Endicia passphrase. |
-   * 
-   * 
+   *
+   *
    * ### FedEx
-   * 
+   *
    * PUT or POST example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "fedex",
@@ -2844,57 +2870,83 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
+   *
    * DELETE example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "fedex"
    * }
    * ```
-   * 
+   *
    * #### FedEx Connection Object – Properties
-   * 
+   *
    * FedEx `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-   * 
-   * 
+   *
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
-   * | key | string | FedEx account ID. | 
+   * | key | string | FedEx account ID. |
    * | password | string | FedEx passphrase. |
    * | account_number | string | FedEx account number. |
    * | meter_number | string | FedEx meter number. |
-   * 
+   *
    * ### Royal Mail
-   * 
+   *
    * PUT or POST example request:
-   * 
+   *
    * ```json
    * {
    *     "carrier_id" : "royalmail",
    *     "connection" : {
-   *         
+   *
    *     }
    * }
    * ```
-   * 
+   *
    * DELETE example request:
-   * 
+   *
    * ```json
    * {
    *     "carrier_id" : "royalmail"
    * }
    * ```
-   * 
+   *
    * #### Royal Mail Connection Object - Properties
-   * 
+   *
    * Royal Mail has no connection object properties.
-   * 
-   * 
+   *
+   * ### Shipping Provider API
+   *
+   * Please note that this endpoint is not intended for adding connection settings.
+   *
+   * Its purpose is solely to establish a connection between your BigCommerce store and the carrier. If the carrier has no connection settings configured, please leave the connection property empty. However, if the carrier already has connection settings configured, you can utilize this endpoint to establish the connection using the existing connection properties.
+   *
+   * PUT or POST example request when your carrier is not configured with any connection settings:
+   *
+   * ```json filename="No connection settings configured" showLineNumbers copy
+   * {
+   *   "carrier_id" : "carrier_{your_carrier_id}",
+   *   "connection" : {}
+   * }
+   * ```
+   *
+   * PUT or POST example request when your carrier is configured with connection settings:
+   *
+   * ```json filename="Connection settings configured" showLineNumbers copy
+   * {
+   *   "carrier_id" : "carrier_{your_carrier_id}",
+   *   "connection" : {
+   *     "your_configured_key_1": "value_1",
+   *     "your_configured_key_2": "value_2
+   *   }
+   * }
+   * ```
+   *
    * ### Zoom2U
-   * 
+   *
    * PUT or POST example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "zoom2u",
@@ -2904,20 +2956,20 @@ export interface operations {
    *   }
    * }
    * ```
-   * 
+   *
    * DELETE example request:
-   * 
+   *
    * ```json
    * {
    *   "carrier_id" : "zoom2u"
    * }
    * ```
-   * 
+   *
    * #### Zoom2U Connection Object – Properties
-   * 
+   *
    * Zoom2U `PUT` or `POST` requests require all of the following properties. (These requests won’t be fulfilled unless these properties are valid.) `DELETE` requests require only a `carrier_id`.
-   * 
-   * 
+   *
+   *
    * | Property | Type | Description |
    * |:---------|:-----|:------------|
    * | auth_key | string | Zoom2U authorization key. |
@@ -2949,16 +3001,16 @@ export interface operations {
       204: never;
       /**
        * @description Invalid requests will return a 400 response.
-       * 
+       *
        *     [
        *       {
        *         "status": 400,
        *         "message": "The field 'id' cannot be written to. Please remove it from your request before trying again."
        *       }
        *     ]
-       * 
+       *
        * If a required field is not provided, the request will return a 400 response.
-       * 
+       *
        *     [
        *       {
        *         "status": 400,
@@ -2974,9 +3026,9 @@ export interface operations {
     };
   };
   /**
-   * Delete a Carrier Connection 
+   * Delete a Carrier Connection
    * @description Deletes a *Carrier Connection*.
-   * 
+   *
    * **Required Fields**
    * * carrier_id
    */
@@ -3004,7 +3056,7 @@ export interface operations {
       204: never;
       /**
        * @description If a required field is not provided, the request will return a 400 response.
-       * 
+       *
        * [
        *     {
        *         "status": 400,

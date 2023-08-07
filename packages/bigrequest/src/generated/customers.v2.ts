@@ -8,14 +8,14 @@
 export interface paths {
   "/customers": {
     /**
-     * Get All Customers 
-     * @deprecated 
-     * @description Returns a list of all *Customers*. Default sorting is by customer id, from lowest to highest. Optional parameters can be passed in.
+     * Get All Customers
+     * @deprecated
+     * @description Returns a list of all *Customers*. Default sorting is by `customer_ID`, from lowest to highest. Optional parameters can be passed in.
      */
     get: operations["getAllCustomers"];
     /**
-     * Create a New Customer 
-     * @deprecated 
+     * Create a New Customer
+     * @deprecated
      * @description Creates a *Customer*.
      * **Required Fields**
      * *   `first_name`
@@ -28,10 +28,10 @@ export interface paths {
      * *   `accepts_marketing`
      * *   `addresses`
      * *   `form_fields`
-     * ## Notes 
+     * ## Notes
      * The `_authentication` object exposes functionality associated with the customer’s ability to log in to the store. All properties of the `_authentication` object are optional.
      * When the `_authentication` object is not supplied with an update request, then the existing customer password remains the same.
-     * ## Updating Passwords 
+     * ## Updating Passwords
      * To manually update a customer password in the same way as the control panel, supply a value for the password field:
      * ```json
      * {
@@ -40,7 +40,7 @@ export interface paths {
      *     }
      * }
      * ```
-     * ## Confirming Passwords 
+     * ## Confirming Passwords
      * An additional optional `password_confirmation` field can also be sent, providing password confirmation as a service:
      * ```json
      * {
@@ -50,19 +50,20 @@ export interface paths {
      *     }
      * }
      * ```
-     * ## Forcing Password Resets 
+     * ## Forcing Password Resets
      * To force a customer to reset their password upon their next login attempt, give the `force_reset` field a value of true, as shown here:
-     * ```json
+     * ```js showLineNumbers copy
      * {
      *     "_authentication": {
      *         "force_reset": true
      *     }
      * }
+     * ```
      */
     post: operations["createANewCustomer"];
     /**
-     * Delete Customers 
-     * @deprecated 
+     * Delete Customers
+     * @deprecated
      * @description By default, it deletes all *Customers*. Up to 100 customers per batch can be deleted.
      */
     delete: operations["deleteAllCustomers"];
@@ -74,15 +75,16 @@ export interface paths {
   };
   "/customers/{customer_id}": {
     /**
-     * Get a Customer 
-     * @deprecated 
+     * Get a Customer
+     * @deprecated
      * @description Returns a single *Customer*.
      */
     get: operations["getACustomer"];
     /**
-     * Update a Customer 
-     * @deprecated 
+     * Update a Customer
+     * @deprecated
      * @description Updates a *Customer*.
+     *
      * **Read Only Fields**
      * *   id
      * *   date_created
@@ -90,21 +92,25 @@ export interface paths {
      * *   accepts_marketing
      * *   addresses
      * *   form_fields
-     * ## Notes 
+     *
+     * ## Notes
      * The `_authentication` object exposes functionality associated with the customer’s ability to log in to the store. All properties of the `_authentication` object are optional.
      * When the `_authentication` object is not supplied with an update request, then the existing customer password remains the same.
-     * ## Updating Passwords 
+     * ## Updating Passwords
      * To manually update a customer password in the same way as the control panel, supply a value for the `password` field:
-     * ```
+     *
+     * ```js showLineNumbers copy
      * {
      *     "_authentication": {
      *         "password": "12w69Y217PYR96J"
      *     }
      * }
+     *
      * ```
-     * #### Confirming Passwords 
+     *
+     * #### Confirming Passwords
      * An additional optional `password_confirmation` field can also be sent, providing password confirmation as a service:
-     * ```
+     * ```js showLineNumbers copy
      * {
      *     "_authentication": {
      *        "password": "12w69Y217PYR96J"
@@ -112,9 +118,9 @@ export interface paths {
      *     }
      * }
      * ```
-     * #### Forcing Password Resets 
+     * #### Forcing Password Resets
      * To force a customer to reset their password upon their next login attempt, give the `force_reset` field a value of true, as shown here:
-     * ```
+     * ```js showLineNumbers copy
      * {
      *     "_authentication": {
      *         "force_reset": true
@@ -124,8 +130,8 @@ export interface paths {
      */
     put: operations["updateACustomer"];
     /**
-     * Delete a Customer 
-     * @deprecated 
+     * Delete a Customer
+     * @deprecated
      * @description Deletes a *Customer*.
      */
     delete: operations["deleteACustomer"];
@@ -140,8 +146,8 @@ export interface paths {
   };
   "/customers/count": {
     /**
-     * Get a Count of Customers 
-     * @deprecated 
+     * Get a Count of Customers
+     * @deprecated
      * @description Returns a count of all *Customers*.
      */
     get: operations["getACountOfCustomers"];
@@ -153,20 +159,20 @@ export interface paths {
   };
   "/customers/{customer_id}/validate": {
     /**
-     * Validate a Password 
-     * @deprecated 
+     * Validate a Password
+     * @deprecated
      * @description **This endpoint has special rate limiting protections to protect against abuse.**
-     * 
-     * Provided a password, will return a true/false response indicating if the provided password matches the customer’s current password. This endpoint is useful if you want to power the login of another system using BigCommerce’s stored customer accounts, or as a safe way to migrate passwords to another system (by checking them against BigCommerce’s password, and if correct, storing it in another system securely.)If the password matches what’s stored against the customer account, the response will be:
-     * 
-     * ```json
+     *
+     * Provided a password, will return a true/false response indicating if the provided password matches the customer’s current password. This endpoint is useful if you want to power the login of another system using BigCommerce’s stored customer accounts, or as a safe way to migrate passwords to another system (by checking them against BigCommerce’s password, and if correct, storing it in another system securely.) If the password matches what’s stored against the customer account, the response will be:
+     *
+     * ```js showLineNumbers copy
      * {
      *     "success": "true"
      * }
      * ```
      * If the password does NOT match, the response will instead be:
-     * 
-     * ```json
+     *
+     * ```js showLineNumbers copy
      * {
      *     "success": "false"
      * }
@@ -184,17 +190,17 @@ export interface paths {
   };
   "/customers/{customer_id}/addresses": {
     /**
-     * Get All Customer Addresses 
-     * @deprecated 
-     * @description Returns a list of *Customer Addresses*. Returns the addresses belonging to a customer. Default sorting is by address id, from lowest to highest. 
+     * Get All Customer Addresses
+     * @deprecated
+     * @description Returns a list of *Customer Addresses*. Returns the addresses belonging to a customer. Default sorting is by address id, from lowest to highest.
      * The maximum limit is 250. If a limit isn’t provided, up to 50 `customer_addresses` are returned by default.
      */
     get: operations["getAllCustomerAddresses"];
     /**
-     * Create a Customer Address 
-     * @deprecated 
+     * Create a Customer Address
+     * @deprecated
      * @description Creates a new *Customer Address*. (Note: The “state” property cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
-     * 
+     *
      * **Required Fields**
      * *   first_name
      * *   last_name
@@ -204,15 +210,15 @@ export interface paths {
      * *   state
      * *   zip
      * *   country
-     * 
+     *
      * **Read Only Fields**
      * *   id
      * *   country_iso2
      */
     post: operations["createACustomerAddress"];
     /**
-     * Delete Customer Address 
-     * @deprecated 
+     * Delete Customer Address
+     * @deprecated
      * @description By default, it deletes all *Customer Addresses*.
      */
     delete: operations["deleteAllCustomerAddresses"];
@@ -227,23 +233,24 @@ export interface paths {
   };
   "/customers/{customer_id}/addresses/{customer_address_id}": {
     /**
-     * Get a Customer Address 
-     * @deprecated 
+     * Get a Customer Address
+     * @deprecated
      * @description Returns a *Customer Address*.
      */
     get: operations["getACustomerAddress"];
     /**
-     * Update a Customer Address 
-     * @deprecated 
-     * @description Updates a *Customer Address*. 
+     * Update a Customer Address
+     * @deprecated
+     * @description Updates a *Customer Address*.
+     *
      * **Read Only Fields**
      * *   id
      * *   country_iso2
      */
     put: operations["updateACustomerAddress"];
     /**
-     * Delete a Customer Address 
-     * @deprecated 
+     * Delete a Customer Address
+     * @deprecated
      * @description Deletes a *Customer Address*.
      */
     delete: operations["deletesACustomerAddress"];
@@ -259,8 +266,8 @@ export interface paths {
   };
   "/customers/{customer_id}/addresses/count": {
     /**
-     * Get a Count of Customer Addresses 
-     * @deprecated 
+     * Get a Count of Customer Addresses
+     * @deprecated
      * @description Returns a count of addresses for a customer.
      */
     get: operations["getACountofCustomerAddresses"];
@@ -275,20 +282,21 @@ export interface paths {
   };
   "/customer_groups": {
     /**
-     * Get All Customer Groups 
-     * @description Returns a list of *Customer Groups*. Default sorting is by customer-group id, from lowest to highest.
+     * Get All Customer Groups
+     * @description Returns a list of *Customer Groups*. Default sorting is by customer-group ID, from lowest to highest.
      */
     get: operations["getAllCustomerGroups"];
     /**
-     * Create a Customer Group 
-     * @description Creates a *Customer Group*. 
+     * Create a Customer Group
+     * @description Creates a *Customer Group*.
+     *
      * **Required Fields**
      * * name
      */
     post: operations["createACustomerGroup"];
     /**
-     * Delete Customer Groups 
-     * @description By default, it deletes all *Customer Groups*. 
+     * Delete Customer Groups
+     * @description By default, it deletes all *Customer Groups*.
      * All existing customers are unassigned from the group when it is deleted.
      */
     delete: operations["deleteAllCustomerGroups"];
@@ -300,22 +308,23 @@ export interface paths {
   };
   "/customer_groups/{customer_group_id}": {
     /**
-     * Get a Customer Group 
+     * Get a Customer Group
      * @description Returns a *Customer Group*.
      */
     get: operations["getACustomerGroup"];
     /**
-     * Update a Customer Group 
+     * Update a Customer Group
      * @description Updates a *Customer Group*.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * Any combination of fields can be updated at once. Discount rules are treated in bulk. The entire set of rules is overwritten when a request is sent.
      */
     put: operations["updateACustomerGroup"];
     /**
-     * Delete a Customer Group 
-     * @description Deletes a *Customer Group*. 
+     * Delete a Customer Group
+     * @description Deletes a *Customer Group*.
+     *
      * **Notes**
      * All existing customers are unassigned from the group when it is deleted.
      */
@@ -331,7 +340,7 @@ export interface paths {
   };
   "/customer_groups/count": {
     /**
-     * Get a Count of Customer Groups 
+     * Get a Count of Customer Groups
      * @description Returns a count of all *Customer Groups*.
      */
     get: operations["getACountOfCustomerGroups"];
@@ -370,28 +379,28 @@ export interface components {
       phone?: string;
       /** @example janedoe@example.com */
       email?: string;
-      form_fields?: ({
+      form_fields?: {
           /**
-           * @description Name of the form field 
-           * @example License Id
+           * @description Name of the form field.
+           * @example License ID
            */
           name?: string;
           /**
-           * @description Value of the form field 
+           * @description Value of the form field.
            * @example 123BAF
            */
           value?: string;
-        })[];
+        }[];
     };
     /** customerFormFields */
     customerFormFields: {
       /**
-       * @description Name of the form field 
-       * @example License Id
+       * @description Name of the form field.
+       * @example License ID
        */
       name?: string;
       /**
-       * @description Value of the form field 
+       * @description Value of the form field.
        * @example 123BAF
        */
       value?: string;
@@ -399,7 +408,7 @@ export interface components {
     /** shippingAddress_Full */
     shippingAddress_Full: {
       /**
-       * @description URL of the shipping address for api requests 
+       * @description URL of the shipping address for API requests.
        * @example https://api.bigcommerce.com/stores/{store_hash}/v2/orders/129/shippingaddresses
        */
       url?: string;
@@ -409,7 +418,7 @@ export interface components {
     /** customer_Full */
     customer_Full: {
       /**
-       * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. 
+       * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
        * @example 1
        */
       id?: number;
@@ -423,12 +432,12 @@ export interface components {
       /**
        * @description + `all` - Customers can access all categories
        *  + `specific`  - Customers can access a specific list of categories
-       * + `none` - Customers are prevented from viewing any of the categories in this group. 
+       * + `none` - Customers are prevented from viewing any of the categories in this group.
        * @enum {string}
        */
       type?: "all" | "specific" | "none";
       /**
-       * @description Is an array of category IDs and should be supplied only if `type` is specific. 
+       * @description Is an array of category IDs and should be supplied only if `type` is specific.
        * @example [
        *   18,
        *   19,
@@ -436,10 +445,10 @@ export interface components {
        *   34
        * ]
        */
-      categories?: (number)[];
+      categories?: number[];
     };
     /**
-     * count_Full 
+     * count_Full
      * @example {
      *   "count": 27
      * }
@@ -451,59 +460,115 @@ export interface components {
     /** customerAddress_Full */
     customerAddress_Full: {
       /**
-       * @description ID of this customer address. READ-ONLY 
+       * @description ID of this customer address. READ-ONLY
        * @example 3
        */
       id?: number;
       /**
-       * @description 2-letter ISO Alpha-2 code for the customer’s country. READ-ONLY 
+       * @description 2-letter ISO Alpha-2 code for the customer’s country. READ-ONLY
        * @example US
        */
       country_iso2?: string;
     } & components["schemas"]["customerAddress_Base"];
     /**
-     * customerGroup_Full 
-     * @description When creating a customer group category discount using the API it defaults to "products in this category and its subcategories". In the [Control Panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing) this can be changed to either "products in this category only" or "products in this category and its subcategories". There are currently no settings to change this behavior via API.
+     * customerGroup_Full
+     * @description When creating a customer group category discount using the API it defaults to "products in this category and its subcategories". In the [store control panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing), this can be changed to either "products in this category only" or "products in this category and its subcategories". There are currently no settings to change this behavior with the API.
      */
     customerGroup_Full: {
       /**
-       * @description Id of the customer group 
+       * @description ID of the customer group.
        * @example 1
        */
       id?: number;
       /**
-       * @description Name of the group 
+       * @description Name of the group.
        * @example Wholesale
        */
       name?: string;
       /**
-       * @description Determines whether new customers are assigned to this group by default. 
+       * @description Determines whether new customers are assigned to this group by default.
        * @example false
        */
       is_default?: boolean;
       category_access?: components["schemas"]["categoryAccessLevel_Full"];
-      /** @description A collection of discount rules that are automatically applied to customers who are members of the group */
+      /** @description A collection of discount rules that are automatically applied to customers who are members of the group. */
       discount_rules?: ({
           /** @enum {string} */
           type?: "price_list" | "all" | "category" | "product";
           /** @enum {string} */
           method?: "percent" | "fixed" | "price";
           /**
-           * @description A float that specifies the value applied to the price modified 
-           * @example "5.0000" (Float, Float as String, Integer)
+           * @description A float that specifies the value applied to the price modified. Format may be Float, Float as String, or Integer.
+           * @example "5.0000"
            */
           amount?: string;
           /**
-           * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned. 
+           * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned.
            * @example 3
            */
           price_list_id?: number;
         })[];
-      /** @description If the groups is for guests. There can only be one customer group for guests at a time. */
+      /**
+       * @description Date on which the customer group was created.
+       * @example "2023-07-17T06:30:41.000Z"
+       */
+      date_created?: string;
+      /**
+       * @description Date on which the customer group was last modified.
+       * @example "2023-07-25T01:15:19.000Z"
+       */
+      date_modified?: string;
+      /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
       is_group_for_guests?: boolean;
     };
     /**
-     * country_Full 
+     * customerGroup_Update
+     * @description When updating a customer group category discount using the API, it defaults to "products in this category and its subcategories". In the [store control panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing), this can be changed to either "products in this category only" or "products in this category and its subcategories." There are currently no settings to change this behavior with the API.
+     */
+    customerGroup_Update: {
+      /**
+       * @description Name of the group.
+       * @example Wholesale
+       */
+      name?: string;
+      /**
+       * @description Determines whether new customers are assigned to this group by default.
+       * @example false
+       */
+      is_default?: boolean;
+      category_access?: components["schemas"]["categoryAccessLevel_Full"];
+      /** @description A collection of discount rules that are automatically applied to customers who are members of the group. */
+      discount_rules?: ({
+          /** @enum {string} */
+          type?: "price_list" | "all" | "category" | "product";
+          /** @enum {string} */
+          method?: "percent" | "fixed" | "price";
+          /**
+           * @description A float that specifies the value applied to the price modified. Format may be Float, Float as String, or Integer.
+           * @example "5.0000"
+           */
+          amount?: string;
+          /**
+           * @description If a customer group is assigned to a price list, `method` and `amount` are not shown. `type` and `price_list_id` are returned.
+           * @example 3
+           */
+          price_list_id?: number;
+        })[];
+      /**
+       * @description Date on which the customer group was created.
+       * @example "2023-07-17T06:30:41.000Z"
+       */
+      date_created?: string;
+      /**
+       * @description Date on which the customer group was last modified.
+       * @example "2023-07-25T01:15:19.000Z"
+       */
+      date_modified?: string;
+      /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
+      is_group_for_guests?: boolean;
+    };
+    /**
+     * country_Full
      * @example {
      *   "id": 13,
      *   "country": "Australia",
@@ -517,22 +582,22 @@ export interface components {
      */
     country_Full: {
       /**
-       * @description Id of the country. 
+       * @description ID of the country.
        * @example 13
        */
       id?: number;
       /**
-       * @description Country name. 
+       * @description Country name.
        * @example Australia
        */
       country?: string;
       /**
-       * @description 2-letter country code. 
+       * @description 2-letter country code.
        * @example AU
        */
       country_iso2?: string;
       /**
-       * @description 3-letter country code. 
+       * @description 3-letter country code.
        * @example AUS
        */
       country_iso3?: string;
@@ -554,64 +619,64 @@ export interface components {
     /** state_Full */
     state_Full: {
       /**
-       * @description Numeric ID of the state/province. 
+       * @description Numeric ID of the state/province.
        * @example 208
        */
       id?: number;
       /**
-       * @description Name of the state/province. 
+       * @description Name of the state/province.
        * @example Australian Capital Territory
        */
       state?: string;
       /**
-       * @description Abbreviation for the state/province. 
+       * @description Abbreviation for the state/province.
        * @example ACT
        */
       state_abbreviation?: string;
       /**
-       * @description Numeric ID of the state’s/province’s associated country. 
+       * @description Numeric ID of the state’s/province’s associated country.
        * @example 13
        */
       country_id?: number;
     };
     /**
-     * customerGroup_Post 
-     * @description When creating a customer group category discount using the API it defaults to "products in this category and its subcategories". In the [Control Panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing) this can be changed to either "products in this category only" or "products in this category and its subcategories". There are currently no settings to change this behavior via API.
+     * customerGroup_Post
+     * @description When creating a customer group category discount using the API it defaults to "products in this category and its subcategories". In the [store control panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing), this can be changed to either "products in this category only" or "products in this category and its subcategories". There are currently no settings to change this behavior with the API.
      */
     customerGroup_Post: {
       /**
-       * @description Name of the group 
+       * @description Name of the group.
        * @example Wholesale
        */
       name?: string;
       /**
-       * @description Determines whether new customers are assigned to this group by default. 
+       * @description Determines whether new customers are assigned to this group by default.
        * @example false
        */
       is_default?: boolean;
       category_access?: components["schemas"]["categoryAccessLevel_Full"];
-      /** @description A collection of discount rules that are automatically applied to customers who are members of the group */
+      /** @description A collection of discount rules that are automatically applied to customers who are members of the group. */
       discount_rules?: ({
           /** @enum {string} */
           type?: "price_list" | "all" | "category" | "product";
           /** @enum {string} */
           method?: "percent" | "fixed" | "price";
           /**
-           * @description A float that specifies the value applied to the price modified 
-           * @example "5.0000" (Float, Float as String, Integer)
+           * @description A float that specifies the value applied to the price modified. Format may be Float, Float as String, or Integer.
+           * @example "5.0000"
            */
           amount?: string;
           /**
-           * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned. 
+           * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned.
            * @example 3
            */
           price_list_id?: number;
         })[];
-      /** @description If the groups is for guests. There can only be one customer group for guests at a time. */
+      /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
       is_group_for_guests?: boolean;
     };
     validatePassword: {
-      /** @description Will return `true` or `false` */
+      /** @description Will return `true` or `false`. */
       success?: boolean;
     };
     /** customer_Base */
@@ -623,42 +688,42 @@ export interface components {
         password_confirmation?: string;
       };
       /**
-       * @description The name of the company for which the customer works. 
+       * @description The name of the company for which the customer works.
        * @example BigCommerce
        */
       company?: string;
       /**
-       * @description First name of the customer. 
+       * @description First name of the customer.
        * @example Jane
        */
       first_name: string;
       /**
-       * @description Last name of the customer. 
+       * @description Last name of the customer.
        * @example Doe
        */
       last_name: string;
       /**
-       * @description Email address of the customer. 
+       * @description Email address of the customer.
        * @example janedoe@example.com
        */
       email: string;
       /**
-       * @description Phone number of the customer. 
+       * @description Phone number of the customer.
        * @example 1234567890
        */
       phone?: string;
       /**
-       * @description The amount of credit the customer has. (Float, Float as String, Integer) 
+       * @description The amount of credit the customer has. Format may be Float, Float as String, or Integer.
        * @example 0
        */
       store_credit?: string;
       /**
-       * @description The customer’s IP address when they signed up. 
+       * @description The customer’s IP address when they signed up.
        * @example 12.345.678.910
        */
       registration_ip_address?: string;
       /**
-       * @description The group to which the customer belongs. 
+       * @description The group to which the customer belongs.
        * @example 2
        */
       customer_group_id?: number;
@@ -667,19 +732,19 @@ export interface components {
       /** @description If applicable, the tax-exempt category of the shopper’s customer account. You can apply a tax-exempt category to multiple customers. This code should match the exemption codes provided by the third-party integration. */
       tax_exempt_category?: string;
       /**
-       * @description If the customer accepts product review emails or abandon cart emails. Read-Only.  
+       * @description Describes whether the customer accepts product review emails or abandon cart emails. Read-Only.
        * @example true
        */
       accepts_marketing?: boolean;
       /** Address Field Resource */
       addresses?: {
         /**
-         * @description Full URL of where the resource is located. 
+         * @description Full URL of where the resource is located.
          * @example https://api.bigcommerce.com/stores/{store_hash}/v2/customers/5/addresses
          */
         url?: string;
         /**
-         * @description Resource being accessed. 
+         * @description Resource being accessed.
          * @example /customers/5/addresses
          */
         resource?: string;
@@ -687,21 +752,21 @@ export interface components {
       /** @description Array of custom fields. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
       form_fields?: (({
           /**
-           * @description Name of the form field 
-           * @example License Id
+           * @description Name of the form field.
+           * @example License ID
            */
           name?: string;
-          /** @description Value of the form field */
+          /** @description Value of the form field. */
           value?: string | null;
         })[]) | null;
       /**
-       * @description Force a password change on next login. 
+       * @description Force a password change on next login.
        * @example false
        */
       reset_pass_on_login?: boolean;
     };
     ErrorRequest: {
-      errors?: (components["schemas"]["ErrorBasic"])[];
+      errors?: components["schemas"]["ErrorBasic"][];
     };
     ErrorBasic: {
       /** @description The HTTP status code. */
@@ -713,59 +778,59 @@ export interface components {
     /** customerAddress_Base */
     customerAddress_Base: {
       /**
-       * @description ID of the associated customer. 
+       * @description ID of the associated customer.
        * @example 5
        */
       customer_id?: number;
       /**
-       * @description The customer’s first name. 
+       * @description The customer’s first name.
        * @example Jane
        */
       first_name: string;
       /**
-       * @description The customer’s last name. 
+       * @description The customer’s last name.
        * @example Doe
        */
       last_name: string;
       /**
-       * @description The customer’s company name. 
+       * @description The customer’s company name.
        * @example BigCommerce
        */
       company?: string;
       /**
-       * @description The customer’s street address, line 1. 
+       * @description The customer’s street address, line 1.
        * @example 123 Main Street
        */
       street_1: string;
       /** @description The customer’s street address, line 2. */
       street_2?: string;
       /**
-       * @description The customer’s city/town/suburb. 
+       * @description The customer’s city/town/suburb.
        * @example Austin
        */
       city: string;
       /**
-       * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word, e.g.: California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.) 
+       * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word, e.g.: California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
        * @example Texas
        */
       state: string;
       /**
-       * @description The customer’s ZIP or postal code. 
+       * @description The customer’s ZIP or postal code.
        * @example 78726
        */
       zip: string;
       /**
-       * @description The customer’s country. Must be the full country name. 
+       * @description The customer’s country. Must be the full country name.
        * @example United States
        */
       country: string;
       /**
-       * @description The customer’s phone number. 
+       * @description The customer’s phone number.
        * @example 123-345-7890
        */
       phone: string;
       /**
-       * @example residential 
+       * @example residential
        * @enum {string}
        */
       address_type?: "residential" | "commercial";
@@ -783,7 +848,7 @@ export interface components {
     customer_group_id: number;
     /** @description ID of the customer address. */
     customer_address_id: number;
-    /** @description If the groups is for guests. There can only be one customer group for guests at a time. */
+    /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
     is_group_for_guests?: boolean;
   };
   requestBodies: never;
@@ -796,9 +861,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Customers 
-   * @deprecated 
-   * @description Returns a list of all *Customers*. Default sorting is by customer id, from lowest to highest. Optional parameters can be passed in.
+   * Get All Customers
+   * @deprecated
+   * @description Returns a list of all *Customers*. Default sorting is by `customer_ID`, from lowest to highest. Optional parameters can be passed in.
    */
   getAllCustomers: {
     parameters: {
@@ -825,14 +890,14 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["customer_Full"])[];
+          "application/json": components["schemas"]["customer_Full"][];
         };
       };
     };
   };
   /**
-   * Create a New Customer 
-   * @deprecated 
+   * Create a New Customer
+   * @deprecated
    * @description Creates a *Customer*.
    * **Required Fields**
    * *   `first_name`
@@ -845,10 +910,10 @@ export interface operations {
    * *   `accepts_marketing`
    * *   `addresses`
    * *   `form_fields`
-   * ## Notes 
+   * ## Notes
    * The `_authentication` object exposes functionality associated with the customer’s ability to log in to the store. All properties of the `_authentication` object are optional.
    * When the `_authentication` object is not supplied with an update request, then the existing customer password remains the same.
-   * ## Updating Passwords 
+   * ## Updating Passwords
    * To manually update a customer password in the same way as the control panel, supply a value for the password field:
    * ```json
    * {
@@ -857,7 +922,7 @@ export interface operations {
    *     }
    * }
    * ```
-   * ## Confirming Passwords 
+   * ## Confirming Passwords
    * An additional optional `password_confirmation` field can also be sent, providing password confirmation as a service:
    * ```json
    * {
@@ -867,14 +932,15 @@ export interface operations {
    *     }
    * }
    * ```
-   * ## Forcing Password Resets 
+   * ## Forcing Password Resets
    * To force a customer to reset their password upon their next login attempt, give the `force_reset` field a value of true, as shown here:
-   * ```json
+   * ```js showLineNumbers copy
    * {
    *     "_authentication": {
    *         "force_reset": true
    *     }
    * }
+   * ```
    */
   createANewCustomer: {
     parameters: {
@@ -886,7 +952,7 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /** @description This can vary depending on the action being taken to update, validate or force a password change. See Update Customer */
+          /** @description This can vary depending on the action being taken to update, validate or force a password change. See [Customers V2, Update a customer (Deprecated)](/docs/rest-management/customers-v2#update-a-customer). */
           _authentication?: Record<string, never>;
           company?: string;
           first_name?: string;
@@ -910,8 +976,8 @@ export interface operations {
     };
   };
   /**
-   * Delete Customers 
-   * @deprecated 
+   * Delete Customers
+   * @deprecated
    * @description By default, it deletes all *Customers*. Up to 100 customers per batch can be deleted.
    */
   deleteAllCustomers: {
@@ -928,8 +994,8 @@ export interface operations {
     };
   };
   /**
-   * Get a Customer 
-   * @deprecated 
+   * Get a Customer
+   * @deprecated
    * @description Returns a single *Customer*.
    */
   getACustomer: {
@@ -950,9 +1016,10 @@ export interface operations {
     };
   };
   /**
-   * Update a Customer 
-   * @deprecated 
+   * Update a Customer
+   * @deprecated
    * @description Updates a *Customer*.
+   *
    * **Read Only Fields**
    * *   id
    * *   date_created
@@ -960,21 +1027,25 @@ export interface operations {
    * *   accepts_marketing
    * *   addresses
    * *   form_fields
-   * ## Notes 
+   *
+   * ## Notes
    * The `_authentication` object exposes functionality associated with the customer’s ability to log in to the store. All properties of the `_authentication` object are optional.
    * When the `_authentication` object is not supplied with an update request, then the existing customer password remains the same.
-   * ## Updating Passwords 
+   * ## Updating Passwords
    * To manually update a customer password in the same way as the control panel, supply a value for the `password` field:
-   * ```
+   *
+   * ```js showLineNumbers copy
    * {
    *     "_authentication": {
    *         "password": "12w69Y217PYR96J"
    *     }
    * }
+   *
    * ```
-   * #### Confirming Passwords 
+   *
+   * #### Confirming Passwords
    * An additional optional `password_confirmation` field can also be sent, providing password confirmation as a service:
-   * ```
+   * ```js showLineNumbers copy
    * {
    *     "_authentication": {
    *        "password": "12w69Y217PYR96J"
@@ -982,9 +1053,9 @@ export interface operations {
    *     }
    * }
    * ```
-   * #### Forcing Password Resets 
+   * #### Forcing Password Resets
    * To force a customer to reset their password upon their next login attempt, give the `force_reset` field a value of true, as shown here:
-   * ```
+   * ```js showLineNumbers copy
    * {
    *     "_authentication": {
    *         "force_reset": true
@@ -1006,7 +1077,7 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. 
+           * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
            * @example 1
            */
           id?: number;
@@ -1017,27 +1088,27 @@ export interface operations {
             password_confirmation?: string;
           };
           /**
-           * @description The name of the company for which the customer works. 
+           * @description The name of the company for which the customer works.
            * @example BigCommerce
            */
           company?: string;
           /**
-           * @description First name of the customer. 
+           * @description First name of the customer.
            * @example Jane
            */
           first_name: string;
           /**
-           * @description Last name of the customer. 
+           * @description Last name of the customer.
            * @example Doe
            */
           last_name: string;
           /**
-           * @description Email address of the customer. 
+           * @description Email address of the customer.
            * @example janedoe@example.com
            */
           email: string;
           /**
-           * @description Phone number of the customer. 
+           * @description Phone number of the customer.
            * @example 1234567890
            */
           phone?: string;
@@ -1046,17 +1117,17 @@ export interface operations {
           /** @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
           date_modified?: string;
           /**
-           * @description The amount of credit the customer has. (Float, Float as String, Integer) 
+           * @description The amount of credit the customer has. Format may be Float, Float as String, or Integer.
            * @example 0
            */
           store_credit?: string;
           /**
-           * @description The customer’s IP address when they signed up. 
+           * @description The customer’s IP address when they signed up.
            * @example 12.345.678.910
            */
           registration_ip_address?: string;
           /**
-           * @description The group to which the customer belongs. 
+           * @description The group to which the customer belongs.
            * @example 2
            */
           customer_group_id?: number;
@@ -1065,38 +1136,38 @@ export interface operations {
           /** @description If applicable, the tax-exempt category of the shopper’s customer account. You can apply a tax-exempt category to multiple customers. This code should match the exemption codes provided by the third-party integration. */
           tax_exempt_category?: string;
           /**
-           * @description If the customer accepts product review emails or abandon cart emails. Read-Only.  
+           * @description Describes whether the customer accepts product review emails and abandon cart emails. Read-Only.
            * @example true
            */
           accepts_marketing?: boolean;
           /** Address Field Resource */
           addresses?: {
             /**
-             * @description Full URL of where the resource is located. 
+             * @description Full URL of where the resource is located.
              * @example https://api.bigcommerce.com/stores/{store_hash}/v2/customers/5/addresses
              */
             url?: string;
             /**
-             * @description Resource being accessed. 
+             * @description Resource being accessed.
              * @example /customers/5/addresses
              */
             resource?: string;
           };
           /** @description Array of custom fields. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-          form_fields?: ({
+          form_fields?: {
               /**
-               * @description Name of the form field 
-               * @example License Id
+               * @description Name of the form field.
+               * @example License ID
                */
               name?: string;
               /**
-               * @description Value of the form field 
+               * @description Value of the form field.
                * @example 123BAF
                */
               value?: string;
-            })[];
+            }[];
           /**
-           * @description Force a password change on next login. 
+           * @description Force a password change on next login.
            * @example false
            */
           reset_pass_on_login?: boolean;
@@ -1112,8 +1183,8 @@ export interface operations {
     };
   };
   /**
-   * Delete a Customer 
-   * @deprecated 
+   * Delete a Customer
+   * @deprecated
    * @description Deletes a *Customer*.
    */
   deleteACustomer: {
@@ -1133,8 +1204,8 @@ export interface operations {
     };
   };
   /**
-   * Get a Count of Customers 
-   * @deprecated 
+   * Get a Count of Customers
+   * @deprecated
    * @description Returns a count of all *Customers*.
    */
   getACountOfCustomers: {
@@ -1152,20 +1223,20 @@ export interface operations {
     };
   };
   /**
-   * Validate a Password 
-   * @deprecated 
+   * Validate a Password
+   * @deprecated
    * @description **This endpoint has special rate limiting protections to protect against abuse.**
-   * 
-   * Provided a password, will return a true/false response indicating if the provided password matches the customer’s current password. This endpoint is useful if you want to power the login of another system using BigCommerce’s stored customer accounts, or as a safe way to migrate passwords to another system (by checking them against BigCommerce’s password, and if correct, storing it in another system securely.)If the password matches what’s stored against the customer account, the response will be:
-   * 
-   * ```json
+   *
+   * Provided a password, will return a true/false response indicating if the provided password matches the customer’s current password. This endpoint is useful if you want to power the login of another system using BigCommerce’s stored customer accounts, or as a safe way to migrate passwords to another system (by checking them against BigCommerce’s password, and if correct, storing it in another system securely.) If the password matches what’s stored against the customer account, the response will be:
+   *
+   * ```js showLineNumbers copy
    * {
    *     "success": "true"
    * }
    * ```
    * If the password does NOT match, the response will instead be:
-   * 
-   * ```json
+   *
+   * ```js showLineNumbers copy
    * {
    *     "success": "false"
    * }
@@ -1198,17 +1269,17 @@ export interface operations {
     };
   };
   /**
-   * Get All Customer Addresses 
-   * @deprecated 
-   * @description Returns a list of *Customer Addresses*. Returns the addresses belonging to a customer. Default sorting is by address id, from lowest to highest. 
+   * Get All Customer Addresses
+   * @deprecated
+   * @description Returns a list of *Customer Addresses*. Returns the addresses belonging to a customer. Default sorting is by address id, from lowest to highest.
    * The maximum limit is 250. If a limit isn’t provided, up to 50 `customer_addresses` are returned by default.
    */
   getAllCustomerAddresses: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
       };
       header: {
@@ -1221,16 +1292,16 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["customerAddress_Full"])[];
+          "application/json": components["schemas"]["customerAddress_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Customer Address 
-   * @deprecated 
+   * Create a Customer Address
+   * @deprecated
    * @description Creates a new *Customer Address*. (Note: The “state” property cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
-   * 
+   *
    * **Required Fields**
    * *   first_name
    * *   last_name
@@ -1240,7 +1311,7 @@ export interface operations {
    * *   state
    * *   zip
    * *   country
-   * 
+   *
    * **Read Only Fields**
    * *   id
    * *   country_iso2
@@ -1269,16 +1340,16 @@ export interface operations {
     };
   };
   /**
-   * Delete Customer Address 
-   * @deprecated 
+   * Delete Customer Address
+   * @deprecated
    * @description By default, it deletes all *Customer Addresses*.
    */
   deleteAllCustomerAddresses: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
       };
       header: {
@@ -1296,16 +1367,16 @@ export interface operations {
     };
   };
   /**
-   * Get a Customer Address 
-   * @deprecated 
+   * Get a Customer Address
+   * @deprecated
    * @description Returns a *Customer Address*.
    */
   getACustomerAddress: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
       };
       header: {
@@ -1325,9 +1396,10 @@ export interface operations {
     };
   };
   /**
-   * Update a Customer Address 
-   * @deprecated 
-   * @description Updates a *Customer Address*. 
+   * Update a Customer Address
+   * @deprecated
+   * @description Updates a *Customer Address*.
+   *
    * **Read Only Fields**
    * *   id
    * *   country_iso2
@@ -1347,69 +1419,69 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description ID of this customer address. READ-ONLY 
+           * @description ID of this customer address. READ-ONLY
            * @example 3
            */
           id?: number;
           /**
-           * @description ID of the associated customer. 
+           * @description ID of the associated customer.
            * @example 5
            */
           customer_id?: number;
           /**
-           * @description The customer’s first name. 
+           * @description The customer’s first name.
            * @example Jane
            */
           first_name: string;
           /**
-           * @description The customer’s last name. 
+           * @description The customer’s last name.
            * @example Doe
            */
           last_name: string;
           /**
-           * @description The customer’s company name. 
+           * @description The customer’s company name.
            * @example BigCommerce
            */
           company?: string;
           /**
-           * @description The customer’s street address, line 1. 
+           * @description The customer’s street address, line 1.
            * @example 123 Main Street
            */
           street_1: string;
           /** @description The customer’s street address, line 2. */
           street_2?: string;
           /**
-           * @description The customer’s city/town/suburb. 
+           * @description The customer’s city/town/suburb.
            * @example Austin
            */
           city: string;
           /**
-           * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word, e.g.: California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.) 
+           * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word, e.g.: California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
            * @example Texas
            */
           state: string;
           /**
-           * @description The customer’s ZIP or postal code. 
+           * @description The customer’s ZIP or postal code.
            * @example 78726
            */
           zip: string;
           /**
-           * @description The customer’s country. Must be the full country name. 
+           * @description The customer’s country. Must be the full country name.
            * @example United States
            */
           country: string;
           /**
-           * @description 2-letter ISO Alpha-2 code for the customer’s country. READ-ONLY 
+           * @description 2-letter ISO Alpha-2 code for the customer’s country. READ-ONLY
            * @example US
            */
           country_iso2?: string;
           /**
-           * @description The customer’s phone number. 
+           * @description The customer’s phone number.
            * @example 123-345-7890
            */
           phone: string;
           /**
-           * @example residential 
+           * @example residential
            * @enum {string}
            */
           address_type?: "residential" | "commercial";
@@ -1425,8 +1497,8 @@ export interface operations {
     };
   };
   /**
-   * Delete a Customer Address 
-   * @deprecated 
+   * Delete a Customer Address
+   * @deprecated
    * @description Deletes a *Customer Address*.
    */
   deletesACustomerAddress: {
@@ -1447,16 +1519,16 @@ export interface operations {
     };
   };
   /**
-   * Get a Count of Customer Addresses 
-   * @deprecated 
+   * Get a Count of Customer Addresses
+   * @deprecated
    * @description Returns a count of addresses for a customer.
    */
   getACountofCustomerAddresses: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
       };
       header: {
@@ -1475,21 +1547,23 @@ export interface operations {
     };
   };
   /**
-   * Get All Customer Groups 
-   * @description Returns a list of *Customer Groups*. Default sorting is by customer-group id, from lowest to highest.
+   * Get All Customer Groups
+   * @description Returns a list of *Customer Groups*. Default sorting is by customer-group ID, from lowest to highest.
    */
   getAllCustomerGroups: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
-        /** @description Filter customer groups by exact name match. Can use `name:like` to filter using a fuzzy matching method. This is good for implementing search. */
+        /** @description Filter customer groups by exact name match. */
         name?: string;
+        /** @description Filter customer groups by name, using a fuzzy matching method. */
+        "name:like"?: string;
         /** @description Whether customers who sign up are added to this group by default. */
         is_default?: boolean;
-        /** @description If the groups is for guests. There can only be one customer group for guests at a time. */
+        /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
         is_group_for_guests?: boolean;
       };
       header: {
@@ -1499,14 +1573,15 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["customerGroup_Full"])[];
+          "application/json": components["schemas"]["customerGroup_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Customer Group 
-   * @description Creates a *Customer Group*. 
+   * Create a Customer Group
+   * @description Creates a *Customer Group*.
+   *
    * **Required Fields**
    * * name
    */
@@ -1540,8 +1615,8 @@ export interface operations {
     };
   };
   /**
-   * Delete Customer Groups 
-   * @description By default, it deletes all *Customer Groups*. 
+   * Delete Customer Groups
+   * @description By default, it deletes all *Customer Groups*.
    * All existing customers are unassigned from the group when it is deleted.
    */
   deleteAllCustomerGroups: {
@@ -1558,17 +1633,17 @@ export interface operations {
     };
   };
   /**
-   * Get a Customer Group 
+   * Get a Customer Group
    * @description Returns a *Customer Group*.
    */
   getACustomerGroup: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
-        /** @description Name of the customer groups */
+        /** @description Name of the customer groups. */
         name?: string;
         /** @description Whether customers who sign up are added to this group by default. */
         is_default?: boolean;
@@ -1596,11 +1671,11 @@ export interface operations {
     };
   };
   /**
-   * Update a Customer Group 
+   * Update a Customer Group
    * @description Updates a *Customer Group*.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * Any combination of fields can be updated at once. Discount rules are treated in bulk. The entire set of rules is overwritten when a request is sent.
    */
   updateACustomerGroup: {
@@ -1615,7 +1690,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["customerGroup_Full"];
+        "application/json": components["schemas"]["customerGroup_Update"];
       };
     };
     responses: {
@@ -1636,8 +1711,9 @@ export interface operations {
     };
   };
   /**
-   * Delete a Customer Group 
-   * @description Deletes a *Customer Group*. 
+   * Delete a Customer Group
+   * @description Deletes a *Customer Group*.
+   *
    * **Notes**
    * All existing customers are unassigned from the group when it is deleted.
    */
@@ -1665,7 +1741,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Count of Customer Groups 
+   * Get a Count of Customer Groups
    * @description Returns a count of all *Customer Groups*.
    */
   getACountOfCustomerGroups: {
