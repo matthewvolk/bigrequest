@@ -48,7 +48,7 @@ const promptAndValidateChannelSite = async (
 
   const bc = bigrequest.rest({ storeHash, accessToken });
 
-  const channelSiteRes = await bc.v3.post('/channels/{channel_id}/site', {
+  const channelSiteRes = await bc.v3.POST('/channels/{channel_id}/site', {
     params: {
       path: { channel_id: channelId },
       header: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -124,7 +124,7 @@ const main = async () => {
 
   const bc = bigrequest.rest({ storeHash, accessToken });
 
-  const createChannelRes = await bc.v3.post('/channels', {
+  const createChannelRes = await bc.v3.POST('/channels', {
     body: {
       name: newChannelName,
       platform,
@@ -149,7 +149,7 @@ const main = async () => {
 
   await promptAndValidateChannelSite(storeHash, accessToken, channelId);
 
-  const createCITRes = await bc.v3.post('/storefront/api-token-customer-impersonation', {
+  const createCITRes = await bc.v3.POST('/storefront/api-token-customer-impersonation', {
     params: {
       header: {
         'Content-Type': 'application/json',

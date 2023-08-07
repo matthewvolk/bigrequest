@@ -65,8 +65,8 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       openapi-fetch:
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.7.1
+        version: 0.7.1
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -3134,8 +3134,8 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openapi-fetch@0.3.0:
-    resolution: {integrity: sha512-vB3OGyDNDZ+tRSUqsdEDcHeq+nKBn2At4dijht3V8W1HPLd/qvJJ4nmjarJaweuztZEniwi5RbzSlMAEvSYcTA==}
+  /openapi-fetch@0.7.1:
+    resolution: {integrity: sha512-yU2xMcPqk4mpgY03yXPsxbobDTTw0AGPzhv1i4dfELBrLonYMfLzQx2eGgdlY4b51GmnnAgWZE9FAnBbM9/NtA==}
     dev: false
 
   /openapi-typescript@6.4.0:

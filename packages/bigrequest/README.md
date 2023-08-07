@@ -47,7 +47,7 @@ const bc = bigrequest.rest({
 });
 
 // Use the REST client
-const product = await bc.v3.get('/catalog/products/{product_id}', {
+const product = await bc.v3.GET('/catalog/products/{product_id}', {
   params: {
     header: { Accept: 'application/json' },
     path: { product_id: 111 },
@@ -56,22 +56,62 @@ const product = await bc.v3.get('/catalog/products/{product_id}', {
 
 /**
  * product: {
- *   data: {
- *     id?: number | undefined;
- *     name: string;
- *     type: "physical" | "digital";
- *     sku?: string | undefined;
- *     ...
- *   } | undefined;
- *   errors: {
- *     status?: number | undefined;
- *     title?: string | undefined;
- *     type?: string | undefined;
- *     instance?: string | undefined;
- *   } | undefined;
+ *   data:
+ *     | {
+ *         data: {
+ *           id?: number | undefined;
+ *           name: string;
+ *           type: "physical" | "digital";
+ *           sku?: string | undefined;
+ *           ...
+ *         };
+ *         meta: {};
+ *       }
+ *     | undefined;
+ *   errors:
+ *     | {
+ *         status?: number | undefined;
+ *         title?: string | undefined;
+ *         type?: string | undefined;
+ *         instance?: string | undefined;
+ *       }
+ *     | undefined;
  *   response: Response;
  * }
  */
+
+// Creating an image using FormData (recommended)
+const categoryImage = await bc.v3.POST(
+  "/catalog/categories/{category_id}/image",
+  {
+    params: {
+      header: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+      },
+      path: { category_id: 11 },
+    },
+    body: {
+      image_file: "path/to/image.jpg",
+    },
+    bodySerializer(body) {
+      const fd = new FormData();
+
+      /**
+       * body: {
+       *   image_file: "path/to/image.jpg"
+       * }
+       */
+      for (const [k, v] of Object.entries(body)) {
+        const blob = new Blob([fs.readFileSync(v)]);
+
+        fd.append(k, blob, "DESIRED_FILE_NAME.jpg");
+      }
+
+      return fd;
+    },
+  }
+);
 ```
 
 ### OAuth
