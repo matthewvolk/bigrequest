@@ -8,14 +8,14 @@
 export interface paths {
   "/channels": {
     /**
-     * Get All Channels 
+     * Get All Channels
      * @description Returns a list of *Channels*.
-     * 
+     *
      * Will always return the default BigCommerce storefront with an ID of `1`. This storefront is created by default when you provision a BigCommerce store.
      */
     get: operations["listChannels"];
     /**
-     * Create a Channel 
+     * Create a Channel
      * @description Creates a *Channel*.
      */
     post: operations["createChannel"];
@@ -27,16 +27,16 @@ export interface paths {
   };
   "/channels/{channel_id}": {
     /**
-     * Get a Channel 
+     * Get a Channel
      * @description Returns a *Channel*. Channel ID `1` returns the default BigCommerce storefront.
      */
     get: operations["getChannel"];
     /**
-     * Update a Channel 
+     * Update a Channel
      * @description Updates a *Channel*.
-     * 
+     *
      * ## Updatable Fields
-     * 
+     *
      * The following fields can be updated.
      * * `name`
      * * `external_id`
@@ -44,8 +44,8 @@ export interface paths {
      * * `is_listable_from_ui`
      * * `is_visible`
      * * `config_meta`
-     * 
-     * 
+     *
+     *
      * > #### Note
      * > * Partial updates are supported. In most cases, if a field that *cannot* be updated is passed in, the API **will not** respond with an error. It returns a 200 response with the object, in which you will see the field(s) were not updated.
      * > * `platform` and `type` cannot be updated after a channel is created.
@@ -63,7 +63,7 @@ export interface paths {
   };
   "/channels/{channel_id}/active-theme": {
     /**
-     * Get a Channel Active Theme 
+     * Get a Channel Active Theme
      * @description Returns details of the theme active on the specified channel.
      * Does not support active Blueprint (legacy) themes.
      */
@@ -79,17 +79,17 @@ export interface paths {
   };
   "/channels/currency-assignments": {
     /**
-     * Get All Channels Currency Assignments 
+     * Get All Channels Currency Assignments
      * @description Returns a list of currency assignments for all channels.
      */
     get: operations["listAllCurrencyAssignments"];
     /**
-     * Update Multiple Channels Currency Assignments 
+     * Update Multiple Channels Currency Assignments
      * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
      */
     put: operations["updateMultipleChannelsCurrencyAssignments"];
     /**
-     * Create Multiple Channels Currency Assignments 
+     * Create Multiple Channels Currency Assignments
      * @description Sets enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
      */
     post: operations["createMultipleChannelsCurrencyAssignments"];
@@ -101,22 +101,22 @@ export interface paths {
   };
   "/channels/{channel_id}/currency-assignments": {
     /**
-     * Get Channel Currency Assignments 
+     * Get Channel Currency Assignments
      * @description Returns a list of currency assignments for a specific channel.
      */
     get: operations["getSingleChannelCurrencyAssignments"];
     /**
-     * Update Channel Currency Assignments 
+     * Update Channel Currency Assignments
      * @description Updates enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
      */
     put: operations["updateSingleChannelCurrencyAssignments"];
     /**
-     * Create Channel Currency Assignments 
+     * Create Channel Currency Assignments
      * @description Sets enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
      */
     post: operations["createSingleChannelCurrencyAssignments"];
     /**
-     * Delete Channel Currency Assignments 
+     * Delete Channel Currency Assignments
      * @description Deletes currency assignments for a specific channel. Once done, this channel will inherit the store’s currency settings.
      */
     delete: operations["deleteSingleChannelCurrencyAssignments"];
@@ -131,14 +131,14 @@ export interface paths {
   };
   "/channels/{channel_id}/listings": {
     /**
-     * Get Channel Listings 
+     * Get Channel Listings
      * @description Returns a list of all *Channel Listings* for a specific channel. Note that if the *Channel* is not found or there is no listing associated to the *Channel*, it will return a 200 response with empty data.
      */
     get: operations["listChannelListings"];
     /**
-     * Update Channel Listings 
+     * Update Channel Listings
      * @description Updates one or more *Channel Listings* for a specific channel.
-     * 
+     *
      * > #### Note
      * > * Partial updates are supported. In most cases, if a field that *cannot* be updated is passed in, the API **will not** respond with an error. It returns a 200 response with the object, in which you will see the field(s) were not updated.
      * > * If a new variant is provided, the API will append the variant to the list. If a variant already exists, the API will update the existing variant. Other variants that are not provided in the payload remains unchanged.
@@ -149,7 +149,7 @@ export interface paths {
      */
     put: operations["updateChannelListings"];
     /**
-     * Create Channel Listings 
+     * Create Channel Listings
      * @description Creates one or more *Channel Listings* for a specific channel.
      */
     post: operations["createChannelListings"];
@@ -164,7 +164,7 @@ export interface paths {
   };
   "/channels/{channel_id}/listings/{listing_id}": {
     /**
-     * Get a Channel Listing 
+     * Get a Channel Listing
      * @description Returns a *Channel Listing* for a specific channel.
      */
     get: operations["getChannelListing"];
@@ -180,12 +180,12 @@ export interface paths {
   };
   "/channels/{channel_id}/site/checkout-url": {
     /**
-     * Upsert a Site's Checkout URL 
+     * Upsert a Site's Checkout URL
      * @description Creates or updates (upserts) a site's checkout URL
      */
     put: operations["putCheckoutUrl"];
     /**
-     * Delete a Site's Checkout URL 
+     * Delete a Site's Checkout URL
      * @description Deletes a siteʼs checkout URL. After deletion, a shared checkout URL is used.
      */
     delete: operations["delete-checkout-url"];
@@ -200,24 +200,24 @@ export interface paths {
   };
   "/channels/{channel_id}/site": {
     /**
-     * Get a Channel Site 
+     * Get a Channel Site
      * @description Alias of `GET /sites?channel_id=channel_id`
-     * 
+     *
      * Returns site data for the specified channel.
      */
     get: operations["get-channel-site"];
     /**
-     * Update a Channel Site 
+     * Update a Channel Site
      * @description Updates a site for provided channel.
      */
     put: operations["put-channel-site"];
     /**
-     * Create a Channel Site 
+     * Create a Channel Site
      * @description Alias of POST `/sites`. Creates a site for provided channel.
      */
     post: operations["postChannelSite"];
     /**
-     * Delete a Channel Site 
+     * Delete a Channel Site
      * @description Deletes the Channel's site.
      */
     delete: operations["DeleteChannelSite"];
@@ -232,17 +232,17 @@ export interface paths {
   };
   "/channels/{channel_id}/channel-menus": {
     /**
-     * Get Channel Menus 
+     * Get Channel Menus
      * @description Returns list of Control Panel side navigation menus for a channel.
      */
     get: operations["get-channel-menus"];
     /**
-     * Create Channel Menus 
+     * Create Channel Menus
      * @description Creates or replaces list of control panel side navigation menus for a channel.
      */
     post: operations["postChannelMenus"];
     /**
-     * Delete Channel Menus 
+     * Delete Channel Menus
      * @description Deletes control panel side navigation menus for a channel.
      */
     delete: operations["DeleteChannelMenus"];
@@ -257,14 +257,14 @@ export interface paths {
   };
   "/channels/{channel_id}/metafields": {
     /**
-     * Get Channel Metafields 
+     * Get Channel Metafields
      * @description Returns a list of metafields on a channel. Optional filter parameters can be passed in.
      */
     get: operations["get-channels-channel_id-metafields"];
     /**
-     * Create a Channel Metafield 
+     * Create a Channel Metafield
      * @description Creates a channel metafield.
-     * 
+     *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, channel, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["post-channels-channel_id-metafields"];
@@ -279,20 +279,20 @@ export interface paths {
   };
   "/channels/{channel_id}/metafields/{metafield_id}": {
     /**
-     * Get a Channel Metafield 
+     * Get a Channel Metafield
      * @description Returns a single channel metafield.
      */
     get: operations["get-channels-channel_id-metafields-metafield_id"];
     /**
-     * Update a Channel Metafield 
+     * Update a Channel Metafield
      * @description Updates a single channel metafield.
-     * 
+     *
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a `403` error message.
      */
     put: operations["put-channels-channel_id-metafields-metafield_id"];
     /**
-     * Delete a Channel Metafield 
+     * Delete a Channel Metafield
      * @description Deletes a single channel metafield.
      */
     delete: operations["delete-channels-channel_id-metafields-metafield_id"];
@@ -313,106 +313,106 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Format: int64 
+     * Format: int64
      * @description The ID of the channel.
      */
     ChannelId: number;
     /** metafield_Base */
     metafield_Base: {
       /**
-       * @description Unique ID of the *Metafield*. 
+       * @description Unique ID of the *Metafield*.
        * @example 6
        */
       id?: number;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
-       * @description Namespace for the metafield, for organizational purposes. 
+       * @description Namespace for the metafield, for organizational purposes.
        * @example Warehouse Locations
        */
       namespace?: string;
       /**
-       * @description The name of the field, for example: `location_id`, `color`. 
-       *  
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
        * @example Location
        */
       key?: string;
       /**
        * @description The value of the field.
-       *  
+       *
        * @example 4HG
        */
       value?: string;
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example product 
+       *
+       * @example product
        * @enum {string}
        */
       resource_type?: "category" | "brand" | "product" | "variant";
       /**
        * @description The ID for the resource with which the metafield is associated.
-       *  
+       *
        * @example 111
        */
       resource_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time of the metafield's creation. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17.000Z
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time when the metafield was last updated. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17.000Z
        */
       date_modified?: string;
     };
     PutCheckoutUrl: {
       /**
-       * Format: uri 
-       * @description Unique site checkout URL. Must be valid and a sub-domain of primary channel URL. 
+       * Format: uri
+       * @description Unique site checkout URL. Must be valid and a sub-domain of primary channel URL.
        * @example https://checkout.kittens.mybigcommerce.com
        */
       url?: string;
     };
     /**
-     * Format: int64 
+     * Format: int64
      * @description The ID of the channel associated with this channel listing.
      */
     ChannelIdForListing: number;
     /**
-     * Format: int64 
+     * Format: int64
      * @description The ID of the channel listing that has been created, returned, or updated.
      */
     ListingId: number;
     /**
-     * Format: int64 
+     * Format: int64
      * @description The ID of the product associated with this channel listing.
      */
     ProductId: number;
     /**
-     * Format: int64 
+     * Format: int64
      * @description The ID of the product variant associated with this channel listing.
      */
     VariantId: number;
@@ -423,36 +423,36 @@ export interface components {
     /** @description Indicates if a channel is visible within the BigCommerce merchant admin UI (control panel). If `false`, the channel will not show in Channel Manager nor in any channels dropdown throughout the UI. Default value for this field is `true` if not specified on create. */
     IsVisible: boolean;
     /**
-     * @description The status of the channel; channel `type`, `platform`, and `status` must be a [valid combination](/docs/rest-management/channels#status). `terminated` is not valid for `PUT` or `POST` requests. `deleted` is not valid for `POST` requests. 
+     * @description The status of the channel; channel `type`, `platform`, and `status` must be a [valid combination](/docs/rest-management/channels#status). `terminated` is not valid for `PUT` or `POST` requests. `deleted` is not valid for `POST` requests.
      * @enum {string}
      */
     ChannelStatus: "active" | "prelaunch" | "inactive" | "connected" | "disconnected" | "archived" | "deleted" | "terminated";
     /** @description Name of the channel as it will appear to merchants in the control panel. */
     ChannelName: string;
     /**
-     * @description The type of channel; channel `platform` and `type` must be a [valid combination](/docs/rest-management/channels#status). 
+     * @description The type of channel; channel `platform` and `type` must be a [valid combination](/docs/rest-management/channels#status).
      * @enum {string}
      */
     ChannelType: "pos" | "marketplace" | "storefront" | "marketing";
     /** @description The name of the platform for the channel; channel `platform` and `type` must be a [valid combination](/docs/rest-management/channels#status). */
     ChannelPlatform: string;
     /**
-     * Format: date-time 
+     * Format: date-time
      * @description Date on which the channel was first created.
      */
     ChannelDateCreated: string;
     /**
-     * Format: date-time 
+     * Format: date-time
      * @description Date on which the channel was most recently changed.
      */
     ChannelDateModified: string;
     /**
-     * Format: url 
+     * Format: url
      * @description Link to the platform icon.
      */
     IconUrl: string;
     /** @description Currencies that are enabled for the specified channel in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) three character alphabetic format. */
-    EnabledCurrencies: (string)[];
+    EnabledCurrencies: string[];
     /** @description Default currency for the channel in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) three character alphabetic format. Will be used on storefront when other currencies cannot. */
     DefaultCurrency: string;
     /** @description Name of the product for this channel listing specifically. This is an optional field that can be used to override the product name in the catalog. */
@@ -464,32 +464,32 @@ export interface components {
     /** @description Description of the product variant for this channel listing specifically. This is an optional field that can be used to override the description of the product variant in the catalog. */
     ChannelProductVariantDescription: string;
     /**
-     * Format: date-time 
+     * Format: date-time
      * @description Date on which the channel listing was first created.
      */
     ChannelListingDateCreated: string;
     /**
-     * Format: date-time 
+     * Format: date-time
      * @description Date on which the channel listing variant was first created.
      */
     ChannelListingVariantDateCreated: string;
     /**
-     * Format: date-time 
+     * Format: date-time
      * @description Date on which the channel listing was most recently changed.
      */
     ChannelListingDateModified: string;
     /**
-     * Format: date-time 
+     * Format: date-time
      * @description Date on which the channel listing variant was most recently changed.
      */
     ChannelListingVariantDateModified: string;
     /**
-     * @description The state of the product assignment or channel listing. 
+     * @description The state of the product assignment or channel listing.
      * @enum {string}
      */
     ListingState: "active" | "disabled" | "error" | "pending" | "pending_disable" | "pending_delete" | "partially_rejected" | "queued" | "rejected" | "submitted" | "deleted";
     /**
-     * @description The state of the channel listing variant. 
+     * @description The state of the channel listing variant.
      * @enum {string}
      */
     VariantState: "active" | "disabled" | "error" | "pending" | "pending_disable" | "pending_delete" | "queued" | "rejected" | "submitted" | "deleted";
@@ -500,22 +500,22 @@ export interface components {
         /** @description The unique `id` given to an app registered in [DevTools](https://devtools.bigcommerce.com/); used to create links to the app in channel manager. `app.id` is optional; however, if youʼre building an app that creates or manages a channel, we recommend including it to ensure the user interface in the control panel works properly. Select partners who are promoted in the Channel Manager must build an app, and include the app ID in the create channel request. [Learn how to find an Appʼs ID](/api-docs/apps/tutorials/id). */
         id?: number;
         /**
-         * @deprecated 
+         * @deprecated
          * @description Sections are now deprecated under config_meta. The new /channel-menus endpoints should be used instead. If set, when the app is loaded within the control panel, the navigation `sections` will be directly embedded in the control panel navigation.
          */
-        sections?: ({
+        sections?: {
             /**
-             * @deprecated 
-             * @description The title of the navigation section. 
+             * @deprecated
+             * @description The title of the navigation section.
              * @example "Settings"
              */
             title?: string;
             /**
-             * @deprecated 
+             * @deprecated
              * @description The value that will be passed to the app's iFrame in the URL and will allow the app to display the appropriate section within the app iFrame in the control panel.
              */
             query_path?: string;
-          })[];
+          }[];
       };
     };
     /** @description Details about currency assignments for a specific channel. */
@@ -553,9 +553,9 @@ export interface components {
       name?: components["schemas"]["ChannelName"];
       status?: components["schemas"]["ChannelStatus"];
     };
-    UpsertMultipleChannelsCurrencyAssignmentsReq: (components["schemas"]["CurrencyRequiredWithChannelId"])[];
-    CreateMultipleListingsReq: (components["schemas"]["UpsertListingWithoutListingIdReq"])[];
-    UpdateMultipleListingsReq: (components["schemas"]["UpsertListingWithListingIdReq"])[];
+    UpsertMultipleChannelsCurrencyAssignmentsReq: components["schemas"]["CurrencyRequiredWithChannelId"][];
+    CreateMultipleListingsReq: components["schemas"]["UpsertListingWithoutListingIdReq"][];
+    UpdateMultipleListingsReq: components["schemas"]["UpsertListingWithListingIdReq"][];
     /** @description Details about assigning a product to a specific channel. */
     UpsertListingWithoutListingIdReq: {
       product_id: components["schemas"]["ProductId"];
@@ -575,7 +575,7 @@ export interface components {
       description?: components["schemas"]["ChannelProductDescription"];
       variants: components["schemas"]["ChannelProductMultipleVariants"];
     };
-    ChannelProductMultipleVariants: (components["schemas"]["ChannelProductVariantPartial"])[];
+    ChannelProductMultipleVariants: components["schemas"]["ChannelProductVariantPartial"][];
     /** @description Details about a variant of the product for this channel listing. */
     ChannelProductVariantPartial: {
       product_id: components["schemas"]["ProductId"];
@@ -647,7 +647,7 @@ export interface components {
       description?: components["schemas"]["ChannelProductDescription"];
       date_created?: components["schemas"]["ChannelListingDateCreated"];
       date_modified?: components["schemas"]["ChannelListingDateModified"];
-      variants?: (components["schemas"]["ChannelProductVariantFull"])[];
+      variants?: components["schemas"]["ChannelProductVariantFull"][];
     };
     /** @description List of channel-specific control panel menu navigation items and corresponding settings pages an app developer can choose to enable for the subject channel. Protected settings override any settings set in those UI sections at the storewide level. Learn more in the [Building Storefront Channels](/api-docs/channels/tutorials/storefront#protected-ui-sections) tutorial. */
     BigCommerceProtectedAppSections: ("storefront_settings" | "social" | "carousel" | "domains" | "currencies" | "notifications")[];
@@ -655,15 +655,15 @@ export interface components {
       bigcommerce_protected_app_sections?: components["schemas"]["BigCommerceProtectedAppSections"];
       custom_app_sections?: components["schemas"]["CustomAppSections"];
     };
-    CustomAppSections: ({
+    CustomAppSections: {
         /** @description Text displayed to the merchant. */
         title?: string;
         /** @description Value used in the `section` query param. */
         query_path?: string;
-      })[];
+      }[];
     Error: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description The HTTP status code.
        */
       status?: number;
@@ -683,7 +683,7 @@ export interface components {
       pagination?: components["schemas"]["pagination_Partial"];
     };
     /**
-     * Empty meta response. 
+     * Empty meta response.
      * @description Response metadata.
      */
     EmptyMeta: {
@@ -732,31 +732,31 @@ export interface components {
     Site: {
       id?: number;
       /**
-       * @description The fully qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The fully qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
       /** @description The channel to which this site is attached. Each site belongs to a single channel, and each channel can have either zero or more sites. */
       channel_id?: number;
       /**
-       * Format: date-time 
-       * @description The date-time that this site was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * Format: date-time
+       * @description The date-time that this site was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2018-01-04T04:15:50.000Z
        */
       created_at?: string;
       /**
-       * Format: date-time 
-       * @description The date-time that this site was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * Format: date-time
+       * @description The date-time that this site was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2018-01-04T04:15:50.000Z
        */
       updated_at?: string;
       /**
-       * @description Indicates if a private/dedicated SSL is installed on this site, or if itʼs using shared SSL. 
+       * @description Indicates if a private/dedicated SSL is installed on this site, or if itʼs using shared SSL.
        * @enum {string}
        */
       ssl_status?: "dedicated" | "shared";
       /** @description All URLs that belong to the site, including `primary`, `canonical`, and `checkout` URLs. */
-      urls?: (components["schemas"]["Url"])[];
+      urls?: components["schemas"]["Url"][];
       /** @description Indicates whether the channel uses a custom checkout domain. When `false`, the checkout domain falls back to the default channel’s primary URL. */
       is_checkout_url_customized?: boolean;
     };
@@ -764,19 +764,19 @@ export interface components {
       /** @description URL of site */
       url?: string;
       /**
-       * @description URL type 
+       * @description URL type
        * @enum {string}
        */
       type?: "primary" | "canonical" | "checkout";
       /**
-       * Format: date-time 
-       * @description The date-time that this URL was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * Format: date-time
+       * @description The date-time that this URL was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2018-01-04T04:15:50.000Z
        */
       created_at?: string;
       /**
-       * Format: date-time 
-       * @description The date-time that this URL was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * Format: date-time
+       * @description The date-time that this URL was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2018-01-04T04:15:50.000Z
        */
       updated_at?: string;
@@ -789,7 +789,7 @@ export interface components {
     /** site_Post */
     site_Post: {
       /**
-       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
@@ -800,19 +800,19 @@ export interface components {
     site_Full: {
       id?: number;
       /**
-       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
       /** @description The channel this site is attached to. Each site belongs to a single channel, and each channel can have either zero or one sites. */
       channel_id?: number;
       /**
-       * @description When was this site created? RFC 3339 
+       * @description When was this site created? RFC 3339
        * @example 2018-01-04T04:15:50.000Z
        */
       created_at?: string;
       /**
-       * @description When was this site defintion last updated? RFC 3339 
+       * @description When was this site defintion last updated? RFC 3339
        * @example 2018-01-04T04:15:50.000Z
        */
       updated_at?: string;
@@ -821,110 +821,110 @@ export interface components {
           /** @description Unique ID for this route. Required when updating an existing route */
           id?: number;
           /**
-           * @description What type of resource are we routing to? 
+           * @description What type of resource are we routing to?
            * @enum {string}
            */
           type?: "product" | "brand" | "category" | "page" | "blog" | "home" | "cart" | "checkout" | "search" | "account" | "login" | "returns" | "static";
           /**
            * @description (entity_id?) For the specified type, which resources should match this route? e.g For a route with the type: "product" and matching: "5" this route would be used for the product with the ID of 5.
-           * 
-           * Depending on the type of resource, this may be an ID (matching a specific item), or a "*" wildcard matching all items of that type. 
+           *
+           * Depending on the type of resource, this may be an ID (matching a specific item), or a "*" wildcard matching all items of that type.
            * @example 5
            */
           matching?: string;
           /**
            * @description The route template that will be used to generate the URL for the requested resource.
-           * 
+           *
            * Supports several tokens:
-           * 
+           *
            * - {id} The ID of the requested item
            * - {slug} The slug for the requested item (if available). Note: the `slug` value may contain `/` slash
-           * - {language} The language string that the client is using 
+           * - {language} The language string that the client is using
            * @example /my-amazing-product
            */
           route?: string;
         })[];
     };
     /**
-     * metafield_Post 
+     * metafield_Post
      * @description Metafield for products, categories, variants, and brands. The max number of metafields allowed on each product, category, variant, or brand is fifty. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Post: {
       /**
-       * @description Namespace for the metafield, for organizational purposes. This is set by the developer. 
+       * @description Namespace for the metafield, for organizational purposes. This is set by the developer.
        * @example Warehouse Locations
        */
       namespace: string;
       /**
        * @description The name of the field.
-       *  
+       *
        * @example Location
        */
       key: string;
       /**
        * @description The value of the field.
-       *  
+       *
        * @example 4HG
        */
       value: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Description for the metafield.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
     };
     /**
-     * metafield_Put 
+     * metafield_Put
      * @description Metafield for products, categories, variants, and brands. The max number of metafields allowed on each product, category, variant, or brand is fifty. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Put: {
       /**
-       * @description Namespace for the metafield, for organizational purposes. 
+       * @description Namespace for the metafield, for organizational purposes.
        * @example Warehouse Locations
        */
       namespace?: string;
       /**
        * @description The name of the field.
-       *  
+       *
        * @example Location
        */
       key?: string;
       /**
        * @description The value of the field.
-       *  
+       *
        * @example 4HG
        */
       value?: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Description for the metafield.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
@@ -934,7 +934,7 @@ export interface components {
     multiple_channels_without_currencies_resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["ChannelWithoutCurrencies"])[];
+          data?: components["schemas"]["ChannelWithoutCurrencies"][];
           meta?: components["schemas"]["MetaWithFullPagination"];
         };
       };
@@ -966,7 +966,7 @@ export interface components {
     multiple_channels_currency_assignments_resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["CurrencyNotRequiredWithChannelId"])[];
+          data?: components["schemas"]["CurrencyNotRequiredWithChannelId"][];
           meta?: components["schemas"]["EmptyMeta"];
         };
       };
@@ -990,7 +990,7 @@ export interface components {
     single_and_multiple_listings_resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["Listing"])[];
+          data?: components["schemas"]["Listing"][];
           meta?: components["schemas"]["MetaWithPartialPagination"];
         };
       };
@@ -1111,70 +1111,70 @@ export interface components {
       content: {
         "application/json": {
           /**
-           * @description Unique ID of the *Metafield*. 
+           * @description Unique ID of the *Metafield*.
            * @example 6
            */
           id?: number;
           /**
            * @description Determines the visibility and writeability of the field by other API consumers.
-           * 
+           *
            * |Value|Description
            * |-|-|
            * |`app_only`|Private to the app that owns the field|
            * |`read`|Visible to other API consumers|
            * |`write`|Open for reading and writing by other API consumers|
            * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-           * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+           * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
            * @enum {string}
            */
           permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
           /**
-           * @description Namespace for the metafield, for organizational purposes. 
+           * @description Namespace for the metafield, for organizational purposes.
            * @example Warehouse Locations
            */
           namespace?: string;
           /**
-           * @description The name of the field, for example: `location_id`, `color`. 
-           *  
+           * @description The name of the field, for example: `location_id`, `color`.
+           *
            * @example Location
            */
           key?: string;
           /**
            * @description The value of the field.
-           *  
+           *
            * @example 4HG
            */
           value?: string;
           /**
            * @description Description for the metafields.
-           *  
+           *
            * @example Location in the warehouse
            */
           description?: string;
           /**
            * @description The type of resource with which the metafield is associated.
-           *  
-           * @example product 
+           *
+           * @example product
            * @enum {string}
            */
           resource_type?: "category" | "brand" | "product" | "variant";
           /**
            * @description The ID for the resource with which the metafield is associated.
-           *  
+           *
            * @example 111
            */
           resource_id?: number;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description Date and time of the metafield's creation. Read-Only.
-           *  
+           *
            * @example 2018-05-07T20:14:17.000Z
            */
           date_created?: string;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description Date and time when the metafield was last updated. Read-Only.
-           *  
+           *
            * @example 2018-05-07T20:14:17.000Z
            */
           date_modified?: string;
@@ -1185,7 +1185,7 @@ export interface components {
     metafields_200: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["metafield_Base"])[];
+          data?: components["schemas"]["metafield_Base"][];
         } & {
           meta?: components["schemas"]["MetaWithFullPagination"];
         };
@@ -1218,7 +1218,7 @@ export interface components {
     /** @description Filter items by a comma-separated list of types. */
     type_in?: ("marketplace" | "marketing" | "pos" | "storefront")[];
     /** @description Filter items by a comma-separated list of platforms. For a list of supported platforms, see [Platform](/docs/rest-management/channels#platform). */
-    platform_in?: (string)[];
+    platform_in?: string[];
     /** @description Filter items by date_created. For example, `date_created=2019-09-04T00:00:00`, `date_created=2019-09-04`, or `date_created=1567573200` */
     date_created?: string;
     /** @description Filter items by minimum date_created. For example, `date_created:min=2019-09-04T00:00:00`, `date_created:min=2019-09-04`, or `date_created:min=1567573200` */
@@ -1238,7 +1238,7 @@ export interface components {
     /** @description Specifies the prior listing ID in a limited (paginated) list of listings. */
     after?: number;
     /** @description Filter items by a comma-separated list of product IDs. */
-    product_id_in?: (number)[];
+    product_id_in?: number[];
     /** @description The ID of a channel. */
     channel_id_path_param: number;
     /** @description The ID of a channel listing. */
@@ -1254,9 +1254,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Channels 
+   * Get All Channels
    * @description Returns a list of *Channels*.
-   * 
+   *
    * Will always return the default BigCommerce storefront with an ID of `1`. This storefront is created by default when you provision a BigCommerce store.
    */
   listChannels: {
@@ -1286,7 +1286,7 @@ export interface operations {
     };
   };
   /**
-   * Create a Channel 
+   * Create a Channel
    * @description Creates a *Channel*.
    */
   createChannel: {
@@ -1307,7 +1307,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Channel 
+   * Get a Channel
    * @description Returns a *Channel*. Channel ID `1` returns the default BigCommerce storefront.
    */
   getChannel: {
@@ -1328,11 +1328,11 @@ export interface operations {
     };
   };
   /**
-   * Update a Channel 
+   * Update a Channel
    * @description Updates a *Channel*.
-   * 
+   *
    * ## Updatable Fields
-   * 
+   *
    * The following fields can be updated.
    * * `name`
    * * `external_id`
@@ -1340,8 +1340,8 @@ export interface operations {
    * * `is_listable_from_ui`
    * * `is_visible`
    * * `config_meta`
-   * 
-   * 
+   *
+   *
    * > #### Note
    * > * Partial updates are supported. In most cases, if a field that *cannot* be updated is passed in, the API **will not** respond with an error. It returns a 200 response with the object, in which you will see the field(s) were not updated.
    * > * `platform` and `type` cannot be updated after a channel is created.
@@ -1370,7 +1370,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Channel Active Theme 
+   * Get a Channel Active Theme
    * @description Returns details of the theme active on the specified channel.
    * Does not support active Blueprint (legacy) themes.
    */
@@ -1389,7 +1389,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Channels Currency Assignments 
+   * Get All Channels Currency Assignments
    * @description Returns a list of currency assignments for all channels.
    */
   listAllCurrencyAssignments: {
@@ -1403,7 +1403,7 @@ export interface operations {
     };
   };
   /**
-   * Update Multiple Channels Currency Assignments 
+   * Update Multiple Channels Currency Assignments
    * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
    */
   updateMultipleChannelsCurrencyAssignments: {
@@ -1424,7 +1424,7 @@ export interface operations {
     };
   };
   /**
-   * Create Multiple Channels Currency Assignments 
+   * Create Multiple Channels Currency Assignments
    * @description Sets enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
    */
   createMultipleChannelsCurrencyAssignments: {
@@ -1445,7 +1445,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Currency Assignments 
+   * Get Channel Currency Assignments
    * @description Returns a list of currency assignments for a specific channel.
    */
   getSingleChannelCurrencyAssignments: {
@@ -1463,7 +1463,7 @@ export interface operations {
     };
   };
   /**
-   * Update Channel Currency Assignments 
+   * Update Channel Currency Assignments
    * @description Updates enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
    */
   updateSingleChannelCurrencyAssignments: {
@@ -1487,7 +1487,7 @@ export interface operations {
     };
   };
   /**
-   * Create Channel Currency Assignments 
+   * Create Channel Currency Assignments
    * @description Sets enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
    */
   createSingleChannelCurrencyAssignments: {
@@ -1511,7 +1511,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Channel Currency Assignments 
+   * Delete Channel Currency Assignments
    * @description Deletes currency assignments for a specific channel. Once done, this channel will inherit the store’s currency settings.
    */
   deleteSingleChannelCurrencyAssignments: {
@@ -1529,7 +1529,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Listings 
+   * Get Channel Listings
    * @description Returns a list of all *Channel Listings* for a specific channel. Note that if the *Channel* is not found or there is no listing associated to the *Channel*, it will return a 200 response with empty data.
    */
   listChannelListings: {
@@ -1559,9 +1559,9 @@ export interface operations {
     };
   };
   /**
-   * Update Channel Listings 
+   * Update Channel Listings
    * @description Updates one or more *Channel Listings* for a specific channel.
-   * 
+   *
    * > #### Note
    * > * Partial updates are supported. In most cases, if a field that *cannot* be updated is passed in, the API **will not** respond with an error. It returns a 200 response with the object, in which you will see the field(s) were not updated.
    * > * If a new variant is provided, the API will append the variant to the list. If a variant already exists, the API will update the existing variant. Other variants that are not provided in the payload remains unchanged.
@@ -1591,7 +1591,7 @@ export interface operations {
     };
   };
   /**
-   * Create Channel Listings 
+   * Create Channel Listings
    * @description Creates one or more *Channel Listings* for a specific channel.
    */
   createChannelListings: {
@@ -1615,7 +1615,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Channel Listing 
+   * Get a Channel Listing
    * @description Returns a *Channel Listing* for a specific channel.
    */
   getChannelListing: {
@@ -1634,7 +1634,7 @@ export interface operations {
     };
   };
   /**
-   * Upsert a Site's Checkout URL 
+   * Upsert a Site's Checkout URL
    * @description Creates or updates (upserts) a site's checkout URL
    */
   putCheckoutUrl: {
@@ -1677,7 +1677,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Site's Checkout URL 
+   * Delete a Site's Checkout URL
    * @description Deletes a siteʼs checkout URL. After deletion, a shared checkout URL is used.
    */
   "delete-checkout-url": {
@@ -1702,9 +1702,9 @@ export interface operations {
     };
   };
   /**
-   * Get a Channel Site 
+   * Get a Channel Site
    * @description Alias of `GET /sites?channel_id=channel_id`
-   * 
+   *
    * Returns site data for the specified channel.
    */
   "get-channel-site": {
@@ -1721,7 +1721,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Channel Site 
+   * Update a Channel Site
    * @description Updates a site for provided channel.
    */
   "put-channel-site": {
@@ -1744,7 +1744,7 @@ export interface operations {
     };
   };
   /**
-   * Create a Channel Site 
+   * Create a Channel Site
    * @description Alias of POST `/sites`. Creates a site for provided channel.
    */
   postChannelSite: {
@@ -1767,7 +1767,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Channel Site 
+   * Delete a Channel Site
    * @description Deletes the Channel's site.
    */
   DeleteChannelSite: {
@@ -1788,7 +1788,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Menus 
+   * Get Channel Menus
    * @description Returns list of Control Panel side navigation menus for a channel.
    */
   "get-channel-menus": {
@@ -1805,7 +1805,7 @@ export interface operations {
     };
   };
   /**
-   * Create Channel Menus 
+   * Create Channel Menus
    * @description Creates or replaces list of control panel side navigation menus for a channel.
    */
   postChannelMenus: {
@@ -1828,7 +1828,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Channel Menus 
+   * Delete Channel Menus
    * @description Deletes control panel side navigation menus for a channel.
    */
   DeleteChannelMenus: {
@@ -1852,7 +1852,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Metafields 
+   * Get Channel Metafields
    * @description Returns a list of metafields on a channel. Optional filter parameters can be passed in.
    */
   "get-channels-channel_id-metafields": {
@@ -1876,9 +1876,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Channel Metafield 
+   * Create a Channel Metafield
    * @description Creates a channel metafield.
-   * 
+   *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, channel, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   "post-channels-channel_id-metafields": {
@@ -1901,7 +1901,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Channel Metafield 
+   * Get a Channel Metafield
    * @description Returns a single channel metafield.
    */
   "get-channels-channel_id-metafields-metafield_id": {
@@ -1919,9 +1919,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Channel Metafield 
+   * Update a Channel Metafield
    * @description Updates a single channel metafield.
-   * 
+   *
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a `403` error message.
    */
@@ -1946,7 +1946,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Channel Metafield 
+   * Delete a Channel Metafield
    * @description Deletes a single channel metafield.
    */
   "delete-channels-channel_id-metafields-metafield_id": {

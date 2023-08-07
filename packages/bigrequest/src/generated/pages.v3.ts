@@ -8,24 +8,24 @@
 export interface paths {
   "/content/pages": {
     /**
-     * Get Pages 
+     * Get Pages
      * @description Returns one or more content pages. This endpoint supports bulk operations.
      */
     get: operations["content-pages-get"];
     /**
-     * Update Pages 
+     * Update Pages
      * @description Updates one or more content pages. This endpoint supports bulk operations.
      */
     put: operations["content-pages-put"];
     /**
-     * Create Pages 
+     * Create Pages
      * @description Creates one or more content pages. This endpoint supports bulk operations.
      */
     post: operations["content-pages-post"];
     /**
-     * Delete Pages 
+     * Delete Pages
      * @description Deletes one or more content pages. This endpoint supports bulk operations.
-     * 
+     *
      * > #### Warning
      * > **Pay attention to query parameters**
      * > If you attempt to delete multiple pages by passing more than one page ID to `id:in` and one or more of them does not exist, you will receive a 404 response. However, the pages corresponding to the page IDs that do exist will still be deleted.
@@ -39,23 +39,23 @@ export interface paths {
   };
   "/content/pages/{pageId}": {
     /**
-     * Get a Page 
+     * Get a Page
      * @description Returns one content page.
-     * 
+     *
      * > #### Warning
      * > **Pay attention to query parameters**
      * > This endpoint recognizes the same query parameters as [Get Multiple Pages](/docs/rest-content/pages#get-pages). If the requested page does not meet the query parameters you specify, you will receive a 404 response even if the requested `pageId` does exist.
      */
     get: operations["content-page-get"];
     /**
-     * Update a Page 
+     * Update a Page
      * @description Updates one content page.
      */
     put: operations["content-page-put"];
     /**
-     * Delete a Page 
+     * Delete a Page
      * @description Deletes one content page.
-     * 
+     *
      * > #### Warning
      * > **Query parameters not recognized**
      * > This endpoint does not recognize query parameters.
@@ -94,7 +94,7 @@ export interface components {
       detail?: string;
     };
     /**
-     * ResponseErrorItemized 
+     * ResponseErrorItemized
      * @description Error payload for the BigCommerce API.
      */
     ResponseErrorItemized: {
@@ -103,7 +103,7 @@ export interface components {
       /** @description The error title describing the particular error. */
       title?: string;
       type?: string;
-      errors?: (string)[];
+      errors?: string[];
     };
     /** @description Data about the response, including pagination and collection totals. */
     ResponseMeta: {
@@ -136,11 +136,11 @@ export interface components {
       meta?: components["schemas"]["ResponseMeta"];
     };
     /**
-     * PageResponseObject 
+     * PageResponseObject
      * @description Response payload for the BigCommerce API.
      */
     PageResponse: {
-      data?: (components["schemas"]["Page"])[];
+      data?: components["schemas"]["Page"][];
       meta?: components["schemas"]["ResponseMeta"];
     };
     ContactFields: {
@@ -159,34 +159,34 @@ export interface components {
     PagePutBulk: {
       /**
        * @description The name of the page. Must be unique.
-       *  
+       *
        * @example My Store Page
        */
       name?: string;
       /**
        * @description Boolean value that specifies the visibility of the page in the storefront’s navigation menu.
-       *           
-       *           
+       *
+       *
        * Indicates whether the page is available to users and visible in any menus.
        */
       is_visible?: boolean;
       /**
        * @description ID of any parent Web page.
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 0
        */
       parent_id?: number;
       /**
        * @description Specifies the order in which the page is displayed on the storefront. (Lower integers specify earlier display.)
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 0
        */
       sort_order?: number;
       /**
        * @description Specifies the type of the page. The following values are possible;
-       * 
+       *
        * |Value|Description|
        * |-|-|
        * | `blog` | blog page. Read-only; blog pages can only be created in the store control panel. |
@@ -194,8 +194,8 @@ export interface components {
        * |`link`|link to another absolute URL|
        * |`page`|user-defined plain-text page|
        * |`raw`|page that contains markup, such as HTML.|
-       * |`rss_feed`|contains syndicated content from an RSS feed| 
-       * @example page 
+       * |`rss_feed`|contains syndicated content from an RSS feed|
+       * @example page
        * @enum {string}
        */
       type?: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
@@ -210,7 +210,7 @@ export interface components {
       meta_title?: string | null;
       /**
        * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *  
+       *
        * @example <div>Hello World!</div>
        */
       body?: string | null;
@@ -220,7 +220,7 @@ export interface components {
       link?: string;
       /**
        * @description Applicable when the page type is `contact_form`: comma-separated list of keywords representing the fields enabled in the control panel for storefront display. Possible fields include:
-       * 
+       *
        * |Field|Description|
        * |-|-|
        * |`fullname`|Full name of the customer submitting the form|
@@ -228,13 +228,13 @@ export interface components {
        * |`companyname`|Customer’s submitted company name|
        * |`orderno`|Customer’s submitted order number|
        * |`rma`|Customer’s submitted RMA (Return Merchandise Authorization) number|
-       *  
+       *
        * @example fullname,companyname,phone,orderno,rma
        */
       contact_fields?: string;
       /**
        * @description Comma-separated list of SEO-relevant keywords to include in the element of this page.
-       *  
+       *
        * @default
        */
       meta_keywords?: string | null;
@@ -242,20 +242,20 @@ export interface components {
       meta_description?: string | null;
       /**
        * @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store.
-       *  
+       *
        * @example trousers,pockets,luxury
        */
       search_keywords?: string | null;
       /**
        * @description Relative URL on the storefront for this page.
-       *  
+       *
        * @example /my-store-page
        */
       url?: string;
       /**
        * @description The ID of the channel where this page should be shown.
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 12
        */
       channel_id?: number;
@@ -264,7 +264,7 @@ export interface components {
     PagePut: {
       /**
        * @description The name of the page. Must be unique.
-       *  
+       *
        * @example My Store Page
        */
       name?: string;
@@ -272,21 +272,21 @@ export interface components {
       is_visible?: boolean;
       /**
        * @description ID of any parent Web page.
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 0
        */
       parent_id?: number;
       /**
        * @description Specifies the order in which the page is displayed on the storefront. (Lower integers specify earlier display.)
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 0
        */
       sort_order?: number;
       /**
        * @description Specifies the type of the page.
-       * 
+       *
        * |Value|Description|
        * |-|-|
        * | `blog` | blog page. Read-only; blog pages can only be created in the store control panel. |
@@ -294,8 +294,8 @@ export interface components {
        * |`link`|link to another absolute URL|
        * |`page`|user-defined plain-text page|
        * |`raw`|page that contains markup, such as HTML.|
-       * |`rss_feed`|contains syndicated content from an RSS feed| 
-       * @example page 
+       * |`rss_feed`|contains syndicated content from an RSS feed|
+       * @example page
        * @enum {string}
        */
       type?: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
@@ -308,7 +308,7 @@ export interface components {
       meta_title?: string | null;
       /**
        * @description HTML or variable that populates the elment of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *  
+       *
        * @example <div>Hello World!</div>
        */
       body?: string | null;
@@ -318,7 +318,7 @@ export interface components {
       link?: string;
       /**
        * @description Applicable when the page type is `contact_form`: comma-separated list of keywords representing the fields enabled in the control panel for storefront display. Possible fields include:
-       * 
+       *
        * |Field|Description|
        * |-|-|
        * |`fullname`|Full name of the customer submitting the form|
@@ -326,13 +326,13 @@ export interface components {
        * |`companyname`|Customer’s submitted company name|
        * |`orderno`|Customer’s submitted order number|
        * |`rma`|Customer’s submitted RMA (Return Merchandise Authorization) number|
-       *  
+       *
        * @example fullname,companyname,phone,orderno,rma
        */
       contact_fields?: string;
       /**
        * @description Comma-separated list of SEO-relevant keywords to include in the element of this page.
-       *  
+       *
        * @default
        */
       meta_keywords?: string | null;
@@ -340,34 +340,34 @@ export interface components {
       meta_description?: string | null;
       /**
        * @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store.
-       *  
+       *
        * @example trousers,pockets,luxury
        */
       search_keywords?: string | null;
       /**
        * @description Relative URL on the storefront for this page.
-       *  
+       *
        * @example /my-store-page
        */
       url?: string;
       /**
        * @description The ID of the channel where this page should be shown.
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 12
        */
       channel_id?: number;
     };
     Page: ({
       /**
-       * @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. 
+       * @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique.
        * @default
        */
       email?: string;
       meta_title?: string | null;
       /**
        * @description HTML or variable that populates this page’s element, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *  
+       *
        * @example <div>Hello World!</div>
        */
       body?: string | null;
@@ -377,7 +377,7 @@ export interface components {
       link?: string;
       /**
        * @description Applicable when the page type is `contact_form`: comma-separated list of keywords representing the fields enabled in the control panel for storefront display. Possible fields include:
-       * 
+       *
        * |Field|Description|
        * |-|-|
        * |`fullname`|Full name of the customer submitting the form|
@@ -385,14 +385,14 @@ export interface components {
        * |`companyname`|Customer’s submitted company name|
        * |`orderno`|Customer’s submitted order number|
        * |`rma`|Customer’s submitted RMA (Return Merchandise Authorization) number|
-       *  
-       * @default  
+       *
+       * @default
        * @example fullname,orderno,rma
        */
       contact_fields?: string;
       /**
        * @description Comma-separated list of SEO-relevant keywords to include in the page’s element.
-       *  
+       *
        * @default
        */
       meta_keywords?: string | null;
@@ -400,20 +400,20 @@ export interface components {
       meta_description?: string | null;
       /**
        * @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store.
-       *  
+       *
        * @example trousers,pockets,luxury
        */
       search_keywords?: string | null;
       /**
        * @description Relative URL on the storefront for this page.
-       *  
+       *
        * @example /my-store-page
        */
       url?: string;
       /**
        * @description The Id of the channel where this page should be shown.
-       *  
-       * @default 1 
+       *
+       * @default 1
        * @example 12
        */
       channel_id?: number;
@@ -422,35 +422,35 @@ export interface components {
     PageBase: {
       /**
        * @description The name of the page. Must be unique.
-       *  
+       *
        * @example My Store Page
        */
       name: string;
       /**
        * @description Determines the visibility of the page in the storefront’s navigation menu.
-       * 
+       *
        * Boolean value that specifies the visibility of the page in the storefront’s navigation menu.
-       *           
+       *
        * Indicates whether the page is available to users and visible in any menus.
        */
       is_visible?: boolean;
       /**
        * @description ID of any parent Web page.
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 0
        */
       parent_id?: number;
       /**
        * @description Determines the order in which the page is displayed on the storefront. (Lower integers specify earlier display.)
-       *  
-       * @default 0 
+       *
+       * @default 0
        * @example 0
        */
       sort_order?: number;
       /**
        * @description Determines the type of the page.
-       * 
+       *
        * |Value|Description|
        * |-|-|
        * | `blog` | blog page. Read-only; blog pages can only be created in the store control panel. |
@@ -458,8 +458,8 @@ export interface components {
        * |`link`|link to another absolute URL|
        * |`page`|user-defined plain-text page|
        * |`raw`|page that contains markup, such as HTML.|
-       * |`rss_feed`|contains syndicated content from an RSS feed| 
-       * @example page 
+       * |`rss_feed`|contains syndicated content from an RSS feed|
+       * @example page
        * @enum {string}
        */
       type: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
@@ -473,46 +473,46 @@ export interface components {
       id?: number;
       channel_id?: number;
       /**
-       * @description The name of the page. Must be unique. 
+       * @description The name of the page. Must be unique.
        * @example About Our Company
        */
       name: string;
       /**
-       * @description A boolean value that controls whether the page is available to users or visible in any navigation menus. 
-       * @default true 
+       * @description A boolean value that controls whether the page is available to users or visible in any navigation menus.
+       * @default true
        * @example true
        */
       is_visible?: boolean;
       /**
-       * @description ID of the parent page, if any. 
-       * @default 0 
+       * @description ID of the parent page, if any.
+       * @default 0
        * @example 0
        */
       parent_id?: number;
       /**
-       * @description Determines the order in which the page is displayed in the parent page’s menu. Pages with lower integers display earlier. 
+       * @description Determines the order in which the page is displayed in the parent page’s menu. Pages with lower integers display earlier.
        * @example 0
        */
       sort_order?: number;
       /**
-       * @description Determines the type of page. See [Pages v3 page types](/docs/rest-content/pages#page-types) for more about the differences. 
-       * @example page 
+       * @description Determines the type of page. See [Pages v3 page types](/docs/rest-content/pages#page-types) for more about the differences.
+       * @example page
        * @enum {string}
        */
       type: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
       /**
-       * @description Determines whether this page loads at the siteʼs root route. For example, at `https://example.com/`. 
+       * @description Determines whether this page loads at the siteʼs root route. For example, at `https://example.com/`.
        * @default false
        */
       is_homepage?: boolean;
       /**
-       * @description When `true`, this page is not visible to merchant users who are signed in to the store control panel. 
+       * @description When `true`, this page is not visible to merchant users who are signed in to the store control panel.
        * @default false
        */
       is_customers_only?: boolean;
       /**
        * @description Relative URL on the storefront for this page.
-       *  
+       *
        * @example /my-store-page
        */
       url?: string;
@@ -522,7 +522,7 @@ export interface components {
     typeBlog: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & {
       /**
        * @description Relative URL on the storefront for this page.
-       *  
+       *
        * @example /blog/
        */
       url?: string;
@@ -532,7 +532,7 @@ export interface components {
       email?: string;
       /**
        * @description A comma-separated list of the contact field forms that are enabled in the store control panel for display on the subject storefront. Possible fields include:
-       * 
+       *
        * | Field | Description |
        * |:------|:------------|
        * | `fullname` | The full name of the customer submitting the form. |
@@ -540,7 +540,7 @@ export interface components {
        * | `companyname` | The customer’s company name. |
        * | `orderno` | A field that lets customers specify a subject order number. |
        * | `rma` | A customer’s submitted RMA (Return Merchandise Authorization) number. |
-       *  
+       *
        * @example fullname,companyname,phone,orderno,rma
        */
       contact_fields?: string;
@@ -552,12 +552,12 @@ export interface components {
     typeRaw: components["schemas"]["anyTypePage"] & components["schemas"]["searchKeywords"] & ({
       /**
        * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *  
+       *
        * @example <div>Hello World!</div>
        */
       body: string | null;
       /**
-       * @description The MIME type of the page body. 
+       * @description The MIME type of the page body.
        * @example text/html
        */
       content_type?: string;
@@ -570,13 +570,13 @@ export interface components {
       meta_title?: string | null;
       /**
        * @description Comma-separated list of SEO-relevant keywords to include in the element of this page.
-       *  
+       *
        * @default ""
        */
       meta_keywords?: string | null;
       /**
        * @description Description contained within the element of this page.
-       *  
+       *
        * @default ""
        */
       meta_description?: string | null;
@@ -584,45 +584,45 @@ export interface components {
     searchKeywords: {
       /**
        * @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store.
-       *  
-       * @default "" 
+       *
+       * @default ""
        * @example trousers,pockets,luxury
        */
       search_keywords?: string | null;
     };
     ReadShared: {
       /**
-       * @description The name of the page. Must be unique. 
+       * @description The name of the page. Must be unique.
        * @example About Our Company
        */
       name: string;
       /** @description Indicates whether the page is available to users and visible in any menus. */
       is_visible?: boolean;
       /**
-       * @description ID of the parent page, if any. 
-       * @default 0 
+       * @description ID of the parent page, if any.
+       * @default 0
        * @example 0
        */
       parent_id?: number;
       /**
-       * @description Determines the order in which the page is displayed in the parent page’s menu. Pages with lower integers display earlier. 
-       * @default 0 
+       * @description Determines the order in which the page is displayed in the parent page’s menu. Pages with lower integers display earlier.
+       * @default 0
        * @example 0
        */
       sort_order?: number;
       /**
-       * @description Determines the type of page. See [Pages v3 page types](/docs/rest-content/pages#page-types) for more about the differences. 
-       * @example page 
+       * @description Determines the type of page. See [Pages v3 page types](/docs/rest-content/pages#page-types) for more about the differences.
+       * @example page
        * @enum {string}
        */
       type: "page" | "contact_form" | "raw" | "blog" | "feed" | "link";
       /**
-       * @description Determines whether this page loads at the siteʼs root route. For example, at `https://example.com/`. 
+       * @description Determines whether this page loads at the siteʼs root route. For example, at `https://example.com/`.
        * @default false
        */
       is_homepage?: boolean;
       /**
-       * @description When `true`, this page is not visible to merchant users who are signed in to the store control panel. 
+       * @description When `true`, this page is not visible to merchant users who are signed in to the store control panel.
        * @default false
        */
       is_customers_only?: boolean;
@@ -637,11 +637,11 @@ export interface components {
     };
     /**
      * @description Created.
-     * 
+     *
      * Response.data will inherit the datatype of the request. A single entry passed as an object will return an object for the data property. Any number of entries passed in an array will return an array for the data property.
-     * 
-     * Properties associated with a page `type` that are not required to create an entry will be created with default values. 
-     * 
+     *
+     * Properties associated with a page `type` that are not required to create an entry will be created with default values.
+     *
      * When you make bulk requests, an invalid input in any one entry will return 422. The entries that are valid will still be created.
      */
     HTTP201CreatePages: {
@@ -711,7 +711,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Pages 
+   * Get Pages
    * @description Returns one or more content pages. This endpoint supports bulk operations.
    */
   "content-pages-get": {
@@ -750,7 +750,7 @@ export interface operations {
     };
   };
   /**
-   * Update Pages 
+   * Update Pages
    * @description Updates one or more content pages. This endpoint supports bulk operations.
    */
   "content-pages-put": {
@@ -765,7 +765,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["PagePutBulk"] | (components["schemas"]["PagePutBulk"])[];
+        "application/json": components["schemas"]["PagePutBulk"] | components["schemas"]["PagePutBulk"][];
       };
     };
     responses: {
@@ -790,7 +790,7 @@ export interface operations {
     };
   };
   /**
-   * Create Pages 
+   * Create Pages
    * @description Creates one or more content pages. This endpoint supports bulk operations.
    */
   "content-pages-post": {
@@ -813,7 +813,7 @@ export interface operations {
       207: components["responses"]["HTTP207Response"];
       /**
        * @description The input was not valid. This is the result of missing required fields or other invalid arguments. See the response for more details.
-       * 
+       *
        * When making bulk requests, an invalid input in any one entry will cause the whole request to return 422. The entries that are valid will still be created.
        */
       422: {
@@ -824,9 +824,9 @@ export interface operations {
     };
   };
   /**
-   * Delete Pages 
+   * Delete Pages
    * @description Deletes one or more content pages. This endpoint supports bulk operations.
-   * 
+   *
    * > #### Warning
    * > **Pay attention to query parameters**
    * > If you attempt to delete multiple pages by passing more than one page ID to `id:in` and one or more of them does not exist, you will receive a 404 response. However, the pages corresponding to the page IDs that do exist will still be deleted.
@@ -857,9 +857,9 @@ export interface operations {
     };
   };
   /**
-   * Get a Page 
+   * Get a Page
    * @description Returns one content page.
-   * 
+   *
    * > #### Warning
    * > **Pay attention to query parameters**
    * > This endpoint recognizes the same query parameters as [Get Multiple Pages](/docs/rest-content/pages#get-pages). If the requested page does not meet the query parameters you specify, you will receive a 404 response even if the requested `pageId` does exist.
@@ -897,7 +897,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Page 
+   * Update a Page
    * @description Updates one content page.
    */
   "content-page-put": {
@@ -946,9 +946,9 @@ export interface operations {
     };
   };
   /**
-   * Delete a Page 
+   * Delete a Page
    * @description Deletes one content page.
-   * 
+   *
    * > #### Warning
    * > **Query parameters not recognized**
    * > This endpoint does not recognize query parameters.

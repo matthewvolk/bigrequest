@@ -13,26 +13,26 @@ type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A
 export interface paths {
   "/carts": {
     /**
-     * Create a Cart 
-     * @description Creates a **Cart**. 
-     * 
+     * Create a Cart
+     * @description Creates a **Cart**.
+     *
      * **Required Fields**
-     * 
+     *
      * |Field|Details|
      * |-|-|
-     * |`line_item`|Specifies a line item.| 
+     * |`line_item`|Specifies a line item.|
      * |`custom_items`|Specifies a custom item. Only required if adding a custom item to the cart.|
      * |`gift_certificates`|Specifies a gift certificate. Only required if adding a gift certificate to the cart.|
-     * 
+     *
      * **Usage Notes**
-     * 
+     *
      * * A **cart** `id` (UUID) is returned in the response.
      * * A **cart** `id` is the same as a **checkout** `id`.
      * * A cart can be created by adding an existing **catalog item** or a **custom item**.
      * * Carts are valid for **30 days** from the **last modification** (this includes creating the cart or editing the cart).
      * * If a product has modifiers, use the `option_selections` array to describe the **modifier** selection(s).
      * * The format and data type of a cart’s `option_value` are defined by the `value_data` object of a product’s [variant option value](/docs/rest-catalog/product-variant-options/values), [modifier value](/docs/rest-catalog/product-modifiers/values), or a combination of both.
-     * * Redirect URLs can only be generated from carts that were created using the **REST Management API**. 
+     * * Redirect URLs can only be generated from carts that were created using the **REST Management API**.
      * * To get cart `redirect_urls` in the response, append the following query parameter to the request URL: `include=redirect_urls`. Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
      * * To restore a cart that was created by a shopper or through a Storefront API, first recreate the cart using the **REST Management API**.
      * * To get cart `promotions` in the response, append the following query parameter to the request URL: `include=promotions.banners`.
@@ -46,15 +46,15 @@ export interface paths {
   };
   "/carts/{cartId}/items": {
     /**
-     * Add Cart Line Items 
+     * Add Cart Line Items
      * @description Adds line item to the *Cart*.
-     * 
+     *
      * **Usage Notes**
-     * 
-     * To add a custom item use `custom_items`. 
-     * 
+     *
+     * To add a custom item use `custom_items`.
+     *
      * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
-     * 
+     *
      * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
      */
     post: operations["addCartLineItem"];
@@ -70,17 +70,17 @@ export interface paths {
   };
   "/carts/{cartId}/redirect_urls": {
     /**
-     * Create Cart Redirect URL 
+     * Create Cart Redirect URL
      * @description Creates a **Cart** redirect URL for redirecting a shopper to an already created cart using the `cartId`.
-     * 
+     *
      * **Usage Notes**
-     * 
+     *
      * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
      * * A **Carts** redirect URL may only be used once.
      * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
-     * * Once a redirect URL has been visited, it will be invalidated and cannot be used again. 
+     * * Once a redirect URL has been visited, it will be invalidated and cannot be used again.
      * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
-     * * Redirect URLs can be generated only from carts that were created using the **REST Management API**. 
+     * * Redirect URLs can be generated only from carts that were created using the **REST Management API**.
      * * To restore a cart that was created on the storefront, either by a shopper or a Storefront API, first recreate the cart using the **REST Management API**.
      */
     post: operations["createCartRedirectURL"];
@@ -96,28 +96,28 @@ export interface paths {
   };
   "/carts/{cartId}/items/{itemId}": {
     /**
-     * Update Cart Line Item 
-     * @description Updates an existing, single line item in the *Cart*. 
-     * 
+     * Update Cart Line Item
+     * @description Updates an existing, single line item in the *Cart*.
+     *
      * **Notes**
-     * 
-     * Currently, only updating `list_price` and `quantity` are supported. Updating a product’s `list_price` will make that item ineligible for V3 product-level promotions. 
-     * 
+     *
+     * Currently, only updating `list_price` and `quantity` are supported. Updating a product’s `list_price` will make that item ineligible for V3 product-level promotions.
+     *
      * If the product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
-     * 
+     *
      * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the **Add Cart Line Items** endpoint.
-     * 
+     *
      * `custom_items` cannot be updated via the API at this time. To update your cart, add a new updated custom item and delete the outdated one. If your cart contains only one line item, perform the add operation before the delete operation.
-     * 
+     *
      * Deleting all line items from the cart will invalidate the cart.
      */
     put: operations["updateCartLineItem"];
     /**
-     * Delete Cart Line Item 
-     * @description Deletes a *Cart* line item. 
-     * 
+     * Delete Cart Line Item
+     * @description Deletes a *Cart* line item.
+     *
      * **Notes**
-     * 
+     *
      * Removing the last `line_item` in the *Cart* deletes the *Cart*.
      */
     delete: operations["deleteCartLineItem"];
@@ -133,21 +133,21 @@ export interface paths {
   };
   "/carts/{cartId}": {
     /**
-     * Get a Cart 
+     * Get a Cart
      * @description Returns a storeʼs *Cart*.
      */
     get: operations["getACart"];
     /**
-     * Update Customer ID 
+     * Update Customer ID
      * @description Updates a *Cartʼs* `customer_id`.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * Changing the *Cart* `customer_id` will remove any promotions or shipping calculations on the *Cart*. These are tied to the customer depending on cart conditions and any customer groups.
      */
     put: operations["updateACart"];
     /**
-     * Delete a Cart 
+     * Delete a Cart
      * @description Deletes a *Cart*. Once a *Cart* has been deleted it can’t be recovered.
      */
     delete: operations["deleteACart"];
@@ -162,12 +162,12 @@ export interface paths {
   };
   "/carts/settings": {
     /**
-     * Get Global Cart Settings 
+     * Get Global Cart Settings
      * @description Returns the global cart settings of a store.
      */
     get: operations["getGlobalCartSettings"];
     /**
-     * Update Global Cart Settings 
+     * Update Global Cart Settings
      * @description Update the global cart settings of a store.
      */
     put: operations["updateGlobalCartSettings"];
@@ -179,12 +179,12 @@ export interface paths {
   };
   "/carts/settings/channels/{channel_id}": {
     /**
-     * Get Channel Cart Settings 
+     * Get Channel Cart Settings
      * @description Returns the per-channel overrides for the cart settings of a store.
      */
     get: operations["getChannelCartSettings"];
     /**
-     * Update Channel Cart Settings 
+     * Update Channel Cart Settings
      * @description Update the per-channel overrides for the cart settings of a store.
      */
     put: operations["updateChannelCartSettings"];
@@ -200,14 +200,14 @@ export interface paths {
   };
   "/carts/{cart_id}/metafields": {
     /**
-     * Get All Metafields 
+     * Get All Metafields
      * @description Get all cart metafields.
      */
     get: operations["getAllCartMetafields"];
     /**
-     * Create a Cart Metafield 
-     * @description Create a cart `Metafield`. 
-     * 
+     * Create a Cart Metafield
+     * @description Create a cart `Metafield`.
+     *
      * If you create an order from a Cart, you can continue referencing the Cart Metafields even if you delete the original Cart. Use the `cart_id` field on the Order to construct the Cart Metafield endpoint.
      */
     post: operations["CreateCartMetafieldsByCartId"];
@@ -222,17 +222,17 @@ export interface paths {
   };
   "/carts/{cart_id}/metafields/{metafield_id}": {
     /**
-     * Get a Cart Metafield 
+     * Get a Cart Metafield
      * @description Gets a cart metafield.
      */
     get: operations["getACartMetafield"];
     /**
-     * Update a Cart Metafield 
+     * Update a Cart Metafield
      * @description Update a `Metafield`, by `cart_id`.
      */
     put: operations["UpdateCartMetafieldsByCartId"];
     /**
-     * Delete a Metafield 
+     * Delete a Metafield
      * @description Deletes a `Metafield`.
      */
     delete: operations["deleteCartMetafieldById"];
@@ -262,17 +262,17 @@ export interface components {
         /** @description The variant ID. Required if the product has variants. */
         variant_id: number;
         list_price?: number;
-        option_selections?: ({
+        option_selections?: {
             option_id?: number;
             option_value?: string;
-          })[];
+          }[];
       };
       /** Line Item Gift Certificate Request Data */
       gift_certificate?: {
         /** @description Given name for the gift certificate line item. */
         name: string;
         /**
-         * @description The theme of the gift certificate. 
+         * @description The theme of the gift certificate.
          * @enum {string}
          */
         theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -301,7 +301,7 @@ export interface components {
           /** @description Given name for the gift certificate line item. */
           name: string;
           /**
-           * @description The theme of the gift certificate. 
+           * @description The theme of the gift certificate.
            * @enum {string}
            */
           theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -324,37 +324,37 @@ export interface components {
       channel_id?: number;
       currency?: {
         /**
-         * Format: ISO-4217 
-         * @description The [transactional currency](/docs/rest-management/currencies#definitions) code for the cart, formatted as an [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) string. This code is required when multi-currency is enabled. Passing a non-transactional display currency will result in a `400` error. 
+         * Format: ISO-4217
+         * @description The [transactional currency](/docs/rest-management/currencies#definitions) code for the cart, formatted as an [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) string. This code is required when multi-currency is enabled. Passing a non-transactional display currency will result in a `400` error.
          * @example usd
          */
         code?: string;
       };
       /**
-       * Format: ISO-639 
-       * @description The locale of the cart. Accepts strings of format `xx` or `xx-YY`. Uses the [ISO-639 standard](https://www.iso.org/iso-639-language-codes.html) format. 
+       * Format: ISO-639
+       * @description The locale of the cart. Accepts strings of format `xx` or `xx-YY`. Uses the [ISO-639 standard](https://www.iso.org/iso-639-language-codes.html) format.
        * @example en-US
        */
       locale?: string;
     };
     /** Cart Request Data */
     CartRequestData: {
-      line_items?: ({
+      line_items?: {
           quantity: number;
           product_id: number;
           /** @description The Variant ID. Required if the product has variants. */
           variant_id: number;
           list_price?: number;
-          option_selections?: ({
+          option_selections?: {
               option_id?: number;
               option_value?: string;
-            })[];
-        })[];
+            }[];
+        }[];
       gift_certificates?: ({
           /** @description Given name for gift certificate line item. */
           name: string;
           /**
-           * @description The theme of the gift certificate. 
+           * @description The theme of the gift certificate.
            * @enum {string}
            */
           theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -387,10 +387,10 @@ export interface components {
       /** @description Variant ID. Required if the product has variants. */
       variant_id: number;
       list_price?: number;
-      option_selections?: ({
+      option_selections?: {
           option_id?: number;
           option_value?: string;
-        })[];
+        }[];
     };
     /** Product Option Selection */
     ProductOptionSelection: {
@@ -402,7 +402,7 @@ export interface components {
       /** @description Given name for gift certificate line item. */
       name: string;
       /**
-       * @description The theme of the gift certificate. 
+       * @description The theme of the gift certificate.
        * @enum {string}
        */
       theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -422,12 +422,12 @@ export interface components {
       message?: string;
     };
     /**
-     * Cart_Full 
+     * Cart_Full
      * @description A cart contains a collection of items, prices, discounts, etc. It does not contain customer-related data.
      */
     Cart_Full: {
       /**
-       * Format: UUID 
+       * Format: UUID
        * @description Cart ID, provided after creating a cart with a POST request.
        */
       id?: string;
@@ -438,13 +438,13 @@ export interface components {
       /** @description The cart’s email. This is the same email that is used in the billing address. */
       email?: string;
       /**
-       * Currency 
+       * Currency
        * @description The currency. This is the same for both the cart and its subsequent checkout.
        */
       currency?: {
         /**
-         * Format: ISO-4217 
-         * @description The [transactional currency](/docs/rest-management/currencies#definitions) code for the cart, formatted as an [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) string. 
+         * Format: ISO-4217
+         * @description The [transactional currency](/docs/rest-management/currencies#definitions) code for the cart, formatted as an [ISO-4217](https://www.iso.org/iso-4217-currency-codes.html) string.
          * @example usd
          */
         code?: string;
@@ -456,31 +456,31 @@ export interface components {
       discount_amount?: number;
       /** @description Sum of cart line-item amounts minus cart-level discounts and coupons. This amount includes taxes (where applicable). */
       cart_amount?: number;
-      coupons?: (components["schemas"]["AppliedCoupon"])[];
-      discounts?: ({
+      coupons?: components["schemas"]["AppliedCoupon"][];
+      discounts?: {
           /**
-           * @description ID of the applied discount. 
+           * @description ID of the applied discount.
            * @example coupon
            */
           id?: string;
           /** @description The discounted amount. */
           discounted_amount?: number;
-        })[];
+        }[];
       line_items?: components["schemas"]["LineItemsGet"];
       /**
-       * Format: ISO-8601 
+       * Format: ISO-8601
        * @description Time when the cart was created.
        */
       created_time?: string;
       /**
-       * Format: ISO-8601 
+       * Format: ISO-8601
        * @description Time when the cart was last updated.
        */
       updated_time?: string;
       /** @description The channel ID. If no channel is specified, defaults to 1. */
       channel_id?: number;
       /**
-       * Format: ISO-639 
+       * Format: ISO-639
        * @description Locale of the cart. Accepts strings of format `xx` or `xx-YY`. Uses the [ISO-639 standard](https://www.iso.org/iso-639-language-codes.html) format.
        */
       locale?: string;
@@ -493,32 +493,32 @@ export interface components {
           /** @description Type of the banner. */
           type?: string;
           /** @description An array of the locations where the banner will display. */
-          page?: (string)[];
+          page?: string[];
           /** @description Text of the banner. */
           text?: string;
         };
       };
     };
     /**
-     * Currency 
+     * Currency
      * @description The currency. This is the same for both the cart and its subsequent checkout.
      */
     Currency: {
       /**
-       * Format: ISO-4217 
+       * Format: ISO-4217
        * @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.)
        */
       code?: string;
     };
     /**
-     * line_items 
+     * line_items
      * @description Request body for `PUT` or `POST` requests.
      */
     LineItems: {
-      physical_items: (components["schemas"]["ItemPhysical"])[];
-      digital_items: (components["schemas"]["ItemDigital"])[];
-      gift_certificates?: (components["schemas"]["ItemGiftCertificate"])[];
-      custom_items?: (components["schemas"]["ItemCustom"])[];
+      physical_items: components["schemas"]["ItemPhysical"][];
+      digital_items: components["schemas"]["ItemDigital"][];
+      gift_certificates?: components["schemas"]["ItemGiftCertificate"][];
+      custom_items?: components["schemas"]["ItemCustom"][];
     };
     /** Item Gift Certificate */
     ItemGiftCertificate: {
@@ -526,7 +526,7 @@ export interface components {
       /** @description Name provided for the gift certificate that will appear in the control panel. */
       name?: string;
       /**
-       * @description The theme of the gift certificate. 
+       * @description The theme of the gift certificate.
        * @enum {string}
        */
       theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -576,49 +576,49 @@ export interface components {
     };
     ItemDigital: ({
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
       /**
-       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants. 
+       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
        */
       variant_id: number;
       /**
-       * @description The ID of the product. Required in a /POST request. 
+       * @description The ID of the product. Required in a /POST request.
        * @example 12
        */
       product_id: number;
       /**
-       * @description SKU of the variant. 
+       * @description SKU of the variant.
        * @example SMGREEN
        */
       sku?: string;
       /**
-       * @description The item’s product name. 
+       * @description The item’s product name.
        * @example T-Shirt
        */
       name?: string;
       /**
-       * Format: uri 
-       * @description The product URL. 
+       * Format: uri
+       * @description The product URL.
        * @example http://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
-       * @description Quantity of this item in the cart. 
+       * @description Quantity of this item in the cart.
        * @example 5
        */
       quantity: number;
       /**
-       * @description Boolean value that specifies whether the item is taxable. 
+       * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
       is_taxable?: boolean;
       /**
-       * Format: uri 
-       * @description Image of the product or variant. 
+       * Format: uri
+       * @description Image of the product or variant.
        * @example https://pathtoproductimage/ProductDefault.png
        */
       image_url?: string;
@@ -633,43 +633,43 @@ export interface components {
             /** @description The coupon code. */
             coupon_code: {
               /**
-               * @description ID of the coupon. 
+               * @description ID of the coupon.
                * @example 6
                */
               id?: number;
               /**
-               * @description The coupon code. Required in a /POST request. 
+               * @description The coupon code. Required in a /POST request.
                * @example KV56053388J
                */
               code?: string;
               /**
-               * @description Name given to the coupon in the control panel. 
+               * @description Name given to the coupon in the control panel.
                * @example Percentage off
                */
               name?: string;
               /**
                * @description The discount type.
-               * 
+               *
                * - type 0: per_item_discount
                * - type 1: percentage_discount
                * - type 2: per_total_discount
                * - type 3: shipping_discount
-               * - type 4: free_shipping 
+               * - type 4: free_shipping
                * @enum {integer}
                */
               discountType?: 0 | 1 | 2 | 3 | 4;
               /**
-               * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3. 
+               * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3.
                * @example 3
                */
               discountAmount?: number;
               /**
-               * @description Returns 0 if no expiration date has been set. 
+               * @description Returns 0 if no expiration date has been set.
                * @example 0
                */
               expiresDate?: number;
               /**
-               * @description The total amount of all discounts applied to the cart. 
+               * @description The total amount of all discounts applied to the cart.
                * @example 4.19
                */
               totalDiscount?: number;
@@ -677,7 +677,7 @@ export interface components {
           };
         })[];
       /**
-       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts. 
+       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts.
        * @example 4
        */
       discount_amount?: number;
@@ -694,7 +694,7 @@ export interface components {
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
       /** @description The list of selected options for this product. */
-      options?: ({
+      options?: {
           /** @description The product option name; for example, Color or Size. */
           name?: string;
           /** @description The product option identifier. */
@@ -702,16 +702,16 @@ export interface components {
           /** @description The product option value; for example, Red or Medium. */
           value?: string;
           /**
-           * @description The product option value identifier in number format. 
+           * @description The product option value identifier in number format.
            * @example 128
            */
           valueId?: number;
-        })[];
+        }[];
     }) & {
       /** @description URLs to download all product files. */
-      download_file_urls?: (string)[];
+      download_file_urls?: string[];
       /**
-       * Format: url 
+       * Format: url
        * @description The URL for the combined downloads page.
        */
       download_page_url?: string;
@@ -720,49 +720,49 @@ export interface components {
     };
     ItemDigitalGet: ({
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
       /**
-       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants. 
+       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
        */
       variant_id?: number;
       /**
-       * @description The ID of the product. Required in a /POST request. 
+       * @description The ID of the product. Required in a /POST request.
        * @example 12
        */
       product_id?: number;
       /**
-       * @description SKU of the variant. 
+       * @description SKU of the variant.
        * @example SMGREEN
        */
       sku?: string;
       /**
-       * @description The item’s product name. 
+       * @description The item’s product name.
        * @example T-Shirt
        */
       name?: string;
       /**
-       * Format: uri 
-       * @description The product URL. 
+       * Format: uri
+       * @description The product URL.
        * @example http://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
-       * @description Quantity of this item in the cart. 
+       * @description Quantity of this item in the cart.
        * @example 5
        */
       quantity?: number;
       /**
-       * @description Boolean value that specifies whether the item is taxable. 
+       * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
       is_taxable?: boolean;
       /**
-       * Format: uri 
-       * @description Image of the product or variant. 
+       * Format: uri
+       * @description Image of the product or variant.
        * @example https://pathtoproductimage/ProductDefault.png
        */
       image_url?: string;
@@ -773,17 +773,17 @@ export interface components {
         })[];
       coupons?: OneOf<[number, ({
           /**
-           * @description ID of the coupon. 
+           * @description ID of the coupon.
            * @example 6
            */
           id?: number;
           /**
-           * @description The coupon code. Required in a /POST request. 
+           * @description The coupon code. Required in a /POST request.
            * @example KV56053388J
            */
           code: string;
           /**
-           * @description Name given to the coupon in the control panel. 
+           * @description Name given to the coupon in the control panel.
            * @example Percentage off
            */
           name?: string;
@@ -794,29 +794,29 @@ export interface components {
            * - type 2: per_total_discount
            * - type 3: shipping_discount
            * - type 4: free_shipping
-           *  
-           * @example 3 
+           *
+           * @example 3
            * @enum {integer}
            */
           discountType?: 0 | 1 | 2 | 3 | 4;
           /**
-           * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3. 
+           * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3.
            * @example 3
            */
           discountAmount?: number;
           /**
-           * @description Returns 0 if no expiration date has been set. 
+           * @description Returns 0 if no expiration date has been set.
            * @example 0
            */
           expiresDate?: number;
           /**
-           * @description The total amount of all discounts applied to the cart. 
+           * @description The total amount of all discounts applied to the cart.
            * @example 4.19
            */
           totalDiscount?: number;
         })[]]>;
       /**
-       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts. 
+       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts.
        * @example 4
        */
       discount_amount?: number;
@@ -833,7 +833,7 @@ export interface components {
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
       /** @description The list of selected options for this product. */
-      options?: ({
+      options?: {
           /** @description The product option name; for example, Color or Size. */
           name?: string;
           /** @description The product option identifier. */
@@ -841,16 +841,16 @@ export interface components {
           /** @description The product option value; for example, Red or Medium. */
           value?: string;
           /**
-           * @description The product option value identifier in number format. 
+           * @description The product option value identifier in number format.
            * @example 128
            */
           valueId?: number;
-        })[];
+        }[];
     }) & {
       /** @description URLs to download all product files. */
-      download_file_urls?: (string)[];
+      download_file_urls?: string[];
       /**
-       * Format: url 
+       * Format: url
        * @description The URL for the combined downloads page.
        */
       download_page_url?: string;
@@ -859,49 +859,49 @@ export interface components {
     };
     ItemPhysical: {
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
       /**
-       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants. 
+       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
        */
       variant_id: number;
       /**
-       * @description The ID of the product. Required in a /POST request. 
+       * @description The ID of the product. Required in a /POST request.
        * @example 12
        */
       product_id: number;
       /**
-       * @description SKU of the variant. 
+       * @description SKU of the variant.
        * @example SMGREEN
        */
       sku?: string;
       /**
-       * @description The item’s product name. 
+       * @description The item’s product name.
        * @example T-Shirt
        */
       name?: string;
       /**
-       * Format: uri 
-       * @description The product URL. 
+       * Format: uri
+       * @description The product URL.
        * @example http://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
-       * @description Quantity of this item in the cart. 
+       * @description Quantity of this item in the cart.
        * @example 5
        */
       quantity: number;
       /**
-       * @description Boolean value that specifies whether the item is taxable. 
+       * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
       is_taxable?: boolean;
       /**
-       * Format: uri 
-       * @description Image of the product or variant. 
+       * Format: uri
+       * @description Image of the product or variant.
        * @example https://pathtoproductimage/ProductDefault.png
        */
       image_url?: string;
@@ -916,43 +916,43 @@ export interface components {
             /** @description The coupon code. */
             coupon_code: {
               /**
-               * @description The ID of the coupon. 
+               * @description The ID of the coupon.
                * @example 6
                */
               id?: number;
               /**
-               * @description The coupon code. Required in a /POST request. 
+               * @description The coupon code. Required in a /POST request.
                * @example KV56053388J
                */
               code?: string;
               /**
-               * @description Name given to the coupon in the control panel. 
+               * @description Name given to the coupon in the control panel.
                * @example Percentage off
                */
               name?: string;
               /**
                * @description The discount type.
-               * 
+               *
                * - type 0: per_item_discount
                * - type 1: percentage_discount
                * - type 2: per_total_discount
                * - type 3: shipping_discount
-               * - type 4: free_shipping 
+               * - type 4: free_shipping
                * @enum {integer}
                */
               discountType?: 0 | 1 | 2 | 3 | 4;
               /**
-               * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3. 
+               * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3.
                * @example 3
                */
               discountAmount?: number;
               /**
-               * @description Returns 0 if no expiration date is set. 
+               * @description Returns 0 if no expiration date is set.
                * @example 0
                */
               expiresDate?: number;
               /**
-               * @description The total amount of all discounts applied to the cart. 
+               * @description The total amount of all discounts applied to the cart.
                * @example 4.19
                */
               totalDiscount?: number;
@@ -960,7 +960,7 @@ export interface components {
           };
         })[];
       /**
-       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts. 
+       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts.
        * @example 4
        */
       discount_amount?: number;
@@ -977,7 +977,7 @@ export interface components {
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
       /** @description The list of selected options for this product. */
-      options?: ({
+      options?: {
           /** @description The product option name; for example, Color or Size. */
           name?: string;
           /** @description The product option identifier. */
@@ -985,93 +985,93 @@ export interface components {
           /** @description The product option value; for example, Red or Medium. */
           value?: string;
           /**
-           * @description The product option value identifier in number format. 
+           * @description The product option value identifier in number format.
            * @example 128
            */
           valueId?: number;
-        })[];
+        }[];
     };
     /** Base Item */
     BaseItem: {
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
       /**
-       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants. 
+       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
        */
       variant_id: number;
       /**
-       * @description The ID of the product. Required in a /POST request. 
+       * @description The ID of the product. Required in a /POST request.
        * @example 12
        */
       product_id: number;
       /**
-       * @description SKU of the variant. 
+       * @description SKU of the variant.
        * @example SMGREEN
        */
       sku?: string;
       /**
-       * @description The item’s product name. 
+       * @description The item’s product name.
        * @example T-Shirt
        */
       name?: string;
       /**
-       * Format: uri 
-       * @description The product URL. 
+       * Format: uri
+       * @description The product URL.
        * @example http://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
-       * @description Quantity of this item in the cart. 
+       * @description Quantity of this item in the cart.
        * @example 5
        */
       quantity: number;
       /**
-       * @description Boolean value that specifies whether the item is taxable. 
+       * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
       is_taxable?: boolean;
       /**
-       * Format: uri 
-       * @description Image of the product or variant. 
+       * Format: uri
+       * @description Image of the product or variant.
        * @example https://pathtoproductimage/ProductDefault.png
        */
       image_url?: string;
       discounts?: ({
           /**
-           * @description ID of the applied discount. 
+           * @description ID of the applied discount.
            * @example coupon
            */
           id?: string | number;
           /** @description The discounted amount. */
           discounted_amount?: number;
         })[];
-      coupons?: ({
+      coupons?: {
           /** @description Required in a /POST request. */
           coupons?: {
             /** @description The coupon code. */
             coupon_code: {
               /**
-               * @description The ID of the coupon. 
+               * @description The ID of the coupon.
                * @example 6
                */
               id?: number;
               /**
-               * @description The coupon code. Required in a /POST request. 
+               * @description The coupon code. Required in a /POST request.
                * @example KV56053388J
                */
               code?: string;
               /**
-               * @description Name given to the coupon in the control panel. 
+               * @description Name given to the coupon in the control panel.
                * @example Percentage off
                */
               name?: string;
               /**
                * @description The discount type.
-               * 
+               *
                * - type 0: per_item_discount
                * - type 1: percentage_discount
                * - type 2: per_total_discount
@@ -1086,25 +1086,25 @@ export interface components {
                */
               discountType?: number;
               /**
-               * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3. 
+               * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3.
                * @example 3
                */
               discountAmount?: number;
               /**
-               * @description Returns 0 if no expiration date has been set. 
+               * @description Returns 0 if no expiration date has been set.
                * @example 0
                */
               expiresDate?: number;
               /**
-               * @description The total amount of all discounts applied to the cart. 
+               * @description The total amount of all discounts applied to the cart.
                * @example 4.19
                */
               totalDiscount?: number;
             };
           };
-        })[];
+        }[];
       /**
-       * @description The total value of all discounts applied to this item. This includes coupons and cart level discounts. 
+       * @description The total value of all discounts applied to this item. This includes coupons and cart level discounts.
        * @example 4
        */
       discount_amount?: number;
@@ -1121,7 +1121,7 @@ export interface components {
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
       /** @description The list of selected options for this product. */
-      options?: ({
+      options?: {
           /** @description The product option name; for example, Color or Size. */
           name?: string;
           /** @description The product option identifier. */
@@ -1129,11 +1129,11 @@ export interface components {
           /** @description The product option value; for example, Red or Medium. */
           value?: string;
           /**
-           * @description The product option value identifier in number format. 
+           * @description The product option value identifier in number format.
            * @example 128
            */
           valueId?: number;
-        })[];
+        }[];
     };
     /** Product Option */
     ProductOption: {
@@ -1144,13 +1144,13 @@ export interface components {
       /** @description The product option value; for example, Red or Medium. */
       value?: string;
       /**
-       * @description The product option value identifier in number format. 
+       * @description The product option value identifier in number format.
        * @example 128
        */
       valueId?: number;
     };
     /**
-     * Applied Coupon 
+     * Applied Coupon
      * @description |Type `int`|Type Name|
      * |-|-|
      * |`0`|`per_item_discount`|
@@ -1167,18 +1167,18 @@ export interface components {
       id?: string;
       /**
        * @description Key name to identify the type of coupon.
-       * 
+       *
        * type 0: per_item_discount
        * type 1: percentage_discount
        * type 2: per_total_discount
        * type 3: shipping_discount
        * type 4: free_shipping
-       * type 5: promotion 
+       * type 5: promotion
        * @enum {string}
        */
       coupon_type?: "0" | "1" | "2" | "3" | "4" | "5";
       /**
-       * Format: double 
+       * Format: double
        * @description The discounted amount applied within a given context.
        */
       discounted_amount?: number;
@@ -1186,7 +1186,7 @@ export interface components {
     /** Applied Discount */
     AppliedDiscount: {
       /**
-       * @description ID of the applied discount. 
+       * @description ID of the applied discount.
        * @example coupon
        */
       id?: string | number;
@@ -1201,9 +1201,9 @@ export interface components {
       amount?: number;
     };
     /**
-     * Item Custom 
+     * Item Custom
      * @description Add a custom item to the shopperʼs cart.
-     * 
+     *
      * * Custom items are not added to the catalog.
      * * The price should be set to match the store settings for taxes.
      */
@@ -1219,9 +1219,9 @@ export interface components {
       list_price?: string;
     };
     /**
-     * Item Custom 
+     * Item Custom
      * @description Add a custom item to the shopperʼs cart.
-     * 
+     *
      * * Custom items are not added to the catalog.
      * * The price should be set to match the store settings for taxes.
      */
@@ -1237,7 +1237,7 @@ export interface components {
       list_price?: string;
     };
     /**
-     * Item with variant 
+     * Item with variant
      * @description Product with a variant.
      */
     cart_PostVariant: {
@@ -1251,27 +1251,27 @@ export interface components {
       name?: string;
       gift_wrapping?: {
         /**
-         * @description Boolean value that specifies whether items whether items should be wrapped together or wrapped individually. 
+         * @description Boolean value that specifies whether items whether items should be wrapped together or wrapped individually.
          * @example true
          */
         wrap_together?: boolean;
         /** @description Details for the gift wrapping option selected. This can be specified for each line item. */
-        wrap_details?: ({
+        wrap_details?: {
             /**
-             * @description Identifier of the gift wrapping option selected. 
+             * @description Identifier of the gift wrapping option selected.
              * @example 0
              */
             id?: number;
             /**
-             * @description Custom gift message. 
+             * @description Custom gift message.
              * @example Happy Birthday
              */
             message?: string;
-          })[];
+          }[];
       };
     };
     /**
-     * Item with modifier 
+     * Item with modifier
      * @description Product with a modifier.
      */
     cart_PostModifier: {
@@ -1282,7 +1282,7 @@ export interface components {
       /** @description Optionally, provide a value to override the product name. */
       name?: string;
       /** @description Needed for Catalog V2. */
-      option_selections?: ({
+      option_selections?: {
           option_id?: number;
           option_value?: number;
           /** @description Override for the selected option or modifier name. */
@@ -1291,7 +1291,7 @@ export interface components {
           value?: string;
           nameId?: number;
           valueId?: number;
-        })[];
+        }[];
     };
     /** Cart_Line_Item_Update_Put */
     Cart_Line_Item_Update_Put: {
@@ -1300,7 +1300,7 @@ export interface components {
           /** @description Given name for a gift certificate line item. */
           name: string;
           /**
-           * @description The theme of the gift certificate. 
+           * @description The theme of the gift certificate.
            * @enum {string}
            */
           theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -1328,7 +1328,7 @@ export interface components {
           /** @description Given name for gift certificate line item. */
           name: string;
           /**
-           * @description The theme of the gift certificate. 
+           * @description The theme of the gift certificate.
            * @enum {string}
            */
           theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
@@ -1350,12 +1350,12 @@ export interface components {
       custom_items?: components["schemas"]["cart_PostCustomItem"];
     };
     /** Custom item */
-    cart_PostCustomItem: ({
+    cart_PostCustomItem: {
         sku?: string;
         name?: string;
         quantity?: number;
         list_price?: number;
-      })[];
+      }[];
     /** @description Represents all settings related to the shopping cart functionality of a store. */
     CartSettings: {
       allow_purchasing?: boolean;
@@ -1384,82 +1384,82 @@ export interface components {
       errors?: Record<string, never>;
     };
     /**
-     * LineItemsGet 
+     * LineItemsGet
      * @description `GET`
      */
     LineItemsGet: {
-      physical_items?: (components["schemas"]["ItemPhysicalGet"])[];
-      digital_items?: (components["schemas"]["ItemDigitalGet"])[];
-      gift_certificates?: (components["schemas"]["ItemGiftCertificateGet"])[];
-      custom_items?: (components["schemas"]["ItemCustomGet"])[];
+      physical_items?: components["schemas"]["ItemPhysicalGet"][];
+      digital_items?: components["schemas"]["ItemDigitalGet"][];
+      gift_certificates?: components["schemas"]["ItemGiftCertificateGet"][];
+      custom_items?: components["schemas"]["ItemCustomGet"][];
     };
     ItemPhysicalGet: {
       /**
-       * @description The line-item ID. 
+       * @description The line-item ID.
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
       /**
-       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants. 
+       * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
        */
       variant_id: number;
       /**
-       * @description The ID of the product. Required in a /POST request. 
+       * @description The ID of the product. Required in a /POST request.
        * @example 12
        */
       product_id: number;
       /**
-       * @description SKU of the variant. 
+       * @description SKU of the variant.
        * @example SMGREEN
        */
       sku?: string;
       /**
-       * @description The item’s product name. 
+       * @description The item’s product name.
        * @example T-Shirt
        */
       name?: string;
       /**
-       * @description The weight is displayed here if the item has a custom dimension. 
+       * @description The weight is displayed here if the item has a custom dimension.
        * @example 1.2
        */
       weight?: number;
       dimensions?: {
         /**
-         * @description The height is displayed here if the item has a custom dimension. 
+         * @description The height is displayed here if the item has a custom dimension.
          * @example 2
          */
         height?: number;
         /**
-         * @description The width is displayed here if the item has a custom dimension. 
+         * @description The width is displayed here if the item has a custom dimension.
          * @example 2.1
          */
         width?: number;
         /**
-         * @description The depth is displayed here if the item has a custom dimension. 
+         * @description The depth is displayed here if the item has a custom dimension.
          * @example 2.2
          */
         depth?: number;
       };
       /**
-       * Format: uri 
-       * @description The product URL. 
+       * Format: uri
+       * @description The product URL.
        * @example http://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
-       * @description Quantity of this item in the cart. 
+       * @description Quantity of this item in the cart.
        * @example 5
        */
       quantity: number;
       /**
-       * @description Boolean value that specifies whether the item is taxable. 
+       * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
       is_taxable?: boolean;
       /**
-       * Format: uri 
-       * @description Image of the product or variant. 
+       * Format: uri
+       * @description Image of the product or variant.
        * @example https://pathtoproductimage/ProductDefault.png
        */
       image_url?: string;
@@ -1470,17 +1470,17 @@ export interface components {
         })[];
       coupons?: OneOf<[number, ({
           /**
-           * @description ID of the coupon. 
+           * @description ID of the coupon.
            * @example 6
            */
           id?: number;
           /**
-           * @description The coupon code. Required in a /POST request. 
+           * @description The coupon code. Required in a /POST request.
            * @example KV56053388J
            */
           code: string;
           /**
-           * @description Name given to the coupon in the control panel. 
+           * @description Name given to the coupon in the control panel.
            * @example Percentage off
            */
           name?: string;
@@ -1490,29 +1490,29 @@ export interface components {
            * - type 1: percentage_discount
            * - type 2: per_total_discount
            * - type 3: shipping_discount
-           * - type 4: free_shipping 
-           * @example 3 
+           * - type 4: free_shipping
+           * @example 3
            * @enum {integer}
            */
           discountType?: 0 | 1 | 2 | 3 | 4;
           /**
-           * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3. 
+           * @description The amount of the discount based on the coupon. For example, 3 percent off will show a 3.
            * @example 3
            */
           discountAmount?: number;
           /**
-           * @description Returns 0 if no expiration date has been set. 
+           * @description Returns 0 if no expiration date has been set.
            * @example 0
            */
           expiresDate?: number;
           /**
-           * @description The total amount of all discounts applied to the cart. 
+           * @description The total amount of all discounts applied to the cart.
            * @example 4.19
            */
           totalDiscount?: number;
         })[]]>;
       /**
-       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts. 
+       * @description The total value of all discounts applied to this item. This includes coupons and cart-level discounts.
        * @example 4
        */
       discount_amount?: number;
@@ -1529,7 +1529,7 @@ export interface components {
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
       /** @description The list of selected options for this product. */
-      options?: ({
+      options?: {
           /** @description The product option name; for example, Color or Size. */
           name?: string;
           /** @description The product option identifier. */
@@ -1537,14 +1537,14 @@ export interface components {
           /** @description The product option value; for example, Red or Medium. */
           value?: string;
           /**
-           * @description The product option value identifier in number format. 
+           * @description The product option value identifier in number format.
            * @example 128
            */
           valueId?: number;
-        })[];
+        }[];
     };
     /**
-     * Not Found 
+     * Not Found
      * @description Error payload for the BigCommerce API.
      */
     NotFound: {
@@ -1564,14 +1564,14 @@ export interface components {
       /** @description The unique identifier for the metafield. */
       id?: number;
       /**
-       * Format: date-time 
-       * @description Date and time of the metafieldʼs creation. 
+       * Format: date-time
+       * @description Date and time of the metafieldʼs creation.
        * @example 2022-06-16T18:39:00+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
-       * @description Date and time when the metafield was last updated. 
+       * Format: date-time
+       * @description Date and time when the metafield was last updated.
        * @example 2022-06-16T18:39:00+00:00
        */
       date_modified?: string;
@@ -1587,44 +1587,44 @@ export interface components {
        * | `write` | Open for reading and writing by other API consumers. |
        * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
        * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
-       *  
+       *
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Namespace for the metafield, for organizational purposes.
-       *  
+       *
        * @example Sales Department
        */
       namespace?: string;
       /**
        * @description The name of the field, for example: `location_id`, `color`.
-       *  
+       *
        * @example Staff Name
        */
       key?: string;
       /**
        * @description The value of the field, for example: `1`, `blue`.
-       *  
+       *
        * @example Ronaldo
        */
       value?: string;
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example order
        */
       description?: string;
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example cart 
+       *
+       * @example cart
        * @enum {string}
        */
       resource_type?: "brand" | "product" | "variant" | "category" | "cart";
       /**
        * @description The unique identifier for the resource with which the metafield is associated.
-       *  
+       *
        * @example 0
        */
       resource_id?: string;
@@ -1642,77 +1642,77 @@ export interface components {
        * | `write` | Open for reading and writing by other API consumers. |
        * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
        * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
-       *  
+       *
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Namespace for the metafield, for organizational purposes.
-       *  
+       *
        * @example Sales Department
        */
       namespace: string;
       /**
        * @description The name of the field, for example: `location_id`, `color`.
-       *  
+       *
        * @example Staff Name
        */
       key: string;
       /**
        * @description The value of the field, for example: `1`, `blue`.
-       *  
+       *
        * @example Ronaldo
        */
       value: string;
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Name of Staff Member
        */
       description?: string;
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
-      data?: (components["schemas"]["Metafield"])[];
+      data?: components["schemas"]["Metafield"][];
       meta?: components["schemas"]["CollectionMeta"];
     };
     /**
-     * Collection Meta 
+     * Collection Meta
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
       /**
-       * Pagination 
+       * Pagination
        * @description Data about the response, including pagination and collection totals.
        */
       pagination?: {
         /**
          * @description Total number of items in the result set.
-         *  
+         *
          * @example 36
          */
         total?: number;
         /**
          * @description Total number of items in the collection response.
-         *  
+         *
          * @example 36
          */
         count?: number;
         /**
          * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *  
+         *
          * @example 50
          */
         per_page?: number;
         /**
          * @description The page you are currently on within the collection.
-         *  
+         *
          * @example 1
          */
         current_page?: number;
         /**
          * @description The total number of pages in the collection.
-         *  
+         *
          * @example 1
          */
         total_pages?: number;
@@ -1722,7 +1722,7 @@ export interface components {
           previous?: string;
           /**
            * @description Link to the current page returned in the response.
-           *  
+           *
            * @example ?page=1&limit=50
            */
           current?: string;
@@ -1733,7 +1733,7 @@ export interface components {
       [key: string]: unknown;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaCollection_open: {
@@ -1751,17 +1751,17 @@ export interface components {
         "application/json": {
           data?: {
             /**
-             * Format: url 
+             * Format: url
              * @example https://store.mybigcommerce.com/cart.php?action=load&id=0aa00afa-a000-00a0-00aae-aa0000f000a0&token=00aaaaa0aa0000000000a000a000f0aa0000afa00aa00afa0a000000000aa0a0
              */
             cart_url?: string;
             /**
-             * Format: Url 
+             * Format: Url
              * @example https://store.mybigcommerce.com/cart.php?action=loadInCheckout&id=1ea11efe-b111-11d1-11ee-cd1110f111b1&token=00aaaaa0aa0000000000a000a000f0aa0000afa00aa00afa0a000000000aa0a0
              */
             checkout_url?: string;
             /**
-             * Format: url 
+             * Format: url
              * @example https://store.mybigcommerce.com/cart.php?embedded=1&action=loadInCheckout&id=0aa00afa-a000-00a0-00aae-aa0000f000a0&token=00aaaaa0aa0000000000a000a000f0aa0000afa00aa00afa0a000000000aa0a0
              */
             embedded_checkout_url?: string;
@@ -1809,26 +1809,26 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Create a Cart 
-   * @description Creates a **Cart**. 
-   * 
+   * Create a Cart
+   * @description Creates a **Cart**.
+   *
    * **Required Fields**
-   * 
+   *
    * |Field|Details|
    * |-|-|
-   * |`line_item`|Specifies a line item.| 
+   * |`line_item`|Specifies a line item.|
    * |`custom_items`|Specifies a custom item. Only required if adding a custom item to the cart.|
    * |`gift_certificates`|Specifies a gift certificate. Only required if adding a gift certificate to the cart.|
-   * 
+   *
    * **Usage Notes**
-   * 
+   *
    * * A **cart** `id` (UUID) is returned in the response.
    * * A **cart** `id` is the same as a **checkout** `id`.
    * * A cart can be created by adding an existing **catalog item** or a **custom item**.
    * * Carts are valid for **30 days** from the **last modification** (this includes creating the cart or editing the cart).
    * * If a product has modifiers, use the `option_selections` array to describe the **modifier** selection(s).
    * * The format and data type of a cart’s `option_value` are defined by the `value_data` object of a product’s [variant option value](/docs/rest-catalog/product-variant-options/values), [modifier value](/docs/rest-catalog/product-modifiers/values), or a combination of both.
-   * * Redirect URLs can only be generated from carts that were created using the **REST Management API**. 
+   * * Redirect URLs can only be generated from carts that were created using the **REST Management API**.
    * * To get cart `redirect_urls` in the response, append the following query parameter to the request URL: `include=redirect_urls`. Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
    * * To restore a cart that was created by a shopper or through a Storefront API, first recreate the cart using the **REST Management API**.
    * * To get cart `promotions` in the response, append the following query parameter to the request URL: `include=promotions.banners`.
@@ -1859,15 +1859,15 @@ export interface operations {
     };
   };
   /**
-   * Add Cart Line Items 
+   * Add Cart Line Items
    * @description Adds line item to the *Cart*.
-   * 
+   *
    * **Usage Notes**
-   * 
-   * To add a custom item use `custom_items`. 
-   * 
+   *
+   * To add a custom item use `custom_items`.
+   *
    * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
-   * 
+   *
    * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
    */
   addCartLineItem: {
@@ -1899,17 +1899,17 @@ export interface operations {
     };
   };
   /**
-   * Create Cart Redirect URL 
+   * Create Cart Redirect URL
    * @description Creates a **Cart** redirect URL for redirecting a shopper to an already created cart using the `cartId`.
-   * 
+   *
    * **Usage Notes**
-   * 
+   *
    * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
    * * A **Carts** redirect URL may only be used once.
    * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
-   * * Once a redirect URL has been visited, it will be invalidated and cannot be used again. 
+   * * Once a redirect URL has been visited, it will be invalidated and cannot be used again.
    * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
-   * * Redirect URLs can be generated only from carts that were created using the **REST Management API**. 
+   * * Redirect URLs can be generated only from carts that were created using the **REST Management API**.
    * * To restore a cart that was created on the storefront, either by a shopper or a Storefront API, first recreate the cart using the **REST Management API**.
    */
   createCartRedirectURL: {
@@ -1927,19 +1927,19 @@ export interface operations {
     };
   };
   /**
-   * Update Cart Line Item 
-   * @description Updates an existing, single line item in the *Cart*. 
-   * 
+   * Update Cart Line Item
+   * @description Updates an existing, single line item in the *Cart*.
+   *
    * **Notes**
-   * 
-   * Currently, only updating `list_price` and `quantity` are supported. Updating a product’s `list_price` will make that item ineligible for V3 product-level promotions. 
-   * 
+   *
+   * Currently, only updating `list_price` and `quantity` are supported. Updating a product’s `list_price` will make that item ineligible for V3 product-level promotions.
+   *
    * If the product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
-   * 
+   *
    * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the **Add Cart Line Items** endpoint.
-   * 
+   *
    * `custom_items` cannot be updated via the API at this time. To update your cart, add a new updated custom item and delete the outdated one. If your cart contains only one line item, perform the add operation before the delete operation.
-   * 
+   *
    * Deleting all line items from the cart will invalidate the cart.
    */
   updateCartLineItem: {
@@ -1972,11 +1972,11 @@ export interface operations {
     };
   };
   /**
-   * Delete Cart Line Item 
-   * @description Deletes a *Cart* line item. 
-   * 
+   * Delete Cart Line Item
+   * @description Deletes a *Cart* line item.
+   *
    * **Notes**
-   * 
+   *
    * Removing the last `line_item` in the *Cart* deletes the *Cart*.
    */
   deleteCartLineItem: {
@@ -2010,7 +2010,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Cart 
+   * Get a Cart
    * @description Returns a storeʼs *Cart*.
    */
   getACart: {
@@ -2038,11 +2038,11 @@ export interface operations {
     };
   };
   /**
-   * Update Customer ID 
+   * Update Customer ID
    * @description Updates a *Cartʼs* `customer_id`.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * Changing the *Cart* `customer_id` will remove any promotions or shipping calculations on the *Cart*. These are tied to the customer depending on cart conditions and any customer groups.
    */
   updateACart: {
@@ -2079,7 +2079,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Cart 
+   * Delete a Cart
    * @description Deletes a *Cart*. Once a *Cart* has been deleted it can’t be recovered.
    */
   deleteACart: {
@@ -2096,7 +2096,7 @@ export interface operations {
     };
   };
   /**
-   * Get Global Cart Settings 
+   * Get Global Cart Settings
    * @description Returns the global cart settings of a store.
    */
   getGlobalCartSettings: {
@@ -2121,7 +2121,7 @@ export interface operations {
     };
   };
   /**
-   * Update Global Cart Settings 
+   * Update Global Cart Settings
    * @description Update the global cart settings of a store.
    */
   updateGlobalCartSettings: {
@@ -2169,7 +2169,7 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Cart Settings 
+   * Get Channel Cart Settings
    * @description Returns the per-channel overrides for the cart settings of a store.
    */
   getChannelCartSettings: {
@@ -2198,7 +2198,7 @@ export interface operations {
     };
   };
   /**
-   * Update Channel Cart Settings 
+   * Update Channel Cart Settings
    * @description Update the per-channel overrides for the cart settings of a store.
    */
   updateChannelCartSettings: {
@@ -2250,7 +2250,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields 
+   * Get All Metafields
    * @description Get all cart metafields.
    */
   getAllCartMetafields: {
@@ -2291,9 +2291,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Cart Metafield 
-   * @description Create a cart `Metafield`. 
-   * 
+   * Create a Cart Metafield
+   * @description Create a cart `Metafield`.
+   *
    * If you create an order from a Cart, you can continue referencing the Cart Metafields even if you delete the original Cart. Use the `cart_id` field on the Order to construct the Cart Metafield endpoint.
    */
   CreateCartMetafieldsByCartId: {
@@ -2327,7 +2327,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Cart Metafield 
+   * Get a Cart Metafield
    * @description Gets a cart metafield.
    */
   getACartMetafield: {
@@ -2372,7 +2372,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Cart Metafield 
+   * Update a Cart Metafield
    * @description Update a `Metafield`, by `cart_id`.
    */
   UpdateCartMetafieldsByCartId: {
@@ -2409,7 +2409,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Metafield 
+   * Delete a Metafield
    * @description Deletes a `Metafield`.
    */
   deleteCartMetafieldById: {

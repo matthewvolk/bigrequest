@@ -8,16 +8,16 @@
 export interface paths {
   "/content/widget-templates": {
     /**
-     * Get All Widget Templates 
+     * Get All Widget Templates
      * @description Returns a list of **Widget Templates**.
      */
     get: operations["getWidgetTemplates"];
     /**
-     * Create a Widget Template 
+     * Create a Widget Template
      * @description Creates a **Widget Template**.
-     * 
+     *
      * ***Note:*** *There is a limit of 1000 custom widget templates per store.*
-     * 
+     *
      * **Required Fields**
      * * name
      * * template
@@ -26,7 +26,7 @@ export interface paths {
   };
   "/content/widget-templates/{uuid}/preview": {
     /**
-     * Render a Widget Template 
+     * Render a Widget Template
      * @description Render a widget template and return the widget html.
      */
     post: operations["previewWidget"];
@@ -39,17 +39,17 @@ export interface paths {
   };
   "/content/widget-templates/{uuid}": {
     /**
-     * Get a Widget Template 
+     * Get a Widget Template
      * @description Returns a single **Widget Template**.
      */
     get: operations["getWidgetTemplate"];
     /**
-     * Update a Widget Template 
+     * Update a Widget Template
      * @description Updates a **Widget Template**.
      */
     put: operations["updateWidgetTemplate"];
     /**
-     * Delete A Widget Template 
+     * Delete A Widget Template
      * @description Deletes a **Widget Template**.
      */
     delete: operations["deleteWidgetTemplate"];
@@ -64,14 +64,14 @@ export interface paths {
   };
   "/content/widgets": {
     /**
-     * Get All Widgets 
+     * Get All Widgets
      * @description Returns a list of **Widgets**. Optional parameters can be passed in.
      */
     get: operations["getWidgets"];
     /**
-     * Create a Widget 
+     * Create a Widget
      * @description Creates a **Widget**.
-     * 
+     *
      * **Note:** There is a limit of 100,000 widgets per store and 150 widgets per page. For more information, see [Store Limits](https://support.bigcommerce.com/s/article/Platform-Limits#storelimits).
      */
     post: operations["createWidget"];
@@ -83,17 +83,17 @@ export interface paths {
   };
   "/content/widgets/{uuid}": {
     /**
-     * Get a Widget 
+     * Get a Widget
      * @description Returns a single **Widget**.
      */
     get: operations["getWidget"];
     /**
-     * Update a Widget 
+     * Update a Widget
      * @description Updates a **Widget**.
      */
     put: operations["updateWidget"];
     /**
-     * Delete a Widget 
+     * Delete a Widget
      * @description Deletes a **Widget**.
      */
     delete: operations["deleteWidget"];
@@ -108,16 +108,16 @@ export interface paths {
   };
   "/content/placements": {
     /**
-     * Get All Placements 
+     * Get All Placements
      * @description Returns a list of **Placements**.
      */
     get: operations["getPlacements"];
     /**
-     * Create a Placement 
+     * Create a Placement
      * @description Creates a **Placement**.
-     * 
+     *
      * **Template Files**
-     * 
+     *
      * To view the list of values accepted by the `template_file` property, including **custom** templates, see [Placements](/api-docs/store-management/widgets/overview#placements).
      */
     post: operations["createPlacement"];
@@ -129,17 +129,17 @@ export interface paths {
   };
   "/content/placements/{uuid}": {
     /**
-     * Get a Placement 
+     * Get a Placement
      * @description Returns a single **Placement**.
      */
     get: operations["getPlacement"];
     /**
-     * Update a Placement 
+     * Update a Placement
      * @description Updates a **Placement**.
      */
     put: operations["updatePlacement"];
     /**
-     * Delete a Placement 
+     * Delete a Placement
      * @description Deletes a **Placement**.
      */
     delete: operations["deletePlacement"];
@@ -154,7 +154,7 @@ export interface paths {
   };
   "/content/regions": {
     /**
-     * Get Theme Regions 
+     * Get Theme Regions
      * @description Returns a list of unique **Theme Regions** in a file.
      */
     get: operations["getContentRegions"];
@@ -167,7 +167,7 @@ export interface components {
   schemas: {
     WidgetTemplatePreview: {
       /**
-       * Format: json 
+       * Format: json
        * @description The JSON data that populates the template.
        */
       widget_configuration?: Record<string, never>;
@@ -175,7 +175,7 @@ export interface components {
     WidgetTemplatePreviewResponse: {
       data?: {
         /**
-         * Format: html 
+         * Format: html
          * @description The HTML render of the widget template.
          */
         html?: string;
@@ -194,7 +194,7 @@ export interface components {
       name: string;
       schema?: components["schemas"]["widgetSchema"];
       /**
-       * Format: html 
+       * Format: html
        * @description Handlebars HTML content. Also has access to Stencil Paper helpers.
        */
       template: string;
@@ -206,26 +206,26 @@ export interface components {
     /** widgetTemplate_Full */
     widgetTemplate_Full: components["schemas"]["widgetTemplate_Base"] & {
       /**
-       * Format: uuid 
+       * Format: uuid
        * @description The primary identifier.
        */
       uuid?: string;
       /** @description The kind of widget template. */
       kind?: string;
       /**
-       * Format: datetime 
+       * Format: datetime
        * @description The date on which this object was initially created.
        */
       date_created?: string;
       /**
-       * Format: datetime 
+       * Format: datetime
        * @description The date on which this object was last updated.
        */
       date_modified?: string;
       /** @description The identifier to the current version of this widget template. */
       current_version_uuid?: string;
       /**
-       * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT operation. 
+       * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT operation.
        * @default default
        */
       icon_name?: string;
@@ -233,18 +233,18 @@ export interface components {
     /** widget_Full */
     widget_Full: components["schemas"]["widget_Base"] & {
       /**
-       * Format: uuid 
+       * Format: uuid
        * @description The primary identifier.
        */
       uuid?: string;
       widget_template?: components["schemas"]["widgetTemplate_Full"];
       /**
-       * Format: datetime 
+       * Format: datetime
        * @description The date on which this object was initially created.
        */
       date_created?: string;
       /**
-       * Format: datetime 
+       * Format: datetime
        * @description The date on which this object was last updated.
        */
       date_modified?: string;
@@ -260,7 +260,7 @@ export interface components {
       /** @description The user-friendly description. */
       description?: string;
       /**
-       * Format: json 
+       * Format: json
        * @description The JSON data that populates the template.
        */
       widget_configuration?: Record<string, never>;
@@ -284,7 +284,7 @@ export interface components {
       /** @description The template file that you would like to target. */
       template_file: string;
       /**
-       * @description The id of the channel on which to create this placement. Defaults to the first channel created on the store. 
+       * @description The id of the channel on which to create this placement. Defaults to the first channel created on the store.
        * @example 1
        */
       channel_id?: number;
@@ -301,19 +301,19 @@ export interface components {
     /** placement_Full */
     placement_Full: {
       /**
-       * Format: uuid 
+       * Format: uuid
        * @description The primary identifier.
        */
       uuid?: string;
       /** @description The template file that you would like to target. */
       template_file?: string;
       /**
-       * Format: datetime 
+       * Format: datetime
        * @description The date on which this object was initially created.
        */
       date_created?: string;
       /**
-       * Format: datetime 
+       * Format: datetime
        * @description The date on which this object was last updated.
        */
       date_modified?: string;
@@ -323,14 +323,14 @@ export interface components {
       widget?: components["schemas"]["widget_Full"];
     };
     /**
-     * metaCollection 
+     * metaCollection
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection: {
       pagination?: components["schemas"]["pagination"];
     };
     /**
-     * pagination 
+     * pagination
      * @description Data about the response, including pagination and collection totals.
      */
     pagination: {
@@ -358,7 +358,7 @@ export interface components {
       errors?: components["schemas"]["DetailedErrors"];
     };
     /**
-     * error_Base 
+     * error_Base
      * @description Error payload for the BigCommerce API.
      */
     error_Base: {
@@ -389,7 +389,7 @@ export interface components {
       name?: string;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     Meta: {
@@ -404,8 +404,8 @@ export interface components {
       /** @description The name of the region in which to insert content widgets. */
       region?: string;
       /**
-       * @description Sets the placement as either inactive or active. 
-       * @default inactive 
+       * @description Sets the placement as either inactive or active.
+       * @default inactive
        * @enum {string}
        */
       status?: "inactive" | "active";
@@ -416,7 +416,7 @@ export interface components {
       name?: string;
       schema?: components["schemas"]["widgetSchema"];
       /**
-       * Format: html 
+       * Format: html
        * @description The widget template HTML. Supports Handlebars and Paper helpers.
        */
       template?: string;
@@ -430,38 +430,38 @@ export interface components {
       /** @description The user-friendly description. */
       description?: string;
       /**
-       * Format: json 
+       * Format: json
        * @description The JSON data that populates the template.
        */
       widget_configuration?: Record<string, never>;
     };
-    "new-model": ({
+    "new-model": {
         type?: string;
         label?: string;
         id?: string;
         default?: number;
         typeMeta?: string;
         conditional?: components["schemas"]["widgetSchemaConditional"];
-      })[];
+      }[];
     /**
-     * widgetSchemaTab 
+     * widgetSchemaTab
      * @description **Tab.** Use the **tab** settings type to create settings visible in Page Builder.
      */
     widgetSchemaTab: {
       /**
-       * @description The type of setting component to display. 
+       * @description The type of setting component to display.
        * @enum {string}
        */
       type?: "tab";
       /**
-       * @description The user-friendly message to inform the user how this setting will be used. 
+       * @description The user-friendly message to inform the user how this setting will be used.
        * @example Content
        */
       label?: string;
       /** @description Groups of related settings. */
       sections?: ({
           /**
-           * @description The user-friendly message to inform the user how this setting will be used. 
+           * @description The user-friendly message to inform the user how this setting will be used.
            * @example Product
            */
           label?: string;
@@ -469,8 +469,8 @@ export interface components {
           settings?: ({
               /**
                * @description The type of setting component to display. You can view the list of elements below to discover which are available to use.
-               * 
-               * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs. 
+               *
+               * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
                * @enum {string}
                */
               type?: "alignment" | "boolean" | "boxModel" | "code" | "color" | "imageManager" | "input" | "number" | "productId" | "productImage" | "range" | "regexInput" | "select" | "text" | "toggle";
@@ -482,30 +482,30 @@ export interface components {
               default?: string;
               /** @description Additional information needed based on the selected setting type. */
               typeMeta?: {
-                selectOptions?: ({
+                selectOptions?: {
                     /** @example Image */
                     label?: string;
                     /** @example image */
                     value?: string;
-                  })[];
+                  }[];
               };
               /**
-               * widgetSchemaConditional 
+               * widgetSchemaConditional
                * @description An optional property that can be added to each setting to control whether it should be displayed to the user while editing in Page Builder. This does not clear the value in the setting, just controls the display of the setting.
                */
               conditional?: {
                 /**
-                 * @description The ID of the `setting` object the conditional attribute is related to. 
+                 * @description The ID of the `setting` object the conditional attribute is related to.
                  * @example backgroundType
                  */
                 key?: string;
                 /**
-                 * @description Specifies the operation used to determine whether to display the setting. The `IN` operator is currently the only supported operator. The setting will be displayed if the conditional’s `value` property is equal to the selected value of the `selectOptions`.  
+                 * @description Specifies the operation used to determine whether to display the setting. The `IN` operator is currently the only supported operator. The setting will be displayed if the conditional’s `value` property is equal to the selected value of the `selectOptions`.
                  * @example IN
                  */
                 operator?: string;
                 /** @description A single-object array containing a value from the `typeMeta`'s `selectOptions`. */
-                value?: (unknown)[];
+                value?: unknown[];
               };
             })[];
         })[];
@@ -514,10 +514,10 @@ export interface components {
     widgetSchemaTabSections: {
       label?: string;
       /** @description For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs. */
-      settings?: (components["schemas"]["widgetSchemaSetting_Base"])[];
+      settings?: components["schemas"]["widgetSchemaSetting_Base"][];
     };
     /**
-     * widgetSchemaArray 
+     * widgetSchemaArray
      * @description **Array.** Use the **array** settings type to build collections of elements within the widget. Each element in the array can contain tabs, sections, and an entire schema.
      */
     widgetSchemaArray: {
@@ -540,14 +540,14 @@ export interface components {
       schema?: (components["schemas"]["widgetSchemaHidden"] | components["schemas"]["widgetSchemaTab"])[];
     };
     /**
-     * widgetSchemaSetting_Base 
+     * widgetSchemaSetting_Base
      * @description For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
      */
     widgetSchemaSetting_Base: {
       /**
        * @description The type of setting component to display. You can view the list of elements below to discover which are available to use.
-       * 
-       * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs. 
+       *
+       * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
        * @enum {string}
        */
       type?: "alignment" | "boolean" | "boxModel" | "code" | "color" | "imageManager" | "input" | "number" | "productId" | "productImage" | "range" | "regexInput" | "select" | "text" | "toggle";
@@ -559,32 +559,32 @@ export interface components {
       default?: string;
       /** @description Additional information needed based on the selected setting type. */
       typeMeta?: {
-        selectOptions?: ({
+        selectOptions?: {
             /** @example Image */
             label?: string;
             /** @example image */
             value?: string;
-          })[];
+          }[];
       };
       conditional?: components["schemas"]["widgetSchemaConditional"];
     };
     /** @description The schema for the widget’s merchant-facing UI. For more information on the available schema settings, see [Widget UI Schema](/stencil-docs/page-builder/widget-ui-schema). */
     widgetSchema: (components["schemas"]["widgetSchemaTab"] | components["schemas"]["widgetSchemaArray"] | components["schemas"]["widgetSchemaHidden"])[];
     /**
-     * widgetSchemaHidden 
+     * widgetSchemaHidden
      * @description **Hidden.** Use the **hidden** settings type to create controls that have no user interface drawn in Page Builder. Hidden settings are not grouped into any other tabs or arrays.
      */
     widgetSchemaHidden: {
       /**
-       * @example hidden 
+       * @example hidden
        * @enum {string}
        */
       type?: "hidden";
       settings?: ({
           /**
            * @description The type of setting component to display. You can view the list of elements below to discover which are available to use.
-           * 
-           * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs. 
+           *
+           * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
            * @enum {string}
            */
           type?: "alignment" | "boolean" | "boxModel" | "code" | "color" | "imageManager" | "input" | "number" | "productId" | "productImage" | "range" | "regexInput" | "select" | "text" | "toggle";
@@ -596,59 +596,59 @@ export interface components {
           default?: string;
           /** @description Additional information needed based on the selected setting type. */
           typeMeta?: {
-            selectOptions?: ({
+            selectOptions?: {
                 /** @example Image */
                 label?: string;
                 /** @example image */
                 value?: string;
-              })[];
+              }[];
           };
           /**
-           * widgetSchemaConditional 
+           * widgetSchemaConditional
            * @description An optional property that can be added to each setting to control whether it should be displayed to the user while editing in Page Builder. This does not clear the value in the setting, just controls the display of the setting.
            */
           conditional?: {
             /**
-             * @description The ID of the `setting` object the conditional attribute is related to. 
+             * @description The ID of the `setting` object the conditional attribute is related to.
              * @example backgroundType
              */
             key?: string;
             /**
-             * @description Specifies the operation used to determine whether to display the setting. The `IN` operator is currently the only supported operator. The setting will be displayed if the conditional’s `value` property is equal to the selected value of the `selectOptions`.  
+             * @description Specifies the operation used to determine whether to display the setting. The `IN` operator is currently the only supported operator. The setting will be displayed if the conditional’s `value` property is equal to the selected value of the `selectOptions`.
              * @example IN
              */
             operator?: string;
             /** @description A single-object array containing a value from the `typeMeta`'s `selectOptions`. */
-            value?: (unknown)[];
+            value?: unknown[];
           };
         })[];
     };
     /** widgetSchemaTabSectionsSettings */
     widgetSchemaTabSectionsSettings: Record<string, never>;
     /**
-     * widgetSchemaConditional 
+     * widgetSchemaConditional
      * @description An optional property that can be added to each setting to control whether it should be displayed to the user while editing in Page Builder. This does not clear the value in the setting, just controls the display of the setting.
      */
     widgetSchemaConditional: {
       /**
-       * @description The ID of the `setting` object the conditional attribute is related to. 
+       * @description The ID of the `setting` object the conditional attribute is related to.
        * @example backgroundType
        */
       key?: string;
       /**
-       * @description Specifies the operation used to determine whether to display the setting. The `IN` operator is currently the only supported operator. The setting will be displayed if the conditional’s `value` property is equal to the selected value of the `selectOptions`.  
+       * @description Specifies the operation used to determine whether to display the setting. The `IN` operator is currently the only supported operator. The setting will be displayed if the conditional’s `value` property is equal to the selected value of the `selectOptions`.
        * @example IN
        */
       operator?: string;
       /** @description A single-object array containing a value from the `typeMeta`'s `selectOptions`. */
-      value?: (unknown)[];
+      value?: unknown[];
     };
   };
   responses: {
     ThemeRegions_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["themeRegion"])[];
+          data?: components["schemas"]["themeRegion"][];
           meta?: components["schemas"]["Meta"];
         };
       };
@@ -656,9 +656,9 @@ export interface components {
     LayoutCollectionResponse: {
       content: {
         "application/json": {
-          data?: ({
+          data?: {
               /**
-               * Format: uuid 
+               * Format: uuid
                * @description The primary identifier.
                */
               uuid?: string;
@@ -671,18 +671,18 @@ export interface components {
               /** @description The HTML layout which defines complex positioning for placements. */
               markup?: string;
               /**
-               * Format: datetime 
+               * Format: datetime
                * @description The date on which this object was initially created.
                */
               date_created?: string;
               /**
-               * Format: datetime 
+               * Format: datetime
                * @description The date on which this object was last updated.
                */
               date_modified?: string;
-            })[];
+            }[];
           /**
-           * Collection Meta 
+           * Collection Meta
            * @description Data about the response, including pagination and collection totals.
            */
           meta?: {
@@ -715,9 +715,9 @@ export interface components {
     LayoutResponse: {
       content: {
         "application/json": {
-          data?: ({
+          data?: {
               /**
-               * Format: uuid 
+               * Format: uuid
                * @description The primary identifier.
                */
               uuid?: string;
@@ -730,23 +730,23 @@ export interface components {
               /** @description The HTML layout which defines complex positioning for placements. */
               markup?: string;
               /**
-               * Format: datetime 
+               * Format: datetime
                * @description The date on which this object was initially created.
                */
               date_created?: string;
               /**
-               * Format: datetime 
+               * Format: datetime
                * @description The date on which this object was last updated.
                */
               date_modified?: string;
-            })[];
+            }[];
         };
       };
     };
     PlacementsCollection_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["placement_Full"])[];
+          data?: components["schemas"]["placement_Full"][];
           meta?: components["schemas"]["metaCollection"];
         };
       };
@@ -762,7 +762,7 @@ export interface components {
     WidgetTemplateCollection_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["widgetTemplate_Full"])[];
+          data?: components["schemas"]["widgetTemplate_Full"][];
           meta?: components["schemas"]["metaCollection"];
         };
       };
@@ -779,7 +779,7 @@ export interface components {
     WidgetCollection_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["widget_Full"])[];
+          data?: components["schemas"]["widget_Full"][];
           meta?: components["schemas"]["metaCollection"];
         };
       };
@@ -849,7 +849,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Widget Templates 
+   * Get All Widget Templates
    * @description Returns a list of **Widget Templates**.
    */
   getWidgetTemplates: {
@@ -875,11 +875,11 @@ export interface operations {
     };
   };
   /**
-   * Create a Widget Template 
+   * Create a Widget Template
    * @description Creates a **Widget Template**.
-   * 
+   *
    * ***Note:*** *There is a limit of 1000 custom widget templates per store.*
-   * 
+   *
    * **Required Fields**
    * * name
    * * template
@@ -902,7 +902,7 @@ export interface operations {
     };
   };
   /**
-   * Render a Widget Template 
+   * Render a Widget Template
    * @description Render a widget template and return the widget html.
    */
   previewWidget: {
@@ -932,7 +932,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Widget Template 
+   * Get a Widget Template
    * @description Returns a single **Widget Template**.
    */
   getWidgetTemplate: {
@@ -955,7 +955,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Widget Template 
+   * Update a Widget Template
    * @description Updates a **Widget Template**.
    */
   updateWidgetTemplate: {
@@ -980,7 +980,7 @@ export interface operations {
     };
   };
   /**
-   * Delete A Widget Template 
+   * Delete A Widget Template
    * @description Deletes a **Widget Template**.
    */
   deleteWidgetTemplate: {
@@ -1000,7 +1000,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Widgets 
+   * Get All Widgets
    * @description Returns a list of **Widgets**. Optional parameters can be passed in.
    */
   getWidgets: {
@@ -1017,7 +1017,7 @@ export interface operations {
         /** @description The URL encoded name of the widget. */
         name?: string;
         /** @description Use to pass in comma-separated list of widget names. Example: `/widgets?name:in=test-widget-name,header%20images` */
-        "name:in"?: (unknown)[];
+        "name:in"?: unknown[];
         /** @description Filter items by channel_id. */
         "channel_id:in"?: number;
         /** @description A comma-separated list of site ids to filter the results by. */
@@ -1033,9 +1033,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Widget 
+   * Create a Widget
    * @description Creates a **Widget**.
-   * 
+   *
    * **Note:** There is a limit of 100,000 widgets per store and 150 widgets per page. For more information, see [Store Limits](https://support.bigcommerce.com/s/article/Platform-Limits#storelimits).
    */
   createWidget: {
@@ -1056,7 +1056,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Widget 
+   * Get a Widget
    * @description Returns a single **Widget**.
    */
   getWidget: {
@@ -1075,7 +1075,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Widget 
+   * Update a Widget
    * @description Updates a **Widget**.
    */
   updateWidget: {
@@ -1100,7 +1100,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Widget 
+   * Delete a Widget
    * @description Deletes a **Widget**.
    */
   deleteWidget: {
@@ -1120,7 +1120,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Placements 
+   * Get All Placements
    * @description Returns a list of **Placements**.
    */
   getPlacements: {
@@ -1151,11 +1151,11 @@ export interface operations {
     };
   };
   /**
-   * Create a Placement 
+   * Create a Placement
    * @description Creates a **Placement**.
-   * 
+   *
    * **Template Files**
-   * 
+   *
    * To view the list of values accepted by the `template_file` property, including **custom** templates, see [Placements](/api-docs/store-management/widgets/overview#placements).
    */
   createPlacement: {
@@ -1176,7 +1176,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Placement 
+   * Get a Placement
    * @description Returns a single **Placement**.
    */
   getPlacement: {
@@ -1195,7 +1195,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Placement 
+   * Update a Placement
    * @description Updates a **Placement**.
    */
   updatePlacement: {
@@ -1220,7 +1220,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Placement 
+   * Delete a Placement
    * @description Deletes a **Placement**.
    */
   deletePlacement: {
@@ -1240,7 +1240,7 @@ export interface operations {
     };
   };
   /**
-   * Get Theme Regions 
+   * Get Theme Regions
    * @description Returns a list of unique **Theme Regions** in a file.
    */
   getContentRegions: {

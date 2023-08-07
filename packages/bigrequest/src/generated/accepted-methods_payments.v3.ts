@@ -8,14 +8,14 @@
 export interface paths {
   "/payments/methods": {
     /**
-     * Get Accepted Payment Methods 
+     * Get Accepted Payment Methods
      * @description Returns a list of accepted payment methods based on the `order_id` or `checkout_id`.
-     * 
+     *
      * **Notes**
      * * Use the [Create an Order](/docs/rest-management/orders#create-an-order) endpoint to generate the `order_id`.
      * * Orders created will be set to incomplete order status.
      * * The cart ID and checkout ID are the same.
-     * 
+     *
      * **Required Fields**
      * * `order_id` or `checkout_id`
      */
@@ -37,12 +37,12 @@ export interface components {
       /** @description Brand of this card such as VISA or Mastercard */
       brand: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Expiry month of this card
        */
       expiry_month: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Expiry year of this card
        */
       expiry_year: number;
@@ -53,14 +53,14 @@ export interface components {
       /** @description A BigCommerce-generated identifier that represents the stored card. */
       token: string;
       /**
-       * @description Whether this instrument is a default instrument 
-       * @default false 
+       * @description Whether this instrument is a default instrument
+       * @default false
        * @example false
        */
       is_default: boolean;
       /**
-       * @description Type to classify this stored card 
-       * @default stored_card 
+       * @description Type to classify this stored card
+       * @default stored_card
        * @example stored_card
        */
       type: string;
@@ -71,12 +71,12 @@ export interface components {
       id: string;
       /** @description Name of this payment method */
       name: string;
-      stored_instruments?: (components["schemas"]["paymentMethodStoredInstrument"])[];
+      stored_instruments?: components["schemas"]["paymentMethodStoredInstrument"][];
       supported_instruments: ({
           /**
-           * InstrumentType 
-           * @description Type of this instrument 
-           * @example VISA 
+           * InstrumentType
+           * @description Type of this instrument
+           * @example VISA
            * @enum {string}
            */
           instrument_type: "VISA" | "MASTERCARD" | "DISCOVER" | "AMEX" | "DINERS_CLUB" | "JCB" | "DANKORT" | "MAESTRO" | "STORED_CARD";
@@ -84,14 +84,14 @@ export interface components {
           verification_value_required?: boolean;
         })[];
       /**
-       * @description Whether this payment method is on test mode 
-       * @default false 
+       * @description Whether this payment method is on test mode
+       * @default false
        * @example false
        */
       test_mode: boolean;
       /**
-       * @description Type to classify this payment method 
-       * @default card 
+       * @description Type to classify this payment method
+       * @default card
        * @example card
        */
       type: string;
@@ -101,7 +101,7 @@ export interface components {
     paymentsMethods_Resp: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["paymentMethod_Full"])[];
+          data?: components["schemas"]["paymentMethod_Full"][];
           /** @description Response metadata. */
           meta?: {
             [key: string]: unknown;
@@ -124,14 +124,14 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Accepted Payment Methods 
+   * Get Accepted Payment Methods
    * @description Returns a list of accepted payment methods based on the `order_id` or `checkout_id`.
-   * 
+   *
    * **Notes**
    * * Use the [Create an Order](/docs/rest-management/orders#create-an-order) endpoint to generate the `order_id`.
    * * Orders created will be set to incomplete order status.
    * * The cart ID and checkout ID are the same.
-   * 
+   *
    * **Required Fields**
    * * `order_id` or `checkout_id`
    */
@@ -154,7 +154,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -165,7 +165,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -180,7 +180,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -191,7 +191,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -206,7 +206,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -217,7 +217,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -232,7 +232,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -243,7 +243,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -258,7 +258,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -269,7 +269,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;

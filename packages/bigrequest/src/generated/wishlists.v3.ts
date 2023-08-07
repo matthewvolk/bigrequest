@@ -8,14 +8,14 @@
 export interface paths {
   "/wishlists": {
     /**
-     * Get All Wishlists 
+     * Get All Wishlists
      * @description Returns a list of wishlists. Optional filter parameters can be passed in.
      */
     get: operations["WishlistsGet"];
     /**
-     * Create a Wishlist 
+     * Create a Wishlist
      * @description Creates a wishlist and wishlist item. More than one item can be added in the POST.
-     * 
+     *
      * **Required Fields**
      * * name
      * * customer_id
@@ -24,33 +24,33 @@ export interface paths {
   };
   "/wishlists/{wishlist_id}/items/{item_id}": {
     /**
-     * Delete Wishlist Item 
+     * Delete Wishlist Item
      * @description Deletes a wishlist item.
      */
     delete: operations["WishlistsItemsByIdDelete"];
   };
   "/wishlists/{wishlist_id}": {
     /**
-     * Get a Wishlist 
+     * Get a Wishlist
      * @description Returns a single wishlist.
      */
     get: operations["WishlistsByIdGet"];
     /**
-     * Update a Wishlist 
+     * Update a Wishlist
      * @description Updates a wishlist.
-     * 
+     *
      * Use this endpoint to update existing wishlist items, change the wishlist's name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
      */
     put: operations["WishlistsByIdPut"];
     /**
-     * Delete a Wishlist 
+     * Delete a Wishlist
      * @description Deletes a wishlist.
      */
     delete: operations["WishlistsByIdDelete"];
   };
   "/wishlists/{wishlist_id}/items": {
     /**
-     * Add Wishlist Item 
+     * Add Wishlist Item
      * @description Adds a wishlist item. More than one item can be added at a time.
      */
     post: operations["WishlistsItemsByIdPost"];
@@ -64,41 +64,41 @@ export interface components {
     /** wishlist_Post */
     wishlist_Post: {
       /**
-       * Format: int32 
-       * @description The customer id. 
+       * Format: int32
+       * @description The customer id.
        * @example 12
        */
       customer_id: number;
       /**
-       * @description Whether the wishlist is available to the public. 
+       * @description Whether the wishlist is available to the public.
        * @example false
        */
       is_public?: boolean;
       /**
-       * @description The title of the wishlist. 
+       * @description The title of the wishlist.
        * @example School Shopping
        */
       name?: string;
       /** @description Array of wishlist items. */
-      items?: ({
+      items?: {
           /**
-           * Format: int32 
-           * @description The ID of the product. 
+           * Format: int32
+           * @description The ID of the product.
            * @example 12
            */
           product_id?: number;
           /**
-           * Format: int32 
-           * @description The variant ID of the product. 
+           * Format: int32
+           * @description The variant ID of the product.
            * @example 152
            */
           variant_id?: number;
-        })[];
+        }[];
     };
     /** wishlist_Put */
     wishlist_Put: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description The customer ID. A read-only value.
        */
       customer_id: number;
@@ -107,117 +107,117 @@ export interface components {
       /** @description The title of the wishlist. */
       name?: string;
       /** @description Array of wishlist items. */
-      items: ({
+      items: {
           /**
-           * Format: int32 
-           * @description The ID of the item. 
+           * Format: int32
+           * @description The ID of the item.
            * @example 12
            */
           id?: number;
           /**
-           * Format: int32 
-           * @description The ID of the product. 
+           * Format: int32
+           * @description The ID of the product.
            * @example 55
            */
           product_id?: number;
           /**
-           * Format: int32 
-           * @description The variant ID of the product. 
+           * Format: int32
+           * @description The variant ID of the product.
            * @example 22
            */
           variant_id?: number;
-        })[];
+        }[];
     };
     /** wishlist_Full */
     wishlist_Full: {
       /**
-       * Format: int32 
-       * @description Wishlist ID, provided after creating a wishlist with a POST. 
+       * Format: int32
+       * @description Wishlist ID, provided after creating a wishlist with a POST.
        * @example 30
        */
       id?: number;
       /**
-       * Format: int32 
-       * @description The ID the customer to which the wishlist belongs. 
+       * Format: int32
+       * @description The ID the customer to which the wishlist belongs.
        * @example 12
        */
       customer_id?: number;
       /**
-       * @description The name of the wishlist. 
+       * @description The name of the wishlist.
        * @example Christmas List
        */
       name?: string;
       /**
-       * @description Whether the wishlist is available to the public. 
+       * @description Whether the wishlist is available to the public.
        * @example true
        */
       is_public?: boolean;
       /**
-       * Format: uuid 
-       * @description The token of the wishlist. This is created internally within BigCommerce. The wishlist ID is to be used for external apps. Read-Only. 
+       * Format: uuid
+       * @description The token of the wishlist. This is created internally within BigCommerce. The wishlist ID is to be used for external apps. Read-Only.
        * @example 02d55481-13eb-4d1e-9d79-9062b518570d
        */
       token?: string;
       /** @description Array of wishlist items. */
-      items?: (components["schemas"]["wishlistItem_Full"])[];
+      items?: components["schemas"]["wishlistItem_Full"][];
     };
     /** wishlistItem_Full */
     wishlistItem_Full: {
       /**
-       * Format: int32 
-       * @description The ID of the item. 
+       * Format: int32
+       * @description The ID of the item.
        * @example 12
        */
       id?: number;
       /**
-       * Format: int32 
-       * @description The ID of the product. 
+       * Format: int32
+       * @description The ID of the product.
        * @example 55
        */
       product_id?: number;
       /**
-       * Format: int32 
-       * @description The variant ID of the product. 
+       * Format: int32
+       * @description The variant ID of the product.
        * @example 22
        */
       variant_id?: number;
     };
     /** wishlistItem_Post */
     wishlistItem_Post: {
-      items?: ({
+      items?: {
           /** @example 12 */
           product_id?: number;
           /** @example 152 */
           variant_id?: number;
-        })[];
+        }[];
     };
     /**
-     * pagination 
+     * pagination
      * @description Data about the response, including pagination and collection totals.
      */
     pagination: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of items in the result set.
        */
       total?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of items in the collection response.
        */
       count?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
        */
       per_page?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The page you are currently on within the collection.
        */
       current_page?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The total number of pages in the collection.
        */
       total_pages?: number;
@@ -260,7 +260,7 @@ export interface components {
     wishlist_Resp_Collection: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["wishlist_Full"])[];
+          data?: components["schemas"]["wishlist_Full"][];
           meta?: components["schemas"]["metaCollection"];
         };
       };
@@ -290,7 +290,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Wishlists 
+   * Get All Wishlists
    * @description Returns a list of wishlists. Optional filter parameters can be passed in.
    */
   WishlistsGet: {
@@ -311,7 +311,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["wishlist_Full"])[];
+            data?: components["schemas"]["wishlist_Full"][];
             meta?: components["schemas"]["metaCollection"];
           };
         };
@@ -341,9 +341,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Wishlist 
+   * Create a Wishlist
    * @description Creates a wishlist and wishlist item. More than one item can be added in the POST.
-   * 
+   *
    * **Required Fields**
    * * name
    * * customer_id
@@ -397,7 +397,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Wishlist Item 
+   * Delete Wishlist Item
    * @description Deletes a wishlist item.
    */
   WishlistsItemsByIdDelete: {
@@ -453,7 +453,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Wishlist 
+   * Get a Wishlist
    * @description Returns a single wishlist.
    */
   WishlistsByIdGet: {
@@ -508,9 +508,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Wishlist 
+   * Update a Wishlist
    * @description Updates a wishlist.
-   * 
+   *
    * Use this endpoint to update existing wishlist items, change the wishlist's name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
    */
   WishlistsByIdPut: {
@@ -565,7 +565,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Wishlist 
+   * Delete a Wishlist
    * @description Deletes a wishlist.
    */
   WishlistsByIdDelete: {
@@ -607,7 +607,7 @@ export interface operations {
     };
   };
   /**
-   * Add Wishlist Item 
+   * Add Wishlist Item
    * @description Adds a wishlist item. More than one item can be added at a time.
    */
   WishlistsItemsByIdPost: {

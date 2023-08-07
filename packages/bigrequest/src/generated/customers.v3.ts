@@ -13,60 +13,60 @@ type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A
 export interface paths {
   "/customers": {
     /**
-     * Get All Customers 
+     * Get All Customers
      * @description Returns a list of Customers. Optional filter parameters can be passed in.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * Attribute names are not available on the customer object.
      */
     get: operations["CustomersGet"];
     /**
-     * Update Customers 
+     * Update Customers
      * @description Updates Customers. Subresource updates are not supported. Up to 10 customers can be updated in one call.
-     * 
+     *
      * **Required Fields**
      * * id -- ID of the *Customer* This must be included in the request body
-     * 
+     *
      * **Read Only Fields**
      * * id
      * * registration_ip_address
      * * date_created
      * * date_modified
-     * 
-     * 
+     *
+     *
      * **Notes**
-     * 
+     *
      * * Attributes Values can not be updated using Update a Customer. Use the [Update customer attribute values](/docs/rest-management/customers/customer-attribute-values#upsert-customer-attribute-values) endpoint.
      * * channel_ids -- Updating the list of channels a customer can access may create some side effects in a multi-storefront situation. This list determines which customer account we will use to authenticate a shopper given a channel.
      */
     put: operations["CustomersPut"];
     /**
-     * Create Customers 
+     * Create Customers
      * @description Creates Customers. Create up to 10 customers in one call.
-     * 
+     *
      * **Required Fields**
      * * last_name
      * * first_name
      * * email
-     * 
+     *
      * **Required Fields Customer Address**
      * * first_name
      * * city
      * * country_code
      * * last_name
      * * address1
-     * 
+     *
      * **Required Fields Attributes**
      * * Attributes must be [created](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute) **BEFORE** creating a customer.
      * * attribute_id
      * * attribute_value -- This is input as a string, regardless of the [Type](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute).
-     * 
+     *
      * **Limits**
-     * * Limit of 10 concurrent requests 
-     * 
+     * * Limit of 10 concurrent requests
+     *
      * **Notes**
-     * 
+     *
      * A customer can be created with global access or channel-specific access.
      * * **Global access:**
      *   * Make sure the channel has `allow_global_logins` enabled. This is on by default only for the default storefront. Find more info at [Customer Settings > Channel](/docs/rest-management/customers/customer-settings-channel).
@@ -76,34 +76,34 @@ export interface paths {
      */
     post: operations["CustomersPost"];
     /**
-     * Delete Customers 
+     * Delete Customers
      * @description Deletes Customers.
-     * 
+     *
      * **Required Query**
      * * id:in -- ID of the customer
-     * 
+     *
      * **Notes**
-     * 
+     *
      * A query is required to delete customers. If not provided, a 204 is returned, with no changes to the data.
      */
     delete: operations["CustomersDelete"];
   };
   "/customers/addresses": {
     /**
-     * Get All Customer Addresses 
+     * Get All Customer Addresses
      * @description Returns a list of Customer Addresses. Optional filter parameters can be passed in.
      */
     get: operations["CustomersAddressesGet"];
     /**
-     * Update a Customer Address 
+     * Update a Customer Address
      * @description Updates a Customer Address. Multiple customer addresses can be updated in one call.
-     * 
+     *
      * **Required Fields**
      * * **id** -- ID of the *Customer Address*
-     * 
+     *
      * **Limits**
      * * Limit of **3** concurrent requests.
-     * 
+     *
      * **Notes**
      * * A unique customer address is a combination of the following core address fields:
      *   * **first_name**
@@ -121,9 +121,9 @@ export interface paths {
      */
     put: operations["CustomersAddressesPut"];
     /**
-     * Create a Customer Address 
+     * Create a Customer Address
      * @description Creates a Customer Address. Multiple customer addresses can be created in one call.
-     * 
+     *
      * **Required Fields**
      * * **customer_id**
      * * **first_name**
@@ -131,7 +131,7 @@ export interface paths {
      * * **city**
      * * **country_code**
      * * **address1**
-     * 
+     *
      * **Notes**
      * * A unique customer address is a combination of the following core address fields:
      *   * **customer_id**
@@ -150,9 +150,9 @@ export interface paths {
      */
     post: operations["CustomersAddressesPost"];
     /**
-     * Delete a Customer Address 
+     * Delete a Customer Address
      * @description Deletes a Customer Address.
-     * 
+     *
      * **Required Query**
      * * id:in -- ID of the *Customer Address*
      */
@@ -160,43 +160,43 @@ export interface paths {
   };
   "/customers/validate-credentials": {
     /**
-     * Validate a customer credentials 
+     * Validate a customer credentials
      * @description Validate a customer credentials - This endpoint has special rate limiting protections to protect against abuse.
      */
     post: operations["CustomerValidateCredentials"];
   };
   "/customers/settings": {
     /**
-     * Get Customer Settings 
+     * Get Customer Settings
      * @description Returns the global-level customer settings.
      */
     get: operations["CustomerSettingsGet"];
     /**
-     * Update Customer Settings 
+     * Update Customer Settings
      * @description Updates the customer settings on the global level.
      */
     put: operations["CustomerSettingsPut"];
   };
   "/customers/settings/channels/{channel_id}": {
     /**
-     * Get Customer Settings per Channel 
+     * Get Customer Settings per Channel
      * @description Returns the customer settings per channel.
-     * 
+     *
      * **Notes**
-     * 
+     *
      *  * `null` indicates that there is no override per given channel and values are inherited from the global level.
      */
     get: operations["CustomerSettingsChannelGet"];
     /**
-     * Update Customer Settings per Channel 
+     * Update Customer Settings per Channel
      * @description Update the customer settings per channel
-     * 
+     *
      * **Required Fields**
-     * 
+     *
      * * `channel_id`: Provide a `channel_id` array containing one or more channel IDs. Customers will have access to these channels and no others. This array cannot be empty.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * * Setting `null` will delete override per given channel, and values will be inherited from the global level. Make sure the channel has `allow_global_logins` enabled.
      */
     put: operations["CustomerSettingsChannelPut"];
@@ -208,47 +208,47 @@ export interface paths {
   };
   "/customers/attributes": {
     /**
-     * Get All Customer Attributes 
+     * Get All Customer Attributes
      * @description Returns a list of Customer Attributes. You can pass in optional filter parameters.
      */
     get: operations["CustomersAttributesGet"];
     /**
-     * Update a Customer Attribute 
+     * Update a Customer Attribute
      * @description Updates a Customer Attribute. Multiple customer attributes can be updated in one call.
-     * 
+     *
      * **Required Fields**
      * * id -- ID of the *Customer Attribute*
-     * 
+     *
      * Once the data type is set, it can not be changed. The attribute will need to be deleted then created again with the new data type. This will also delete it from the customer.
-     * 
+     *
      * **Limits**
      * * Limit of 3 concurrent requests.
      */
     put: operations["CustomersAttributesPut"];
     /**
-     * Create a Customer Attribute 
+     * Create a Customer Attribute
      * @description Creates a Customer Attribute. Multiple customer attributes can be created in one call.
-     * 
+     *
      * **Required Fields**
      * * name
      * * type
-     * 
+     *
      * **Limits**
      * * Limit of 3 concurrent requests.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * Once the data type is set, it cannot be changed. The attribute will need to be deleted then created again with the new data type. This will also delete it from the customer.
-     * 
+     *
      * Customer attributes are created separately from the customer. After the name and type are created, then the attributes can be added to the customer.
-     * 
+     *
      * A store cannot have more than 50 customer attributes.
      */
     post: operations["CustomersAttributesPost"];
     /**
-     * Delete Customer Attributes 
+     * Delete Customer Attributes
      * @description Deletes Customer Attributes from the store.
-     * 
+     *
      * **Required Query**
      * * id:in -- ID of the *Customer Attribute*
      */
@@ -256,24 +256,24 @@ export interface paths {
   };
   "/customers/attribute-values": {
     /**
-     * Get All Customer Attribute Values 
+     * Get All Customer Attribute Values
      * @description Returns a list of Customer Attribute Values. Optional filter parameters can be passed in.
      */
     get: operations["CustomersAttributeValuesGet"];
     /**
-     * Upsert Customer Attribute Values 
+     * Upsert Customer Attribute Values
      * @description Upserts Customer Attribute Values. Updates the attribute values on the Customer. Multiple customer attribute values can be updated in one call.
-     * 
+     *
      * Upsert checks for an existing record. If there is none, it creates the record, if there is a matching record, it updates that record.
-     * 
+     *
      * **Limits**
      * * 10 per call limit.
      */
     put: operations["CustomersAttributeValuesPut"];
     /**
-     * Delete Customer Attribute Values 
+     * Delete Customer Attribute Values
      * @description Deletes Customer Attribute Values. Deletes the attribute value from the customer.
-     * 
+     *
      * **Required Query**
      * * id:in - ID of the *Customer Attribute Value*
      */
@@ -281,20 +281,20 @@ export interface paths {
   };
   "/customers/form-field-values": {
     /**
-     * Get Customer Form Field Values 
+     * Get Customer Form Field Values
      * @description Returns a list of form field values for the Customer or Customer Address object.
-     * 
+     *
      * To learn about adding and managing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
      */
     get: operations["CustomerFormFieldsGet"];
     /**
-     * Upsert Customer Form Field Values 
+     * Upsert Customer Form Field Values
      * @description Updates form field values on the Customer or Customer Address objects. Multiple form field values can be updated in one call.
-     * 
+     *
      * Upsert checks for an existing record, if there is none it creates the record, if there is a matching record it updates that record.
-     * 
+     *
      * To learn more about editing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
-     * 
+     *
      * **Limits**
      * * Limit of 10 concurrent requests.
      */
@@ -302,12 +302,12 @@ export interface paths {
   };
   "/customers/{customerId}/consent": {
     /**
-     * Get Customer Consent 
+     * Get Customer Consent
      * @description Gets the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
      */
     get: operations["CustomersConsentByCustomerId_GET"];
     /**
-     * Update Customer Consent 
+     * Update Customer Consent
      * @description Updates the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
      */
     put: operations["CustomersConsentByCustomerId_PUT"];
@@ -319,7 +319,7 @@ export interface paths {
   };
   "/customers/{customerId}/stored-instruments": {
     /**
-     * Get Stored Instruments 
+     * Get Stored Instruments
      * @description Lists all available stored instruments for a customer. This list will include all types of stored instruments namely card, account and bank_account instruments
      */
     get: operations["liststoredinstruments"];
@@ -336,46 +336,46 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Pagination 
+     * Pagination
      * @description Data about the response, including pagination and collection totals.
      */
     Pagination: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of items in the result set.
        */
       total?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of items in the collection response.
        */
       count?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
        */
       per_page?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The page you are currently on within the collection.
        */
       current_page?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The total number of pages in the collection.
        */
       total_pages?: number;
       links?: components["schemas"]["Links"];
     };
     /**
-     * _metaCollection 
+     * _metaCollection
      * @description Data about the response, including pagination and collection totals.
      */
     _metaCollection: {
       pagination?: components["schemas"]["Pagination"];
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     MetaOpen: {
@@ -384,7 +384,7 @@ export interface components {
     /** Error Response */
     ErrorResponse: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description The HTTP status code.
        */
       status?: number;
@@ -416,37 +416,37 @@ export interface components {
       /** @description The tax exempt category code for the customer. */
       tax_exempt_category?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description ID of the group which this customer belongs to.
        */
       customer_group_id?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The unique numeric ID of the customer.
        */
       id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date on which the customer was modified.
        */
       date_modified?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date of which the customer was created.
        */
       date_created?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of customer addresses.
        */
       address_count?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Total number of customer attributes.
        */
       attribute_count?: number;
       /**
-       * Customer Authentication Base 
+       * Customer Authentication Base
        * @example {
        *   "force_password_reset": true
        * }
@@ -456,11 +456,11 @@ export interface components {
         force_password_reset?: boolean;
       };
       /** @description Array of customer addresses. Limited to 10. */
-      addresses?: (components["schemas"]["address_Full"])[];
+      addresses?: components["schemas"]["address_Full"][];
       /** @description Array of customer attributes. Limited to 10. */
-      attributes?: (components["schemas"]["attribute_Full"])[];
+      attributes?: components["schemas"]["attribute_Full"][];
       /** @description Array of form fields. Controlled by `formfields` parameter. */
-      form_fields?: (components["schemas"]["formFieldValue_Customer"])[];
+      form_fields?: components["schemas"]["formFieldValue_Customer"][];
       store_credit_amounts?: components["schemas"]["CustomerStoredCreditAmounts"];
       /** @description Determines if the customer is signed up to receive either product review or abandoned cart emails or receive both emails. */
       accepts_product_review_abandoned_cart_emails?: boolean;
@@ -485,14 +485,14 @@ export interface components {
       /** @description The tax exempt category code for the customer. */
       tax_exempt_category?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description ID of the group which this customer belongs to.
        */
       customer_group_id?: number;
       /** @description Array of customer addresses. Limited to 10. */
-      addresses?: (components["schemas"]["customerAddresses_CustomerPost"])[];
+      addresses?: components["schemas"]["customerAddresses_CustomerPost"][];
       /** @description Array of customer attributes. Limited to 10. */
-      attributes?: (components["schemas"]["customerAttributes_Base"])[];
+      attributes?: components["schemas"]["customerAttributes_Base"][];
       authentication?: components["schemas"]["customerAuthentication_PostPut"];
       /** @description It determines if the customer is signed up to receive either product review or abandoned cart emails or receive both emails. */
       accepts_product_review_abandoned_cart_emails?: boolean;
@@ -500,15 +500,15 @@ export interface components {
       /** @description Channel ID of the customer that has created the form. */
       origin_channel_id?: number;
       /**
-       * @description Array of channels the customer can access. 
+       * @description Array of channels the customer can access.
        * @example [
        *   1,
        *   2
        * ]
        */
-      channel_ids?: (number)[];
+      channel_ids?: number[];
       /** @description Array of form fields. Controlled by formfields parameter. */
-      form_fields?: (components["schemas"]["formFieldValue"])[];
+      form_fields?: components["schemas"]["formFieldValue"][];
     };
     /** customer_Put */
     customer_Put: {
@@ -529,12 +529,12 @@ export interface components {
       /** @description The tax exempt category code for the customer. */
       tax_exempt_category?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description ID of the group which this customer belongs to.
        */
       customer_group_id?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The unique numeric ID of the customer.
        */
       id: number;
@@ -545,86 +545,86 @@ export interface components {
       /** @description Channel ID of the customer that has created the form. */
       origin_channel_id?: number;
       /** @description Arrays of channels the customer can access. */
-      channel_ids?: (number)[];
+      channel_ids?: number[];
       /** @description Array of form fields. Controlled by formfields parameter. */
-      form_fields?: (components["schemas"]["formFieldValue"])[];
+      form_fields?: components["schemas"]["formFieldValue"][];
     };
     /** attributeValue_Base */
     attributeValue_Base: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description Attribute value ID.
        */
       id?: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Attribute ID.
        */
       attribute_id: number;
       /**
-       * @description Attribute value. This will always be a string, regardless of the attribute's type. 
-       * 
-       * Corresponds to `attribute_value` used in customer attribute values `GET` requests. 
+       * @description Attribute value. This will always be a string, regardless of the attribute's type.
+       *
+       * Corresponds to `attribute_value` used in customer attribute values `GET` requests.
        * @example string
        */
       value: string;
       /**
-       * Format: int32 
-       * @description Customer ID. 
+       * Format: int32
+       * @description Customer ID.
        * @example 8504
        */
       customer_id: number;
     };
     attribute_Full: {
       /**
-       * Format: int32 
-       * @description Attribute ID. 
+       * Format: int32
+       * @description Attribute ID.
        * @example 2
        */
       attribute_id?: number;
       /**
-       * @description Attribute value. 
+       * @description Attribute value.
        * @example Yes
        */
       attribute_value?: string;
       /**
-       * Format: int32 
-       * @description Customer ID. 
+       * Format: int32
+       * @description Customer ID.
        * @example 1
        */
       customer_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date the customer attribute was created.
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date the customer attribute was modified.
        */
       date_modified?: string;
       /**
-       * Format: int32 
-       * @description Attribute value ID. 
+       * Format: int32
+       * @description Attribute value ID.
        * @example 2
        */
       id?: number;
     };
     /**
-     * attribute_Put 
+     * attribute_Put
      * @description Once the data type is set, it can not be changed. The attribute will need to be deleted then created again with the new data type. This will also delete it from the customer.
      */
     attribute_Put: {
       /** @description Attribute name. */
       name: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description Attribute ID.
        */
       id: number;
     };
     /**
-     * attribute_Post 
+     * attribute_Post
      * @example {
      *   "name": "attribute_string 01",
      *   "type": "string"
@@ -634,9 +634,9 @@ export interface components {
       /** @description Attribute name. */
       name: string;
       /**
-       * Type 
-       * @description Attribute type should match one of: string, number, date. 
-       * @example string 
+       * Type
+       * @description Attribute type should match one of: string, number, date.
+       * @example string
        * @enum {string}
        */
       type: "string" | "number" | "date";
@@ -664,26 +664,26 @@ export interface components {
       /** @description The phone number of the customer address. */
       phone?: string;
       /**
-       * Address Type 
-       * @description The address type. Residential or Commercial. 
-       * @example residential 
+       * Address Type
+       * @description The address type. Residential or Commercial.
+       * @example residential
        * @enum {string}
        */
       address_type?: "residential" | "commercial";
       /**
-       * Format: int32 
+       * Format: int32
        * @description The customer ID.
        */
       customer_id: number;
       /**
-       * Format: int32 
+       * Format: int32
        * @description The unique numeric ID of the address.
        */
       id: number;
       /** @description The country name of the customer address. */
       country?: string;
       /** @description Array of form fields. Controlled by `formfields` parameter. */
-      form_fields?: (components["schemas"]["formFieldValue"])[];
+      form_fields?: components["schemas"]["formFieldValue"][];
     };
     /** address_Put */
     address_Put: {
@@ -700,106 +700,106 @@ export interface components {
       /** @description The city of the customer address. */
       city?: string;
       /**
-       * @description The state or province name. 
+       * @description The state or province name.
        * @example California
        */
       state_or_province?: string;
       /** @description The postal code of the customer address. */
       postal_code?: string;
       /**
-       * @description The country code of the customer address. 
+       * @description The country code of the customer address.
        * @example US
        */
       country_code?: string;
       /** @description The phone number of the customer address. */
       phone?: string;
       /**
-       * Address Type 
-       * @description The address type. Residential or Commercial. 
-       * @example residential 
+       * Address Type
+       * @description The address type. Residential or Commercial.
+       * @example residential
        * @enum {string}
        */
       address_type?: "residential" | "commercial";
       /**
-       * Format: int32 
-       * @description The unique numeric ID of the address. 
+       * Format: int32
+       * @description The unique numeric ID of the address.
        * @example 1
        */
       id: number;
       /** @description Array of form fields. Controlled by formfields parameter. */
-      form_fields?: (components["schemas"]["formFieldValue"])[];
+      form_fields?: components["schemas"]["formFieldValue"][];
     };
     /** address_Post */
     address_Post: {
       /**
-       * @description The first name of the customer address. 
+       * @description The first name of the customer address.
        * @example John
        */
       first_name: string;
       /**
-       * @description The last name of the customer address. 
+       * @description The last name of the customer address.
        * @example Doe
        */
       last_name: string;
       /**
-       * @description The company of the customer address. 
+       * @description The company of the customer address.
        * @example BigCommerce
        */
       company?: string;
       /**
-       * @description The address 1 line. 
+       * @description The address 1 line.
        * @example 123 Example Street
        */
       address1: string;
       /**
-       * @description The address 2 line. 
+       * @description The address 2 line.
        * @example Building 4
        */
       address2?: string;
       /**
-       * @description The city of the customer address. 
+       * @description The city of the customer address.
        * @example Austin
        */
       city: string;
       /**
-       * @description The state or province name spelled out in full. It is required for countries that need a state/province to complete an address. State or province codes not accepted. 
+       * @description The state or province name spelled out in full. It is required for countries that need a state/province to complete an address. State or province codes not accepted.
        * @example Texas
        */
       state_or_province?: string;
       /**
-       * @description The postal code of the customer address. It is required for countries that need postal codes to complete an address. 
+       * @description The postal code of the customer address. It is required for countries that need postal codes to complete an address.
        * @example 78759
        */
       postal_code?: string;
       /**
-       * @description The country code of the customer address. 
+       * @description The country code of the customer address.
        * @example US
        */
       country_code: string;
       /**
-       * @description The phone number of the customer address. 
+       * @description The phone number of the customer address.
        * @example 15551234567
        */
       phone?: string;
       /**
-       * Address Type 
-       * @description The address type. Residential or Commercial. 
-       * @example residential 
+       * Address Type
+       * @description The address type. Residential or Commercial.
+       * @example residential
        * @enum {string}
        */
       address_type?: "residential" | "commercial";
       /**
-       * Format: int32 
-       * @description The customer ID. 
+       * Format: int32
+       * @description The customer ID.
        * @example 1
        */
       customer_id: number;
       /** @description The address custom form field values */
-      form_fields?: (components["schemas"]["formFieldValue"])[];
+      form_fields?: components["schemas"]["formFieldValue"][];
     };
     /**
-     * customerAddresses_Base 
-     * @description The `address` object for the `customer` object's `addresses` array. 
+     * customerAddresses_Base
+     * @description The `address` object for the `customer` object's `addresses` array.
      * @example {
      *   "address1": "Addr 1",
      *   "address2": "",
@@ -836,16 +836,16 @@ export interface components {
       /** @description The phone number of the customer address. */
       phone?: string;
       /**
-       * Address Type 
-       * @description The address type. Residential or Commercial. 
-       * @example residential 
+       * Address Type
+       * @description The address type. Residential or Commercial.
+       * @example residential
        * @enum {string}
        */
       address_type?: "residential" | "commercial";
     };
     /**
-     * customerAddresses_CustomerPost 
-     * @description The `address` object for the `customer` object's `addresses` array. 
+     * customerAddresses_CustomerPost
+     * @description The `address` object for the `customer` object's `addresses` array.
      * @example {
      *   "address1": "Addr 1",
      *   "address2": "",
@@ -888,14 +888,14 @@ export interface components {
       /** @description The phone number of the customer address. */
       phone?: string;
       /**
-       * Address Type 
-       * @description The address type. Residential or Commercial. 
-       * @example residential 
+       * Address Type
+       * @description The address type. Residential or Commercial.
+       * @example residential
        * @enum {string}
        */
       address_type?: "residential" | "commercial";
       /** @description Array of form fields. Controlled by `formfields` parameter. */
-      form_fields?: (components["schemas"]["formFieldValue"])[];
+      form_fields?: components["schemas"]["formFieldValue"][];
     };
     /** customerAuthentication_PostPut */
     customerAuthentication_PostPut: {
@@ -906,7 +906,7 @@ export interface components {
       new_password?: string;
     };
     /**
-     * Links 
+     * Links
      * @description Pagination links for the previous and next parts of the whole collection.
      */
     Links: {
@@ -920,32 +920,32 @@ export interface components {
     /** Generic Form Field Value */
     formFieldValue: {
       /**
-       * @description The form field name. 
+       * @description The form field name.
        * @example color
        */
       name: string;
-      value: string | number | (string)[];
+      value: string | number | string[];
     };
     /** Customer Form Field Value */
     formFieldValue_Customer: {
       /**
-       * @description The form field name. 
+       * @description The form field name.
        * @example color
        */
       name: string;
-      value: string | number | (string)[];
+      value: string | number | string[];
       customer_id: number;
     };
     /** Customer Address Form Field Value */
     formFieldValue_Address: {
       /**
-       * @description The form field name. 
+       * @description The form field name.
        * @example color
        */
       name: string;
-      value: string | number | (string)[];
+      value: string | number | string[];
       /**
-       * @description The Customer Address ID. 
+       * @description The Customer Address ID.
        * @example 1
        */
       address_id: number;
@@ -953,20 +953,20 @@ export interface components {
     /** formFieldValue_Full */
     formFieldValue_Full: components["schemas"]["formFieldValue_Customer"] | components["schemas"]["formFieldValue_Address"];
     /**
-     * consent_Full 
+     * consent_Full
      * @description Response payload for the BigCommerce API.
      */
     consent_Full: {
       allow?: components["schemas"]["consentAllow"];
       deny?: components["schemas"]["Deny"];
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date of which the customer consent was last updated.
        */
       updated_at?: string;
     };
     /**
-     * consentAllow 
+     * consentAllow
      * @example [
      *   "essential",
      *   "targeting",
@@ -975,14 +975,14 @@ export interface components {
      */
     consentAllow: ("essential" | "functional" | "analytics" | "targeting")[];
     /**
-     * Deny 
+     * Deny
      * @example [
      *   "analytics"
      * ]
      */
     Deny: ("essential" | "functional" | "analytics" | "targeting")[];
     /**
-     * DeclareCustomerConsentRequest 
+     * DeclareCustomerConsentRequest
      * @description Request payload for the BigCommerce API.
      */
     DeclareCustomerConsentRequest: {
@@ -992,41 +992,41 @@ export interface components {
     /** customerAttributes_Base */
     customerAttributes_Base: {
       /**
-       * Format: int32 
-       * @description Attribute ID. 
+       * Format: int32
+       * @description Attribute ID.
        * @example 55
        */
       attribute_id?: number;
       /**
-       * @description Attribute value. This will always be a string, regardless of the attribute’s type. 
+       * @description Attribute value. This will always be a string, regardless of the attribute’s type.
        * @example string
        */
       attribute_value?: string;
     };
     /**
-     * customerChannelIds 
+     * customerChannelIds
      * @description Array of channel ids the Customer has access to.
      */
-    customerChannelIds: (unknown)[];
+    customerChannelIds: unknown[];
     /**
-     * Card Instrument 
+     * Card Instrument
      * @description Details about a stored card instrument which includes details around billing, last 4 digits, issuer, etc.
      */
     CardInstrument: {
       /**
-       * @description Type of instrument. 
+       * @description Type of instrument.
        * @enum {string}
        */
       type?: "stored_card";
       /**
-       * @description An identifier representing this stored instrument. 
+       * @description An identifier representing this stored instrument.
        * @example 84596bea275fa254da820056bdc3e495bdf01fd11c51b0336347d447ee16200c
        */
       token?: string;
       /** @description Identifies whether this stored instrument is default for the customer. */
       is_default?: boolean;
       /**
-       * @description Card brand. 
+       * @description Card brand.
        * @example VISA
        */
       brand?: string;
@@ -1035,83 +1035,83 @@ export interface components {
       /** @description Expiry year for this card. */
       expiry_year?: number;
       /**
-       * @description Issuer identification number for this card. 
+       * @description Issuer identification number for this card.
        * @example 411111
        */
       issuer_identification_number?: string;
       /**
-       * @description Last four digits of this card. 
+       * @description Last four digits of this card.
        * @example 1111
        */
       last_4?: string;
       billing_address?: components["schemas"]["BillingAddress"];
     };
     /**
-     * PayPal Account Instrument 
+     * PayPal Account Instrument
      * @description A PayPal account stored instrument.
      */
     PayPalAccountInstrument: {
       /**
-       * @description Instrument type. 
+       * @description Instrument type.
        * @enum {string}
        */
       type?: "stored_paypal_account";
       /**
-       * @description An identifier representing this stored instrument. 
+       * @description An identifier representing this stored instrument.
        * @example 84596bea275fa254da820056bdc3e495bdf01fd11c51b0336347d447ee16200c
        */
       token?: string;
       /** @description Identifies whether this stored instrument is default for the customer. */
       is_default?: boolean;
       /**
-       * @description PayPal email address. 
+       * @description PayPal email address.
        * @example bc-buyer-paypal-express@example.com
        */
       email?: string;
     };
     /**
-     * Bank Account Instrument 
+     * Bank Account Instrument
      * @description A stored bank account instrument.
      */
     BankAccountInstrument: {
       /**
-       * @description Instrument type. 
+       * @description Instrument type.
        * @enum {string}
        */
       type?: "stored_bank_account";
       /**
-       * @description An identifier representing this stored instrument. 
+       * @description An identifier representing this stored instrument.
        * @example 84596bea275fa254da820056bdc3e495bdf01fd11c51b0336347d447ee16200c
        */
       token?: string;
       /** @description Identifies whether this stored instrument is default for the customer. */
       is_default?: boolean;
       /**
-       * @description A masked bank account number. 
+       * @description A masked bank account number.
        * @example 12XXX56
        */
       masked_account_number?: string;
       /**
-       * @description Issuer identifier for the account. 
+       * @description Issuer identifier for the account.
        * @example DE001
        */
       issuer?: string;
     };
     BillingAddress: {
       /**
-       * @description First name of the card holder. 
+       * @description First name of the card holder.
        * @example Tester
        */
       first_name?: string;
       /**
-       * @description Last name of the card holder. 
+       * @description Last name of the card holder.
        * @example Tester
        */
       last_name?: string;
       /** @example example@example.com */
       email?: string;
       /**
-       * @description Company of the card holder. 
+       * @description Company of the card holder.
        * @example Test Company
        */
       company?: string;
@@ -1124,14 +1124,14 @@ export interface components {
       /** @example 90854 */
       postal_code?: string;
       /**
-       * @description Represents state or province. 
+       * @description Represents state or province.
        * @example Nevada
        */
       state_or_province?: string;
       /** @example NV */
       state_or_province_code?: string;
       /**
-       * @description ISO-3166-1 2 letter country code. 
+       * @description ISO-3166-1 2 letter country code.
        * @example US
        */
       country_code?: string;
@@ -1139,18 +1139,18 @@ export interface components {
       phone?: string;
     };
     /**
-     * Format: double 
+     * Format: double
      * @description Store credit.
      */
-    CustomerStoredCreditAmounts: ({
+    CustomerStoredCreditAmounts: {
         /**
-         * Format: float 
+         * Format: float
          * @example 43.15
          */
         amount?: number;
-      })[];
+      }[];
     /**
-     * CustomerSettingsObject 
+     * CustomerSettingsObject
      * @description Customer Settings.
      */
     CustomerSettingsObject: {
@@ -1159,7 +1159,7 @@ export interface components {
         /** @description Determines if a customer requires consent for tracking privacy. */
         ask_shopper_for_tracking_consent?: boolean;
         /**
-         * @description The URL for a website's privacy policy. 
+         * @description The URL for a website's privacy policy.
          * @example https://bigcommmerce.com/policy
          */
         policy_url?: string;
@@ -1167,12 +1167,12 @@ export interface components {
       /** @description The settings for a collection of customers. */
       customer_group_settings?: {
         /**
-         * @description The ID for a guest customer group. 
+         * @description The ID for a guest customer group.
          * @example 0
          */
         guest_customer_group_id?: number;
         /**
-         * @description The ID for a default customer group. 
+         * @description The ID for a default customer group.
          * @example 0
          */
         default_customer_group_id?: number;
@@ -1185,7 +1185,7 @@ export interface components {
         /** @description Determines if a customer requires consent for tracking privacy. */
         ask_shopper_for_tracking_consent?: boolean;
         /**
-         * @description The URL for a website's privacy policy. 
+         * @description The URL for a website's privacy policy.
          * @example https://bigcommmerce.com/policy
          */
         policy_url?: string;
@@ -1193,12 +1193,12 @@ export interface components {
       /** @description The settings for a collection of customers. */
       customer_group_settings?: {
         /**
-         * @description The ID for a guest customer group. 
+         * @description The ID for a guest customer group.
          * @example 0
          */
         guest_customer_group_id?: number;
         /**
-         * @description The ID for a default customer group. 
+         * @description The ID for a default customer group.
          * @example 0
          */
         default_customer_group_id?: number;
@@ -1231,7 +1231,7 @@ export interface components {
     CustomerCollectionResponse: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["customer_Full"])[];
+          data?: components["schemas"]["customer_Full"][];
           meta?: components["schemas"]["_metaCollection"];
         };
       };
@@ -1245,9 +1245,9 @@ export interface components {
               /** @description The address 2 line. */
               address2?: string;
               /**
-               * Address Type 
-               * @description The address type. Residential or Commercial. 
-               * @example residential 
+               * Address Type
+               * @description The address type. Residential or Commercial.
+               * @example residential
                * @enum {string}
                */
               address_type?: "residential" | "commercial";
@@ -1260,14 +1260,14 @@ export interface components {
               /** @description The country code of the customer address. */
               country_code: string;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The customer ID.
                */
               customer_id: number;
               /** @description The first name of the customer address. */
               first_name: string;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The unique numeric ID of the address.
                */
               id: number;
@@ -1280,7 +1280,7 @@ export interface components {
               /** @description The state or province name */
               state_or_province: string;
               /** @description Array of form fields. Controlled by `formfields` parameter. */
-              form_fields?: (components["schemas"]["formFieldValue_Address"])[];
+              form_fields?: components["schemas"]["formFieldValue_Address"][];
             })[];
           meta?: components["schemas"]["_metaCollection"];
         };
@@ -1295,9 +1295,9 @@ export interface components {
               /** @description The address 2 line. */
               address2?: string;
               /**
-               * Address Type 
-               * @description The address type. Residential or Commercial 
-               * @example residential 
+               * Address Type
+               * @description The address type. Residential or Commercial
+               * @example residential
                * @enum {string}
                */
               address_type?: "residential" | "commercial";
@@ -1310,14 +1310,14 @@ export interface components {
               /** @description The country code of the customer address. */
               country_code?: string;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The customer ID.
                */
               customer_id?: number;
               /** @description The first name of the customer address. */
               first_name?: string;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The unique numeric ID of the address.
                */
               id?: number;
@@ -1330,7 +1330,7 @@ export interface components {
               /** @description The state or province name. */
               state_or_province?: string;
               /** @description Array of form fields. Controlled by `formfields` parameter. */
-              form_fields?: (components["schemas"]["formFieldValue_Address"])[];
+              form_fields?: components["schemas"]["formFieldValue_Address"][];
             })[];
           meta?: components["schemas"]["MetaOpen"];
         };
@@ -1339,76 +1339,76 @@ export interface components {
     CustomerAttributeValueCollectionResponse: {
       content: {
         "application/json": {
-          data?: ({
+          data?: {
               /**
-               * Format: int32 
+               * Format: int32
                * @description Attribute ID.
                */
               attribute_id: number;
               /**
-               * @description Attribute value. This will always be a string, regardless of the attributes type. 
-               * 
+               * @description Attribute value. This will always be a string, regardless of the attributes type.
+               *
                * Corresponds to `value` used in customer attribute values `PUT` requests.
                */
               attribute_value: string;
               /**
-               * Format: int32 
+               * Format: int32
                * @description Attribute value ID.
                */
               id?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description Customer ID.
                */
               customer_id: number;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date on which the customer attribute value was modified.
                */
               date_modified?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date of which the customer attribute value was created.
                */
               date_created?: string;
-            })[];
+            }[];
           /**
-           * Collection Meta 
+           * Collection Meta
            * @description Data about the response, including pagination and collection totals.
            */
           meta?: {
             /**
-             * Pagination 
+             * Pagination
              * @description Data about the response, including pagination and collection totals.
              */
             pagination?: {
               /**
-               * Format: int32 
+               * Format: int32
                * @description Total number of items in the result set.
                */
               total?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description Total number of items in the collection response.
                */
               count?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The amount of items returned in the collection per page, controlled by the limit parameter.
                */
               per_page?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The page you are currently on within the collection.
                */
               current_page?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The total number of pages in the collection.
                */
               total_pages?: number;
               /**
-               * Links 
+               * Links
                * @description Pagination links for the previous and next parts of the whole collection.
                */
               links?: {
@@ -1431,24 +1431,24 @@ export interface components {
               /** @description Attribute name. */
               name: string;
               /**
-               * Type 
-               * @description Attribute type should match one of: string, number, date. 
-               * @example string 
+               * Type
+               * @description Attribute type should match one of: string, number, date.
+               * @example string
                * @enum {string}
                */
               type: "string" | "number" | "date";
               /**
-               * Format: int32 
+               * Format: int32
                * @description Attribute ID.
                */
               id: number;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date on which the customer attribute was modified.
                */
               date_modified?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date of which the customer attribute was created.
                */
               date_created?: string;
@@ -1462,61 +1462,61 @@ export interface components {
         "application/json": {
           data?: (OneOf<[({
               /**
-               * @description The form field name. 
+               * @description The form field name.
                * @example color
                */
               name: string;
-              value: string | number | (string)[];
+              value: string | number | string[];
             }) & {
               customer_id: number;
             }, ({
               /**
-               * @description The form field name. 
+               * @description The form field name.
                * @example color
                */
               name: string;
-              value: string | number | (string)[];
+              value: string | number | string[];
             }) & {
               /** @description The Customer Address ID. */
               address_id: number;
             }]>)[];
           /**
-           * Collection Meta 
+           * Collection Meta
            * @description Data about the response, including pagination and collection totals.
            */
           meta?: {
             /**
-             * Pagination 
+             * Pagination
              * @description Data about the response, including pagination and collection totals.
              */
             pagination?: {
               /**
-               * Format: int32 
+               * Format: int32
                * @description Total number of items in the result set.
                */
               total?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description Total number of items in the collection response.
                */
               count?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The amount of items returned in the collection per page, controlled by the limit parameter.
                */
               per_page?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The page you are currently on within the collection.
                */
               current_page?: number;
               /**
-               * Format: int32 
+               * Format: int32
                * @description The total number of pages in the collection.
                */
               total_pages?: number;
               /**
-               * Links 
+               * Links
                * @description Pagination links for the previous and next parts of the whole collection.
                */
               links?: {
@@ -1537,20 +1537,20 @@ export interface components {
         "application/json": {
           data?: (OneOf<[({
               /**
-               * @description The form field name. 
+               * @description The form field name.
                * @example color
                */
               name: string;
-              value: string | number | (string)[];
+              value: string | number | string[];
             }) & {
               customer_id: number;
             }, ({
               /**
-               * @description The form field name. 
+               * @description The form field name.
                * @example color
                */
               name: string;
-              value: string | number | (string)[];
+              value: string | number | string[];
             }) & {
               /** @description The Customer Address ID. */
               address_id: number;
@@ -1578,11 +1578,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Customers 
+   * Get All Customers
    * @description Returns a list of Customers. Optional filter parameters can be passed in.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * Attribute names are not available on the customer object.
    */
   CustomersGet: {
@@ -1596,11 +1596,11 @@ export interface operations {
          * @description Filter items by ID.
          * `id:in=4,5,6`
          */
-        "id:in"?: (number)[];
+        "id:in"?: number[];
         /** @description Filter items by company. `company:in=bigcommerce,commongood` */
-        "company:in"?: (string)[];
+        "company:in"?: string[];
         /** @description Filter items by customer_group_id. `customer_group_id:in=5,6` */
-        "customer_group_id:in"?: (string)[];
+        "customer_group_id:in"?: string[];
         /** @description Filter items by date_created. `date_created=2018-09-05T13:43:54` */
         date_created?: string;
         /** @description Filter items by maximum date_created. `date_created:max=2018-09-10` */
@@ -1616,18 +1616,18 @@ export interface operations {
         /** @description Filter items by email. `email:in=janedoe@example.com` */
         "email:in"?: string;
         /** @description Filter items by first_name and last_name. `name=james moriarty` */
-        "name:in"?: (string)[];
+        "name:in"?: string[];
         /**
          * @description Filter items by substring in first_name and last_name.
          * `name:like=moriarty, sherlock`
          * Concatenates the first_name and last_name fields.
          */
-        "name:like"?: (string)[];
+        "name:like"?: string[];
         /**
          * @description Filter items by registration_ip_address. If the customer was created using the API, then registration address is blank.
          * `registration_ip_address:in=12.345.6.789`
          */
-        "registration_ip_address:in"?: (number)[];
+        "registration_ip_address:in"?: number[];
         /**
          * @description Indicates whether to include customer sub-resources:
          *  * `addresses` - customer addresses
@@ -1636,7 +1636,7 @@ export interface operations {
          *  * `formfields` - customer and address form fields
          *  * `shopper_profile_id` - the ID of the shopper profile associated with the customer (Beta)
          *  * `segment_ids`- segments the customer belongs to (Beta)
-         * 
+         *
          *  `include=addresses,storecredit,attributes,formfields,shopper_profile_id,segment_ids`
          */
         include?: "addresses" | "storecredit" | "attributes" | "formfields";
@@ -1649,28 +1649,28 @@ export interface operations {
     };
   };
   /**
-   * Update Customers 
+   * Update Customers
    * @description Updates Customers. Subresource updates are not supported. Up to 10 customers can be updated in one call.
-   * 
+   *
    * **Required Fields**
    * * id -- ID of the *Customer* This must be included in the request body
-   * 
+   *
    * **Read Only Fields**
    * * id
    * * registration_ip_address
    * * date_created
    * * date_modified
-   * 
-   * 
+   *
+   *
    * **Notes**
-   * 
+   *
    * * Attributes Values can not be updated using Update a Customer. Use the [Update customer attribute values](/docs/rest-management/customers/customer-attribute-values#upsert-customer-attribute-values) endpoint.
    * * channel_ids -- Updating the list of channels a customer can access may create some side effects in a multi-storefront situation. This list determines which customer account we will use to authenticate a shopper given a channel.
    */
   CustomersPut: {
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["customer_Put"])[];
+        "application/json": components["schemas"]["customer_Put"][];
       };
     };
     responses: {
@@ -1686,31 +1686,31 @@ export interface operations {
     };
   };
   /**
-   * Create Customers 
+   * Create Customers
    * @description Creates Customers. Create up to 10 customers in one call.
-   * 
+   *
    * **Required Fields**
    * * last_name
    * * first_name
    * * email
-   * 
+   *
    * **Required Fields Customer Address**
    * * first_name
    * * city
    * * country_code
    * * last_name
    * * address1
-   * 
+   *
    * **Required Fields Attributes**
    * * Attributes must be [created](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute) **BEFORE** creating a customer.
    * * attribute_id
    * * attribute_value -- This is input as a string, regardless of the [Type](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute).
-   * 
+   *
    * **Limits**
-   * * Limit of 10 concurrent requests 
-   * 
+   * * Limit of 10 concurrent requests
+   *
    * **Notes**
-   * 
+   *
    * A customer can be created with global access or channel-specific access.
    * * **Global access:**
    *   * Make sure the channel has `allow_global_logins` enabled. This is on by default only for the default storefront. Find more info at [Customer Settings > Channel](/docs/rest-management/customers/customer-settings-channel).
@@ -1721,7 +1721,7 @@ export interface operations {
   CustomersPost: {
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["customer_Post"])[];
+        "application/json": components["schemas"]["customer_Post"][];
       };
     };
     responses: {
@@ -1737,14 +1737,14 @@ export interface operations {
     };
   };
   /**
-   * Delete Customers 
+   * Delete Customers
    * @description Deletes Customers.
-   * 
+   *
    * **Required Query**
    * * id:in -- ID of the customer
-   * 
+   *
    * **Notes**
-   * 
+   *
    * A query is required to delete customers. If not provided, a 204 is returned, with no changes to the data.
    */
   CustomersDelete: {
@@ -1754,7 +1754,7 @@ export interface operations {
          * @description Filter items by ID.
          * `id:in=4,5,6`
          */
-        "id:in": (number)[];
+        "id:in": number[];
       };
     };
     responses: {
@@ -1762,7 +1762,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Customer Addresses 
+   * Get All Customer Addresses
    * @description Returns a list of Customer Addresses. Optional filter parameters can be passed in.
    */
   CustomersAddressesGet: {
@@ -1773,11 +1773,11 @@ export interface operations {
         /** @description Items count per page. `limit=50` */
         limit?: number;
         /** @description Filter items by company. `company:in=bigcommerce,commongood` */
-        "company:in"?: (string)[];
+        "company:in"?: string[];
         /** @description Filter items by first_name and last_name. `name:in=James+Moriarty` */
-        "name:in"?: (string)[];
+        "name:in"?: string[];
         /** @description Filter by the ID of the customer. Also accepts comma-separated IDs to filter for multiple customers. `customer_id:in=23,24,55` */
-        "customer_id:in"?: (number)[];
+        "customer_id:in"?: number[];
         /**
          * @description Indicates whether to include customer address sub-resources:
          * * `formfields` - address form fields
@@ -1788,7 +1788,7 @@ export interface operations {
          * @description Filter items by ID.
          * `id:in=4,5,6`
          */
-        "id:in"?: (number)[];
+        "id:in"?: number[];
       };
       header?: {
         Accept?: string;
@@ -1800,15 +1800,15 @@ export interface operations {
     };
   };
   /**
-   * Update a Customer Address 
+   * Update a Customer Address
    * @description Updates a Customer Address. Multiple customer addresses can be updated in one call.
-   * 
+   *
    * **Required Fields**
    * * **id** -- ID of the *Customer Address*
-   * 
+   *
    * **Limits**
    * * Limit of **3** concurrent requests.
-   * 
+   *
    * **Notes**
    * * A unique customer address is a combination of the following core address fields:
    *   * **first_name**
@@ -1833,7 +1833,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["address_Put"])[];
+        "application/json": components["schemas"]["address_Put"][];
       };
     };
     responses: {
@@ -1847,9 +1847,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Customer Address 
+   * Create a Customer Address
    * @description Creates a Customer Address. Multiple customer addresses can be created in one call.
-   * 
+   *
    * **Required Fields**
    * * **customer_id**
    * * **first_name**
@@ -1857,7 +1857,7 @@ export interface operations {
    * * **city**
    * * **country_code**
    * * **address1**
-   * 
+   *
    * **Notes**
    * * A unique customer address is a combination of the following core address fields:
    *   * **customer_id**
@@ -1883,7 +1883,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["address_Post"])[];
+        "application/json": components["schemas"]["address_Post"][];
       };
     };
     responses: {
@@ -1897,9 +1897,9 @@ export interface operations {
     };
   };
   /**
-   * Delete a Customer Address 
+   * Delete a Customer Address
    * @description Deletes a Customer Address.
-   * 
+   *
    * **Required Query**
    * * id:in -- ID of the *Customer Address*
    */
@@ -1910,7 +1910,7 @@ export interface operations {
          * @description Filter items by ID.
          * `id:in=4,5,6`
          */
-        "id:in": (number)[];
+        "id:in": number[];
       };
       header?: {
         Accept?: string;
@@ -1922,7 +1922,7 @@ export interface operations {
     };
   };
   /**
-   * Validate a customer credentials 
+   * Validate a customer credentials
    * @description Validate a customer credentials - This endpoint has special rate limiting protections to protect against abuse.
    */
   CustomerValidateCredentials: {
@@ -1953,7 +1953,7 @@ export interface operations {
     };
   };
   /**
-   * Get Customer Settings 
+   * Get Customer Settings
    * @description Returns the global-level customer settings.
    */
   CustomerSettingsGet: {
@@ -1967,7 +1967,7 @@ export interface operations {
     };
   };
   /**
-   * Update Customer Settings 
+   * Update Customer Settings
    * @description Updates the customer settings on the global level.
    */
   CustomerSettingsPut: {
@@ -1986,11 +1986,11 @@ export interface operations {
     };
   };
   /**
-   * Get Customer Settings per Channel 
+   * Get Customer Settings per Channel
    * @description Returns the customer settings per channel.
-   * 
+   *
    * **Notes**
-   * 
+   *
    *  * `null` indicates that there is no override per given channel and values are inherited from the global level.
    */
   CustomerSettingsChannelGet: {
@@ -2009,15 +2009,15 @@ export interface operations {
     };
   };
   /**
-   * Update Customer Settings per Channel 
+   * Update Customer Settings per Channel
    * @description Update the customer settings per channel
-   * 
+   *
    * **Required Fields**
-   * 
+   *
    * * `channel_id`: Provide a `channel_id` array containing one or more channel IDs. Customers will have access to these channels and no others. This array cannot be empty.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * * Setting `null` will delete override per given channel, and values will be inherited from the global level. Make sure the channel has `allow_global_logins` enabled.
    */
   CustomerSettingsChannelPut: {
@@ -2041,7 +2041,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Customer Attributes 
+   * Get All Customer Attributes
    * @description Returns a list of Customer Attributes. You can pass in optional filter parameters.
    */
   CustomersAttributesGet: {
@@ -2080,14 +2080,14 @@ export interface operations {
     };
   };
   /**
-   * Update a Customer Attribute 
+   * Update a Customer Attribute
    * @description Updates a Customer Attribute. Multiple customer attributes can be updated in one call.
-   * 
+   *
    * **Required Fields**
    * * id -- ID of the *Customer Attribute*
-   * 
+   *
    * Once the data type is set, it can not be changed. The attribute will need to be deleted then created again with the new data type. This will also delete it from the customer.
-   * 
+   *
    * **Limits**
    * * Limit of 3 concurrent requests.
    */
@@ -2100,7 +2100,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["attribute_Put"])[];
+        "application/json": components["schemas"]["attribute_Put"][];
       };
     };
     responses: {
@@ -2114,22 +2114,22 @@ export interface operations {
     };
   };
   /**
-   * Create a Customer Attribute 
+   * Create a Customer Attribute
    * @description Creates a Customer Attribute. Multiple customer attributes can be created in one call.
-   * 
+   *
    * **Required Fields**
    * * name
    * * type
-   * 
+   *
    * **Limits**
    * * Limit of 3 concurrent requests.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * Once the data type is set, it cannot be changed. The attribute will need to be deleted then created again with the new data type. This will also delete it from the customer.
-   * 
+   *
    * Customer attributes are created separately from the customer. After the name and type are created, then the attributes can be added to the customer.
-   * 
+   *
    * A store cannot have more than 50 customer attributes.
    */
   CustomersAttributesPost: {
@@ -2141,7 +2141,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["attribute_Post"])[];
+        "application/json": components["schemas"]["attribute_Post"][];
       };
     };
     responses: {
@@ -2155,9 +2155,9 @@ export interface operations {
     };
   };
   /**
-   * Delete Customer Attributes 
+   * Delete Customer Attributes
    * @description Deletes Customer Attributes from the store.
-   * 
+   *
    * **Required Query**
    * * id:in -- ID of the *Customer Attribute*
    */
@@ -2165,7 +2165,7 @@ export interface operations {
     parameters: {
       query: {
         /** @description Filter items by ID. */
-        "id:in": (number)[];
+        "id:in": number[];
       };
       header?: {
         Accept?: string;
@@ -2177,7 +2177,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Customer Attribute Values 
+   * Get All Customer Attribute Values
    * @description Returns a list of Customer Attribute Values. Optional filter parameters can be passed in.
    */
   CustomersAttributeValuesGet: {
@@ -2188,9 +2188,9 @@ export interface operations {
         /** @description Items count per page. `limit=50` */
         limit?: number;
         /** @description Filter items by the customer ID. `customer_id:in=23,24,55` */
-        "customer_id:in"?: (number)[];
+        "customer_id:in"?: number[];
         /** @description Filter items by the attribute ID. `attribute_id:in=1,2` */
-        "attribute_id:in"?: (number)[];
+        "attribute_id:in"?: number[];
         /** @description Filter items by the attribute name. `name=age` */
         name?: string;
         /** @description Filter items by `date_created`. `date_created=2018-09-05T13:43:54` */
@@ -2216,11 +2216,11 @@ export interface operations {
     };
   };
   /**
-   * Upsert Customer Attribute Values 
+   * Upsert Customer Attribute Values
    * @description Upserts Customer Attribute Values. Updates the attribute values on the Customer. Multiple customer attribute values can be updated in one call.
-   * 
+   *
    * Upsert checks for an existing record. If there is none, it creates the record, if there is a matching record, it updates that record.
-   * 
+   *
    * **Limits**
    * * 10 per call limit.
    */
@@ -2233,7 +2233,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["attributeValue_Base"])[];
+        "application/json": components["schemas"]["attributeValue_Base"][];
       };
     };
     responses: {
@@ -2247,9 +2247,9 @@ export interface operations {
     };
   };
   /**
-   * Delete Customer Attribute Values 
+   * Delete Customer Attribute Values
    * @description Deletes Customer Attribute Values. Deletes the attribute value from the customer.
-   * 
+   *
    * **Required Query**
    * * id:in - ID of the *Customer Attribute Value*
    */
@@ -2260,7 +2260,7 @@ export interface operations {
          * @description Filter items by ID.
          * `id:in=4,5,6`
          */
-        "id:in": (number)[];
+        "id:in": number[];
       };
       header?: {
         Accept?: string;
@@ -2272,9 +2272,9 @@ export interface operations {
     };
   };
   /**
-   * Get Customer Form Field Values 
+   * Get Customer Form Field Values
    * @description Returns a list of form field values for the Customer or Customer Address object.
-   * 
+   *
    * To learn about adding and managing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
    */
   CustomerFormFieldsGet: {
@@ -2319,20 +2319,20 @@ export interface operations {
     };
   };
   /**
-   * Upsert Customer Form Field Values 
+   * Upsert Customer Form Field Values
    * @description Updates form field values on the Customer or Customer Address objects. Multiple form field values can be updated in one call.
-   * 
+   *
    * Upsert checks for an existing record, if there is none it creates the record, if there is a matching record it updates that record.
-   * 
+   *
    * To learn more about editing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
-   * 
+   *
    * **Limits**
    * * Limit of 10 concurrent requests.
    */
   CustomerFormFieldValuePUT: {
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["formFieldValue_Full"])[];
+        "application/json": components["schemas"]["formFieldValue_Full"][];
       };
     };
     responses: {
@@ -2346,7 +2346,7 @@ export interface operations {
     };
   };
   /**
-   * Get Customer Consent 
+   * Get Customer Consent
    * @description Gets the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
    */
   CustomersConsentByCustomerId_GET: {
@@ -2379,7 +2379,7 @@ export interface operations {
     };
   };
   /**
-   * Update Customer Consent 
+   * Update Customer Consent
    * @description Updates the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
    */
   CustomersConsentByCustomerId_PUT: {
@@ -2420,7 +2420,7 @@ export interface operations {
     };
   };
   /**
-   * Get Stored Instruments 
+   * Get Stored Instruments
    * @description Lists all available stored instruments for a customer. This list will include all types of stored instruments namely card, account and bank_account instruments
    */
   liststoredinstruments: {

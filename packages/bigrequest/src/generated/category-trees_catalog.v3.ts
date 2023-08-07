@@ -11,33 +11,33 @@ type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 export interface paths {
   "/catalog/trees/categories": {
     /**
-     * Get All Categories 
-     * @description Returns a list of categories. 
-     * 
+     * Get All Categories
+     * @description Returns a list of categories.
+     *
      * To get a specific category in a tree, provide a category ID.
      */
     get: operations["getAllCategories"];
     /**
-     * Update Categories 
-     * @description Updates existing categories. 
-     * 
+     * Update Categories
+     * @description Updates existing categories.
+     *
      *  To update a specific category in a tree, provide a category id.
      */
     put: operations["updateCategories"];
     /**
-     * Create Categories 
-     * @description Creates new categories. 
-     * 
+     * Create Categories
+     * @description Creates new categories.
+     *
      * Creating a category requires:
      *  - `name`
-     *  - `url` 
+     *  - `url`
      *  - `tree_id` or `parent_id`
      */
     post: operations["createCategories"];
     /**
-     * Delete Categories 
-     * @description Deletes categories. 
-     * 
+     * Delete Categories
+     * @description Deletes categories.
+     *
      * To delete a specific category in a tree, provide a category ID.
      */
     delete: operations["deleteTreeCategories"];
@@ -49,22 +49,22 @@ export interface paths {
   };
   "/catalog/trees": {
     /**
-     * Get All Category Trees 
+     * Get All Category Trees
      * @description Returns a list of *Category Trees*.
      */
     get: operations["GetCategoryTrees"];
     /**
-     * Upsert Category Trees 
-     * @description Upserts *Category Trees*. 
-     * 
+     * Upsert Category Trees
+     * @description Upserts *Category Trees*.
+     *
      * This single endpoint updates and creates category trees. If a tree object contains an ID, it is processed as an update operation using that ID. If you do not provide an ID, a new tree is created. The category tree `name` field is required to create trees, but is not required on the update.
-     * 
+     *
      * **Usage Notes**
      * * `channel_id` is required to create a *Category Tree*. You can assign one `channel_id` to one category tree.
      */
     put: operations["UpsertCategoryTrees"];
     /**
-     * Delete Category Trees 
+     * Delete Category Trees
      * @description Deletes *Category Trees*. A filter must be supplied with the endpoint.
      */
     delete: operations["DeleteCategoryTrees"];
@@ -76,7 +76,7 @@ export interface paths {
   };
   "/catalog/trees/{tree_id}/categories": {
     /**
-     * Get a Category Tree 
+     * Get a Category Tree
      * @description Returns a *Category Tree*.
      */
     get: operations["GetCategoryTreeByTreeId"];
@@ -96,14 +96,14 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
       [key: string]: unknown;
     };
     /**
-     * DetailedErrors 
+     * DetailedErrors
      * @description Each key-value pair describes a failure or partial success case.
      */
     DetailedErrors: {
@@ -143,7 +143,7 @@ export interface components {
       sort_order?: number;
       page_title?: string;
       search_keywords?: string;
-      meta_keywords?: (string)[];
+      meta_keywords?: string[];
       meta_description?: string;
       layout_file?: string;
       is_visible?: boolean;
@@ -179,7 +179,7 @@ export interface components {
       };
     };
     ErrorRequest: {
-      errors?: (components["schemas"]["ErrorBasic"])[];
+      errors?: components["schemas"]["ErrorBasic"][];
     };
     ErrorBasic: {
       /** @description The HTTP status code. */
@@ -205,11 +205,11 @@ export interface components {
       meta?: components["schemas"]["MetaData"];
     };
     PartialSuccessResponse: {
-      data?: (components["schemas"]["Category"])[];
+      data?: components["schemas"]["Category"][];
       meta?: components["schemas"]["MetaData"];
     };
     SuccessResponse: {
-      data?: (components["schemas"]["Category"])[];
+      data?: components["schemas"]["Category"][];
       errors?: components["schemas"]["MetaError"];
       meta?: components["schemas"]["MetaData"];
     };
@@ -220,16 +220,21 @@ export interface components {
     Tree: {
       id?: number;
       name?: string;
-      channels?: (number)[];
+      channels?: number[];
+    };
+    Tree_req: {
+      id?: number;
+      name?: string;
+      channel_ids?: number[];
     };
     CategoryNode: {
       id?: number;
       parent_id?: number;
       depth?: number;
-      path?: (number)[];
+      path?: number[];
       name?: string;
       is_visible?: boolean;
-      children?: (components["schemas"]["CategoryNode"])[];
+      children?: components["schemas"]["CategoryNode"][];
     };
     MetaPaginationObject: {
       pagination?: {
@@ -270,7 +275,7 @@ export interface components {
     default_product_sort: {
       /**
        * @description Determines how the products are sorted on category page load.
-       *  
+       *
        * @enum {string}
        */
       default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
@@ -279,7 +284,7 @@ export interface components {
     name: {
       /**
        * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-       * Required in a POST. 
+       * Required in a POST.
        * @example Bath
        */
       name?: string;
@@ -288,7 +293,7 @@ export interface components {
     description: {
       /**
        * @description The product description, which can include HTML formatting.
-       *  
+       *
        * @example <p>We offer a wide variety of products perfect for relaxing</p>
        */
       description?: string;
@@ -297,7 +302,7 @@ export interface components {
     views: {
       /**
        * @description Number of views the category has on the storefront.
-       *  
+       *
        * @example 1050
        */
       views?: number;
@@ -306,7 +311,7 @@ export interface components {
     sort_order: {
       /**
        * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-       *  
+       *
        * @example 3
        */
       sort_order?: number;
@@ -315,7 +320,7 @@ export interface components {
     page_title: {
       /**
        * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-       *  
+       *
        * @example Bath
        */
       page_title?: string;
@@ -328,13 +333,13 @@ export interface components {
     /** meta_keywords */
     meta_keywords: {
       /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-      meta_keywords?: (string)[];
+      meta_keywords?: string[];
     };
     /** layout_file */
     layout_file: {
       /**
        * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied.
-       *  
+       *
        * @example category.html
        */
       layout_file?: string;
@@ -348,7 +353,7 @@ export interface components {
     image_url: {
       /**
        * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
        */
       image_url?: string;
@@ -370,7 +375,7 @@ export interface components {
     parent_id: {
       /**
        * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-       * Required in a POST if creating a child category. 
+       * Required in a POST if creating a child category.
        * @example 2
        */
       parent_id?: number;
@@ -393,9 +398,9 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Categories 
-   * @description Returns a list of categories. 
-   * 
+   * Get All Categories
+   * @description Returns a list of categories.
+   *
    * To get a specific category in a tree, provide a category ID.
    */
   getAllCategories: {
@@ -429,7 +434,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["Category"])[];
+            data?: components["schemas"]["Category"][];
             meta?: components["schemas"]["MetaPagination"];
           };
         };
@@ -449,9 +454,9 @@ export interface operations {
     };
   };
   /**
-   * Update Categories 
-   * @description Updates existing categories. 
-   * 
+   * Update Categories
+   * @description Updates existing categories.
+   *
    *  To update a specific category in a tree, provide a category id.
    */
   updateCategories: {
@@ -502,12 +507,12 @@ export interface operations {
     };
   };
   /**
-   * Create Categories 
-   * @description Creates new categories. 
-   * 
+   * Create Categories
+   * @description Creates new categories.
+   *
    * Creating a category requires:
    *  - `name`
-   *  - `url` 
+   *  - `url`
    *  - `tree_id` or `parent_id`
    */
   createCategories: {
@@ -556,9 +561,9 @@ export interface operations {
     };
   };
   /**
-   * Delete Categories 
-   * @description Deletes categories. 
-   * 
+   * Delete Categories
+   * @description Deletes categories.
+   *
    * To delete a specific category in a tree, provide a category ID.
    */
   deleteTreeCategories: {
@@ -595,7 +600,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Category Trees 
+   * Get All Category Trees
    * @description Returns a list of *Category Trees*.
    */
   GetCategoryTrees: {
@@ -613,7 +618,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["Tree"])[];
+            data?: components["schemas"]["Tree"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -621,11 +626,11 @@ export interface operations {
     };
   };
   /**
-   * Upsert Category Trees 
-   * @description Upserts *Category Trees*. 
-   * 
+   * Upsert Category Trees
+   * @description Upserts *Category Trees*.
+   *
    * This single endpoint updates and creates category trees. If a tree object contains an ID, it is processed as an update operation using that ID. If you do not provide an ID, a new tree is created. The category tree `name` field is required to create trees, but is not required on the update.
-   * 
+   *
    * **Usage Notes**
    * * `channel_id` is required to create a *Category Tree*. You can assign one `channel_id` to one category tree.
    */
@@ -643,13 +648,13 @@ export interface operations {
          *   {
          *     "id": 0,
          *     "name": "string",
-         *     "channels": [
+         *     "channel_ids": [
          *       0
          *     ]
          *   }
          * ]
          */
-        "application/json": (components["schemas"]["Tree"])[];
+        "application/json": components["schemas"]["Tree_req"][];
       };
     };
     responses: {
@@ -657,7 +662,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: components["schemas"]["Tree"];
+            data?: components["schemas"]["Tree"][];
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -671,7 +676,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Category Trees 
+   * Delete Category Trees
    * @description Deletes *Category Trees*. A filter must be supplied with the endpoint.
    */
   DeleteCategoryTrees: {
@@ -689,7 +694,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Category Tree 
+   * Get a Category Tree
    * @description Returns a *Category Tree*.
    */
   GetCategoryTreeByTreeId: {
@@ -710,7 +715,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["CategoryNode"])[];
+            data?: components["schemas"]["CategoryNode"][];
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };

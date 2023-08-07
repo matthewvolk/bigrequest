@@ -8,34 +8,34 @@
 export interface paths {
   "/shipping/products/customs-information": {
     /**
-     * Get Customs Information 
+     * Get Customs Information
      * @description Get customs information for products.
-     * 
+     *
      * This list can be filtered to return customs information objects specific to a list of requested product_ids. This is achieved by appending the query string `?product_id:in=4,5,6` to the resource `/shipping/products/customs-information`.
-     * 
+     *
      * ```http
      * GET /shipping/products/customs-information?product_id:in=4,5,6
      * ```
      */
     get: operations["getCustomsInformation"];
     /**
-     * Upsert Customs Information 
+     * Upsert Customs Information
      * @description Creates and updates product customs information.
-     * 
+     *
      * This is a batch operation where the creation of multiple customs information objects can be done with one `PUT` request.
-     * 
+     *
      * **Limits**
      * * Limit of 50 customs information objects per `PUT` request.
      */
     put: operations["putCustomsInformation"];
     /**
-     * Delete Customs Information 
+     * Delete Customs Information
      * @description Deletes customs information objects for a product.
-     * 
+     *
      * ## Example
-     * 
+     *
      * This is a batch operation. The `product_id:in` query parameter is required.
-     * 
+     *
      * ```http
      * DELETE /shipping/products/customs-information?product_id:in=4,5,6
      * ```
@@ -54,84 +54,84 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * customsInformationRequest 
+     * customsInformationRequest
      * @description Data about the customs information object.
      */
     customsInformation_request: {
       /**
-       * Format: int32 
-       * @description The product ID to which the customs information data applies. 
+       * Format: int32
+       * @description The product ID to which the customs information data applies.
        * @example 77
        */
       product_id: number;
       /**
-       * @description The country of manufacture, production, or growth represented in ISO 3166-1 alpha-2 format. 
+       * @description The country of manufacture, production, or growth represented in ISO 3166-1 alpha-2 format.
        * @example US
        */
       country_of_origin: string;
       /**
-       * @description Description that provides information for customs to identify and verify the shapes, physical characteristics, and packaging of each shipment. 
+       * @description Description that provides information for customs to identify and verify the shapes, physical characteristics, and packaging of each shipment.
        * @example Baseball caps
        */
       commodity_description: string;
       /**
-       * @description Flag to determine whether this product will be shipped internationally. 
-       * @example true 
+       * @description Flag to determine whether this product will be shipped internationally.
+       * @example true
        * @enum {boolean}
        */
       international_shipping: true | false;
       hs_codes: components["schemas"]["harmonizedSystemCodes"];
     };
     /**
-     * customsInformation 
+     * customsInformation
      * @description Data about the customs information object.
      */
     customsInformation: {
       /**
-       * Format: int32 
-       * @description The ID of the product which the customs information data will apply to. 
+       * Format: int32
+       * @description The ID of the product which the customs information data will apply to.
        * @example 77
        */
       product_id?: number;
       /**
-       * @description The country of manufacture, production, or growth represented in ISO 3166-1 alpha-2 format. 
+       * @description The country of manufacture, production, or growth represented in ISO 3166-1 alpha-2 format.
        * @example US
        */
       country_of_origin?: string;
       /**
-       * @description Description that provides information for customs to identify and verify shapes physical characteristics and packaging of each shipment. 
+       * @description Description that provides information for customs to identify and verify shapes physical characteristics and packaging of each shipment.
        * @example Baseball caps
        */
       commodity_description?: string;
       /**
-       * @description Flag to determine whether this product will be shipped internationally. 
-       * @example true 
+       * @description Flag to determine whether this product will be shipped internationally.
+       * @example true
        * @enum {boolean}
        */
       international_shipping?: true | false;
       hs_codes?: components["schemas"]["harmonizedSystemCodes"];
       /**
-       * Format: date-time 
-       * @description Date and time when the customs information was created. 
+       * Format: date-time
+       * @description Date and time when the customs information was created.
        * @example "2022-09-21T14:15:00.000Z"
        */
       created_at?: string;
       /**
-       * Format: date-time 
-       * @description Date and time when the customs information was last updated. 
+       * Format: date-time
+       * @description Date and time when the customs information was last updated.
        * @example "2022-09-21T14:15:00.000Z"
        */
       updated_at?: string;
     };
     /**
-     * harmonizedSystemCodes 
-     * @description Key-value pairs that are commonly used in the following form:  
-     * 
+     * harmonizedSystemCodes
+     * @description Key-value pairs that are commonly used in the following form:
+     *
      * `countryISO2: '/^[0-9A-Za-z]{6,14}$/'`
-     * 
-     * This key-value pair represents a country and the associated `hs_code` that applies to that country. 
-     * 
-     * You can also use the `ALL` key in place of an ISO2 key to specify that the `hs_code` applies to all countries. The `ALL` key can be combined with other countries in the `hs_code` object. 
+     *
+     * This key-value pair represents a country and the associated `hs_code` that applies to that country.
+     *
+     * You can also use the `ALL` key in place of an ISO2 key to specify that the `hs_code` applies to all countries. The `ALL` key can be combined with other countries in the `hs_code` object.
      * @example {
      *   "ALL": "501000",
      *   "CA": "508313",
@@ -143,49 +143,49 @@ export interface components {
       [key: string]: unknown;
     };
     /**
-     * metaCollection 
+     * metaCollection
      * @description Meta data relating to pagination.
      */
     metaCollection: {
       pagination?: {
         /**
-         * @description Total number of items returned. 
+         * @description Total number of items returned.
          * @example 3
          */
         total?: number;
         /**
-         * @description Number of items returned on per page. 
+         * @description Number of items returned on per page.
          * @example 1
          */
         count?: number;
         /**
-         * @description Number of items to be displayed per page. 
+         * @description Number of items to be displayed per page.
          * @example 1
          */
         per_page?: number;
         /**
-         * @description Current page number. 
+         * @description Current page number.
          * @example 2
          */
         current_page?: number;
         /**
-         * @description Total number of pages. 
+         * @description Total number of pages.
          * @example 3
          */
         total_page?: number;
         links?: {
           /**
-           * @description Query string appended to the resource to return to the previous page. 
+           * @description Query string appended to the resource to return to the previous page.
            * @example ?limit=1&page=1
            */
           previous?: string;
           /**
-           * @description Query string appended to the resource to proceed to the next page. 
+           * @description Query string appended to the resource to proceed to the next page.
            * @example ?limit=1&page=3
            */
           next?: string;
           /**
-           * @description Query string appended to the resource to show the current page. 
+           * @description Query string appended to the resource to show the current page.
            * @example ?limit=1&page=2
            */
           current?: string;
@@ -193,7 +193,7 @@ export interface components {
       };
     };
     /**
-     * Error 
+     * Error
      * @description Meta data relating to pagination
      */
     error_Full: Record<string, never>;
@@ -237,7 +237,7 @@ export interface components {
     };
     /**
      * @description If this occurs, you should retry the request. If you are unable to successfully make a request, please check the [BigCommerce system status](https://status.bigcommerce.com/). A service is likely down and the request will need to be made again when it is back up.
-     * 
+     *
      * Occurs when the store is down for maintenance, is being upgraded to a new version, or is suspended for administrative or billing reasons.
      */
     "503_ServiceUnavailable": {
@@ -294,11 +294,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Customs Information 
+   * Get Customs Information
    * @description Get customs information for products.
-   * 
+   *
    * This list can be filtered to return customs information objects specific to a list of requested product_ids. This is achieved by appending the query string `?product_id:in=4,5,6` to the resource `/shipping/products/customs-information`.
-   * 
+   *
    * ```http
    * GET /shipping/products/customs-information?product_id:in=4,5,6
    * ```
@@ -307,7 +307,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description A comma-separated list of product IDs. For more information, see [Filtering](/api-docs/getting-started/filtering). */
-        "product_id:in"?: (number)[];
+        "product_id:in"?: number[];
         page?: number;
         limit?: number;
       };
@@ -319,7 +319,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["customsInformation"])[];
+            data?: components["schemas"]["customsInformation"][];
             meta?: components["schemas"]["metaCollection"];
           };
         };
@@ -327,11 +327,11 @@ export interface operations {
     };
   };
   /**
-   * Upsert Customs Information 
+   * Upsert Customs Information
    * @description Creates and updates product customs information.
-   * 
+   *
    * This is a batch operation where the creation of multiple customs information objects can be done with one `PUT` request.
-   * 
+   *
    * **Limits**
    * * Limit of 50 customs information objects per `PUT` request.
    */
@@ -344,7 +344,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["customsInformation_request"])[];
+        "application/json": components["schemas"]["customsInformation_request"][];
       };
     };
     responses: {
@@ -352,20 +352,20 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["customsInformation"])[];
+            data?: components["schemas"]["customsInformation"][];
           };
         };
       };
     };
   };
   /**
-   * Delete Customs Information 
+   * Delete Customs Information
    * @description Deletes customs information objects for a product.
-   * 
+   *
    * ## Example
-   * 
+   *
    * This is a batch operation. The `product_id:in` query parameter is required.
-   * 
+   *
    * ```http
    * DELETE /shipping/products/customs-information?product_id:in=4,5,6
    * ```

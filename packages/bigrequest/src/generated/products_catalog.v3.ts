@@ -5,20 +5,23 @@
  */
 
 
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface paths {
   "/catalog/products": {
     /**
-     * Get All Products 
+     * Get All Products
      * @description Returns a list of **Products**. Optional filter parameters can be passed in.
      */
     get: operations["getProducts"];
     /**
-     * Update Products (Batch) 
+     * Update Products (Batch)
      * @description Updates products in batches. Batches are limited to 10 products.
-     * 
+     *
      * **Required Fields**
      * * `id` - product `id` is required for batch updates to products.
-     * 
+     *
      * **Read-Only Fields**
      * - `id`
      * - `date_created`
@@ -28,36 +31,36 @@ export interface paths {
      */
     put: operations["updateProducts"];
     /**
-     * Create a Product 
+     * Create a Product
      * @description Creates a *Product*. Only one product can be created at a time.
-     * 
+     *
      * **Required Fields:**
      * - `name`
      * - `type`
      * - `weight`
      * - `price`
-     * 
+     *
      * **Read-Only Fields**
      * - `id`
      * - `date_created`
      * - `date_modified`
      * - `calculated_price`
      * - `base_variant_id`
-     * 
+     *
      * **Limits**
      * - 250 characters product name length.
-     * 
+     *
      * **Usage Notes**
      * * This endpoint accepts a `video` array. To create a product video that accepts a `video` object, see [Create a Product Video](/docs/rest-catalog/products/videos#create-a-product-video) for information.
      */
     post: operations["createProduct"];
     /**
-     * Delete Products 
+     * Delete Products
      * @description To delete *Product* objects, you must include a filter. This prevents inadvertently deleting all *Product* objects in a store.
-     * 
+     *
      * > #### Note
      * > The maximum number of products you can delete at one time is 250.
-     * 
+     *
      * **Example**:
      * To delete products with the id's of 1,2 and 3, use `DELETE /v3/catalog/products?id:in=1,2,3`.
      */
@@ -70,14 +73,14 @@ export interface paths {
   };
   "/catalog/products/{product_id}": {
     /**
-     * Get a Product 
+     * Get a Product
      * @description Returns a single *Product*. Optional parameters can be passed in.
      */
     get: operations["getProductById"];
     /**
-     * Update a Product 
+     * Update a Product
      * @description Updates a *Product*.
-     * 
+     *
      * **Read-Only Fields**
      * - id
      * - date_created
@@ -87,7 +90,7 @@ export interface paths {
      */
     put: operations["updateProduct"];
     /**
-     * Delete a Product 
+     * Delete a Product
      * @description Deletes a *Product*.
      */
     delete: operations["deleteProductById"];
@@ -102,18 +105,18 @@ export interface paths {
   };
   "/catalog/products/{product_id}/images": {
     /**
-     * Get All Product Images 
+     * Get All Product Images
      * @description Returns a list of *Product Images*. Optional parameters can be passed in.
      */
     get: operations["getProductImages"];
     /**
-     * Create a Product Image 
+     * Create a Product Image
      * @description Creates a *Product Image*.
-     * 
+     *
      *  **Required Fields**
      * - `image_file`, or
      * - `image_url`
-     * 
+     *
      * **Usage Notes**
      * - `image_url` - `255` character limit
      * - For file uploads, use the `multipart/form-data` media type
@@ -132,21 +135,21 @@ export interface paths {
   };
   "/catalog/products/{product_id}/images/{image_id}": {
     /**
-     * Get a Product Image 
+     * Get a Product Image
      * @description Returns a single *Product Image*. Optional parameters can be passed in.
      */
     get: operations["getProductImageById"];
     /**
-     * Update a Product Image 
+     * Update a Product Image
      * @description Updates a *Product Image*.
-     * 
+     *
      * **Usage Notes**
      * - `image_url` - `255` character limit
      * - For file uploads, send a POST request using the `multipart/form-data` media type
      */
     put: operations["updateProductImage"];
     /**
-     * Delete a Product Image 
+     * Delete a Product Image
      * @description Deletes a *Product Image*.
      */
     delete: operations["deleteProductImage"];
@@ -162,20 +165,20 @@ export interface paths {
   };
   "/catalog/products/{product_id}/videos": {
     /**
-     * Get All Product Videos 
+     * Get All Product Videos
      * @description Returns a list of *Product Videos*. Optional parameters can be passed in.
      */
     get: operations["getProductVideos"];
     /**
-     * Create a Product Video 
+     * Create a Product Video
      * @description Creates a *Product Video*.
-     * 
+     *
      * **Required Fields**
      * * video_id
-     * 
+     *
      * **Read-Only Fields**
      * * id
-     * 
+     *
      * Publicly accessible URLs are valid parameters.
      * Videos must be loaded through YouTube at this time.
      */
@@ -191,23 +194,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/videos/{id}": {
     /**
-     * Get a Product Video 
+     * Get a Product Video
      * @description Returns a single *Product Video*. Optional parameters can be passed in.
      */
     get: operations["getProductVideoById"];
     /**
-     * Update a Product Video 
+     * Update a Product Video
      * @description Updates a *Product Video.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
     put: operations["updateProductVideo"];
     /**
-     * Delete a Product Video 
+     * Delete a Product Video
      * @description Deletes a *Product Video*.
      */
     delete: operations["deleteProductVideo"];
@@ -223,19 +226,19 @@ export interface paths {
   };
   "/catalog/products/{product_id}/complex-rules": {
     /**
-     * Get Complex Rules 
+     * Get Complex Rules
      * @description Returns a list of all product *Complex Rules*. Optional parameters may be passed in.
      */
     get: operations["getComplexRules"];
     /**
-     * Create a Complex Rule 
+     * Create a Complex Rule
      * @description Creates a product *Complex Rule*.
-     * 
+     *
      * **Required Fields**
      * - modifier_id
      * - modifier_value_id
      * - variant_id
-     * 
+     *
      * **Read-Only Fields**
      * - complex_rule_id
      * - conditions_id
@@ -255,17 +258,17 @@ export interface paths {
   };
   "/catalog/products/{product_id}/complex-rules/{complex_rule_id}": {
     /**
-     * Get a Complex Rule 
+     * Get a Complex Rule
      * @description Returns a single *Complex Rule*. Optional parameters can be passed in.
      */
     get: operations["getComplexRuleById"];
     /**
-     * Update a Complex Rule 
+     * Update a Complex Rule
      * @description Updates a *Complex Rule*.
-     * 
+     *
      * **Required Fields**:
      * - none
-     * 
+     *
      * **Read-Only Fields**:
      * - complex_rule_id
      * - conditions_id
@@ -275,7 +278,7 @@ export interface paths {
      */
     put: operations["updateComplexRule"];
     /**
-     * Delete a Complex Rule 
+     * Delete a Complex Rule
      * @description Deletes a product *Complex Rule*.
      */
     delete: operations["deleteComplexRuleById"];
@@ -291,21 +294,21 @@ export interface paths {
   };
   "/catalog/products/{product_id}/custom-fields": {
     /**
-     * Get Custom Fields 
+     * Get Custom Fields
      * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
      */
     get: operations["getCustomFields"];
     /**
-     * Create a Custom Fields 
+     * Create a Custom Fields
      * @description Creates a *Custom Field*.
-     * 
+     *
      * **Required Fields:**
      * - name
      * - value
-     * 
+     *
      * **Read-Only:**
      * - id
-     * 
+     *
      * **Limits**
      * - 200 custom fields per product limit.
      * - 255 characters per custom field limit.
@@ -322,23 +325,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/custom-fields/{custom_field_id}": {
     /**
-     * Get a Custom Field 
+     * Get a Custom Field
      * @description Returns a single *Custom Field*. Optional parameters can be passed in.
      */
     get: operations["getCustomFieldById"];
     /**
-     * Update a Custom Field 
+     * Update a Custom Field
      * @description Updates a *Custom Field*.
-     * 
+     *
      * **Required Fields**
      * - none
-     * 
+     *
      * **Read-Only**
      * - id
      */
     put: operations["updateCustomField"];
     /**
-     * Delete a Custom Field 
+     * Delete a Custom Field
      * @description Deletes a product *Custom Field*.
      */
     delete: operations["deleteCustomFieldById"];
@@ -354,23 +357,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/bulk-pricing-rules": {
     /**
-     * Get All Bulk Pricing Rules 
+     * Get All Bulk Pricing Rules
      * @description Returns a list of *Bulk Pricing Rules*. Optional parameters can be passed in.
      */
     get: operations["getBulkPricingRules"];
     /**
-     * Create a Bulk Pricing Rule 
+     * Create a Bulk Pricing Rule
      * @description Creates a *Bulk Pricing Rule*.
-     * 
+     *
      * **Required Fields**
      * - quantity_min
      * - quantity_max
      * - type
      * - amount
-     * 
+     *
      * **Read-Only Fields**
      * - id
-     * 
+     *
      * **Limits**
      * - 50 bulk pricing rule per product limit.
      */
@@ -386,23 +389,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/bulk-pricing-rules/{bulk_pricing_rule_id}": {
     /**
-     * Get a Bulk Pricing Rule 
+     * Get a Bulk Pricing Rule
      * @description Returns a single *Bulk Pricing Rule*. Optional parameters can be passed in.
      */
     get: operations["getBulkPricingRuleById"];
     /**
-     * Update a Bulk Pricing Rule 
+     * Update a Bulk Pricing Rule
      * @description Updates a *Bulk Pricing Rule*.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * - id
      */
     put: operations["updateBulkPricingRule"];
     /**
-     * Delete a Bulk Pricing Rule 
+     * Delete a Bulk Pricing Rule
      * @description Deletes a *Bulk Pricing Rule*.
      */
     delete: operations["deleteBulkPricingRuleById"];
@@ -418,20 +421,20 @@ export interface paths {
   };
   "/catalog/products/{product_id}/metafields": {
     /**
-     * Get All Product Metafields 
+     * Get All Product Metafields
      * @description Returns a list of *Product Metafields*. Optional parameters can be passed in.
      */
     get: operations["getProductMetafieldsByProductId"];
     /**
-     * Create a Product Metafield 
+     * Create a Product Metafield
      * @description Creates a *Product Metafield*.
-     * 
+     *
      * **Required Fields:**
      * * permission_set
      * * namespace
      * * key
      * * value
-     * 
+     *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createProductMetafield"];
@@ -446,17 +449,17 @@ export interface paths {
   };
   "/catalog/products/{product_id}/metafields/{metafield_id}": {
     /**
-     * Get a Product Metafield 
+     * Get a Product Metafield
      * @description Returns a single *Product Metafield*. Optional parameters can be passed in.
      */
     get: operations["getProductMetafieldByProductId"];
     /**
-     * Update a Product Metafield 
+     * Update a Product Metafield
      * @description Updates a *Product Metafield*.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      * * These fields can only be modified using the API account that created the metafield:
@@ -464,13 +467,13 @@ export interface paths {
      * 	* `key`
      * 	* `permission_set`
      * 	* `value`
-     * 
+     *
      * **Usage Notes**
      * * Attempting to modify the `namespace`, `key`, `permission_set`, or `value` field using an API account different from the one used to create those metafields will result in a `403` error message.
      */
     put: operations["updateProductMetafield"];
     /**
-     * Delete a Product Metafield 
+     * Delete a Product Metafield
      * @description Deletes a *Product Metafield*.
      */
     delete: operations["deleteProductMetafieldById"];
@@ -486,18 +489,18 @@ export interface paths {
   };
   "/catalog/products/{product_id}/reviews": {
     /**
-     * Get Product Reviews 
+     * Get Product Reviews
      * @description Returns a list of all *Product Reviews*. Optional parameters can be passed in.
      */
     get: operations["getProductReviews"];
     /**
-     * Create a Product Review 
+     * Create a Product Review
      * @description Creates a *Product Review*.
-     * 
+     *
      * **Required Fields**
      * - title
      * - date_reviewed
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
@@ -513,23 +516,23 @@ export interface paths {
   };
   "/catalog/products/{product_id}/reviews/{review_id}": {
     /**
-     * Get a Product Review 
+     * Get a Product Review
      * @description Returns a single *Product Review*. Optional parameters maybe passed in.
      */
     get: operations["getProductReviewById"];
     /**
-     * Update a Product Review 
+     * Update a Product Review
      * @description Updates a *Product Review*.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
     put: operations["updateProductReview"];
     /**
-     * Delete a Product Review 
+     * Delete a Product Review
      * @description Deletes a *Product Review*.
      */
     delete: operations["deleteProductReview"];
@@ -545,17 +548,17 @@ export interface paths {
   };
   "/catalog/products/channel-assignments": {
     /**
-     * Get Products Channel Assignments 
+     * Get Products Channel Assignments
      * @description Returns a list of products channel assignments.
      */
     get: operations["GetProductsChannelAssignments"];
     /**
-     * Create Products Channel Assignments 
+     * Create Products Channel Assignments
      * @description Creates products channel assignments.
      */
     put: operations["CreateProductsChannelAssignments"];
     /**
-     * Delete Products Channel Assignments 
+     * Delete Products Channel Assignments
      * @description Delete products channel assignments. A filter must be supplied.
      */
     delete: operations["DeleteProductsChannelAssignments"];
@@ -567,17 +570,17 @@ export interface paths {
   };
   "/catalog/products/category-assignments": {
     /**
-     * Get Products Category Assignments 
+     * Get Products Category Assignments
      * @description Returns a list of products category assignments.
      */
     get: operations["GetProductsCategoryAssignments"];
     /**
-     * Create Products Category Assignments. 
+     * Create Products Category Assignments.
      * @description Creates products category assignments.
      */
     put: operations["CreateProductsCategoryAssignments"];
     /**
-     * Delete Products Category Assignments 
+     * Delete Products Category Assignments
      * @description Deletes products category assignments. A filter must be supplied.
      */
     delete: operations["DeleteProductsCategoryAssignments"];
@@ -589,9 +592,9 @@ export interface paths {
   };
   "/catalog/summary": {
     /**
-     * Get a Catalog Summary 
+     * Get a Catalog Summary
      * @description Returns a lightweight inventory summary from the BigCommerce Catalog.
-     * 
+     *
      * The inventory summary includes:
      * * "inventory_count"
      * * "variant_count"
@@ -618,13 +621,13 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * productModifier_Base 
+     * productModifier_Base
      * @description Common Modifier properties.
      */
     productModifier_Base: {
       /**
        * @description BigCommerce API, which determines how it will display on the storefront. Acceptable values: `date`, `checkbox`, `file`, `text`, `multi_line_text`, `numbers_only_text`, `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. Required in a /POST.
-       *  
+       *
        * @enum {string}
        */
       type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
@@ -637,50 +640,50 @@ export interface components {
       display_name?: string;
     };
     /**
-     * productModifier_Full 
+     * productModifier_Full
      * @description Product Modifier
      */
     productModifier_Full: components["schemas"]["productModifier_Base"] & {
       /**
        * @description The unique numeric ID of the modifier; increments sequentially.
-       *  
+       *
        * @example 12
        */
       id?: number;
       /**
        * @description The unique numeric ID of the product to which the option belongs.
-       *  
+       *
        * @example 77
        */
       product_id?: number;
       /**
        * @description The unique option name. Auto-generated from the display name, a timestamp, and the product ID.
-       *  
+       *
        * @example Add-a-$5-Donation1535039590-191
        */
       name?: string;
-      option_values?: (components["schemas"]["productModifierOptionValue_Full"])[];
+      option_values?: components["schemas"]["productModifierOptionValue_Full"][];
     };
     /**
-     * productModifierOptionValue_Base 
+     * productModifierOptionValue_Base
      * @description Common Product Modifer `option_value` properties.
      */
     productModifierOptionValue_Base: {
       /**
        * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-       *  
+       *
        * @example false
        */
       is_default?: boolean;
       /**
        * @description The text display identifying the value on the storefront. Required in a /POST.
-       *  
+       *
        * @example Green
        */
       label: string;
       /**
        * @description The order in which the value will be displayed on the product page. Required in a /POST.
-       *  
+       *
        * @example 0
        */
       sort_order: number;
@@ -689,7 +692,7 @@ export interface components {
       adjusters?: components["schemas"]["adjusters_Full"];
     };
     /**
-     * productModifierOptionValue_Full 
+     * productModifierOptionValue_Full
      * @description Product Modifer `option_value`.
      */
     productModifierOptionValue_Full: components["schemas"]["productModifierOptionValue_Base"] & {
@@ -698,91 +701,91 @@ export interface components {
       option_id?: number;
     };
     /**
-     * productOption_Base 
+     * productOption_Base
      * @description Common Option properties.
      */
     productOption_Base: {
       /**
        * @description The unique numerical ID of the option, increments sequentially.
-       *  
+       *
        * @example 55
        */
       id?: number | null;
       /**
        * @description The unique numerical ID of the product to which the option belongs.
-       *  
+       *
        * @example 4
        */
       product_id?: number;
       /**
        * @description The name of the option shown on the storefront.
-       *  
+       *
        * @example Add-a-$5-Donation1535042499-187
        */
       display_name?: string;
       /**
        * @description The type of option, which determines how it will display on the storefront. Acceptable values: `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
-       *  
+       *
        * @enum {string}
        */
       type?: "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
       config?: components["schemas"]["productOptionConfig_Full"];
       /**
-       * @description Order in which the option is displayed on the storefront.  
+       * @description Order in which the option is displayed on the storefront.
        * @example 1
        */
       sort_order?: number;
-      option_values?: (components["schemas"]["productOptionOptionValue_Full"])[];
+      option_values?: components["schemas"]["productOptionOptionValue_Full"][];
     };
     /**
-     * productVariant_Base 
+     * productVariant_Base
      * @description Common Variant properties.
      */
     productVariant_Base: {
       /**
-       * Format: double 
+       * Format: double
        * @description The cost price of the variant. Not affected by Price List prices.
        */
       cost_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
        */
       price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
        */
       sale_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
        */
       retail_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
        */
       weight?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
        */
       width?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
        */
       height?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
        */
       depth?: number | null;
       /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
       is_free_shipping?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
        */
       fixed_cost_shipping_price?: number | null;
@@ -794,11 +797,11 @@ export interface components {
       upc?: string | null;
       /**
        * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-       *                     
-       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-       *                     
+       *
+       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+       *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-       * 
+       *
        * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
@@ -812,70 +815,67 @@ export interface components {
       gtin?: string;
     };
     /** productVariant_Full */
-    productVariant_Full: components["schemas"]["productVariant_Base"] & ({
-      id?: number;
+    productVariant_Full: WithRequired<components["schemas"]["productVariant_Base"] & {
       product_id?: number;
       sku?: string;
-      /** @description Read-only reference to v2 API's SKU ID. Null if it is a base variant. */
-      sku_id?: number | null;
       /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant. */
-      option_values?: (components["schemas"]["productVariantOptionValue_Full"])[];
+      option_values?: components["schemas"]["productVariantOptionValue_Full"][];
       /**
-       * Format: double 
+       * Format: double
        * @description The price of the variant as seen on the storefront. This price takes into account `sale_price` and any price adjustment rules that are applicable to this variant.
        */
       calculated_price?: number;
       calculated_weight?: number;
-    });
+    }, "sku">;
     /**
-     * productVariant_Put_Product 
+     * productVariant_Put_Product
      * @description The model for a PUT to update variants on a product.
      */
     productVariant_Put_Product: {
       /**
-       * Format: double 
+       * Format: double
        * @description The cost price of the variant. Not affected by Price List prices.
        */
       cost_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is `null`, the product’s default price (set in the Product resource’s `price` field) will be used as the base price.
        */
       price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s sale price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s sale price (set in the Product resource’s `price` field) will be used as the sale price.
        */
       sale_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
        */
       retail_price?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
        */
       weight?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
        */
       width?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
        */
       height?: number | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
        */
       depth?: number | null;
       /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
       is_free_shipping?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description A fixed shipping cost for the variant. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
        */
       fixed_cost_shipping_price?: number | null;
@@ -887,11 +887,11 @@ export interface components {
       upc?: string | null;
       /**
        * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
-       *                     
-       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647. 
-       *                     
+       *
+       * The inventory for a variant cannot exceed 2,147,483,647 in the catalog. The sum of the variant inventories, or the total inventory for a product, cannot exceed 2,147,483,647.
+       *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
-       * 
+       *
        * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
@@ -906,56 +906,56 @@ export interface components {
       sku?: string;
     };
     /** productVariantOptionValue_Full */
-    productVariantOptionValue_Full: {
+    productVariantOptionValue_Full: WithRequired<{
       /**
        * @description The name of the option.
-       *  
+       *
        * @example Color
        */
       option_display_name?: string;
       /**
        * @description The label of the option value.
-       *  
+       *
        * @example Beige
        */
       label?: string;
-    } & components["schemas"]["productVariantOptionValue_Base"];
+    }, "option_display_name" | "label">;
     /**
-     * productVariantOptionValue_Base 
+     * productVariantOptionValue_Base
      * @description Common Product Variant Option properties.
      */
     productVariantOptionValue_Base: {
       /**
-       * @description `option_value` ID. 
+       * @description `option_value` ID.
        * @example 146
        */
       id?: number;
       /**
-       * @description `option` ID. 
+       * @description `option` ID.
        * @example 151
        */
       option_id?: number;
     };
     /**
-     * productOptionOptionValue_Base 
+     * productOptionOptionValue_Base
      * @description Common Product Option `option_value` properties.
      */
     productOptionOptionValue_Base: {
       /**
        * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-       *  
+       *
        * @example false
        */
       is_default?: boolean;
       /**
        * @description The text display identifying the value on the storefront. Required in a /POST.
-       *  
+       *
        * @example Green
        */
       label: string;
       /**
        * @description The order in which the value will be displayed on the product page. Required in a /POST.
-       *  
+       *
        * @example 0
        */
       sort_order: number;
@@ -963,7 +963,7 @@ export interface components {
       value_data?: Record<string, unknown> | null;
     };
     /**
-     * productOptionOptionValue_Full 
+     * productOptionOptionValue_Full
      * @description Product Option `option_value`.
      */
     productOptionOptionValue_Full: components["schemas"]["productOptionOptionValue_Base"] & {
@@ -971,7 +971,7 @@ export interface components {
       id?: number;
     };
     /**
-     * productImage_Base 
+     * productImage_Base
      * @description Common ProductImage properties.
      */
     productImage_Base: {
@@ -987,7 +987,7 @@ export interface components {
       image_url?: string;
     };
     /**
-     * productImage_Put 
+     * productImage_Put
      * @description The model for a PUT to update applicable Product Image fields.
      */
     productImage_Put: {
@@ -1003,42 +1003,42 @@ export interface components {
       url_tiny?: string;
     } & components["schemas"]["productImage_Base"];
     /**
-     * productVideo_Base 
+     * productVideo_Base
      * @description The model for a POST to create a video on a product.
      */
     productVideo_Base: {
       /**
        * @description The title for the video. If left blank, this will be filled in according to data on a host site.
-       *  
+       *
        * @example Writing Great Documentation
        */
       title?: string;
       /**
        * @description The description for the video. If left blank, this will be filled in according to data on a host site.
-       *  
+       *
        * @example A video about documenation
        */
       description?: string;
       /**
        * @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered.
-       *  
+       *
        * @example 1
        */
       sort_order?: number;
       /**
        * @description The video type (a short name of a host site).
-       *  
+       *
        * @enum {string}
        */
       type?: "youtube";
       /**
-       * @description The ID of the video on a host site. 
+       * @description The ID of the video on a host site.
        * @example z3fRu9pkuXE
        */
       video_id?: string;
     };
     /**
-     * productVideo_Full 
+     * productVideo_Full
      * @description A product video model.
      */
     productVideo_Full: components["schemas"]["productVideo_Base"] & {
@@ -1050,81 +1050,81 @@ export interface components {
       length?: string;
     };
     /**
-     * product_Put 
+     * product_Put
      * @description The model for a PUT to update a product.
      */
     product_Put: components["schemas"]["product_Base"] & {
-      variants?: (components["schemas"]["productVariant_Put_Product"])[];
+      variants?: components["schemas"]["productVariant_Put_Product"][];
     };
     /**
-     * metafield_Base 
+     * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Base: {
       /**
        * @description The name of the field, for example: `location_id`, `color`. Required for POST.
-       *  
+       *
        * @example Location
        */
       key: string;
       /**
        * @description The value of the field, for example: `1`, `blue`. Required for POST.
-       *  
+       *
        * @example 4HG
        */
       value: string;
       /**
        * @description Namespace for the metafield, for organizational purposes. This is set by the developer. Required for POST.
-       *  
+       *
        * @example Warehouse Locations
        */
       namespace: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
     };
     /**
-     * complexRule_Base 
+     * complexRule_Base
      * @description Common ComplexRule properties.
      */
     complexRule_Base: {
       /**
        * @description The unique numeric ID of the rule; increments sequentially.
-       * Read-Only 
+       * Read-Only
        * @example 5
        */
       id?: number;
       /**
        * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-       *  
+       *
        * @example 67
        */
       product_id?: number | null;
       /**
        * @description The priority to give this rule when making adjustments to the product properties.
-       *  
+       *
        * @example 0
        */
       sort_order?: number;
       /**
        * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
-       *  
+       *
        * @example true
        */
       enabled?: boolean;
@@ -1134,7 +1134,7 @@ export interface components {
       purchasing_disabled?: boolean;
       /**
        * @description Message displayed on the storefront when a rule disables the purchasing of a product.
-       *  
+       *
        * @example This product is not available at this time.
        */
       purchasing_disabled_message?: string;
@@ -1142,94 +1142,94 @@ export interface components {
       purchasing_hidden?: boolean;
       /**
        * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
        */
       image_url?: string;
       price_adjuster?: components["schemas"]["adjuster_Full"];
       weight_adjuster?: components["schemas"]["adjuster_Full"];
-      conditions?: (components["schemas"]["complexRuleConditionBase"])[];
+      conditions?: components["schemas"]["complexRuleConditionBase"][];
     };
     /**
-     * productCustomField_Base 
+     * productCustomField_Base
      * @description Gets custom fields associated with a product. These allow you to specify additional information that will appear on the product’s page, such as a book’s ISBN or a DVD’s release date.
      */
     productCustomField_Base: {
       /**
        * @description The unique numeric ID of the custom field; increments sequentially.
-       * Read-Only 
+       * Read-Only
        * @example 6
        */
       id?: number;
       /**
        * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-       *  
+       *
        * @example ISBN
        */
       name: string;
       /**
        * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-       *  
+       *
        * @example 1234567890123
        */
       value: string;
     };
     /**
-     * productCustomField_Put 
+     * productCustomField_Put
      * @description The model for a PUT to update a custom field on a product.
      */
     productCustomField_Put: {
       /**
        * @description The unique numeric ID of the custom field; increments sequentially. Required to update existing custom field in /PUT request.
-       * Read-Only 
+       * Read-Only
        * @example 6
        */
       id?: number;
       /**
        * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-       *  
+       *
        * @example ISBN
        */
       name: string;
       /**
        * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-       *  
+       *
        * @example 1234567890123
        */
       value: string;
     };
     /**
-     * complexRuleConditionBase 
+     * complexRuleConditionBase
      * @description Complex rules may return with conditions that apply to one or more variants, or with a single modifier value (if the rules were created using the v2 API or the control panel). Complex rules created or updated in the v3 API must have conditions that either reference multiple `modifier_value_id`’s, or else reference a `modifier_value_id` and a `variant_id`.
      */
     complexRuleConditionBase: {
       /**
        * @description The unique numeric ID of the rule condition; increments sequentially. Read-Only
-       *  
+       *
        * @example 3
        */
       id?: number | null;
       /**
        * @description The unique numeric ID of the rule with which the condition is associated.
-       * Read-Only 
+       * Read-Only
        * @example 4
        */
       rule_id?: number | null;
       /**
        * @description The unique numeric ID of the modifier with which the rule condition is associated.
-       * Required in /POST. 
+       * Required in /POST.
        * @example 55
        */
       modifier_id: number | null;
       /**
        * @description The unique numeric ID of the modifier value with which the rule condition is associated.
-       * Required in /POST. 
+       * Required in /POST.
        * @example 256
        */
       modifier_value_id: number | null;
       /**
        * @description The unique numeric ID of the variant with which the rule condition is associated.
-       * Required in /POST. 
+       * Required in /POST.
        * @example 1
        */
       variant_id: number | null;
@@ -1237,7 +1237,7 @@ export interface components {
       combination_id?: number;
     };
     /**
-     * customUrl_Full 
+     * customUrl_Full
      * @description The custom URL for the product on the storefront.
      */
     customUrl_Full: {
@@ -1247,39 +1247,39 @@ export interface components {
       is_customized?: boolean;
     };
     /**
-     * bulkPricingRule_Full 
+     * bulkPricingRule_Full
      * @description Common Bulk Pricing Rule properties
      */
     bulkPricingRule_Full: {
       /**
        * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. For `fixed` rules, the minimum quantity canʼt be less than two.
        * Required in /POST.
-       *  
+       *
        * @example 10
        */
       quantity_min: number;
       /**
        * @description The maximum inclusive quantity of a product to satisfy this rule. Must be greater than the `quantity_min` value – unless this field has a value of 0 (zero), in which case there will be no maximum bound for this rule.
-       * Required in /POST. 
+       * Required in /POST.
        * @example 50
        */
       quantity_max: number;
       /**
        * @description The type of adjustment that is made. Values: `price` - the adjustment amount per product; `percent` - the adjustment as a percentage of the original price; `fixed` - the adjusted absolute price of the product.
-       * Required in /POST. 
-       * @example price 
+       * Required in /POST.
+       * @example price
        * @enum {string}
        */
       type: "price" | "percent" | "fixed";
       /**
        * @description You can express the adjustment type as either a fixed dollar amount or a percentage. Send a number; the response will return a number for `price` and `fixed` adjustments.
-       * Divide the adjustment percentage by 100 and send the result in string format. For example, represent 10% as “.10”. The response will return a float value for both `price` and `percentage` adjustments. 
+       * Divide the adjustment percentage by 100 and send the result in string format. For example, represent 10% as “.10”. The response will return a float value for both `price` and `percentage` adjustments.
        * Required in /POST.
        */
       amount: number | string;
     };
     /**
-     * productOptionConfig_Full 
+     * productOptionConfig_Full
      * @description The values for option config can vary based on the Modifier created.
      */
     productOptionConfig_Full: {
@@ -1293,25 +1293,25 @@ export interface components {
       date_limited?: boolean;
       /**
        * @description (date) The type of limit that is allowed to be entered on a date option.
-       *  
-       * @example range 
+       *
+       * @example range
        * @enum {string}
        */
       date_limit_mode?: "earliest" | "range" | "latest";
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_earliest_value?: string;
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_latest_value?: string;
       /**
        * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-       *  
-       * @example specific 
+       *
+       * @example specific
        * @enum {string}
        */
       file_types_mode?: "specific" | "all";
@@ -1320,12 +1320,12 @@ export interface components {
        *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
        *   `other` - Allows file types defined in the `file_types_other` array.
        */
-      file_types_supported?: (string)[];
+      file_types_supported?: string[];
       /** @description (file) A list of other file types allowed with the file upload option. */
-      file_types_other?: (string)[];
+      file_types_other?: string[];
       /**
        * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-       *  
+       *
        * @example 5
        */
       file_max_size?: number;
@@ -1333,44 +1333,44 @@ export interface components {
       text_characters_limited?: boolean;
       /**
        * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-       *  
+       *
        * @example 1
        */
       text_min_length?: number;
       /**
        * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-       *  
+       *
        * @example 55
        */
       text_max_length?: number;
       /**
        * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example true
        */
       text_lines_limited?: boolean;
       /**
        * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example 4
        */
       text_max_lines?: number;
       /**
        * @description (numbers_only_text) Flag to limit the value of a number option.
-       *  
+       *
        * @example true
        */
       number_limited?: boolean;
       /**
        * @description (numbers_only_text) The type of limit on values entered for a number option.
-       *  
-       * @example lowest 
+       *
+       * @example lowest
        * @enum {string}
        */
       number_limit_mode?: "lowest" | "highest" | "range";
       /**
        * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-       *  
+       *
        * @example 100
        */
       number_lowest_value?: number;
@@ -1378,7 +1378,7 @@ export interface components {
       number_highest_value?: number;
       /**
        * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-       *  
+       *
        * @example false
        */
       number_integers_only?: boolean;
@@ -1388,69 +1388,69 @@ export interface components {
       product_list_adjusts_pricing?: boolean;
       /**
        * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-       *  
-       * @example weight 
+       *
+       * @example weight
        * @enum {string}
        */
       product_list_shipping_calc?: "none" | "weight" | "package";
     };
     /**
-     * adjuster_Full 
+     * adjuster_Full
      * @description Adjuster for Complex Rules.
      */
     adjuster_Full: {
       /**
        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-       *  
+       *
        * @enum {string|null}
        */
       adjuster?: "relative" | "percentage" | null;
       /**
        * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-       *  
+       *
        * @example 5
        */
       adjuster_value?: number;
     };
     /**
-     * metaCollection_Full 
+     * metaCollection_Full
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
     /**
-     * pagination_Full 
+     * pagination_Full
      * @description Data about the response, including pagination and collection totals.
      */
     pagination_Full: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -1460,7 +1460,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -1469,14 +1469,14 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
       [key: string]: unknown;
     };
     /**
-     * error_Base 
+     * error_Base
      * @description Error payload for the BigCommerce API.
      */
     error_Base: {
@@ -1498,7 +1498,7 @@ export interface components {
       errors?: components["schemas"]["DetailedErrors"];
     };
     /**
-     * DetailedErrors 
+     * DetailedErrors
      * @description Each key-value pair describes a failure or partial success case.
      */
     DetailedErrors: {
@@ -1510,38 +1510,38 @@ export interface components {
       id?: number;
     } & components["schemas"]["product_Base"] & {
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date on which the product was created.
-       *  
+       *
        * @example 2018-08-15T14:49:05+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date on which the product was modified.
-       *  
+       *
        * @example 2018-08-24T14:41:00+00:00
        */
       date_modified?: string;
       /** @description The unique identifier of the base variant associated with a simple product. This value is `null` for complex products. */
       base_variant_id?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The calculated_price is derived from the default price and sale price of the product. It is equal to the sale price if set or the default price if there is not a sale price present. Depending on your store settings and customer group, or channel-specific pricing, this value may or may not be equal to the price seen on the storefront.
        */
       calculated_price?: number;
-      options?: (components["schemas"]["productOption_Base"])[];
-      modifiers?: (components["schemas"]["productModifier_Full"])[];
+      options?: components["schemas"]["productOption_Base"][];
+      modifiers?: components["schemas"]["productModifier_Full"][];
       /** @description Minimum Advertised Price. */
       map_price?: number;
       /** @description Indicates that the product is in an Option Set (legacy V2 concept). */
       option_set_id?: number;
       /** @description Legacy template setting which controls if the option set shows up to the side of or below the product image and description. */
       option_set_display?: string;
-      variants?: (components["schemas"]["productVariant_Full"])[];
+      variants?: components["schemas"]["productVariant_Full"][];
     };
     /**
-     * productImage_Full 
+     * productImage_Full
      * @description Common ProductImage properties.
      */
     productImage_Full: components["schemas"]["productImage_Base"] & {
@@ -1558,13 +1558,13 @@ export interface components {
       /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
       url_tiny?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description The date on which the product image was modified.
        */
       date_modified?: string;
     };
     /**
-     * product_Put_Collection 
+     * product_Put_Collection
      * @description The model for batch updating products.
      */
     product_Put_Collection: ({
@@ -1572,7 +1572,7 @@ export interface components {
         id: number;
       } & components["schemas"]["product_Base"])[];
     /**
-     * config_Full 
+     * config_Full
      * @description The values for option config can vary based on the Modifier created.
      */
     config_Full: {
@@ -1586,25 +1586,25 @@ export interface components {
       date_limited?: boolean;
       /**
        * @description (date) The type of limit that is allowed to be entered on a date option.
-       *  
-       * @example range 
+       *
+       * @example range
        * @enum {string}
        */
       date_limit_mode?: "earliest" | "range" | "latest";
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_earliest_value?: string;
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_latest_value?: string;
       /**
        * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-       *  
-       * @example specific 
+       *
+       * @example specific
        * @enum {string}
        */
       file_types_mode?: "specific" | "all";
@@ -1613,12 +1613,12 @@ export interface components {
        *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
        *   `other` - Allows file types defined in the `file_types_other` array.
        */
-      file_types_supported?: (string)[];
+      file_types_supported?: string[];
       /** @description (file) A list of other file types allowed with the file upload option. */
-      file_types_other?: (string)[];
+      file_types_other?: string[];
       /**
        * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-       *  
+       *
        * @example 5
        */
       file_max_size?: number;
@@ -1626,44 +1626,44 @@ export interface components {
       text_characters_limited?: boolean;
       /**
        * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-       *  
+       *
        * @example 1
        */
       text_min_length?: number;
       /**
        * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-       *  
+       *
        * @example 55
        */
       text_max_length?: number;
       /**
        * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example true
        */
       text_lines_limited?: boolean;
       /**
        * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example 4
        */
       text_max_lines?: number;
       /**
        * @description (numbers_only_text) Flag to limit the value of a number option.
-       *  
+       *
        * @example true
        */
       number_limited?: boolean;
       /**
        * @description (numbers_only_text) The type of limit on values entered for a number option.
-       *  
-       * @example lowest 
+       *
+       * @example lowest
        * @enum {string}
        */
       number_limit_mode?: "lowest" | "highest" | "range";
       /**
        * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-       *  
+       *
        * @example 100
        */
       number_lowest_value?: number;
@@ -1671,7 +1671,7 @@ export interface components {
       number_highest_value?: number;
       /**
        * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-       *  
+       *
        * @example false
        */
       number_integers_only?: boolean;
@@ -1681,8 +1681,8 @@ export interface components {
       product_list_adjusts_pricing?: boolean;
       /**
        * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-       *  
-       * @example weight 
+       *
+       * @example weight
        * @enum {string}
        */
       product_list_shipping_calc?: "none" | "weight" | "package";
@@ -1693,7 +1693,7 @@ export interface components {
       weight?: components["schemas"]["adjuster_Full"];
       /**
        * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
        */
       image_url?: string;
@@ -1705,7 +1705,7 @@ export interface components {
       };
     };
     /**
-     * product_Base 
+     * product_Base
      * @description Shared `Product` properties used in:
      * * `POST`
      * * `PUT`
@@ -1714,66 +1714,66 @@ export interface components {
     product_Base: {
       /**
        * @description A unique product name.
-       *  
+       *
        * @example Smith Journal 13
        */
       name: string;
       /**
        * @description The product type. One of: `physical` - a physical stock unit, `digital` - a digital download.
-       *  
-       * @example physical 
+       *
+       * @example physical
        * @enum {string}
        */
       type: "physical" | "digital";
       /**
        * @description A unique user-defined product code/stock keeping unit (SKU).
-       *  
+       *
        * @example SM-13
        */
       sku?: string;
       /**
        * @description The product description, which can include HTML formatting.
-       *  
+       *
        * @example <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel metus ac est egestas porta sed quis erat. Integer id nulla massa. Proin vitae enim nisi. Praesent non dignissim nulla. Nulla mattis id massa ac pharetra. Mauris et nisi in dolor aliquam sodales. Aliquam dui nisl, dictum quis leo sit amet, rutrum volutpat metus. Curabitur libero nunc, interdum ac libero non, tristique porttitor metus. Ut non dignissim lorem, in vestibulum leo. Vivamus sodales quis turpis eget.</span></p>
        */
       description?: string;
       /**
-       * Format: float 
+       * Format: float
        * @description Weight of the product, which can be used when calculating shipping costs. This is based on the unit set on the store
        */
       weight: number;
       /**
-       * Format: float 
+       * Format: float
        * @description Width of the product, which can be used when calculating shipping costs.
        */
       width?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description Depth of the product, which can be used when calculating shipping costs.
        */
       depth?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description Height of the product, which can be used when calculating shipping costs.
        */
       height?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The price of the product. The price should include or exclude tax, based on the store settings.
        */
       price: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
        */
       cost_price?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The retail cost of the product. If entered, the retail cost price will be shown on the product page.
        */
       retail_price?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description If entered, the sale price will be used instead of value in the price field when calculating the product's cost.
        */
       sale_price?: number;
@@ -1784,14 +1784,19 @@ export interface components {
       /** @description Accepts AvaTax System Tax Codes, which identify products and services that fall into special sales-tax categories. By using these codes, merchants who subscribe to BigCommerce's Avalara Premium integration can calculate sales taxes more accurately. Stores without Avalara Premium will ignore the code when calculating sales tax. Do not pass more than one code. The codes are case-sensitive. For details, please see Avalara's documentation. */
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
-      categories?: (number)[];
-      /** @description A product can be added to an existing brand during a product /PUT or /POST. */
+      categories?: number[];
+      /** @description You can add a product to an existing brand during a product /PUT or /POST. Use either the `brand_id` or the `brand_name` field. The response body can include `brand_id`. */
       brand_id?: number;
       /**
+       * @description You can create the brand during a product PUT or POST request. If the brand already exists, the product /PUT or /POST request adds the product to the brand. If not, the product /PUT or /POST request creates the brand and then adds the product to the brand. Brand name is not case-sensitive; "Common Good" and "Common good" are the same. Use either the `brand_id` or the `brand_name` field. The response body does not include `brand_name`.
+       * @example Common Good
+       */
+      brand_name?: string;
+      /**
        * @description Current inventory level of the product. You must track inventory by _product_ for this to take effect (see the `inventory_tracking` field). The Catalog API returns the inventory for only the default location.
-       * 
+       *
        * The inventory for a product cannot exceed 2,147,483,647 in the catalog. If you exceed the limit, the store sets the inventory level to the limit.
-       * 
+       *
        * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number;
@@ -1799,12 +1804,12 @@ export interface components {
       inventory_warning_level?: number;
       /**
        * @description The type of inventory tracking for the product. Values are: `none` - inventory levels will not be tracked; `product` - inventory levels will be tracked using the `inventory_level` and `inventory_warning_level` fields; `variant` - inventory levels will be tracked based on variants, which maintain their own warning levels and inventory levels.
-       *  
+       *
        * @enum {string}
        */
       inventory_tracking?: "none" | "product" | "variant";
       /**
-       * Format: float 
+       * Format: float
        * @description A fixed shipping cost for the product. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
        */
       fixed_cost_shipping_price?: number;
@@ -1815,7 +1820,7 @@ export interface components {
       /** @description Flag to determine whether the product should be included in the `featured products` panel when viewing the store. */
       is_featured?: boolean;
       /** @description An array of IDs for the related products. */
-      related_products?: (number)[];
+      related_products?: number[];
       /** @description Warranty information displayed on the product page. Can include HTML formatting. */
       warranty?: string;
       /** @description The BIN picking number for the product. */
@@ -1830,23 +1835,23 @@ export interface components {
       availability_description?: string;
       /**
        * @description Availability of the product. (Corresponds to the product's [Purchasability](https://support.bigcommerce.com/s/article/Adding-Products-v3?language=en_US#sections) section in the control panel.) Supported values: `available` - the product is available for purchase; `disabled` - the product is listed on the storefront, but cannot be purchased; `preorder` - the product is listed for pre-orders.
-       *  
+       *
        * @enum {string}
        */
       availability?: "available" | "disabled" | "preorder";
       /**
        * @description Type of gift-wrapping options. Values: `any` - allow any gift-wrapping options in the store; `none` - disallow gift-wrapping on the product; `list` – provide a list of IDs in the `gift_wrapping_options_list` field.
-       *  
+       *
        * @enum {string}
        */
       gift_wrapping_options_type?: "any" | "none" | "list";
       /** @description A list of gift-wrapping option IDs. */
-      gift_wrapping_options_list?: (number)[];
+      gift_wrapping_options_list?: number[];
       /** @description Priority to give this product when included in product lists on category pages and in search results. Lower integers will place the product closer to the top of the results. */
       sort_order?: number;
       /**
        * @description The product condition. Will be shown on the product page if the `is_condition_shown` field's value is `true`. Possible values: `New`, `Used`, `Refurbished`.
-       *  
+       *
        * @enum {string}
        */
       condition?: "New" | "Used" | "Refurbished";
@@ -1859,13 +1864,13 @@ export interface components {
       /** @description Custom title for the product page. If not defined, the product name will be used as the meta title. */
       page_title?: string;
       /** @description Custom meta keywords for the product page. If not defined, the store's default keywords will be used. */
-      meta_keywords?: (string)[];
+      meta_keywords?: string[];
       /** @description Custom meta description for the product page. If not defined, the store's default meta description will be used. */
       meta_description?: string;
       /** @description The number of times the product has been viewed. */
       view_count?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Pre-order release date. See the `availability` field for details on setting a product's availability to accept pre-orders.
        */
       preorder_release_date?: string | null;
@@ -1884,7 +1889,7 @@ export interface components {
       custom_url?: components["schemas"]["customUrl_Full"];
       /**
        * @description Type of product, defaults to `product`.
-       *  
+       *
        * @enum {string}
        */
       open_graph_type?: "product" | "album" | "book" | "drink" | "food" | "game" | "movie" | "song" | "tv_show";
@@ -1898,74 +1903,69 @@ export interface components {
       open_graph_use_product_name?: boolean;
       /** @description Flag to determine if product image or open graph image is used. */
       open_graph_use_image?: boolean;
-      /**
-       * @description The brand can be created during a product PUT or POST request. If the brand already exists then the product will be added. If not the brand will be created and the product added. If using `brand_name` it performs a fuzzy match and adds the brand. eg. "Common Good" and "Common good" are the same. Brand name does not return as part of a product response. Only the `brand_id`. 
-       * @example Common Good
-       */
-      "brand_name or brand_id"?: string;
       /** @description Global Trade Item Number */
       gtin?: string;
       /** @description Manufacturer Part Number */
       mpn?: string;
       /**
        * @description The total (cumulative) rating for the product.
-       *  
+       *
        * @example 3
        */
       reviews_rating_sum?: number;
       /**
        * @description The number of times the product has been rated.
-       *  
+       *
        * @example 4
        */
       reviews_count?: number;
       /**
        * @description The total quantity of this product sold.
-       *  
+       *
        * @example 80
        */
       total_sold?: number;
-      custom_fields?: (components["schemas"]["productCustomField_Put"])[];
+      custom_fields?: components["schemas"]["productCustomField_Put"][];
       bulk_pricing_rules?: ({
           /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
           id: number;
         } & components["schemas"]["bulkPricingRule_Full"])[];
-      images?: (components["schemas"]["productImage_Full"])[];
-      videos?: (components["schemas"]["productVideo_Full"])[];
-      variants?: (components["schemas"]["productVariant_Full"])[];
+      images?: components["schemas"]["productImage_Full"][];
+      videos?: components["schemas"]["productVideo_Full"][];
+      variants?: components["schemas"]["productVariant_Full"][];
     };
     /** metafield_Full */
     metafield_Full: {
       /**
-       * @description Unique ID of the *Metafield*. Read-Only. 
+       * @description Unique ID of the *Metafield*. Read-Only.
        * @example 6
        */
       id?: number;
     } & components["schemas"]["metafield_Base"] & ({
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example product 
+       *
+       * @example product
        * @enum {string}
        */
       resource_type?: "category" | "brand" | "product" | "variant";
       /**
        * @description The ID of the resource with which the metafield is associated.
-       *  
+       *
        * @example 111
        */
       resource_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time of the metafield's creation. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time when the metafield was last updated. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_modified?: string;
@@ -2067,7 +2067,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Products 
+   * Get All Products
    * @description Returns a list of **Products**. Optional filter parameters can be passed in.
    */
   getProducts: {
@@ -2075,12 +2075,12 @@ export interface operations {
       query?: {
         /** @description Filter items by ID. */
         id?: number;
-        "id:in"?: (number)[];
-        "id:not_in"?: (number)[];
-        "id:min"?: (number)[];
-        "id:max"?: (number)[];
-        "id:greater"?: (number)[];
-        "id:less"?: (number)[];
+        "id:in"?: number[];
+        "id:not_in"?: number[];
+        "id:min"?: number[];
+        "id:max"?: number[];
+        "id:greater"?: number[];
+        "id:less"?: number[];
         /** @description Filter items by name. */
         name?: string;
         /** @description Filter items by UPC. */
@@ -2138,7 +2138,19 @@ export interface operations {
         keyword_context?: "shopper" | "merchant";
         /** @description Filter items by status. */
         status?: number;
-        /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. */
+        /**
+         * @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page.
+         *
+         * **Note:** The following sub-resources include:
+         *   * variants
+         *   * images
+         *   * custom_fields
+         *   * bulk_pricing_rules
+         *   * primary_images
+         *   * modifiers
+         *   * options
+         *   * videos
+         */
         include?: "variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos";
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
         include_fields?: string;
@@ -2159,7 +2171,7 @@ export interface operations {
         /** @description Filter items by main SKU. To filter by variant SKU, see [Get All Variants](/docs/rest-catalog/product-variants#get-all-product-variants). */
         sku?: string;
         /** @description Filter items by SKU. */
-        "sku:in"?: (string)[];
+        "sku:in"?: string[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2169,7 +2181,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["product_Full"])[];
+            data?: components["schemas"]["product_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -2177,12 +2189,12 @@ export interface operations {
     };
   };
   /**
-   * Update Products (Batch) 
+   * Update Products (Batch)
    * @description Updates products in batches. Batches are limited to 10 products.
-   * 
+   *
    * **Required Fields**
    * * `id` - product `id` is required for batch updates to products.
-   * 
+   *
    * **Read-Only Fields**
    * - `id`
    * - `date_created`
@@ -2210,20 +2222,20 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["product_Full"])[];
+            data?: components["schemas"]["product_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update. 
-       * 
+       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       *
        * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
        */
       207: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["product_Full"])[];
+            data?: components["schemas"]["product_Full"][];
             errors?: components["schemas"]["errorMultiStatus"];
             meta?: components["schemas"]["metaCollection_Full"];
           };
@@ -2263,25 +2275,25 @@ export interface operations {
     };
   };
   /**
-   * Create a Product 
+   * Create a Product
    * @description Creates a *Product*. Only one product can be created at a time.
-   * 
+   *
    * **Required Fields:**
    * - `name`
    * - `type`
    * - `weight`
    * - `price`
-   * 
+   *
    * **Read-Only Fields**
    * - `id`
    * - `date_created`
    * - `date_modified`
    * - `calculated_price`
    * - `base_variant_id`
-   * 
+   *
    * **Limits**
    * - 250 characters product name length.
-   * 
+   *
    * **Usage Notes**
    * * This endpoint accepts a `video` array. To create a product video that accepts a `video` object, see [Create a Product Video](/docs/rest-catalog/products/videos#create-a-product-video) for information.
    */
@@ -2312,14 +2324,14 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update. 
-       * 
+       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       *
        * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
        */
       207: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["product_Full"])[];
+            data?: components["schemas"]["product_Full"][];
             errors?: components["schemas"]["errorMultiStatus"];
             meta?: components["schemas"]["metaCollection_Full"];
           };
@@ -2362,12 +2374,12 @@ export interface operations {
     };
   };
   /**
-   * Delete Products 
+   * Delete Products
    * @description To delete *Product* objects, you must include a filter. This prevents inadvertently deleting all *Product* objects in a store.
-   * 
+   *
    * > #### Note
    * > The maximum number of products you can delete at one time is 250.
-   * 
+   *
    * **Example**:
    * To delete products with the id's of 1,2 and 3, use `DELETE /v3/catalog/products?id:in=1,2,3`.
    */
@@ -2394,6 +2406,8 @@ export interface operations {
         is_visible?: boolean;
         /** @description Filter items by is_featured. */
         is_featured?: number;
+        /** @description Filter by product ID(s). */
+        "id:in"?: number[];
         /** @description Filter items by inventory_level. */
         inventory_level?: number;
         /** @description Filter items by total_sold. */
@@ -2420,7 +2434,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product 
+   * Get a Product
    * @description Returns a single *Product*. Optional parameters can be passed in.
    */
   getProductById: {
@@ -2465,9 +2479,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Product 
+   * Update a Product
    * @description Updates a *Product*.
-   * 
+   *
    * **Read-Only Fields**
    * - id
    * - date_created
@@ -2511,8 +2525,8 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update. 
-       * 
+       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       *
        * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
        */
       207: {
@@ -2574,7 +2588,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product 
+   * Delete a Product
    * @description Deletes a *Product*.
    */
   deleteProductById: {
@@ -2594,7 +2608,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Images 
+   * Get All Product Images
    * @description Returns a list of *Product Images*. Optional parameters can be passed in.
    */
   getProductImages: {
@@ -2620,7 +2634,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["productImage_Full"])[];
+            data?: components["schemas"]["productImage_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -2646,13 +2660,13 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Image 
+   * Create a Product Image
    * @description Creates a *Product Image*.
-   * 
+   *
    *  **Required Fields**
    * - `image_file`, or
    * - `image_url`
-   * 
+   *
    * **Usage Notes**
    * - `image_url` - `255` character limit
    * - For file uploads, use the `multipart/form-data` media type
@@ -2688,7 +2702,7 @@ export interface operations {
           /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
           url_tiny?: string;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description The date on which the product image was modified.
            */
           date_modified?: string;
@@ -2723,7 +2737,7 @@ export interface operations {
           /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
           url_tiny?: string;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description The date on which the product image was modified.
            */
           date_modified?: string;
@@ -2754,7 +2768,7 @@ export interface operations {
               product_id?: number;
               /**
                * @description The local path to the original image file uploaded to BigCommerce.
-               * 
+               *
                * A `multipart/form-data` media type.
                */
               image_file?: string;
@@ -2767,7 +2781,7 @@ export interface operations {
               /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
               url_tiny?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
@@ -2796,13 +2810,13 @@ export interface operations {
               /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
               url_tiny?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
               /**
                * @description Publically available URL.
-               * Use the image_url when creating a product. 
+               * Use the image_url when creating a product.
                * @example https://upload.wikimedia.org/wikipedia/commons/7/7f/Anglel_Bless_Legendary_Hills_1_m%C4%9Bs%C3%ADc_st%C3%A1%C5%99%C3%AD.jpg
                */
               image_url?: string;
@@ -2831,8 +2845,8 @@ export interface operations {
         };
       };
       /**
-       * @description Unprocessable Entity. 
-       * 
+       * @description Unprocessable Entity.
+       *
        * May occur if the `Content-Type` header is set to `multipart/form-data` rather than `application/json` when creating a product image using `image_url`.
        */
       422: {
@@ -2847,7 +2861,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Image 
+   * Get a Product Image
    * @description Returns a single *Product Image*. Optional parameters can be passed in.
    */
   getProductImageById: {
@@ -2893,9 +2907,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Image 
+   * Update a Product Image
    * @description Updates a *Product Image*.
-   * 
+   *
    * **Usage Notes**
    * - `image_url` - `255` character limit
    * - For file uploads, send a POST request using the `multipart/form-data` media type
@@ -2939,7 +2953,7 @@ export interface operations {
               /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
               url_tiny?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
@@ -2965,13 +2979,13 @@ export interface operations {
               /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
               url_tiny?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
               /**
                * @description Publically available URL.
-               * Use the image_url when creating a product. 
+               * Use the image_url when creating a product.
                * @example https://upload.wikimedia.org/wikipedia/commons/7/7f/Anglel_Bless_Legendary_Hills_1_m%C4%9Bs%C3%ADc_st%C3%A1%C5%99%C3%AD.jpg
                */
               image_url?: string;
@@ -3008,7 +3022,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Image 
+   * Delete a Product Image
    * @description Deletes a *Product Image*.
    */
   deleteProductImage: {
@@ -3031,7 +3045,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Videos 
+   * Get All Product Videos
    * @description Returns a list of *Product Videos*. Optional parameters can be passed in.
    */
   getProductVideos: {
@@ -3057,7 +3071,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["productVideo_Full"])[];
+            data?: components["schemas"]["productVideo_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -3065,15 +3079,15 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Video 
+   * Create a Product Video
    * @description Creates a *Product Video*.
-   * 
+   *
    * **Required Fields**
    * * video_id
-   * 
+   *
    * **Read-Only Fields**
    * * id
-   * 
+   *
    * Publicly accessible URLs are valid parameters.
    * Videos must be loaded through YouTube at this time.
    */
@@ -3092,32 +3106,32 @@ export interface operations {
         "application/json": {
           /**
            * @description The title for the video. If left blank, this will be filled in according to data on a host site.
-           *  
+           *
            * @example Writing Great Documentation
            */
           title?: string;
           /**
            * @description The description for the video. If left blank, this will be filled in according to data on a host site.
-           *  
+           *
            * @example A video about documenation
            */
           description?: string;
           /**
            * @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered.
-           *  
+           *
            * @example 1
            */
           sort_order?: number;
           /**
            * @description The video type (a short name of a host site).
-           *  
+           *
            * @enum {string}
            */
           type?: "youtube";
         } & {
           /**
            * @description The ID of the video on a host site.
-           *  
+           *
            * @example z3fRu9pkuXE
            */
           video_id?: string;
@@ -3129,7 +3143,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Product Video 
+             * Product Video
              * @description A product video model.
              */
             data?: {
@@ -3141,7 +3155,7 @@ export interface operations {
               sort_order?: number;
               /**
                * @description The video type (a short name of a host site).
-               *  
+               *
                * @enum {string}
                */
               type?: "youtube";
@@ -3175,7 +3189,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Video 
+   * Get a Product Video
    * @description Returns a single *Product Video*. Optional parameters can be passed in.
    */
   getProductVideoById: {
@@ -3221,12 +3235,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Video 
+   * Update a Product Video
    * @description Updates a *Product Video.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -3254,7 +3268,7 @@ export interface operations {
           sort_order?: number;
           /**
            * @description The video type (a short name of a host site).
-           *  
+           *
            * @enum {string}
            */
           type?: "youtube";
@@ -3269,7 +3283,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Product Video 
+             * Product Video
              * @description A product video model.
              */
             data?: {
@@ -3281,7 +3295,7 @@ export interface operations {
               sort_order?: number;
               /**
                * @description The video type (a short name of a host site).
-               *  
+               *
                * @enum {string}
                */
               type?: "youtube";
@@ -3315,7 +3329,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Video 
+   * Delete a Product Video
    * @description Deletes a *Product Video*.
    */
   deleteProductVideo: {
@@ -3338,7 +3352,7 @@ export interface operations {
     };
   };
   /**
-   * Get Complex Rules 
+   * Get Complex Rules
    * @description Returns a list of all product *Complex Rules*. Optional parameters may be passed in.
    */
   getComplexRules: {
@@ -3364,7 +3378,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["complexRule_Base"])[];
+            data?: components["schemas"]["complexRule_Base"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -3372,14 +3386,14 @@ export interface operations {
     };
   };
   /**
-   * Create a Complex Rule 
+   * Create a Complex Rule
    * @description Creates a product *Complex Rule*.
-   * 
+   *
    * **Required Fields**
    * - modifier_id
    * - modifier_value_id
    * - variant_id
-   * 
+   *
    * **Read-Only Fields**
    * - complex_rule_id
    * - conditions_id
@@ -3402,19 +3416,19 @@ export interface operations {
         "application/json": {
           /**
            * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-           *  
+           *
            * @example 67
            */
           product_id?: number | null;
           /**
            * @description The priority to give this rule when making adjustments to the product properties.
-           *  
+           *
            * @example 0
            */
           sort_order?: number;
           /**
            * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
-           *  
+           *
            * @example true
            */
           enabled?: boolean;
@@ -3424,7 +3438,7 @@ export interface operations {
           purchasing_disabled?: boolean;
           /**
            * @description Message displayed on the storefront when a rule disables the purchasing of a product.
-           *  
+           *
            * @example This product is not available at this time.
            */
           purchasing_disabled_message?: string;
@@ -3432,42 +3446,42 @@ export interface operations {
           purchasing_hidden?: boolean;
           /**
            * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-           *  
+           *
            * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
            */
           image_url?: string;
           /**
-           * Adjuster 
+           * Adjuster
            * @description Adjuster for Complex Rules.
            */
           price_adjuster?: {
             /**
              * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @enum {string|null}
              */
             adjuster?: "relative" | "percentage" | null;
             /**
              * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @example 5
              */
             adjuster_value?: number;
           };
           /**
-           * Adjuster 
+           * Adjuster
            * @description Adjuster for Complex Rules.
            */
           weight_adjuster?: {
             /**
              * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @enum {string|null}
              */
             adjuster?: "relative" | "percentage" | null;
             /**
              * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @example 5
              */
             adjuster_value?: number;
@@ -3475,19 +3489,19 @@ export interface operations {
           conditions?: ({
               /**
                * @description The unique numeric ID of the modifier with which the rule condition is associated.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 55
                */
               modifier_id: number | null;
               /**
                * @description The unique numeric ID of the modifier value with which the rule condition is associated.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 256
                */
               modifier_value_id: number | null;
               /**
                * @description The unique numeric ID of the variant with which the rule condition is associated.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 1
                */
               variant_id: number | null;
@@ -3500,31 +3514,31 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Complex Rule 
+             * Complex Rule
              * @description Common ComplexRule properties.
              */
             data?: {
               /**
                * @description The unique numeric ID of the rule; increments sequentially.
-               * Read-Only 
+               * Read-Only
                * @example 5
                */
               id?: number;
               /**
                * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-               *  
+               *
                * @example 67
                */
               product_id?: number | null;
               /**
                * @description The priority to give this rule when making adjustments to the product properties.
-               *  
+               *
                * @example 0
                */
               sort_order?: number;
               /**
                * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
-               *  
+               *
                * @example true
                */
               enabled?: boolean;
@@ -3534,7 +3548,7 @@ export interface operations {
               purchasing_disabled?: boolean;
               /**
                * @description Message displayed on the storefront when a rule disables the purchasing of a product.
-               *  
+               *
                * @example This product is not available at this time.
                */
               purchasing_disabled_message?: string;
@@ -3542,42 +3556,42 @@ export interface operations {
               purchasing_hidden?: boolean;
               /**
                * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-               *  
+               *
                * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
                */
               image_url?: string;
               /**
-               * Adjuster 
+               * Adjuster
                * @description Adjuster for Complex Rules.
                */
               price_adjuster?: {
                 /**
                  * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @enum {string|null}
                  */
                 adjuster?: "relative" | "percentage" | null;
                 /**
                  * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @example 5
                  */
                 adjuster_value?: number;
               };
               /**
-               * Adjuster 
+               * Adjuster
                * @description Adjuster for Complex Rules.
                */
               weight_adjuster?: {
                 /**
                  * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @enum {string|null}
                  */
                 adjuster?: "relative" | "percentage" | null;
                 /**
                  * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @example 5
                  */
                 adjuster_value?: number;
@@ -3585,31 +3599,31 @@ export interface operations {
               conditions?: ({
                   /**
                    * @description The unique numeric ID of the rule condition; increments sequentially. Read-Only
-                   *  
+                   *
                    * @example 3
                    */
                   id?: number | null;
                   /**
                    * @description The unique numeric ID of the rule with which the condition is associated.
-                   * Read-Only 
+                   * Read-Only
                    * @example 4
                    */
                   rule_id?: number | null;
                   /**
                    * @description The unique numeric ID of the modifier with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 55
                    */
                   modifier_id: number | null;
                   /**
                    * @description The unique numeric ID of the modifier value with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 256
                    */
                   modifier_value_id: number | null;
                   /**
                    * @description The unique numeric ID of the variant with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 1
                    */
                   variant_id: number | null;
@@ -3658,7 +3672,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Complex Rule 
+   * Get a Complex Rule
    * @description Returns a single *Complex Rule*. Optional parameters can be passed in.
    */
   getComplexRuleById: {
@@ -3684,31 +3698,31 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Complex Rule 
+             * Complex Rule
              * @description Common ComplexRule properties.
              */
             data?: {
               /**
                * @description The unique numeric ID of the rule; increments sequentially.
-               * Read-Only 
+               * Read-Only
                * @example 5
                */
               id?: number;
               /**
                * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-               *  
+               *
                * @example 67
                */
               product_id?: number;
               /**
                * @description The priority to give this rule when making adjustments to the product properties.
-               *  
+               *
                * @example 0
                */
               sort_order?: number;
               /**
                * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
-               *  
+               *
                * @example true
                */
               enabled?: boolean;
@@ -3718,7 +3732,7 @@ export interface operations {
               purchasing_disabled?: boolean;
               /**
                * @description Message displayed on the storefront when a rule disables the purchasing of a product.
-               *  
+               *
                * @example This product is not available at this time.
                */
               purchasing_disabled_message?: string;
@@ -3726,80 +3740,80 @@ export interface operations {
               purchasing_hidden?: boolean;
               /**
                * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-               *  
+               *
                * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
                */
               image_url?: string;
               /**
-               * Adjuster 
+               * Adjuster
                * @description Adjuster for Complex Rules.
                */
               price_adjuster?: {
                 /**
                  * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @enum {string}
                  */
                 adjuster?: "relative" | "percentage";
                 /**
                  * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @example 5
                  */
                 adjuster_value?: number;
               };
               /**
-               * Adjuster 
+               * Adjuster
                * @description Adjuster for Complex Rules.
                */
               weight_adjuster?: {
                 /**
                  * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @enum {string}
                  */
                 adjuster?: "relative" | "percentage";
                 /**
                  * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @example 5
                  */
                 adjuster_value?: number;
               };
-              conditions?: ({
+              conditions?: {
                   /**
                    * @description The unique numeric ID of the rule condition; increments sequentially. Read-Only
-                   *  
+                   *
                    * @example 3
                    */
                   id?: number;
                   /**
                    * @description The unique numeric ID of the rule with which the condition is associated.
-                   * Read-Only 
+                   * Read-Only
                    * @example 4
                    */
                   rule_id?: number;
                   /**
                    * @description The unique numeric ID of the modifier with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 55
                    */
                   modifier_id: number;
                   /**
                    * @description The unique numeric ID of the modifier value with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 256
                    */
                   modifier_value_id: number;
                   /**
                    * @description The unique numeric ID of the variant with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 1
                    */
                   variant_id: number;
                   /** @description (READ-ONLY:) The unique numeric ID of the SKU (v2 API), or Combination, with which the rule condition is associated. This is to maintain cross-compatibility between v2 and v3. */
                   combination_id?: number;
-                })[];
+                }[];
             };
             meta?: components["schemas"]["metaEmpty_Full"];
           };
@@ -3821,12 +3835,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Complex Rule 
+   * Update a Complex Rule
    * @description Updates a *Complex Rule*.
-   * 
+   *
    * **Required Fields**:
    * - none
-   * 
+   *
    * **Read-Only Fields**:
    * - complex_rule_id
    * - conditions_id
@@ -3852,19 +3866,19 @@ export interface operations {
         "application/json": {
           /**
            * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-           *  
+           *
            * @example 67
            */
           product_id?: number | null;
           /**
            * @description The priority to give this rule when making adjustments to the product properties.
-           *  
+           *
            * @example 0
            */
           sort_order?: number;
           /**
            * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
-           *  
+           *
            * @example true
            */
           enabled?: boolean;
@@ -3874,7 +3888,7 @@ export interface operations {
           purchasing_disabled?: boolean;
           /**
            * @description Message displayed on the storefront when a rule disables the purchasing of a product.
-           *  
+           *
            * @example This product is not available at this time.
            */
           purchasing_disabled_message?: string;
@@ -3882,42 +3896,42 @@ export interface operations {
           purchasing_hidden?: boolean;
           /**
            * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-           *  
+           *
            * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
            */
           image_url?: string;
           /**
-           * Adjuster 
+           * Adjuster
            * @description Adjuster for Complex Rules.
            */
           price_adjuster?: {
             /**
              * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @enum {string|null}
              */
             adjuster?: "relative" | "percentage" | null;
             /**
              * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @example 5
              */
             adjuster_value?: number;
           };
           /**
-           * Adjuster 
+           * Adjuster
            * @description Adjuster for Complex Rules.
            */
           weight_adjuster?: {
             /**
              * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @enum {string|null}
              */
             adjuster?: "relative" | "percentage" | null;
             /**
              * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-             *  
+             *
              * @example 5
              */
             adjuster_value?: number;
@@ -3925,19 +3939,19 @@ export interface operations {
           conditions?: ({
               /**
                * @description The unique numeric ID of the modifier with which the rule condition is associated.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 55
                */
               modifier_id: number | null;
               /**
                * @description The unique numeric ID of the modifier value with which the rule condition is associated.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 256
                */
               modifier_value_id: number | null;
               /**
                * @description The unique numeric ID of the variant with which the rule condition is associated.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 1
                */
               variant_id: number | null;
@@ -3950,31 +3964,31 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Complex Rule 
+             * Complex Rule
              * @description Common ComplexRule properties.
              */
             data?: {
               /**
                * @description The unique numeric ID of the rule; increments sequentially.
-               * Read-Only 
+               * Read-Only
                * @example 5
                */
               id?: number;
               /**
                * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-               *  
+               *
                * @example 67
                */
               product_id?: number;
               /**
                * @description The priority to give this rule when making adjustments to the product properties.
-               *  
+               *
                * @example 0
                */
               sort_order?: number;
               /**
                * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
-               *  
+               *
                * @example true
                */
               enabled?: boolean;
@@ -3984,7 +3998,7 @@ export interface operations {
               purchasing_disabled?: boolean;
               /**
                * @description Message displayed on the storefront when a rule disables the purchasing of a product.
-               *  
+               *
                * @example This product is not available at this time.
                */
               purchasing_disabled_message?: string;
@@ -3992,80 +4006,80 @@ export interface operations {
               purchasing_hidden?: boolean;
               /**
                * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-               *  
+               *
                * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
                */
               image_url?: string;
               /**
-               * Adjuster 
+               * Adjuster
                * @description Adjuster for Complex Rules.
                */
               price_adjuster?: {
                 /**
                  * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @enum {string}
                  */
                 adjuster?: "relative" | "percentage";
                 /**
                  * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @example 5
                  */
                 adjuster_value?: number;
               };
               /**
-               * Adjuster 
+               * Adjuster
                * @description Adjuster for Complex Rules.
                */
               weight_adjuster?: {
                 /**
                  * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @enum {string}
                  */
                 adjuster?: "relative" | "percentage";
                 /**
                  * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
-                 *  
+                 *
                  * @example 5
                  */
                 adjuster_value?: number;
               };
-              conditions?: ({
+              conditions?: {
                   /**
                    * @description The unique numeric ID of the rule condition; increments sequentially. Read-Only
-                   *  
+                   *
                    * @example 3
                    */
                   id?: number;
                   /**
                    * @description The unique numeric ID of the rule with which the condition is associated.
-                   * Read-Only 
+                   * Read-Only
                    * @example 4
                    */
                   rule_id?: number;
                   /**
                    * @description The unique numeric ID of the modifier with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 55
                    */
                   modifier_id: number;
                   /**
                    * @description The unique numeric ID of the modifier value with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 256
                    */
                   modifier_value_id: number;
                   /**
                    * @description The unique numeric ID of the variant with which the rule condition is associated.
-                   * Required in /POST. 
+                   * Required in /POST.
                    * @example 1
                    */
                   variant_id: number;
                   /** @description (READ-ONLY:) The unique numeric ID of the SKU (v2 API), or Combination, with which the rule condition is associated. This is to maintain cross-compatibility between v2 and v3. */
                   combination_id?: number;
-                })[];
+                }[];
             };
             meta?: components["schemas"]["metaEmpty_Full"];
           };
@@ -4108,7 +4122,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Complex Rule 
+   * Delete a Complex Rule
    * @description Deletes a product *Complex Rule*.
    */
   deleteComplexRuleById: {
@@ -4131,7 +4145,7 @@ export interface operations {
     };
   };
   /**
-   * Get Custom Fields 
+   * Get Custom Fields
    * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
    */
   getCustomFields: {
@@ -4157,26 +4171,26 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: ({
+            data?: {
                 /**
                  * @description The unique numeric ID of the custom field; increments sequentially.
-                 * Read-Only 
+                 * Read-Only
                  * @example 6
                  */
                 id?: number;
                 /**
                  * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-                 *  
+                 *
                  * @example ISBN
                  */
                 name: string;
                 /**
                  * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-                 *  
+                 *
                  * @example 1234567890123
                  */
                 value: string;
-              })[];
+              }[];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -4184,16 +4198,16 @@ export interface operations {
     };
   };
   /**
-   * Create a Custom Fields 
+   * Create a Custom Fields
    * @description Creates a *Custom Field*.
-   * 
+   *
    * **Required Fields:**
    * - name
    * - value
-   * 
+   *
    * **Read-Only:**
    * - id
-   * 
+   *
    * **Limits**
    * - 200 custom fields per product limit.
    * - 255 characters per custom field limit.
@@ -4213,13 +4227,13 @@ export interface operations {
         "application/json": {
           /**
            * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *  
+           *
            * @example ISBN
            */
           name: string;
           /**
            * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *  
+           *
            * @example 1234567890123
            */
           value: string;
@@ -4231,25 +4245,25 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Custom Field 
+             * Custom Field
              * @description Gets custom fields associated with a product. These allow you to specify additional information that will appear on the product’s page, such as a book’s ISBN or a DVD’s release date.
              */
             data?: {
               /**
                * @description The unique numeric ID of the custom field; increments sequentially.
-               * Read-Only 
+               * Read-Only
                * @example 6
                */
               id?: number;
               /**
                * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *  
+               *
                * @example ISBN
                */
               name: string;
               /**
                * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *  
+               *
                * @example 1234567890123
                */
               value: string;
@@ -4291,7 +4305,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Custom Field 
+   * Get a Custom Field
    * @description Returns a single *Custom Field*. Optional parameters can be passed in.
    */
   getCustomFieldById: {
@@ -4337,12 +4351,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Custom Field 
+   * Update a Custom Field
    * @description Updates a *Custom Field*.
-   * 
+   *
    * **Required Fields**
    * - none
-   * 
+   *
    * **Read-Only**
    * - id
    */
@@ -4364,19 +4378,19 @@ export interface operations {
         "application/json": {
           /**
            * @description The unique numeric ID of the custom field; increments sequentially.
-           * Read-Only 
+           * Read-Only
            * @example 6
            */
           id?: number;
           /**
            * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *  
+           *
            * @example ISBN
            */
           name: string;
           /**
            * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *  
+           *
            * @example 1234567890123
            */
           value: string;
@@ -4388,25 +4402,25 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Custom Field 
+             * Custom Field
              * @description Gets custom fields associated with a product. These allow you to specify additional information that will appear on the product’s page, such as a book’s ISBN or a DVD’s release date.
              */
             data?: {
               /**
                * @description The unique numeric ID of the custom field; increments sequentially.
-               * Read-Only 
+               * Read-Only
                * @example 6
                */
               id?: number;
               /**
                * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *  
+               *
                * @example ISBN
                */
               name: string;
               /**
                * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *  
+               *
                * @example 1234567890123
                */
               value: string;
@@ -4448,7 +4462,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Custom Field 
+   * Delete a Custom Field
    * @description Deletes a product *Custom Field*.
    */
   deleteCustomFieldById: {
@@ -4485,7 +4499,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Bulk Pricing Rules 
+   * Get All Bulk Pricing Rules
    * @description Returns a list of *Bulk Pricing Rules*. Optional parameters can be passed in.
    */
   getBulkPricingRules: {
@@ -4535,18 +4549,18 @@ export interface operations {
     };
   };
   /**
-   * Create a Bulk Pricing Rule 
+   * Create a Bulk Pricing Rule
    * @description Creates a *Bulk Pricing Rule*.
-   * 
+   *
    * **Required Fields**
    * - quantity_min
    * - quantity_max
    * - type
    * - amount
-   * 
+   *
    * **Read-Only Fields**
    * - id
-   * 
+   *
    * **Limits**
    * - 50 bulk pricing rule per product limit.
    */
@@ -4580,7 +4594,7 @@ export interface operations {
               id: number;
             } & components["schemas"]["bulkPricingRule_Full"];
             /**
-             * Meta 
+             * Meta
              * @description Empty meta object; may be used later.
              */
             meta?: Record<string, never>;
@@ -4637,7 +4651,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Bulk Pricing Rule 
+   * Get a Bulk Pricing Rule
    * @description Returns a single *Bulk Pricing Rule*. Optional parameters can be passed in.
    */
   getBulkPricingRuleById: {
@@ -4686,12 +4700,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Bulk Pricing Rule 
+   * Update a Bulk Pricing Rule
    * @description Updates a *Bulk Pricing Rule*.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * - id
    */
@@ -4721,7 +4735,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Bulk Pricing Rule 
+             * Bulk Pricing Rule
              * @description Common BulkPricingRule properties
              */
             data?: {
@@ -4730,20 +4744,20 @@ export interface operations {
               /**
                * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero.
                * Required in /POST.
-               *  
+               *
                * @example 10
                */
               quantity_min: number;
               /**
                * @description The maximum inclusive quantity of a product to satisfy this rule. Must be greater than the `quantity_min` value – unless this field has a value of 0 (zero), in which case there will be no maximum bound for this rule.
-               * Required in /POST. 
+               * Required in /POST.
                * @example 50
                */
               quantity_max: number;
               /**
                * @description The type of adjustment that is made. Values: `price` - the adjustment amount per product; `percent` - the adjustment as a percentage of the original price; `fixed` - the adjusted absolute price of the product.
-               * Required in /POST. 
-               * @example price 
+               * Required in /POST.
+               * @example price
                * @enum {string}
                */
               type: "price" | "percent" | "fixed";
@@ -4807,7 +4821,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Bulk Pricing Rule 
+   * Delete a Bulk Pricing Rule
    * @description Deletes a *Bulk Pricing Rule*.
    */
   deleteBulkPricingRuleById: {
@@ -4843,7 +4857,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Metafields 
+   * Get All Product Metafields
    * @description Returns a list of *Product Metafields*. Optional parameters can be passed in.
    */
   getProductMetafieldsByProductId: {
@@ -4873,7 +4887,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["metafield_Full"])[];
+            data?: components["schemas"]["metafield_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -4894,15 +4908,15 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Metafield 
+   * Create a Product Metafield
    * @description Creates a *Product Metafield*.
-   * 
+   *
    * **Required Fields:**
    * * permission_set
    * * namespace
    * * key
    * * value
-   * 
+   *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createProductMetafield: {
@@ -4966,7 +4980,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Metafield 
+   * Get a Product Metafield
    * @description Returns a single *Product Metafield*. Optional parameters can be passed in.
    */
   getProductMetafieldByProductId: {
@@ -5012,12 +5026,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Metafield 
+   * Update a Product Metafield
    * @description Updates a *Product Metafield*.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    * * These fields can only be modified using the API account that created the metafield:
@@ -5025,7 +5039,7 @@ export interface operations {
    * 	* `key`
    * 	* `permission_set`
    * 	* `value`
-   * 
+   *
    * **Usage Notes**
    * * Attempting to modify the `namespace`, `key`, `permission_set`, or `value` field using an API account different from the one used to create those metafields will result in a `403` error message.
    */
@@ -5072,7 +5086,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Metafield 
+   * Delete a Product Metafield
    * @description Deletes a *Product Metafield*.
    */
   deleteProductMetafieldById: {
@@ -5095,7 +5109,7 @@ export interface operations {
     };
   };
   /**
-   * Get Product Reviews 
+   * Get Product Reviews
    * @description Returns a list of all *Product Reviews*. Optional parameters can be passed in.
    */
   getProductReviews: {
@@ -5140,7 +5154,7 @@ export interface operations {
                 /** @description The name of the reviewer. */
                 name?: string;
                 /**
-                 * Format: date-time 
+                 * Format: date-time
                  * @description Date the product was reviewed. Required in /POST.
                  */
                 date_reviewed: string;
@@ -5150,12 +5164,12 @@ export interface operations {
                 /** @description The unique numeric identifier for the product with which the review is associated. */
                 product_id?: number;
                 /**
-                 * Format: date-time 
+                 * Format: date-time
                  * @description Date the product review was created.
                  */
                 date_created?: string;
                 /**
-                 * Format: date-time 
+                 * Format: date-time
                  * @description Date the product review was modified.
                  */
                 date_modified?: string;
@@ -5185,13 +5199,13 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Review 
+   * Create a Product Review
    * @description Creates a *Product Review*.
-   * 
+   *
    * **Required Fields**
    * - title
    * - date_reviewed
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -5224,7 +5238,7 @@ export interface operations {
           /** @description The name of the reviewer. */
           name?: string;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description Date the product was reviewed. Required in /POST.
            */
           date_reviewed: string;
@@ -5236,7 +5250,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Product Review 
+             * Product Review
              * @description A product review model.
              */
             data?: {
@@ -5256,7 +5270,7 @@ export interface operations {
               /** @description The name of the reviewer. */
               name?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product was reviewed. Required in /POST.
                */
               date_reviewed: string;
@@ -5266,12 +5280,12 @@ export interface operations {
               /** @description The unique numeric identifier for the product with which the review is associated. */
               product_id?: number;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product review was created.
                */
               date_created?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product review was modified.
                */
               date_modified?: string;
@@ -5296,7 +5310,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Review 
+   * Get a Product Review
    * @description Returns a single *Product Review*. Optional parameters maybe passed in.
    */
   getProductReviewById: {
@@ -5322,7 +5336,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Product Review 
+             * Product Review
              * @description A product review model.
              */
             data?: {
@@ -5342,7 +5356,7 @@ export interface operations {
               /** @description The name of the reviewer. */
               name?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product was reviewed. Required in /POST.
                */
               date_reviewed: string;
@@ -5350,12 +5364,12 @@ export interface operations {
               /** @description The unique numeric ID of the product review; increments sequentially. */
               id?: number;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product review was created.
                */
               date_created?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product review was modified.
                */
               date_modified?: string;
@@ -5380,12 +5394,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Review 
+   * Update a Product Review
    * @description Updates a *Product Review*.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -5422,7 +5436,7 @@ export interface operations {
           /** @description The name of the reviewer. */
           name?: string;
           /**
-           * Format: date-time 
+           * Format: date-time
            * @description Date the product was reviewed. Required in /POST.
            */
           date_reviewed: string;
@@ -5434,7 +5448,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Product Review 
+             * Product Review
              * @description A product review model.
              */
             data?: {
@@ -5454,7 +5468,7 @@ export interface operations {
               /** @description The name of the reviewer. */
               name?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product was reviewed. Required in /POST.
                */
               date_reviewed: string;
@@ -5464,12 +5478,12 @@ export interface operations {
               /** @description The unique numeric identifier for the product with which the review is associated. */
               product_id?: number;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product review was created.
                */
               date_created?: string;
               /**
-               * Format: date-time 
+               * Format: date-time
                * @description Date the product review was modified.
                */
               date_modified?: string;
@@ -5494,7 +5508,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Review 
+   * Delete a Product Review
    * @description Deletes a *Product Review*.
    */
   deleteProductReview: {
@@ -5517,7 +5531,7 @@ export interface operations {
     };
   };
   /**
-   * Get Products Channel Assignments 
+   * Get Products Channel Assignments
    * @description Returns a list of products channel assignments.
    */
   GetProductsChannelAssignments: {
@@ -5537,7 +5551,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ProductChannelAssignment"])[];
+            data?: components["schemas"]["ProductChannelAssignment"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -5545,7 +5559,7 @@ export interface operations {
     };
   };
   /**
-   * Create Products Channel Assignments 
+   * Create Products Channel Assignments
    * @description Creates products channel assignments.
    */
   CreateProductsChannelAssignments: {
@@ -5557,7 +5571,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["ProductChannelAssignment"])[];
+        "application/json": components["schemas"]["ProductChannelAssignment"][];
       };
     };
     responses: {
@@ -5572,7 +5586,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Products Channel Assignments 
+   * Delete Products Channel Assignments
    * @description Delete products channel assignments. A filter must be supplied.
    */
   DeleteProductsChannelAssignments: {
@@ -5597,7 +5611,7 @@ export interface operations {
     };
   };
   /**
-   * Get Products Category Assignments 
+   * Get Products Category Assignments
    * @description Returns a list of products category assignments.
    */
   GetProductsCategoryAssignments: {
@@ -5617,7 +5631,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ProductCategoryAssignment"])[];
+            data?: components["schemas"]["ProductCategoryAssignment"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -5625,7 +5639,7 @@ export interface operations {
     };
   };
   /**
-   * Create Products Category Assignments. 
+   * Create Products Category Assignments.
    * @description Creates products category assignments.
    */
   CreateProductsCategoryAssignments: {
@@ -5637,7 +5651,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["ProductCategoryAssignment"])[];
+        "application/json": components["schemas"]["ProductCategoryAssignment"][];
       };
     };
     responses: {
@@ -5652,7 +5666,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Products Category Assignments 
+   * Delete Products Category Assignments
    * @description Deletes products category assignments. A filter must be supplied.
    */
   DeleteProductsCategoryAssignments: {
@@ -5677,9 +5691,9 @@ export interface operations {
     };
   };
   /**
-   * Get a Catalog Summary 
+   * Get a Catalog Summary
    * @description Returns a lightweight inventory summary from the BigCommerce Catalog.
-   * 
+   *
    * The inventory summary includes:
    * * "inventory_count"
    * * "variant_count"
@@ -5703,54 +5717,54 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Catalog Summary 
+             * Catalog Summary
              * @description Catalog Summary object describes a lightweight summary of the catalog.
              */
             data?: {
               /**
                * @description A count of all inventory items in the catalog.
-               *  
+               *
                * @example 2000
                */
               inventory_count?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description Total value of store's inventory.
-               *  
+               *
                * @example 267000
                */
               inventory_value?: number;
               /**
                * @description ID of the category containing the most products.
-               *  
+               *
                * @example 23
                */
               primary_category_id?: number;
               /**
                * @description Name of the category containing the most products.
-               *  
+               *
                * @example Shop All
                */
               primary_category_name?: string;
               /**
-               * @description Total number of variants 
+               * @description Total number of variants
                * @example 46
                */
               variant_count?: number;
               /**
-               * Format: double 
-               * @description Highest priced variant 
+               * Format: double
+               * @description Highest priced variant
                * @example 249
                */
               highest_variant_price?: number;
               /**
-               * Format: double 
-               * @description Average price of all variants 
+               * Format: double
+               * @description Average price of all variants
                * @example 83.07978261
                */
               average_variant_price?: number;
               /**
-               * @description Lowest priced variant in the store 
+               * @description Lowest priced variant in the store
                * @example 7
                */
               lowest_variant_price?: string;

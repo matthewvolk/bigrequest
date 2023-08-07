@@ -8,11 +8,11 @@
 export interface paths {
   "/customers": {
     /**
-     * Create a Customer 
+     * Create a Customer
      * @description Create a *Customer*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["createACustomer"];
@@ -35,12 +35,12 @@ export interface components {
       password?: string;
       /** @description Indicates whether customer provided consent to receive marketing emails. */
       acceptsMarketingEmails?: boolean;
-      customFields?: (components["schemas"]["CustomFields"])[];
+      customFields?: components["schemas"]["CustomFields"][];
     };
     /** CustomFields */
     CustomFields: {
       fieldId?: string;
-      fieldValue?: string | number | (string)[];
+      fieldValue?: string | number | string[];
     };
   };
   responses: never;
@@ -55,11 +55,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Create a Customer 
+   * Create a Customer
    * @description Create a *Customer*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   createACustomer: {

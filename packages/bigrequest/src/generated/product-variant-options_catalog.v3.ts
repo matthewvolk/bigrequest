@@ -8,27 +8,27 @@
 export interface paths {
   "/catalog/products/{product_id}/options": {
     /**
-     * Get All Product Variant Options 
+     * Get All Product Variant Options
      * @description Returns a list of product *Variant Options*. Optional parameters can be passed in.
      */
     get: operations["getOptions"];
     /**
-     * Create a Product Variant Option 
+     * Create a Product Variant Option
      * @description Creates a *Variant Option*.
-     * 
+     *
      * **Required Fields**
      * * display_name
      * * type
      * * option_values
-     * 
+     *
      * **Read-Only Fields**
      * * id
-     * 
+     *
      * **Limits**
      * * 255 characters option name length.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * * Only one variant option at a time can be created; individual variant options will contain an array of multiple values.
      * * There are several examples listed below that create options, but the SKUs are not updated and they are not a variant on the product. Variant SKUs must be created with a separate request.
      * * Variant options will show on the storefront as an option that can be selected by the customer. A request like this could be used to add new choices to a variant that has already been created.
@@ -46,20 +46,20 @@ export interface paths {
   };
   "/catalog/products/{product_id}/options/{option_id}": {
     /**
-     * Get a Product Variant Option 
+     * Get a Product Variant Option
      * @description Returns a single *Variant Option*. Optional parameters can be passed in.
      */
     get: operations["getOptionById"];
     /**
-     * Update a Product Variant Option 
+     * Update a Product Variant Option
      * @description Updates a *Variant Option*.
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
     put: operations["updateOption"];
     /**
-     * Delete a Product Variant Option 
+     * Delete a Product Variant Option
      * @description Deletes a *Variant Option*.
      */
     delete: operations["deleteOptionById"];
@@ -75,21 +75,21 @@ export interface paths {
   };
   "/catalog/products/{product_id}/options/{option_id}/values": {
     /**
-     * Get All Product Variant Option Values 
+     * Get All Product Variant Option Values
      * @description Returns a list of all *Variant Option Values*. Optional parameters can be passed in.
      */
     get: operations["getOptionValues"];
     /**
-     * Create a Product Variant Option Value 
+     * Create a Product Variant Option Value
      * @description Creates a *Variant Option Value*.
-     * 
+     *
      * **Required Fields**
      * * label
      * * sort_order
-     * 
+     *
      * **Read-Only Fields**
      * * id
-     * 
+     *
      * **Limits**
      * * 250 option values per option limit.
      */
@@ -106,20 +106,20 @@ export interface paths {
   };
   "/catalog/products/{product_id}/options/{option_id}/values/{value_id}": {
     /**
-     * Get a Product Variant Option Value 
+     * Get a Product Variant Option Value
      * @description Returns a single *Variant Option Value*. Optional parameters can be passed in.
      */
     get: operations["getOptionValueById"];
     /**
-     * Update a Product Variant Option Value 
+     * Update a Product Variant Option Value
      * @description Updates a *Variant Option Value*.
-     * 
+     *
      * **Read-Only Fields**
      * * id
      */
     put: operations["updateOptionValue"];
     /**
-     * Delete a Product Variant Option Value 
+     * Delete a Product Variant Option Value
      * @description Deletes a *Variant Option Value*.
      */
     delete: operations["deleteOptionValueById"];
@@ -141,71 +141,71 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * productOption_Base 
+     * productOption_Base
      * @description Common Option properties.
      */
     productOption_Base: {
       /**
        * @description The unique numerical ID of the option, increments sequentially.
-       *  
+       *
        * @example 55
        */
       id?: number | null;
       /**
        * @description The unique numerical ID of the product to which the option belongs.
-       *  
+       *
        * @example 4
        */
       product_id?: number;
       /**
        * @description The name of the option shown on the storefront.
-       *  
+       *
        * @example Add-a-$5-Donation1535042499-187
        */
       display_name?: string;
       /**
        * @description The type of option, which determines how it will display on the storefront. Acceptable values: `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
-       *  
+       *
        * @enum {string}
        */
       type?: "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
       config?: components["schemas"]["productOptionConfig_Full"];
       /**
-       * @description Order in which the option is displayed on the storefront.  
+       * @description Order in which the option is displayed on the storefront.
        * @example 1
        */
       sort_order?: number;
-      option_values?: (components["schemas"]["productOptionOptionValue_Full"])[];
+      option_values?: components["schemas"]["productOptionOptionValue_Full"][];
     };
     /** productOption_Full */
     productOption_Full: components["schemas"]["productOption_Base"] & {
       /**
        * @description The unique option name, auto-generated from the display name, a timestamp, and the product ID.
-       *  
+       *
        * @example Add-a-$5-Donation1535042499-187
        */
       name?: string;
     };
     /**
-     * productOptionOptionValue_Base 
+     * productOptionOptionValue_Base
      * @description Common Product Option `option_value` properties.
      */
     productOptionOptionValue_Base: {
       /**
        * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-       *  
+       *
        * @example false
        */
       is_default?: boolean;
       /**
        * @description The text display identifying the value on the storefront. Required in a /POST.
-       *  
+       *
        * @example Green
        */
       label: string;
       /**
        * @description The order in which the value will be displayed on the product page. Required in a /POST.
-       *  
+       *
        * @example 0
        */
       sort_order: number;
@@ -213,7 +213,7 @@ export interface components {
       value_data?: Record<string, unknown> | null;
     };
     /**
-     * productOptionOptionValue_Full 
+     * productOptionOptionValue_Full
      * @description Product Option `option_value`.
      */
     productOptionOptionValue_Full: components["schemas"]["productOptionOptionValue_Base"] & {
@@ -221,7 +221,7 @@ export interface components {
       id?: number;
     };
     /**
-     * productOptionConfig_Full 
+     * productOptionConfig_Full
      * @description The values for option config can vary based on the Modifier created.
      */
     productOptionConfig_Full: {
@@ -235,25 +235,25 @@ export interface components {
       date_limited?: boolean;
       /**
        * @description (date) The type of limit that is allowed to be entered on a date option.
-       *  
-       * @example range 
+       *
+       * @example range
        * @enum {string}
        */
       date_limit_mode?: "earliest" | "range" | "latest";
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_earliest_value?: string;
       /**
-       * Format: date 
+       * Format: date
        * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
        */
       date_latest_value?: string;
       /**
        * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-       *  
-       * @example specific 
+       *
+       * @example specific
        * @enum {string}
        */
       file_types_mode?: "specific" | "all";
@@ -262,12 +262,12 @@ export interface components {
        *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
        *   `other` - Allows file types defined in the `file_types_other` array.
        */
-      file_types_supported?: (string)[];
+      file_types_supported?: string[];
       /** @description (file) A list of other file types allowed with the file upload option. */
-      file_types_other?: (string)[];
+      file_types_other?: string[];
       /**
        * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-       *  
+       *
        * @example 5
        */
       file_max_size?: number;
@@ -275,44 +275,44 @@ export interface components {
       text_characters_limited?: boolean;
       /**
        * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-       *  
+       *
        * @example 1
        */
       text_min_length?: number;
       /**
        * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-       *  
+       *
        * @example 55
        */
       text_max_length?: number;
       /**
        * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example true
        */
       text_lines_limited?: boolean;
       /**
        * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-       *  
+       *
        * @example 4
        */
       text_max_lines?: number;
       /**
        * @description (numbers_only_text) Flag to limit the value of a number option.
-       *  
+       *
        * @example true
        */
       number_limited?: boolean;
       /**
        * @description (numbers_only_text) The type of limit on values entered for a number option.
-       *  
-       * @example lowest 
+       *
+       * @example lowest
        * @enum {string}
        */
       number_limit_mode?: "lowest" | "highest" | "range";
       /**
        * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-       *  
+       *
        * @example 100
        */
       number_lowest_value?: number;
@@ -320,7 +320,7 @@ export interface components {
       number_highest_value?: number;
       /**
        * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-       *  
+       *
        * @example false
        */
       number_integers_only?: boolean;
@@ -330,51 +330,51 @@ export interface components {
       product_list_adjusts_pricing?: boolean;
       /**
        * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-       *  
-       * @example weight 
+       *
+       * @example weight
        * @enum {string}
        */
       product_list_shipping_calc?: "none" | "weight" | "package";
     };
     /**
-     * metaCollection_Full 
+     * metaCollection_Full
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
     /**
-     * pagination_Full 
+     * pagination_Full
      * @description Data about the response, including pagination and collection totals.
      */
     pagination_Full: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -384,7 +384,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -393,7 +393,7 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
@@ -423,7 +423,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Product Variant Options 
+   * Get All Product Variant Options
    * @description Returns a list of product *Variant Options*. Optional parameters can be passed in.
    */
   getOptions: {
@@ -449,7 +449,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["productOption_Full"])[];
+            data?: components["schemas"]["productOption_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -470,22 +470,22 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Variant Option 
+   * Create a Product Variant Option
    * @description Creates a *Variant Option*.
-   * 
+   *
    * **Required Fields**
    * * display_name
    * * type
    * * option_values
-   * 
+   *
    * **Read-Only Fields**
    * * id
-   * 
+   *
    * **Limits**
    * * 255 characters option name length.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * * Only one variant option at a time can be created; individual variant options will contain an array of multiple values.
    * * There are several examples listed below that create options, but the SKUs are not updated and they are not a variant on the product. Variant SKUs must be created with a separate request.
    * * Variant options will show on the storefront as an option that can be selected by the customer. A request like this could be used to add new choices to a variant that has already been created.
@@ -506,24 +506,24 @@ export interface operations {
         "application/json": {
           /**
            * @description The unique numerical ID of the product to which the option belongs.
-           *  
+           *
            * @example 4
            */
           product_id?: number;
           /**
            * @description The name of the option shown on the storefront.
-           *  
+           *
            * @example Add-a-$5-Donation1535042499-187
            */
           display_name?: string;
           /**
            * @description The type of option, which determines how it will display on the storefront. Acceptable values: `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
-           *  
+           *
            * @enum {string}
            */
           type?: "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
           /**
-           * Option Config 
+           * Option Config
            * @description The values for option config can vary based on the Modifier created.
            */
           config?: {
@@ -537,29 +537,29 @@ export interface operations {
             date_limited?: boolean;
             /**
              * @description (date) The type of limit that is allowed to be entered on a date option.
-             *  
-             * @example range 
+             *
+             * @example range
              * @enum {string}
              */
             date_limit_mode?: "earliest" | "range" | "latest";
             /**
-             * Format: date-time 
+             * Format: date-time
              * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
-             *  
+             *
              * @example 2018-08-31T00:00:00+00:00
              */
             date_earliest_value?: string;
             /**
-             * Format: date-time 
+             * Format: date-time
              * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
-             *  
+             *
              * @example 2019-01-01T00:00:00+00:00
              */
             date_latest_value?: string;
             /**
              * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-             *  
-             * @example specific 
+             *
+             * @example specific
              * @enum {string}
              */
             file_types_mode?: "specific" | "all";
@@ -567,26 +567,26 @@ export interface operations {
              * @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. Values:
              *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
              *   `other` - Allows file types defined in the `file_types_other` array.
-             *  
+             *
              * @example [
              *   "images",
              *   "documents",
              *   "other"
              * ]
              */
-            file_types_supported?: (string)[];
+            file_types_supported?: string[];
             /**
              * @description (file) A list of other file types allowed with the file upload option.
-             *  
+             *
              * @example [
              *   "pdf",
              *   "txt"
              * ]
              */
-            file_types_other?: (string)[];
+            file_types_other?: string[];
             /**
              * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-             *  
+             *
              * @example 5
              */
             file_max_size?: number;
@@ -594,44 +594,44 @@ export interface operations {
             text_characters_limited?: boolean;
             /**
              * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-             *  
+             *
              * @example 1
              */
             text_min_length?: number;
             /**
              * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-             *  
+             *
              * @example 55
              */
             text_max_length?: number;
             /**
              * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example true
              */
             text_lines_limited?: boolean;
             /**
              * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example 4
              */
             text_max_lines?: number;
             /**
              * @description (numbers_only_text) Flag to limit the value of a number option.
-             *  
+             *
              * @example true
              */
             number_limited?: boolean;
             /**
              * @description (numbers_only_text) The type of limit on values entered for a number option.
-             *  
-             * @example lowest 
+             *
+             * @example lowest
              * @enum {string}
              */
             number_limit_mode?: "lowest" | "highest" | "range";
             /**
              * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-             *  
+             *
              * @example 100
              */
             number_lowest_value?: number;
@@ -639,7 +639,7 @@ export interface operations {
             number_highest_value?: number;
             /**
              * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-             *  
+             *
              * @example false
              */
             number_integers_only?: boolean;
@@ -649,33 +649,33 @@ export interface operations {
             product_list_adjusts_pricing?: boolean;
             /**
              * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-             *  
-             * @example weight 
+             *
+             * @example weight
              * @enum {string}
              */
             product_list_shipping_calc?: "none" | "weight" | "package";
           };
           /**
-           * @description Order in which the option is displayed on the storefront.  
+           * @description Order in which the option is displayed on the storefront.
            * @example 1
            */
           sort_order?: number;
           option_values?: ({
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -698,30 +698,30 @@ export interface operations {
             data?: ({
               /**
                * @description The unique numerical ID of the option, increments sequentially.
-               *  
+               *
                * @example 55
                */
               id?: number;
               /**
                * @description The unique numerical ID of the product to which the option belongs.
-               *  
+               *
                * @example 4
                */
               product_id?: number;
               /**
                * @description The name of the option shown on the storefront.
-               *  
+               *
                * @example Add-a-$5-Donation1535042499-187
                */
               display_name?: string;
               /**
                * @description The type of option, which determines how it will display on the storefront. Acceptable values: `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
-               *  
+               *
                * @enum {string}
                */
               type?: "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
               /**
-               * Option Config 
+               * Option Config
                * @description The values for option config can vary based on the Modifier created.
                */
               config?: {
@@ -735,25 +735,25 @@ export interface operations {
                 date_limited?: boolean;
                 /**
                  * @description (date) The type of limit that is allowed to be entered on a date option.
-                 *  
-                 * @example range 
+                 *
+                 * @example range
                  * @enum {string}
                  */
                 date_limit_mode?: "earliest" | "range" | "latest";
                 /**
-                 * Format: date-time 
+                 * Format: date-time
                  * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_earliest_value?: string;
                 /**
-                 * Format: date-time 
+                 * Format: date-time
                  * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_latest_value?: string;
                 /**
                  * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-                 *  
-                 * @example specific 
+                 *
+                 * @example specific
                  * @enum {string}
                  */
                 file_types_mode?: "specific" | "all";
@@ -762,12 +762,12 @@ export interface operations {
                  *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
                  *   `other` - Allows file types defined in the `file_types_other` array.
                  */
-                file_types_supported?: (string)[];
+                file_types_supported?: string[];
                 /** @description (file) A list of other file types allowed with the file upload option. */
-                file_types_other?: (string)[];
+                file_types_other?: string[];
                 /**
                  * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-                 *  
+                 *
                  * @example 5
                  */
                 file_max_size?: number;
@@ -775,44 +775,44 @@ export interface operations {
                 text_characters_limited?: boolean;
                 /**
                  * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-                 *  
+                 *
                  * @example 1
                  */
                 text_min_length?: number;
                 /**
                  * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-                 *  
+                 *
                  * @example 55
                  */
                 text_max_length?: number;
                 /**
                  * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example true
                  */
                 text_lines_limited?: boolean;
                 /**
                  * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example 4
                  */
                 text_max_lines?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the value of a number option.
-                 *  
+                 *
                  * @example true
                  */
                 number_limited?: boolean;
                 /**
                  * @description (numbers_only_text) The type of limit on values entered for a number option.
-                 *  
-                 * @example lowest 
+                 *
+                 * @example lowest
                  * @enum {string}
                  */
                 number_limit_mode?: "lowest" | "highest" | "range";
                 /**
                  * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-                 *  
+                 *
                  * @example 100
                  */
                 number_lowest_value?: number;
@@ -820,7 +820,7 @@ export interface operations {
                 number_highest_value?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-                 *  
+                 *
                  * @example false
                  */
                 number_integers_only?: boolean;
@@ -830,33 +830,33 @@ export interface operations {
                 product_list_adjusts_pricing?: boolean;
                 /**
                  * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-                 *  
-                 * @example weight 
+                 *
+                 * @example weight
                  * @enum {string}
                  */
                 product_list_shipping_calc?: "none" | "weight" | "package";
               };
               /**
-               * @description Order in which the option is displayed on the storefront.  
+               * @description Order in which the option is displayed on the storefront.
                * @example 1
                */
               sort_order?: number;
               option_values?: ({
                   /**
                    * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-                   *  
+                   *
                    * @example false
                    */
                   is_default?: boolean;
                   /**
                    * @description The text display identifying the value on the storefront. Required in a /POST.
-                   *  
+                   *
                    * @example Green
                    */
                   label: string;
                   /**
                    * @description The order in which the value will be displayed on the product page. Required in a /POST.
-                   *  
+                   *
                    * @example 0
                    */
                   sort_order: number;
@@ -871,13 +871,13 @@ export interface operations {
             }) & {
               /**
                * @description The unique option name, auto-generated from the display name, a timestamp, and the product ID.
-               *  
+               *
                * @example Add-a-$5-Donation1535042499-187
                */
               name?: string;
             };
             /**
-             * Meta 
+             * Meta
              * @description Empty meta object; may be used later.
              */
             meta?: Record<string, never>;
@@ -921,7 +921,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Variant Option 
+   * Get a Product Variant Option
    * @description Returns a single *Variant Option*. Optional parameters can be passed in.
    */
   getOptionById: {
@@ -967,9 +967,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Variant Option 
+   * Update a Product Variant Option
    * @description Updates a *Variant Option*.
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -991,30 +991,30 @@ export interface operations {
         "application/json": {
           /**
            * @description The unique numerical ID of the option, increments sequentially.
-           *  
+           *
            * @example 55
            */
           id?: number | null;
           /**
            * @description The unique numerical ID of the product to which the option belongs.
-           *  
+           *
            * @example 4
            */
           product_id?: number;
           /**
            * @description The name of the option shown on the storefront.
-           *  
+           *
            * @example Add-a-$5-Donation1535042499-187
            */
           display_name?: string;
           /**
            * @description The type of option, which determines how it will display on the storefront. Acceptable values: `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
-           *  
+           *
            * @enum {string}
            */
           type?: "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
           /**
-           * Option Config 
+           * Option Config
            * @description The values for option config can vary based on the Modifier created.
            */
           config?: {
@@ -1028,29 +1028,29 @@ export interface operations {
             date_limited?: boolean;
             /**
              * @description (date) The type of limit that is allowed to be entered on a date option.
-             *  
-             * @example range 
+             *
+             * @example range
              * @enum {string}
              */
             date_limit_mode?: "earliest" | "range" | "latest";
             /**
-             * Format: date-time 
+             * Format: date-time
              * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
-             *  
+             *
              * @example 2018-08-31T00:00:00+00:00
              */
             date_earliest_value?: string;
             /**
-             * Format: date-time 
+             * Format: date-time
              * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
-             *  
+             *
              * @example 2019-01-01T00:00:00+00:00
              */
             date_latest_value?: string;
             /**
              * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-             *  
-             * @example specific 
+             *
+             * @example specific
              * @enum {string}
              */
             file_types_mode?: "specific" | "all";
@@ -1058,26 +1058,26 @@ export interface operations {
              * @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. Values:
              *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
              *   `other` - Allows file types defined in the `file_types_other` array.
-             *  
+             *
              * @example [
              *   "images",
              *   "documents",
              *   "other"
              * ]
              */
-            file_types_supported?: (string)[];
+            file_types_supported?: string[];
             /**
              * @description (file) A list of other file types allowed with the file upload option.
-             *  
+             *
              * @example [
              *   "pdf",
              *   "txt"
              * ]
              */
-            file_types_other?: (string)[];
+            file_types_other?: string[];
             /**
              * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-             *  
+             *
              * @example 5
              */
             file_max_size?: number;
@@ -1085,44 +1085,44 @@ export interface operations {
             text_characters_limited?: boolean;
             /**
              * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-             *  
+             *
              * @example 1
              */
             text_min_length?: number;
             /**
              * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-             *  
+             *
              * @example 55
              */
             text_max_length?: number;
             /**
              * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example true
              */
             text_lines_limited?: boolean;
             /**
              * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-             *  
+             *
              * @example 4
              */
             text_max_lines?: number;
             /**
              * @description (numbers_only_text) Flag to limit the value of a number option.
-             *  
+             *
              * @example true
              */
             number_limited?: boolean;
             /**
              * @description (numbers_only_text) The type of limit on values entered for a number option.
-             *  
-             * @example lowest 
+             *
+             * @example lowest
              * @enum {string}
              */
             number_limit_mode?: "lowest" | "highest" | "range";
             /**
              * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-             *  
+             *
              * @example 100
              */
             number_lowest_value?: number;
@@ -1130,7 +1130,7 @@ export interface operations {
             number_highest_value?: number;
             /**
              * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-             *  
+             *
              * @example false
              */
             number_integers_only?: boolean;
@@ -1140,33 +1140,33 @@ export interface operations {
             product_list_adjusts_pricing?: boolean;
             /**
              * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-             *  
-             * @example weight 
+             *
+             * @example weight
              * @enum {string}
              */
             product_list_shipping_calc?: "none" | "weight" | "package";
           };
           /**
-           * @description Order in which the option is displayed on the storefront.  
+           * @description Order in which the option is displayed on the storefront.
            * @example 1
            */
           sort_order?: number;
           option_values?: ({
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -1189,30 +1189,30 @@ export interface operations {
             data?: ({
               /**
                * @description The unique numerical ID of the option, increments sequentially.
-               *  
+               *
                * @example 55
                */
               id?: number;
               /**
                * @description The unique numerical ID of the product to which the option belongs.
-               *  
+               *
                * @example 4
                */
               product_id?: number;
               /**
                * @description The name of the option shown on the storefront.
-               *  
+               *
                * @example Add-a-$5-Donation1535042499-187
                */
               display_name?: string;
               /**
                * @description The type of option, which determines how it will display on the storefront. Acceptable values: `radio_buttons`, `rectangles`, `dropdown`, `product_list`, `product_list_with_images`, `swatch`. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
-               *  
+               *
                * @enum {string}
                */
               type?: "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
               /**
-               * Option Config 
+               * Option Config
                * @description The values for option config can vary based on the Modifier created.
                */
               config?: {
@@ -1226,25 +1226,25 @@ export interface operations {
                 date_limited?: boolean;
                 /**
                  * @description (date) The type of limit that is allowed to be entered on a date option.
-                 *  
-                 * @example range 
+                 *
+                 * @example range
                  * @enum {string}
                  */
                 date_limit_mode?: "earliest" | "range" | "latest";
                 /**
-                 * Format: date 
+                 * Format: date
                  * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_earliest_value?: string;
                 /**
-                 * Format: date 
+                 * Format: date
                  * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
                  */
                 date_latest_value?: string;
                 /**
                  * @description (file) The kind of restriction on the file types that can be uploaded with a file upload option. Values: `specific` - restricts uploads to particular file types; `all` - allows all file types.
-                 *  
-                 * @example specific 
+                 *
+                 * @example specific
                  * @enum {string}
                  */
                 file_types_mode?: "specific" | "all";
@@ -1253,12 +1253,12 @@ export interface operations {
                  *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
                  *   `other` - Allows file types defined in the `file_types_other` array.
                  */
-                file_types_supported?: (string)[];
+                file_types_supported?: string[];
                 /** @description (file) A list of other file types allowed with the file upload option. */
-                file_types_other?: (string)[];
+                file_types_other?: string[];
                 /**
                  * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
-                 *  
+                 *
                  * @example 5
                  */
                 file_max_size?: number;
@@ -1266,44 +1266,44 @@ export interface operations {
                 text_characters_limited?: boolean;
                 /**
                  * @description (text, multi_line_text) The minimum length allowed for a text or multi-line text option.
-                 *  
+                 *
                  * @example 1
                  */
                 text_min_length?: number;
                 /**
                  * @description (text, multi_line_text) The maximum length allowed for a text or multi line text option.
-                 *  
+                 *
                  * @example 55
                  */
                 text_max_length?: number;
                 /**
                  * @description (multi_line_text) Flag to validate the maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example true
                  */
                 text_lines_limited?: boolean;
                 /**
                  * @description (multi_line_text) The maximum number of lines allowed on a multi-line text input.
-                 *  
+                 *
                  * @example 4
                  */
                 text_max_lines?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the value of a number option.
-                 *  
+                 *
                  * @example true
                  */
                 number_limited?: boolean;
                 /**
                  * @description (numbers_only_text) The type of limit on values entered for a number option.
-                 *  
-                 * @example lowest 
+                 *
+                 * @example lowest
                  * @enum {string}
                  */
                 number_limit_mode?: "lowest" | "highest" | "range";
                 /**
                  * @description (numbers_only_text) The lowest allowed value for a number option if `number_limited` is true.
-                 *  
+                 *
                  * @example 100
                  */
                 number_lowest_value?: number;
@@ -1311,7 +1311,7 @@ export interface operations {
                 number_highest_value?: number;
                 /**
                  * @description (numbers_only_text) Flag to limit the input on a number option to whole numbers only.
-                 *  
+                 *
                  * @example false
                  */
                 number_integers_only?: boolean;
@@ -1321,33 +1321,33 @@ export interface operations {
                 product_list_adjusts_pricing?: boolean;
                 /**
                  * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
-                 *  
-                 * @example weight 
+                 *
+                 * @example weight
                  * @enum {string}
                  */
                 product_list_shipping_calc?: "none" | "weight" | "package";
               };
               /**
-               * @description Order in which the option is displayed on the storefront.  
+               * @description Order in which the option is displayed on the storefront.
                * @example 1
                */
               sort_order?: number;
               option_values?: ({
                   /**
                    * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-                   *  
+                   *
                    * @example false
                    */
                   is_default?: boolean;
                   /**
                    * @description The text display identifying the value on the storefront. Required in a /POST.
-                   *  
+                   *
                    * @example Green
                    */
                   label: string;
                   /**
                    * @description The order in which the value will be displayed on the product page. Required in a /POST.
-                   *  
+                   *
                    * @example 0
                    */
                   sort_order: number;
@@ -1362,7 +1362,7 @@ export interface operations {
             }) & {
               /**
                * @description The unique option name, auto-generated from the display name, a timestamp, and the product ID.
-               *  
+               *
                * @example Add-a-$5-Donation1535042499-187
                */
               name?: string;
@@ -1408,7 +1408,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Variant Option 
+   * Delete a Product Variant Option
    * @description Deletes a *Variant Option*.
    */
   deleteOptionById: {
@@ -1431,7 +1431,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Variant Option Values 
+   * Get All Product Variant Option Values
    * @description Returns a list of all *Variant Option Values*. Optional parameters can be passed in.
    */
   getOptionValues: {
@@ -1463,19 +1463,19 @@ export interface operations {
             data?: ({
                 /**
                  * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-                 *  
+                 *
                  * @example false
                  */
                 is_default?: boolean;
                 /**
                  * @description The text display identifying the value on the storefront. Required in a /POST.
-                 *  
+                 *
                  * @example Green
                  */
                 label: string;
                 /**
                  * @description The order in which the value will be displayed on the product page. Required in a /POST.
-                 *  
+                 *
                  * @example 0
                  */
                 sort_order: number;
@@ -1492,16 +1492,16 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Variant Option Value 
+   * Create a Product Variant Option Value
    * @description Creates a *Variant Option Value*.
-   * 
+   *
    * **Required Fields**
    * * label
    * * sort_order
-   * 
+   *
    * **Read-Only Fields**
    * * id
-   * 
+   *
    * **Limits**
    * * 250 option values per option limit.
    */
@@ -1523,19 +1523,19 @@ export interface operations {
         "application/json": {
           /**
            * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-           *  
+           *
            * @example false
            */
           is_default?: boolean;
           /**
            * @description The text display identifying the value on the storefront. Required in a /POST.
-           *  
+           *
            * @example Green
            */
           label: string;
           /**
            * @description The order in which the value will be displayed on the product page. Required in a /POST.
-           *  
+           *
            * @example 0
            */
           sort_order: number;
@@ -1552,19 +1552,19 @@ export interface operations {
             data?: {
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -1598,7 +1598,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Variant Option Value 
+   * Get a Product Variant Option Value
    * @description Returns a single *Variant Option Value*. Optional parameters can be passed in.
    */
   getOptionValueById: {
@@ -1630,19 +1630,19 @@ export interface operations {
             data?: {
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -1672,9 +1672,9 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Variant Option Value 
+   * Update a Product Variant Option Value
    * @description Updates a *Variant Option Value*.
-   * 
+   *
    * **Read-Only Fields**
    * * id
    */
@@ -1700,19 +1700,19 @@ export interface operations {
         "application/json": {
           /**
            * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-           *  
+           *
            * @example false
            */
           is_default?: boolean;
           /**
            * @description The text display identifying the value on the storefront. Required in a /POST.
-           *  
+           *
            * @example Green
            */
           label: string;
           /**
            * @description The order in which the value will be displayed on the product page. Required in a /POST.
-           *  
+           *
            * @example 0
            */
           sort_order: number;
@@ -1732,19 +1732,19 @@ export interface operations {
             data?: {
               /**
                * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
-               *  
+               *
                * @example false
                */
               is_default?: boolean;
               /**
                * @description The text display identifying the value on the storefront. Required in a /POST.
-               *  
+               *
                * @example Green
                */
               label: string;
               /**
                * @description The order in which the value will be displayed on the product page. Required in a /POST.
-               *  
+               *
                * @example 0
                */
               sort_order: number;
@@ -1783,7 +1783,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Variant Option Value 
+   * Delete a Product Variant Option Value
    * @description Deletes a *Variant Option Value*.
    */
   deleteOptionValueById: {

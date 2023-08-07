@@ -8,18 +8,18 @@
 export interface paths {
   "/checkouts/{checkoutId}": {
     /**
-     * Get a Checkout 
+     * Get a Checkout
      * @description Returns a *Checkout*.
-     * 
+     *
      * **Notes**
-     * 
+     *
      * The cart ID and checkout ID are the same.
      */
     get: operations["CheckoutsByCheckoutIdGet"];
     /**
-     * Update Customer Messages 
+     * Update Customer Messages
      * @description Change customer message pertaining to an existing *Checkout*.
-     * 
+     *
      * **Limits:**
      * * 2000 characters for customer message
      */
@@ -35,13 +35,13 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/discounts": {
     /**
-     * Add Discount to Checkout 
+     * Add Discount to Checkout
      * @description Adds a discount to an existing *checkout*.
-     * 
+     *
      * This discount only applies to `line_items`. When you call this API, you clear out all existing discounts applied to line items, including product and order-based discounts.
-     * 
+     *
      * This endpoint splits the discount between line items based on the item value.
-     * 
+     *
      * Required Fields
      * * discounted_amount
      */
@@ -49,9 +49,9 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/billing-address": {
     /**
-     * Add Checkout Billing Address 
+     * Add Checkout Billing Address
      * @description Adds a billing address to an existing checkout.
-     * 
+     *
      * **Required Fields**
      * * email
      * * country_code
@@ -60,18 +60,18 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/billing-address/{addressId}": {
     /**
-     * Update Checkout Billing Address 
+     * Update Checkout Billing Address
      * @description Updates an existing billing address on a checkout.
      */
     put: operations["CheckoutsBillingAddressByCheckoutIdAndAddressIdPut"];
   };
   "/checkouts/{checkoutId}/consignments": {
     /**
-     * Add Consignment to Checkout 
+     * Add Consignment to Checkout
      * @description Adds a new consignment to a checkout.
-     * 
-     * For more information about working with consignments, see [Checkout consignment](/api-docs/checkouts/checkout-consignment).  
-     * 
+     *
+     * For more information about working with consignments, see [Checkout consignment](/api-docs/checkouts/checkout-consignment).
+     *
      * Though the only required `address` properties to create a consignment are `email` and `country_code`, to successfully [create an order](/docs/rest-management/checkouts/checkout-orders#create-an-order) the `address` requires the following properties:
      * * `first_name`
      * * `last_name`
@@ -80,9 +80,9 @@ export interface paths {
      * * `country`
      * * `email`
      * * `country_code`
-     * 
+     *
      * Depending on the country, the following `address` properties may also be required:
-     * 
+     *
      * * `postal_code`
      * * `state_or_province`
      */
@@ -90,20 +90,20 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/consignments/{consignmentId}": {
     /**
-     * Update Checkout Consignment 
-     * @description Updates an existing consignment. The address, line item IDs, and the shipping option ID can be updated using this endpoint. 
-     * 
-     * To add a new address and shipping options with line items, complete the following steps. 
-     * 
-     * 1. Add a new [consignment](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) to a checkout. 
-     * 
+     * Update Checkout Consignment
+     * @description Updates an existing consignment. The address, line item IDs, and the shipping option ID can be updated using this endpoint.
+     *
+     * To add a new address and shipping options with line items, complete the following steps.
+     *
+     * 1. Add a new [consignment](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) to a checkout.
+     *
      * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
      */
     put: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut"];
     /**
-     * Delete Checkout Consignment 
+     * Delete Checkout Consignment
      * @description Removes an existing consignment from a checkout.
-     * 
+     *
      * Removing the last consignment will remove the cart from the customer it is assigned to. Create a new redirect URL for the customer so they can access the cart again.
      */
     delete: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete"];
@@ -119,12 +119,12 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/coupons": {
     /**
-     * Add Coupon to Checkout 
+     * Add Coupon to Checkout
      * @description Adds a coupon code to a checkout.
-     * 
+     *
      * **Required Fields**
      * * coupon_code
-     * 
+     *
      * **Limits**
      * * Coupon codes have a 50-character limit.
      */
@@ -132,16 +132,16 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/coupons/{couponCode}": {
     /**
-     * Delete Checkout Coupon 
+     * Delete Checkout Coupon
      * @description Deletes a coupon code from a checkout.
      */
     delete: operations["CheckoutsCouponsByCheckoutIdAndCouponCodeDelete"];
   };
   "/checkouts/{checkoutId}/orders": {
     /**
-     * Create an Order 
+     * Create an Order
      * @description Creates an order.
-     * 
+     *
      * ## Usage notes
      * * Orders created will be set to incomplete order status.
      * * You can create as many orders from the same order (cart) as you want.
@@ -153,12 +153,12 @@ export interface paths {
   };
   "/checkouts/settings": {
     /**
-     * Get Checkout Settings 
+     * Get Checkout Settings
      * @description Get checkout settings
      */
     get: operations["GetCheckoutSettings"];
     /**
-     * Update Checkout Settings 
+     * Update Checkout Settings
      * @description Update checkout settings
      */
     put: operations["UpdateCheckoutSettings"];
@@ -170,7 +170,7 @@ export interface paths {
   };
   "/checkouts/{checkoutId}/token": {
     /**
-     * Create Checkout Token 
+     * Create Checkout Token
      * @description Use the checkout token to display a confirmation page for a guest shopper.
      * **Usage Notes** * The response from performing this POST request is a checkout token. * The checkout token is a single-use token that is not order-dependent. You cannot create this token after finalizing an order. * After completing the order, you can redirect the shopper to /order-confirmation/{orderId}?t={checkoutToken}. * After token validation, the /order-confirmation/{orderId} page displays. * The `ORDER_TOKEN` should match the order or the logged-in customer can access the order.
      */
@@ -193,98 +193,98 @@ export interface components {
     /** Checkout */
     Checkout: {
       /**
-       * Format: uuid 
+       * Format: uuid
        * @example 497f6eca-6276-4993-bfeb-53cbbbba6f08
        */
       id?: string;
       /** Cart */
       cart?: {
         /**
-         * Format: uuid 
-         * @description Cart ID, provided after creating a cart with a POST request. 
+         * Format: uuid
+         * @description Cart ID, provided after creating a cart with a POST request.
          * @example 497f6eca-6276-4993-bfeb-53cbbbba6f08
          */
         id?: string;
         /**
-         * @description ID of the customer to which the cart belongs. 
+         * @description ID of the customer to which the cart belongs.
          * @example 1
          */
         customer_id?: number;
         /**
-         * @description The email address of the cart. This is the same email address that is used in the billing address. 
+         * @description The email address of the cart. This is the same email address that is used in the billing address.
          * @example user@example.com
          */
         email?: string;
         /** Currency */
         currency?: {
           /**
-           * @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.) 
+           * @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.)
            * @example USD
            */
           code?: string;
         };
         /**
-         * Format: double 
-         * @description Sum of cart line-item amounts before cart-level discounts, coupons, or taxes are applied. 
+         * Format: double
+         * @description Sum of cart line-item amounts before cart-level discounts, coupons, or taxes are applied.
          * @example 5
          */
         base_amount?: number;
         /** @description ID of channel */
         channel_id?: number;
         /**
-         * Format: double 
-         * @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts. 
+         * Format: double
+         * @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts.
          * @example 0.5
          */
         discount_amount?: number;
         /**
-         * Format: double 
-         * @description Sum of cart line-item amounts minus cart-level discounts and coupons including tax. 
+         * Format: double
+         * @description Sum of cart line-item amounts minus cart-level discounts and coupons including tax.
          * @example 4.14
          */
         cart_amount_inc_tax?: number;
         /**
-         * Format: double 
-         * @description Sum of cart line-item amounts minus cart-level discounts and coupons excluding tax. 
+         * Format: double
+         * @description Sum of cart line-item amounts minus cart-level discounts and coupons excluding tax.
          * @example 3.6
          */
         cart_amount_ex_tax?: number;
-        coupons?: ({
+        coupons?: {
             /**
-             * @description The coupon code. 
+             * @description The coupon code.
              * @example SHOPNOW
              */
             code: string;
             /**
-             * @description The coupon ID. 
+             * @description The coupon ID.
              * @example 1
              */
             id?: number;
             /**
-             * @description Key name to identify the type of coupon. 
+             * @description Key name to identify the type of coupon.
              * @example percentage_discount
              */
             coupon_type?: string;
             /**
-             * Format: float 
-             * @description The discounted amount applied within a given context. 
+             * Format: float
+             * @description The discounted amount applied within a given context.
              * @example 0.9
              */
             discounted_amount?: number;
-          })[];
-        discounts?: ({
+          }[];
+        discounts?: {
             /**
-             * @description ID of the applied discount. 
+             * @description ID of the applied discount.
              * @example 5eba1f1e-0ec5-40f7-8058-f7b452c7237d
              */
             id?: string;
             /**
-             * Format: double 
-             * @description The discounted amount applied within a given context. 
+             * Format: double
+             * @description The discounted amount applied within a given context.
              * @example 1.4
              */
             discounted_amount?: number;
-          })[];
+          }[];
         /** Line Item */
         line_items?: {
           physical_items: ({
@@ -303,44 +303,44 @@ export interface components {
               url?: string;
               is_taxable?: boolean;
               image_url?: string;
-              discounts?: ({
+              discounts?: {
                   /** @description ID of the applied discount. */
                   id?: number;
                   /**
-                   * Format: double 
+                   * Format: double
                    * @description The discounted amount applied within a given context.
                    */
                   discounted_amount?: number;
-                })[];
+                }[];
               /**
-               * Format: double 
+               * Format: double
                * @description The total value of all discounts applied to this item.
                */
               discount_amount?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description The total value of all coupons applied to this item.
                */
               coupon_amount?: number;
               /** @description An item’s original price is the same as the default price of the product configured in the admin panel. */
               original_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description The net item price before discounts and coupons are applied. BigCommerce derives an item’s list price from the product default price or, if applicable, the sale price configured in the admin panel.
                */
               list_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description Price of the item after all discounts are applied. (The final price before tax calculation.)
                */
               sale_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description List price of the item multiplied by the quantity.
                */
               extended_list_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description Sale price of the item multiplied by the quantity.
                */
               extended_sale_price?: number;
@@ -376,56 +376,56 @@ export interface components {
               is_require_shipping?: boolean;
               is_taxable?: boolean;
               image_url?: string;
-              discounts?: ({
+              discounts?: {
                   /**
-                   * Format: double 
+                   * Format: double
                    * @description ID of the applied discount.
                    */
                   id?: string;
                   /**
-                   * Format: double 
+                   * Format: double
                    * @description The discounted amount applied within a given context.
                    */
                   discounted_amount?: number;
-                })[];
+                }[];
               /**
-               * Format: double 
+               * Format: double
                * @description The total value of all discounts applied to this item.
                */
               discount_amount?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description The total value of all coupons applied to this item.
                */
               coupon_amount?: number;
               /** @description An item’s original price is the same as the product default price in the admin panel. */
               original_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description The net item price before discounts and coupons are applied. BigCommerce derives an item’s list price from the product default price or, if applicable, the sale price configured in the admin panel.
                */
               list_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description Price of the item after all discounts are applied. (The final price before tax calculation.)
                */
               sale_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description List price of the item multiplied by the quantity.
                */
               extended_list_price?: number;
               /**
-               * Format: double 
+               * Format: double
                * @description Sale price of the item multiplied by the quantity.
                */
               extended_sale_price?: number;
             })[];
-          gift_certificates: ({
+          gift_certificates: {
               /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
               theme: string;
               /**
-               * Format: double 
+               * Format: double
                * @description Value must be between 1.00 and 1,000.00 in the store’s default currency.
                */
               amount: number;
@@ -445,8 +445,8 @@ export interface components {
               taxable?: boolean;
               /** @description Limited to 200 characters. */
               message?: string;
-            })[];
-          custom_items?: ({
+            }[];
+          custom_items?: {
               quantity: number;
               id?: string;
               extended_list_price?: number;
@@ -454,7 +454,7 @@ export interface components {
               sku?: string;
               name?: string;
               image_url?: string;
-            })[];
+            }[];
         };
         /** @description Time when the cart was created. */
         created_time?: string;
@@ -476,11 +476,11 @@ export interface components {
         country_code?: string;
         postal_code?: string;
         phone?: string;
-        custom_fields?: ({
+        custom_fields?: {
             field_id?: string;
             /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
             field_value?: string;
-          })[];
+          }[];
       } & {
         id?: string;
       };
@@ -502,16 +502,16 @@ export interface components {
             country_code: string;
             postal_code?: string;
             phone?: string;
-            custom_fields?: ({
+            custom_fields?: {
                 field_id?: string;
                 /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
                 field_value?: string;
-              })[];
+              }[];
           } & {
             id?: string;
           };
           /** @description This is available only when "include=consignments.available_shipping_options" is presented in the URL. */
-          available_shipping_options?: ({
+          available_shipping_options?: {
               description?: string;
               id?: string;
               /** @description Specifies the type of shipping option, such as flat rate, UPS, etc. */
@@ -523,7 +523,7 @@ export interface components {
               transit_time?: string;
               /** @description Read-only field that is used for the Shipping Provider API. */
               additional_description?: string;
-            })[];
+            }[];
           /** Selected Shipping Option */
           selected_shipping_option?: {
             description?: string;
@@ -538,84 +538,84 @@ export interface components {
             additional_description?: string;
           };
           /** @description List of consignment discounts applied through coupons. */
-          coupon_discounts?: ({
+          coupon_discounts?: {
               /** @description Coupon code through which this discount was applied. */
               code?: string;
               /** Format: double */
               amount?: number;
-            })[];
+            }[];
           /** @description List of consignment discounts applied through cart-level discounts. */
-          discounts?: ({
+          discounts?: {
               /** @description Discount rule ID that applied this discount. */
               id?: number;
-            })[];
+            }[];
           /**
-           * Format: double 
+           * Format: double
            * @description The shipping cost for this consignment including tax.
            */
           shipping_cost_inc_tax?: number;
           /**
-           * Format: double 
+           * Format: double
            * @description The shipping cost for this consignment excluding tax.
            */
           shipping_cost_ex_tax?: number;
           /**
-           * Format: double 
+           * Format: double
            * @description The handling cost of shipping for this consignment including tax.
            */
           handling_cost_inc_tax?: number;
           /**
-           * Format: double 
+           * Format: double
            * @description The handling cost of shipping for this consignment excluding tax.
            */
           handling_cost_ex_tax?: number;
           /** @description Array lists only one line item. To display multiple `line_item_ids`, perform a `POST` request to add consignments to the checkout using the same address. */
-          line_item_ids?: (string)[];
+          line_item_ids?: string[];
           selected_pickup_option?: components["schemas"]["PickupOption"];
         })[];
-      taxes?: ({
+      taxes?: {
           /** @description Name of the tax. */
           name?: string;
           /** Format: double */
           amount?: number;
-        })[];
+        }[];
       /** @description Coupons applied at checkout level. */
-      coupons?: (components["schemas"]["AppliedCoupon"])[];
+      coupons?: components["schemas"]["AppliedCoupon"][];
       order_id?: string | null;
       /**
-       * Format: double 
+       * Format: double
        * @description Shipping cost before any discounts are applied including tax.
        */
       shipping_cost_total_inc_tax?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Shipping cost before any discounts are applied excluding tax.
        */
       shipping_cost_total_ex_tax?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Handling cost for all consignments including tax.
        */
       handling_cost_total_inc_tax?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Handling cost for all consignments excluding tax.
        */
       handling_cost_total_ex_tax?: number;
       /** Format: double */
       tax_total?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Subtotal of the checkout before applying item-level discounts including tax.
        */
       subtotal_inc_tax?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Subtotal of the checkout before applying item-level discounts excluding tax.
        */
       subtotal_ex_tax?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The total payable amount, before applying any store credit or a gift certificate.
        */
       grand_total?: number;
@@ -625,19 +625,19 @@ export interface components {
       updated_time?: string;
       /** @description Shopper's message provided as details for the order to be created from this checkout. */
       customer_message?: string;
-      promotions?: ({
+      promotions?: {
           /** Banner */
-          banners?: ({
+          banners?: {
               /** @description ID of the promotion. */
               id?: string;
               /** @description Type of the banner. */
               type?: string;
               /** @description An array of the locations where the banner will display. */
-              page?: (string)[];
+              page?: string[];
               /** @description Text of the banner. */
               text?: string;
-            })[];
-        })[];
+            }[];
+        }[];
     };
     /** Checkout_Put */
     Checkout_Put: {
@@ -646,23 +646,23 @@ export interface components {
     /** Applied Coupon */
     AppliedCoupon: {
       /**
-       * @description The coupon code. 
+       * @description The coupon code.
        * @example SHOPNOW
        */
       code: string;
       /**
-       * @description The coupon ID. 
+       * @description The coupon ID.
        * @example 1
        */
       id?: number;
       /**
-       * @description Key name to identify the type of coupon. 
+       * @description Key name to identify the type of coupon.
        * @example percentage_discount
        */
       coupon_type?: string;
       /**
-       * Format: float 
-       * @description The discounted amount applied within a given context. 
+       * Format: float
+       * @description The discounted amount applied within a given context.
        * @example 0.9
        */
       discounted_amount?: number;
@@ -683,14 +683,14 @@ export interface components {
       postal_code?: string;
       phone?: string;
       /** @description You can retrieve custom fields from the [Get Form Fields](/docs/rest-storefront/forms#get-form-fields) endpoint. */
-      custom_fields?: ({
+      custom_fields?: {
           field_id?: string;
           /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
           field_value?: string;
-        })[];
+        }[];
     };
     /** Create Consignment Request */
-    CreateConsignmentRequest: ({
+    CreateConsignmentRequest: {
         /** Address Properties */
         address?: {
           first_name?: string;
@@ -707,28 +707,29 @@ export interface components {
           postal_code?: string;
           phone?: string;
           /** @description You can retrieve custom fields from the [Get Form Fields](/docs/rest-storefront/forms#get-form-fields) endpoint. */
-          custom_fields?: ({
-              field_id?: string;
+          custom_fields?: {
+              /** @description You must provide the form field ID value as the `field_id`. */
+              field_id: string;
               /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
               field_value?: string;
-            })[];
+            }[];
         };
-        line_items?: ({
+        line_items?: {
             /** @description Corresponds to `line_items.physical_items[N].id` value from `GET`checkout response. */
             item_id: string;
             /** Format: int32 */
             quantity: number;
-          })[];
+          }[];
         pickup_option?: {
           /** @example 1 */
           pickup_method_id?: number;
         };
-      })[];
+      }[];
     /**
-     * Update Consignment Request 
+     * Update Consignment Request
      * @description One or more of these three fields are mandatory. `address` and `line_items` can be updated in one request. `shipping_option_id` has to be updated in a separate request because changing the address or line items can invalidate the previously available shipping options.
      */
-    UpdateConsignmentRequest: ({
+    UpdateConsignmentRequest: {
         /** Address Properties */
         address?: {
           first_name?: string;
@@ -744,24 +745,24 @@ export interface components {
           country_code: string;
           postal_code?: string;
           phone?: string;
-          custom_fields?: ({
+          custom_fields?: {
               field_id?: string;
               /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
               field_value?: string;
-            })[];
+            }[];
         };
-        line_items?: ({
+        line_items?: {
             /** @description Corresponds to `line_items.physical_items[N].id` value from `GET`checkout response. */
             item_id: string;
             /** Format: int32 */
             quantity: number;
-          })[];
+          }[];
         shipping_option_id?: string;
         pickup_option?: {
           /** @example 1 */
           pickup_method_id?: number;
         };
-      })[];
+      }[];
     /** Coupon Code Request */
     CouponCodeRequest: {
       /** @description Coupon codes have a 50-character limit. */
@@ -770,7 +771,7 @@ export interface components {
     /** Order */
     Order: {
       /**
-       * @description The order ID. 
+       * @description The order ID.
        * @example 75
        */
       id?: number;
@@ -798,7 +799,7 @@ export interface components {
       pickup_method_id?: number;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     MetaOpen: {
@@ -860,11 +861,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get a Checkout 
+   * Get a Checkout
    * @description Returns a *Checkout*.
-   * 
+   *
    * **Notes**
-   * 
+   *
    * The cart ID and checkout ID are the same.
    */
   CheckoutsByCheckoutIdGet: {
@@ -904,22 +905,22 @@ export interface operations {
       404: {
         content: {
           "application/json": {
-            errors?: ({
+            errors?: {
                 /** Format: int32 */
                 status?: number;
                 title?: string;
                 type?: string;
                 detail?: string;
-              })[];
+              }[];
           };
         };
       };
     };
   };
   /**
-   * Update Customer Messages 
+   * Update Customer Messages
    * @description Change customer message pertaining to an existing *Checkout*.
-   * 
+   *
    * **Limits:**
    * * 2000 characters for customer message
    */
@@ -957,13 +958,13 @@ export interface operations {
     };
   };
   /**
-   * Add Discount to Checkout 
+   * Add Discount to Checkout
    * @description Adds a discount to an existing *checkout*.
-   * 
+   *
    * This discount only applies to `line_items`. When you call this API, you clear out all existing discounts applied to line items, including product and order-based discounts.
-   * 
+   *
    * This endpoint splits the discount between line items based on the item value.
-   * 
+   *
    * Required Fields
    * * discounted_amount
    */
@@ -981,12 +982,12 @@ export interface operations {
       content: {
         "application/json": {
           cart?: {
-            discounts?: ({
+            discounts?: {
                 /** @example 10 */
                 discounted_amount: number;
                 /** @example manual */
                 name?: string;
-              })[];
+              }[];
           };
         };
       };
@@ -1009,9 +1010,9 @@ export interface operations {
     };
   };
   /**
-   * Add Checkout Billing Address 
+   * Add Checkout Billing Address
    * @description Adds a billing address to an existing checkout.
-   * 
+   *
    * **Required Fields**
    * * email
    * * country_code
@@ -1049,7 +1050,7 @@ export interface operations {
     };
   };
   /**
-   * Update Checkout Billing Address 
+   * Update Checkout Billing Address
    * @description Updates an existing billing address on a checkout.
    */
   CheckoutsBillingAddressByCheckoutIdAndAddressIdPut: {
@@ -1086,11 +1087,11 @@ export interface operations {
     };
   };
   /**
-   * Add Consignment to Checkout 
+   * Add Consignment to Checkout
    * @description Adds a new consignment to a checkout.
-   * 
-   * For more information about working with consignments, see [Checkout consignment](/api-docs/checkouts/checkout-consignment).  
-   * 
+   *
+   * For more information about working with consignments, see [Checkout consignment](/api-docs/checkouts/checkout-consignment).
+   *
    * Though the only required `address` properties to create a consignment are `email` and `country_code`, to successfully [create an order](/docs/rest-management/checkouts/checkout-orders#create-an-order) the `address` requires the following properties:
    * * `first_name`
    * * `last_name`
@@ -1099,9 +1100,9 @@ export interface operations {
    * * `country`
    * * `email`
    * * `country_code`
-   * 
+   *
    * Depending on the country, the following `address` properties may also be required:
-   * 
+   *
    * * `postal_code`
    * * `state_or_province`
    */
@@ -1141,13 +1142,13 @@ export interface operations {
     };
   };
   /**
-   * Update Checkout Consignment 
-   * @description Updates an existing consignment. The address, line item IDs, and the shipping option ID can be updated using this endpoint. 
-   * 
-   * To add a new address and shipping options with line items, complete the following steps. 
-   * 
-   * 1. Add a new [consignment](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) to a checkout. 
-   * 
+   * Update Checkout Consignment
+   * @description Updates an existing consignment. The address, line item IDs, and the shipping option ID can be updated using this endpoint.
+   *
+   * To add a new address and shipping options with line items, complete the following steps.
+   *
+   * 1. Add a new [consignment](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) to a checkout.
+   *
    * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
    */
   CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut: {
@@ -1188,9 +1189,9 @@ export interface operations {
     };
   };
   /**
-   * Delete Checkout Consignment 
+   * Delete Checkout Consignment
    * @description Removes an existing consignment from a checkout.
-   * 
+   *
    * Removing the last consignment will remove the cart from the customer it is assigned to. Create a new redirect URL for the customer so they can access the cart again.
    */
   CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete: {
@@ -1221,12 +1222,12 @@ export interface operations {
     };
   };
   /**
-   * Add Coupon to Checkout 
+   * Add Coupon to Checkout
    * @description Adds a coupon code to a checkout.
-   * 
+   *
    * **Required Fields**
    * * coupon_code
-   * 
+   *
    * **Limits**
    * * Coupon codes have a 50-character limit.
    */
@@ -1263,7 +1264,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Checkout Coupon 
+   * Delete Checkout Coupon
    * @description Deletes a coupon code from a checkout.
    */
   CheckoutsCouponsByCheckoutIdAndCouponCodeDelete: {
@@ -1294,9 +1295,9 @@ export interface operations {
     };
   };
   /**
-   * Create an Order 
+   * Create an Order
    * @description Creates an order.
-   * 
+   *
    * ## Usage notes
    * * Orders created will be set to incomplete order status.
    * * You can create as many orders from the same order (cart) as you want.
@@ -1326,7 +1327,7 @@ export interface operations {
     };
   };
   /**
-   * Get Checkout Settings 
+   * Get Checkout Settings
    * @description Get checkout settings
    */
   GetCheckoutSettings: {
@@ -1348,7 +1349,7 @@ export interface operations {
     };
   };
   /**
-   * Update Checkout Settings 
+   * Update Checkout Settings
    * @description Update checkout settings
    */
   UpdateCheckoutSettings: {
@@ -1376,7 +1377,7 @@ export interface operations {
     };
   };
   /**
-   * Create Checkout Token 
+   * Create Checkout Token
    * @description Use the checkout token to display a confirmation page for a guest shopper.
    * **Usage Notes** * The response from performing this POST request is a checkout token. * The checkout token is a single-use token that is not order-dependent. You cannot create this token after finalizing an order. * After completing the order, you can redirect the shopper to /order-confirmation/{orderId}?t={checkoutToken}. * After token validation, the /order-confirmation/{orderId} page displays. * The `ORDER_TOKEN` should match the order or the logged-in customer can access the order.
    */
@@ -1396,7 +1397,7 @@ export interface operations {
           /** @example 1 */
           maxUses?: number;
           /**
-           * @description Time-to-live (TTL) is the number of seconds the token is set to exist before being discarded. 
+           * @description Time-to-live (TTL) is the number of seconds the token is set to exist before being discarded.
            * @example 86400
            */
           ttl?: number;
@@ -1419,19 +1420,19 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
-             * @description The HTTP status code. 
+             * Format: int32
+             * @description The HTTP status code.
              * @example 401
              */
             status?: number;
             /**
-             * @description The error title describing the particular error. 
+             * @description The error title describing the particular error.
              * @example Unauthorized
              */
             title?: string;
             /**
              * @description A link to a list of BigCommerce API status codes.
-             *  
+             *
              * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
              */
             type?: string;
@@ -1444,18 +1445,18 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
-             * @description The HTTP status code. 
+             * Format: int32
+             * @description The HTTP status code.
              * @example 422
              */
             status?: string;
             /**
-             * @description The error title describing the particular error. 
+             * @description The error title describing the particular error.
              * @example Invalid input
              */
             title?: string;
             /**
-             * @description A link to a list of BigCommerce API status codes. 
+             * @description A link to a list of BigCommerce API status codes.
              * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
              */
             type?: string;

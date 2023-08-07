@@ -8,7 +8,7 @@
 export interface paths {
   "/store": {
     /**
-     * Get Store Information 
+     * Get Store Information
      * @description Returns metadata about a store.
      */
     get: {
@@ -31,7 +31,7 @@ export interface paths {
   };
   "/time": {
     /**
-     * Get System Timestamp 
+     * Get System Timestamp
      * @description Returns the system timestamp at the time of the request. The time resource is useful for validating API authentication details and testing client connections.
      */
     get: {
@@ -59,132 +59,132 @@ export interface components {
     /** Store Information */
     StoreInformation: {
       /**
-       * @description Unique store identifier. 
+       * @description Unique store identifier.
        * @example store_hash
        */
       id?: string;
       /**
-       * @description Primary domain name. 
+       * @description Primary domain name.
        * @example your-store-url.com
        */
       domain?: string;
       /**
-       * @description Store’s current HTTPS URL. 
+       * @description Store’s current HTTPS URL.
        * @example https://your-store-url.com
        */
       secure_url?: string;
       /**
-       * @description The secure hostname of the control panel. 
+       * @description The secure hostname of the control panel.
        * @example "https://store-abc123.mybigcommerce.com"
        */
       control_panel_base_url?: string;
       /**
-       * @description Store's name. 
+       * @description Store's name.
        * @example BigCommerce
        */
       name?: string;
       /**
-       * @description Primary contact’s first name (as defined during the store sign-up process). 
+       * @description Primary contact’s first name (as defined during the store sign-up process).
        * @example Jane
        */
       first_name?: string;
       /**
-       * @description Primary contact’s last name (as defined during the store sign-up process). 
+       * @description Primary contact’s last name (as defined during the store sign-up process).
        * @example Doe
        */
       last_name?: string;
       /**
-       * @description Display address. 
+       * @description Display address.
        * @example BigCommerce
        */
       address?: string;
       /**
-       * @description Country where the store is located (as defined during the store sign-up process). 
+       * @description Country where the store is located (as defined during the store sign-up process).
        * @example United States
        */
       country?: string;
       /** @description Display phone number. */
       phone?: string;
       /**
-       * @description Email address of the store administrator/owner. 
+       * @description Email address of the store administrator/owner.
        * @example janedoes@example.com
        */
       admin_email?: string;
       /**
-       * @description Email address for orders and fulfillment. 
+       * @description Email address for orders and fulfillment.
        * @example orders@emai
        */
       order_email?: string;
       timezone?: components["schemas"]["Timezone"];
       /**
-       * @description Default language code. 
+       * @description Default language code.
        * @example en
        */
       language?: string;
       /**
-       * @description Default currency code 
+       * @description Default currency code
        * @example USD
        */
       currency?: string;
       /**
-       * @description Default symbol for values in the currency. 
+       * @description Default symbol for values in the currency.
        * @example $
        */
       currency_symbol?: string;
       /**
-       * @description Default decimal separator for values in the currency. 
+       * @description Default decimal separator for values in the currency.
        * @example .
        */
       decimal_separator?: string;
       /**
-       * @description Default thousands separator for values in the currency. 
+       * @description Default thousands separator for values in the currency.
        * @example ,
        */
       thousands_separator?: string;
       /**
-       * @description Default decimal places for values in the currency. 
+       * @description Default decimal places for values in the currency.
        * @example 2
        */
       decimal_places?: number;
       /**
-       * @description Default position of the currency symbol (left or right). 
+       * @description Default position of the currency symbol (left or right).
        * @example left
        */
       currency_symbol_location?: string;
       /**
-       * @description Default weight units (metric or imperial). 
+       * @description Default weight units (metric or imperial).
        * @example Ounces
        */
       weight_units?: string;
       /**
-       * @description Default dimension units (metric or imperial). 
+       * @description Default dimension units (metric or imperial).
        * @example Inches
        */
       dimension_units?: string;
       /**
-       * @description The number of decimal places. 
+       * @description The number of decimal places.
        * @example 2
        */
       dimension_decimal_places?: number;
       /**
-       * @description The symbol that separates the whole numbers from the decimal points. 
+       * @description The symbol that separates the whole numbers from the decimal points.
        * @example .
        */
       dimension_decimal_token?: string;
       /** @description The symbol used to denote thousands. */
       "dimension_thousands_token:"?: string;
       /**
-       * @description Name of the BigCommerce plan to which this store is subscribed. 
+       * @description Name of the BigCommerce plan to which this store is subscribed.
        * @example Standard
        */
       plan_name?: string;
       /**
-       * @description Level of the BigCommerce plan to which this store is subscribed. 
+       * @description Level of the BigCommerce plan to which this store is subscribed.
        * @example Standard
        */
       plan_level?: string;
       /**
-       * @description Industry, or vertical category, in which the business operates. (As selected from drop-down list during the store sign-up process.) 
+       * @description Industry, or vertical category, in which the business operates. (As selected from drop-down list during the store sign-up process.)
        * @example Technology
        */
       industry?: string;
@@ -193,11 +193,11 @@ export interface components {
         url?: string;
       };
       /**
-       * @description A Boolean value that indicates whether or not prices are entered with tax. 
+       * @description A Boolean value that indicates whether or not prices are entered with tax.
        * @example false
        */
       is_price_entered_with_tax?: boolean;
-      active_comparison_modules?: (unknown)[];
+      active_comparison_modules?: unknown[];
       /**
        * @description + `stencil_enabled`: `true` (boolean)
        * + `sitewidehttps_enabled`: `false` (boolean)
@@ -205,7 +205,7 @@ export interface components {
        */
       features?: {
         /**
-         * @description What type of checkout is enabled on the store. Possible values returned are optimized, single (one page), single_customizable (one page for developers), klarna. 
+         * @description What type of checkout is enabled on the store. Possible values returned are optimized, single (one page), single_customizable (one page for developers), klarna.
          * @example optimized
          */
         checkout_type?: string;
@@ -213,18 +213,18 @@ export interface components {
         facebook_catalog_id?: string;
         graphql_storefront_api_enabled?: boolean;
         /**
-         * @description Indicates whether a store is using a Stencil theme. 
+         * @description Indicates whether a store is using a Stencil theme.
          * @example true
          */
         stencil_enabled?: boolean;
         /**
-         * @description Indicates if there is sitewide https. 
+         * @description Indicates if there is sitewide https.
          * @example false
          */
         sitewidehttps_enabled?: boolean;
         /**
          * @description Indicates whether MSF feature flag is enabled on a store.
-         * 
+         *
          * Returns `true` when MSF feature flag is enabled.
          * Returns `false` when MSF feature flag is disabled.
          */
@@ -243,22 +243,22 @@ export interface components {
     /** Time Zone */
     Timezone: {
       /**
-       * @description a string identifying the time zone, in the format: /. 
+       * @description a string identifying the time zone, in the format: /.
        * @example America/Chicago
        */
       name?: string;
       /**
-       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during winter/standard time. 
+       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during winter/standard time.
        * @example -21600
        */
       raw_offset?: number;
       /**
-       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during summer/daylight saving time. 
+       * @description A negative or positive number, identifying the offset from UTC/GMT, in seconds, during summer/daylight saving time.
        * @example -18000
        */
       dst_offset?: number;
       /**
-       * @description A boolean indicating whether this time zone observes daylight saving time. 
+       * @description A boolean indicating whether this time zone observes daylight saving time.
        * @example true
        */
       dst_correction?: boolean;
@@ -267,23 +267,23 @@ export interface components {
     /** Date Format */
     DateFormat: {
       /**
-       * @description string that defines dates’ display format, in the pattern: M jS Y 
+       * @description string that defines dates’ display format, in the pattern: M jS Y
        * @example M jS Y
        */
       display?: string;
       /**
-       * @description string that defines the CSV export format for orders, customers, and products, in the pattern: M jS Y 
+       * @description string that defines the CSV export format for orders, customers, and products, in the pattern: M jS Y
        * @example M jS Y
        */
       export?: string;
       /**
-       * @description string that defines dates’ extended-display format, in the pattern: M jS Y @ g:i A. 
+       * @description string that defines dates’ extended-display format, in the pattern: M jS Y @ g:i A.
        * @example M jS Y @ g:i A
        */
       extended_display?: string;
     };
     /**
-     * timeStamp_Full 
+     * timeStamp_Full
      * @description Store Time in Unix format.
      */
     timeStamp_Full: {

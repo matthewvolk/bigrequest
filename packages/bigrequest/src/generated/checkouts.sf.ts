@@ -8,233 +8,233 @@
 export interface paths {
   "/checkouts/{checkoutId}": {
     /**
-     * Get a Checkout 
+     * Get a Checkout
      * @description Returns a *Checkout*.
-     * 
+     *
      * The cart ID and checkout ID are the same.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     get: operations["CheckoutsByCheckoutIdGet"];
     /**
-     * Update Customer Messages 
+     * Update Customer Messages
      * @description Updates *Checkout* customer messages.
-     * 
+     *
      * **Limits**
-     * 
+     *
      * * 2000 character limit
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["CheckoutsByCheckoutIdPut"];
   };
   "/checkouts/{checkoutId}/carts/{cartId}/items/{itemId}": {
     /**
-     * Update a Line Item 
+     * Update a Line Item
      * @description Updates a *Checkout Line Item*. Updates an existing, single line item in the cart.
-     * 
+     *
      * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoint or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdPut"];
     /**
-     * Delete a Line Item 
+     * Delete a Line Item
      * @description Deletes a *Line Item* from the *Cart*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdDelete"];
   };
   "/checkouts/{checkoutId}/billing-address": {
     /**
-     * Add Checkout Billing Address 
+     * Add Checkout Billing Address
      * @description Adds a billing address to an existing *Checkout*.
-     * 
+     *
      * **Required Fields**
      * * country_code
-     * 
-     * 
+     *
+     *
      * > #### Note
      * > * The `email` property is only required if the customer is a guest shopper. Otherwise, it is set automatically.
      * > * Sending `email` property as a payload in POST request triggers the abandoned cart notification process.
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["CheckoutsBillingAddressByCheckoutIdPost"];
   };
   "/checkouts/{checkoutId}/billing-address/{addressId}": {
     /**
-     * Update Checkout Billing Address 
+     * Update Checkout Billing Address
      * @description Updates an existing billing address on *Checkout*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["CheckoutsBillingAddressByCheckoutIdAndAddressIdPut"];
   };
   "/checkouts/{checkoutId}/consignments": {
     /**
-     * Create a Consignment 
+     * Create a Consignment
      * @description Adds a new *Consignment* to *Checkout*.
-     * 
+     *
      * Perform the following two steps to define the fulfillment of the items in the cart.
      *   ### For **shipping** consignments:
      *     1. Add a new Consignment to Checkout.
      *         * Send a `POST` request to `/consignments` with each shipping address, line item IDs, and quantities. Each address can have its own line item IDs.
-     *         * Provide a full valid customer address before placing the order. If provided, the order placement will succeed. 
+     *         * Provide a full valid customer address before placing the order. If provided, the order placement will succeed.
      *         * As part of the request URL make sure to add `include=consignments.availableShippingOptions` to return the available shipping options based on the items, the address, and the shipping location. This will return `availableShippingOptions` in the response.
-     * 
+     *
      *       * Required Fields:
      *         * `shipping_address` (deprecated) or `address`
      *         * `lineItems`
      *     2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
-     *           
+     *
      *   ### For **pickup** consignments:
-     *     1. Create a new consignment object. 
+     *     1. Create a new consignment object.
      *       - Send a `POST` request to `/consignments` with line item IDs and quantities.
      *       - Provide a `pickupMethodId`. This is the `id` of the Pickup Method provided in the response body of the Storefront Pickup Options API.
      *       - Required Fields:
      *           * `pickupOption`
      *           * `lineItems`
-     * 
+     *
      * To learn more about creating a Checkout Consignment, see the [Carts and Checkouts Tutorial](/api-docs/storefront/tutorials/carts).
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["CheckoutsConsignmentsByCheckoutIdPost"];
   };
   "/checkouts/{checkoutId}/consignments/{consignmentId}": {
     /**
-     * Update a Consignment 
+     * Update a Consignment
      * @description Updates an existing consignment. An update is either one of the following:
-     * 
+     *
      * 1. Updates the consignment address and/or line items.
      * 2. Selects a specific fulfillment option.
-     * 
+     *
      * ### Update the consignment address and line items
-     * For this type of update, the payload is the same as when creating a new consignment.         Update each *Consignment* `shippingOptionId` (shipping address and line items) with the `availableShippingOption > id` from the POST `/consignment` response. 
-     * 
+     * For this type of update, the payload is the same as when creating a new consignment.         Update each *Consignment* `shippingOptionId` (shipping address and line items) with the `availableShippingOption > id` from the POST `/consignment` response.
+     *
      * **Note:**
      * Updating a consignment could invalidate the value for `selectedShippingOption` and `selectedPickupOption`.
-     * 
+     *
      * ### Select a specific fulfillment option
      * Before placing an order, each consignment must have a `selectedShippingOption` or a `selectedPickupOption`.
-     * 
+     *
      * If the consignment already has a pick-up option selected and a shipping option is provided, the pick-up option will be deselected and the shipping option will be selected instead (and vice versa). The `PUT` request will fail if it contains a shipping option ID and a pickup option ID.
-     * 
+     *
      * Required Fields:
      * * `shippingOptionId` or `pickupOptionId`
      * * `lineItems`
-     * 
+     *
      * To learn more about creating a Checkout Consignment see [Checkout Consignment API](/api-docs/checkouts/checkout-consignment).
-     * 
+     *
      * > #### Note
-     * > * You cannot pass both an `address` and a `shippingOptionId` because the shipping option may not be available for the new address 
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * You cannot pass both an `address` and a `shippingOptionId` because the shipping option may not be available for the new address
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut"];
     /**
-     * Delete a Consignment 
+     * Delete a Consignment
      * @description Removes an existing *Consignment* from *Checkout*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete"];
   };
   "/checkouts/{checkoutId}/gift-certificates": {
     /**
-     * Add Gift Certificate to Checkout 
+     * Add Gift Certificate to Checkout
      * @description Adds a *Gift Certificate Code* to *Checkout*.
-     * 
+     *
      * > #### Note
      * > * *Gift Certificates* are treated as a payment methods.
      * > * You are not able to purchase a gift certificate with a gift certificate.
      * > * The rate limit is 20/hour (only for unique gift-certificate codes).
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["CheckoutsGiftCertificatesByCheckoutIdPost"];
   };
   "/checkouts/{checkoutId}/gift-certificates/{giftCertificateCode}": {
     /**
-     * Delete Gift Certificate 
+     * Delete Gift Certificate
      * @description Deletes an existing *Gift Certificate*.
-     * 
+     *
      * This removes the *Gift Certificate* payment method.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["CheckoutsGiftCertificatesByCheckoutIdAndGiftCertificateCodeDelete"];
   };
   "/checkouts/{checkoutId}/coupons": {
     /**
-     * Add Coupon to Checkout 
+     * Add Coupon to Checkout
      * @description Adds a *Coupon Code* to *Checkout*.
-     * 
+     *
      * **Required Fields**
      * * couponCode
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["CheckoutsCouponsByCheckoutIdPost"];
   };
   "/checkouts/{checkoutId}/coupons/{couponCode}": {
     /**
-     * Delete Checkout Coupon 
+     * Delete Checkout Coupon
      * @description Deletes a *Coupon Code* from *Checkout*.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["CheckoutsCouponsByCheckoutIdAndCouponCodeDelete"];
   };
   "/checkouts/{checkoutId}/store-credit": {
     /**
-     * Add Store Credit 
+     * Add Store Credit
      * @description Applies any available store credit to a checkout. As on the storefront, all available store credit will be used (up to the value of the order) and no amount need be specified.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["CheckoutStoreCreditAdd"];
     /**
-     * Remove Store Credit 
+     * Remove Store Credit
      * @description Removes store credit from a checkout.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["CheckoutsStoreCreditRemove"];
   };
   "/checkouts/{checkoutId}/spam-protection": {
     /**
-     * Checkout Spam Protection 
+     * Checkout Spam Protection
      * @description Verifies if checkout is created by human.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["checkoutSpamProtection"];
@@ -255,37 +255,37 @@ export interface components {
       id?: string;
       cart?: components["schemas"]["checkoutCart"];
       billingAddress?: components["schemas"]["address_Base"];
-      consignments?: (components["schemas"]["consignment_Full"])[];
+      consignments?: components["schemas"]["consignment_Full"][];
       /** @description Coupons applied at the checkout level. */
-      coupons?: (components["schemas"]["CheckoutCoupon"])[];
+      coupons?: components["schemas"]["CheckoutCoupon"][];
       orderId?: string | null;
       /**
-       * Format: float 
+       * Format: float
        * @description Shipping cost before any discounts are applied.
        */
       shippingCostTotal?: number;
       /** @description Gift wrapping cost for all items, including or excluding tax. */
       giftWrappingCostTotal?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description Handling cost for all consignments including or excluding tax.
        */
       handlingCostTotal?: number;
       /** Format: float */
       taxTotal?: number;
-      taxes?: (components["schemas"]["checkoutTax"])[];
+      taxes?: components["schemas"]["checkoutTax"][];
       /**
-       * Format: float 
+       * Format: float
        * @description Subtotal of the checkout before applying item-level discounts. Tax inclusive based on the store settings.
        */
       subtotal?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description The total payable amount, before applying any store credit or gift certificate.
        */
       grandTotal?: number;
       /** @description Applied gift certificate (as a payment method). */
-      giftCertificates?: (components["schemas"]["checkoutGiftCertificates"])[];
+      giftCertificates?: components["schemas"]["checkoutGiftCertificates"][];
       /** @description Time when the cart was created. */
       createdTime?: string;
       /** @description Time when the cart was last updated. */
@@ -306,12 +306,12 @@ export interface components {
       /** @description The coupon title based on different types provided in control panel section. */
       displayName?: string;
       /**
-       * @description Key name to identify the type of coupon. 
+       * @description Key name to identify the type of coupon.
        * @enum {string}
        */
       couponType?: "per_item_discount" | "percentage_discount" | "per_total_discount" | "shipping_discount" | "free_shipping" | "promotion";
       /**
-       * Format: double 
+       * Format: double
        * @description The discounted amount applied within a given context.
        */
       discountedAmount?: number;
@@ -336,13 +336,13 @@ export interface components {
        */
       couponType?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The discounted amount applied within a given context.
        */
       discountedAmount?: number;
     };
     /**
-     * contactEntity 
+     * contactEntity
      * @description Model for sender and receiver objects.
      */
     contactEntity: {
@@ -371,10 +371,10 @@ export interface components {
       countryCode: string;
       postalCode?: string;
       phone?: string;
-      customFields?: (components["schemas"]["customFields"])[];
+      customFields?: components["schemas"]["customFields"][];
     };
     /**
-     * customFields 
+     * customFields
      * @description When doing a PUT or POST to the `fieldValue` with a pick list, the input must be a number. The response will be a string.
      */
     customFields: {
@@ -383,7 +383,7 @@ export interface components {
       fieldValue?: string;
     };
     /**
-     * consignment_Full 
+     * consignment_Full
      * @description This allows us to have multiple shipping addresses. Where there is only one shipping address, this array will contain only one value, with all the items.
      */
     consignment_Full: {
@@ -392,7 +392,7 @@ export interface components {
       address?: components["schemas"]["address_Full"];
       selectedPickupOption?: components["schemas"]["PickupOption"];
       /** @description This is available only when "include=consignments.availableShippingOptions" is present in the URL. */
-      availableShippingOptions?: (components["schemas"]["consignmentAvailableShippingOptions"])[];
+      availableShippingOptions?: components["schemas"]["consignmentAvailableShippingOptions"][];
       /** Selected Shipping Option */
       selectedShippingOption?: {
         /** @description Read only. */
@@ -409,28 +409,28 @@ export interface components {
         additionalDescription?: string;
       };
       /** @description List of consignment discounts applied through coupons. */
-      couponDiscounts?: ({
+      couponDiscounts?: {
           /** @description Coupon code that applied this discount. */
           code?: string;
           /** Format: double */
           amount?: number;
-        })[];
+        }[];
       /** @description List of consignment discounts applied through cart level discounts. */
-      discounts?: ({
+      discounts?: {
           /** @description Discount rule ID that applied this discount. */
           id?: string;
-        })[];
+        }[];
       /**
-       * Format: double 
+       * Format: double
        * @description The shipping cost for this consignment.
        */
       shippingCost?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The handling cost of shipping for this consignment.
        */
       handlingCost?: number;
-      lineItemIds?: (string)[];
+      lineItemIds?: string[];
     };
     /** consignmentAvailableShippingOptions */
     consignmentAvailableShippingOptions: components["schemas"]["consignmentShippingOption_Base"] & {
@@ -456,24 +456,24 @@ export interface components {
         /** Format: uuid */
         id?: string;
         /**
-         * Cart 
+         * Cart
          * @description A cart contains a collection of items, prices, discounts, etc. It does not contain customer-related data.
          */
         cart?: {
           /**
-           * Format: uuid 
+           * Format: uuid
            * @description Cart ID, provided after creating a cart with a POST.
            */
           id?: string;
           /**
-           * Format: int32 
+           * Format: int32
            * @description ID of the customer to which the cart belongs.
            */
           customer_id?: number;
           /** @description The cartʼs email. This is the same email that is used in the billing address */
           email?: string;
           /**
-           * Currency 
+           * Currency
            * @description The currency in which prices are displayed (the store default currency).
            */
           currency?: {
@@ -484,7 +484,7 @@ export interface components {
             /** @description The currency symbol. */
             symbol?: string;
             /**
-             * Format: double 
+             * Format: double
              * @description The number of decimal places for the currency. For example, the USD currency has two decimal places.
              */
             decimalPlaces?: number;
@@ -492,21 +492,21 @@ export interface components {
           /** @description Boolean representing whether tax information is included. */
           istaxIncluded?: boolean;
           /**
-           * Format: double 
+           * Format: double
            * @description The cost of the cart’s contents, before applying discounts.
            */
           baseAmount?: number;
           /**
-           * Format: double 
+           * Format: double
            * @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts.
            */
           discountAmount?: number;
           /**
-           * Format: double 
+           * Format: double
            * @description Sum of line-items amounts, minus cart-level discounts and coupons. This amount includes taxes, where applicable.
            */
           cartAmount?: number;
-          coupons?: ({
+          coupons?: {
               /** @description The coupon ID. */
               id?: string;
               /** @description the coupon code */
@@ -516,224 +516,21 @@ export interface components {
               /** @description Key name to identify the type of coupon. */
               couponType?: string;
               /**
-               * Format: double 
+               * Format: double
                * @description The discounted amount applied within a given context.
                */
               discountedAmount?: number;
-            })[];
-          discounts?: ({
+            }[];
+          discounts?: {
               /** @description The name provided by the merchant. */
               name?: string;
               /**
-               * Format: double 
+               * Format: double
                * @description The discounted amount applied within a given context.
                */
               discountedAmount?: number;
-            })[];
-          lineItems?: ({
-              physicalItems: ({
-                  /** @description The line-item ID. */
-                  id?: string;
-                  /** @description The product is part of a bundle, such as a product pick list, then the parentId or the main product ID will populate. */
-                  parentId?: string;
-                  /** @description ID of the variant. */
-                  variantId?: number;
-                  /** @description ID of the product. */
-                  productId?: number;
-                  /** @description SKU of the variant. */
-                  sku?: string;
-                  /** @description The itemʼs product name. */
-                  name?: string;
-                  /** @description The product URL. */
-                  url?: string;
-                  /**
-                   * Format: double 
-                   * @description Quantity of this item.
-                   */
-                  quantity: number;
-                  /** @description Whether the item is taxable. */
-                  isTaxable?: boolean;
-                  /** @description A publicly-accessible URL for an image of this item. */
-                  imageUrl?: string;
-                  /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
-                  discounts?: ({
-                      /** @description The name provided by the merchant. */
-                      name?: string;
-                      /**
-                       * Format: double 
-                       * @description The discounted amount applied within a given context.
-                       */
-                      discountedAmount?: number;
-                    })[];
-                  /**
-                   * Format: double 
-                   * @description The total value of all discounts applied to this item (excluding coupon).
-                   */
-                  discountAmount?: number;
-                  /**
-                   * Format: double 
-                   * @description The total value of all coupons applied to this item.
-                   */
-                  couponAmount?: number;
-                  /**
-                   * Format: double 
-                   * @description The item’s list price, as quoted by the manufacturer or distributor.
-                   */
-                  listPrice?: number;
-                  /**
-                   * Format: double 
-                   * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
-                   */
-                  salePrice?: number;
-                  /**
-                   * Format: double 
-                   * @description The itemʼs list price multiplied by the quantity.
-                   */
-                  extendedListPrice?: number;
-                  /**
-                   * Format: double 
-                   * @description The itemʼs sale price multiplied by the quantity.
-                   */
-                  extendedSalePrice?: number;
-                  /** @description the product type - physical or digital */
-                  type?: string;
-                  /** @description If the item was added automatically by a promotion, such as a coupon or buy one, get one. */
-                  addedByPromotion?: boolean;
-                  /** @description Whether this item requires shipping to a physical address. */
-                  isShippingRequired?: boolean;
-                  isMutable?: boolean;
-                  /** Gift Wrapping */
-                  giftWrapping?: {
-                    name?: string;
-                    message?: string;
-                    /** Format: double */
-                    amount?: number;
-                  };
-                })[];
-              digitalItems: ({
-                  /** @description The line-item ID. */
-                  id?: string;
-                  /** @description Bundled items will have their parentʼs item ID. */
-                  parentId?: string;
-                  /**
-                   * Format: double 
-                   * @description ID of the variant.
-                   */
-                  variantId?: number;
-                  /**
-                   * Format: double 
-                   * @description ID of the product.
-                   */
-                  productId?: number;
-                  /** @description SKU of the variant. */
-                  sku?: string;
-                  /** @description The itemʼs product name. */
-                  name?: string;
-                  /** @description The product URL. */
-                  url?: string;
-                  /**
-                   * Format: double 
-                   * @description Quantity of this item.
-                   */
-                  quantity: number;
-                  /** @description The itemʼs brand. */
-                  brand?: string;
-                  /** @description Whether the item is taxable. */
-                  isTaxable?: boolean;
-                  /** @description A publicly-accessible URL for an image of this item. */
-                  imageUrl?: string;
-                  /** @description List of discounts applied to this item, as an array of AppliedDiscount objects. */
-                  discounts?: ({
-                      /** @description The name provided by the merchant. */
-                      name?: string;
-                      /**
-                       * Format: double 
-                       * @description The discounted amount applied within a given context.
-                       */
-                      discountedAmount?: number;
-                    })[];
-                  /**
-                   * Format: double 
-                   * @description The total value of all discounts applied to this item (excluding coupon).
-                   */
-                  discountAmount?: number;
-                  /**
-                   * Format: double 
-                   * @description The total value of all coupons applied to this item.
-                   */
-                  couponAmount?: number;
-                  /**
-                   * Format: double 
-                   * @description The item’s list price, as quoted by the manufacturer or distributor.
-                   */
-                  listPrice?: number;
-                  /**
-                   * Format: double 
-                   * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
-                   */
-                  salePrice?: number;
-                  /**
-                   * Format: double 
-                   * @description The itemʼs list price multiplied by the quantity.
-                   */
-                  extendedListPrice?: number;
-                  /**
-                   * Format: double 
-                   * @description The itemʼs sale price multiplied by the quantity.
-                   */
-                  extendedSalePrice?: number;
-                  /** @description the product type - physical or digital */
-                  type?: string;
-                  isMutable?: boolean;
-                  /** @description Whether this item requires shipping to a physical address. */
-                  isShippingRequired?: boolean;
-                  /** @description URLs to download all product files. */
-                  downloadFileUrls?: (string)[];
-                  /** @description The URL for the combined downloads page. */
-                  downloadPageUrl?: string;
-                  /** @description Specifies the combined download size in human-readable style; for example, `30MB`. */
-                  downloadSize?: string;
-                })[];
-              giftCertificate?: ({
-                  /** @description Gift certificate identifier */
-                  id?: string;
-                  /** @description The name of the purchased gift certificate; for example, `$20 Gift Certificate`. */
-                  name?: string;
-                  /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
-                  theme: string;
-                  /**
-                   * Format: double 
-                   * @description Value must be between $1.00 and $1,000.00.
-                   */
-                  amount: number;
-                  taxable?: boolean;
-                  /** Contact Entity */
-                  sender: {
-                    name?: string;
-                    email?: string;
-                  };
-                  /** Contact Entity */
-                  recipient: {
-                    name?: string;
-                    email?: string;
-                  };
-                  /** @description Limited to 200 characters. */
-                  message?: string;
-                  /** @description Explicitly specifying the gift certificate type. */
-                  type?: string;
-                })[];
-              customItems?: ({
-                  /** @description ID of the custom item */
-                  id?: string;
-                  /** @description Custom item SKU */
-                  sku?: string;
-                  /** @description Item name */
-                  name?: string;
-                  quantity?: string;
-                  /** @description Price of the item. With or without tax depending on your store setup. */
-                  listPrice?: string;
-                })[];
-            })[];
+            }[];
+          lineItems?: Record<string, never>;
           /** @description Time when the cart was created. */
           createdTime?: string;
           /** @description Time when the cart was last updated. */
@@ -755,11 +552,11 @@ export interface components {
           countryCode: string;
           postalCode?: string;
           phone?: string;
-          customFields?: ({
+          customFields?: {
               fieldId?: string;
               /** @description This can also be an array for fields that need to support list of values; for example, a set of checkboxes. */
               fieldValue?: string;
-            })[];
+            }[];
         } & {
           id?: string;
         };
@@ -783,11 +580,11 @@ export interface components {
               countryCode: string;
               postalCode?: string;
               phone?: string;
-              customFields?: ({
+              customFields?: {
                   fieldId?: string;
                   /** @description This can also be an array for fields that need to support list of values; for example, a set of checkboxes. */
                   fieldValue?: string;
-                })[];
+                }[];
             } & {
               id?: string;
             };
@@ -821,71 +618,71 @@ export interface components {
               transitTime?: string;
             };
             /** @description List of consignment discounts applied through coupons */
-            couponDiscounts?: ({
+            couponDiscounts?: {
                 /** @description Coupon code that applied this discount */
                 code?: string;
                 /** Format: double */
                 amount?: number;
-              })[];
+              }[];
             /** @description List of consignment discounts applied through cart level discounts. */
-            discounts?: ({
+            discounts?: {
                 /** @description Discount rule ID that applied this discount */
                 id?: string;
-              })[];
+              }[];
             /**
-             * Format: double 
+             * Format: double
              * @description The shipping cost for this consignment.
              */
             shippingCost?: number;
             /**
-             * Format: double 
+             * Format: double
              * @description The handling cost of shipping for this consignment.
              */
             handlingCost?: number;
-            lineItemIds?: (string)[];
+            lineItemIds?: string[];
           })[];
         /** @description Coupons applied at checkout level. */
-        coupons?: (components["schemas"]["CheckoutCoupon"])[];
+        coupons?: components["schemas"]["CheckoutCoupon"][];
         orderId?: string;
         /**
-         * Format: float 
+         * Format: float
          * @description Shipping cost before any discounts are applied.
          */
         shippingCostTotal?: number;
         /** @description Gift wrapping for all items, including or excluding tax. */
         giftWrappingCostTotal?: number;
         /**
-         * Format: float 
+         * Format: float
          * @description Handling cost for all consignments including or excluding tax.
          */
         handlingCostTotal?: number;
         /** Format: float */
         taxTotal?: number;
-        taxes?: ({
+        taxes?: {
             /**
-             * @description Name of the tax charged. This is either the system default or the custom name created for the tax. 
+             * @description Name of the tax charged. This is either the system default or the custom name created for the tax.
              * @example Texas Taxes
              */
             name?: string;
             /**
-             * Format: float 
-             * @description Amount of the tax. 
+             * Format: float
+             * @description Amount of the tax.
              * @example 1.12
              */
             amount?: number;
-          })[];
+          }[];
         /**
-         * Format: float 
+         * Format: float
          * @description Subtotal of the checkout before applying item-level discounts. Tax inclusive based on the store settings.
          */
         subtotal?: number;
         /**
-         * Format: float 
+         * Format: float
          * @description The total payable amount, before applying any store credit or gift certificate.
          */
         grandTotal?: number;
         /** @description Applied gift certificate (as a payment method). */
-        giftCertificates?: ({
+        giftCertificates?: {
             /** Format: double */
             balance?: number;
             code?: string;
@@ -895,7 +692,7 @@ export interface components {
             remaining?: number;
             /** Format: double */
             used?: number;
-          })[];
+          }[];
         /** @description Time when the cart was created. */
         createdTime?: string;
         /** @description Time when the cart was last updated. */
@@ -949,18 +746,18 @@ export interface components {
         countryCode: string;
         postalCode?: string;
         phone?: string;
-        customFields?: ({
+        customFields?: {
             fieldId?: string;
             fieldValue?: string;
-          })[];
+          }[];
         /** @description Indicates whether we should add this address to the customer address book. */
         shouldSaveAddress?: boolean;
       };
-      lineItems?: ({
+      lineItems?: {
           itemId: string;
           /** Format: int32 */
           quantity: number;
-        })[];
+        }[];
       shippingOptionId?: string;
       pickupOption?: {
         pickupMethodId?: number;
@@ -976,7 +773,7 @@ export interface components {
       giftCertificate?: components["schemas"]["cartLineItemGiftCertificate_Put"];
     };
     /**
-     * Update Consignment Request 
+     * Update Consignment Request
      * @description One or more of these three fields is mandatory. You can update address and line items in one request. You have to update shipping option ID or pickup option ID in a separate request since changing the address or line items can invalidate the previously available shipping options.
      */
     NewUpdateConsignment: {
@@ -997,42 +794,42 @@ export interface components {
         countryCode: string;
         postalCode?: string;
         phone?: string;
-        customFields?: ({
+        customFields?: {
             fieldId?: string;
             fieldValue?: string;
-          })[];
+          }[];
         /** @description Indicates whether we should add this address to the customer address book. */
         shouldSaveAddress?: boolean;
       };
-      lineItems?: ({
+      lineItems?: {
           itemId: string;
           /** Format: int32 */
           quantity: number;
-        })[];
+        }[];
       shippingOptionId?: string;
       pickupOption?: {
         pickupMethodId?: number;
       };
     };
     /**
-     * checkoutCart 
+     * checkoutCart
      * @description A cart contains a collection of items, prices, discounts, etc. It does not contain customer-related data.
      */
     checkoutCart: {
       /**
-       * Format: uuid 
+       * Format: uuid
        * @description Cart ID, provided after creating a cart with a POST.
        */
       id?: string;
       /**
-       * Format: int32 
+       * Format: int32
        * @description ID of the customer to which the cart belongs.
        */
       customer_id?: number;
       /** @description The cartʼs email. This is the same email that is used in the billing address. */
       email?: string;
       /**
-       * Currency 
+       * Currency
        * @description The currency in which prices are displayed; the store default currency.
        */
       currency?: {
@@ -1043,7 +840,7 @@ export interface components {
         /** @description The currency symbol. */
         symbol?: string;
         /**
-         * Format: double 
+         * Format: double
          * @description The number of decimal places for the currency. For example, the USD currency has two decimal places.
          */
         decimalPlaces?: number;
@@ -1051,30 +848,30 @@ export interface components {
       /** @description Boolean representing whether tax information is included. */
       isTaxIncluded?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description Cost of cart’s contents, before applying discounts.
        */
       baseAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Discounted amount.
        */
       discountAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Sum of line-items amounts, minus cart-level discounts and coupons. This amount includes taxes, where applicable.
        */
       cartAmount?: number;
-      coupons?: (components["schemas"]["CartCoupon"])[];
-      discounts?: ({
+      coupons?: components["schemas"]["CartCoupon"][];
+      discounts?: {
           /** @description The name provided by the merchant. */
           name?: string;
           /**
-           * Format: double 
+           * Format: double
            * @description The discounted amount applied within a given context.
            */
           discountedAmount?: number;
-        })[];
+        }[];
       lineItems?: Record<string, never>;
       /** @description Time when the cart was created. */
       createdTime?: string;
@@ -1082,10 +879,10 @@ export interface components {
       updatedTime?: string;
     };
     /**
-     * checkoutGiftCertificates 
+     * checkoutGiftCertificates
      * @description Applied gift certificate (as a payment method).
      */
-    checkoutGiftCertificates: ({
+    checkoutGiftCertificates: {
         /** Format: double */
         balance?: number;
         code?: string;
@@ -1095,7 +892,7 @@ export interface components {
         remaining?: number;
         /** Format: double */
         used?: number;
-      })[];
+      }[];
     /** consignmentShippingOption_Base */
     consignmentShippingOption_Base: {
       /** @description Read only. */
@@ -1110,7 +907,7 @@ export interface components {
       transitTime?: string;
     };
     /**
-     * Pickup Option 
+     * Pickup Option
      * @description An option that represents a location where customers can pick up items.
      */
     PickupOption: {
@@ -1137,13 +934,13 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get a Checkout 
+   * Get a Checkout
    * @description Returns a *Checkout*.
-   * 
+   *
    * The cart ID and checkout ID are the same.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsByCheckoutIdGet: {
@@ -1177,28 +974,28 @@ export interface operations {
       400: {
         content: {
           "application/json": {
-            errors?: ({
+            errors?: {
                 /** Format: int32 */
                 status?: number;
                 title?: string;
                 type?: string;
                 detail?: string;
-              })[];
+              }[];
           };
         };
       };
     };
   };
   /**
-   * Update Customer Messages 
+   * Update Customer Messages
    * @description Updates *Checkout* customer messages.
-   * 
+   *
    * **Limits**
-   * 
+   *
    * * 2000 character limit
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsByCheckoutIdPut: {
@@ -1221,13 +1018,13 @@ export interface operations {
     };
   };
   /**
-   * Update a Line Item 
+   * Update a Line Item
    * @description Updates a *Checkout Line Item*. Updates an existing, single line item in the cart.
-   * 
+   *
    * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoint or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdPut: {
@@ -1252,11 +1049,11 @@ export interface operations {
     };
   };
   /**
-   * Delete a Line Item 
+   * Delete a Line Item
    * @description Deletes a *Line Item* from the *Cart*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdDelete: {
@@ -1277,17 +1074,17 @@ export interface operations {
     };
   };
   /**
-   * Add Checkout Billing Address 
+   * Add Checkout Billing Address
    * @description Adds a billing address to an existing *Checkout*.
-   * 
+   *
    * **Required Fields**
    * * country_code
-   * 
-   * 
+   *
+   *
    * > #### Note
    * > * The `email` property is only required if the customer is a guest shopper. Otherwise, it is set automatically.
    * > * Sending `email` property as a payload in POST request triggers the abandoned cart notification process.
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsBillingAddressByCheckoutIdPost: {
@@ -1320,11 +1117,11 @@ export interface operations {
     };
   };
   /**
-   * Update Checkout Billing Address 
+   * Update Checkout Billing Address
    * @description Updates an existing billing address on *Checkout*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsBillingAddressByCheckoutIdAndAddressIdPut: {
@@ -1358,33 +1155,33 @@ export interface operations {
     };
   };
   /**
-   * Create a Consignment 
+   * Create a Consignment
    * @description Adds a new *Consignment* to *Checkout*.
-   * 
+   *
    * Perform the following two steps to define the fulfillment of the items in the cart.
    *   ### For **shipping** consignments:
    *     1. Add a new Consignment to Checkout.
    *         * Send a `POST` request to `/consignments` with each shipping address, line item IDs, and quantities. Each address can have its own line item IDs.
-   *         * Provide a full valid customer address before placing the order. If provided, the order placement will succeed. 
+   *         * Provide a full valid customer address before placing the order. If provided, the order placement will succeed.
    *         * As part of the request URL make sure to add `include=consignments.availableShippingOptions` to return the available shipping options based on the items, the address, and the shipping location. This will return `availableShippingOptions` in the response.
-   * 
+   *
    *       * Required Fields:
    *         * `shipping_address` (deprecated) or `address`
    *         * `lineItems`
    *     2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
-   *           
+   *
    *   ### For **pickup** consignments:
-   *     1. Create a new consignment object. 
+   *     1. Create a new consignment object.
    *       - Send a `POST` request to `/consignments` with line item IDs and quantities.
    *       - Provide a `pickupMethodId`. This is the `id` of the Pickup Method provided in the response body of the Storefront Pickup Options API.
    *       - Required Fields:
    *           * `pickupOption`
    *           * `lineItems`
-   * 
+   *
    * To learn more about creating a Checkout Consignment, see the [Carts and Checkouts Tutorial](/api-docs/storefront/tutorials/carts).
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsConsignmentsByCheckoutIdPost: {
@@ -1398,7 +1195,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["CreateConsignmentRequest"])[];
+        "application/json": components["schemas"]["CreateConsignmentRequest"][];
       };
     };
     responses: {
@@ -1410,32 +1207,32 @@ export interface operations {
     };
   };
   /**
-   * Update a Consignment 
+   * Update a Consignment
    * @description Updates an existing consignment. An update is either one of the following:
-   * 
+   *
    * 1. Updates the consignment address and/or line items.
    * 2. Selects a specific fulfillment option.
-   * 
+   *
    * ### Update the consignment address and line items
-   * For this type of update, the payload is the same as when creating a new consignment.         Update each *Consignment* `shippingOptionId` (shipping address and line items) with the `availableShippingOption > id` from the POST `/consignment` response. 
-   * 
+   * For this type of update, the payload is the same as when creating a new consignment.         Update each *Consignment* `shippingOptionId` (shipping address and line items) with the `availableShippingOption > id` from the POST `/consignment` response.
+   *
    * **Note:**
    * Updating a consignment could invalidate the value for `selectedShippingOption` and `selectedPickupOption`.
-   * 
+   *
    * ### Select a specific fulfillment option
    * Before placing an order, each consignment must have a `selectedShippingOption` or a `selectedPickupOption`.
-   * 
+   *
    * If the consignment already has a pick-up option selected and a shipping option is provided, the pick-up option will be deselected and the shipping option will be selected instead (and vice versa). The `PUT` request will fail if it contains a shipping option ID and a pickup option ID.
-   * 
+   *
    * Required Fields:
    * * `shippingOptionId` or `pickupOptionId`
    * * `lineItems`
-   * 
+   *
    * To learn more about creating a Checkout Consignment see [Checkout Consignment API](/api-docs/checkouts/checkout-consignment).
-   * 
+   *
    * > #### Note
-   * > * You cannot pass both an `address` and a `shippingOptionId` because the shipping option may not be available for the new address 
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * You cannot pass both an `address` and a `shippingOptionId` because the shipping option may not be available for the new address
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut: {
@@ -1462,11 +1259,11 @@ export interface operations {
     };
   };
   /**
-   * Delete a Consignment 
+   * Delete a Consignment
    * @description Removes an existing *Consignment* from *Checkout*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete: {
@@ -1485,14 +1282,14 @@ export interface operations {
     };
   };
   /**
-   * Add Gift Certificate to Checkout 
+   * Add Gift Certificate to Checkout
    * @description Adds a *Gift Certificate Code* to *Checkout*.
-   * 
+   *
    * > #### Note
    * > * *Gift Certificates* are treated as a payment methods.
    * > * You are not able to purchase a gift certificate with a gift certificate.
    * > * The rate limit is 20/hour (only for unique gift-certificate codes).
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsGiftCertificatesByCheckoutIdPost: {
@@ -1521,13 +1318,13 @@ export interface operations {
     };
   };
   /**
-   * Delete Gift Certificate 
+   * Delete Gift Certificate
    * @description Deletes an existing *Gift Certificate*.
-   * 
+   *
    * This removes the *Gift Certificate* payment method.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsGiftCertificatesByCheckoutIdAndGiftCertificateCodeDelete: {
@@ -1546,14 +1343,14 @@ export interface operations {
     };
   };
   /**
-   * Add Coupon to Checkout 
+   * Add Coupon to Checkout
    * @description Adds a *Coupon Code* to *Checkout*.
-   * 
+   *
    * **Required Fields**
    * * couponCode
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsCouponsByCheckoutIdPost: {
@@ -1578,11 +1375,11 @@ export interface operations {
     };
   };
   /**
-   * Delete Checkout Coupon 
+   * Delete Checkout Coupon
    * @description Deletes a *Coupon Code* from *Checkout*.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsCouponsByCheckoutIdAndCouponCodeDelete: {
@@ -1601,11 +1398,11 @@ export interface operations {
     };
   };
   /**
-   * Add Store Credit 
+   * Add Store Credit
    * @description Applies any available store credit to a checkout. As on the storefront, all available store credit will be used (up to the value of the order) and no amount need be specified.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutStoreCreditAdd: {
@@ -1623,11 +1420,11 @@ export interface operations {
     };
   };
   /**
-   * Remove Store Credit 
+   * Remove Store Credit
    * @description Removes store credit from a checkout.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   CheckoutsStoreCreditRemove: {
@@ -1645,11 +1442,11 @@ export interface operations {
     };
   };
   /**
-   * Checkout Spam Protection 
+   * Checkout Spam Protection
    * @description Verifies if checkout is created by human.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   checkoutSpamProtection: {

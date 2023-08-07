@@ -8,7 +8,7 @@
 export interface paths {
   "/settings/analytics": {
     /**
-     * Get All Web Analytics Providers 
+     * Get All Web Analytics Providers
      * @description Returns a list of web analytics providers.
      */
     get: {
@@ -40,7 +40,7 @@ export interface paths {
   };
   "/settings/analytics/{id}": {
     /**
-     * Get a Web Analytics Provider 
+     * Get a Web Analytics Provider
      * @description Returns a single web analytics provider data for a default channel.
      */
     get: {
@@ -78,7 +78,7 @@ export interface paths {
       };
     };
     /**
-     * Update a Web Analytics Provider 
+     * Update a Web Analytics Provider
      * @description Updates a single web analytics provider data for a default channel.
      */
     put: {
@@ -153,11 +153,11 @@ export interface paths {
   };
   "/settings/catalog": {
     /**
-     * Get Catalog Settings 
+     * Get Catalog Settings
      * @description Returns catalog settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -182,11 +182,11 @@ export interface paths {
       };
     };
     /**
-     * Update Catalog Settings 
+     * Update Catalog Settings
      * @description Updates catalog settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -225,12 +225,12 @@ export interface paths {
   };
   "/settings/email-statuses": {
     /**
-     * Get Transactional Email Settings 
+     * Get Transactional Email Settings
      * @description Get global transactional email settings or channel specific overrides by `channel_id`.
      */
     get: operations["get-settings-emails-enabled"];
     /**
-     * Update Transactional Email Settings 
+     * Update Transactional Email Settings
      * @description Update global transactional email settings or create channel specific overrides by `channel_id`.
      */
     put: operations["put-settings-transactional-emails-enabled"];
@@ -242,9 +242,9 @@ export interface paths {
   };
   "/settings/favicon/image": {
     /**
-     * Create Favicon Image 
-     * @description Uploads an image file to use as the storefront favicon. Supported MIME types include GIF, JPEG, and PNG. 
-     * 
+     * Create Favicon Image
+     * @description Uploads an image file to use as the storefront favicon. Supported MIME types include GIF, JPEG, and PNG.
+     *
      *   - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
      */
     post: operations["post-favicon-logo-image"];
@@ -256,8 +256,8 @@ export interface paths {
   };
   "/settings/inventory/notifications": {
     /**
-     * Get Inventory Notifications Settings 
-     * @description Returns inventory notification settings. 
+     * Get Inventory Notifications Settings
+     * @description Returns inventory notification settings.
      * * `channel_id` can be used as a query parameter to get inventory notification settings per channel. If omitted, you will interact with the global setting only.
      */
     get: {
@@ -282,10 +282,10 @@ export interface paths {
       };
     };
     /**
-     * Update Inventory Notifications Settings 
-     * @description Updates inventory notification settings. 
-     * * `channel_id` can be used as a query parameter to get inventory notification settings per channel. If omitted, you will interact with the global setting only. 
-     * * Supplying `null` settings values per channel will delete overrides per given channel and values will be inherited from global level. 
+     * Update Inventory Notifications Settings
+     * @description Updates inventory notification settings.
+     * * `channel_id` can be used as a query parameter to get inventory notification settings per channel. If omitted, you will interact with the global setting only.
+     * * Supplying `null` settings values per channel will delete overrides per given channel and values will be inherited from global level.
      * * Partial updates are not supported within the given endpoint. In order to delete overrides per channel, `null` should be supplied for all the settings within the given endpoint.
      */
     put: {
@@ -317,20 +317,20 @@ export interface paths {
   };
   "/settings/logo": {
     /**
-     * Get Store Logo Settings 
+     * Get Store Logo Settings
      * @description Returns store logo settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: operations["get-settings-logo"];
     /**
-     * Update Store Logo Settings 
+     * Update Store Logo Settings
      * @description Updates the logo type and logo text for a textual logo. To upload new images, use the dedicated image POST endpoints.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: operations["put-settings-logo"];
@@ -342,9 +342,9 @@ export interface paths {
   };
   "/settings/logo/image": {
     /**
-     * Create Logo Image 
-     * @description Uploads an image file to use as the storefront logo. Supported MIME types include GIF, JPEG, and PNG. 
-     * 
+     * Create Logo Image
+     * @description Uploads an image file to use as the storefront logo. Supported MIME types include GIF, JPEG, and PNG.
+     *
      *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
      */
     post: operations["post-settings-logo-image"];
@@ -356,19 +356,19 @@ export interface paths {
   };
   "/settings/search/filters": {
     /**
-     * Get Enabled Filters 
+     * Get Enabled Filters
      * @description Returns a list of enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters. These filters will be used if a store does not have contextual overrides.
      */
     get: operations["getEnabled"];
     /**
-     * Update Enabled Filters 
+     * Update Enabled Filters
      * @description Updates enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters.
      */
     put: operations["updateEnabled"];
   };
   "/settings/search/filters/available": {
     /**
-     * Get Available Filters 
+     * Get Available Filters
      * @description Returns a list of filters available to power [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings).
      */
     get: operations["getAvailable"];
@@ -380,24 +380,24 @@ export interface paths {
   };
   "/settings/search/filters/contexts": {
     /**
-     * Get Contextual Filters 
+     * Get Contextual Filters
      * @description Returns a list of contextual filters enabled for a particular channel or category.
-     * 
+     *
      * **Usage Notes**
-     * 
+     *
      * Contextual filters allow you to configure the enabled filters per channel or category, so that shoppers can filter by the most relevant criteria.
-     * 
+     *
      * The order of the returned filters will match the sort order of the filters on the storefront.
      */
     get: operations["getContexts"];
     /**
-     * Upsert Contextual Filters 
+     * Upsert Contextual Filters
      * @description Upserts contextual filters for a particular channel or category.
-     * 
+     *
      * **Usage Notes**
-     * 
+     *
      * Contextual filters allow you to configure the enabled filters per channel or category, so that shoppers can filter by the most relevant criteria.
-     * 
+     *
      * You can change the order of the filters on the live site by changing the order of the filters you send.
      */
     put: operations["upsertContexts"];
@@ -409,7 +409,7 @@ export interface paths {
   };
   "/settings/store/locale": {
     /**
-     * Get Locale Settings 
+     * Get Locale Settings
      * @description Returns global locale settings.
      */
     get: {
@@ -430,7 +430,7 @@ export interface paths {
       };
     };
     /**
-     * Update Locale Settings 
+     * Update Locale Settings
      * @description Updates global locale settings.
      */
     put: {
@@ -470,11 +470,11 @@ export interface paths {
   };
   "/settings/store/profile": {
     /**
-     * Get Store Profile Settings 
+     * Get Store Profile Settings
      * @description Returns store profile settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -499,11 +499,11 @@ export interface paths {
       };
     };
     /**
-     * Update Store Profile Settings 
+     * Update Store Profile Settings
      * @description Updates store profile settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -546,11 +546,11 @@ export interface paths {
   };
   "/settings/storefront/category": {
     /**
-     * Get Storefront Category Settings 
+     * Get Storefront Category Settings
      * @description Returns category settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -575,11 +575,11 @@ export interface paths {
       };
     };
     /**
-     * Update Storefront Category Settings 
+     * Update Storefront Category Settings
      * @description Updates category settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -618,20 +618,20 @@ export interface paths {
   };
   "/settings/storefront/product": {
     /**
-     * Get Storefront Product Settings 
+     * Get Storefront Product Settings
      * @description Returns product settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: operations["get-settings-storefront-product"];
     /**
-     * Update Storefront Product Settings 
+     * Update Storefront Product Settings
      * @description Updates product settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: operations["put-settings-storefront-product"];
@@ -643,11 +643,11 @@ export interface paths {
   };
   "/settings/storefront/robotstxt": {
     /**
-     * Get Robots.txt Settings 
+     * Get Robots.txt Settings
      * @description Returns Robots.txt settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -672,11 +672,11 @@ export interface paths {
       };
     };
     /**
-     * Update Robots.txt Settings 
+     * Update Robots.txt Settings
      * @description Updates Robots.txt settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -714,11 +714,11 @@ export interface paths {
   };
   "/settings/storefront/search": {
     /**
-     * Get Storefront Search Settings 
+     * Get Storefront Search Settings
      * @description Returns search settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -743,11 +743,11 @@ export interface paths {
       };
     };
     /**
-     * Update Storefront Search Settings 
+     * Update Storefront Search Settings
      * @description Updates search settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -785,11 +785,11 @@ export interface paths {
   };
   "/settings/storefront/security": {
     /**
-     * Get Storefront Security Settings 
+     * Get Storefront Security Settings
      * @description Returns security settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -814,11 +814,11 @@ export interface paths {
       };
     };
     /**
-     * Update Storefront Security Settings 
+     * Update Storefront Security Settings
      * @description Updates security settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -856,11 +856,11 @@ export interface paths {
   };
   "/settings/storefront/seo": {
     /**
-     * Get Storefront SEO Settings 
+     * Get Storefront SEO Settings
      * @description Returns SEO settings.
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -885,11 +885,11 @@ export interface paths {
       };
     };
     /**
-     * Update Storefront SEO Settings 
+     * Update Storefront SEO Settings
      * @description Updates SEO settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -928,11 +928,11 @@ export interface paths {
   };
   "/settings/storefront/status": {
     /**
-     * Get Storefront Status 
-     * @description Returns storefront status-related settings. 
-     * 
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     * Get Storefront Status
+     * @description Returns storefront status-related settings.
+     *
+     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
     get: {
@@ -957,11 +957,11 @@ export interface paths {
       };
     };
     /**
-     * Update Storefront Status 
+     * Update Storefront Status
      * @description Updates storefront status-related settings.
-     * 
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-     * 
+     *
+     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
     put: {
@@ -999,7 +999,7 @@ export interface paths {
   };
   "/settings/inventory": {
     /**
-     * Get Inventory Settings 
+     * Get Inventory Settings
      * @description Get Inventory Settings
      */
     get: {
@@ -1030,7 +1030,7 @@ export interface paths {
       };
     };
     /**
-     * Update Inventory Settings 
+     * Update Inventory Settings
      * @description Update inventory settings
      */
     put: {
@@ -1074,9 +1074,9 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * AddressTypeEnumValues 
-     * @description Only supports manipulation on a global level. 
-     * @default Home Office 
+     * AddressTypeEnumValues
+     * @description Only supports manipulation on a global level.
+     * @default Home Office
      * @enum {string}
      */
     AddressTypeEnumValues: "Home Office" | "Commercial Office" | "Retail" | "Warehouse";
@@ -1090,9 +1090,9 @@ export interface components {
       /** @description Web Analytics Provider title. */
       name?: string;
     };
-    AnalyticsProviders: (components["schemas"]["AnalyticsProvider"])[];
+    AnalyticsProviders: components["schemas"]["AnalyticsProvider"][];
     /** AvailableFilter */
-    AvailableFilter: components["schemas"]["AvailableNormalFilter"] | components["schemas"]["AvailablePriceFilter"] | components["schemas"]["AvailableOtherFilter"];
+    AvailableFilter: Record<string, never> & (components["schemas"]["AvailableNormalFilter"] | components["schemas"]["AvailablePriceFilter"] | components["schemas"]["AvailableOtherFilter"]);
     /** AvailableNormalFilter */
     AvailableNormalFilter: {
       id?: string;
@@ -1131,16 +1131,16 @@ export interface components {
       enable_product_comparisons?: boolean;
     };
     /**
-     * CategoryListingModeEnumValues 
+     * CategoryListingModeEnumValues
      * @enum {string}
      */
     CategoryListingModeEnumValues: "current_category_only" | "child_categories" | "child_categories_if_category_empty";
     /** ConfiguredFilter */
     ConfiguredFilter: components["schemas"]["EnabledProductFilter"] | components["schemas"]["EnabledPriceFilter"] | components["schemas"]["EnabledCategoryFilter"] | components["schemas"]["EnabledBrandFilter"] | components["schemas"]["EnabledRatingFilter"] | components["schemas"]["EnabledMiscFilter"];
     /** ConfiguredFilters */
-    ConfiguredFilters: (components["schemas"]["ConfiguredFilter"])[];
+    ConfiguredFilters: components["schemas"]["ConfiguredFilter"][];
     /**
-     * ConfiguredFiltersOverride 
+     * ConfiguredFiltersOverride
      * @description A new set of enabled Product Filtering filters which should display in a particular context, such as on a particular Channel, or while viewing a particular Category. Array order indicates the display order on the storefront.
      */
     ConfiguredFiltersOverride: {
@@ -1148,8 +1148,8 @@ export interface components {
       data?: components["schemas"]["ConfiguredFilters"];
     };
     /**
-     * ContentSortEnumValues 
-     * @default relevance 
+     * ContentSortEnumValues
+     * @default relevance
      * @enum {string}
      */
     ContentSortEnumValues: "relevance" | "atoz" | "ztoa";
@@ -1158,7 +1158,7 @@ export interface components {
       [key: string]: unknown;
     };
     /**
-     * EnabledBrandFilter 
+     * EnabledBrandFilter
      * @description A storefront filter for product brand
      */
     EnabledBrandFilter: {
@@ -1175,7 +1175,7 @@ export interface components {
       type?: "brand";
     };
     /**
-     * EnabledCategoryFilter 
+     * EnabledCategoryFilter
      * @description A storefront filter for product category
      */
     EnabledCategoryFilter: {
@@ -1192,9 +1192,9 @@ export interface components {
     /** EnabledFilter */
     EnabledFilter: components["schemas"]["EnabledProductFilter"] | components["schemas"]["EnabledPriceFilter"] | components["schemas"]["EnabledCategoryFilter"] | components["schemas"]["EnabledBrandFilter"] | components["schemas"]["EnabledRatingFilter"] | components["schemas"]["EnabledMiscFilter"];
     /** EnabledFilters */
-    EnabledFilters: (components["schemas"]["EnabledFilter"])[];
+    EnabledFilters: components["schemas"]["EnabledFilter"][];
     /**
-     * EnabledFiltersOverride 
+     * EnabledFiltersOverride
      * @description A new set of enabled Product Filtering filters which should display in a particular context, such as on a particular Channel, or while viewing a particular Category. Array order indicates the display order on the storefront.
      */
     EnabledFiltersOverride: {
@@ -1202,7 +1202,7 @@ export interface components {
       scope?: components["schemas"]["SearchFilterOverrideScopeIdentifier"];
     };
     /**
-     * EnabledMiscFilter 
+     * EnabledMiscFilter
      * @description Miscellaneous Filters which appear as a group.
      */
     EnabledMiscFilter: {
@@ -1219,7 +1219,7 @@ export interface components {
       type?: "other";
     };
     /**
-     * EnabledPriceFilter 
+     * EnabledPriceFilter
      * @description A filter based on the product’s price, shown as a price range on the storefront.
      */
     EnabledPriceFilter: {
@@ -1231,7 +1231,7 @@ export interface components {
       type?: "price";
     };
     /**
-     * EnabledProductFilter 
+     * EnabledProductFilter
      * @description A filter that uses product options and custom field data.
      */
     EnabledProductFilter: {
@@ -1248,7 +1248,7 @@ export interface components {
       type?: "product";
     };
     /**
-     * EnabledRatingFilter 
+     * EnabledRatingFilter
      * @description A filter based on product review ratings.
      */
     EnabledRatingFilter: {
@@ -1293,55 +1293,65 @@ export interface components {
       schema?: components["schemas"]["Error"];
     };
     /**
-     * HSTSMaxAgeEnumValues 
+     * HSTSMaxAgeEnumValues
      * @enum {string}
      */
     HSTSMaxAgeEnumValues: "zero_seconds" | "five_minutes" | "one_year";
     InventoryNotificationsSettings: {
-      low_stock_notification_address?: (string)[];
-      out_of_stock_notification_address?: (string)[];
+      low_stock_notification_address?: string[];
+      out_of_stock_notification_address?: string[];
     };
     InventorySettings: {
       /**
-       * @description Describes storefront behavior when product is out of stock. 
+       * @description Describes storefront behavior when product is out of stock.
        * @enum {string}
        */
       product_out_of_stock_behavior?: "do_nothing" | "hide_product" | "hide_product_and_accessible" | "hide_product_and_redirect";
       /**
-       * @description Describes storefront behavior when variant is out of stock. 
+       * @description Describes storefront behavior when variant is out of stock.
        * @enum {string}
        */
       option_out_of_stock_behavior?: "do_nothing" | "hide_option" | "label_option";
       /**
-       * @description Describes when stock levels are updated. 
+       * @description Describes when stock levels are updated.
+       *
+       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/api-docs/store-management/webhooks/webhook-events#products), [SKU](/api-docs/store-management/webhooks/webhook-events#skus), and [inventory](/buy-online-pick-up-in-store/webhooks#inventory) webhooks.
        * @enum {string}
        */
       update_stock_behavior?: "order_placed" | "order_completed_or_shipped";
-      /** @description Describes whether stock levels automatically adjust when you edit an order. */
+      /**
+       * @description Describes whether stock levels automatically adjust when you edit an order.
+       *
+       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/api-docs/store-management/webhooks/webhook-events#products), [SKU](/api-docs/store-management/webhooks/webhook-events#skus), and [inventory](/buy-online-pick-up-in-store/webhooks#inventory) webhooks.
+       */
       edit_order_stock_adjustment?: boolean;
-      /** @description Describes whether stock levels automatically adjust when you refund or cancel an order. */
+      /**
+       * @description Describes whether stock levels automatically adjust when you refund or cancel an order.
+       *
+       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/api-docs/store-management/webhooks/webhook-events#products), [SKU](/api-docs/store-management/webhooks/webhook-events#skus), and [inventory](/buy-online-pick-up-in-store/webhooks#inventory) webhooks.
+       */
       refund_order_stock_adjustment?: boolean;
       /**
-       * @description Describes whether a storefront displays stock levels. 
+       * @description Describes whether a storefront displays stock levels.
        * @enum {string}
        */
       stock_level_display?: "dont_show" | "show" | "show_when_low";
       /**
-       * @description Out of stock message displayed to shoppers. 
+       * @description Out of stock message displayed to shoppers.
        * @example Currently out of stock
        */
       default_out_of_stock_message?: string;
       /** @description Describes whether an option is hidden in product filtering. Applies when `option_out_of_stock_behavior` is set to `label_option`. */
       hide_in_product_filtering?: boolean;
       /**
-       * @description Describes whether pre-order stock levels are shown. 
-       * @default false 
+       * @description Describes whether pre-order stock levels are shown.
+       * @default false
        * @example true
        */
       show_pre_order_stock_levels?: boolean;
       /**
-       * @description Describes whether out-of-stock messages are shown on product listing pages. 
-       * @default false 
+       * @description Describes whether out-of-stock messages are shown on product listing pages.
+       * @default false
        * @example true
        */
       show_out_of_stock_message?: boolean;
@@ -1349,18 +1359,18 @@ export interface components {
     /** @description The basic locale settings for a store, used to give shopper information about languages, countries, etc. */
     Locale: {
       /**
-       * @default en 
+       * @default en
        * @example en, en-us
        */
       default_shopper_language: string;
       /**
        * @description Determines whether to display the storefront content in the shopper's browser language or the shopper's selected default language.
-       * 
+       *
        * Available values:
        * * `browser` - language updates automatically based on the shopper browser language. Multiple languages are supported.
-       * * `default_shopper_language` - content is displayed in a single language based on the set `default_shopper_language`. Only the selected language is supported. 
-       * @default default_shopper_language 
-       * @example default_shopper_language 
+       * * `default_shopper_language` - content is displayed in a single language based on the set `default_shopper_language`. Only the selected language is supported.
+       * @default default_shopper_language
+       * @example default_shopper_language
        * @enum {string}
        */
       shopper_language_selection_method?: "browser" | "default_shopper_language";
@@ -1380,7 +1390,7 @@ export interface components {
       type?: "image" | "text";
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     MetaOpen: {
@@ -1407,9 +1417,9 @@ export interface components {
       };
     };
     /**
-     * ProductSortEnumValues 
-     * @description The available sorts for PLP pages. 
-     * @default bestselling 
+     * ProductSortEnumValues
+     * @description The available sorts for PLP pages.
+     * @default bestselling
      * @enum {string}
      */
     ProductSortEnumValues: "featured" | "bestselling" | "newest" | "atoz" | "ztoa" | "highestprice" | "lowestprice" | "bestreviewed";
@@ -1450,72 +1460,72 @@ export interface components {
     StorefrontProductSettings: {
       /**
        * @description Determines the visibility of the product price.
-       *  
+       *
        * @example true
        */
       show_product_price?: boolean;
       /**
        * @description Determines the visibility of the product SKU.
-       *  
+       *
        * @example true
        */
       show_product_sku?: boolean;
       /**
        * @description Determines the visibility of the product's weight.
-       *  
+       *
        * @example false
        */
       show_product_weight?: boolean;
       /**
        * @description Determines the visibility of the product's brand.
-       *  
+       *
        * @example true
        */
       show_product_brand?: boolean;
       /**
        * @description Determines the visibility of the product's shipping option.
-       *  
+       *
        * @example false
        */
       show_product_shipping?: boolean;
       /**
        * @description Determines the visibility of the product's rating.
-       *  
+       *
        * @example true
        */
       show_product_rating?: boolean;
       /**
        * @description Determines the visibility of the Add to Cart link.
-       *  
+       *
        * @example true
        */
       show_add_to_cart_link?: boolean;
       /**
        * @description The product's pre-order message. If undefined, the message defaults to the storewide setting.
-       *  
+       *
        * @example Preorder message
        */
       default_preorder_message?: string;
       /**
-       * @example show_one 
+       * @example show_one
        * @enum {string}
        */
       show_breadcrumbs_product_pages?: "show_one" | "show_none";
       /**
        * @description Determines the visibility of the Add to Cart quantity setting.
-       *  
+       *
        * @example true
        */
       show_add_to_cart_qty_box?: boolean;
       /**
        * @description Determines the visibilty of the Add to Wishlist setting.
-       *  
+       *
        * @example true
        */
       show_add_to_wishlist?: boolean;
       /**
        * @description Determines the visibility of the price.
-       *  
+       *
        * @example false
        */
       hide_price_from_guests?: boolean;
@@ -1590,7 +1600,7 @@ export interface components {
     /** @description Channel ID to use for channel-specific setting. If omitted, you will interact with the global setting only. */
     ChannelIdParam?: number;
     /** @description Array of strings (CSV) representing which configuration keys should be cleared (un-overridden) for the Channel. */
-    KeysToDelete: (string)[];
+    KeysToDelete: string[];
     /** @description Required Channel ID. This delete operation will delete overridden settings for this channel, thus restoring them to the global defaults. */
     RequiredChannelIdParamForDelete: number;
   };
@@ -1604,7 +1614,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Transactional Email Settings 
+   * Get Transactional Email Settings
    * @description Get global transactional email settings or channel specific overrides by `channel_id`.
    */
   "get-settings-emails-enabled": {
@@ -1629,7 +1639,7 @@ export interface operations {
     };
   };
   /**
-   * Update Transactional Email Settings 
+   * Update Transactional Email Settings
    * @description Update global transactional email settings or create channel specific overrides by `channel_id`.
    */
   "put-settings-transactional-emails-enabled": {
@@ -1660,9 +1670,9 @@ export interface operations {
     };
   };
   /**
-   * Create Favicon Image 
-   * @description Uploads an image file to use as the storefront favicon. Supported MIME types include GIF, JPEG, and PNG. 
-   * 
+   * Create Favicon Image
+   * @description Uploads an image file to use as the storefront favicon. Supported MIME types include GIF, JPEG, and PNG.
+   *
    *   - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
    */
   "post-favicon-logo-image": {
@@ -1689,11 +1699,11 @@ export interface operations {
     };
   };
   /**
-   * Get Store Logo Settings 
+   * Get Store Logo Settings
    * @description Returns store logo settings.
-   * 
-   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-   * 
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
    *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
    */
   "get-settings-logo": {
@@ -1718,11 +1728,11 @@ export interface operations {
     };
   };
   /**
-   * Update Store Logo Settings 
+   * Update Store Logo Settings
    * @description Updates the logo type and logo text for a textual logo. To upload new images, use the dedicated image POST endpoints.
-   * 
-   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-   * 
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
    *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
    */
   "put-settings-logo": {
@@ -1752,9 +1762,9 @@ export interface operations {
     };
   };
   /**
-   * Create Logo Image 
-   * @description Uploads an image file to use as the storefront logo. Supported MIME types include GIF, JPEG, and PNG. 
-   * 
+   * Create Logo Image
+   * @description Uploads an image file to use as the storefront logo. Supported MIME types include GIF, JPEG, and PNG.
+   *
    *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
    */
   "post-settings-logo-image": {
@@ -1781,7 +1791,7 @@ export interface operations {
     };
   };
   /**
-   * Get Enabled Filters 
+   * Get Enabled Filters
    * @description Returns a list of enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters. These filters will be used if a store does not have contextual overrides.
    */
   getEnabled: {
@@ -1797,7 +1807,7 @@ export interface operations {
     };
   };
   /**
-   * Update Enabled Filters 
+   * Update Enabled Filters
    * @description Updates enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters.
    */
   updateEnabled: {
@@ -1823,7 +1833,7 @@ export interface operations {
     };
   };
   /**
-   * Get Available Filters 
+   * Get Available Filters
    * @description Returns a list of filters available to power [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings).
    */
   getAvailable: {
@@ -1843,7 +1853,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["AvailableFilter"])[];
+            data?: components["schemas"]["AvailableFilter"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -1851,13 +1861,13 @@ export interface operations {
     };
   };
   /**
-   * Get Contextual Filters 
+   * Get Contextual Filters
    * @description Returns a list of contextual filters enabled for a particular channel or category.
-   * 
+   *
    * **Usage Notes**
-   * 
+   *
    * Contextual filters allow you to configure the enabled filters per channel or category, so that shoppers can filter by the most relevant criteria.
-   * 
+   *
    * The order of the returned filters will match the sort order of the filters on the storefront.
    */
   getContexts: {
@@ -1877,7 +1887,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ConfiguredFiltersOverride"])[];
+            data?: components["schemas"]["ConfiguredFiltersOverride"][];
             meta?: components["schemas"]["MetaPaginationObject"];
           };
         };
@@ -1885,13 +1895,13 @@ export interface operations {
     };
   };
   /**
-   * Upsert Contextual Filters 
+   * Upsert Contextual Filters
    * @description Upserts contextual filters for a particular channel or category.
-   * 
+   *
    * **Usage Notes**
-   * 
+   *
    * Contextual filters allow you to configure the enabled filters per channel or category, so that shoppers can filter by the most relevant criteria.
-   * 
+   *
    * You can change the order of the filters on the live site by changing the order of the filters you send.
    */
   upsertContexts: {
@@ -1903,7 +1913,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["ConfiguredFiltersOverride"])[];
+        "application/json": components["schemas"]["ConfiguredFiltersOverride"][];
       };
     };
     responses: {
@@ -1911,7 +1921,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ConfiguredFiltersOverride"])[];
+            data?: components["schemas"]["ConfiguredFiltersOverride"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -1919,11 +1929,11 @@ export interface operations {
     };
   };
   /**
-   * Get Storefront Product Settings 
+   * Get Storefront Product Settings
    * @description Returns product settings.
-   * 
-   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only. 
-   * 
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
    *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
    */
   "get-settings-storefront-product": {
@@ -1940,11 +1950,11 @@ export interface operations {
     };
   };
   /**
-   * Update Storefront Product Settings 
+   * Update Storefront Product Settings
    * @description Updates product settings.
-   * 
-   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only. 
-   * 
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
    *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
    */
   "put-settings-storefront-product": {

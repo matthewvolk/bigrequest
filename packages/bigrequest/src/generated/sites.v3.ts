@@ -8,7 +8,7 @@
 export interface paths {
   "/sites": {
     /**
-     * Get Sites 
+     * Get Sites
      * @description Get sites linked to a [headless storefront](/api-docs/storefronts/developers-guide-headless) sales channels.
      */
     get: {
@@ -32,7 +32,7 @@ export interface paths {
       };
     };
     /**
-     * Create a Site 
+     * Create a Site
      * @description Create a site that links a [headless storefront](/api-docs/storefronts/developers-guide-headless) to a sales [channel](/docs/rest-management/channels).
      */
     post: operations["post-site"];
@@ -44,17 +44,17 @@ export interface paths {
   };
   "/sites/{site_id}": {
     /**
-     * Get a Site 
+     * Get a Site
      * @description Get a site with site ID `{site_id}`.
      */
     get: operations["getSite"];
     /**
-     * Update a Site 
+     * Update a Site
      * @description Update a site with site ID `{site_id}`.
      */
     put: operations["putSite"];
     /**
-     * Delete a Site 
+     * Delete a Site
      * @description Delete a site with site ID `{site_id}`.
      */
     delete: operations["deleteSite"];
@@ -69,14 +69,14 @@ export interface paths {
   };
   "/sites/{site_id}/routes": {
     /**
-     * Get a Site’s Routes 
+     * Get a Site’s Routes
      * @description Get a site’s routes.
      */
     get: operations["index-site-routes"];
     /**
-     * Update a Site’s Routes 
+     * Update a Site’s Routes
      * @description Upsert routes for site with ID `{site_id}`.
-     * 
+     *
      * ## Usage Notes
      * * `id` is required when updating an existing route.
      */
@@ -99,7 +99,7 @@ export interface paths {
         200: {
           content: {
             "application/json": {
-              data?: (components["schemas"]["siteRoute_Full"])[];
+              data?: components["schemas"]["siteRoute_Full"][];
               meta?: components["schemas"]["_metaCollection"];
             };
           };
@@ -108,9 +108,9 @@ export interface paths {
       };
     };
     /**
-     * Create a Site Route 
+     * Create a Site Route
      * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/api-docs/storefronts/developers-guide-headless).
-     * 
+     *
      * ## Usage Notes
      * * For a list of supported route types, see [Route types](/docs/rest-management/sites#route-types).
      */
@@ -126,17 +126,17 @@ export interface paths {
   };
   "/sites/{site_id}/routes/{route_id}": {
     /**
-     * Get a Site Route 
+     * Get a Site Route
      * @description Get a site’s route.
      */
     get: operations["get-site-route"];
     /**
-     * Update a Site Route 
+     * Update a Site Route
      * @description Update a site’s route.
      */
     put: operations["put-site-route"];
     /**
-     * Delete a Site Route 
+     * Delete a Site Route
      * @description Delete a site’s route.
      */
     delete: operations["delete-route"];
@@ -152,12 +152,12 @@ export interface paths {
   };
   "/sites/{site_id}/certificate": {
     /**
-     * Get a Site’s SSL/TLS Certificate Information 
+     * Get a Site’s SSL/TLS Certificate Information
      * @description Obtain information about a site’s SSL/TLS certificate.
      */
     get: operations["getSitesIdCertificate"];
     /**
-     * Upsert a Site’s SSL/TLS Certificate Information 
+     * Upsert a Site’s SSL/TLS Certificate Information
      * @description - If a value for `url` is not supplied, the saved certificate is associated with the specified site’s `primary` URL.
      * - Use caution. Because this endpoint upserts, supplying an SSL certificate for a domain that already has a certificate connected overwrites the domain’s extant certificate.'
      */
@@ -173,7 +173,7 @@ export interface paths {
   };
   "/sites/certificates": {
     /**
-     * Get Site Certificates 
+     * Get Site Certificates
      * @description Return all SSL certificates connected to domains within a store.
      */
     get: operations["get-sites-certificates"];
@@ -190,49 +190,49 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * metaCollection 
+     * metaCollection
      * @description Meta data relating to pagination.
      */
     _metaCollection: {
       pagination?: {
         /**
-         * @description Total number of items returned. 
+         * @description Total number of items returned.
          * @example 3
          */
         total?: number;
         /**
-         * @description Number of items returned on per page. 
+         * @description Number of items returned on per page.
          * @example 1
          */
         count?: number;
         /**
-         * @description Number of items to be displayed per page. 
+         * @description Number of items to be displayed per page.
          * @example 1
          */
         per_page?: number;
         /**
-         * @description Current page number. 
+         * @description Current page number.
          * @example 2
          */
         current_page?: number;
         /**
-         * @description Total number of pages. 
+         * @description Total number of pages.
          * @example 3
          */
         total_page?: number;
         links?: {
           /**
-           * @description Query string appended to the resource to return to the previous page. 
+           * @description Query string appended to the resource to return to the previous page.
            * @example ?limit=1&page=1
            */
           previous?: string;
           /**
-           * @description Query string appended to the resource to proceed to the next page. 
+           * @description Query string appended to the resource to proceed to the next page.
            * @example ?limit=1&page=3
            */
           next?: string;
           /**
-           * @description Query string appended to the resource to show the current page. 
+           * @description Query string appended to the resource to show the current page.
            * @example ?limit=1&page=2
            */
           current?: string;
@@ -240,7 +240,7 @@ export interface components {
       };
     };
     /**
-     * siteRoute_Full 
+     * siteRoute_Full
      * @description Route object used in responses.
      */
     siteRoute_Full: {
@@ -250,7 +250,7 @@ export interface components {
     /** put_Site */
     put_Site: {
       /**
-       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
@@ -258,39 +258,39 @@ export interface components {
     _site: {
       id?: number;
       /**
-       * @description The fully qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The fully qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
       /** @description The channel to which this site is attached. Each site belongs to a single channel, and each channel can have either zero or more sites. */
       channel_id?: number;
       /**
-       * @description The date-time that this site was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * @description The date-time that this site was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2022-01-04T04:15:50.000Z
        */
       created_at?: string;
       /**
-       * @description The date-time that this site was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * @description The date-time that this site was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2022-01-04T04:15:50.000Z
        */
       updated_at?: string;
       /**
-       * @description Indicates whether a site is using a private/dedicated SSL or a shared SSL. 
+       * @description Indicates whether a site is using a private/dedicated SSL or a shared SSL.
        * @enum {string}
        */
       ssl_status?: "dedicated" | "shared";
       /** @description All URLs that belong to the site, including `primary`, `canonical`, and `checkout` URLs. */
-      urls?: (components["schemas"]["Url"])[];
+      urls?: components["schemas"]["Url"][];
       /** @description Indicates whether the channel uses a custom checkout domain. When `false`, the checkout domain falls back to the default channel’s primary URL. */
       is_checkout_url_customized?: boolean;
     };
     /**
-     * _metaEmpty 
+     * _metaEmpty
      * @description Empty meta object; may be used later.
      */
     _metaEmpty: Record<string, never>;
     /**
-     * _pagination 
+     * _pagination
      * @description Data about the response, including pagination and collection totals.
      */
     _pagination: {
@@ -315,7 +315,7 @@ export interface components {
       };
     };
     /**
-     * _errors 
+     * _errors
      * @description The keys and values in an errors object will vary depending on the error received.
      */
     _errors: Record<string, never>;
@@ -341,7 +341,7 @@ export interface components {
     /** post_Site */
     post_Site: {
       /**
-       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
@@ -351,24 +351,24 @@ export interface components {
     /** siteRoute_Base */
     siteRoute_Base: {
       /**
-       * @description The type of resource being routed to; [supported types](/docs/rest-management/sites#route-types). 
+       * @description The type of resource being routed to; [supported types](/docs/rest-management/sites#route-types).
        * @enum {string}
        */
       type?: "product" | "brand" | "category" | "page" | "blog" | "home" | "cart" | "checkout" | "search" | "account" | "login" | "returns" | "static";
       /**
        * @description Depending on the resource type, this can be an ID (matching a specific item), or a "*" wildcard (matching all items of that type).
-       * 
-       * For example, a route with a type: "product" and matching: "5" will be used for the product with the ID of 5. 
+       *
+       * For example, a route with a type: "product" and matching: "5" will be used for the product with the ID of 5.
        * @example 5
        */
       matching?: string;
       /**
        * @description The route template that will be used to generate the URL for the requested resource.
-       * 
+       *
        * Supports several tokens:
        * - `{id}` The **ID** of the requested item.
        * - `{slug}` The **slug** for the requested item (if available). Note: the `slug` value may contain `/` slash.
-       * - `{language}` The **language** string that the client is using. 
+       * - `{language}` The **language** string that the client is using.
        * @example /my-amazing-product
        */
       route?: string;
@@ -376,24 +376,24 @@ export interface components {
     /** siteRoutes_Route_Base */
     siteRoutes_Route_Base: {
       /**
-       * @description The type of resource being routed to; [supported types](/docs/rest-management/sites#route-types). 
+       * @description The type of resource being routed to; [supported types](/docs/rest-management/sites#route-types).
        * @enum {string}
        */
       type: "product" | "brand" | "category" | "page" | "blog" | "home" | "cart" | "checkout" | "search" | "account" | "login" | "returns" | "static";
       /**
        * @description Depending on the resource type, this can be an ID (matching a specific item), or a "*" wildcard (matching all items of that type).
-       * 
-       * For example, a route with a type: "product" and matching: "5" will be used for the product with the ID of 5. 
+       *
+       * For example, a route with a type: "product" and matching: "5" will be used for the product with the ID of 5.
        * @example 5
        */
       matching: string;
       /**
        * @description The route template that will be used to generate the URL for the requested resource.
-       * 
+       *
        * Supports several tokens:
        * - `{id}` The **ID** of the requested item.
        * - `{slug}` The **slug** for the requested item (if available). Note: the `slug` value may contain `/` slash.
-       * - `{language}` The **language** string that the client is using. 
+       * - `{language}` The **language** string that the client is using.
        * @example /my-amazing-product
        */
       route: string;
@@ -425,26 +425,26 @@ export interface components {
       /** @description URL of site. */
       url?: string;
       /**
-       * @description Specifies the URL type. 
+       * @description Specifies the URL type.
        * @enum {string}
        */
       type?: "primary" | "canonical" | "checkout";
       /**
-       * Format: date-time 
-       * @description The date-time that this URL was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * Format: date-time
+       * @description The date-time that this URL was created, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2018-01-04T04:15:50.000Z
        */
       created_at?: string;
       /**
-       * Format: date-time 
-       * @description The date-time that this URL was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string. 
+       * Format: date-time
+       * @description The date-time that this URL was last updated, formatted as an [RFC-3339](https://www.ietf.org/rfc/rfc3339.txt) string.
        * @example 2018-01-04T04:15:50.000Z
        */
       updated_at?: string;
     };
     SiteCreate: {
       /**
-       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this. 
+       * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
        * @example http://kittens.mybigcommerce.com/
        */
       url?: string;
@@ -472,37 +472,37 @@ export interface components {
     };
     InstallCertificateData: {
       /**
-       * @description URL for the site. 
+       * @description URL for the site.
        * @example kittens.mybigcommerce.com
        */
       url?: string;
       certificate?: components["schemas"]["CertificateWrite"];
     };
     /**
-     * CertificateInfo 
+     * CertificateInfo
      * @description Details about the installed certificate, including the raw certificate data, without the private key.
      */
     InstalledCertificateDetail: {
       /**
-       * @description Common Name on the TLS certificate. 
+       * @description Common Name on the TLS certificate.
        * @example store.com
        */
       common_name?: string;
       /**
-       * @description Subject Alternative Names for which the certificate is also valid. 
+       * @description Subject Alternative Names for which the certificate is also valid.
        * @example [
        *   "store.com",
        *   "www.store.com"
        * ]
        */
-      subject_alternative_names?: (string)[];
+      subject_alternative_names?: string[];
       /**
-       * @description When does the validity period of this certificate begin? RFC 3339. 
+       * @description When does the validity period of this certificate begin? RFC 3339.
        * @example 2018-01-04T04:15:50.000Z
        */
       validity_not_before?: string;
       /**
-       * @description When does the validity period of this certificate end? If this date is in the past, the certificate has expired. RFC 3339. 
+       * @description When does the validity period of this certificate end? If this date is in the past, the certificate has expired. RFC 3339.
        * @example 2018-01-04T04:15:50.000Z
        */
       validity_not_after?: string;
@@ -521,7 +521,7 @@ export interface components {
     BaseError: {
       /**
        * @description The HTTP status code.
-       *  
+       *
        * @example 404
        */
       status?: number;
@@ -536,11 +536,11 @@ export interface components {
     };
     /** GetCertificatesResponse */
     GetCertificatesResponse: {
-      data?: (components["schemas"]["InstalledCertificateDetail"])[];
+      data?: components["schemas"]["InstalledCertificateDetail"][];
       meta?: components["schemas"]["MetaOpen"];
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     MetaOpen: {
@@ -627,7 +627,7 @@ export interface components {
     site_RespCollection: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["_site"])[];
+          data?: components["schemas"]["_site"][];
           meta?: components["schemas"]["_metaCollection"];
         };
       };
@@ -658,7 +658,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Create a Site 
+   * Create a Site
    * @description Create a site that links a [headless storefront](/api-docs/storefronts/developers-guide-headless) to a sales [channel](/docs/rest-management/channels).
    */
   "post-site": {
@@ -683,7 +683,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Site 
+   * Get a Site
    * @description Get a site with site ID `{site_id}`.
    */
   getSite: {
@@ -700,7 +700,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Site 
+   * Update a Site
    * @description Update a site with site ID `{site_id}`.
    */
   putSite: {
@@ -723,7 +723,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Site 
+   * Delete a Site
    * @description Delete a site with site ID `{site_id}`.
    */
   deleteSite: {
@@ -740,7 +740,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Site’s Routes 
+   * Get a Site’s Routes
    * @description Get a site’s routes.
    */
   "index-site-routes": {
@@ -764,7 +764,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["siteRoute_Full"])[];
+            data?: components["schemas"]["siteRoute_Full"][];
             meta?: components["schemas"]["_metaCollection"];
           };
         };
@@ -772,9 +772,9 @@ export interface operations {
     };
   };
   /**
-   * Create a Site Route 
+   * Create a Site Route
    * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/api-docs/storefronts/developers-guide-headless).
-   * 
+   *
    * ## Usage Notes
    * * For a list of supported route types, see [Route types](/docs/rest-management/sites#route-types).
    */
@@ -800,7 +800,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Site Route 
+   * Get a Site Route
    * @description Get a site’s route.
    */
   "get-site-route": {
@@ -825,7 +825,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Site Route 
+   * Update a Site Route
    * @description Update a site’s route.
    */
   "put-site-route": {
@@ -849,7 +849,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Site Route 
+   * Delete a Site Route
    * @description Delete a site’s route.
    */
   "delete-route": {
@@ -867,7 +867,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Site’s SSL/TLS Certificate Information 
+   * Get a Site’s SSL/TLS Certificate Information
    * @description Obtain information about a site’s SSL/TLS certificate.
    */
   getSitesIdCertificate: {
@@ -889,7 +889,7 @@ export interface operations {
     };
   };
   /**
-   * Upsert a Site’s SSL/TLS Certificate Information 
+   * Upsert a Site’s SSL/TLS Certificate Information
    * @description - If a value for `url` is not supplied, the saved certificate is associated with the specified site’s `primary` URL.
    * - Use caution. Because this endpoint upserts, supplying an SSL certificate for a domain that already has a certificate connected overwrites the domain’s extant certificate.'
    */
@@ -919,7 +919,7 @@ export interface operations {
     };
   };
   /**
-   * Get Site Certificates 
+   * Get Site Certificates
    * @description Return all SSL certificates connected to domains within a store.
    */
   "get-sites-certificates": {

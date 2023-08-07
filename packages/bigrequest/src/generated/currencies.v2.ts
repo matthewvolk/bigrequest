@@ -8,16 +8,16 @@
 export interface paths {
   "/currencies": {
     /**
-     * Get All Currencies 
+     * Get All Currencies
      * @description Returns a list of all store *Currency*.
      */
     get: operations["getAllCurrencies"];
     /**
-     * Create a Currency 
+     * Create a Currency
      * @description Creates *Currency*.
-     * 
-     * **Required Fields** 
-     * 
+     *
+     * **Required Fields**
+     *
      * * name
      * * currency_code
      * * currency_exchange_rate
@@ -26,18 +26,18 @@ export interface paths {
      * * decimal_token
      * * thousands_token
      * * decimal_places
-     * 
+     *
      * **Read-Only Fields**
      * * id
      * * date_created
      * * date_modified
-     * 
-     * 
+     *
+     *
      * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden. To change the storeʼs default currency in the BigCommerce control panel, please see [Managing Currencies](https://support.bigcommerce.com/articles/Public/Managing-Currencies/?q=currency&l=en_US&fs=Search&pn=1#default).
      */
     post: operations["createACurrency"];
     /**
-     * Delete All Currencies 
+     * Delete All Currencies
      * @description Deletes all non-default store currencies.
      */
     delete: operations["deleteAllCurrencies"];
@@ -49,29 +49,29 @@ export interface paths {
   };
   "/currencies/{id}": {
     /**
-     * Get a Currency 
+     * Get a Currency
      * @description Returns a single *Currency*.
      */
     get: operations["getACurrency"];
     /**
-     * Update a Currency 
+     * Update a Currency
      * @description Updates a *Currency*.
-     * 
+     *
      * **Read-Only Fields**
-     * 
+     *
      * * id
      * * date_created
      * * date_modified
      * * currency_code
-     * 
-     * 
+     *
+     *
      * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden.
      */
     put: operations["updateACurrency"];
     /**
-     * Delete a Currency 
+     * Delete a Currency
      * @description Deletes a *Currency*.
-     * 
+     *
      * If a currencyʼs `is_default` property is set to true, this currency cannot be deleted.
      */
     delete: operations["deleteACurrency"];
@@ -93,8 +93,8 @@ export interface components {
   schemas: {
     currency_Post: components["schemas"]["currency_Base"];
     /**
-     * currency_Base 
-     * @description Currency Object 
+     * currency_Base
+     * @description Currency Object
      * @example {
      *   "id": 2,
      *   "is_default": false,
@@ -114,67 +114,67 @@ export interface components {
      */
     currency_Base: {
       /**
-       * @description Specifies the store’s default currency display format. For write operations, only true value is accepted. When set to true, it cannot be unset, only overridden. 
+       * @description Specifies the store’s default currency display format. For write operations, only true value is accepted. When set to true, it cannot be unset, only overridden.
        * @example false
        */
       is_default?: boolean;
       /**
-       * @description 2-letter ISO Alpha-2 code for this currency’s country. 
+       * @description 2-letter ISO Alpha-2 code for this currency’s country.
        * @example EU
        */
       country_iso2?: string;
       /**
-       * @description 3-letter ISO 4217 code for this currency. 
+       * @description 3-letter ISO 4217 code for this currency.
        * @example EUR
        */
       currency_code: string;
       /**
-       * @description Amount of this currency that is equivalent to one U.S. dollar.(Float, Float as String, Integer) 
+       * @description Amount of this currency that is equivalent to one U.S. dollar.(Float, Float as String, Integer)
        * @example 0.849
        */
       currency_exchange_rate: string;
       /**
-       * @description Specifies whether to use the Open Exchange Rates service to update the currency conversion. A value of false specifies a static conversion value. auto_update only applies to non-transactional currencies. 
+       * @description Specifies whether to use the Open Exchange Rates service to update the currency conversion. A value of false specifies a static conversion value. auto_update only applies to non-transactional currencies.
        * @example true
        */
       auto_update?: boolean;
       /**
-       * @description Specifies whether this currency’s symbol appears to the “left” or “right” of the numeric amount. 
+       * @description Specifies whether this currency’s symbol appears to the “left” or “right” of the numeric amount.
        * @example left
        */
       token_location: string;
       /**
-       * @description Symbol for this currency. 
+       * @description Symbol for this currency.
        * @example €
        */
       token: string;
       /**
-       * @description Symbol used as the decimal separator in this currency. 
+       * @description Symbol used as the decimal separator in this currency.
        * @example .
        */
       decimal_token: string;
       /**
-       * @description Symbol used as the thousands separator in this currency. 
+       * @description Symbol used as the thousands separator in this currency.
        * @example ,
        */
       thousands_token: string;
       /**
-       * @description Number of decimal places to show for this currency. 
+       * @description Number of decimal places to show for this currency.
        * @example 2
        */
       decimal_places: number;
       /**
-       * @description Name of the currency. 
+       * @description Name of the currency.
        * @example Euro
        */
       name: string;
       /**
-       * @description If the currency is active on the store. 
+       * @description If the currency is active on the store.
        * @example false
        */
       enabled?: boolean;
       /**
-       * @description Indicates if the currency is set as transactional or not. False means display only currency 
+       * @description Indicates if the currency is set as transactional or not. False means display only currency
        * @example false
        */
       is_transactional?: boolean;
@@ -183,12 +183,12 @@ export interface components {
     /** currency_Full */
     currency_Full: components["schemas"]["currency_Base"] & {
       /**
-       * @description ID of the currency. Read only. 
+       * @description ID of the currency. Read only.
        * @example 2
        */
       id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date the currency was last updated, created or modified.
        */
       last_updated?: string;
@@ -197,7 +197,7 @@ export interface components {
   responses: {
     currencyCollection_Resp: {
       content: {
-        "application/json": (components["schemas"]["currency_Full"])[];
+        "application/json": components["schemas"]["currency_Full"][];
       };
     };
     currency_Resp: {
@@ -221,7 +221,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Currencies 
+   * Get All Currencies
    * @description Returns a list of all store *Currency*.
    */
   getAllCurrencies: {
@@ -233,17 +233,17 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["currency_Full"])[];
+          "application/json": components["schemas"]["currency_Full"][];
         };
       };
     };
   };
   /**
-   * Create a Currency 
+   * Create a Currency
    * @description Creates *Currency*.
-   * 
-   * **Required Fields** 
-   * 
+   *
+   * **Required Fields**
+   *
    * * name
    * * currency_code
    * * currency_exchange_rate
@@ -252,13 +252,13 @@ export interface operations {
    * * decimal_token
    * * thousands_token
    * * decimal_places
-   * 
+   *
    * **Read-Only Fields**
    * * id
    * * date_created
    * * date_modified
-   * 
-   * 
+   *
+   *
    * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden. To change the storeʼs default currency in the BigCommerce control panel, please see [Managing Currencies](https://support.bigcommerce.com/articles/Public/Managing-Currencies/?q=currency&l=en_US&fs=Search&pn=1#default).
    */
   createACurrency: {
@@ -282,7 +282,7 @@ export interface operations {
     };
   };
   /**
-   * Delete All Currencies 
+   * Delete All Currencies
    * @description Deletes all non-default store currencies.
    */
   deleteAllCurrencies: {
@@ -300,7 +300,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Currency 
+   * Get a Currency
    * @description Returns a single *Currency*.
    */
   getACurrency: {
@@ -322,17 +322,17 @@ export interface operations {
     };
   };
   /**
-   * Update a Currency 
+   * Update a Currency
    * @description Updates a *Currency*.
-   * 
+   *
    * **Read-Only Fields**
-   * 
+   *
    * * id
    * * date_created
    * * date_modified
    * * currency_code
-   * 
-   * 
+   *
+   *
    * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden.
    */
   updateACurrency: {
@@ -360,9 +360,9 @@ export interface operations {
     };
   };
   /**
-   * Delete a Currency 
+   * Delete a Currency
    * @description Deletes a *Currency*.
-   * 
+   *
    * If a currencyʼs `is_default` property is set to true, this currency cannot be deleted.
    */
   deleteACurrency: {

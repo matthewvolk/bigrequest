@@ -8,10 +8,10 @@
 export interface paths {
   "/payments/methods": {
     /**
-     * Get All Payment Methods 
-     * @deprecated 
+     * Get All Payment Methods
+     * @deprecated
      * @description Gets the list of enabled payment methods. Default sorting is by payment method, alphabetically from A to Z.
-     * 
+     *
      * > #### Note
      * > Avoid using this API operation if possible. It is not supported; therefore, all enabled providers may not appear.
      */
@@ -29,7 +29,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * payment_Base 
+     * payment_Base
      * @example {
      *   "code": "squarev2",
      *   "name": "Square",
@@ -38,17 +38,17 @@ export interface components {
      */
     payment_Base: {
       /**
-       * @description Unique platform-wide code identifying the payment method. 
+       * @description Unique platform-wide code identifying the payment method.
        * @example squarev2
        */
       code?: string;
       /**
-       * @description Descriptive name of the payment method. 
+       * @description Descriptive name of the payment method.
        * @example Square
        */
       name?: string;
       /**
-       * @description Determines whether the payment gateway is in test mode. Always false for offline payment methods. 
+       * @description Determines whether the payment gateway is in test mode. Always false for offline payment methods.
        * @example false
        */
       test_mode?: boolean;
@@ -69,10 +69,10 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Payment Methods 
-   * @deprecated 
+   * Get All Payment Methods
+   * @deprecated
    * @description Gets the list of enabled payment methods. Default sorting is by payment method, alphabetically from A to Z.
-   * 
+   *
    * > #### Note
    * > Avoid using this API operation if possible. It is not supported; therefore, all enabled providers may not appear.
    */
@@ -91,7 +91,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["payment_Base"])[];
+          "application/json": components["schemas"]["payment_Base"][];
         };
       };
     };

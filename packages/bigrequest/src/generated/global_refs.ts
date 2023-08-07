@@ -8,12 +8,12 @@
 export interface paths {
   "/users/{userId}": {
     /**
-     * Get User Info by User ID 
+     * Get User Info by User ID
      * @description Retrieve the information of the user with the matching user ID.
      */
     get: operations["get-users-userId"];
     /**
-     * Update User Information 
+     * Update User Information
      * @description Update the information of an existing user.
      */
     patch: operations["patch-users-userId"];
@@ -26,7 +26,7 @@ export interface paths {
   };
   "/user": {
     /**
-     * Create New User 
+     * Create New User
      * @description Create a new user.
      */
     post: operations["post-user"];
@@ -38,7 +38,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * User 
+     * User
      * @example {
      *   "id": 142,
      *   "firstName": "Alice",
@@ -57,20 +57,20 @@ export interface components {
       /** Format: email */
       email: string;
       /**
-       * Format: date 
+       * Format: date
        * @example 1997-10-31
        */
       dateOfBirth?: string;
       /** @description Set to true if the user's email has been verified. */
       emailVerified: boolean;
       /**
-       * Format: date 
+       * Format: date
        * @description The date that the user was created.
        */
       createDate?: string;
     };
     /**
-     * meta_Empty 
+     * meta_Empty
      * @description Response metadata.
      */
     meta_Empty: {
@@ -94,7 +94,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get User Info by User ID 
+   * Get User Info by User ID
    * @description Retrieve the information of the user with the matching user ID.
    */
   "get-users-userId": {
@@ -116,7 +116,7 @@ export interface operations {
     };
   };
   /**
-   * Update User Information 
+   * Update User Information
    * @description Update the information of an existing user.
    */
   "patch-users-userId": {
@@ -152,7 +152,7 @@ export interface operations {
     };
   };
   /**
-   * Create New User 
+   * Create New User
    * @description Create a new user.
    */
   "post-user": {

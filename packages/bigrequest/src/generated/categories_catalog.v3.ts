@@ -8,27 +8,27 @@
 export interface paths {
   "/catalog/categories": {
     /**
-     * Get All Categories 
+     * Get All Categories
      * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
      */
     get: operations["getCategories"];
     /**
-     * Create a Category 
+     * Create a Category
      * @description Creates a *Category*.
-     * 
-     * Use this endpoint when an API only works with categories of a default BigCommerce storefront (`channel_id=1`). 
-     * 
+     *
+     * Use this endpoint when an API only works with categories of a default BigCommerce storefront (`channel_id=1`).
+     *
      * Use the [Create Categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint when an API works with categories across different category trees that belong to different storefront channels.
-     * 
+     *
      * **Required Fields**:
-     * - `parent_id`: 
+     * - `parent_id`:
      * 	- To create a child category, set the `parent_id` to the parent category.
      * 	- To create a top level category, set the `parent_id` to `0`.
      * - `name`
-     * 
+     *
      * **Read-Only Fields**:
      * - `id`
-     * 
+     *
      * **Limits**:
      * - 16,000 categories per store limit.
      * - 1,000 categories per product limit.
@@ -38,12 +38,12 @@ export interface paths {
      */
     post: operations["createCategory"];
     /**
-     * Delete Categories 
+     * Delete Categories
      * @description Deletes *Category* objects. At least one filter parameter is required to perform the `DELETE` operation.
-     * 
+     *
      * **Usage Notes**
-     * 
-     * - Sending a `DELETE`request without specifying a filter parameter will result in a `422` error. 
+     *
+     * - Sending a `DELETE`request without specifying a filter parameter will result in a `422` error.
      * - Sending a `DELETE` request for a category that contains products will result in a `422` error. Move products to a new category by sending a `PUT` request to the `/catalog/products/{product_id}` endpoint before deleting a category.
      */
     delete: operations["deleteCategories"];
@@ -55,23 +55,23 @@ export interface paths {
   };
   "/catalog/categories/{category_id}": {
     /**
-     * Get a Category 
+     * Get a Category
      * @description Returns a single *Category*. Optional parameters can be passed in.
      */
     get: operations["getCategoryById"];
     /**
-     * Update a Category 
+     * Update a Category
      * @description Updates a *Category*.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * - id
      */
     put: operations["updateCategory"];
     /**
-     * Delete a Category 
+     * Delete a Category
      * @description Deletes a *Category*.
      */
     delete: operations["deleteCategoryById"];
@@ -86,23 +86,23 @@ export interface paths {
   };
   "/catalog/categories/{category_id}/metafields": {
     /**
-     * Get All Category Metafields 
+     * Get All Category Metafields
      * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
      */
     get: operations["getCategoryMetafieldsByCategoryId"];
     /**
-     * Create a Category Metafield 
+     * Create a Category Metafield
      * @description Creates a *Category Metafield*.
-     * 
+     *
      * **Required Fields:**
      * - permission_set
      * - namespace
      * - key
      * - value
-     * 
+     *
      * **Read-Only Fields**
      * - id
-     * 
+     *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createCategoryMetafield"];
@@ -117,30 +117,30 @@ export interface paths {
   };
   "/catalog/categories/{category_id}/metafields/{metafield_id}": {
     /**
-     * Get a Category Metafield 
+     * Get a Category Metafield
      * @description Returns a single *Category Metafield*. Optional parameters can be passed in.
      */
     get: operations["getCategoryMetafieldByCategoryId"];
     /**
-     * Update a Category Metafield 
+     * Update a Category Metafield
      * @description Updates a *Category Metafield*.
-     * 
+     *
      * **Required Fields**
      * * none
-     * 
+     *
      * **Read-Only Fields**
      * * id
      * * These fields can only be modified by the app (API credentials) that created the metafield:
      * 	* namespace
      * 	* key
      * 	* permission_set
-     * 
+     *
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
      */
     put: operations["updateCategoryMetafield"];
     /**
-     * Delete a Category Metafield 
+     * Delete a Category Metafield
      * @description Deletes a *Category Metafield*.
      */
     delete: operations["deleteCategoryMetafieldById"];
@@ -156,19 +156,19 @@ export interface paths {
   };
   "/catalog/categories/{category_id}/image": {
     /**
-     * Create a Category Image 
+     * Create a Category Image
      * @description Create a *Category Image*.
-     * 
+     *
      *  **Required Fields**
      * - image_file: Form posts are the only accepted upload option.
-     * 
+     *
      * Only one image at a time can be created.
      * Limit image size to 1MB.
      * To update a *Category Image*, use the [Update categories](/docs/rest-catalog/category-trees/categories#update-categories) endpoint and an `image_url`.
      */
     post: operations["createCategoryImage"];
     /**
-     * Delete a Category Image 
+     * Delete a Category Image
      * @description Deletes a *Cateogory Image*.
      */
     delete: operations["deleteCategoryImage"];
@@ -183,9 +183,9 @@ export interface paths {
   };
   "/catalog/categories/{category_id}/products/sort-order": {
     /**
-     * Get Product Sort Order 
+     * Get Product Sort Order
      * @description Returns a list of products and their sort order for a specific category.
-     * 
+     *
      * **Usage Notes**
      * * Data pairs are displayed in ascending order based on products' `sort_order` values.
      * * `null` values are allowed for products without specified `sort_order` values.
@@ -197,7 +197,7 @@ export interface paths {
      */
     get: operations["getsortorders"];
     /**
-     * Update Product Sort Order 
+     * Update Product Sort Order
      * @description Updates sort order of products within a specific category.
      */
     put: operations["updatesortorder"];
@@ -217,7 +217,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * category_Full 
+     * category_Full
      * @description Common Category object properties.
      */
     category_Full: {
@@ -228,49 +228,49 @@ export interface components {
       id?: number;
       /**
        * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-       * Required in a POST if creating a child category. 
+       * Required in a POST if creating a child category.
        * @example 2
        */
       parent_id: number;
       /**
        * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-       * Required in a POST. 
+       * Required in a POST.
        * @example Bath
        */
       name: string;
       /**
        * @description The product description, which can include HTML formatting.
-       *  
+       *
        * @example <p>We offer a wide variety of products perfect for relaxing</p>
        */
       description?: string;
       /**
        * @description Number of views the category has on the storefront.
-       *  
+       *
        * @example 1050
        */
       views?: number;
       /**
        * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-       *  
+       *
        * @example 3
        */
       sort_order?: number;
       /**
        * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-       *  
+       *
        * @example Bath
        */
       page_title?: string;
       /** @description A comma-separated list of keywords that can be used to locate the category when searching the store. */
       search_keywords?: string;
       /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-      meta_keywords?: (string)[];
+      meta_keywords?: string[];
       /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
       meta_description?: string;
       /**
        * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
-       *  
+       *
        * @example category.html
        */
       layout_file?: string;
@@ -278,63 +278,63 @@ export interface components {
       is_visible?: boolean;
       /**
        * @description Determines how the products are sorted on category page load.
-       *  
+       *
        * @enum {string}
        */
       default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
       /**
        * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
        */
       image_url?: string;
       custom_url?: components["schemas"]["customUrl_Full"];
     };
     /**
-     * metafield_Base 
+     * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Base: {
       /**
        * @description The name of the field, for example: `location_id`, `color`. Required for POST.
-       *  
+       *
        * @example Location
        */
       key: string;
       /**
        * @description The value of the field, for example: `1`, `blue`. Required for POST.
-       *  
+       *
        * @example 4HG
        */
       value: string;
       /**
        * @description Namespace for the metafield, for organizational purposes. This is set by the developer. Required for POST.
-       *  
+       *
        * @example Warehouse Locations
        */
       namespace: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
-       * 
+       *
        * |Value|Description
        * |-|-|
        * |`app_only`|Private to the app that owns the field|
        * |`read`|Visible to other API consumers|
        * |`write`|Open for reading and writing by other API consumers|
        * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
-       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront| 
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
        * @enum {string}
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Description for the metafields.
-       *  
+       *
        * @example Location in the warehouse
        */
       description?: string;
     };
     /**
-     * customUrl_Full 
+     * customUrl_Full
      * @description The custom URL for the product on the storefront.
      */
     customUrl_Full: {
@@ -344,44 +344,44 @@ export interface components {
       is_customized?: boolean;
     };
     /**
-     * metaCollection_Full 
+     * metaCollection_Full
      * @description Data about the response, including pagination and collection totals.
      */
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
     /**
-     * pagination_Full 
+     * pagination_Full
      * @description Data about the response, including pagination and collection totals.
      */
     pagination_Full: {
       /**
        * @description Total number of items in the result set.
-       *  
+       *
        * @example 36
        */
       total?: number;
       /**
        * @description Total number of items in the collection response.
-       *  
+       *
        * @example 36
        */
       count?: number;
       /**
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-       *  
+       *
        * @example 50
        */
       per_page?: number;
       /**
        * @description The page you are currently on within the collection.
-       *  
+       *
        * @example 1
        */
       current_page?: number;
       /**
        * @description The total number of pages in the collection.
-       *  
+       *
        * @example 1
        */
       total_pages?: number;
@@ -391,7 +391,7 @@ export interface components {
         previous?: string;
         /**
          * @description Link to the current page returned in the response.
-         *  
+         *
          * @example ?page=1&limit=50
          */
         current?: string;
@@ -400,14 +400,14 @@ export interface components {
       };
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     metaEmpty_Full: {
       [key: string]: unknown;
     };
     /**
-     * error_Base 
+     * error_Base
      * @description Error payload for the BigCommerce API.
      */
     error_Base: {
@@ -421,46 +421,46 @@ export interface components {
     /** metafield_Full */
     metafield_Full: {
       /**
-       * @description Unique ID of the *Metafield*. Read-Only. 
+       * @description Unique ID of the *Metafield*. Read-Only.
        * @example 6
        */
       id?: number;
     } & components["schemas"]["metafield_Base"] & ({
       /**
        * @description The type of resource with which the metafield is associated.
-       *  
-       * @example product 
+       *
+       * @example product
        * @enum {string}
        */
       resource_type?: "category" | "brand" | "product" | "variant";
       /**
        * @description The ID of the resource with which the metafield is associated.
-       *  
+       *
        * @example 111
        */
       resource_id?: number;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time of the metafield's creation. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_created?: string;
       /**
-       * Format: date-time 
+       * Format: date-time
        * @description Date and time when the metafield was last updated. Read-Only.
-       *  
+       *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_modified?: string;
     });
     /**
-     * productSortOrder 
+     * productSortOrder
      * @description The relative priority of the product among other products inside the category.
      */
     productSortOrder: {
       /**
-       * @description The ID of the associated product. 
+       * @description The ID of the associated product.
        * @example 99
        */
       product_id: number;
@@ -479,7 +479,7 @@ export interface components {
     default_product_sort: {
       /**
        * @description Determines how the products are sorted on category page load.
-       *  
+       *
        * @enum {string}
        */
       default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
@@ -488,7 +488,7 @@ export interface components {
     name: {
       /**
        * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-       * Required in a POST. 
+       * Required in a POST.
        * @example Bath
        */
       name?: string;
@@ -497,7 +497,7 @@ export interface components {
     description: {
       /**
        * @description The product description, which can include HTML formatting.
-       *  
+       *
        * @example <p>We offer a wide variety of products perfect for relaxing</p>
        */
       description?: string;
@@ -506,7 +506,7 @@ export interface components {
     views: {
       /**
        * @description Number of views the category has on the storefront.
-       *  
+       *
        * @example 1050
        */
       views?: number;
@@ -515,7 +515,7 @@ export interface components {
     sort_order: {
       /**
        * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-       *  
+       *
        * @example 3
        */
       sort_order?: number;
@@ -524,7 +524,7 @@ export interface components {
     page_title: {
       /**
        * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-       *  
+       *
        * @example Bath
        */
       page_title?: string;
@@ -537,13 +537,13 @@ export interface components {
     /** meta_keywords */
     meta_keywords: {
       /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-      meta_keywords?: (string)[];
+      meta_keywords?: string[];
     };
     /** layout_file */
     layout_file: {
       /**
        * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied.
-       *  
+       *
        * @example category.html
        */
       layout_file?: string;
@@ -557,7 +557,7 @@ export interface components {
     image_url: {
       /**
        * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
-       *  
+       *
        * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
        */
       image_url?: string;
@@ -579,7 +579,7 @@ export interface components {
     parent_id: {
       /**
        * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-       * Required in a POST if creating a child category. 
+       * Required in a POST if creating a child category.
        * @example 2
        */
       parent_id?: number;
@@ -613,7 +613,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Categories 
+   * Get All Categories
    * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
    */
   getCategories: {
@@ -621,25 +621,25 @@ export interface operations {
       query?: {
         /** @description Filter items by id. */
         id?: number;
-        "id:in"?: (number)[];
-        "id:not_in"?: (number)[];
-        "id:min"?: (number)[];
-        "id:max"?: (number)[];
-        "id:greater"?: (number)[];
-        "id:less"?: (number)[];
+        "id:in"?: number[];
+        "id:not_in"?: number[];
+        "id:min"?: number[];
+        "id:max"?: number[];
+        "id:greater"?: number[];
+        "id:less"?: number[];
         /** @description Filter items by name. */
         name?: string;
-        "name:like"?: (string)[];
+        "name:like"?: string[];
         /** @description Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id. */
         parent_id?: number;
-        "parent_id:in"?: (number)[];
-        "parent_id:min"?: (number)[];
-        "parent_id:max"?: (number)[];
-        "parent_id:greater"?: (number)[];
-        "parent_id:less"?: (number)[];
+        "parent_id:in"?: number[];
+        "parent_id:min"?: number[];
+        "parent_id:max"?: number[];
+        "parent_id:greater"?: number[];
+        "parent_id:less"?: number[];
         /** @description Filter items by page_title. */
         page_title?: string;
-        "page_title:like"?: (string)[];
+        "page_title:like"?: string[];
         /** @description Filter items by keywords. eg. new, towel, bath */
         keyword?: string;
         /** @description Filter items by if visible on the storefront. */
@@ -661,7 +661,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["Category"])[];
+            data?: components["schemas"]["Category"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -669,22 +669,22 @@ export interface operations {
     };
   };
   /**
-   * Create a Category 
+   * Create a Category
    * @description Creates a *Category*.
-   * 
-   * Use this endpoint when an API only works with categories of a default BigCommerce storefront (`channel_id=1`). 
-   * 
+   *
+   * Use this endpoint when an API only works with categories of a default BigCommerce storefront (`channel_id=1`).
+   *
    * Use the [Create Categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint when an API works with categories across different category trees that belong to different storefront channels.
-   * 
+   *
    * **Required Fields**:
-   * - `parent_id`: 
+   * - `parent_id`:
    * 	- To create a child category, set the `parent_id` to the parent category.
    * 	- To create a top level category, set the `parent_id` to `0`.
    * - `name`
-   * 
+   *
    * **Read-Only Fields**:
    * - `id`
-   * 
+   *
    * **Limits**:
    * - 16,000 categories per store limit.
    * - 1,000 categories per product limit.
@@ -704,49 +704,49 @@ export interface operations {
         "application/json": {
           /**
            * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-           * Required in a POST if creating a child category. 
+           * Required in a POST if creating a child category.
            * @example 2
            */
           parent_id: number;
           /**
            * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-           * Required in a POST. 
+           * Required in a POST.
            * @example Bath
            */
           name: string;
           /**
            * @description The product description, which can include HTML formatting.
-           *  
+           *
            * @example <p>We offer a wide variety of products perfect for relaxing</p>
            */
           description?: string;
           /**
            * @description Number of views the category has on the storefront.
-           *  
+           *
            * @example 1050
            */
           views?: number;
           /**
            * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-           *  
+           *
            * @example 3
            */
           sort_order?: number;
           /**
            * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-           *  
+           *
            * @example Bath
            */
           page_title?: string;
           /** @description A comma-separated list of keywords that can be used to locate the category when searching the store. */
           search_keywords?: string;
           /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-          meta_keywords?: (string)[];
+          meta_keywords?: string[];
           /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
           meta_description?: string;
           /**
            * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
-           *  
+           *
            * @example category.html
            */
           layout_file?: string;
@@ -754,24 +754,24 @@ export interface operations {
           is_visible?: boolean;
           /**
            * @description Determines how the products are sorted on category page load.
-           *  
+           *
            * @enum {string}
            */
           default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
           /**
            * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
-           *  
+           *
            * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
            */
           image_url?: string;
           /**
-           * Custom Url Category 
+           * Custom Url Category
            * @description The custom URL for the category on the storefront.
            */
           custom_url?: {
             /**
              * @description Category URL on the storefront.
-             *  
+             *
              * @example /shoes
              */
             url?: string;
@@ -833,12 +833,12 @@ export interface operations {
     };
   };
   /**
-   * Delete Categories 
+   * Delete Categories
    * @description Deletes *Category* objects. At least one filter parameter is required to perform the `DELETE` operation.
-   * 
+   *
    * **Usage Notes**
-   * 
-   * - Sending a `DELETE`request without specifying a filter parameter will result in a `422` error. 
+   *
+   * - Sending a `DELETE`request without specifying a filter parameter will result in a `422` error.
    * - Sending a `DELETE` request for a category that contains products will result in a `422` error. Move products to a new category by sending a `PUT` request to the `/catalog/products/{product_id}` endpoint before deleting a category.
    */
   deleteCategories: {
@@ -846,12 +846,12 @@ export interface operations {
       query?: {
         /** @description Filter items by id. */
         id?: number;
-        "id:in"?: (number)[];
-        "id:not_in"?: (number)[];
-        "id:min"?: (number)[];
-        "id:max"?: (number)[];
-        "id:greater"?: (number)[];
-        "id:less"?: (number)[];
+        "id:in"?: number[];
+        "id:not_in"?: number[];
+        "id:min"?: number[];
+        "id:max"?: number[];
+        "id:greater"?: number[];
+        "id:less"?: number[];
         /** @description Filter items by name. */
         name?: string;
         /** @description Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id. */
@@ -862,13 +862,13 @@ export interface operations {
         keyword?: string;
         /** @description Filter items by if visible on the storefront. */
         is_visible?: boolean;
-        "name:like"?: (string)[];
-        "parent_id:in"?: (number)[];
-        "parent_id:min"?: (number)[];
-        "parent_id:max"?: (number)[];
-        "parent_id:greater"?: (number)[];
-        "parent_id:less"?: (number)[];
-        "page_title:like"?: (string)[];
+        "name:like"?: string[];
+        "parent_id:in"?: number[];
+        "parent_id:min"?: number[];
+        "parent_id:max"?: number[];
+        "parent_id:greater"?: number[];
+        "parent_id:less"?: number[];
+        "page_title:like"?: string[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -882,7 +882,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Category 
+   * Get a Category
    * @description Returns a single *Category*. Optional parameters can be passed in.
    */
   getCategoryById: {
@@ -927,12 +927,12 @@ export interface operations {
     };
   };
   /**
-   * Update a Category 
+   * Update a Category
    * @description Updates a *Category*.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * - id
    */
@@ -958,49 +958,49 @@ export interface operations {
           id?: number;
           /**
            * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-           * Required in a POST if creating a child category. 
+           * Required in a POST if creating a child category.
            * @example 2
            */
           parent_id: number;
           /**
            * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-           * Required in a POST. 
+           * Required in a POST.
            * @example Bath
            */
           name: string;
           /**
            * @description The product description, which can include HTML formatting.
-           *  
+           *
            * @example <p>We offer a wide variety of products perfect for relaxing</p>
            */
           description?: string;
           /**
            * @description Number of views the category has on the storefront.
-           *  
+           *
            * @example 1050
            */
           views?: number;
           /**
            * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-           *  
+           *
            * @example 3
            */
           sort_order?: number;
           /**
            * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-           *  
+           *
            * @example Bath
            */
           page_title?: string;
           /** @description A comma-separated list of keywords that can be used to locate the category when searching the store. */
           search_keywords?: string;
           /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-          meta_keywords?: (string)[];
+          meta_keywords?: string[];
           /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
           meta_description?: string;
           /**
            * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
-           *  
+           *
            * @example category.html
            */
           layout_file?: string;
@@ -1008,24 +1008,24 @@ export interface operations {
           is_visible?: boolean;
           /**
            * @description Determines how the products are sorted on category page load.
-           *  
+           *
            * @enum {string}
            */
           default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
           /**
            * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
-           *  
+           *
            * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
            */
           image_url?: string;
           /**
-           * Custom Url Category 
+           * Custom Url Category
            * @description The custom URL for the category on the storefront.
            */
           custom_url?: {
             /**
              * @description Category URL on the storefront.
-             *  
+             *
              * @example /shoes
              */
             url?: string;
@@ -1040,7 +1040,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Category 
+             * Category
              * @description Common Category object properties.
              */
             data?: {
@@ -1051,49 +1051,49 @@ export interface operations {
               id?: number;
               /**
                * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-               * Required in a POST if creating a child category. 
+               * Required in a POST if creating a child category.
                * @example 2
                */
               parent_id: number;
               /**
                * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-               * Required in a POST. 
+               * Required in a POST.
                * @example Bath
                */
               name: string;
               /**
                * @description The product description, which can include HTML formatting.
-               *  
+               *
                * @example <p>We offer a wide variety of products perfect for relaxing</p>
                */
               description?: string;
               /**
                * @description Number of views the category has on the storefront.
-               *  
+               *
                * @example 1050
                */
               views?: number;
               /**
                * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-               *  
+               *
                * @example 3
                */
               sort_order?: number;
               /**
                * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-               *  
+               *
                * @example Bath
                */
               page_title?: string;
               /** @description A comma-separated list of keywords that can be used to locate the category when searching the store. */
               search_keywords?: string;
               /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-              meta_keywords?: (string)[];
+              meta_keywords?: string[];
               /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
               meta_description?: string;
               /**
                * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
-               *  
+               *
                * @example category.html
                */
               layout_file?: string;
@@ -1101,24 +1101,24 @@ export interface operations {
               is_visible?: boolean;
               /**
                * @description Determines how the products are sorted on category page load.
-               *  
+               *
                * @enum {string}
                */
               default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
               /**
                * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
-               *  
+               *
                * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
                */
               image_url?: string;
               /**
-               * Custom Url Category 
+               * Custom Url Category
                * @description The custom URL for the category on the storefront.
                */
               custom_url?: {
                 /**
                  * @description Category URL on the storefront.
-                 *  
+                 *
                  * @example /shoes
                  */
                 url?: string;
@@ -1127,7 +1127,7 @@ export interface operations {
               };
             };
             /**
-             * Meta 
+             * Meta
              * @description Empty meta object; may be used later.
              */
             meta?: Record<string, never>;
@@ -1185,7 +1185,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Category 
+   * Delete a Category
    * @description Deletes a *Category*.
    */
   deleteCategoryById: {
@@ -1207,7 +1207,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Category Metafields 
+   * Get All Category Metafields
    * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
    */
   getCategoryMetafieldsByCategoryId: {
@@ -1215,12 +1215,12 @@ export interface operations {
       query?: {
         /** @description Filter items by id. */
         id?: number;
-        "id:in"?: (number)[];
-        "id:not_in"?: (number)[];
-        "id:min"?: (number)[];
-        "id:max"?: (number)[];
-        "id:greater"?: (number)[];
-        "id:less"?: (number)[];
+        "id:in"?: number[];
+        "id:not_in"?: number[];
+        "id:min"?: number[];
+        "id:max"?: number[];
+        "id:greater"?: number[];
+        "id:less"?: number[];
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
@@ -1247,7 +1247,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["metafield_Full"])[];
+            data?: components["schemas"]["metafield_Full"][];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -1268,18 +1268,18 @@ export interface operations {
     };
   };
   /**
-   * Create a Category Metafield 
+   * Create a Category Metafield
    * @description Creates a *Category Metafield*.
-   * 
+   *
    * **Required Fields:**
    * - permission_set
    * - namespace
    * - key
    * - value
-   * 
+   *
    * **Read-Only Fields**
    * - id
-   * 
+   *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createCategoryMetafield: {
@@ -1345,7 +1345,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Category Metafield 
+   * Get a Category Metafield
    * @description Returns a single *Category Metafield*. Optional parameters can be passed in.
    */
   getCategoryMetafieldByCategoryId: {
@@ -1393,19 +1393,19 @@ export interface operations {
     };
   };
   /**
-   * Update a Category Metafield 
+   * Update a Category Metafield
    * @description Updates a *Category Metafield*.
-   * 
+   *
    * **Required Fields**
    * * none
-   * 
+   *
    * **Read-Only Fields**
    * * id
    * * These fields can only be modified by the app (API credentials) that created the metafield:
    * 	* namespace
    * 	* key
    * 	* permission_set
-   * 
+   *
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
    */
@@ -1454,7 +1454,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Category Metafield 
+   * Delete a Category Metafield
    * @description Deletes a *Category Metafield*.
    */
   deleteCategoryMetafieldById: {
@@ -1479,12 +1479,12 @@ export interface operations {
     };
   };
   /**
-   * Create a Category Image 
+   * Create a Category Image
    * @description Create a *Category Image*.
-   * 
+   *
    *  **Required Fields**
    * - image_file: Form posts are the only accepted upload option.
-   * 
+   *
    * Only one image at a time can be created.
    * Limit image size to 1MB.
    * To update a *Category Image*, use the [Update categories](/docs/rest-catalog/category-trees/categories#update-categories) endpoint and an `image_url`.
@@ -1559,7 +1559,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Category Image 
+   * Delete a Category Image
    * @description Deletes a *Cateogory Image*.
    */
   deleteCategoryImage: {
@@ -1581,9 +1581,9 @@ export interface operations {
     };
   };
   /**
-   * Get Product Sort Order 
+   * Get Product Sort Order
    * @description Returns a list of products and their sort order for a specific category.
-   * 
+   *
    * **Usage Notes**
    * * Data pairs are displayed in ascending order based on products' `sort_order` values.
    * * `null` values are allowed for products without specified `sort_order` values.
@@ -1619,7 +1619,7 @@ export interface operations {
     };
   };
   /**
-   * Update Product Sort Order 
+   * Update Product Sort Order
    * @description Updates sort order of products within a specific category.
    */
   updatesortorder: {
@@ -1636,13 +1636,13 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["productSortOrder"])[];
+        "application/json": components["schemas"]["productSortOrder"][];
       };
     };
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["productSortOrder"])[];
+          "application/json": components["schemas"]["productSortOrder"][];
         };
       };
       /** @description The requested category was not found. */
@@ -1653,9 +1653,9 @@ export interface operations {
       };
       /**
        * @description Unprocessable entity.
-       * 
+       *
        * Please verify if all requested products are assigned to the category.
-       * 
+       *
        * Please verify if all required fields are present in the request body and are filled with values correctly.
        */
       422: {

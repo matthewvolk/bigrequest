@@ -8,11 +8,11 @@
 export interface paths {
   "/orders/{orderId}": {
     /**
-     * Get Order 
+     * Get Order
      * @description Returns *Order* data. This will return order data immediately after an order is placed on the storefront.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     get: operations["OrdersByOrderIdGet"];
@@ -24,7 +24,7 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
-     * Data 
+     * Data
      * @description Response data container for Order endpoints (`POST /order` and `POST /order/{orderId}`).
      */
     Data: {
@@ -35,7 +35,7 @@ export interface components {
       /** Format: double */
       orderId?: number;
       /**
-       * Format: uuid 
+       * Format: uuid
        * @description The ID of cart that was converted to order.
        */
       cartId?: string;
@@ -43,31 +43,31 @@ export interface components {
       /** @description Whether this item is taxable. */
       isTaxIncluded?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description Cost of cartʼs contents before applying discounts.
        */
       baseAmount?: number;
       /**
-       * Format: float 
+       * Format: float
        * @description Discounted amount.
        */
       discountAmount?: number;
       /** @description Gift wrapping for all items, including or excluding tax. */
       giftWrappingCostTotal?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Sum of line-items amounts, minus cart-level discounts and coupons. This amount includes taxes where applicable.
        */
       orderAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description Order amount represented in integer. Eg. 1234 for $12.34
        */
       orderAmountAsInteger?: number;
       /** @description Array of `AppliedCoupon` objects applied to this cart. */
-      coupons?: (components["schemas"]["AppliedCoupon"])[];
+      coupons?: components["schemas"]["AppliedCoupon"][];
       /** @description Array of `LineItem` objects. */
-      lineItems?: (components["schemas"]["OrderLineItem"])[];
+      lineItems?: components["schemas"]["OrderLineItem"][];
       customerId?: string;
       billingAddress?: components["schemas"]["AddressProperties"];
       status?: components["schemas"]["Status"];
@@ -83,17 +83,17 @@ export interface components {
       shippingCostBeforeDiscount?: number;
       handlingCostTotal?: number;
       customerCanBeCreated?: boolean;
-      taxes?: ({
+      taxes?: {
           name?: string;
           amount?: number;
-        })[];
+        }[];
       taxTotal?: number;
       /** @description ID of the channel which the order belongs to. */
       channelId?: number;
       consignments?: components["schemas"]["Consignments"];
     };
     /**
-     * Currency 
+     * Currency
      * @description This will always be the same between cart and checkout.
      */
     Currency: {
@@ -104,7 +104,7 @@ export interface components {
       /** @description The currency symbol. */
       symbol?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description Number of decimal places for the currency. For example, USD currency has two decimal places.
        */
       decimalPlaces?: number;
@@ -120,7 +120,7 @@ export interface components {
       /** @description Key name to identify the type of coupon. */
       couponType?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description The discounted amount applied within a given context.
        */
       discountedAmount?: number;
@@ -128,7 +128,7 @@ export interface components {
     /** Applied Discount */
     AppliedDiscount: {
       /**
-       * @description Property key is discount ID; property value is discount amount. 
+       * @description Property key is discount ID; property value is discount amount.
        * @example 8.28
        */
       coupon?: number;
@@ -136,11 +136,11 @@ export interface components {
     /** Order Line Item */
     OrderLineItem: {
       /** @description Array of `ItemPhysical` objects. */
-      physicalItems: (components["schemas"]["ItemPhysical"])[];
+      physicalItems: components["schemas"]["ItemPhysical"][];
       /** @description Array of `ItemDigital` objects. */
-      digitalItems: (components["schemas"]["OrderItemDigital"])[];
+      digitalItems: components["schemas"]["OrderItemDigital"][];
       /** @description Array of `ItemGiftCertificate` objects. */
-      giftCertificate: (components["schemas"]["OrderItemGiftCertificate"])[];
+      giftCertificate: components["schemas"]["OrderItemGiftCertificate"][];
     };
     /** Item Physical */
     ItemPhysical: {
@@ -149,12 +149,12 @@ export interface components {
       /** @description Bundled items will have their parentʼs item ID. */
       parentId?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description ID of the variant.
        */
       variantId?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description ID of the product.
        */
       productId?: number;
@@ -165,10 +165,12 @@ export interface components {
       /** @description The product URL. */
       url?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description Quantity of this item.
        */
       quantity: number;
+      /** @description The product's brand. */
+      brand?: string;
       /** @description Whether the item is taxable. */
       isTaxable?: boolean;
       /** @description A publicly-accessible URL for an image of this item. */
@@ -176,36 +178,36 @@ export interface components {
       /** @description List of discounts applied to this item. If no discount applied, empty array is returned. If discount has been applied, discount object returned. */
       discounts?: Record<string, never>;
       /**
-       * Format: double 
+       * Format: double
        * @description The total value of all discounts applied to this item (excluding coupon).
        */
       discountAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The total value of all coupons applied to this item.
        */
       couponAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs list price, as quoted by the manufacturer/distributor.
        */
       listPrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
        */
       salePrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs list price multiplied by the quantity.
        */
       extendedListPrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs sale price multiplied by the quantity.
        */
       extendedSalePrice?: number;
-      /** @description the product type - physical or digital */
+      /** @description the product type - physical or digital. */
       type?: string;
       /** @description Whether this item has been added automatically by a promotion. */
       addedByPromotion?: boolean;
@@ -213,7 +215,7 @@ export interface components {
       isShippingRequired?: boolean;
       giftWrapping?: components["schemas"]["GiftWrapping"];
       /** @description Categories the item belongs to. */
-      categories?: (Record<string, never>)[];
+      categories?: Record<string, never>[];
     };
     /** Gift Wrapping */
     GiftWrapping: {
@@ -229,12 +231,12 @@ export interface components {
       /** @description Bundled items will have their parentʼs item ID. */
       parentId?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description ID of the variant.
        */
       variantId?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description ID of the product.
        */
       productId?: number;
@@ -245,70 +247,72 @@ export interface components {
       /** @description The product URL. */
       url?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description Quantity of this item.
        */
       quantity: number;
+      /** @description The item's brand. */
+      brand?: string;
       /** @description Whether the item is taxable. */
       isTaxable?: boolean;
       /** @description A publicly-accessible URL for an image of this item. */
       imageUrl?: string;
       /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
-      discounts?: (components["schemas"]["AppliedDiscount"])[];
+      discounts?: components["schemas"]["AppliedDiscount"][];
       /**
-       * Format: double 
+       * Format: double
        * @description The total value of all discounts applied to this item (excluding coupon).
        */
       discountAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The total value of all coupons applied to this item.
        */
       couponAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs list price, as quoted by the manufacturer/distributor.
        */
       listPrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
        */
       salePrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs list price multiplied by the quantity.
        */
       extendedListPrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs sale price multiplied by the quantity.
        */
       extendedSalePrice?: number;
       /** @description the product type - physical or digital */
       type?: string;
       /** @description URLs to download all product files. */
-      downloadFileUrls?: (string)[];
+      downloadFileUrls?: string[];
       /** @description The URL for the combined downloads page. */
       downloadPageUrl?: string;
       /** @description Specifies the combined download size in human-readable style; for example, `30MB`. */
       downloadSize?: string;
       /** @description Categories the item belongs to. */
-      categories?: (Record<string, never>)[];
+      categories?: Record<string, never>[];
     };
     /** Order Item Gift Certificate */
     OrderItemGiftCertificate: {
       /** @description The itemʼs product name. */
       name?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description Quantity of this item.
        */
       quantity?: number;
       /** @description Whether the item is taxable. */
       isTaxable?: boolean;
       /**
-       * Format: double 
+       * Format: double
        * @description Price of the item
        */
       amount?: number;
@@ -336,7 +340,7 @@ export interface components {
       countryCode: string;
       postalCode?: string;
       phone?: string;
-      customFields?: (components["schemas"]["CustomField"])[];
+      customFields?: components["schemas"]["CustomField"][];
     };
     /** Custom Field */
     CustomField: {
@@ -345,9 +349,9 @@ export interface components {
       fieldValue?: string;
     };
     /**
-     * Status 
-     * @description Order status. 
-     * @example INCOMPLETE 
+     * Status
+     * @description Order status.
+     * @example INCOMPLETE
      * @enum {string}
      */
     Status: "INCOMPLETE" | "PENDING" | "SHIPPED" | "PARTIALLY_SHIPPED" | "REFUNDED" | "CANCELLED" | "DECLINED" | "AWAITING_PAYMENT" | "AWAITING_PICKUP" | "AWAITING_SHIPMENT" | "COMPLETED" | "AWAITING_FULFILLMENT" | "MANUAL_VERIFICATION_REQUIRED" | "DISPUTED" | "PARTIALLY_REFUNDED";
@@ -358,12 +362,12 @@ export interface components {
       /** @description Bundled items will have their parentʼs item ID. */
       parentId?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description ID of the variant.
        */
       variantId?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description ID of the product.
        */
       productId?: number;
@@ -374,7 +378,7 @@ export interface components {
       /** @description The product URL. */
       url?: string;
       /**
-       * Format: double 
+       * Format: double
        * @description Quantity of this item.
        */
       quantity: number;
@@ -383,34 +387,34 @@ export interface components {
       /** @description A publicly-accessible URL for an image of this item. */
       imageUrl?: string;
       /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
-      discounts?: (components["schemas"]["AppliedDiscount"])[];
+      discounts?: components["schemas"]["AppliedDiscount"][];
       /**
-       * Format: double 
+       * Format: double
        * @description The total value of all discounts applied to this item (excluding coupon).
        */
       discountAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The total value of all coupons applied to this item.
        */
       couponAmount?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs list price, as quoted by the manufacturer/distributor.
        */
       listPrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
        */
       salePrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs list price multiplied by the quantity.
        */
       extendedListPrice?: number;
       /**
-       * Format: double 
+       * Format: double
        * @description The itemʼs sale price multiplied by the quantity.
        */
       extendedSalePrice?: number;
@@ -434,9 +438,9 @@ export interface components {
       shippingCostTotal?: number;
       shippingCostBeforeDiscount?: number;
       handlingCostTotal?: number;
-      coupons?: (Record<string, never>)[];
+      coupons?: Record<string, never>[];
       lineItems?: {
-        physicalItems?: ({
+        physicalItems?: {
             id?: number;
             productId?: number;
             name?: string;
@@ -444,19 +448,21 @@ export interface components {
             quantity?: number;
             isTaxable?: boolean;
             imageUrl?: string;
-            discounts?: (Record<string, never>)[];
+            discounts?: Record<string, never>[];
             discountAmount?: number;
+            /** @description The product's brand. */
+            brand?: string;
             listPrice?: number;
             salePrice?: number;
             extendedListPrice?: number;
             extendedSalePrice?: number;
             extendedComparisonPrice?: number;
-            categories?: (Record<string, never>)[];
+            categories?: Record<string, never>[];
             type?: string;
             variantId?: number;
-          })[];
-        digitalItems?: (Record<string, never>)[];
-        giftCertificates?: (Record<string, never>)[];
+          }[];
+        digitalItems?: Record<string, never>[];
+        giftCertificates?: Record<string, never>[];
       };
       customerId?: number;
       billingAddress?: {
@@ -473,7 +479,7 @@ export interface components {
         countryCode?: string;
         postalCode?: string;
         phone?: string;
-        customFields?: (Record<string, never>)[];
+        customFields?: Record<string, never>[];
       };
       status?: string;
       customerCanBeCreated?: boolean;
@@ -481,26 +487,26 @@ export interface components {
       isDownloadable?: boolean;
       isComplete?: boolean;
       customerMessage?: string;
-      taxes?: ({
+      taxes?: {
           name?: string;
           amount?: number;
-        })[];
+        }[];
       taxTotal?: number;
     };
     /**
-     * Consignments 
+     * Consignments
      * @description All the consignments of the order.
      */
     Consignments: {
       /** @description List of shipping consignments */
-      shipping?: (components["schemas"]["ShippingConsignment"])[];
+      shipping?: components["schemas"]["ShippingConsignment"][];
     };
     /**
-     * ShippingConsignment 
+     * ShippingConsignment
      * @description Shipping consignment
      */
     ShippingConsignment: {
-      lineItems?: (components["schemas"]["ConsignmentLineItem"])[];
+      lineItems?: components["schemas"]["ConsignmentLineItem"][];
       /** @example 1 */
       shippingAddressId?: number;
       /** @example first1 */
@@ -557,7 +563,7 @@ export interface components {
       shippingZoneId?: number;
       /** @example United States */
       shippingZoneName?: string;
-      customFields?: (components["schemas"]["ConsignmentFormField"])[];
+      customFields?: components["schemas"]["ConsignmentFormField"][];
     };
     /** ConsignmentLineItem */
     ConsignmentLineItem: {
@@ -572,13 +578,13 @@ export interface components {
       value?: string | null;
     };
     /**
-     * PickupConsignment 
+     * PickupConsignment
      * @description Pickup consignment
      */
     PickupConsignment: {
       /** @example 3 */
       id?: number;
-      lineItems?: (components["schemas"]["ConsignmentLineItem"])[];
+      lineItems?: components["schemas"]["ConsignmentLineItem"][];
       /** @example 10 */
       pickupMethodId?: number;
       /** @example Pickup Method 10: Pickup at Location 1 */
@@ -632,11 +638,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Order 
+   * Get Order
    * @description Returns *Order* data. This will return order data immediately after an order is placed on the storefront.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   OrdersByOrderIdGet: {

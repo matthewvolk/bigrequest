@@ -8,13 +8,13 @@
 export interface paths {
   "/payments/access_tokens": {
     /**
-     * Create Payment Access Token 
+     * Create Payment Access Token
      * @description Use this endpoint to create a payment access token. A payment access token is required to process payments with the BigCommerce API.
-     * 
+     *
      * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout#handling-payments).
-     * 
+     *
      * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment).
-     * 
+     *
      * **Required Fields**
      * * order_id
      */
@@ -34,13 +34,13 @@ export interface components {
     /** Order */
     Order: {
       /**
-       * Format: int32 
+       * Format: int32
        * @description Identifier for the order
        */
       id: number;
       /**
-       * @description Whether this is a recurring order. If the order is recurring this field should be set to true in order to let the payment gateway know. 
-       * @default false 
+       * @description Whether this is a recurring order. If the order is recurring this field should be set to true in order to let the payment gateway know.
+       * @default false
        * @example false
        */
       is_recurring?: boolean;
@@ -63,13 +63,13 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Create Payment Access Token 
+   * Create Payment Access Token
    * @description Use this endpoint to create a payment access token. A payment access token is required to process payments with the BigCommerce API.
-   * 
+   *
    * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout#handling-payments).
-   * 
+   *
    * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment).
-   * 
+   *
    * **Required Fields**
    * * order_id
    */
@@ -111,7 +111,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -122,7 +122,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -137,7 +137,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -148,7 +148,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -163,7 +163,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -174,7 +174,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -189,7 +189,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -200,7 +200,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -215,7 +215,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -226,7 +226,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;
@@ -241,7 +241,7 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Format: int32 
+             * Format: int32
              * @description HTTP status code
              */
             status: number;
@@ -252,7 +252,7 @@ export interface operations {
             /** @description Reference that identifies the particular error */
             type: string;
             /**
-             * Format: int32 
+             * Format: int32
              * @description Code representing the particular error
              */
             code?: number;

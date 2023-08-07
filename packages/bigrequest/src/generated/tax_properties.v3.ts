@@ -8,22 +8,22 @@
 export interface paths {
   "/tax/properties": {
     /**
-     * Get Tax Properties 
+     * Get Tax Properties
      * @description Retrieve all tax properties defined in this store.
      */
     get: operations["get-tax-properties"];
     /**
-     * Update Tax Properties 
+     * Update Tax Properties
      * @description Update one or more tax properties. Only fields specified will be adjusted.
      */
     put: operations["update-tax-properties"];
     /**
-     * Create Tax Properties 
+     * Create Tax Properties
      * @description Create one or more tax properties. A **code** and a **display name** must be included when creating tax properties.
      */
     post: operations["create-tax-properties"];
     /**
-     * Delete Tax Properties 
+     * Delete Tax Properties
      * @description Delete one or multiple tax properties. A tax property must have zero usages within product tax properties before you can delete it.
      */
     delete: operations["delete-tax-properties"];
@@ -35,17 +35,17 @@ export interface paths {
   };
   "/tax/products/properties": {
     /**
-     * Get Product Tax Properties 
+     * Get Product Tax Properties
      * @description Retrieve the tax properties that are associated with one or more products.
      */
     get: operations["get-product-tax-properties"];
     /**
-     * Update Product Tax Properties 
+     * Update Product Tax Properties
      * @description Update the tax properties associated with one or more products. This operation will be additive to any tax property values already associated with the product, overwriting any existing tax property values.
      */
     put: operations["update-product-tax-properties"];
     /**
-     * Delete Product Tax Properties 
+     * Delete Product Tax Properties
      * @description Delete tax properties that are associated with one or more products.
      */
     delete: operations["delete-product-tax-properties"];
@@ -63,73 +63,73 @@ export interface components {
   schemas: {
     Property: {
       /**
-       * @description An internal identifier used by other operations. 
+       * @description An internal identifier used by other operations.
        * @example 1
        */
       id?: number;
       /**
-       * @description The unique string programmatically references this unique tax property by the tax provider. Merchants should liaise with their tax provider to explore supported values and functions. 
+       * @description The unique string programmatically references this unique tax property by the tax provider. Merchants should liaise with their tax provider to explore supported values and functions.
        * @example A-123456789
        */
       code?: string;
       /**
-       * @description The human-readable name for this property. This string will be displayed on the Products screen as a field label. 
+       * @description The human-readable name for this property. This string will be displayed on the Products screen as a field label.
        * @example Example Tax Property 1
        */
       display_name?: string;
       /**
-       * @description Optional. Additional detail about this tax property may help guide merchants. This string will be displayed on the Products screen as a tooltip associated with the relevant field. 
+       * @description Optional. Additional detail about this tax property may help guide merchants. This string will be displayed on the Products screen as a tooltip associated with the relevant field.
        * @example Food Industry
        */
       description?: string;
       /**
-       * Format: date-time 
-       * @description Datetime. 
+       * Format: date-time
+       * @description Datetime.
        * @example "2022-07-21T19:33:57.000Z"
        */
       created_at?: string;
       /**
-       * Format: date-time 
-       * @description Datetime. 
+       * Format: date-time
+       * @description Datetime.
        * @example "2022-07-21T19:33:57.000Z"
        */
       updated_at?: string;
     };
     PropertyPOST: {
       /**
-       * @description The unique string programmatically references this unique tax property by the tax provider. Merchants should liaise with their tax provider to explore supported values and functions. 
+       * @description The unique string programmatically references this unique tax property by the tax provider. Merchants should liaise with their tax provider to explore supported values and functions.
        * @example A-123456789
        */
       code: string;
       /**
-       * @description The human-readable name for this property. This string will be displayed on the Products screen as a field label. 
+       * @description The human-readable name for this property. This string will be displayed on the Products screen as a field label.
        * @example Example Tax Property 1
        */
       display_name: string;
       /**
-       * @description Additional detail about this tax property may help guide merchants. This string will be displayed on the Products screen as a tooltip associated with the relevant field. 
+       * @description Additional detail about this tax property may help guide merchants. This string will be displayed on the Products screen as a tooltip associated with the relevant field.
        * @example Food Industry
        */
       description?: string;
     };
     PropertyPUT: {
       /**
-       * @description An internal identifier used by other operations. 
+       * @description An internal identifier used by other operations.
        * @example 1
        */
       id: number;
       /**
-       * @description The unique string programmatically references this unique tax property by the tax provider. Merchants should liaise with their tax provider to explore supported values and functions. 
+       * @description The unique string programmatically references this unique tax property by the tax provider. Merchants should liaise with their tax provider to explore supported values and functions.
        * @example A-123456789
        */
       code?: string;
       /**
-       * @description The human-readable name for this property. This string will be displayed on the Products screen as a field label. 
+       * @description The human-readable name for this property. This string will be displayed on the Products screen as a field label.
        * @example Example Tax Property 1
        */
       display_name?: string;
       /**
-       * @description Optional. Additional detail about this tax property may help guide merchants. This string will be displayed on the Products screen as a tooltip associated with the relevant field. 
+       * @description Optional. Additional detail about this tax property may help guide merchants. This string will be displayed on the Products screen as a tooltip associated with the relevant field.
        * @example Food Industry
        */
       description?: string;
@@ -137,12 +137,12 @@ export interface components {
     /** @description A collection of tax property values associated with a product. */
     ProductTaxProperty: {
       /**
-       * @description A reference to the product that the product tax properties are associated with. 
+       * @description A reference to the product that the product tax properties are associated with.
        * @example 157
        */
       product_id: number;
       /**
-       * @description A simple key-value pairing. The tax property must be defined to associate a value. These values will be sent to the active tax provider during Tax Provider API operations whenever the associated product is included in the operation. 
+       * @description A simple key-value pairing. The tax property must be defined to associate a value. These values will be sent to the active tax provider during Tax Provider API operations whenever the associated product is included in the operation.
        * @example {
        *   "A-123456789": "26",
        *   "B-6731789": "200"
@@ -151,7 +151,7 @@ export interface components {
       tax_properties: Record<string, never>;
     };
     /**
-     * Response meta 
+     * Response meta
      * @description Response metadata.
      */
     MetaOpen: {
@@ -181,7 +181,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Tax Properties 
+   * Get Tax Properties
    * @description Retrieve all tax properties defined in this store.
    */
   "get-tax-properties": {
@@ -198,7 +198,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["Property"])[];
+            data?: components["schemas"]["Property"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -208,7 +208,7 @@ export interface operations {
     };
   };
   /**
-   * Update Tax Properties 
+   * Update Tax Properties
    * @description Update one or more tax properties. Only fields specified will be adjusted.
    */
   "update-tax-properties": {
@@ -220,7 +220,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["PropertyPUT"])[];
+        "application/json": components["schemas"]["PropertyPUT"][];
       };
     };
     responses: {
@@ -228,7 +228,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["Property"])[];
+            data?: components["schemas"]["Property"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -238,7 +238,7 @@ export interface operations {
     };
   };
   /**
-   * Create Tax Properties 
+   * Create Tax Properties
    * @description Create one or more tax properties. A **code** and a **display name** must be included when creating tax properties.
    */
   "create-tax-properties": {
@@ -250,7 +250,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["PropertyPOST"])[];
+        "application/json": components["schemas"]["PropertyPOST"][];
       };
     };
     responses: {
@@ -258,7 +258,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["Property"])[];
+            data?: components["schemas"]["Property"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -268,7 +268,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Tax Properties 
+   * Delete Tax Properties
    * @description Delete one or multiple tax properties. A tax property must have zero usages within product tax properties before you can delete it.
    */
   "delete-tax-properties": {
@@ -290,7 +290,7 @@ export interface operations {
     };
   };
   /**
-   * Get Product Tax Properties 
+   * Get Product Tax Properties
    * @description Retrieve the tax properties that are associated with one or more products.
    */
   "get-product-tax-properties": {
@@ -307,7 +307,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ProductTaxProperty"])[];
+            data?: components["schemas"]["ProductTaxProperty"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -317,7 +317,7 @@ export interface operations {
     };
   };
   /**
-   * Update Product Tax Properties 
+   * Update Product Tax Properties
    * @description Update the tax properties associated with one or more products. This operation will be additive to any tax property values already associated with the product, overwriting any existing tax property values.
    */
   "update-product-tax-properties": {
@@ -329,7 +329,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["ProductTaxProperty"])[];
+        "application/json": components["schemas"]["ProductTaxProperty"][];
       };
     };
     responses: {
@@ -337,7 +337,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["ProductTaxProperty"])[];
+            data?: components["schemas"]["ProductTaxProperty"][];
             meta?: components["schemas"]["MetaOpen"];
           };
         };
@@ -347,7 +347,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Product Tax Properties 
+   * Delete Product Tax Properties
    * @description Delete tax properties that are associated with one or more products.
    */
   "delete-product-tax-properties": {

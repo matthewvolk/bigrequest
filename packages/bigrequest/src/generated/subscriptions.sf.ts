@@ -8,15 +8,15 @@
 export interface paths {
   "/subscriptions": {
     /**
-     * Create a Subscription 
+     * Create a Subscription
      * @description Creates or updates an email subscription.
-     * 
+     *
      * By default, customers receive abandoned cart emails as soon as they provide their email address in the checkout flow. They can opt out using this endpoint.
-     * 
+     *
      * However, if **Store Settings > Miscellaneous > Require Consent** is enabled, Abandoned Cart Emails are not sent by default, and the customer should opt-in.
-     * 
+     *
      * > #### Note
-     * > * Substitute your storefront domain for `yourstore.example.com`. 
+     * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["createASubscription"];
@@ -50,7 +50,7 @@ export interface components {
       /** @description The ID of the source order, if source was an order. */
       orderId?: number | null;
       /** @description The collection of consents the shopper is subscribing to. */
-      consents?: (unknown)[];
+      consents?: unknown[];
     };
   };
   responses: never;
@@ -65,15 +65,15 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Create a Subscription 
+   * Create a Subscription
    * @description Creates or updates an email subscription.
-   * 
+   *
    * By default, customers receive abandoned cart emails as soon as they provide their email address in the checkout flow. They can opt out using this endpoint.
-   * 
+   *
    * However, if **Store Settings > Miscellaneous > Require Consent** is enabled, Abandoned Cart Emails are not sent by default, and the customer should opt-in.
-   * 
+   *
    * > #### Note
-   * > * Substitute your storefront domain for `yourstore.example.com`. 
+   * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
   createASubscription: {

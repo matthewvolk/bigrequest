@@ -8,7 +8,7 @@
 export interface paths {
   "/store/systemlogs": {
     /**
-     * Get System Logs 
+     * Get System Logs
      * @description Get system logs
      */
     get: operations["get-sites"];
@@ -83,7 +83,7 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get System Logs 
+   * Get System Logs
    * @description Get system logs
    */
   "get-sites": {
@@ -116,7 +116,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: (components["schemas"]["SystemLog"])[];
+            data?: components["schemas"]["SystemLog"][];
             meta?: components["schemas"]["IndexMeta"];
           };
         };
