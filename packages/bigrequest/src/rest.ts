@@ -1,6 +1,7 @@
 import createClient from 'openapi-fetch';
 import { z } from 'zod';
 
+import { BigRequestError } from './error';
 import { v2paths } from './generated/v2';
 import { v3paths } from './generated/v3';
 
@@ -13,7 +14,9 @@ export const rest = ({ storeHash, accessToken }: { storeHash: string; accessToke
   const restConfig = restConfigSchema.safeParse({ storeHash, accessToken });
 
   if (!restConfig.success) {
-    throw new Error(`Invalid REST config: ${JSON.stringify(restConfig.error.flatten(), null, 2)}`);
+    throw new BigRequestError(
+      `Invalid REST config: ${JSON.stringify(restConfig.error.flatten().fieldErrors, null, 2)}`,
+    );
   }
 
   return {

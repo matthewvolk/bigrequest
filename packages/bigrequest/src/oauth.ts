@@ -1,6 +1,8 @@
 import { verify as verifyJwt } from 'jsonwebtoken';
 import { z } from 'zod';
 
+import { BigRequestError } from './error';
+
 const oauthConfigSchema = z.object({
   clientId: z.string().min(1),
   clientSecret: z.string().min(1),
@@ -11,7 +13,7 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
   const oauthConfig = oauthConfigSchema.safeParse(config);
 
   if (!oauthConfig.success) {
-    throw new Error(
+    throw new BigRequestError(
       `Invalid OAuth config: ${JSON.stringify(oauthConfig.error.flatten().fieldErrors, null, 2)}`,
     );
   }
@@ -26,9 +28,9 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
     const authCallbackQuery = authCallbackQuerySchema.safeParse(query);
 
     if (!authCallbackQuery.success) {
-      throw new Error(
+      throw new BigRequestError(
         `Invalid Auth Callback arguments: ${JSON.stringify(
-          authCallbackQuery.error.flatten(),
+          authCallbackQuery.error.flatten().fieldErrors,
           null,
           2,
         )}`,
@@ -67,9 +69,9 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
     const accessTokenResponse = oauthResponseSchema.safeParse(await oauthResponse.json());
 
     if (!accessTokenResponse.success) {
-      throw new Error(
+      throw new BigRequestError(
         `Invalid access token response: ${JSON.stringify(
-          accessTokenResponse.error.flatten(),
+          accessTokenResponse.error.flatten().fieldErrors,
           null,
           2,
         )}`,
@@ -85,8 +87,12 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
     const parsedJwt = jwtSchema.safeParse(signedPayloadJwt);
 
     if (!parsedJwt.success) {
-      throw new Error(
-        `Invalid signed payload JWT: ${JSON.stringify(parsedJwt.error.flatten(), null, 2)}`,
+      throw new BigRequestError(
+        `Invalid signed payload JWT: ${JSON.stringify(
+          parsedJwt.error.flatten().fieldErrors,
+          null,
+          2,
+        )}`,
       );
     }
 
@@ -116,9 +122,9 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
     const parsedVerifiedJwt = verifiedJwtSchema.safeParse(decoded);
 
     if (!parsedVerifiedJwt.success) {
-      throw new Error(
+      throw new BigRequestError(
         `Verified JWT schema invalid: ${JSON.stringify(
-          parsedVerifiedJwt.error.flatten(),
+          parsedVerifiedJwt.error.flatten().fieldErrors,
           null,
           2,
         )}`,
