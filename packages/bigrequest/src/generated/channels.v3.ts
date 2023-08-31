@@ -85,12 +85,12 @@ export interface paths {
     get: operations["listAllCurrencyAssignments"];
     /**
      * Update Multiple Channels Currency Assignments
-     * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+     * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
      */
     put: operations["updateMultipleChannelsCurrencyAssignments"];
     /**
      * Create Multiple Channels Currency Assignments
-     * @description Sets enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+     * @description Sets enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
      */
     post: operations["createMultipleChannelsCurrencyAssignments"];
     parameters: {
@@ -107,12 +107,12 @@ export interface paths {
     get: operations["getSingleChannelCurrencyAssignments"];
     /**
      * Update Channel Currency Assignments
-     * @description Updates enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+     * @description Updates enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
      */
     put: operations["updateSingleChannelCurrencyAssignments"];
     /**
      * Create Channel Currency Assignments
-     * @description Sets enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+     * @description Sets enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
      */
     post: operations["createSingleChannelCurrencyAssignments"];
     /**
@@ -847,7 +847,7 @@ export interface components {
     };
     /**
      * metafield_Post
-     * @description Metafield for products, categories, variants, and brands. The max number of metafields allowed on each product, category, variant, or brand is fifty. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * @description Metafield for products, categories, variants, and brands. The max number of metafields allowed on each product, category, variant, or brand is 250. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Post: {
       /**
@@ -889,7 +889,7 @@ export interface components {
     };
     /**
      * metafield_Put
-     * @description Metafield for products, categories, variants, and brands. The max number of metafields allowed on each product, category, variant, or brand is fifty. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * @description Metafield for products, categories, variants, and brands. The max number of metafields allowed on each product, category, variant, or brand 250. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Put: {
       /**
@@ -1404,7 +1404,7 @@ export interface operations {
   };
   /**
    * Update Multiple Channels Currency Assignments
-   * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+   * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
    */
   updateMultipleChannelsCurrencyAssignments: {
     parameters: {
@@ -1425,7 +1425,7 @@ export interface operations {
   };
   /**
    * Create Multiple Channels Currency Assignments
-   * @description Sets enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+   * @description Sets enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
    */
   createMultipleChannelsCurrencyAssignments: {
     parameters: {
@@ -1464,7 +1464,7 @@ export interface operations {
   };
   /**
    * Update Channel Currency Assignments
-   * @description Updates enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+   * @description Updates enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
    */
   updateSingleChannelCurrencyAssignments: {
     parameters: {
@@ -1488,7 +1488,7 @@ export interface operations {
   };
   /**
    * Create Channel Currency Assignments
-   * @description Sets enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce Control Panel before the currencies can be assigned to a channel.
+   * @description Sets enabled currencies and default currency for a specific channel. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
    */
   createSingleChannelCurrencyAssignments: {
     parameters: {

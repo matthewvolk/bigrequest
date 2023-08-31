@@ -384,7 +384,6 @@ export interface components {
       max_uses_per_customer?: number;
       restricted_to?: {
         countries?: string;
-        null?: string;
       };
       /** @description This is a list of shipping-method names. A shipping method must be enabled on the store to use it with a coupon. To check which shipping methods are enabled, please use the [List Shipping Methods](/api/v2#list-shipping-methods) endpoint. */
       shipping_methods?: string[];
