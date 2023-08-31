@@ -1,0 +1,97 @@
+name: nightly
+
+on: workflow_dispatch
+
+# on:
+#   schedule:
+#     - cron: '15 23 * * *'
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Generate types
+        working-directory: packages/bigrequest
+        run: pnpm generate ${{ secrets.GH_TOKEN }}
+
+      - name: Check git status
+        id: status
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "working tree not clean, opening pr"
+          else
+            echo "nothing to commit, working tree clean"
+            exit 1;
+          fi
+
+      - if: steps.status.outcome == 'success'
+        name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - if: steps.status.outcome == 'success'
+        name: Set timestamp
+        run: |
+          raw_timestamp=$(date +"%Y%m%d-%H%M%S")
+          timestamp=${raw_timestamp//[^a-zA-Z0-9]/-}
+
+          echo "timestamp=$timestamp" >> "$GITHUB_ENV"
+
+      - if: steps.status.outcome == 'success'
+        name: Get latest commit hash from bigcommerce/api-specs
+        run: |
+          gh_response=$(curl -s -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/bigcommerce/api-specs/commits?per_page=1")
+
+          most_recent_commit=$(echo "$gh_response" | jq -r '.[0].sha')
+          most_recent_commit_short=${most_recent_commit:0:7}
+
+          echo "sha=$most_recent_commit_short" >> "$GITHUB_ENV"
+
+      - if: steps.status.outcome == 'success'
+        name: Create branch
+        run: |
+          branch_name="nightly-$timestamp"
+          git checkout -b "$branch_name"
+
+          echo "branch_name=$branch_name" >> "$GITHUB_ENV"
+
+      - if: steps.status.outcome == 'success'
+        name: Stage changes
+        run: git add .
+
+      - if: steps.status.outcome == 'success'
+        name: Commit changes
+        run: |
+          commit_message="[nightly] generate types against bigcommerce/api-specs@$sha"
+          git commit -m "$commit_message"
+
+          echo "commit_message=$commit_message" >> "$GITHUB_ENV"
+
+      - if: steps.status.outcome == 'success'
+        name: Push changes
+        run: git push --set-upstream origin "$branch_name"
+
+      - if: steps.status.outcome == 'success'
+        name: Write PR body
+        run: |
+          body="Types generated via scheduled GitHub Actions job against [bigcommerce/api-specs@\`$sha\`](https://github.com/bigcommerce/api-specs/tree/$sha)"
+
+          echo "pr_body=$body" >> "$GITHUB_ENV"
+
+      - if: steps.status.outcome == 'success'
+        name: Open PR
+        run: gh pr create --base main --title "$commit_message" --body "$pr_body"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
