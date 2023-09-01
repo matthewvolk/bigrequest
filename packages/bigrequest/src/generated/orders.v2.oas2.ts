@@ -256,9 +256,15 @@ export interface paths {
      *
      * **Usage notes**
      *
-     * Presuming that a valid carrier code is used, a tracking link is generated if either `shipping_provider` or `tracking_carrier` is supplied alongside a tracking number. Providing only the tracking number will result in non-clickable text in the customer facing email.
+     * There are three methods for generating a tracking link for a shipment:
      *
-     * Acceptable values for `shipping_provider` include an empty string (`""`), auspost, canadapost, endicia, usps, fedex, royalmail, ups, upsready, upsonline, or shipperhq.
+     * 1. Use `shipping_provider` and `tracking_number`: This generates an automatic tracking link that you can click from the BigCommerce control panel and customer-facing emails. However, the `tracking_link` property in the API response will remain empty.
+     *
+     * 2. Use `tracking_carrier` and `tracking_number`: This also creates an automatic tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `tracking_link` property in the API response will be empty.
+     *
+     * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied `tracking_link` as part of the response.
+     *
+     * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
      *
      * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
      */
@@ -701,7 +707,7 @@ export interface components {
       applied_discounts?: components["schemas"]["orderProductAppliedDiscounts"][];
       /** @description Array of product option objects. */
       product_options?: components["schemas"]["orderProductOptions"][];
-      /** @description ID of the order in another system. For example, the Amazon Order ID if this is an Amazon order. This field can be updated in a /POST, but using a /PUT to update the order will return a 400 error. The field ''external_id'' cannot be written to. Please remove it from your request before trying again. It cannot be overwritten once set. */
+      /** @description (Read-only) ID of the order in another system. For example, the Amazon order ID if this is an Amazon order. */
       external_id?: string | null;
       /** @description Universal Product Code. Can be written to for custom products and catalog products. */
       upc?: string;
@@ -919,7 +925,7 @@ export interface components {
        * @description Enum of the BigCommerce shipping-carrier integration/module.
        * @enum {string}
        */
-      shipping_provider?: "auspost" | "canadapost" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq" | "";
+      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq" | "";
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
@@ -1183,6 +1189,11 @@ export interface components {
        */
       tracking_number?: string;
       /**
+       * @description Tracking link that is associated with your shipment.
+       * @example https://www.mycustomtrackinglink.com/tracking
+       */
+      tracking_link?: string;
+      /**
        * @description Additional information to describe the method of shipment (ex. Standard, Ship by Weight, Custom Shipment). Can be used for live quotes from certain shipping providers.
        * If different from `shipping_provider`, `shipping_method` should correspond to `tracking_carrier`.
        *
@@ -1193,7 +1204,7 @@ export interface components {
        * @description Enum of the BigCommerce shipping-carrier integration/module.
        * @enum {string}
        */
-      shipping_provider?: "auspost" | "canadapost" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
+      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
@@ -1233,13 +1244,18 @@ export interface components {
        * @description Enum of the BigCommerce shipping-carrier integration/module.
        * @enum {string}
        */
-      shipping_provider?: "auspost" | "canadapost" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
+      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
        * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
        */
       tracking_carrier?: string;
+      /**
+       * @description Tracking link that is associated with your shipment.
+       * @example https://www.mycustomtrackinglink.com/tracking
+       */
+      tracking_link?: string;
       /** @description Comments the shipper wishes to add. */
       comments?: string;
     };
@@ -1331,7 +1347,7 @@ export interface components {
        */
       ebay_order_id?: string;
       /**
-       * @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you cannot write to or update the `external_id`. You can update this field using a POST request, but a PUT request to update the order will return a 400 error.  Please remove it from your request before trying again.
+       * @description (Read-only) The order ID in another system, such as the Amazon order ID if this is an Amazon order.
        * @example null
        */
       external_id?: string | null;
@@ -1460,7 +1476,7 @@ export interface components {
        */
       customer_locale?: string;
       /**
-       * @description The external id of the order.
+       * @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you can update this field using a POST or PUT request.
        * @example external-order-id
        */
       external_order_id?: string;
@@ -1967,7 +1983,7 @@ export interface components {
        */
       ebay_order_id?: string;
       /**
-       * @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you cannot write to or update the `external_id`. You can update this field using a POST request, but a PUT request to update the order will return a 400 error.  Please remove it from your request before trying again.
+       * @description (Read-only) The order ID in another system, such as the Amazon Order ID if this is an Amazon order.
        * @example null
        */
       external_id?: string | null;
@@ -2097,7 +2113,7 @@ export interface components {
        */
       customer_locale?: string;
       /**
-       * @description The external id of the order.
+       * @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you can update this field using a POST or PUT request.
        * @example external-order-id
        */
       external_order_id?: string;
@@ -2830,7 +2846,7 @@ export interface components {
           shipping_addresses?: components["schemas"]["shippingAddresses_Resource"];
           coupons?: components["schemas"]["coupons_Resource"];
           /**
-           * @description ID of the order in another system. For example, the Amazon Order ID if this is an Amazon order. This field can be updated in a POST request, but using a PUT request to update the order will return a 400 error. The field ''external_id'' cannot be written to. Please remove it from your request before trying again. It cannot be overwritten once set.
+           * @description (Read-only) ID of the order in another system. For example, the Amazon order ID if this is an Amazon order.
            * @example null
            */
           external_id?: string | null;
@@ -3354,9 +3370,15 @@ export interface operations {
    *
    * **Usage notes**
    *
-   * Presuming that a valid carrier code is used, a tracking link is generated if either `shipping_provider` or `tracking_carrier` is supplied alongside a tracking number. Providing only the tracking number will result in non-clickable text in the customer facing email.
+   * There are three methods for generating a tracking link for a shipment:
    *
-   * Acceptable values for `shipping_provider` include an empty string (`""`), auspost, canadapost, endicia, usps, fedex, royalmail, ups, upsready, upsonline, or shipperhq.
+   * 1. Use `shipping_provider` and `tracking_number`: This generates an automatic tracking link that you can click from the BigCommerce control panel and customer-facing emails. However, the `tracking_link` property in the API response will remain empty.
+   *
+   * 2. Use `tracking_carrier` and `tracking_number`: This also creates an automatic tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `tracking_link` property in the API response will be empty.
+   *
+   * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied `tracking_link` as part of the response.
+   *
+   * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
    *
    * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
    */
