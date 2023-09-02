@@ -975,7 +975,7 @@ export interface components {
      * @description Common ProductImage properties.
      */
     productImage_Base: {
-      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 1MB per file. */
+      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 8MB per file. */
       image_file?: string;
       /** @description Flag for identifying whether the image is used as the product's thumbnail. */
       is_thumbnail?: boolean;
@@ -1726,7 +1726,7 @@ export interface components {
        */
       type: "physical" | "digital";
       /**
-       * @description A unique user-defined product code/stock keeping unit (SKU).
+       * @description A unique user-defined alphanumeric product code/stock keeping unit (SKU).
        *
        * @example SM-13
        */
@@ -1781,7 +1781,7 @@ export interface components {
       map_price?: number;
       /** @description The ID of the tax class applied to the product. (NOTE: Value ignored if automatic tax is enabled.) */
       tax_class_id?: number;
-      /** @description Accepts AvaTax System Tax Codes, which identify products and services that fall into special sales-tax categories. By using these codes, merchants who subscribe to BigCommerce's Avalara Premium integration can calculate sales taxes more accurately. Stores without Avalara Premium will ignore the code when calculating sales tax. Do not pass more than one code. The codes are case-sensitive. For details, please see Avalara's documentation. */
+      /** @description Tax Codes, such as AvaTax System Tax Codes, identify products and services that fall into special sales-tax categories. By using these codes, merchants who subscribe to a tax provider integration, such as BigCommerce's Avalara Premium, can calculate sales taxes more accurately. Stores without a tax provider will ignore the code when calculating sales tax. Do not pass more than one code. The codes are case-sensitive. For details, please see the tax provider's documentation. */
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
@@ -1925,6 +1925,7 @@ export interface components {
        * @example 80
        */
       total_sold?: number;
+      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. */
       custom_fields?: components["schemas"]["productCustomField_Put"][];
       bulk_pricing_rules?: ({
           /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
