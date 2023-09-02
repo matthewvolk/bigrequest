@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.10
+
+### Patch Changes
+
+- [#30](https://github.com/matthewvolk/bigrequest/pull/30) [`cd18cec`](https://github.com/matthewvolk/bigrequest/commit/cd18cecc0e6268114a134897e5e8013ab8cda237) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Generate types against bigcommerce/api-specs@af3bd63
+
 ## 0.0.9
 
 ### Patch Changes
