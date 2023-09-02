@@ -140,7 +140,7 @@ export interface components {
      * @description Response payload for the BigCommerce API.
      */
     PageResponse: {
-      data?: components["schemas"]["Page"][];
+      data?: Record<string, never>;
       meta?: components["schemas"]["ResponseMeta"];
     };
     ContactFields: {

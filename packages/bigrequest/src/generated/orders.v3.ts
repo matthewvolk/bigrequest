@@ -138,31 +138,6 @@ export interface paths {
     };
   };
   "/orders/payment_actions/refunds": {
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-    };
-  };
-  "/stores/{store_hash}/v3/orders/payment_actions/refund_quotes": {
-    /**
-     * Create Refund Quotes - BATCH
-     * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-     *
-     * This endpoint will accept a batch of one or more.
-     *
-     * Requires at least one of the following scopes:
-     * * `store_v2_orders`
-     * * `store_v2_transactions`
-     */
-    post: operations["postrefundquotes"];
-    parameters: {
-      path: {
-        store_hash: string;
-      };
-    };
-  };
-  "/stores/{store_hash}/v3/orders/payment_actions/refunds": {
     /**
      * Get All Refunds
      * @description Returns a list of refunds ordered by refund ID in ascending order.
@@ -174,6 +149,24 @@ export interface paths {
      * * `store_v2_orders`
      */
     get: operations["getrefunds"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+  };
+  "/orders/payment_actions/refund_quotes": {
+    /**
+     * Create Refund Quotes - BATCH
+     * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
+     *
+     * This endpoint will accept a batch of one or more.
+     *
+     * Requires at least one of the following scopes:
+     * * `store_v2_orders`
+     * * `store_v2_transactions`
+     */
+    post: operations["postrefundquotes"];
   };
   "/orders/{order_id}/metafields": {
     /**
@@ -2177,6 +2170,53 @@ export interface operations {
     };
   };
   /**
+   * Get All Refunds
+   * @description Returns a list of refunds ordered by refund ID in ascending order.
+   *
+   * Requires at least one of the following scopes:
+   * * `store_v2_transactions_read_only`
+   * * `store_v2_transactions`
+   * * `store_v2_orders_read_only`
+   * * `store_v2_orders`
+   */
+  getrefunds: {
+    parameters: {
+      query?: {
+        /** @description Filter by `order_id`. Accepts multiple as comma-separated values. */
+        "order_id:in"?: number[];
+        /** @description Filter by refund `id`. Accepts multiple as comma-separated values. */
+        "id:in"?: number[];
+        /**
+         * @description Filter results so they are later than or equal to provided date.
+         *
+         *
+         * Must be in url-encoded RFC 3339 format.
+         * e.g. `2020-01-15T01:02:34-01:00` is RFC 3339 format.
+         * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
+         */
+        "created:min"?: string;
+        /**
+         * @description Filter results so they are earlier than or equal to provided date.
+         *
+         * Must be in url-encoded RFC 3339 format.
+         * e.g. `2020-01-15T01:02:34-01:00` is RFC 3339 format.
+         * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
+         */
+        "created:max"?: string;
+        /** @description Specifies the page number in a limited (paginated) list of items. */
+        page?: number;
+        /** @description Controls the number of items per page in a limited (paginated) list of items. */
+        limit?: number;
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: components["responses"]["RefundCollection_Resp"];
+    };
+  };
+  /**
    * Create Refund Quotes - BATCH
    * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
    *
@@ -2190,9 +2230,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-      };
-      path: {
-        store_hash: string;
       };
     };
     requestBody: {
@@ -2223,54 +2260,6 @@ export interface operations {
           };
         };
       };
-    };
-  };
-  /**
-   * Get All Refunds
-   * @description Returns a list of refunds ordered by refund ID in ascending order.
-   *
-   * Requires at least one of the following scopes:
-   * * `store_v2_transactions_read_only`
-   * * `store_v2_transactions`
-   * * `store_v2_orders_read_only`
-   * * `store_v2_orders`
-   */
-  getrefunds: {
-    parameters: {
-      query?: {
-        /** @description Filter by `order_id`. Accepts multiple as comma-separated values. */
-        "order_id:in"?: number[];
-        /** @description Filter by refund `id`. Accepts multiple as comma-separated values. */
-        "id:in"?: number[];
-        /**
-         * @description Filter results so they are later than or equal to provided date.
-         *
-         *
-         * Must be in url-encoded RFC 3339 format.
-         * e.g. `2020-01-15T01:02:34-01:00` is RFC 3339 format.
-         * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
-         */
-        "created:min"?: string;
-        /**
-         * @description Filter results so they are earlier than or equal to provided date.
-         *
-         *
-         * Must be in url-encoded RFC 3339 format.
-         * e.g. `2020-01-15T01:02:34-01:00` is RFC 3339 format.
-         * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
-         */
-        "created:max"?: string;
-        /** @description Specifies the page number in a limited (paginated) list of items. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of items. */
-        limit?: number;
-      };
-      path: {
-        store_hash: string;
-      };
-    };
-    responses: {
-      200: components["responses"]["RefundCollection_Resp"];
     };
   };
   /**

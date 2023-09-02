@@ -498,58 +498,12 @@ export interface components {
           /** @enum {string} */
           method?: "percent" | "fixed" | "price";
           /**
-           * @description A float that specifies the value applied to the price modified. Format may be Float, Float as String, or Integer.
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
            * @example "5.0000"
            */
           amount?: string;
           /**
            * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned.
-           * @example 3
-           */
-          price_list_id?: number;
-        })[];
-      /**
-       * @description Date on which the customer group was created.
-       * @example "2023-07-17T06:30:41.000Z"
-       */
-      date_created?: string;
-      /**
-       * @description Date on which the customer group was last modified.
-       * @example "2023-07-25T01:15:19.000Z"
-       */
-      date_modified?: string;
-      /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
-      is_group_for_guests?: boolean;
-    };
-    /**
-     * customerGroup_Update
-     * @description When updating a customer group category discount using the API, it defaults to "products in this category and its subcategories". In the [store control panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing), this can be changed to either "products in this category only" or "products in this category and its subcategories." There are currently no settings to change this behavior with the API.
-     */
-    customerGroup_Update: {
-      /**
-       * @description Name of the group.
-       * @example Wholesale
-       */
-      name?: string;
-      /**
-       * @description Determines whether new customers are assigned to this group by default.
-       * @example false
-       */
-      is_default?: boolean;
-      category_access?: components["schemas"]["categoryAccessLevel_Full"];
-      /** @description A collection of discount rules that are automatically applied to customers who are members of the group. */
-      discount_rules?: ({
-          /** @enum {string} */
-          type?: "price_list" | "all" | "category" | "product";
-          /** @enum {string} */
-          method?: "percent" | "fixed" | "price";
-          /**
-           * @description A float that specifies the value applied to the price modified. Format may be Float, Float as String, or Integer.
-           * @example "5.0000"
-           */
-          amount?: string;
-          /**
-           * @description If a customer group is assigned to a price list, `method` and `amount` are not shown. `type` and `price_list_id` are returned.
            * @example 3
            */
           price_list_id?: number;
@@ -662,7 +616,7 @@ export interface components {
           /** @enum {string} */
           method?: "percent" | "fixed" | "price";
           /**
-           * @description A float that specifies the value applied to the price modified. Format may be Float, Float as String, or Integer.
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
            * @example "5.0000"
            */
           amount?: string;
@@ -672,6 +626,16 @@ export interface components {
            */
           price_list_id?: number;
         })[];
+      /**
+       * @description Date on which the customer group was created.
+       * @example "2023-07-17T06:30:41.000Z"
+       */
+      date_created?: string;
+      /**
+       * @description Date on which the customer group was last modified.
+       * @example "2023-07-25T01:15:19.000Z"
+       */
+      date_modified?: string;
       /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
       is_group_for_guests?: boolean;
     };
@@ -713,7 +677,7 @@ export interface components {
        */
       phone?: string;
       /**
-       * @description The amount of credit the customer has. Format may be Float, Float as String, or Integer.
+       * @description The amount of credit the customer has. (Float, Float as String, Integer)
        * @example 0
        */
       store_credit?: string;
@@ -1117,7 +1081,7 @@ export interface operations {
           /** @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
           date_modified?: string;
           /**
-           * @description The amount of credit the customer has. Format may be Float, Float as String, or Integer.
+           * @description The amount of credit the customer has. (Float, Float as String, Integer)
            * @example 0
            */
           store_credit?: string;
@@ -1561,9 +1525,21 @@ export interface operations {
         name?: string;
         /** @description Filter customer groups by name, using a fuzzy matching method. */
         "name:like"?: string;
-        /** @description Whether customers who sign up are added to this group by default. */
+        /** @description Filter by customers who sign up are added to this group by default. */
         is_default?: boolean;
-        /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
+        /** @description Filter customer groups by date_created. `date_created=2018-09-05T13:43:54` */
+        date_created?: string;
+        /** @description Filter customer groups by maximum date_created. `date_created:max=2018-09-10` */
+        "date_created:max"?: string;
+        /** @description Filter customer groups by date_created. `date_created:min=2018-09-05` */
+        "date_created:min"?: string;
+        /** @description Filter customer groups by date_modified. `date_modified=2018-09-05T13:45:03` */
+        date_modified?: string;
+        /** @description Filter customer groups by minimum date_modified. `date_modified:min=2019-09-04T:00:00:00` or `date_modified:min=2019-09-04` */
+        "`date_modified:min`"?: string;
+        /** @description Filter customer groups by maximum date_modified. `date_modified:max=2018-09-05T13:45:03` or `date_modified:max=2019-09-04` */
+        "`date_modified:max`"?: string;
+        /** @description Filter whether the group is for guests. There can only be one customer group for guests at a time. */
         is_group_for_guests?: boolean;
       };
       header: {
@@ -1645,6 +1621,18 @@ export interface operations {
         limit?: number;
         /** @description Name of the customer groups. */
         name?: string;
+        /** @description Filter items by date_created. `date_created=2018-09-05T13:43:54` */
+        date_created?: string;
+        /** @description Filter items by maximum date_created. `date_created:max=2018-09-10` */
+        "date_created:max"?: string;
+        /** @description Filter items by date_created. `date_created:min=2018-09-05` */
+        "date_created:min"?: string;
+        /** @description Filter items by date_modified. `date_modified=2018-09-05T13:45:03` */
+        date_modified?: string;
+        /** @description Filter items by minimum date_modified. `date_modified:min=2019-09-04T:00:00:00` or `date_modified:min=2019-09-04` */
+        "date_modified:min"?: string;
+        /** @description Filter items by maximum date_modified. `date_modified:max=2018-09-05T13:45:03` or `date_modified:max=2019-09-04` */
+        "date_modified:max"?: string;
         /** @description Whether customers who sign up are added to this group by default. */
         is_default?: boolean;
       };
@@ -1690,7 +1678,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["customerGroup_Update"];
+        "application/json": components["schemas"]["customerGroup_Full"];
       };
     };
     responses: {

@@ -94,6 +94,24 @@ export interface components {
       /** @example store_credit */
       type?: string;
     };
+    /** Tokenized Card */
+    TokenizedCard: {
+      /**
+       * @description Type to classify this payment instrument (required).
+       * @enum {string}
+       */
+      type: "tokenized_card";
+      /** @description Identifier representing the tokenized card (required). */
+      token: string;
+      /** @description Issuer identification number. */
+      iin?: string;
+      /** @description Last four numbers of this card. */
+      last_four_digits?: string;
+      /** @description Expiry month of this card. */
+      expiration_month?: string;
+      /** @description Expiry year of this card. */
+      expiration_year?: string;
+    };
   };
   responses: never;
   parameters: {
@@ -127,7 +145,7 @@ export interface operations {
         "application/json": {
           /** Payment */
           payment: {
-            instrument: components["schemas"]["Card"] | components["schemas"]["StoredCard"] | components["schemas"]["StoredPayPalAccount"] | components["schemas"]["GiftCertificate"] | components["schemas"]["StoreCredit"];
+            instrument: components["schemas"]["Card"] | components["schemas"]["StoredCard"] | components["schemas"]["StoredPayPalAccount"] | components["schemas"]["GiftCertificate"] | components["schemas"]["StoreCredit"] | components["schemas"]["TokenizedCard"];
             /** @description Identifier for payment method that will be used for this payment and `id` from the Get Accepted Payment Methods API */
             payment_method_id: string;
             /** @description To use `save_instrument`, configure the payment gateway to accept stored cards. */
