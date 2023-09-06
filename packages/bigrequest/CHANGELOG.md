@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.11
+
+### Patch Changes
+
+- [#34](https://github.com/matthewvolk/bigrequest/pull/34) [`40275aa`](https://github.com/matthewvolk/bigrequest/commit/40275aaf45d26a24292ec27aab14f9a4b9cb57db) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Adds `generated_tracking_link` to V2 Order Shipments API
+
 ## 0.0.10
 
 ### Patch Changes
