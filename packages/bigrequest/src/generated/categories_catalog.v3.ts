@@ -586,7 +586,7 @@ export interface components {
     };
   };
   responses: {
-    /** @description Multi-status. Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occured, such as when a `POST` or `PUT` request is successful, but saving the URL or inventory data has failed. */
+    /** @description Multi-status. Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL or inventory data has failed. */
     General207Status: {
       content: {
         "application/json": components["schemas"]["error_Base"];
@@ -1607,7 +1607,10 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+              product_id?: number;
+              sort_order?: number;
+            }[];
         };
       };
       /** @description The requested category was not found. */

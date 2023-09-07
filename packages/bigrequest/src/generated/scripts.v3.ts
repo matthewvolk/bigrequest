@@ -24,6 +24,9 @@ export interface paths {
      * **Read Only Fields**
      * * uuid
      *
+     * **Limits**
+     * * 50 scripts per channel.
+     *
      * **Notes**
      * * If the `kind` is `src`:
      *   * Specify the `src` property.
@@ -458,6 +461,9 @@ export interface operations {
    *
    * **Read Only Fields**
    * * uuid
+   *
+   * **Limits**
+   * * 50 scripts per channel.
    *
    * **Notes**
    * * If the `kind` is `src`:

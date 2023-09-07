@@ -79,7 +79,7 @@ export interface paths {
   "/themes/jobs/{job_id}": {
     /**
      * Get a Theme Job
-     * @description Returns a theme *Job*. If job is completed, the result is included in the response.
+     * @description Returns a theme *Job*. When the job is complete, the results array provides a generated link to access the theme. The link is active for 60 seconds.
      */
     get: operations["getJob"];
     parameters: {
@@ -976,7 +976,7 @@ export interface operations {
   };
   /**
    * Get a Theme Job
-   * @description Returns a theme *Job*. If job is completed, the result is included in the response.
+   * @description Returns a theme *Job*. When the job is complete, the results array provides a generated link to access the theme. The link is active for 60 seconds.
    */
   getJob: {
     parameters: {
