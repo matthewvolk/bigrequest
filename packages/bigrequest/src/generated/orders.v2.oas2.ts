@@ -590,20 +590,20 @@ export interface components {
        */
       quantity?: number;
       /**
-       * @description The product’s cost price.  This can be set using the Catalog API. (Float, Float-As-String, Integer) Read Only
-       * @example 0.0000
+       * @description The product’s cost price.  This can be set using the Catalog API. (Float, Float-As-String, Integer)
+       * @example 50.0000
        */
       base_cost_price?: string;
       /**
        * @description The product’s cost price including tax. (Float, Float-As-String, Integer)
-       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only
-       * @example 0.0000
+       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes.
+       * @example 50.0000
        */
       cost_price_inc_tax?: string;
       /**
-       * @description The products cost price excluding tax. (Float, Float-As-String, Integer)
-       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only
-       * @example 0.0000
+       * @description The product cost price excluding tax. (Float, Float-As-String, Integer)
+       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes.
+       * @example 50.0000
        */
       cost_price_ex_tax?: string;
       /**
@@ -728,6 +728,15 @@ export interface components {
        * @example 52
        */
       gift_certificate_id?: number | null;
+      /**
+       * @description Represent the correct total amount of the line item after deducting all the discounts and including the tax. This number can be used for accounting purpose.
+       *
+       * This makes it easier to have the "shopper paid" value for a line item and api user doesn't have to do any calculation to deduct discount on the client side.
+       *
+       * This field includes all types of discounts (automatic, coupon, manual) and therefore if you use this value, you don't need to deduct any more discounts at line item level or order level.
+       * @example 0.0000
+       */
+      discounted_total_inc_tax?: string;
     };
     /**
      * orderCount
@@ -1801,15 +1810,13 @@ export interface components {
       product_options?: {
           /**
            * @description The product’s cost price including tax. (Float, Float-As-String, Integer)
-           * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only.
-           * readOnly: true
-           * @example 0.0000
+           * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes.
+           * @example 50.0000
            */
           cost_price_inc_tax?: string;
           /**
            * @description The products cost price excluding tax. (Float, Float-As-String, Integer)
            * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only.
-           * readOnly: true
            * @example 0.0000
            */
           price_ex_tax?: string;
