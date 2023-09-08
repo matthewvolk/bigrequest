@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.12
+
+### Patch Changes
+
+- [#36](https://github.com/matthewvolk/bigrequest/pull/36) [`c15cea0`](https://github.com/matthewvolk/bigrequest/commit/c15cea0da6c606f63d72be8a74b970c7d3842b83) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Fixes response type of GET category products sort order to be an array of objects rather than a single object (bigcommerce/api-specs#1430). Expose new `discounted_total_inc_tax` property in the GET order product and GET order products response (bigcommerce/api-specs#1457).
+
 ## 0.0.11
 
 ### Patch Changes
