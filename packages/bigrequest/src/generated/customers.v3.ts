@@ -63,7 +63,7 @@ export interface paths {
      * * attribute_value -- This is input as a string, regardless of the [Type](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute).
      *
      * **Limits**
-     * * Limit of 10 concurrent requests
+     * * Create 20 customers over the span of an hour. Attempting to make more than 20 API calls will result in a `429` return status until the hour has lapsed.
      *
      * **Notes**
      *
@@ -1707,7 +1707,7 @@ export interface operations {
    * * attribute_value -- This is input as a string, regardless of the [Type](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute).
    *
    * **Limits**
-   * * Limit of 10 concurrent requests
+   * * Create 20 customers over the span of an hour. Attempting to make more than 20 API calls will result in a `429` return status until the hour has lapsed.
    *
    * **Notes**
    *
