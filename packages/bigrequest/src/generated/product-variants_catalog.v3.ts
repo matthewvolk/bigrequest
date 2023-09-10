@@ -779,8 +779,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         variant_id: components["parameters"]["VariantIdParam"];
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     responses: {
@@ -820,8 +818,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         variant_id: components["parameters"]["VariantIdParam"];
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     requestBody: {
@@ -879,8 +875,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         variant_id: components["parameters"]["VariantIdParam"];
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     responses: {
@@ -1041,10 +1035,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     responses: {
@@ -1098,10 +1088,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     requestBody: {
@@ -1146,10 +1132,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     responses: {
