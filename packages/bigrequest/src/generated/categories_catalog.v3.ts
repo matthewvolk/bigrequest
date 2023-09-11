@@ -898,8 +898,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -944,8 +942,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody: {
@@ -1195,8 +1191,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1239,8 +1233,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1290,8 +1282,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody: {
@@ -1362,10 +1352,6 @@ export interface operations {
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1418,10 +1404,6 @@ export interface operations {
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody: {
@@ -1465,10 +1447,6 @@ export interface operations {
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1497,8 +1475,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody?: {
@@ -1569,8 +1545,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1600,8 +1574,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1633,8 +1605,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody?: {
