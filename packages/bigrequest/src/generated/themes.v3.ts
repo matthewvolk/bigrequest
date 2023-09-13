@@ -121,7 +121,6 @@ export interface paths {
           Accept: components["parameters"]["Accept"];
         };
         path: {
-          uuid: string;
           uuid: components["parameters"]["ThemeIdParam"];
         };
       };
@@ -144,9 +143,6 @@ export interface paths {
       };
       header: {
         Accept: components["parameters"]["Accept"];
-      };
-      path: {
-        uuid: string;
       };
     };
   };

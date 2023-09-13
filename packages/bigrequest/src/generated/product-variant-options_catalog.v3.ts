@@ -938,8 +938,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
       };
     };
     responses: {
@@ -982,8 +980,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
       };
     };
     requestBody: {
@@ -1419,8 +1415,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
       };
     };
     responses: {
