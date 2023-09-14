@@ -674,8 +674,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     responses: {
@@ -722,8 +720,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     requestBody: {
@@ -923,8 +919,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     responses: {
@@ -967,8 +961,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     responses: {
@@ -1018,8 +1010,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     requestBody: {
@@ -1231,8 +1221,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     requestBody?: {
@@ -1303,8 +1291,6 @@ export interface operations {
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
       };
     };
     responses: {
