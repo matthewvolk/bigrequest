@@ -226,6 +226,12 @@ export interface operations {
    */
   getAllCurrencies: {
     parameters: {
+      query?: {
+        /** @description Specifies the page number in a limited (paginated) list of currencies. */
+        page?: number;
+        /** @description Controls the number of items per page in a limited (paginated) list of currencies. */
+        limit?: number;
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
