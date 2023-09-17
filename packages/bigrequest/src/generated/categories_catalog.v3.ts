@@ -652,6 +652,16 @@ export interface operations {
         include_fields?: string;
         /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
         exclude_fields?: string;
+        /**
+         * @description Controls the sort order of the response, for example, `sort=name`.
+         *
+         * Allowed values:
+         * - `name`: sort categories in alphabetical order by category name.
+         * - `id`: sort in ascending order by category ID.
+         * - `parent_id`: sort in ascending order by the ID of the parent category.
+         * - `sort_order`: sort in ascending order by sort order value.
+         */
+        sort?: string;
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -898,8 +908,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -944,8 +952,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody: {
@@ -1195,8 +1201,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1239,8 +1243,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1290,8 +1292,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody: {
@@ -1362,10 +1362,6 @@ export interface operations {
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1418,10 +1414,6 @@ export interface operations {
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody: {
@@ -1465,10 +1457,6 @@ export interface operations {
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1497,8 +1485,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody?: {
@@ -1569,8 +1555,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1600,8 +1584,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     responses: {
@@ -1633,8 +1615,6 @@ export interface operations {
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
-        /** @description The ID of the `Category` to which the resource belongs. */
-        category_id: number;
       };
     };
     requestBody?: {
