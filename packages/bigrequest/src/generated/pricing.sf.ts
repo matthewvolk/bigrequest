@@ -253,7 +253,7 @@ export interface components {
       sale_price?: {
         /** @description The price provided by the merchant as entered in their catalog/price list; may include or exclude tax. */
         as_entered?: number;
-        /** @description Determines wether the `as_entered` price is inclusive or exclusive of tax, based on the stores tax jurisdiction. */
+        /** @description Determines whether the `as_entered` price is inclusive or exclusive of tax, based on the stores tax jurisdiction. */
         entered_inclusive?: boolean;
         /** @description The estimated tax exclusive price for this product based on the provided customer group. */
         tax_exclusive?: number;

@@ -2879,8 +2879,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         image_id: components["parameters"]["ImageIdParam"];
-        /** @description The ID of the `Image` that is being operated on. */
-        image_id: number;
       };
     };
     responses: {
@@ -2924,8 +2922,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         image_id: components["parameters"]["ImageIdParam"];
-        /** @description The ID of the `Image` that is being operated on. */
-        image_id: number;
       };
     };
     requestBody: {
@@ -3034,8 +3030,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         image_id: components["parameters"]["ImageIdParam"];
-        /** @description The ID of the `Image` that is being operated on. */
-        image_id: number;
       };
     };
     responses: {
@@ -3207,8 +3201,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         id: components["parameters"]["VideoIdParam"];
-        /** @description The BigCommerce ID of the `Video` */
-        id: number;
       };
     };
     responses: {
@@ -3254,8 +3246,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         id: components["parameters"]["VideoIdParam"];
-        /** @description The BigCommerce ID of the `Video` */
-        id: number;
       };
     };
     requestBody: {
@@ -3341,8 +3331,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         id: components["parameters"]["VideoIdParam"];
-        /** @description The BigCommerce ID of the `Video` */
-        id: number;
       };
     };
     responses: {
@@ -3690,8 +3678,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         complex_rule_id: components["parameters"]["ComplexRuleIdParam"];
-        /** @description The ID of the `ComplexRule`. */
-        complex_rule_id: number;
       };
     };
     responses: {
@@ -3858,8 +3844,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         complex_rule_id: components["parameters"]["ComplexRuleIdParam"];
-        /** @description The ID of the `ComplexRule`. */
-        complex_rule_id: number;
       };
     };
     requestBody: {
@@ -4134,8 +4118,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         complex_rule_id: components["parameters"]["ComplexRuleIdParam"];
-        /** @description The ID of the `ComplexRule`. */
-        complex_rule_id: number;
       };
     };
     responses: {
@@ -4323,8 +4305,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-        /** @description The ID of the `CustomField`. */
-        custom_field_id: number;
       };
     };
     responses: {
@@ -4370,8 +4350,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-        /** @description The ID of the `CustomField`. */
-        custom_field_id: number;
       };
     };
     requestBody: {
@@ -4474,8 +4452,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-        /** @description The ID of the `CustomField`. */
-        custom_field_id: number;
       };
     };
     responses: {
@@ -4669,8 +4645,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         bulk_pricing_rule_id: components["parameters"]["BulkPricingRuleIdParam"];
-        /** @description The ID of the `BulkPricingRule`. */
-        bulk_pricing_rule_id: number;
       };
     };
     responses: {
@@ -4719,8 +4693,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         bulk_pricing_rule_id: components["parameters"]["BulkPricingRuleIdParam"];
-        /** @description The ID of the `BulkPricingRule`. */
-        bulk_pricing_rule_id: number;
       };
     };
     requestBody: {
@@ -4833,8 +4805,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         bulk_pricing_rule_id: components["parameters"]["BulkPricingRuleIdParam"];
-        /** @description The ID of the `BulkPricingRule`. */
-        bulk_pricing_rule_id: number;
       };
     };
     responses: {
@@ -4998,8 +4968,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
       };
     };
     responses: {
@@ -5053,8 +5021,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
       };
     };
     requestBody: {
@@ -5098,8 +5064,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
       };
     };
     responses: {
@@ -5328,8 +5292,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         review_id: components["parameters"]["ReviewIdParam"];
-        /** @description The ID of the `review` that is being operated on. */
-        review_id: number;
       };
     };
     responses: {
@@ -5413,8 +5375,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         review_id: components["parameters"]["ReviewIdParam"];
-        /** @description The ID of the `review` that is being operated on. */
-        review_id: number;
       };
     };
     /** @description A BigCommerce `ProductReview` object. */
@@ -5520,8 +5480,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         review_id: components["parameters"]["ReviewIdParam"];
-        /** @description The ID of the `review` that is being operated on. */
-        review_id: number;
       };
     };
     responses: {
