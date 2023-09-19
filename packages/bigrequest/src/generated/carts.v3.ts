@@ -1542,6 +1542,18 @@ export interface components {
            */
           valueId?: number;
         }[];
+      /** @description The gift wrapping details for this item. */
+      gift_wrapping?: {
+        /** @example Gift Wrap 1 */
+        name?: string;
+        /** @example Happy Birthday! */
+        message?: string;
+        /**
+         * Format: float
+         * @example 1.99
+         */
+        amount?: number;
+      };
     };
     /**
      * Not Found

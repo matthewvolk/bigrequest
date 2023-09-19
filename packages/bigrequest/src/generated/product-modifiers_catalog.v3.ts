@@ -1055,8 +1055,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
       };
     };
     responses: {
@@ -1096,8 +1094,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
       };
     };
     requestBody: {
@@ -1531,8 +1527,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
       };
     };
     responses: {

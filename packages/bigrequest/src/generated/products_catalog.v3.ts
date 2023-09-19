@@ -49,6 +49,7 @@ export interface paths {
      *
      * **Limits**
      * - 250 characters product name length.
+     * - A product can have up to 1000 images. Each image file or image uploaded by URL can be up to 8 MB.
      *
      * **Usage Notes**
      * * This endpoint accepts a `video` array. To create a product video that accepts a `video` object, see [Create a Product Video](/docs/rest-catalog/products/videos#create-a-product-video) for information.
@@ -80,6 +81,9 @@ export interface paths {
     /**
      * Update a Product
      * @description Updates a *Product*.
+     *
+     * **Limits**
+     * - A product can have up to 1000 images. Each image file or image uploaded by URL can be up to 8 MB.
      *
      * **Read-Only Fields**
      * - id
@@ -119,9 +123,10 @@ export interface paths {
      *
      * **Usage Notes**
      * - `image_url` - `255` character limit
-     * - For file uploads, use the `multipart/form-data` media type
-     * - Only one image at a time can be created
+     * - For file uploads, use the `multipart/form-data` media type.
+     * - You can create only one image at a time. A product can have up to 1000 images.
      * - Supported image file types are BMP, GIF, JPEG, PNG, WBMP, XBM, and WEBP.
+     * - Each image file or image uploaded by URL can be up to 8 MB.
      */
     post: operations["createProductImage"];
     parameters: {
@@ -145,6 +150,7 @@ export interface paths {
      *
      * **Usage Notes**
      * - `image_url` - `255` character limit
+     * - Each image file or image uploaded by URL can be up to 8 MB.
      * - For file uploads, send a POST request using the `multipart/form-data` media type
      */
     put: operations["updateProductImage"];
@@ -975,7 +981,7 @@ export interface components {
      * @description Common ProductImage properties.
      */
     productImage_Base: {
-      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 8MB per file. */
+      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 8 MB per file. */
       image_file?: string;
       /** @description Flag for identifying whether the image is used as the product's thumbnail. */
       is_thumbnail?: boolean;
@@ -2294,6 +2300,7 @@ export interface operations {
    *
    * **Limits**
    * - 250 characters product name length.
+   * - A product can have up to 1000 images. Each image file or image uploaded by URL can be up to 8 MB.
    *
    * **Usage Notes**
    * * This endpoint accepts a `video` array. To create a product video that accepts a `video` object, see [Create a Product Video](/docs/rest-catalog/products/videos#create-a-product-video) for information.
@@ -2483,6 +2490,9 @@ export interface operations {
    * Update a Product
    * @description Updates a *Product*.
    *
+   * **Limits**
+   * - A product can have up to 1000 images. Each image file or image uploaded by URL can be up to 8 MB.
+   *
    * **Read-Only Fields**
    * - id
    * - date_created
@@ -2670,9 +2680,10 @@ export interface operations {
    *
    * **Usage Notes**
    * - `image_url` - `255` character limit
-   * - For file uploads, use the `multipart/form-data` media type
-   * - Only one image at a time can be created
+   * - For file uploads, use the `multipart/form-data` media type.
+   * - You can create only one image at a time. A product can have up to 1000 images.
    * - Supported image file types are BMP, GIF, JPEG, PNG, WBMP, XBM, and WEBP.
+   * - Each image file or image uploaded by URL can be up to 8 MB.
    */
   createProductImage: {
     parameters: {
@@ -2716,7 +2727,7 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 1MB per file. */
+          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
           image_file?: string;
         };
         "multipart/form-data": {
@@ -2751,7 +2762,7 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 1MB per file. */
+          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
           image_file?: string;
         };
       };
@@ -2879,8 +2890,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         image_id: components["parameters"]["ImageIdParam"];
-        /** @description The ID of the `Image` that is being operated on. */
-        image_id: number;
       };
     };
     responses: {
@@ -2913,6 +2922,7 @@ export interface operations {
    *
    * **Usage Notes**
    * - `image_url` - `255` character limit
+   * - Each image file or image uploaded by URL can be up to 8 MB.
    * - For file uploads, send a POST request using the `multipart/form-data` media type
    */
   updateProductImage: {
@@ -2924,8 +2934,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         image_id: components["parameters"]["ImageIdParam"];
-        /** @description The ID of the `Image` that is being operated on. */
-        image_id: number;
       };
     };
     requestBody: {
@@ -3034,8 +3042,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         image_id: components["parameters"]["ImageIdParam"];
-        /** @description The ID of the `Image` that is being operated on. */
-        image_id: number;
       };
     };
     responses: {
@@ -3207,8 +3213,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         id: components["parameters"]["VideoIdParam"];
-        /** @description The BigCommerce ID of the `Video` */
-        id: number;
       };
     };
     responses: {
@@ -3254,8 +3258,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         id: components["parameters"]["VideoIdParam"];
-        /** @description The BigCommerce ID of the `Video` */
-        id: number;
       };
     };
     requestBody: {
@@ -3341,8 +3343,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         id: components["parameters"]["VideoIdParam"];
-        /** @description The BigCommerce ID of the `Video` */
-        id: number;
       };
     };
     responses: {
@@ -3690,8 +3690,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         complex_rule_id: components["parameters"]["ComplexRuleIdParam"];
-        /** @description The ID of the `ComplexRule`. */
-        complex_rule_id: number;
       };
     };
     responses: {
@@ -3858,8 +3856,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         complex_rule_id: components["parameters"]["ComplexRuleIdParam"];
-        /** @description The ID of the `ComplexRule`. */
-        complex_rule_id: number;
       };
     };
     requestBody: {
@@ -4134,8 +4130,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         complex_rule_id: components["parameters"]["ComplexRuleIdParam"];
-        /** @description The ID of the `ComplexRule`. */
-        complex_rule_id: number;
       };
     };
     responses: {
@@ -4323,8 +4317,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-        /** @description The ID of the `CustomField`. */
-        custom_field_id: number;
       };
     };
     responses: {
@@ -4370,8 +4362,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-        /** @description The ID of the `CustomField`. */
-        custom_field_id: number;
       };
     };
     requestBody: {
@@ -4474,8 +4464,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-        /** @description The ID of the `CustomField`. */
-        custom_field_id: number;
       };
     };
     responses: {
@@ -4669,8 +4657,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         bulk_pricing_rule_id: components["parameters"]["BulkPricingRuleIdParam"];
-        /** @description The ID of the `BulkPricingRule`. */
-        bulk_pricing_rule_id: number;
       };
     };
     responses: {
@@ -4719,8 +4705,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         bulk_pricing_rule_id: components["parameters"]["BulkPricingRuleIdParam"];
-        /** @description The ID of the `BulkPricingRule`. */
-        bulk_pricing_rule_id: number;
       };
     };
     requestBody: {
@@ -4833,8 +4817,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         bulk_pricing_rule_id: components["parameters"]["BulkPricingRuleIdParam"];
-        /** @description The ID of the `BulkPricingRule`. */
-        bulk_pricing_rule_id: number;
       };
     };
     responses: {
@@ -4998,8 +4980,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
       };
     };
     responses: {
@@ -5053,8 +5033,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
       };
     };
     requestBody: {
@@ -5098,8 +5076,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
       };
     };
     responses: {
@@ -5328,8 +5304,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         review_id: components["parameters"]["ReviewIdParam"];
-        /** @description The ID of the `review` that is being operated on. */
-        review_id: number;
       };
     };
     responses: {
@@ -5413,8 +5387,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         review_id: components["parameters"]["ReviewIdParam"];
-        /** @description The ID of the `review` that is being operated on. */
-        review_id: number;
       };
     };
     /** @description A BigCommerce `ProductReview` object. */
@@ -5520,8 +5492,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         review_id: components["parameters"]["ReviewIdParam"];
-        /** @description The ID of the `review` that is being operated on. */
-        review_id: number;
       };
     };
     responses: {
