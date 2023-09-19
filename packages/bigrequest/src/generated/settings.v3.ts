@@ -147,6 +147,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
+        /** @description Web Analytics Provider ID. */
         id: number;
       };
     };

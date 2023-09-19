@@ -292,13 +292,16 @@ export interface components {
               rate_id?: string;
               /**
                * Money Value
-               * @description Value object for a money amount.
+               * @description Value object for a money amount. Optional field; merchants may request features.
                */
               discounted_cost?: {
                 currency: string;
                 amount: number;
               };
-              /** Format: date */
+              /**
+               * Format: date
+               * @description Date at which carrier dispatches to the shipping destination. Optional field; merchants may request features.
+               */
               dispatch_date?: string;
               /**
                * Transit Time Object
@@ -346,13 +349,16 @@ export interface components {
           rate_id?: string;
           /**
            * Money Value
-           * @description Value object for a money amount.
+           * @description Value object for a money amount. Optional field; merchants may request features.
            */
           discounted_cost?: {
             currency: string;
             amount: number;
           };
-          /** Format: date */
+          /**
+           * Format: date
+           * @description Date at which carrier dispatches to the shipping destination. Optional field; merchants may request features.
+           */
           dispatch_date?: string;
           /**
            * Transit Time Object
@@ -507,13 +513,16 @@ export interface components {
       rate_id?: string;
       /**
        * Money Value
-       * @description Value object for a money amount.
+       * @description Value object for a money amount. Optional field; merchants may request features.
        */
       discounted_cost?: {
         currency: string;
         amount: number;
       };
-      /** Format: date */
+      /**
+       * Format: date
+       * @description Date at which carrier dispatches to the shipping destination. Optional field; merchants may request features.
+       */
       dispatch_date?: string;
       /**
        * Transit Time Object

@@ -37,11 +37,11 @@ export interface components {
       id?: string;
       /** @description Field name */
       name?: string;
-      /** @description Wether is a custom field or system built-in field. */
+      /** @description Whether this is a custom field or system built-in field. */
       custom?: boolean;
       /** @description User-friendly label */
       label?: string;
-      /** @description Wether this field is required or not */
+      /** @description Whether this field is required or not */
       required?: boolean;
       /** @description The field unique ID */
       default?: string;
