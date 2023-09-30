@@ -134,7 +134,7 @@ export interface components {
       parent_id?: number;
     };
     TreeIdUpdateData: {
-      tree_id: number;
+      tree_id?: number;
     };
     CategoryData: {
       name?: string;
