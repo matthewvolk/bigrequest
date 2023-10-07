@@ -120,7 +120,7 @@ export interface paths {
      * Get a Price Record by Currency Code
      * @description Returns a *Price List Record* using the currency code. You can use optional parameters.
      * **Notes**
-     * * Supports up to 40 simultaneous GET requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error, and your additional requests will fail.
+     * * Supports up to 50 simultaneous GET requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error, and your additional requests will fail.
      */
     get: operations["getPriceListRecord"];
     /**
@@ -133,6 +133,8 @@ export interface paths {
     /**
      * Delete a Price Record by Currency Code
      * @description Deletes a *Price List Record* using the currency code.
+     * **Note:**
+     * * Supports up to 25 simultaneous DELETE requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error, and your additional requests will fail.
      */
     delete: operations["deletePriceListRecord"];
     parameters: {
@@ -168,6 +170,8 @@ export interface paths {
     /**
      * Upsert Price List Assignment
      * @description Upsert a single `Price List Assignment` for a `Price List`.
+     * **Note:**
+     * * Supports up to 25 simultaneous PUT requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error and your additional requests will fail.
      */
     put: operations["upsertPriceListAssignment"];
     parameters: {
@@ -1634,7 +1638,7 @@ export interface operations {
    * Get a Price Record by Currency Code
    * @description Returns a *Price List Record* using the currency code. You can use optional parameters.
    * **Notes**
-   * * Supports up to 40 simultaneous GET requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error, and your additional requests will fail.
+   * * Supports up to 50 simultaneous GET requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error, and your additional requests will fail.
    */
   getPriceListRecord: {
     parameters: {
@@ -2048,6 +2052,8 @@ export interface operations {
   /**
    * Delete a Price Record by Currency Code
    * @description Deletes a *Price List Record* using the currency code.
+   * **Note:**
+   * * Supports up to 25 simultaneous DELETE requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error, and your additional requests will fail.
    */
   deletePriceListRecord: {
     parameters: {
@@ -2168,6 +2174,8 @@ export interface operations {
   /**
    * Upsert Price List Assignment
    * @description Upsert a single `Price List Assignment` for a `Price List`.
+   * **Note:**
+   * * Supports up to 25 simultaneous PUT requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error and your additional requests will fail.
    */
   upsertPriceListAssignment: {
     parameters: {
