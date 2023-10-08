@@ -415,6 +415,9 @@ export interface paths {
      */
     get: {
       parameters: {
+        query?: {
+          channel_id?: components["parameters"]["ChannelIdParam"];
+        };
         header: {
           Accept: components["parameters"]["Accept"];
         };
@@ -433,9 +436,14 @@ export interface paths {
     /**
      * Update Locale Settings
      * @description Updates global locale settings.
+     *
+     * Set a channel override by using the `channel_id` query parameter. To remove a channel override, set `null` for a field. The field then inherits the global value.
      */
     put: {
       parameters: {
+        query?: {
+          channel_id?: components["parameters"]["ChannelIdParam"];
+        };
         header: {
           Accept: components["parameters"]["Accept"];
           "Content-Type": components["parameters"]["ContentType"];
@@ -464,6 +472,9 @@ export interface paths {
       };
     };
     parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -1153,7 +1164,7 @@ export interface components {
      * @default relevance
      * @enum {string}
      */
-    ContentSortEnumValues: "relevance" | "atoz" | "ztoa";
+    ContentSortEnumValues: "relevance" | "alphaasc" | "alphadesc";
     /** Detailed Errors */
     DetailedErrors: {
       [key: string]: unknown;
@@ -1423,7 +1434,7 @@ export interface components {
      * @default bestselling
      * @enum {string}
      */
-    ProductSortEnumValues: "featured" | "bestselling" | "newest" | "atoz" | "ztoa" | "highestprice" | "lowestprice" | "bestreviewed";
+    ProductSortEnumValues: "featured" | "bestselling" | "newest" | "alphaasc" | "alphadesc" | "pricedesc" | "priceasc" | "avgcustomerreview" | "relevance";
     RobotsTxtSettings: {
       robots_txt_ssl?: string;
     };
@@ -1532,11 +1543,11 @@ export interface components {
       hide_price_from_guests?: boolean;
     };
     StorefrontSearchSettings: {
-      content_product_sort?: components["schemas"]["ContentSortEnumValues"];
-      default_product_sort?: components["schemas"]["ProductSortEnumValues"];
+      content_product_sort: components["schemas"]["ContentSortEnumValues"];
+      default_product_sort: components["schemas"]["ProductSortEnumValues"];
       /** @description Controls whether Product Filtering feature is active on the storefront. Only supports manipulation on a global level. */
-      product_filtering_enabled?: boolean;
-      search_suggest?: boolean;
+      product_filtering_enabled: boolean;
+      search_suggest: boolean;
     };
     /** StorefrontSecuritySettings */
     StorefrontSecuritySettings: {
@@ -1580,7 +1591,7 @@ export interface components {
       content: {
         "application/json": {
           errors?: {
-            /** @example Incorrect value [current__only], it should match one of: current_category_only,child_categories_if_category_empty,child_categories; Incorrect value [besling], it should match one of: featured,newest,bestselling,atoz,ztoa,bestreviewed,lowestprice,highestprice */
+            /** @example Incorrect value [current__only], it should match one of: current_category_only,child_categories_if_category_empty,child_categories; Incorrect value [besling], it should match one of: featured, newest, bestselling, alphaasc, alphadesc, avgcustomerreview, priceasc, pricedesc, relevance */
             ""?: string;
           };
           /** @example 422 */
