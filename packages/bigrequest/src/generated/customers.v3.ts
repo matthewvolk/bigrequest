@@ -62,9 +62,6 @@ export interface paths {
      * * attribute_id
      * * attribute_value -- This is input as a string, regardless of the [Type](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute).
      *
-     * **Limits**
-     * * Create 20 customers over the span of an hour. Attempting to make more than 20 API calls will result in a `429` return status until the hour has lapsed.
-     *
      * **Notes**
      *
      * A customer can be created with global access or channel-specific access.
@@ -1705,9 +1702,6 @@ export interface operations {
    * * Attributes must be [created](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute) **BEFORE** creating a customer.
    * * attribute_id
    * * attribute_value -- This is input as a string, regardless of the [Type](/docs/rest-management/customers/customer-attributes#create-a-customer-attribute).
-   *
-   * **Limits**
-   * * Create 20 customers over the span of an hour. Attempting to make more than 20 API calls will result in a `429` return status until the hour has lapsed.
    *
    * **Notes**
    *
