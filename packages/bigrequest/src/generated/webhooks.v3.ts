@@ -124,8 +124,8 @@ export interface components {
     /**
      * store/cart/updated
      * @description Fires when one of the following occurs:
-     * * A cartʼs line items are modified by adding a new item to a cart, updating an existing itemʼs quantity, or deleting an item.
-     * * A shopper enters or changes their email address during guest checkout. This includes signing in to a customer account after creating a guest cart, which associates the accountʼs email address with the cart.
+     * * A cart's line items are modified by adding a new item to a cart, updating an existing item's quantity, or deleting an item.
+     * * A shopper enters or changes their email address during guest checkout. This includes signing in to a customer account after creating a guest cart, which associates the account's email address with the cart.
      *
      * The `store/cart/created` webhook firing also triggers this webhook because adding a product to an empty cart is considered an update.
      *
@@ -698,7 +698,7 @@ export interface components {
     };
     /**
      * store/customer/updated
-     * @description This webhook is triggered when a customer is updated. In addition, this webhook is triggered when a shopper initially enters custom form field values within the account sign-up form. Please note that neither changing existing data in customer form fields nor changing a customerʼs address will trigger the webhook.
+     * @description This webhook is triggered when a customer is updated. In addition, this webhook is triggered when a shopper initially enters custom form field values within the account sign-up form. Please note that neither changing existing data in customer form fields nor changing a customer's address will trigger the webhook.
      *
      *
      * ```json title="Example callback object" lineNumbers
@@ -2460,7 +2460,7 @@ export interface operations {
               /** @description Email addresses to be sent notifications. */
               emails?: string[];
               /** @description List of all the webhooks associated with the provider API account, filtered by the "active" parameter. */
-              hooks_list?: {
+              hooks_list?: ({
                   /** @description ID of the webhook */
                   id?: number;
                   /** @description Client ID, unique to the store or app. */
@@ -2477,7 +2477,7 @@ export interface operations {
                   /** @description You can pass in any number of custom headers to validate webhooks being returned. */
                   headers?: Record<string, never>;
                   /**
-                   * @description If webhook is active or not
+                   * @description If the webhook is active or not.
                    * @default true
                    */
                   is_active?: boolean;
@@ -2485,7 +2485,12 @@ export interface operations {
                   created_at?: number;
                   /** @description Updated time */
                   updated_at?: number;
-                }[];
+                  /**
+                   * @description The webhook status.
+                   * @enum {string}
+                   */
+                  status?: "inactive" | "active" | "deactivated";
+                })[];
               /** @description List of domains (destinations) that are currently on the denylist and are not being sent webhooks. */
               blocked_domains?: {
                   /**

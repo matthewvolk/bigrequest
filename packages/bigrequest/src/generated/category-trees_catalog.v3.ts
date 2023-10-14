@@ -134,7 +134,7 @@ export interface components {
       parent_id?: number;
     };
     TreeIdUpdateData: {
-      tree_id: number;
+      tree_id?: number;
     };
     CategoryData: {
       name?: string;
@@ -225,7 +225,7 @@ export interface components {
     Tree_req: {
       id?: number;
       name?: string;
-      channel_ids?: number[];
+      channels?: number[];
     };
     CategoryNode: {
       id?: number;
@@ -648,7 +648,7 @@ export interface operations {
          *   {
          *     "id": 0,
          *     "name": "string",
-         *     "channel_ids": [
+         *     "channels": [
          *       0
          *     ]
          *   }
