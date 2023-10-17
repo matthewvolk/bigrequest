@@ -114,7 +114,7 @@ export interface components {
     UpdateCategories: (components["schemas"]["TreeIdUpdateData"] & components["schemas"]["CategoryIdUpdateData"] & components["schemas"]["CategoryUuidData"] & components["schemas"]["ParentIdUpdateData"] & components["schemas"]["CategoryDataPUT"])[];
     /** Category */
     Category: components["schemas"]["id"] & components["schemas"]["parent_id"] & components["schemas"]["name"] & components["schemas"]["description"] & components["schemas"]["views"] & components["schemas"]["sort_order"] & components["schemas"]["page_title"] & components["schemas"]["meta_keywords"] & components["schemas"]["meta_description"] & components["schemas"]["layout_file"] & components["schemas"]["image_url"] & components["schemas"]["is_visible"] & components["schemas"]["search_keywords"] & components["schemas"]["default_product_sort"] & {
-      custom_url?: components["schemas"]["Url"];
+      url?: components["schemas"]["Url"];
     };
     /** category_uuid */
     CategoryUuidData: {
@@ -134,7 +134,7 @@ export interface components {
       parent_id?: number;
     };
     TreeIdUpdateData: {
-      tree_id: number;
+      tree_id?: number;
     };
     CategoryData: {
       name?: string;
@@ -148,12 +148,12 @@ export interface components {
       layout_file?: string;
       is_visible?: boolean;
       image_url?: string;
-      custom_url?: components["schemas"]["Url"];
+      url?: components["schemas"]["Url"];
     };
     CategoryDataPUT: components["schemas"]["CategoryData"] & components["schemas"]["default_product_sort"];
     CategoryDataPOST: WithRequired<components["schemas"]["CategoryData"] & components["schemas"]["default_product_sort"], "name" | "url">;
     Url: {
-      url?: string;
+      path?: string;
       is_customized?: boolean;
     };
     MetaPagination: {
@@ -225,7 +225,7 @@ export interface components {
     Tree_req: {
       id?: number;
       name?: string;
-      channel_ids?: number[];
+      channels?: number[];
     };
     CategoryNode: {
       id?: number;
@@ -648,7 +648,7 @@ export interface operations {
          *   {
          *     "id": 0,
          *     "name": "string",
-         *     "channel_ids": [
+         *     "channels": [
          *       0
          *     ]
          *   }
