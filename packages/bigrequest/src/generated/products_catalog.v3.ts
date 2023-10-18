@@ -981,7 +981,11 @@ export interface components {
      * @description Common ProductImage properties.
      */
     productImage_Base: {
-      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 8 MB per file. */
+      /**
+       * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+       *
+       * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+       */
       image_file?: string;
       /** @description Flag for identifying whether the image is used as the product's thumbnail. */
       is_thumbnail?: boolean;
@@ -2700,11 +2704,6 @@ export interface operations {
         "application/json": {
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce.
-           * A `multipart/form-data` media type.
-           */
-          image_file?: string;
           /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2727,7 +2726,11 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           *
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+           */
           image_file?: string;
         };
         "multipart/form-data": {
@@ -2735,11 +2738,6 @@ export interface operations {
           id?: number;
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce.
-           * A `multipart/form-data` media type.
-           */
-          image_file?: string;
           /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2762,7 +2760,11 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           *
+           * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
+           */
           image_file?: string;
         };
       };
@@ -2778,12 +2780,6 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /**
-               * @description The local path to the original image file uploaded to BigCommerce.
-               *
-               * A `multipart/form-data` media type.
-               */
-              image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2811,6 +2807,8 @@ export interface operations {
               /**
                * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
                * A `multipart/form-data` media type.
+               *
+               * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
@@ -2951,8 +2949,6 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The local path to the original image file uploaded to BigCommerce. */
-              image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2977,7 +2973,11 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product. */
+              /**
+               * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+               *
+               * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+               */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
