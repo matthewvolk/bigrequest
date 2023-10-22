@@ -267,6 +267,48 @@ export interface components {
       };
     };
     /**
+     * Themes Collection Meta
+     * @description Data about the response, including pagination and collection totals.
+     */
+    ThemesCollectionMeta: {
+      /**
+       * Pagination
+       * @description Data about the response, including pagination and collection totals.
+       */
+      pagination?: {
+        /**
+         * @description Total number of items in the result set.
+         *
+         * @example 36
+         */
+        total?: number;
+        /**
+         * @description Total number of items in the collection response.
+         *
+         * @example 36
+         */
+        count?: number;
+        /**
+         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+         *
+         * @example 50
+         */
+        per_page?: number;
+        /**
+         * @description The page you are currently on within the collection.
+         *
+         * @example 1
+         */
+        current_page?: number;
+        /**
+         * @description The total number of pages in the collection.
+         *
+         * @example 1
+         */
+        total_pages?: number;
+      };
+    };
+    /**
      * Pagination
      * @description Data about the response, including pagination and collection totals.
      */
@@ -705,7 +747,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["themeConfiguration_Full"][];
-          meta?: components["schemas"]["CollectionMeta"];
+          meta?: components["schemas"]["ThemesCollectionMeta"];
         };
       };
     };
