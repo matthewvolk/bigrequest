@@ -91,13 +91,15 @@ export interface paths {
   "/checkouts/{checkoutId}/consignments/{consignmentId}": {
     /**
      * Update Checkout Consignment
-     * @description Updates an existing consignment. The address, line item IDs, and the shipping option ID can be updated using this endpoint.
+     * @description Updates an existing consignment. The address, line item IDs, and shipping option ID can be updated using this endpoint.
      *
-     * To add a new address and shipping options with line items, complete the following steps.
+     * Use a separate `PUT` request to update the shipping option IDs if you also want to update the address and line item IDs.
      *
-     * 1. Add a new [consignment](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) to a checkout.
+     * To add new shipping options, complete the following steps:
+     * * Use the [Add Consignment to Checkout](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) endpoint to add a new [consignment] to a checkout.
+     * * Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in the [Add Consignment to Checkout](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) endpoint.
      *
-     * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
+     * To update an existing address and line item IDs, assign a new address and line item IDs by sending a `PUT` request.
      */
     put: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut"];
     /**
@@ -730,39 +732,39 @@ export interface components {
      * @description One or more of these three fields are mandatory. `address` and `line_items` can be updated in one request. `shipping_option_id` has to be updated in a separate request because changing the address or line items can invalidate the previously available shipping options.
      */
     UpdateConsignmentRequest: {
-        /** Address Properties */
-        address?: {
-          first_name?: string;
-          last_name?: string;
-          email: string;
-          company?: string;
-          address1?: string;
-          address2?: string;
-          city?: string;
-          /** @description Represents state or province. */
-          state_or_province?: string;
-          state_or_province_code?: string;
-          country_code: string;
-          postal_code?: string;
-          phone?: string;
-          custom_fields?: {
-              field_id?: string;
-              /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
-              field_value?: string;
-            }[];
-        };
-        line_items?: {
-            /** @description Corresponds to `line_items.physical_items[N].id` value from `GET`checkout response. */
-            item_id: string;
-            /** Format: int32 */
-            quantity: number;
+      /** Address Properties */
+      address?: {
+        first_name?: string;
+        last_name?: string;
+        email: string;
+        company?: string;
+        address1?: string;
+        address2?: string;
+        city?: string;
+        /** @description Represents state or province. */
+        state_or_province?: string;
+        state_or_province_code?: string;
+        country_code: string;
+        postal_code?: string;
+        phone?: string;
+        custom_fields?: {
+            field_id?: string;
+            /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
+            field_value?: string;
           }[];
-        shipping_option_id?: string;
-        pickup_option?: {
-          /** @example 1 */
-          pickup_method_id?: number;
-        };
-      }[];
+      };
+      line_items?: {
+          /** @description Corresponds to `line_items.physical_items[N].id` value from `GET`checkout response. */
+          item_id: string;
+          /** Format: int32 */
+          quantity: number;
+        }[];
+      shipping_option_id?: string;
+      pickup_option?: {
+        /** @example 1 */
+        pickup_method_id?: number;
+      };
+    };
     /** Coupon Code Request */
     CouponCodeRequest: {
       /** @description Coupon codes have a 50-character limit. */
@@ -1143,13 +1145,15 @@ export interface operations {
   };
   /**
    * Update Checkout Consignment
-   * @description Updates an existing consignment. The address, line item IDs, and the shipping option ID can be updated using this endpoint.
+   * @description Updates an existing consignment. The address, line item IDs, and shipping option ID can be updated using this endpoint.
    *
-   * To add a new address and shipping options with line items, complete the following steps.
+   * Use a separate `PUT` request to update the shipping option IDs if you also want to update the address and line item IDs.
    *
-   * 1. Add a new [consignment](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) to a checkout.
+   * To add new shipping options, complete the following steps:
+   * * Use the [Add Consignment to Checkout](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) endpoint to add a new [consignment] to a checkout.
+   * * Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in the [Add Consignment to Checkout](/docs/rest-management/checkouts/checkout-consignments#add-consignment-to-checkout) endpoint.
    *
-   * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
+   * To update an existing address and line item IDs, assign a new address and line item IDs by sending a `PUT` request.
    */
   CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut: {
     parameters: {
