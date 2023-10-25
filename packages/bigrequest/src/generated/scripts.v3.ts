@@ -36,7 +36,7 @@ export interface paths {
      *   * Specify the `html` property.
      *   * Do not specify the `src` field.
      * * Each app can have 10 scripts installed.
-     * * Multiple scripts can be created [per call](/api-docs/store-management/scripts#notes).
+     * * Multiple scripts can be created [per call](/docs/integrations/scripts#notes).
      */
     post: operations["createScript"];
     parameters: {
@@ -276,7 +276,7 @@ export interface components {
     } & components["schemas"]["script_Base"];
     /**
      * script_Response
-     * @description For a list of all locations visit [Scripts Visibility](/api-docs/store-management/scripts#script-visibility-locations).
+     * @description For a list of all locations visit [Scripts Visibility](/docs/integrations/scripts#script-visibility-locations).
      */
     script_Response: {
       data?: components["schemas"]["script_Full"];
@@ -284,7 +284,7 @@ export interface components {
     };
     /**
      * script_responseCollection
-     * @description For a list of all locations visit [Scripts Visibility](/api-docs/store-management/scripts#script-visibility-locations).
+     * @description For a list of all locations visit [Scripts Visibility](/docs/integrations/scripts#script-visibility-locations).
      */
     script_responseCollection: {
       data?: components["schemas"]["script_Full"][];
@@ -326,7 +326,7 @@ export interface components {
        *      `storefront`: All pages that are not `checkout` or `order_confirmation`.
        *
        *
-       * For a list of all locations visit [Scripts Visibility](/api-docs/store-management/scripts#script-visibility-locations).
+       * For a list of all locations visit [Scripts Visibility](/docs/integrations/scripts#script-visibility-locations).
        * @enum {string}
        */
       visibility?: "storefront" | "all_pages" | "checkout" | "order_confirmation";
@@ -474,7 +474,7 @@ export interface operations {
    *   * Specify the `html` property.
    *   * Do not specify the `src` field.
    * * Each app can have 10 scripts installed.
-   * * Multiple scripts can be created [per call](/api-docs/store-management/scripts#notes).
+   * * Multiple scripts can be created [per call](/docs/integrations/scripts#notes).
    */
   createScript: {
     parameters: {

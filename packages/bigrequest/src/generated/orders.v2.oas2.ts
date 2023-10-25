@@ -9,7 +9,7 @@ export interface paths {
   "/orders/{order_id}": {
     /**
      * Get an Order
-     * @description Gets an *Order*. To learn more about creating or updating orders, see [Orders Overview](/api-docs/orders/orders-api-overview).
+     * @description Gets an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
     get: operations["getAnOrder"];
     /**
@@ -22,7 +22,7 @@ export interface paths {
      *
      * To remove a product from an order, set that product’s `quantity` to `0`.
      *
-     * To learn more about creating or updating orders, see [Orders Overview](/api-docs/orders/orders-api-overview).
+     * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
     put: operations["updateAnOrder"];
     /**
@@ -64,7 +64,7 @@ export interface paths {
     get: operations["getAllOrders"];
     /**
      * Create an Order
-     * @description Creates an *Order*. To learn more about creating or updating orders, see [Orders Overview](/api-docs/orders/orders-api-overview).
+     * @description Creates an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      *
      * Create an order with an existing catalog product or a custom product.
      *
@@ -248,7 +248,7 @@ export interface paths {
     get: operations["getAllOrderShipments"];
     /**
      * Create Order Shipment
-     * @description Creates an *Order Shipment*. For more details, see [Shipping an Order](/api-docs/orders/orders-api-overview#creating-order-shipments).
+     * @description Creates an *Order Shipment*. For more details, see [Shipping an Order](/docs/store-operations/orders#creating-order-shipments).
      *
      * **Required Fields**
      * *   order_address_id
@@ -264,7 +264,7 @@ export interface paths {
      *
      * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
      *
-     * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
+     * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
      *
      * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
      */
@@ -467,7 +467,7 @@ export interface components {
       code?: string | null;
       /**
        * Format: float
-       * @description Amount of the discount. This information is returned as in integer. Dollar and percentage discounts will return the same. For example, $3 returns as ''3'' while 5% will return as 5. Check the discount type to see what type of discount is available.
+       * @description Amount of the discount. This information is returned as in integer. Dollar and percentage discounts will return the same. For example, $3 returns as `3` while 5% will return as `5`. Check the discount type to see what type of discount is available.
        * @example 5
        */
       amount?: string | number;
@@ -642,7 +642,7 @@ export interface components {
        * @description Name of gift-wrapping option.
        * @example null
        */
-      wrapping_name?: string;
+      wrapping_name?: string | null;
       /**
        * @description The value of the base wrapping cost. (Float, Float-As-String, Integer)
        * @example 0.0000
@@ -703,12 +703,14 @@ export interface components {
       is_bundled_product?: boolean;
       /** @description Bin picking number for the physical product. */
       bin_picking_number?: string;
+      /** @description (Read-only) ID of the order in another system. For example, the Amazon order ID if this is an Amazon order. */
+      external_id?: string | null;
+      /** @description The productʼs brand. */
+      brand?: string;
       /** @description Array of objects containing discounts applied to the product. */
       applied_discounts?: components["schemas"]["orderProductAppliedDiscounts"][];
       /** @description Array of product option objects. */
       product_options?: components["schemas"]["orderProductOptions"][];
-      /** @description (Read-only) ID of the order in another system. For example, the Amazon order ID if this is an Amazon order. */
-      external_id?: string | null;
       /** @description Universal Product Code. Can be written to for custom products and catalog products. */
       upc?: string;
       /** @description Products `variant_id`. PUT or POST. This field is not available for custom products. */
@@ -934,7 +936,7 @@ export interface components {
        * @description Enum of the BigCommerce shipping-carrier integration/module.
        * @enum {string}
        */
-      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq" | "";
+      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq" | "";
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
@@ -1066,7 +1068,7 @@ export interface components {
        */
       display_value?: string;
       /**
-       * @description For file-upload type, it's a unique string describing the properties of the file upload. For other types, it's the value of the property.
+       * @description For file-upload type, itʼs a unique string describing the properties of the file upload. For other types, itʼs the value of the property.
        * @example {"originalName":"BigCommerceLogo.jpeg","temporaryPath":"121_fbfb71dfc5a5d911f62d8e35dedd6e45.jpeg","path":"f606efcae7e179970b19c3658142c5d0.jpeg"}
        */
       value?: string;
@@ -1161,10 +1163,7 @@ export interface components {
        * @example a72acc8d-504b-4a40-8534-7c54d997ed59
        */
       uuid?: string;
-      /**
-       * Format: date-time
-       * @description Time the order was created in RFC 2822 format.
-       */
+      /** @description Time the order was created in RFC 2822 format. */
       timestamp?: string;
       /**
        * @description ID of the shipping provider.
@@ -1215,7 +1214,7 @@ export interface components {
        * @description Enum of the BigCommerce shipping-carrier integration/module.
        * @enum {string}
        */
-      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
+      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
@@ -1255,7 +1254,7 @@ export interface components {
        * @description Enum of the BigCommerce shipping-carrier integration/module.
        * @enum {string}
        */
-      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
+      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
@@ -1689,12 +1688,12 @@ export interface components {
        */
       default_currency_code?: string;
       /**
-       * @description The currency code of the store's default currency.
+       * @description The currency code of the storeʼs default currency.
        * @example USD
        */
       store_default_currency_code?: string;
       /**
-       * @description The exchange rate between the store's default currency and the transactional currency used in the order.
+       * @description The exchange rate between the storeʼs default currency and the transactional currency used in the order.
        * @example 100.0000000000
        */
       store_default_to_transactional_exchange_rate?: string;
@@ -1711,7 +1710,7 @@ export interface components {
        */
       is_email_opt_in?: boolean;
       /**
-       * @description Orders submitted from the store's website will include a `www` value. Orders submitted with the Checkout API will be set to `checkout_api`.
+       * @description Orders submitted from the storeʼs website will include a `www` value. Orders submitted with the Checkout API will be set to `checkout_api`.
        * @example www, iPhone, Android, mobile, manual
        */
       order_source?: string;
@@ -1979,7 +1978,7 @@ export interface components {
       customer_message?: string;
       /** @description The date the order was created, formatted in the RFC-2822 standard. You set this attribute on Order creation (POST) to support the migration of historical orders. If you do not provide a value, then it will default to the current date/time. e.g., `Tue, 20 Nov 2012 00:00:00 +0000`. */
       date_created?: string;
-      /** @description A read-only field displays the currency code of the [transactional currency](/api-docs/multi-currency/guide/introduction#display-vs-transactional) the shopper uses. */
+      /** @description A read-only field displays the currency code of the [transactional currency](/docs/store-operations/currencies#display-vs-transactional) the shopper uses. */
       default_currency_code?: string;
       /**
        * @description Amount of discount for this transaction. (Float, Float-As-String, Integer)
@@ -2065,10 +2064,7 @@ export interface components {
       order_is_digital?: boolean;
       /** @description The payment method for this order. Can be one of the following: `Manual`, `Credit Card`, `Cash`,`Test Payment Gateway`, etc. */
       payment_method?: string;
-      /**
-       * @description The external Transaction ID/Payment ID within this order’s payment provider (if a payment provider was used).
-       * @example
-       */
+      /** @description The external Transaction ID/Payment ID within this order’s payment provider (if a payment provider was used). */
       payment_provider_id?: string | number;
       products?: (components["schemas"]["orderCatalogProduct_Put"] | components["schemas"]["orderCustomProduct_Put"] | components["schemas"]["orderRemoveProduct_Put"])[];
       /**
@@ -2091,9 +2087,9 @@ export interface components {
        * @example Send Saturday
        */
       staff_notes?: string;
-      shipping_addresses?: {
-        id?: number;
-      } & components["schemas"]["shippingAddress_Put"];
+      shipping_addresses?: ({
+          id?: number;
+        } & components["schemas"]["shippingAddress_Put"])[];
       /** @description The status ID of the order. */
       status_id?: number;
       /**
@@ -2125,7 +2121,7 @@ export interface components {
        * @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you can update this field using a POST or PUT request.
        * @example external-order-id
        */
-      external_order_id?: string;
+      external_order_id?: string | null;
       /**
        * @description Override value for the total, excluding tax. If specified, the field `total_inc_tax` is also required. (Float, Float-As-String, Integer)
        * @example 225.0000
@@ -2231,12 +2227,12 @@ export interface components {
        */
       country_alpha2?: string;
       /**
-       * @description Pickup location's email address.
+       * @description Pickup locationʼs email address.
        * @example location1@example.com
        */
       email?: string;
       /**
-       * @description Pickup location's phone number.
+       * @description Pickup locationʼs phone number.
        * @example +1 111-111-1111
        */
       phone?: string;
@@ -2534,352 +2530,6 @@ export interface components {
         "application/json": components["schemas"]["orderTaxes_Base"][];
       };
     };
-    "actual-order-response": {
-      content: {
-        "application/json": {
-          /**
-           * @description The ID of the order, a read-only value. Do not pass in PUT or POST request.
-           * @example 118
-           */
-          id?: number;
-          /**
-           * @description The ID of the customer placing the order; or 0 if it was a guest order.
-           * @example 6
-           */
-          customer_id?: number;
-          /** @description The date the order was created, formatted in the RFC-2822 standard. You set this attribute on Order creation (POST request) to support the migration of historical orders. If you do not provide a value, then it will default to the current date/time. e.g., `Tue, 20 Nov 2012 00:00:00 +0000` */
-          date_created?: string;
-          /** @description A read-only value representing the last modification of the order. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822 */
-          date_modified?: string;
-          /** @description A read-only value representing the date of shipment. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822 */
-          date_shipped?: string;
-          /**
-           * @description The status ID of the order.
-           * @example 11
-           */
-          status_id?: number;
-          /**
-           * @description The cart ID from which this order originated, if applicable. Correlates with the Cart API. This is a read-only field; do not set or modify its value in a POST or PUT request.
-           * @example a8458391-ef68-4fe5-9ec1-442e6a767364
-           */
-          cart_id?: string;
-          /**
-           * @description The status will include one of the (string, optional) - values defined under Order Statuses. This is a read-only value. Do not attempt to modify or set this value in a POST or PUT request.
-           * @example Awaiting Fulfillment
-           */
-          status?: string;
-          /**
-           * @description Contains the same (string, optional) - value as the `custom_label` property of the Order Statuses object.
-           * @example Awaiting Fulfillment
-           */
-          custom_status?: string;
-          /**
-           * @description Override value for subtotal excluding tax. If specified, the field `subtotal_inc_tax` is also required. (Float, Float-As-String, Integer)
-           * @example 225.0000
-           */
-          subtotal_ex_tax?: string;
-          /**
-           * @description Override value for subtotal including tax. If specified, the field `subtotal_ex_tax` is also required. (Float, Float-As-String, Integer)
-           * @example 225.0000
-           */
-          subtotal_inc_tax?: string;
-          /**
-           * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          subtotal_tax?: string;
-          /**
-           * @description The value of the base shipping cost. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          base_shipping_cost?: string;
-          /**
-           * @description The value of shipping cost, excluding tax. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          shipping_cost_ex_tax?: string;
-          /**
-           * @description The value of shipping cost, including tax. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          shipping_cost_inc_tax?: string;
-          /**
-           * @description A read-only value. Do not attempt to modify or set this value in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          shipping_cost_tax?: string;
-          /**
-           * @description Shipping-cost tax class. A read-only value. Do not attempt to modify or set this value in a POST or PUT request. (NOTE: Value ignored if automatic tax is enabled on the store.)
-           * @example 2
-           */
-          shipping_cost_tax_class_id?: number;
-          /**
-           * @description The value of the base handling cost. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          base_handling_cost?: string;
-          /**
-           * @description The value of the handling cost, excluding tax. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          handling_cost_ex_tax?: string;
-          /** @description The value of the handling cost, including tax. (Float, Float-As-String, Integer) */
-          handling_cost_inc_tax?: number | string;
-          /**
-           * @description A read-only value. Do not attempt to modify or set this value in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          handling_cost_tax?: string;
-          /**
-           * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT request. (NOTE: Value ignored if automatic tax is enabled on the store.)
-           * @example 2
-           */
-          handling_cost_tax_class_id?: number;
-          /**
-           * @description The value of the base wrapping cost.
-           * @example 0
-           */
-          base_wrapping_cost?: string | number;
-          /**
-           * @description The value of the wrapping cost, excluding tax. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          wrapping_cost_ex_tax?: string;
-          /**
-           * @description The value of the wrapping cost, including tax. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          wrapping_cost_inc_tax?: string;
-          /**
-           * @description A read-only value. Do not attempt to modify or set this value in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          wrapping_cost_tax?: string;
-          /**
-           * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT request. (NOTE: Value ignored if automatic tax is enabled on the store.)
-           * @example 3
-           */
-          wrapping_cost_tax_class_id?: number;
-          /**
-           * @description Override value for the total, excluding tax. If specified, the field `total_inc_tax` is also required. (Float, Float-As-String, Integer)
-           * @example 225.0000
-           */
-          total_ex_tax?: string;
-          /**
-           * @description Override value for the total, including tax. If specified, the field `total_ex_tax` is also required. (Float, Float-As-String, Integer)
-           * @example 225.0000
-           */
-          total_inc_tax?: string;
-          /**
-           * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          total_tax?: string;
-          /**
-           * @description The total number of items in the order.
-           * @example 1
-           */
-          items_total?: number;
-          /**
-           * @description The number of items that have been shipped.
-           * @example 0
-           */
-          items_shipped?: number;
-          /**
-           * @description The display name of the payment method for this order.
-           * @example Cash on Delivery
-           */
-          payment_method?: string;
-          /**
-           * @description The external Transaction ID/Payment ID within this order’s payment provider (if a payment provider was used).
-           * @example null
-           */
-          payment_provider_id?: string | null;
-          /** @description A read-only value. Do not attempt to set or modify this value in a POST or PUT request. */
-          payment_status?: string;
-          /**
-           * @description The amount refunded from this transaction; always returns `0`. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          refunded_amount?: string;
-          /**
-           * @description Whether this is an order for digital products.
-           * @example false
-           */
-          order_is_digital?: boolean;
-          /**
-           * @description Represents the store credit that the shopper has redeemed on this individual order. This is a read-only value. Do not pass in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          store_credit_amount?: string;
-          /**
-           * @description A read-only value. Do not pass in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          gift_certificate_amount?: string;
-          /**
-           * @description IP Address of the customer, if known.
-           * @example 12.345.678.910
-           */
-          ip_address?: string;
-          /**
-           * @description The full name of the country where the customer made the purchase, based on the IP.
-           * @example United States
-           */
-          geoip_country?: string;
-          /**
-           * @description The country where the customer made the purchase, in ISO2 format, based on the IP.
-           * @example US
-           */
-          geoip_country_iso2?: string;
-          /**
-           * @description The display currency ID. May be different from transactional currency. A read-only value. Do not pass in a POST or PUT request.
-           * @example 1
-           */
-          currency_id?: number;
-          /**
-           * @description The currency code of the display currency used to present prices on the storefront. May be different from transactional currency. A read-only value. Do not pass in a POST or PUT request.
-           * @example USD
-           */
-          currency_code?: string;
-          /**
-           * @description A read-only value. Do not pass in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 1.0000000000
-           */
-          currency_exchange_rate?: string;
-          /**
-           * @description The transactional currency ID. A read-only value. Do not pass in a POST or PUT request.
-           * @example 1
-           */
-          default_currency_id?: number;
-          /**
-           * @description The currency code of the transactional currency the shopper pays in. A read-only value. Do not pass in a POST or PUT request.
-           * @example USD
-           */
-          default_currency_code?: string;
-          /**
-           * @description Any additional notes for staff.
-           * @example Send Saturday
-           */
-          staff_notes?: string;
-          /**
-           * @description Message that the customer entered (number, optional) -o the `Order Comments` box during checkout.
-           * @example Thank you
-           */
-          customer_message?: string;
-          /**
-           * @description Amount of discount for this transaction. (Float, Float-As-String, Integer)
-           * @example 0.0000
-           */
-          discount_amount?: string;
-          /**
-           * @description A read-only value. Do not pass in a POST or PUT request. (Float, Float-As-String, Integer)
-           * @example 5.0000
-           */
-          coupon_discount?: string;
-          /** @description The number of shipping addresses associated with this transaction. A read-only value. Do not pass in a POST or PUT request. */
-          shipping_address_count?: number;
-          /**
-           * @description Boolean value indicates whether the order was deleted (archived). Set to to true to archive an order.
-           * @example false
-           */
-          is_deleted?: boolean;
-          /**
-           * @description Boolean value indicates whether the shopper has selected an opt-in check box (on the checkout page) to receive emails. A read-only value. Do not pass in a POST or PUT request.
-           * @example false
-           */
-          is_email_opt_in?: boolean;
-          /**
-           * @description Credit card type
-           * @example 0
-           */
-          credit_card_type?: number | null;
-          /**
-           * @description If the order was placed through eBay, the eBay order number will be included. Otherwise, the value will be `0`.
-           * @example 0
-           */
-          ebay_order_id?: string;
-          /**
-           * Billing Address
-           * @description Required to create an order.
-           */
-          billing_address?: {
-            /** @example Jane */
-            first_name?: string;
-            /** @example Doe */
-            last_name?: string;
-            company?: string;
-            /** @example 123 Main Street */
-            street_1?: string;
-            street_2?: string;
-            /** @example Austin */
-            city?: string;
-            /** @example TX */
-            state?: string;
-            /** @example 12345 */
-            zip?: number;
-            /** @example United States */
-            country?: string;
-            /** @example US */
-            country_iso2?: string;
-            phone?: string;
-            /** @example janedoe@example.com */
-            email?: string;
-            form_fields?: {
-                /**
-                 * @description Name of the form field.
-                 * @example License Id
-                 */
-                readonly name?: string;
-                /**
-                 * @description Value of the form field.
-                 * @example 123BAF
-                 */
-                readonly value?: string;
-              }[];
-          };
-          /**
-           * @description Orders submitted from the store's website will include a `www` value. Orders submitted with the Checkout API will be set to `checkout_api`.
-           * @example www, iPhone, Android, mobile, manual
-           */
-          order_source?: string;
-          /**
-           * @description This value identifies an external system that generated the order and submitted it to BigCommerce using the Orders API.
-           * * When supplying the value, we recommend combining the type of system and vendor, e.g., ERP (Acumatica) or POS (Square).
-           * * If you are migrating historical orders processed on another eCommerce platform to BigCommerce, supply the following code as the value: M-MIG. This code will exclude historical orders from the store’s GMV/order count, which factors into pricing.
-           * * If you do not provide a value, then it will default to null..
-           * @example null
-           */
-          external_source?: string | null;
-          products?: components["schemas"]["products_Resource"];
-          shipping_addresses?: components["schemas"]["shippingAddresses_Resource"];
-          coupons?: components["schemas"]["coupons_Resource"];
-          /**
-           * @description (Read-only) ID of the order in another system. For example, the Amazon order ID if this is an Amazon order.
-           * @example null
-           */
-          external_id?: string | null;
-          /**
-           * @description ID of the merchant.
-           * @example null
-           */
-          external_merchant_id?: string | null;
-          /**
-           * @description Shows where the order originated. The channel_id will default to 1. Read-Only.
-           * @example 1
-           */
-          channel_id?: number;
-          /**
-           * @description BasicTaxProvider - Tax is set to manual and order is created in the store.
-           *
-           * AvaTaxProvider - Tax is set to automatic and order is created in the store. Used for Avalara.
-           *
-           * "" (empty string) - The order is created with the API, or the tax provider is unknown.
-           */
-          tax_provider_id?: string;
-        };
-      };
-    };
     /** @description Not Found */
     "404_Resp": {
       content: {
@@ -2989,7 +2639,7 @@ export interface operations {
 
   /**
    * Get an Order
-   * @description Gets an *Order*. To learn more about creating or updating orders, see [Orders Overview](/api-docs/orders/orders-api-overview).
+   * @description Gets an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
   getAnOrder: {
     parameters: {
@@ -3023,7 +2673,7 @@ export interface operations {
    *
    * To remove a product from an order, set that product’s `quantity` to `0`.
    *
-   * To learn more about creating or updating orders, see [Orders Overview](/api-docs/orders/orders-api-overview).
+   * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
   updateAnOrder: {
     parameters: {
@@ -3117,7 +2767,7 @@ export interface operations {
   };
   /**
    * Create an Order
-   * @description Creates an *Order*. To learn more about creating or updating orders, see [Orders Overview](/api-docs/orders/orders-api-overview).
+   * @description Creates an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    *
    * Create an order with an existing catalog product or a custom product.
    *
@@ -3371,7 +3021,7 @@ export interface operations {
   };
   /**
    * Create Order Shipment
-   * @description Creates an *Order Shipment*. For more details, see [Shipping an Order](/api-docs/orders/orders-api-overview#creating-order-shipments).
+   * @description Creates an *Order Shipment*. For more details, see [Shipping an Order](/docs/store-operations/orders#creating-order-shipments).
    *
    * **Required Fields**
    * *   order_address_id
@@ -3387,7 +3037,7 @@ export interface operations {
    *
    * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
    *
-   * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/api-docs/providers/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
+   * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
    *
    * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
    */
