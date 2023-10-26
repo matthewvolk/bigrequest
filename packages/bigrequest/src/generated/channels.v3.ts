@@ -495,9 +495,9 @@ export interface components {
     VariantState: "active" | "disabled" | "error" | "pending" | "pending_disable" | "pending_delete" | "queued" | "rejected" | "submitted" | "deleted";
     /** @description Optional channel configuration object. */
     ChannelConfigMeta: {
-      /** @description A [channel app](/api-docs/channels/overview#channel-apps) config object for optionally configuring the channelʼs user interface in the control panel. */
+      /** @description A [channel app](/docs/integrations/channels#channel-apps) config object for optionally configuring the channelʼs user interface in the control panel. */
       app?: {
-        /** @description The unique `id` given to an app registered in [DevTools](https://devtools.bigcommerce.com/); used to create links to the app in channel manager. `app.id` is optional; however, if youʼre building an app that creates or manages a channel, we recommend including it to ensure the user interface in the control panel works properly. Select partners who are promoted in the Channel Manager must build an app, and include the app ID in the create channel request. [Learn how to find an Appʼs ID](/api-docs/apps/tutorials/id). */
+        /** @description The unique `id` given to an app registered in [DevTools](https://devtools.bigcommerce.com/); used to create links to the app in channel manager. `app.id` is optional; however, if youʼre building an app that creates or manages a channel, we recommend including it to ensure the user interface in the control panel works properly. Select partners who are promoted in the Channel Manager must build an app, and include the app ID in the create channel request. [Learn how to find an Appʼs ID](/docs/integrations/apps/guide/id). */
         id?: number;
         /**
          * @deprecated
@@ -649,7 +649,7 @@ export interface components {
       date_modified?: components["schemas"]["ChannelListingDateModified"];
       variants?: components["schemas"]["ChannelProductVariantFull"][];
     };
-    /** @description List of channel-specific control panel menu navigation items and corresponding settings pages an app developer can choose to enable for the subject channel. Protected settings override any settings set in those UI sections at the storewide level. Learn more in the [Building Storefront Channels](/api-docs/channels/tutorials/storefront#protected-ui-sections) tutorial. */
+    /** @description List of channel-specific control panel menu navigation items and corresponding settings pages an app developer can choose to enable for the subject channel. Protected settings override any settings set in those UI sections at the storewide level. Learn more in the [Building Storefront Channels](/docs/integrations/channels/guide/storefronts#protected-ui-sections) tutorial. */
     BigCommerceProtectedAppSections: ("storefront_settings" | "social" | "carousel" | "domains" | "currencies" | "notifications")[];
     channel_menus_Post: {
       bigcommerce_protected_app_sections?: components["schemas"]["BigCommerceProtectedAppSections"];
