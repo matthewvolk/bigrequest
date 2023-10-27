@@ -42,7 +42,7 @@ export interface components {
      * 3 - Analytics
      * 4 - Targeting; Advertising
      *
-     * For further definition of these categories, see [Scripts API](/api-docs/store-management/scripts).
+     * For further definition of these categories, see [Scripts API](/docs/integrations/scripts).
      */
     ConsentPreferences: {
       /** @description Explicitly allowed consent categories. Allowed values are 2, 3, 4. */
