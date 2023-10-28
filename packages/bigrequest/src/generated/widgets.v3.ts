@@ -118,7 +118,7 @@ export interface paths {
      *
      * **Template Files**
      *
-     * To view the list of values accepted by the `template_file` property, including **custom** templates, see [Placements](/api-docs/store-management/widgets/overview#placements).
+     * To view the list of values accepted by the `template_file` property, including **custom** templates, see [Placements](/docs/storefront/widgets#placements).
      */
     post: operations["createPlacement"];
     parameters: {
@@ -465,12 +465,12 @@ export interface components {
            * @example Product
            */
           label?: string;
-          /** @description For examples of schema settings, see [Widget UI Input Types](/stencil-docs/page-builder/schema-settings). */
+          /** @description For examples of schema settings, see [Widget UI Input Types](/docs/storefront/widgets/input-reference/settings). */
           settings?: ({
               /**
                * @description The type of setting component to display. You can view the list of elements below to discover which are available to use.
                *
-               * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
+               * For examples of each type of setting, see [Page Builder > Schema Settings](/docs/storefront/widgets/input-reference/settings#alignment) in Theme Docs.
                * @enum {string}
                */
               type?: "alignment" | "boolean" | "boxModel" | "code" | "color" | "imageManager" | "input" | "number" | "productId" | "productImage" | "range" | "regexInput" | "select" | "text" | "toggle";
@@ -513,7 +513,7 @@ export interface components {
     /** widgetSchemaTabSections */
     widgetSchemaTabSections: {
       label?: string;
-      /** @description For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs. */
+      /** @description For examples of each type of setting, see [Page Builder > Schema Settings](/docs/storefront/widgets/input-reference/settings#alignment) in Theme Docs. */
       settings?: components["schemas"]["widgetSchemaSetting_Base"][];
     };
     /**
@@ -541,13 +541,13 @@ export interface components {
     };
     /**
      * widgetSchemaSetting_Base
-     * @description For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
+     * @description For examples of each type of setting, see [Page Builder > Schema Settings](/docs/storefront/widgets/input-reference/settings#alignment) in Theme Docs.
      */
     widgetSchemaSetting_Base: {
       /**
        * @description The type of setting component to display. You can view the list of elements below to discover which are available to use.
        *
-       * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
+       * For examples of each type of setting, see [Page Builder > Schema Settings](/docs/storefront/widgets/input-reference/settings#alignment) in Theme Docs.
        * @enum {string}
        */
       type?: "alignment" | "boolean" | "boxModel" | "code" | "color" | "imageManager" | "input" | "number" | "productId" | "productImage" | "range" | "regexInput" | "select" | "text" | "toggle";
@@ -568,7 +568,7 @@ export interface components {
       };
       conditional?: components["schemas"]["widgetSchemaConditional"];
     };
-    /** @description The schema for the widget’s merchant-facing UI. For more information on the available schema settings, see [Widget UI Schema](/stencil-docs/page-builder/widget-ui-schema). */
+    /** @description The schema for the widget’s merchant-facing UI. For more information on the available schema settings, see [Widget UI Schema](/docs/storefront/widgets/input-reference/schema). */
     widgetSchema: (components["schemas"]["widgetSchemaTab"] | components["schemas"]["widgetSchemaArray"] | components["schemas"]["widgetSchemaHidden"])[];
     /**
      * widgetSchemaHidden
@@ -584,7 +584,7 @@ export interface components {
           /**
            * @description The type of setting component to display. You can view the list of elements below to discover which are available to use.
            *
-           * For examples of each type of setting, see [Page Builder > Schema Settings](/stencil-docs/page-builder/schema-settings/alignment) in Theme Docs.
+           * For examples of each type of setting, see [Page Builder > Schema Settings](/docs/storefront/widgets/input-reference/settings#alignment) in Theme Docs.
            * @enum {string}
            */
           type?: "alignment" | "boolean" | "boxModel" | "code" | "color" | "imageManager" | "input" | "number" | "productId" | "productImage" | "range" | "regexInput" | "select" | "text" | "toggle";
@@ -1156,7 +1156,7 @@ export interface operations {
    *
    * **Template Files**
    *
-   * To view the list of values accepted by the `template_file` property, including **custom** templates, see [Placements](/api-docs/store-management/widgets/overview#placements).
+   * To view the list of values accepted by the `template_file` property, including **custom** templates, see [Placements](/docs/storefront/widgets#placements).
    */
   createPlacement: {
     parameters: {
