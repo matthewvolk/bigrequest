@@ -11,7 +11,7 @@ export interface paths {
      * Login Token
      * @description The customer login access point URL.
      *
-     * [Learn more about the Customer Login API](/api-docs/customers/customer-login-api).
+     * [Learn more about the Customer Login API](/docs/start/authentication/customer-login).
      *
      * ## Example
      *

@@ -9,7 +9,7 @@ export interface paths {
   "/sites": {
     /**
      * Get Sites
-     * @description Get sites linked to a [headless storefront](/api-docs/storefronts/developers-guide-headless) sales channels.
+     * @description Get sites linked to a [headless storefront](/docs/storefront/headless) sales channels.
      */
     get: {
       parameters: {
@@ -33,7 +33,7 @@ export interface paths {
     };
     /**
      * Create a Site
-     * @description Create a site that links a [headless storefront](/api-docs/storefronts/developers-guide-headless) to a sales [channel](/docs/rest-management/channels).
+     * @description Create a site that links a [headless storefront](/docs/storefront/headless) to a sales [channel](/docs/rest-management/channels).
      */
     post: operations["post-site"];
     parameters: {
@@ -109,7 +109,7 @@ export interface paths {
     };
     /**
      * Create a Site Route
-     * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/api-docs/storefronts/developers-guide-headless).
+     * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/docs/storefront/headless).
      *
      * ## Usage Notes
      * * For a list of supported route types, see [Route types](/docs/rest-management/sites#route-types).
@@ -659,7 +659,7 @@ export interface operations {
 
   /**
    * Create a Site
-   * @description Create a site that links a [headless storefront](/api-docs/storefronts/developers-guide-headless) to a sales [channel](/docs/rest-management/channels).
+   * @description Create a site that links a [headless storefront](/docs/storefront/headless) to a sales [channel](/docs/rest-management/channels).
    */
   "post-site": {
     parameters: {
@@ -773,7 +773,7 @@ export interface operations {
   };
   /**
    * Create a Site Route
-   * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/api-docs/storefronts/developers-guide-headless).
+   * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/docs/storefront/headless).
    *
    * ## Usage Notes
    * * For a list of supported route types, see [Route types](/docs/rest-management/sites#route-types).
