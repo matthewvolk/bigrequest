@@ -808,7 +808,7 @@ export interface components {
        *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
       /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -898,7 +898,7 @@ export interface components {
        *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
       /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -981,7 +981,11 @@ export interface components {
      * @description Common ProductImage properties.
      */
     productImage_Base: {
-      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 8 MB per file. */
+      /**
+       * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+       *
+       * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+       */
       image_file?: string;
       /** @description Flag for identifying whether the image is used as the product's thumbnail. */
       is_thumbnail?: boolean;
@@ -1803,7 +1807,7 @@ export interface components {
        *
        * The inventory for a product cannot exceed 2,147,483,647 in the catalog. If you exceed the limit, the store sets the inventory level to the limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number;
       /** @description Inventory warning level for the product. When the product's inventory level drops below the warning level, the store owner will be informed. Simple inventory tracking must be enabled (see the `inventory_tracking` field) for this to take any effect. */
@@ -2700,11 +2704,6 @@ export interface operations {
         "application/json": {
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce.
-           * A `multipart/form-data` media type.
-           */
-          image_file?: string;
           /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2727,7 +2726,11 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           *
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+           */
           image_file?: string;
         };
         "multipart/form-data": {
@@ -2735,11 +2738,6 @@ export interface operations {
           id?: number;
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce.
-           * A `multipart/form-data` media type.
-           */
-          image_file?: string;
           /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2762,7 +2760,11 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           *
+           * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
+           */
           image_file?: string;
         };
       };
@@ -2778,12 +2780,6 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /**
-               * @description The local path to the original image file uploaded to BigCommerce.
-               *
-               * A `multipart/form-data` media type.
-               */
-              image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2811,6 +2807,8 @@ export interface operations {
               /**
                * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
                * A `multipart/form-data` media type.
+               *
+               * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
@@ -2951,8 +2949,6 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The local path to the original image file uploaded to BigCommerce. */
-              image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2977,7 +2973,11 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product. */
+              /**
+               * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+               *
+               * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+               */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
