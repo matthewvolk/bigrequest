@@ -385,7 +385,7 @@ export interface components {
       restricted_to?: {
         countries?: string;
       };
-      /** @description This is a list of shipping-method names. A shipping method must be enabled on the store to use it with a coupon. To check which shipping methods are enabled, please use the [List Shipping Methods](/api/v2#list-shipping-methods) endpoint. */
+      /** @description This is a list of shipping-method names. A shipping method must be enabled on the store to use it with a coupon. To check which shipping methods are enabled, please use the [List Shipping Methods](/archive/store-operations/v2-catalog-products/v2-products#list-shipping-methods) endpoint. */
       shipping_methods?: string[];
     };
     /** banner_Base */
