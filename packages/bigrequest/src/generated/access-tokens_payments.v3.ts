@@ -11,7 +11,7 @@ export interface paths {
      * Create Payment Access Token
      * @description Use this endpoint to create a payment access token. A payment access token is required to process payments with the BigCommerce API.
      *
-     * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout#handling-payments).
+     * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront#handling-payments).
      *
      * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment).
      *
@@ -66,7 +66,7 @@ export interface operations {
    * Create Payment Access Token
    * @description Use this endpoint to create a payment access token. A payment access token is required to process payments with the BigCommerce API.
    *
-   * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout#handling-payments).
+   * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront#handling-payments).
    *
    * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment).
    *

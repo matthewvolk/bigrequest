@@ -56,6 +56,8 @@ export interface paths {
      * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
      *
      * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
+     *
+     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     post: operations["addCartLineItem"];
     parameters: {
@@ -110,6 +112,8 @@ export interface paths {
      * `custom_items` cannot be updated via the API at this time. To update your cart, add a new updated custom item and delete the outdated one. If your cart contains only one line item, perform the add operation before the delete operation.
      *
      * Deleting all line items from the cart will invalidate the cart.
+     *
+     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     put: operations["updateCartLineItem"];
     /**
@@ -1881,6 +1885,8 @@ export interface operations {
    * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
    *
    * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
+   *
+   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   addCartLineItem: {
     parameters: {
@@ -1953,6 +1959,8 @@ export interface operations {
    * `custom_items` cannot be updated via the API at this time. To update your cart, add a new updated custom item and delete the outdated one. If your cart contains only one line item, perform the add operation before the delete operation.
    *
    * Deleting all line items from the cart will invalidate the cart.
+   *
+   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   updateCartLineItem: {
     parameters: {
