@@ -415,6 +415,9 @@ export interface paths {
      */
     get: {
       parameters: {
+        query?: {
+          channel_id?: components["parameters"]["ChannelIdParam"];
+        };
         header: {
           Accept: components["parameters"]["Accept"];
         };
@@ -433,9 +436,14 @@ export interface paths {
     /**
      * Update Locale Settings
      * @description Updates global locale settings.
+     *
+     * Set a channel override by using the `channel_id` query parameter. To remove a channel override, set `null` for a field. The field then inherits the global value.
      */
     put: {
       parameters: {
+        query?: {
+          channel_id?: components["parameters"]["ChannelIdParam"];
+        };
         header: {
           Accept: components["parameters"]["Accept"];
           "Content-Type": components["parameters"]["ContentType"];
@@ -461,11 +469,6 @@ export interface paths {
             "application/json": components["schemas"]["ErrorResponse"];
           };
         };
-      };
-    };
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
       };
     };
   };
@@ -1068,6 +1071,71 @@ export interface paths {
       };
     };
   };
+  "/settings/store/units-of-measurement": {
+    /**
+     * Get Units of Measurement Settings
+     * @description Get settings for [units of measurements](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#physical).
+     */
+    get: {
+      parameters: {
+        query?: {
+          channel_id?: components["parameters"]["ChannelIdParam"];
+        };
+      };
+      responses: {
+        /** @description OK. When you request channel-level settings, `null` indicates that a channel does not have overrides. */
+        200: {
+          content: {
+            "application/json": {
+              data?: components["schemas"]["MeasurementUnitsSettings"];
+              meta?: Record<string, never>;
+            };
+          };
+        };
+        /** @description The provided settings could not be applied. See detailed errors in the response. */
+        422: {
+          content: {
+            "application/json": components["schemas"]["ErrorResponse"];
+          };
+        };
+      };
+    };
+    /**
+     * Update Units of Measurement Settings
+     * @description Update settings for [units of measurements](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#physical).
+     *
+     * The endpoint does not support partial updates. Provide all fields to update global or channel-level settings.
+     *
+     * Create channel-level settings, or overrides for a channel, using the `channel_id`  query parameter.
+     *
+     * To delete overrides for a channel, supply `null` as a value for all fields. A channel then inherits global values.
+     *
+     * The endpoint does not support 'null' as a value for global-level settings.
+     */
+    put: {
+      parameters: {
+        query?: {
+          channel_id?: components["parameters"]["ChannelIdParam"];
+        };
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["MeasurementUnitsSettings"];
+        };
+      };
+      responses: {
+        /** @description OK. When you request channel-level settings, `null` indicates that a channel does not have overrides. */
+        200: {
+          content: {
+            "application/json": {
+              data?: components["schemas"]["MeasurementUnitsSettings"];
+              meta?: Record<string, never>;
+            };
+          };
+        };
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -1153,7 +1221,7 @@ export interface components {
      * @default relevance
      * @enum {string}
      */
-    ContentSortEnumValues: "relevance" | "atoz" | "ztoa";
+    ContentSortEnumValues: "relevance" | "alphaasc" | "alphadesc";
     /** Detailed Errors */
     DetailedErrors: {
       [key: string]: unknown;
@@ -1316,20 +1384,20 @@ export interface components {
       /**
        * @description Describes when stock levels are updated.
        *
-       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/api-docs/store-management/webhooks/webhook-events#products), [SKU](/api-docs/store-management/webhooks/webhook-events#skus), and [inventory](/buy-online-pick-up-in-store/webhooks#inventory) webhooks.
+       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/docs/integrations/webhooks/events#products), [SKU](/docs/integrations/webhooks/events#skus), and [inventory](/docs/integrations/webhooks/events/inventory-location#inventory) webhooks.
        * @enum {string}
        */
       update_stock_behavior?: "order_placed" | "order_completed_or_shipped";
       /**
        * @description Describes whether stock levels automatically adjust when you edit an order.
        *
-       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/api-docs/store-management/webhooks/webhook-events#products), [SKU](/api-docs/store-management/webhooks/webhook-events#skus), and [inventory](/buy-online-pick-up-in-store/webhooks#inventory) webhooks.
+       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/docs/integrations/webhooks/events#products), [SKU](/docs/integrations/webhooks/events#skus), and [inventory](/docs/integrations/webhooks/events/inventory-location#inventory) webhooks.
        */
       edit_order_stock_adjustment?: boolean;
       /**
        * @description Describes whether stock levels automatically adjust when you refund or cancel an order.
        *
-       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/api-docs/store-management/webhooks/webhook-events#products), [SKU](/api-docs/store-management/webhooks/webhook-events#skus), and [inventory](/buy-online-pick-up-in-store/webhooks#inventory) webhooks.
+       * Global settings apply when inventory changes through a [manual order](https://support.bigcommerce.com/s/article/Creating-a-Manual-Order?language=en_US). Settings for a channel apply when inventory changes through an order in a channel. These settings affect webhooks that trigger from order-related events, including [product](/docs/integrations/webhooks/events#products), [SKU](/docs/integrations/webhooks/events#skus), and [inventory](/docs/integrations/webhooks/events/inventory-location#inventory) webhooks.
        */
       refund_order_stock_adjustment?: boolean;
       /**
@@ -1423,7 +1491,7 @@ export interface components {
      * @default bestselling
      * @enum {string}
      */
-    ProductSortEnumValues: "featured" | "bestselling" | "newest" | "atoz" | "ztoa" | "highestprice" | "lowestprice" | "bestreviewed";
+    ProductSortEnumValues: "featured" | "bestselling" | "newest" | "alphaasc" | "alphadesc" | "pricedesc" | "priceasc" | "avgcustomerreview" | "relevance";
     RobotsTxtSettings: {
       robots_txt_ssl?: string;
     };
@@ -1532,11 +1600,11 @@ export interface components {
       hide_price_from_guests?: boolean;
     };
     StorefrontSearchSettings: {
-      content_product_sort?: components["schemas"]["ContentSortEnumValues"];
-      default_product_sort?: components["schemas"]["ProductSortEnumValues"];
+      content_product_sort: components["schemas"]["ContentSortEnumValues"];
+      default_product_sort: components["schemas"]["ProductSortEnumValues"];
       /** @description Controls whether Product Filtering feature is active on the storefront. Only supports manipulation on a global level. */
-      product_filtering_enabled?: boolean;
-      search_suggest?: boolean;
+      product_filtering_enabled: boolean;
+      search_suggest: boolean;
     };
     /** StorefrontSecuritySettings */
     StorefrontSecuritySettings: {
@@ -1564,6 +1632,29 @@ export interface components {
       /** @description A read-only value representing the auto-generated storefront password. */
       prelaunch_password?: string;
     };
+    MeasurementUnitsSettings: {
+      /**
+       * @example Ounces
+       * @enum {string}
+       */
+      weight_measurement?: "LBS" | "Ounces" | "KGS" | "Grams" | "Tonnes";
+      /**
+       * @example Inches
+       * @enum {string}
+       */
+      length_measurement?: "Inches" | "Centimeters";
+      /** @example . */
+      decimal_token?: string;
+      /** @example , */
+      thousands_token?: string;
+      /** @example 2 */
+      decimal_places?: number;
+      /**
+       * @example depth
+       * @enum {string}
+       */
+      factoring_dimension?: "depth" | "height" | "width";
+    };
   };
   responses: {
     /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
@@ -1580,7 +1671,7 @@ export interface components {
       content: {
         "application/json": {
           errors?: {
-            /** @example Incorrect value [current__only], it should match one of: current_category_only,child_categories_if_category_empty,child_categories; Incorrect value [besling], it should match one of: featured,newest,bestselling,atoz,ztoa,bestreviewed,lowestprice,highestprice */
+            /** @example Incorrect value [current__only], it should match one of: current_category_only,child_categories_if_category_empty,child_categories; Incorrect value [besling], it should match one of: featured, newest, bestselling, alphaasc, alphadesc, avgcustomerreview, priceasc, pricedesc, relevance */
             ""?: string;
           };
           /** @example 422 */
