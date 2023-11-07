@@ -29,7 +29,7 @@ export interface paths {
   "/storefront/api-token-customer-impersonation": {
     /**
      * Create a Token
-     * @description Returns a Storefront API token that allows your application to impersonate customers when making GraphQL `POST` requests. For more information on how to use the returned token, see [customer impersonation tokens](/docs/storefront-auth/tokens/customer-impersonation-token#create-a-token).
+     * @description Returns a Storefront API token that allows your application to impersonate customers when making GraphQL `POST` requests. For more information on how to use the returned token, see [customer impersonation tokens](/docs/rest-authentication/tokens/customer-impersonation-token#create-a-token).
      *
      * **Required Scopes**
      * * `Manage` `Storefront API Customer Impersonation Tokens`
@@ -190,7 +190,7 @@ export interface operations {
   };
   /**
    * Create a Token
-   * @description Returns a Storefront API token that allows your application to impersonate customers when making GraphQL `POST` requests. For more information on how to use the returned token, see [customer impersonation tokens](/docs/storefront-auth/tokens/customer-impersonation-token#create-a-token).
+   * @description Returns a Storefront API token that allows your application to impersonate customers when making GraphQL `POST` requests. For more information on how to use the returned token, see [customer impersonation tokens](/docs/rest-authentication/tokens/customer-impersonation-token#create-a-token).
    *
    * **Required Scopes**
    * * `Manage` `Storefront API Customer Impersonation Tokens`
