@@ -305,7 +305,7 @@ export interface components {
        *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
       /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -398,7 +398,7 @@ export interface components {
        *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
       /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -624,7 +624,7 @@ export interface components {
   };
   responses: never;
   parameters: {
-    /** @description The ID of the `Product` to which the resource belongs. */
+    /** @description The ID of the `Product` to which the resource belongs. Product variant metafield endpoints that have the `product_id` in the request path are successful as long as the parameter is not empty. The `product_id` segment is there only for path consistency. */
     ProductIdParam: number;
     /** @description ID of the variant on a product, or on an associated Price List Record. */
     VariantIdParam: number;
@@ -1343,7 +1343,7 @@ export interface operations {
                  *
                  * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
                  *
-                 * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+                 * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
                  */
                 inventory_level?: number;
                 /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -1499,7 +1499,7 @@ export interface operations {
              *
              * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
              *
-             * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+             * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
              * @example 21474
              */
             inventory_level?: number;
@@ -1581,7 +1581,7 @@ export interface operations {
                  *
                  * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
                  *
-                 * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+                 * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
                  */
                 inventory_level?: number;
                 /** @description When the variant hits this inventory level, it is considered low stock. */

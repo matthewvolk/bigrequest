@@ -9,7 +9,7 @@ export interface paths {
   "/payments": {
     /**
      * Process Payments
-     * @description Process payments for an order. See [Payment Processing](/api-docs/store-management/payments-api-overview) for more information.
+     * @description Process payments for an order. See [Payment Processing](/docs/store-operations/payments) for more information.
      */
     post: operations["PaymentsPost"];
   };
@@ -131,7 +131,7 @@ export interface operations {
 
   /**
    * Process Payments
-   * @description Process payments for an order. See [Payment Processing](/api-docs/store-management/payments-api-overview) for more information.
+   * @description Process payments for an order. See [Payment Processing](/docs/store-operations/payments) for more information.
    */
   PaymentsPost: {
     parameters: {

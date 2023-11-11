@@ -54,30 +54,21 @@ export interface components {
        * @default true
        */
       should_subtract_store_tax?: boolean;
-    };
-    Tax_Settings_Req: {
-      /** @description Whether prices entered on this store include a tax component or not. */
-      tax_entered_with_prices?: boolean;
-      /** @description Settings that describe how prices display at the global level. */
-      price_display_settings?: {
-        /** @description Whether to show prices as tax inclusive or tax exclusive in the BigCommerce control panel. */
-        show_inclusive_in_control_panel?: boolean;
-        /**
-         * @description Whether to show prices as tax inclusive or tax exclusive across all invoices, or use the shopperʼs tax zone for price display on invoices.
-         * @enum {string}
-         */
-        invoice_price_display_strategy?: "ZONE" | "INCLUSIVE" | "EXCLUSIVE";
-      };
       /**
-       * @description Decribes the fallback behaviour that applies when a tax provider produces an error. A merchant may decide to use a flat 10% fallback tax rate, their basic tax settings, or to block the transaction until a successful result can be achieved.
-       * @enum {string}
+       * @description This setting determines which tax zone a store uses to estimate tax for guest shoppers. When enabled, the store identifies a country-level tax zone based on the geolocation of a guest shopper. The store then applies the corresponding tax zone to estimate taxes. When disabled, the store identifies the zone using the provided `guest_shopper_tax_zone_id` field instead. Only the tax zones you configure can be matched to the guest shopper's geolocation.
+       * @default false
        */
-      fallback_strategy?: "FIXED" | "BASIC" | "DISABLE";
+      should_use_geolocation_to_determine_guest_shopper_tax_zone?: boolean;
       /**
-       * @description This setting applies only if a merchant enters tax-inclusive prices. When enabled, the store subtracts the itemʼs store tax rate before calculating tax using the shopperʼs tax zone. The tax-exclusive amount will be the same across all tax zones. When disabled, the tax-inclusive price remains the same across all tax zones; only the tax amount will vary based on the shopperʼs location. The tax-exclusive amount may vary among tax zones. These calculations are relevant for tax pricing and tax quotations that use basic tax.
-       * @default true
+       * @description ID for the tax zone a store uses when estimating tax for guest shoppers. The store uses this zone if you disable `should_use_geolocation_to_determine_guest_shopper_tax_zone`. The store also uses this zone if there is no matching country-level tax zone for the geolocation.
+       * @default 1
        */
-      should_subtract_store_tax?: boolean;
+      guest_shopper_tax_zone_id?: number;
+      /**
+       * @description ID for the tax zone a store uses when subtracting store tax. This setting applies only if a merchant enters tax-inclusive prices and subtracts store tax before tax calculation.
+       * @default 1
+       */
+      store_tax_zone_id?: number;
     };
     /**
      * Response meta
@@ -138,7 +129,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["Tax_Settings_Req"];
+        "application/json": components["schemas"]["Tax_Settings"];
       };
     };
     responses: {
