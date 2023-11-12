@@ -257,7 +257,7 @@ export interface components {
         "application/json": components["schemas"]["error_Full"];
       };
     };
-    /** @description When an OAuth client exceeds the [rate limit](/api-docs/getting-started/best-practices#api-rate-limits) for API requests to a store. */
+    /** @description When an OAuth client exceeds the [rate limit](/docs/start/best-practices#api-rate-limits) for API requests to a store. */
     "429_Too_Many_Requests": {
       content: {
         "application/json": components["schemas"]["error_Full"];
@@ -306,7 +306,7 @@ export interface operations {
   getCustomsInformation: {
     parameters: {
       query?: {
-        /** @description A comma-separated list of product IDs. For more information, see [Filtering](/api-docs/getting-started/filtering). */
+        /** @description A comma-separated list of product IDs. For more information, see [Filtering](/docs/start/about/common-query-params). */
         "product_id:in"?: number[];
         page?: number;
         limit?: number;
