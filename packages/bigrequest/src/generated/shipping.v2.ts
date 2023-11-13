@@ -387,7 +387,6 @@ export interface paths {
      * |:---------|:-----|:------------|
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
      *
      * Example request body:
@@ -401,7 +400,6 @@ export interface paths {
      *   "settings": {
      *     "default_cost": 12,
      *     "default_cost_type": "fixed_amount",
-     *     "include_order_total_taxes": 0,
      *     "range": [
      *       {
      *         "lower_limit": 0,
@@ -555,7 +553,6 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
      *
      * #### JSON Example
@@ -569,7 +566,6 @@ export interface paths {
      *     "settings": {
      *         "default_cost": 12,
      *         "default_cost_type": "fixed_amount",
-     *         "include_order_total_taxes": 0,
      *         "range": [
      *             {
      *                 "lower_limit": 0,
@@ -717,7 +713,6 @@ export interface paths {
      * |:---------|:-----|:------------|
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
      *
      * Example response:
@@ -731,7 +726,6 @@ export interface paths {
      *   "settings": {
      *     "default_cost": 12,
      *     "default_cost_type": "fixed_amount",
-     *     "include_order_total_taxes": 0,
      *     "range": [
      *       {
      *         "lower_limit": 0,
@@ -2193,7 +2187,6 @@ export interface operations {
    * |:---------|:-----|:------------|
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
    *
    * Example request body:
@@ -2207,7 +2200,6 @@ export interface operations {
    *   "settings": {
    *     "default_cost": 12,
    *     "default_cost_type": "fixed_amount",
-   *     "include_order_total_taxes": 0,
    *     "range": [
    *       {
    *         "lower_limit": 0,
@@ -2386,7 +2378,6 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
    *
    * #### JSON Example
@@ -2400,7 +2391,6 @@ export interface operations {
    *     "settings": {
    *         "default_cost": 12,
    *         "default_cost_type": "fixed_amount",
-   *         "include_order_total_taxes": 0,
    *         "range": [
    *             {
    *                 "lower_limit": 0,
@@ -2604,7 +2594,6 @@ export interface operations {
    * |:---------|:-----|:------------|
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | include_order_total_taxes | boolean | Whether or not to include taxes on the orderʼs total value in the shipping cost calculation. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
    *
    * Example response:
@@ -2618,7 +2607,6 @@ export interface operations {
    *   "settings": {
    *     "default_cost": 12,
    *     "default_cost_type": "fixed_amount",
-   *     "include_order_total_taxes": 0,
    *     "range": [
    *       {
    *         "lower_limit": 0,

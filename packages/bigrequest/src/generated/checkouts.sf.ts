@@ -37,11 +37,12 @@ export interface paths {
      * Update a Line Item
      * @description Updates a *Checkout Line Item*. Updates an existing, single line item in the cart.
      *
-     * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoint or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
+     * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoint or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
      *
-     * > #### Note
+     * > #### Notes
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     put: operations["CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdPut"];
     /**
@@ -97,7 +98,7 @@ export interface paths {
      *       * Required Fields:
      *         * `shipping_address` (deprecated) or `address`
      *         * `lineItems`
-     *     2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
+     *     2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
      *
      *   ### For **pickup** consignments:
      *     1. Create a new consignment object.
@@ -107,11 +108,12 @@ export interface paths {
      *           * `pickupOption`
      *           * `lineItems`
      *
-     * To learn more about creating a Checkout Consignment, see the [Carts and Checkouts Tutorial](/api-docs/storefront/tutorials/carts).
+     * To learn more about creating a Checkout Consignment, see the [Carts and Checkouts Tutorial](/docs/storefront/cart-checkout/guide/rest-storefront).
      *
-     * > #### Note
+     * > #### Notes
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     post: operations["CheckoutsConsignmentsByCheckoutIdPost"];
   };
@@ -138,12 +140,13 @@ export interface paths {
      * * `shippingOptionId` or `pickupOptionId`
      * * `lineItems`
      *
-     * To learn more about creating a Checkout Consignment see [Checkout Consignment API](/api-docs/checkouts/checkout-consignment).
+     * To learn more about creating a Checkout Consignment see [Checkout Consignment API](/docs/storefront/cart-checkout/guide/consignments).
      *
-     * > #### Note
+     * > #### Notes
      * > * You cannot pass both an `address` and a `shippingOptionId` because the shipping option may not be available for the new address
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     put: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut"];
     /**
@@ -1021,11 +1024,12 @@ export interface operations {
    * Update a Line Item
    * @description Updates a *Checkout Line Item*. Updates an existing, single line item in the cart.
    *
-   * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoint or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
+   * If a variant needs to be changed or updated, the product will need to be removed and re-added to the cart with the correct variants using the [Add Cart Line Items](/docs/rest-storefront/carts/cart-items#add-cart-line-items) endpoint or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
    *
-   * > #### Note
+   * > #### Notes
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdPut: {
     parameters: {
@@ -1168,7 +1172,7 @@ export interface operations {
    *       * Required Fields:
    *         * `shipping_address` (deprecated) or `address`
    *         * `lineItems`
-   *     2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/api-docs/storefront/graphql/carts-and-checkout).
+   *     2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
    *
    *   ### For **pickup** consignments:
    *     1. Create a new consignment object.
@@ -1178,11 +1182,12 @@ export interface operations {
    *           * `pickupOption`
    *           * `lineItems`
    *
-   * To learn more about creating a Checkout Consignment, see the [Carts and Checkouts Tutorial](/api-docs/storefront/tutorials/carts).
+   * To learn more about creating a Checkout Consignment, see the [Carts and Checkouts Tutorial](/docs/storefront/cart-checkout/guide/rest-storefront).
    *
-   * > #### Note
+   * > #### Notes
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   CheckoutsConsignmentsByCheckoutIdPost: {
     parameters: {
@@ -1228,12 +1233,13 @@ export interface operations {
    * * `shippingOptionId` or `pickupOptionId`
    * * `lineItems`
    *
-   * To learn more about creating a Checkout Consignment see [Checkout Consignment API](/api-docs/checkouts/checkout-consignment).
+   * To learn more about creating a Checkout Consignment see [Checkout Consignment API](/docs/storefront/cart-checkout/guide/consignments).
    *
-   * > #### Note
+   * > #### Notes
    * > * You cannot pass both an `address` and a `shippingOptionId` because the shipping option may not be available for the new address
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut: {
     parameters: {
