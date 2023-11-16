@@ -10,6 +10,9 @@ export interface paths {
     /**
      * Get All Categories
      * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getCategories"];
     /**
@@ -35,6 +38,9 @@ export interface paths {
      * - 50 characters category name length.
      * - 8 levels of category depth limit.
      * - 65,642 characters category description length limit.
+     *
+     *  **Note:**
+     *  The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createCategory"];
     /**
@@ -57,6 +63,9 @@ export interface paths {
     /**
      * Get a Category
      * @description Returns a single *Category*. Optional parameters can be passed in.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getCategoryById"];
     /**
@@ -68,11 +77,17 @@ export interface paths {
      *
      * **Read-Only Fields**
      * - id
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     put: operations["updateCategory"];
     /**
      * Delete a Category
      * @description Deletes a *Category*.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     delete: operations["deleteCategoryById"];
     parameters: {
@@ -103,7 +118,7 @@ export interface paths {
      * **Read-Only Fields**
      * - id
      *
-     * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * **Note:** The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createCategoryMetafield"];
     parameters: {
@@ -169,7 +184,7 @@ export interface paths {
     post: operations["createCategoryImage"];
     /**
      * Delete a Category Image
-     * @description Deletes a *Cateogory Image*.
+     * @description Deletes a *Category Image*.
      */
     delete: operations["deleteCategoryImage"];
     parameters: {
@@ -615,6 +630,9 @@ export interface operations {
   /**
    * Get All Categories
    * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getCategories: {
     parameters: {
@@ -701,6 +719,9 @@ export interface operations {
    * - 50 characters category name length.
    * - 8 levels of category depth limit.
    * - 65,642 characters category description length limit.
+   *
+   *  **Note:**
+   *  The default rate limit for this endpoint is 40 concurrent requests.
    */
   createCategory: {
     parameters: {
@@ -800,7 +821,7 @@ export interface operations {
           };
         };
       };
-      /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occured, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
+      /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
           "application/json": components["schemas"]["error_Base"];
@@ -894,6 +915,9 @@ export interface operations {
   /**
    * Get a Category
    * @description Returns a single *Category*. Optional parameters can be passed in.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getCategoryById: {
     parameters: {
@@ -943,6 +967,9 @@ export interface operations {
    *
    * **Read-Only Fields**
    * - id
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   updateCategory: {
     parameters: {
@@ -1193,6 +1220,9 @@ export interface operations {
   /**
    * Delete a Category
    * @description Deletes a *Category*.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   deleteCategoryById: {
     parameters: {
@@ -1282,7 +1312,7 @@ export interface operations {
    * **Read-Only Fields**
    * - id
    *
-   * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+   * **Note:** The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createCategoryMetafield: {
     parameters: {
@@ -1546,7 +1576,7 @@ export interface operations {
   };
   /**
    * Delete a Category Image
-   * @description Deletes a *Cateogory Image*.
+   * @description Deletes a *Category Image*.
    */
   deleteCategoryImage: {
     parameters: {

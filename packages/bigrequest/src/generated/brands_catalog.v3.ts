@@ -28,7 +28,10 @@ export interface paths {
     post: operations["createBrand"];
     /**
      * Delete Brands
-     * @description By default, it deletes all *Brand* objects. A filter should be added to avoid deleting all *Brand* objects in a store.
+     * @description To delete brand objects, you must include a filter.
+     *
+     * **Required Fields**
+     *  - name
      */
     delete: operations["deleteBrands"];
     parameters: {
@@ -636,13 +639,16 @@ export interface operations {
   };
   /**
    * Delete Brands
-   * @description By default, it deletes all *Brand* objects. A filter should be added to avoid deleting all *Brand* objects in a store.
+   * @description To delete brand objects, you must include a filter.
+   *
+   * **Required Fields**
+   *  - name
    */
   deleteBrands: {
     parameters: {
-      query?: {
+      query: {
         /** @description Filter items by name. */
-        name?: string;
+        name: string;
         /** @description Filter items by page_title. */
         page_title?: string;
       };
