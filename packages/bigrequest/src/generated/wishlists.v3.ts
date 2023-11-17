@@ -28,6 +28,15 @@ export interface paths {
      * @description Deletes a wishlist item.
      */
     delete: operations["WishlistsItemsByIdDelete"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        wishlist_id: components["parameters"]["WishlistID"];
+        item_id: number;
+      };
+    };
   };
   "/wishlists/{wishlist_id}": {
     /**
@@ -39,7 +48,7 @@ export interface paths {
      * Update a Wishlist
      * @description Updates a wishlist.
      *
-     * Use this endpoint to update existing wishlist items, change the wishlist's name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
+     * Use this endpoint to update existing wishlist items, change the wishlistʼs name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
      */
     put: operations["WishlistsByIdPut"];
     /**
@@ -47,6 +56,14 @@ export interface paths {
      * @description Deletes a wishlist.
      */
     delete: operations["WishlistsByIdDelete"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        wishlist_id: components["parameters"]["WishlistID"];
+      };
+    };
   };
   "/wishlists/{wishlist_id}/items": {
     /**
@@ -54,6 +71,14 @@ export interface paths {
      * @description Adds a wishlist item. More than one item can be added at a time.
      */
     post: operations["WishlistsItemsByIdPost"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        wishlist_id: components["parameters"]["WishlistID"];
+      };
+    };
   };
 }
 
@@ -222,57 +247,13 @@ export interface components {
        */
       total_pages?: number;
     };
-    /** error */
-    error: {
-      /** Format: int32 */
-      status?: number;
-      title?: string;
-      type?: string;
-    };
     /** metaCollection */
     metaCollection: {
       pagination?: components["schemas"]["pagination"];
     };
   };
-  responses: {
-    /** @description Authentication information is missing or invalid. */
-    Unauthorized: {
-      content: {
-        "application/json": {
-          /** Format: int32 */
-          status?: number;
-          title?: string;
-          type?: string;
-        };
-      };
-    };
-    Wishlist_Resp: {
-      content: {
-        "application/json": {
-          data?: components["schemas"]["wishlist_Full"];
-          /** @description Response metadata. */
-          meta?: {
-            [key: string]: unknown;
-          };
-        };
-      };
-    };
-    wishlist_Resp_Collection: {
-      content: {
-        "application/json": {
-          data?: components["schemas"]["wishlist_Full"][];
-          meta?: components["schemas"]["metaCollection"];
-        };
-      };
-    };
-  };
+  responses: never;
   parameters: {
-    /** @description All wishlists relating to the customer. */
-    FilterCustomerID?: number;
-    /** @description The page number of results per page. 1 is the default and starts from record 0. */
-    FilterPage?: number;
-    /** @description The numbers of items to return per page. Default is 50 and maximum is 250. */
-    FilterLimit?: number;
     /** @description ID of the Wishlist. */
     WishlistID: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
@@ -511,7 +492,7 @@ export interface operations {
    * Update a Wishlist
    * @description Updates a wishlist.
    *
-   * Use this endpoint to update existing wishlist items, change the wishlist's name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
+   * Use this endpoint to update existing wishlist items, change the wishlistʼs name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
    */
   WishlistsByIdPut: {
     parameters: {

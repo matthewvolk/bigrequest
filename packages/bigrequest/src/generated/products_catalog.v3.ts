@@ -302,6 +302,9 @@ export interface paths {
     /**
      * Get Custom Fields
      * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getCustomFields"];
     /**
@@ -315,9 +318,8 @@ export interface paths {
      * **Read-Only:**
      * - id
      *
-     * **Limits**
-     * - 200 custom fields per product limit.
-     * - 255 characters per custom field limit.
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createCustomField"];
     parameters: {
@@ -349,6 +351,9 @@ export interface paths {
     /**
      * Delete a Custom Field
      * @description Deletes a product *Custom Field*.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     delete: operations["deleteCustomFieldById"];
     parameters: {
@@ -808,7 +813,7 @@ export interface components {
        *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
       /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -898,7 +903,7 @@ export interface components {
        *
        * If you exceed the limit, the store sets the variant inventory to the limit if no other variant inventories are set. If other variant inventories are set, the store does not save the variant inventory rather than setting the variant inventory to the remaining limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number | null;
       /** @description When the variant hits this inventory level, it is considered low stock. */
@@ -981,7 +986,11 @@ export interface components {
      * @description Common ProductImage properties.
      */
     productImage_Base: {
-      /** @description The local path to the original image file uploaded to BigCommerce. Limit of 8 MB per file. */
+      /**
+       * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+       *
+       * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+       */
       image_file?: string;
       /** @description Flag for identifying whether the image is used as the product's thumbnail. */
       is_thumbnail?: boolean;
@@ -1803,7 +1812,7 @@ export interface components {
        *
        * The inventory for a product cannot exceed 2,147,483,647 in the catalog. If you exceed the limit, the store sets the inventory level to the limit.
        *
-       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/buy-online-pick-up-in-store/inventory#limit-handling-in-inventory-versus-catalog-api).
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number;
       /** @description Inventory warning level for the product. When the product's inventory level drops below the warning level, the store owner will be informed. Simple inventory tracking must be enabled (see the `inventory_tracking` field) for this to take any effect. */
@@ -1848,10 +1857,16 @@ export interface components {
       /**
        * @description Type of gift-wrapping options. Values: `any` - allow any gift-wrapping options in the store; `none` - disallow gift-wrapping on the product; `list` – provide a list of IDs in the `gift_wrapping_options_list` field.
        *
+       * Always included in the response body; not applicable for the `include_fields` and `exclude_fields` query parameters.
+       *
        * @enum {string}
        */
       gift_wrapping_options_type?: "any" | "none" | "list";
-      /** @description A list of gift-wrapping option IDs. */
+      /**
+       * @description A list of gift-wrapping option IDs.
+       *
+       * Always included in the response body; not applicable for the `include_fields` and `exclude_fields` query parameters.
+       */
       gift_wrapping_options_list?: number[];
       /** @description Priority to give this product when included in product lists on category pages and in search results. Lower integers will place the product closer to the top of the results. */
       sort_order?: number;
@@ -1931,7 +1946,7 @@ export interface components {
        * @example 80
        */
       total_sold?: number;
-      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. */
+      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. The default rate limit for this endpoint is 40 concurrent requests. */
       custom_fields?: components["schemas"]["productCustomField_Put"][];
       bulk_pricing_rules?: ({
           /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
@@ -2167,7 +2182,7 @@ export interface operations {
         availability?: "available" | "disabled" | "preorder";
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
+        /** @description Controls the number of items per page in a limited (paginated) list of products. The default product limit is 50 with a maximum limit of 250. */
         limit?: number;
         /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
         direction?: "asc" | "desc";
@@ -2700,11 +2715,6 @@ export interface operations {
         "application/json": {
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce.
-           * A `multipart/form-data` media type.
-           */
-          image_file?: string;
           /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2727,7 +2737,11 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           *
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+           */
           image_file?: string;
         };
         "multipart/form-data": {
@@ -2735,11 +2749,6 @@ export interface operations {
           id?: number;
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce.
-           * A `multipart/form-data` media type.
-           */
-          image_file?: string;
           /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2762,7 +2771,11 @@ export interface operations {
         } & {
           /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
           image_url?: string;
-          /** @description Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file. */
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           *
+           * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
+           */
           image_file?: string;
         };
       };
@@ -2778,12 +2791,6 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /**
-               * @description The local path to the original image file uploaded to BigCommerce.
-               *
-               * A `multipart/form-data` media type.
-               */
-              image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2811,6 +2818,8 @@ export interface operations {
               /**
                * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
                * A `multipart/form-data` media type.
+               *
+               * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
@@ -2951,8 +2960,6 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The local path to the original image file uploaded to BigCommerce. */
-              image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
@@ -2977,7 +2984,11 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product. */
+              /**
+               * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+               *
+               * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+               */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
               url_zoom?: string;
@@ -4142,6 +4153,9 @@ export interface operations {
   /**
    * Get Custom Fields
    * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getCustomFields: {
     parameters: {
@@ -4203,9 +4217,8 @@ export interface operations {
    * **Read-Only:**
    * - id
    *
-   * **Limits**
-   * - 200 custom fields per product limit.
-   * - 255 characters per custom field limit.
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   createCustomField: {
     parameters: {
@@ -4455,6 +4468,9 @@ export interface operations {
   /**
    * Delete a Custom Field
    * @description Deletes a product *Custom Field*.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   deleteCustomFieldById: {
     parameters: {
