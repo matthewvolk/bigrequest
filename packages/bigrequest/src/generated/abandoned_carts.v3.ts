@@ -101,7 +101,7 @@ export interface components {
     };
     /** abandonedCartInfo_Full */
     abandonedCartInfo_Full: {
-      /** @description The `cart_id` of the abandoned cart. Can be used to display the abandoned cart to the customer using storefront cart or */
+      /** @description The `cart_id` of the abandoned cart. Can be used to display the abandoned cart to the customer using storefront cart or server-to-server cart APIs. */
       cart_id?: string;
     };
     /** @description Represents all settings related to the abandoned cart functionality of a store */

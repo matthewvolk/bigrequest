@@ -10,6 +10,9 @@ export interface paths {
     /**
      * Get All Categories
      * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getCategories"];
     /**
@@ -35,6 +38,9 @@ export interface paths {
      * - 50 characters category name length.
      * - 8 levels of category depth limit.
      * - 65,642 characters category description length limit.
+     *
+     *  **Note:**
+     *  The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createCategory"];
     /**
@@ -57,6 +63,9 @@ export interface paths {
     /**
      * Get a Category
      * @description Returns a single *Category*. Optional parameters can be passed in.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getCategoryById"];
     /**
@@ -68,11 +77,17 @@ export interface paths {
      *
      * **Read-Only Fields**
      * - id
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     put: operations["updateCategory"];
     /**
      * Delete a Category
      * @description Deletes a *Category*.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     delete: operations["deleteCategoryById"];
     parameters: {
@@ -103,7 +118,7 @@ export interface paths {
      * **Read-Only Fields**
      * - id
      *
-     * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * **Note:** The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits (Help Center)](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createCategoryMetafield"];
     parameters: {
@@ -169,7 +184,7 @@ export interface paths {
     post: operations["createCategoryImage"];
     /**
      * Delete a Category Image
-     * @description Deletes a *Cateogory Image*.
+     * @description Deletes a *Category Image*.
      */
     delete: operations["deleteCategoryImage"];
     parameters: {
@@ -269,7 +284,7 @@ export interface components {
       /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
       meta_description?: string;
       /**
-       * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
+       * @description A valid layout file. Please refer to [the article on creating category files (Help Center)](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/). This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
        *
        * @example category.html
        */
@@ -283,7 +298,7 @@ export interface components {
        */
       default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
       /**
-       * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
+       * @description Image URL used for this category on the storefront. Images can be uploaded using form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
        *
        * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
        */
@@ -292,7 +307,7 @@ export interface components {
     };
     /**
      * metafield_Base
-     * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits (Help Center)](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Base: {
       /**
@@ -542,7 +557,7 @@ export interface components {
     /** layout_file */
     layout_file: {
       /**
-       * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied.
+       * @description A valid layout file. Please refer to [the article on creating category files (Help Center)](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/). This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
        *
        * @example category.html
        */
@@ -556,7 +571,7 @@ export interface components {
     /** image_url */
     image_url: {
       /**
-       * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
+       * @description Image URL used for this category on the storefront. Images can be uploaded using form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
        *
        * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
        */
@@ -615,11 +630,14 @@ export interface operations {
   /**
    * Get All Categories
    * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getCategories: {
     parameters: {
       query?: {
-        /** @description Filter items by id. */
+        /** @description Filter items by ID. */
         id?: number;
         "id:in"?: number[];
         "id:not_in"?: number[];
@@ -701,6 +719,9 @@ export interface operations {
    * - 50 characters category name length.
    * - 8 levels of category depth limit.
    * - 65,642 characters category description length limit.
+   *
+   *  **Note:**
+   *  The default rate limit for this endpoint is 40 concurrent requests.
    */
   createCategory: {
     parameters: {
@@ -755,7 +776,7 @@ export interface operations {
           /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
           meta_description?: string;
           /**
-           * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
+           * @description A valid layout file. Please refer to [the article on creating category files (Help Center)](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/). This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
            *
            * @example category.html
            */
@@ -769,7 +790,7 @@ export interface operations {
            */
           default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
           /**
-           * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
+           * @description Image URL used for this category on the storefront. Images can be uploaded using form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
            *
            * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
            */
@@ -800,7 +821,7 @@ export interface operations {
           };
         };
       };
-      /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occured, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
+      /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
           "application/json": components["schemas"]["error_Base"];
@@ -854,7 +875,7 @@ export interface operations {
   deleteCategories: {
     parameters: {
       query?: {
-        /** @description Filter items by id. */
+        /** @description Filter items by ID. */
         id?: number;
         "id:in"?: number[];
         "id:not_in"?: number[];
@@ -894,6 +915,9 @@ export interface operations {
   /**
    * Get a Category
    * @description Returns a single *Category*. Optional parameters can be passed in.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getCategoryById: {
     parameters: {
@@ -943,6 +967,9 @@ export interface operations {
    *
    * **Read-Only Fields**
    * - id
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   updateCategory: {
     parameters: {
@@ -1005,7 +1032,7 @@ export interface operations {
           /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
           meta_description?: string;
           /**
-           * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
+           * @description A valid layout file. Please refer to [the article on creating category files (Help Center)](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/). This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
            *
            * @example category.html
            */
@@ -1019,7 +1046,7 @@ export interface operations {
            */
           default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
           /**
-           * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
+           * @description Image URL used for this category on the storefront. Images can be uploaded using form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
            *
            * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
            */
@@ -1098,7 +1125,7 @@ export interface operations {
               /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
               meta_description?: string;
               /**
-               * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
+               * @description A valid layout file. Please refer to [the article on creating category files (Help Center)](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/). This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations).
                *
                * @example category.html
                */
@@ -1112,7 +1139,7 @@ export interface operations {
                */
               default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
               /**
-               * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
+               * @description Image URL used for this category on the storefront. Images can be uploaded using form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. An image extension like .jpg or .png is required.
                *
                * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
                */
@@ -1193,6 +1220,9 @@ export interface operations {
   /**
    * Delete a Category
    * @description Deletes a *Category*.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   deleteCategoryById: {
     parameters: {
@@ -1217,7 +1247,7 @@ export interface operations {
   getCategoryMetafieldsByCategoryId: {
     parameters: {
       query?: {
-        /** @description Filter items by id. */
+        /** @description Filter items by ID. */
         id?: number;
         "id:in"?: number[];
         "id:not_in"?: number[];
@@ -1282,7 +1312,7 @@ export interface operations {
    * **Read-Only Fields**
    * - id
    *
-   * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+   * **Note:** The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits (Help Center)](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createCategoryMetafield: {
     parameters: {
@@ -1546,7 +1576,7 @@ export interface operations {
   };
   /**
    * Delete a Category Image
-   * @description Deletes a *Cateogory Image*.
+   * @description Deletes a *Category Image*.
    */
   deleteCategoryImage: {
     parameters: {
