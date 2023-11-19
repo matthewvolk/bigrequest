@@ -56,6 +56,8 @@ export interface paths {
      * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
      *
      * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
+     *
+     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     post: operations["addCartLineItem"];
     parameters: {
@@ -110,6 +112,8 @@ export interface paths {
      * `custom_items` cannot be updated via the API at this time. To update your cart, add a new updated custom item and delete the outdated one. If your cart contains only one line item, perform the add operation before the delete operation.
      *
      * Deleting all line items from the cart will invalidate the cart.
+     *
+     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     put: operations["updateCartLineItem"];
     /**
@@ -134,12 +138,12 @@ export interface paths {
   "/carts/{cartId}": {
     /**
      * Get a Cart
-     * @description Returns a storeʼs *Cart*.
+     * @description Returns a store's *Cart*.
      */
     get: operations["getACart"];
     /**
      * Update Customer ID
-     * @description Updates a *Cartʼs* `customer_id`.
+     * @description Updates a *Cart's* `customer_id`.
      *
      * **Notes**
      *
@@ -1014,7 +1018,7 @@ export interface components {
        */
       sku?: string;
       /**
-       * @description The item’s product name.
+       * @description The item's product name.
        * @example T-Shirt
        */
       name?: string;
@@ -1202,7 +1206,7 @@ export interface components {
     };
     /**
      * Item Custom
-     * @description Add a custom item to the shopperʼs cart.
+     * @description Add a custom item to the shopper's cart.
      *
      * * Custom items are not added to the catalog.
      * * The price should be set to match the store settings for taxes.
@@ -1220,7 +1224,7 @@ export interface components {
     };
     /**
      * Item Custom
-     * @description Add a custom item to the shopperʼs cart.
+     * @description Add a custom item to the shopper's cart.
      *
      * * Custom items are not added to the catalog.
      * * The price should be set to match the store settings for taxes.
@@ -1577,7 +1581,7 @@ export interface components {
       id?: number;
       /**
        * Format: date-time
-       * @description Date and time of the metafieldʼs creation.
+       * @description Date and time of the metafield's creation.
        * @example 2022-06-16T18:39:00+00:00
        */
       date_created?: string;
@@ -1685,7 +1689,7 @@ export interface components {
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
-      data?: components["schemas"]["Metafield"][];
+      data?: Record<string, never>;
       meta?: components["schemas"]["CollectionMeta"];
     };
     /**
@@ -1802,9 +1806,9 @@ export interface components {
     PageParam?: number;
     /** @description The ID of the `Metafield`. */
     MetafieldIdParam: number;
-    /** @description Filter based on a metafieldʼs key. */
+    /** @description Filter based on a metafield's key. */
     MetafieldKeyParam?: string;
-    /** @description Filter based on a metafieldʼs key. */
+    /** @description Filter based on a metafield's key. */
     MetafieldNamespaceParam?: string;
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
@@ -1881,6 +1885,8 @@ export interface operations {
    * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
    *
    * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
+   *
+   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   addCartLineItem: {
     parameters: {
@@ -1953,6 +1959,8 @@ export interface operations {
    * `custom_items` cannot be updated via the API at this time. To update your cart, add a new updated custom item and delete the outdated one. If your cart contains only one line item, perform the add operation before the delete operation.
    *
    * Deleting all line items from the cart will invalidate the cart.
+   *
+   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
   updateCartLineItem: {
     parameters: {
@@ -2023,7 +2031,7 @@ export interface operations {
   };
   /**
    * Get a Cart
-   * @description Returns a storeʼs *Cart*.
+   * @description Returns a store's *Cart*.
    */
   getACart: {
     parameters: {
@@ -2051,7 +2059,7 @@ export interface operations {
   };
   /**
    * Update Customer ID
-   * @description Updates a *Cartʼs* `customer_id`.
+   * @description Updates a *Cart's* `customer_id`.
    *
    * **Notes**
    *
@@ -2288,7 +2296,7 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The `Metafield` conflicts with another `Metafield`. This can be the result of duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
+      /** @description The `Metafield` conflicts with another `Metafield`. This can be the result of duplicate unique key combinations of the app's client id, namespace, key, resource_type, and resource_id. */
       409: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];
@@ -2320,6 +2328,15 @@ export interface operations {
     };
     requestBody: {
       content: {
+        /**
+         * @example {
+         *   "permission_set": "app_only",
+         *   "namespace": "Sales Department",
+         *   "key": "Staff Name",
+         *   "value": "Sam",
+         *   "description": "Name of staff member"
+         * }
+         */
         "application/json": components["schemas"]["MetafieldPost"];
       };
     };
@@ -2367,7 +2384,7 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The `Metafield` conflicts with another `Metafield`. This can be the result of duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
+      /** @description The `Metafield` conflicts with another `Metafield`. This can be the result of duplicate unique key combinations of the app's client id, namespace, key, resource_type, and resource_id. */
       409: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];

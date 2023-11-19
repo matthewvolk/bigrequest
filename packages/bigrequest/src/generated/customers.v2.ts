@@ -284,6 +284,9 @@ export interface paths {
     /**
      * Get All Customer Groups
      * @description Returns a list of *Customer Groups*. Default sorting is by customer-group ID, from lowest to highest.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getAllCustomerGroups"];
     /**
@@ -292,6 +295,9 @@ export interface paths {
      *
      * **Required Fields**
      * * name
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createACustomerGroup"];
     /**
@@ -326,7 +332,8 @@ export interface paths {
      * @description Deletes a *Customer Group*.
      *
      * **Notes**
-     * All existing customers are unassigned from the group when it is deleted.
+     * - All existing customers are unassigned from the group when it is deleted.
+     * - The default rate limit for this endpoint is 40 concurrent requests.
      */
     delete: operations["deleteACustomerGroup"];
     parameters: {
@@ -1513,6 +1520,9 @@ export interface operations {
   /**
    * Get All Customer Groups
    * @description Returns a list of *Customer Groups*. Default sorting is by customer-group ID, from lowest to highest.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getAllCustomerGroups: {
     parameters: {
@@ -1560,6 +1570,9 @@ export interface operations {
    *
    * **Required Fields**
    * * name
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   createACustomerGroup: {
     parameters: {
@@ -1703,7 +1716,8 @@ export interface operations {
    * @description Deletes a *Customer Group*.
    *
    * **Notes**
-   * All existing customers are unassigned from the group when it is deleted.
+   * - All existing customers are unassigned from the group when it is deleted.
+   * - The default rate limit for this endpoint is 40 concurrent requests.
    */
   deleteACustomerGroup: {
     parameters: {
