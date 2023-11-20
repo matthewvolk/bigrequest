@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.14
+
+### Patch Changes
+
+- [#110](https://github.com/matthewvolk/bigrequest/pull/110) [`fd482d9`](https://github.com/matthewvolk/bigrequest/commit/fd482d9805690da4f1e0dfcd9715ca45eadd9c10) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Generate types to include changes from https://github.com/bigcommerce/api-specs/compare/01d775a..main
+
 ## 0.0.13
 
 ### Patch Changes
