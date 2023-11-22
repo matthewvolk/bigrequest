@@ -7,7 +7,8 @@
     "strict": true,
     "noUnusedLocals": false /* eslint */,
     "noUnusedParameters": false /* eslint */,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["openapi-typescript-helpers"]
   },
   "include": ["src/**/*.ts", "tsup.config.ts"]
 }
