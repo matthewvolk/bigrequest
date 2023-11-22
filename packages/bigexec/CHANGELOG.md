@@ -1,5 +1,14 @@
 # bigexec
 
+## 0.0.16
+
+### Patch Changes
+
+- [#112](https://github.com/matthewvolk/bigrequest/pull/112) [`012c1e2`](https://github.com/matthewvolk/bigrequest/commit/012c1e2ecd4ce1dc3cf3ed19e535ca19f9440cc2) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Fixes issue with types not being bundled with the package correctly. Adds `cjsInterop` flag to maintain default export parity for commonjs. **NOTE: It is recommended to set `"esModuleInterop": true` in `tsconfig.json` if using this library in Typescript projects.**
+
+- Updated dependencies [[`012c1e2`](https://github.com/matthewvolk/bigrequest/commit/012c1e2ecd4ce1dc3cf3ed19e535ca19f9440cc2)]:
+  - bigrequest@0.0.15
+
 ## 0.0.15
 
 ### Patch Changes
