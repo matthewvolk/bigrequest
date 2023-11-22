@@ -65,8 +65,8 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       openapi-fetch:
-        specifier: ^0.7.1
-        version: 0.7.1
+        specifier: ^0.8.1
+        version: 0.8.1
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -86,6 +86,9 @@ importers:
       openapi-typescript:
         specifier: ^6.4.0
         version: 6.4.0
+      openapi-typescript-helpers:
+        specifier: ^0.0.4
+        version: 0.0.4
       prettier:
         specifier: ^3.0.1
         version: 3.0.1
@@ -3134,9 +3137,14 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openapi-fetch@0.7.1:
-    resolution: {integrity: sha512-yU2xMcPqk4mpgY03yXPsxbobDTTw0AGPzhv1i4dfELBrLonYMfLzQx2eGgdlY4b51GmnnAgWZE9FAnBbM9/NtA==}
+  /openapi-fetch@0.8.1:
+    resolution: {integrity: sha512-xmzMaBCydPTMd0TKy4P2DYx/JOe9yjXtPIky1n1GV7nJJdZ3IZgSHvAWVbe06WsPD8EreR7E97IAiskPr6sa2g==}
+    dependencies:
+      openapi-typescript-helpers: 0.0.4
     dev: false
+
+  /openapi-typescript-helpers@0.0.4:
+    resolution: {integrity: sha512-Q0MTapapFAG993+dx8lNw33X6P/6EbFr31yNymJHq56fNc6dODyRm8tWyRnGxuC74lyl1iCRMV6nQCGQsfVNKg==}
 
   /openapi-typescript@6.4.0:
     resolution: {integrity: sha512-qTa5HGcVdTic2zmvC+aE3tEJqFUZGkXFk8ygAexTPzsHY3a0etay8bBSQjdNP4ZI8TaA+gtHJtTKvhkUhJd6Jw==}
