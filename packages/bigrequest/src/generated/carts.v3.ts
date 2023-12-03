@@ -279,7 +279,7 @@ export interface components {
          * @description The theme of the gift certificate.
          * @enum {string}
          */
-        theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+        theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
         amount: number;
         quantity: number;
         /** Contact Entity */
@@ -308,7 +308,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -361,7 +361,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -409,7 +409,7 @@ export interface components {
        * @description The theme of the gift certificate.
        * @enum {string}
        */
-      theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+      theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
       amount: number;
       quantity: number;
       /** Contact Entity */
@@ -533,7 +533,7 @@ export interface components {
        * @description The theme of the gift certificate.
        * @enum {string}
        */
-      theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+      theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
       /** @description Value must be between 1.00 and 1,000.00 in the store’s default currency. */
       amount: number;
       is_taxable?: boolean;
@@ -555,7 +555,7 @@ export interface components {
       id?: string;
       /** @description Name provided for the gift certificate that will appear in the control panel. */
       name?: string;
-      /** @description The theme of the gift certificate. The following options are available:`Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
+      /** @description The theme of the gift certificate. The following options are available:`birthday.html`, `boy.html`, `celebration.html`, `christmas.html`, `general.html`, and `girl.html`. */
       theme?: string;
       /** @description Value must be between 1.00 and 1,000.00 in the store’s default currency. */
       amount?: number;
@@ -1307,7 +1307,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -1335,7 +1335,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
+          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -1533,19 +1533,19 @@ export interface components {
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
       /** @description The list of selected options for this product. */
-      options?: {
+      options?: ({
           /** @description The product option name; for example, Color or Size. */
           name?: string;
-          /** @description The product option identifier. */
+          /**
+           * @description The product option identifier.
+           * @example 151
+           */
           nameId?: number;
           /** @description The product option value; for example, Red or Medium. */
           value?: string;
-          /**
-           * @description The product option value identifier in number format.
-           * @example 128
-           */
-          valueId?: number;
-        }[];
+          /** @description The product option value identifier in number format. */
+          valueId?: number | string;
+        })[];
       /** @description The gift wrapping details for this item. */
       gift_wrapping?: {
         /** @example Gift Wrap 1 */
@@ -1689,7 +1689,7 @@ export interface components {
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
-      data?: Record<string, never>;
+      data?: components["schemas"]["Metafield"];
       meta?: components["schemas"]["CollectionMeta"];
     };
     /**
