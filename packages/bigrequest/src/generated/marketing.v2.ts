@@ -513,10 +513,10 @@ export interface components {
       expiry_date?: string;
       /**
        * @description The email theme to use in the message sent to the recipient.
-       * @example Celebration
+       * @example celebration.html
        * @enum {string}
        */
-      template?: "Birthday" | "Girl" | "Boy" | "Celebration" | "Christmas" | "General";
+      template?: "birthday.html" | "girl.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html";
       /**
        * @description Text that will be sent to the recipient, such as “Congratulations.”
        * @example Congratulations!
@@ -565,10 +565,10 @@ export interface components {
       customer_id?: number;
       /**
        * @description The email theme to use in the message sent to the recipient.
-       * @example Celebration
+       * @example celebration.html
        * @enum {string}
        */
-      template?: "Birthday" | "Boy" | "Girl" | "Celebration" | "Christmas" | "General";
+      template?: "birthday.html" | "boy.html" | "girl.html" | "celebration.html" | "christmas.html" | "general.html";
       /**
        * @description Text that will be sent to the recipient, such as “Congratulations.”
        * @example Congratulations!
@@ -617,10 +617,10 @@ export interface components {
       customer_id?: number;
       /**
        * @description The email theme to use in the message sent to the recipient.
-       * @example Celebration
+       * @example celebration.html
        * @enum {string}
        */
-      template?: "Birthday" | "Boy" | "Girl" | "Celebration" | "Christmas" | "General";
+      template?: "birthday.html" | "boy.html" | "girl.html" | "celebration.html" | "christmas.html" | "general.html";
       /**
        * @description Text that will be sent to the recipient, such as “Congratulations.”
        * @example Congratulations!
