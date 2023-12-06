@@ -1,5 +1,14 @@
 # bigexec
 
+## 0.0.18
+
+### Patch Changes
+
+- [#125](https://github.com/matthewvolk/bigrequest/pull/125) [`590f08d`](https://github.com/matthewvolk/bigrequest/commit/590f08dab911af33ade494864ee682f609bf0433) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Closes #123 - Swaps `jsonwebtoken` for `jose` in order to offer edge-compatibility when using the `oauth.verify` method.
+
+- Updated dependencies [[`590f08d`](https://github.com/matthewvolk/bigrequest/commit/590f08dab911af33ade494864ee682f609bf0433)]:
+  - bigrequest@0.0.17
+
 ## 0.0.17
 
 ### Patch Changes
