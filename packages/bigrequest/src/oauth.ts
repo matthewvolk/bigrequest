@@ -1,4 +1,4 @@
-import { verify as verifyJwt } from 'jsonwebtoken';
+import { jwtVerify } from 'jose';
 import { z } from 'zod';
 
 import { BigRequestError } from './error';
@@ -83,7 +83,7 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
 
   const jwtSchema = z.string().min(1);
 
-  const verify = (signedPayloadJwt: z.infer<typeof jwtSchema>) => {
+  const verify = async (signedPayloadJwt: z.infer<typeof jwtSchema>) => {
     const parsedJwt = jwtSchema.safeParse(signedPayloadJwt);
 
     if (!parsedJwt.success) {
@@ -96,7 +96,9 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
       );
     }
 
-    const decoded = verifyJwt(parsedJwt.data, oauthConfig.data.clientSecret);
+    const secret = new TextEncoder().encode(oauthConfig.data.clientSecret);
+
+    const decoded = await jwtVerify(parsedJwt.data, secret);
 
     const verifiedJwtSchema = z.object({
       aud: z.string(),
@@ -119,7 +121,7 @@ export const oauth = (config: z.infer<typeof oauthConfigSchema>) => {
       channel_id: z.number().nullable(),
     });
 
-    const parsedVerifiedJwt = verifiedJwtSchema.safeParse(decoded);
+    const parsedVerifiedJwt = verifiedJwtSchema.safeParse(decoded.payload);
 
     if (!parsedVerifiedJwt.success) {
       throw new BigRequestError(
