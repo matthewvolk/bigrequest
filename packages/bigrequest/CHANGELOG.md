@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.16
+
+### Patch Changes
+
+- [#122](https://github.com/matthewvolk/bigrequest/pull/122) [`43ad6d0`](https://github.com/matthewvolk/bigrequest/commit/43ad6d00a3e3e552187da8da4c303ed76792b902) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Adds `.html` to template strings for gift certificates (bigcommerce/api-specs#1529). Cart product option value identifiers can be either string or number (bigcommerce/api-specs#1528). Changes `options` to `option_selections` for cart API (bigcommerce/api-specs#1530). Remove the `X-Strict-Mode` header from the price list records upsert endpoint (bigcommerce/api-specs#1532).
+
 ## 0.0.15
 
 ### Patch Changes
