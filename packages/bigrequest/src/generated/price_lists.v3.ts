@@ -1241,8 +1241,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-        /** @description Header that determines whether the Batch API operates in strict mode or not. Strict mode will reject the entire request if any item in the batch has an error. */
-        "X-Strict-Mode"?: number;
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
