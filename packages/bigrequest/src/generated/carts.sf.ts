@@ -217,6 +217,35 @@ export interface components {
       theme: string;
     };
     /**
+     * Gift Wrapping Request Data
+     * @description if passing null, it will remove the current gift wrapping for the item
+     */
+    requestPostOrPutGiftWrapping: {
+      /**
+       * @description Boolean value that specifies whether items whether items should be wrapped together or wrapped individually.
+       * @example true
+       */
+      wrapTogether: boolean;
+      /**
+       * @description Details for the gift wrapping option selected. This can be specified for each line item or together based on wrapTogether value.
+       * If wrapTogether is false, each element in the wrapDetails array determines each item's specific wrapping.
+       * (e.g if this line item has 6 quantity, you can pass at maximum 6 elements for the array to spefified each one's wrapping)
+       * If wrapTogether is true, we will only use 1st element in the wrapDetails array to determine what to be wrapped
+       */
+      wrapDetails: {
+          /**
+           * @description Identifier of the gift wrapping option selected.
+           * @example 0
+           */
+          id: number;
+          /**
+           * @description Custom gift message.
+           * @example Happy Birthday
+           */
+          message?: string;
+        }[];
+    } | null;
+    /**
      * requestLineItems
      * @description Cart object used in add items requests.
      */
@@ -506,6 +535,7 @@ export interface components {
       productId: number;
       /** @description Quantity of this item. */
       quantity: number;
+      giftWrapping?: components["schemas"]["requestPostOrPutGiftWrapping"];
     } | {
       /** @description ID of the product. */
       productId: number;
@@ -513,6 +543,7 @@ export interface components {
       quantity: number;
       /** @description ID of the variant. */
       variantId: number;
+      giftWrapping?: components["schemas"]["requestPostOrPutGiftWrapping"];
     };
     /** Contact Entity */
     requestLineItemGiftCertificateRecipient: {
