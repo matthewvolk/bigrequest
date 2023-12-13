@@ -308,9 +308,9 @@ export interface components {
     PriceRecordIdentifiers: {
       /** @description The Price List with which this price record is associated. */
       price_list_id?: number;
-      /** @description The variant with which this price record is associated. Either `variant_id`` or `sku` is required. */
+      /** @description The variant with which this price record is associated. Either `variant_id` or `sku` is required. */
       variant_id?: number;
-      /** @description The variant with which this price record is associated. Either `sku`` or `variant_id`` is required. */
+      /** @description The variant with which this price record is associated. Either `sku` or `variant_id` is required. */
       sku?: string;
       /**
        * Format: ISO-4217
