@@ -1888,7 +1888,10 @@ export interface components {
       meta_keywords?: string[];
       /** @description Custom meta description for the product page. If not defined, the store's default meta description will be used. */
       meta_description?: string;
-      /** @description The number of times the product has been viewed. */
+      /**
+       * @deprecated
+       * @description The number of times the product has been viewed.
+       */
       view_count?: number;
       /**
        * Format: date-time
