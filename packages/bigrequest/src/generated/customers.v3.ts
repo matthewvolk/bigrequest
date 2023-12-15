@@ -144,6 +144,7 @@ export interface paths {
      *   * **state_or_province**
      *   * **postal_code**
      * * An attempt to create an address that already exists will result in no change to the address or custom form field values, an HTTP 200 return code, and the address will be absent from the response body.
+     * * The default rate limit for this endpoint is 10 concurrent requests.
      */
     post: operations["CustomersAddressesPost"];
     /**
@@ -1867,6 +1868,7 @@ export interface operations {
    *   * **state_or_province**
    *   * **postal_code**
    * * An attempt to create an address that already exists will result in no change to the address or custom form field values, an HTTP 200 return code, and the address will be absent from the response body.
+   * * The default rate limit for this endpoint is 10 concurrent requests.
    */
   CustomersAddressesPost: {
     parameters: {

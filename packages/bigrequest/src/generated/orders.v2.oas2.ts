@@ -958,6 +958,8 @@ export interface components {
           /** @example 2 */
           quantity?: number;
         }[];
+      /** @description The human-readable name for the `shipping_provider`. */
+      shipping_provider_display_name?: string;
       /** @description The tracking link that is generated using the combination of either the `tracking_number` and `shipping_provider` or `tracking_number` and `tracking_carrier`. This will be empty if the custom `tracking_link` value is provided. */
       generated_tracking_link?: string;
     };

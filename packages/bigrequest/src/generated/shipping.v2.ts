@@ -1036,7 +1036,7 @@ export interface components {
      * @example endicia
      * @enum {string}
      */
-    ShippingProvider: "``" | "fedex" | "auspost" | "canadapost" | "endicia" | "usps" | "royalmail" | "ups" | "upsready" | "upsonline" | "shipperhq";
+    ShippingProvider: "fedex" | "auspost" | "canadapost" | "endicia" | "usps" | "royalmail" | "ups" | "upsready" | "upsonline" | "shipperhq";
     /** Shipping Zone */
     ShippingZone: {
       /**
