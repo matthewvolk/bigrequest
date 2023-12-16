@@ -144,6 +144,7 @@ export interface paths {
      *   * **state_or_province**
      *   * **postal_code**
      * * An attempt to create an address that already exists will result in no change to the address or custom form field values, an HTTP 200 return code, and the address will be absent from the response body.
+     * * The default rate limit for this endpoint is 10 concurrent requests.
      */
     post: operations["CustomersAddressesPost"];
     /**
@@ -1636,7 +1637,7 @@ export interface operations {
          *
          *  `include=addresses,storecredit,attributes,formfields,shopper_profile_id,segment_ids`
          */
-        include?: "addresses" | "storecredit" | "attributes" | "formfields";
+        include?: ("addresses" | "storecredit" | "attributes" | "formfields" | "shopper_profile_id" | "segment_ids")[];
         /** @description Sort items by date_created, date_modified, or last_name:* `date_created:asc` - date created, ascending* `date_created:desc` - date created, descending* `last_name:asc` - last name, ascending* `last_name:desc` - last name, descending * `date_modified:asc` - date modified, ascending* `date_modified:desc`- date modified, descending  Example: `sort=last_name:asc` */
         sort?: "date_created:asc" | "date_created:desc" | "last_name:asc" | "last_name:desc" | "date_modified:asc" | "date_modified:desc";
       };
@@ -1867,6 +1868,7 @@ export interface operations {
    *   * **state_or_province**
    *   * **postal_code**
    * * An attempt to create an address that already exists will result in no change to the address or custom form field values, an HTTP 200 return code, and the address will be absent from the response body.
+   * * The default rate limit for this endpoint is 10 concurrent requests.
    */
   CustomersAddressesPost: {
     parameters: {

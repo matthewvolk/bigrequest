@@ -599,12 +599,12 @@ export interface components {
     };
     ChannelWithoutCurrencies: {
       config_meta?: components["schemas"]["ChannelConfigMeta"];
-      id?: components["schemas"]["ChannelId"];
+      id: components["schemas"]["ChannelId"];
       external_id?: components["schemas"]["ExternalId"];
       is_listable_from_ui?: components["schemas"]["IsListableFromUI"];
       is_visible?: components["schemas"]["IsVisible"];
       status?: components["schemas"]["ChannelStatus"];
-      name?: components["schemas"]["ChannelName"];
+      name: components["schemas"]["ChannelName"];
       type?: components["schemas"]["ChannelType"];
       platform?: components["schemas"]["ChannelPlatform"];
       date_created?: components["schemas"]["ChannelDateCreated"];
@@ -934,8 +934,8 @@ export interface components {
     multiple_channels_without_currencies_resp: {
       content: {
         "application/json": {
-          data?: components["schemas"]["ChannelWithoutCurrencies"][];
-          meta?: components["schemas"]["MetaWithFullPagination"];
+          data: components["schemas"]["ChannelWithoutCurrencies"][];
+          meta: components["schemas"]["MetaWithFullPagination"];
         };
       };
     };
