@@ -213,12 +213,12 @@ export interface components {
       /** @description The kind of widget template. */
       kind?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description The date on which this object was initially created.
        */
       date_created?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description The date on which this object was last updated.
        */
       date_modified?: string;
@@ -239,12 +239,12 @@ export interface components {
       uuid?: string;
       widget_template?: components["schemas"]["widgetTemplate_Full"];
       /**
-       * Format: datetime
+       * Format: date-time
        * @description The date on which this object was initially created.
        */
       date_created?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description The date on which this object was last updated.
        */
       date_modified?: string;
@@ -308,12 +308,12 @@ export interface components {
       /** @description The template file that you would like to target. */
       template_file?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description The date on which this object was initially created.
        */
       date_created?: string;
       /**
-       * Format: datetime
+       * Format: date-time
        * @description The date on which this object was last updated.
        */
       date_modified?: string;
@@ -671,12 +671,12 @@ export interface components {
               /** @description The HTML layout which defines complex positioning for placements. */
               markup?: string;
               /**
-               * Format: datetime
+               * Format: date-time
                * @description The date on which this object was initially created.
                */
               date_created?: string;
               /**
-               * Format: datetime
+               * Format: date-time
                * @description The date on which this object was last updated.
                */
               date_modified?: string;
@@ -730,12 +730,12 @@ export interface components {
               /** @description The HTML layout which defines complex positioning for placements. */
               markup?: string;
               /**
-               * Format: datetime
+               * Format: date-time
                * @description The date on which this object was initially created.
                */
               date_created?: string;
               /**
-               * Format: datetime
+               * Format: date-time
                * @description The date on which this object was last updated.
                */
               date_modified?: string;
