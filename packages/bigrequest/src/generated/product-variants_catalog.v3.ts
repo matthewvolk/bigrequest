@@ -1271,7 +1271,7 @@ export interface operations {
         include_fields?: string;
         /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
         exclude_fields?: string;
-        /** @description A comma-separated list of IDs of products whose variants were requested. For example:`?product_id=:id``?product_id:in=77,80,81` */
+        /** @description A comma-separated list of IDs of products whose variants were requested. For example:`?product_id:in=77,80,81` */
         product_id?: string;
       };
       header: {
