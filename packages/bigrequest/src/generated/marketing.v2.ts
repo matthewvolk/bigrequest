@@ -337,7 +337,7 @@ export interface components {
      */
     coupon_Base: {
       /**
-       * @description The name of the coupon.
+       * @description The name of the coupon. The value must be unique.
        * @example Australia Customers Discount
        */
       name: string;

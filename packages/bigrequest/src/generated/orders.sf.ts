@@ -649,7 +649,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Sub-resources to include in an Order, in a comma-separated list. The ID and the specified fields will be returned. */
-        include?: "lineItems" | "billingAddress" | "coupons" | "currency" | "taxes" | "payments" | "consignments";
+        include?: ("lineItems" | "billingAddress" | "coupons" | "currency" | "taxes" | "payments" | "consignments")[];
       };
       path: {
         /** @description ID of an Order. */
