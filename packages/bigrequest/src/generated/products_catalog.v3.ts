@@ -1888,7 +1888,10 @@ export interface components {
       meta_keywords?: string[];
       /** @description Custom meta description for the product page. If not defined, the store's default meta description will be used. */
       meta_description?: string;
-      /** @description The number of times the product has been viewed. */
+      /**
+       * @deprecated
+       * @description The number of times the product has been viewed.
+       */
       view_count?: number;
       /**
        * Format: date-time
@@ -2173,7 +2176,7 @@ export interface operations {
          *   * options
          *   * videos
          */
-        include?: "variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos";
+        include?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
         include_fields?: string;
         /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
@@ -2464,7 +2467,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. */
-        include?: "variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos";
+        include?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
         include_fields?: string;
         /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */

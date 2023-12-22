@@ -44,7 +44,8 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        channel_id: string;
+        /** @description The channel ID of the settings overrides */
+        channel_id: number;
       };
     };
   };
