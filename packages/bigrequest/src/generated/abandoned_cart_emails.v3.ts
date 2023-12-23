@@ -119,7 +119,7 @@ export interface components {
       subject: string;
       /** @example 'Complete your purchase <a href="{{ notification.checkout_link }}">{{notification.checkout.link}}' */
       body: string;
-      translation?: components["schemas"]["TranslationDefinition"][];
+      translations: components["schemas"]["TranslationDefinition"][];
     };
     /** TranslationDefinition */
     TranslationDefinition: {
