@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.18
+
+### Patch Changes
+
+- [#141](https://github.com/matthewvolk/bigrequest/pull/141) [`30a7b45`](https://github.com/matthewvolk/bigrequest/commit/30a7b45baf8f9aaf6c1928ba56f17b7ef88927fa) Thanks [@matthewvolk](https://github.com/matthewvolk)! - bigcommerce/api-specs#1533, bigcommerce/api-specs#1534, bigcommerce/api-specs#1536, bigcommerce/api-specs#1537, bigcommerce/api-specs#1538, bigcommerce/api-specs#1539, bigcommerce/api-specs#1541, bigcommerce/api-specs#1542, bigcommerce/api-specs#1543
+
 ## 0.0.17
 
 ### Patch Changes
