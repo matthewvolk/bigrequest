@@ -425,13 +425,13 @@ export interface components {
     /** customer_Full */
     customer_Full: {
       /**
-       * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
+       * @description Unique numeric ID of this customer. This is a Read-Only field; do not set or modify its value in a POST or PUT request.
        * @example 1
        */
       id?: number;
-      /** @description Date on which the customer registered from the storefront or was created in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
+      /** @description Date on which the customer registered from the storefront or was created in the control panel. This is a Read-Only field; do not set or modify its value in a POST or PUT request. */
       date_created?: string;
-      /** @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
+      /** @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a Read-Only field; do not set or modify its value in a POST or PUT request. */
       date_modified?: string;
     } & components["schemas"]["customer_Base"];
     /** categoryAccessLevel_Full */
@@ -467,12 +467,12 @@ export interface components {
     /** customerAddress_Full */
     customerAddress_Full: {
       /**
-       * @description ID of this customer address. READ-ONLY
+       * @description ID of this customer address. Read-Only.
        * @example 3
        */
       id?: number;
       /**
-       * @description 2-letter ISO Alpha-2 code for the customer’s country. READ-ONLY
+       * @description 2-letter ISO Alpha-2 code for the customer’s country. Read-Only.
        * @example US
        */
       country_iso2?: string;
@@ -720,8 +720,8 @@ export interface components {
          */
         resource?: string;
       };
-      /** @description Array of custom fields. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-      form_fields?: (({
+      /** @description Array of custom fields. This is a Read-Only field; do not set or modify its value in a POST or PUT request. */
+      form_fields?: (readonly ({
           /**
            * @description Name of the form field.
            * @example License ID
@@ -730,6 +730,104 @@ export interface components {
           /** @description Value of the form field. */
           value?: string | null;
         })[]) | null;
+      /**
+       * @description Force a password change on next login.
+       * @example false
+       */
+      reset_pass_on_login?: boolean;
+    };
+    /** customer_Put */
+    customer_Put: {
+      /**
+       * @description Unique numeric ID of this customer. This is a Read-Only field; do not set or modify its value in a POST or PUT request.
+       * @example 1
+       */
+      id?: number;
+      /** @description Not returned in any responses, but accepts up to two fields allowing you to set the customer’s password. If a password is not supplied, it is generated automatically. For further information about using this object, please see the Customers resource documentation. */
+      _authentication?: {
+        force_reset?: boolean;
+        password?: string;
+        password_confirmation?: string;
+      };
+      /**
+       * @description The name of the company for which the customer works.
+       * @example BigCommerce
+       */
+      company?: string;
+      /**
+       * @description First name of the customer.
+       * @example Jane
+       */
+      first_name?: string;
+      /**
+       * @description Last name of the customer.
+       * @example Doe
+       */
+      last_name?: string;
+      /**
+       * @description Email address of the customer.
+       * @example janedoe@example.com
+       */
+      email?: string;
+      /**
+       * @description Phone number of the customer.
+       * @example 1234567890
+       */
+      phone?: string;
+      /** @description Date on which the customer registered from the storefront or was created in the control panel. This is a Read-Only field; do not set or modify its value in a POST or PUT request. */
+      date_created?: string;
+      /** @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
+      date_modified?: string;
+      /**
+       * @description The amount of credit the customer has. (Float, Float as String, Integer)
+       * @example 0
+       */
+      store_credit?: string;
+      /**
+       * @description The customer’s IP address when they signed up.
+       * @example 12.345.678.910
+       */
+      registration_ip_address?: string;
+      /**
+       * @description The group to which the customer belongs.
+       * @example 2
+       */
+      customer_group_id?: number;
+      /** @description Store-owner notes on the customer. */
+      notes?: string;
+      /** @description If applicable, the tax-exempt category of the shopper’s customer account. You can apply a tax-exempt category to multiple customers. This code should match the exemption codes provided by the third-party integration. */
+      tax_exempt_category?: string;
+      /**
+       * @description Describes whether the customer accepts product review emails and abandon cart emails. Read-Only.
+       * @example true
+       */
+      accepts_marketing?: boolean;
+      /** Address Field Resource */
+      addresses?: {
+        /**
+         * @description Full URL of where the resource is located.
+         * @example https://api.bigcommerce.com/stores/{store_hash}/v2/customers/5/addresses
+         */
+        url?: string;
+        /**
+         * @description Resource being accessed.
+         * @example /customers/5/addresses
+         */
+        resource?: string;
+      };
+      /** @description Array of custom fields. This is a Read-Only field; do not set or modify its value in a POST or PUT request. */
+      form_fields?: readonly {
+          /**
+           * @description Name of the form field.
+           * @example License ID
+           */
+          name?: string;
+          /**
+           * @description Value of the form field.
+           * @example 123BAF
+           */
+          value?: string;
+        }[];
       /**
        * @description Force a password change on next login.
        * @example false
@@ -1046,103 +1144,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": {
-          /**
-           * @description Unique numeric ID of this customer. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request.
-           * @example 1
-           */
-          id?: number;
-          /** @description Not returned in any responses, but accepts up to two fields allowing you to set the customer’s password. If a password is not supplied, it is generated automatically. For further information about using this object, please see the Customers resource documentation. */
-          _authentication?: {
-            force_reset?: boolean;
-            password?: string;
-            password_confirmation?: string;
-          };
-          /**
-           * @description The name of the company for which the customer works.
-           * @example BigCommerce
-           */
-          company?: string;
-          /**
-           * @description First name of the customer.
-           * @example Jane
-           */
-          first_name: string;
-          /**
-           * @description Last name of the customer.
-           * @example Doe
-           */
-          last_name: string;
-          /**
-           * @description Email address of the customer.
-           * @example janedoe@example.com
-           */
-          email: string;
-          /**
-           * @description Phone number of the customer.
-           * @example 1234567890
-           */
-          phone?: string;
-          /** @description Date on which the customer registered from the storefront or was created in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-          date_created?: string;
-          /** @description Date on which the customer updated their details in the storefront or was updated in the control panel. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-          date_modified?: string;
-          /**
-           * @description The amount of credit the customer has. (Float, Float as String, Integer)
-           * @example 0
-           */
-          store_credit?: string;
-          /**
-           * @description The customer’s IP address when they signed up.
-           * @example 12.345.678.910
-           */
-          registration_ip_address?: string;
-          /**
-           * @description The group to which the customer belongs.
-           * @example 2
-           */
-          customer_group_id?: number;
-          /** @description Store-owner notes on the customer. */
-          notes?: string;
-          /** @description If applicable, the tax-exempt category of the shopper’s customer account. You can apply a tax-exempt category to multiple customers. This code should match the exemption codes provided by the third-party integration. */
-          tax_exempt_category?: string;
-          /**
-           * @description Describes whether the customer accepts product review emails and abandon cart emails. Read-Only.
-           * @example true
-           */
-          accepts_marketing?: boolean;
-          /** Address Field Resource */
-          addresses?: {
-            /**
-             * @description Full URL of where the resource is located.
-             * @example https://api.bigcommerce.com/stores/{store_hash}/v2/customers/5/addresses
-             */
-            url?: string;
-            /**
-             * @description Resource being accessed.
-             * @example /customers/5/addresses
-             */
-            resource?: string;
-          };
-          /** @description Array of custom fields. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-          form_fields?: {
-              /**
-               * @description Name of the form field.
-               * @example License ID
-               */
-              name?: string;
-              /**
-               * @description Value of the form field.
-               * @example 123BAF
-               */
-              value?: string;
-            }[];
-          /**
-           * @description Force a password change on next login.
-           * @example false
-           */
-          reset_pass_on_login?: boolean;
-        };
+        "application/json": components["schemas"]["customer_Put"];
       };
     };
     responses: {
@@ -1390,7 +1392,7 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description ID of this customer address. READ-ONLY
+           * @description ID of this customer address. Read-Only.
            * @example 3
            */
           id?: number;
@@ -1442,7 +1444,7 @@ export interface operations {
            */
           country: string;
           /**
-           * @description 2-letter ISO Alpha-2 code for the customer’s country. READ-ONLY
+           * @description 2-letter ISO Alpha-2 code for the customer’s country. Read-Only.
            * @example US
            */
           country_iso2?: string;

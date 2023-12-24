@@ -308,9 +308,9 @@ export interface components {
     PriceRecordIdentifiers: {
       /** @description The Price List with which this price record is associated. */
       price_list_id?: number;
-      /** @description The variant with which this price record is associated. Either `variant_id`` or `sku` is required. */
+      /** @description The variant with which this price record is associated. Either `variant_id` or `sku` is required. */
       variant_id?: number;
-      /** @description The variant with which this price record is associated. Either `sku`` or `variant_id`` is required. */
+      /** @description The variant with which this price record is associated. Either `sku` or `variant_id` is required. */
       sku?: string;
       /**
        * Format: ISO-4217
@@ -1006,7 +1006,7 @@ export interface operations {
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
         limit?: number;
         /** @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored. */
-        include?: "bulk_pricing_tiers" | "sku";
+        include?: ("bulk_pricing_tiers" | "sku")[];
         /** @description Filter items by price. */
         price?: number;
         /** @description Filter items by sale_price. */
@@ -1645,7 +1645,7 @@ export interface operations {
          * @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored.
          * Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored.
          */
-        include?: "bulk_pricing_tiers" | "sku";
+        include?: ("bulk_pricing_tiers" | "sku")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
