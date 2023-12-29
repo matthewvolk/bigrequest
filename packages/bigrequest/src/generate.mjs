@@ -12,7 +12,7 @@ import openapiTS from 'openapi-typescript';
  */
 
 const ghOwner = 'bigcommerce';
-const ghRepoName = 'api-specs';
+const ghRepoName = 'docs';
 const ghRepoBranch = 'main';
 
 /**
@@ -114,7 +114,7 @@ async function generate() {
 
   /**
    * Generate type definitions for each Open API spec
-   * file retrieved from the api-specs GitHub
+   * file retrieved from the bigcommerce/docs GitHub
    * repository. The content for each file is stored
    * as a string in an array
    */
