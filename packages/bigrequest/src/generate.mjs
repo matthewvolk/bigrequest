@@ -158,30 +158,26 @@ async function generate() {
    * definitions
    */
 
-  const v2TypeDefinitionFiles = typeDefinitionYmlContents
-    .map((content, i) => {
-      if (content.includes('https://api.bigcommerce.com/stores/{store_hash}/v2')) {
-        return path.basename(specFilePathsAndUrls[i].filePath);
-      }
+  const v2TypeDefinitionFiles = typeDefinitionYmlContents.flatMap((content, i) => {
+    if (content.includes('https://api.bigcommerce.com/stores/{store_hash}/v2')) {
+      return path.basename(specFilePathsAndUrls[i].filePath);
+    }
 
-      return null;
-    })
-    .filter((n) => n);
+    return [];
+  });
 
   /**
    * Creates an array of yml file names for v3 type
    * definitions
    */
 
-  const v3TypeDefinitionFiles = typeDefinitionYmlContents
-    .map((content, i) => {
-      if (content.includes('https://api.bigcommerce.com/stores/{store_hash}/v3')) {
-        return path.basename(specFilePathsAndUrls[i].filePath);
-      }
+  const v3TypeDefinitionFiles = typeDefinitionYmlContents.flatMap((content, i) => {
+    if (content.includes('https://api.bigcommerce.com/stores/{store_hash}/v3')) {
+      return path.basename(specFilePathsAndUrls[i].filePath);
+    }
 
-      return null;
-    })
-    .filter((n) => n);
+    return [];
+  });
 
   /**
    * Create v2paths file
