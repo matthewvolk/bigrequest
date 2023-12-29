@@ -36,7 +36,7 @@ pnpm i
 
 ### Automated Type Generation for the BigRequest HTTP Client
 
-The BigCommerce API is constantly changing. As a best effort to ensure that the types for the request client stay updated in response to changes in the BigCommerce Open API Specs repository, [a scheduled GitHub Action](.github/workflows/nightly.yml) runs once a night to re-generate types against [the latest version of the bigcommerce/api-specs repository](https://github.com/bigcommerce/api-specs/tree/main).
+The BigCommerce API is constantly changing. As a best effort to ensure that the types for the request client stay updated in response to changes in the BigCommerce Open API Specs repository, [a scheduled GitHub Action](.github/workflows/nightly.yml) runs once a night to re-generate types against [the latest version of the bigcommerce/docs repository](https://github.com/bigcommerce/docs/tree/main/reference).
 
 If changes are introduced during the GitHub Action workflow, the action will open a PR for review (example: [matthewvolk/bigrequest#30](https://github.com/matthewvolk/bigrequest/pull/30)).
 

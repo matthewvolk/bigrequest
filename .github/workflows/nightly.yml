@@ -48,9 +48,9 @@ jobs:
           echo "timestamp=$timestamp" >> "$GITHUB_ENV"
 
       - if: ${{ steps.status.outputs.changes == 'true' }}
-        name: Get latest commit hash from bigcommerce/api-specs
+        name: Get latest commit hash from bigcommerce/docs
         run: |
-          gh_response=$(curl -s -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/bigcommerce/api-specs/commits?per_page=1")
+          gh_response=$(curl -s -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/bigcommerce/docs/commits?per_page=1")
 
           most_recent_commit=$(echo "$gh_response" | jq -r '.[0].sha')
           most_recent_commit_short=${most_recent_commit:0:7}
@@ -72,7 +72,7 @@ jobs:
       - if: ${{ steps.status.outputs.changes == 'true' }}
         name: Commit changes
         run: |
-          commit_message="[nightly] generate types against bigcommerce/api-specs@$sha"
+          commit_message="[nightly] generate types against bigcommerce/docs@$sha"
           git commit -m "$commit_message"
 
           echo "commit_message=$commit_message" >> "$GITHUB_ENV"
@@ -84,7 +84,7 @@ jobs:
       - if: ${{ steps.status.outputs.changes == 'true' }}
         name: Write PR body
         run: |
-          body="Types generated via scheduled GitHub Actions job against [bigcommerce/api-specs@\`$sha\`](https://github.com/bigcommerce/api-specs/tree/$sha)"
+          body="Types generated via scheduled GitHub Actions job against [bigcommerce/docs@\`$sha\`](https://github.com/bigcommerce/docs/tree/$sha)"
 
           echo "pr_body=$body" >> "$GITHUB_ENV"
 

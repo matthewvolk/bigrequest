@@ -21,10 +21,8 @@ npm i bigrequest
 
 ## Usage
 
-> ⚠️ Typescript is highly recommended due to its autocompletion for request paths and options. If you are unable to use Typescript, you can find valid request paths to pass the client [in the BigCommerce OpenAPI Specifications repository](https://github.com/bigcommerce/api-specs/tree/main/reference).
-
 ```ts
-// Typescript (recommended)
+// Typescript
 import bigrequest from 'bigrequest';
 ```
 
@@ -80,38 +78,35 @@ const product = await bc.v3.GET('/catalog/products/{product_id}', {
  * }
  */
 
-// Creating an image using FormData (recommended)
-const categoryImage = await bc.v3.POST(
-  "/catalog/categories/{category_id}/image",
-  {
-    params: {
-      header: {
-        "Content-Type": "multipart/form-data",
-        Accept: "application/json",
-      },
-      path: { category_id: 11 },
+// Creating an image using FormData
+const categoryImage = await bc.v3.POST('/catalog/categories/{category_id}/image', {
+  params: {
+    header: {
+      'Content-Type': 'multipart/form-data',
+      Accept: 'application/json',
     },
-    body: {
-      image_file: "path/to/image.jpg",
-    },
-    bodySerializer(body) {
-      const fd = new FormData();
+    path: { category_id: 11 },
+  },
+  body: {
+    image_file: 'path/to/image.jpg',
+  },
+  bodySerializer(body) {
+    const fd = new FormData();
 
-      /**
-       * body: {
-       *   image_file: "path/to/image.jpg"
-       * }
-       */
-      for (const [k, v] of Object.entries(body)) {
-        const blob = new Blob([fs.readFileSync(v)]);
+    /**
+     * body: {
+     *   image_file: "path/to/image.jpg"
+     * }
+     */
+    for (const [k, v] of Object.entries(body)) {
+      const blob = new Blob([fs.readFileSync(v)]);
 
-        fd.append(k, blob, "DESIRED_FILE_NAME.jpg");
-      }
+      fd.append(k, blob, 'DESIRED_FILE_NAME.jpg');
+    }
 
-      return fd;
-    },
-  }
-);
+    return fd;
+  },
+});
 ```
 
 ### OAuth
