@@ -124,8 +124,8 @@ export interface components {
     /**
      * store/cart/updated
      * @description Fires when one of the following occurs:
-     * * A cart's line items are modified by adding a new item to a cart, updating an existing item's quantity, or deleting an item.
-     * * A shopper enters or changes their email address during guest checkout. This includes signing in to a customer account after creating a guest cart, which associates the account's email address with the cart.
+     * * A cartʼs line items are modified by adding a new item to a cart, updating an existing itemʼs quantity, or deleting an item.
+     * * A shopper enters or changes their email address during guest checkout. This includes signing in to a customer account after creating a guest cart, which associates the accountʼs email address with the cart.
      *
      * The `store/cart/created` webhook firing also triggers this webhook because adding a product to an empty cart is considered an update.
      *
@@ -698,7 +698,7 @@ export interface components {
     };
     /**
      * store/customer/updated
-     * @description This webhook is triggered when a customer is updated. In addition, this webhook is triggered when a shopper initially enters custom form field values within the account sign-up form. Please note that neither changing existing data in customer form fields nor changing a customer's address will trigger the webhook.
+     * @description This webhook is triggered when a customer is updated. In addition, this webhook is triggered when a shopper initially enters custom form field values within the account sign-up form. Please note that neither changing existing data in customer form fields nor changing a customerʼs address will trigger the webhook.
      *
      *
      * ```json filename="Example callback object" showLineNumbers
@@ -1309,7 +1309,7 @@ export interface components {
      * * Product URL
      * * Set as a Featured Product on my Storefront
      *
-     * However, changes to the following fields don't trigger this event:
+     * However, changes to the following fields donʼt trigger this event:
      *
      * * Manufacturer Part Number (MPN)
      * * Global Trade Number (GTN)
@@ -1356,7 +1356,7 @@ export interface components {
      * Changes to the following fields trigger this event:
      * * Inventory Stock
      *
-     * However, changes to the following fields don't trigger this event:
+     * However, changes to the following fields donʼt trigger this event:
      * * Track Inventory
      * * Inventory Low Stock
      *
@@ -2062,6 +2062,33 @@ export interface components {
       type?: string;
       errors?: Record<string, never>;
     };
+    /** webhook_Put */
+    webhook_Put: {
+      /**
+       * @description Event you subscribe to.
+       * @example store/order/*
+       */
+      scope?: string;
+      /**
+       * @description URL must be active, return a 200 response, and be served on port 443. Custom ports arenʼt currently supported.
+       * @example https://665b65a6.ngrok.io/webhooks
+       */
+      destination?: string;
+      /**
+       * @description Boolean value that indicates whether the webhook is active or not.
+       * @example true
+       */
+      is_active?: boolean;
+      /**
+       * @description Boolean value that identifies whether events are stored that could not be received.
+       * @example true
+       */
+      events_history_enabled?: boolean;
+      /** @description Headers used to validate that webhooks are active. You can pass in any number of custom headers to validate webhooks are being returned. */
+      headers?: ({
+        [key: string]: string | undefined;
+      }) | null;
+    };
     /** webhook_Base */
     webhook_Base: {
       /**
@@ -2070,7 +2097,7 @@ export interface components {
        */
       scope: string;
       /**
-       * @description URL must be active, return a 200 response, and be served on port 443 (custom ports not currently supported).
+       * @description URL must be active, return a 200 response, and be served on port 443. Custom ports arenʼt currently supported.
        * @example https://665b65a6.ngrok.io/webhooks
        */
       destination: string;
@@ -2086,9 +2113,9 @@ export interface components {
        */
       events_history_enabled?: boolean;
       /** @description Headers used to validate that webhooks are active. You can pass in any number of custom headers to validate webhooks are being returned. */
-      headers?: {
-        custom?: string;
-      } | null;
+      headers?: ({
+        [key: string]: string | undefined;
+      }) | null;
     };
     webhook_Full: components["schemas"]["webhook_Base"] & {
       /**
@@ -2212,7 +2239,9 @@ export interface components {
               store_hash?: string;
               scope?: string;
               destination?: string;
-              headers?: Record<string, unknown> | null;
+              headers?: ({
+                [key: string]: string | undefined;
+              }) | null;
               is_active?: boolean;
               created_at?: number;
               updated_at?: number;
@@ -2280,7 +2309,9 @@ export interface components {
             store_hash?: string;
             scope?: string;
             destination?: string;
-            headers?: unknown;
+            headers?: ({
+              [key: string]: string | undefined;
+            }) | null;
             is_active?: boolean;
             created_at?: number;
             updated_at?: number;
@@ -2416,7 +2447,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["webhook_Base"];
+        "application/json": components["schemas"]["webhook_Put"];
       };
     };
     responses: {
@@ -2459,7 +2490,7 @@ export interface operations {
             data?: {
               /** @description Email addresses to be sent notifications. */
               emails?: string[];
-              /** @description List of all the webhooks associated with the provider API account, filtered by the "active" parameter. */
+              /** @description List of all the webhooks associated with the provider API account, filtered by the `active` parameter. */
               hooks_list?: ({
                   /** @description ID of the webhook */
                   id?: number;
@@ -2472,10 +2503,12 @@ export interface operations {
                    * @example store/order/*
                    */
                   scope?: string;
-                  /** @description URL must be active, return a 200 response, and be served on port 443 (custom ports not currently supported) */
+                  /** @description URL must be active, return a 200 response, and be served on port 443. Custom ports arenʼt currently supported. */
                   destination?: string;
                   /** @description You can pass in any number of custom headers to validate webhooks being returned. */
-                  headers?: Record<string, never>;
+                  headers?: ({
+                    [key: string]: string | undefined;
+                  }) | null;
                   /**
                    * @description If the webhook is active or not. A webhook subscription becomes deactivated after 90 days of inactivity.
                    * @default true
