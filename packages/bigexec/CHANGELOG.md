@@ -1,5 +1,14 @@
 # bigexec
 
+## 0.0.20
+
+### Patch Changes
+
+- [#148](https://github.com/matthewvolk/bigrequest/pull/148) [`5a77979`](https://github.com/matthewvolk/bigrequest/commit/5a77979a11d99dce1ba5febe39289d543cf65b23) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Update miscellaneous dependencies. These updates should not impact library usage.
+
+- Updated dependencies [[`5a77979`](https://github.com/matthewvolk/bigrequest/commit/5a77979a11d99dce1ba5febe39289d543cf65b23)]:
+  - bigrequest@0.0.19
+
 ## 0.0.19
 
 ### Patch Changes
