@@ -90,6 +90,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -143,7 +145,9 @@ export interface operations {
         };
       };
       /** @description The request body does not meet the specification. */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
 }

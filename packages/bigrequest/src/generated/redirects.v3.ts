@@ -255,6 +255,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -426,9 +428,13 @@ export interface operations {
         };
       };
       /** @description No Redirects in your store meet the criteria in your request. */
-      409: never;
+      409: {
+        content: never;
+      };
       /** @description Your store already has an active Redirects import or export job running. */
-      429: never;
+      429: {
+        content: never;
+      };
     };
   };
   /**
@@ -477,11 +483,17 @@ export interface operations {
         };
       };
       /** @description The provided form data was invalid or the file is not a CSV. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description The provided file is too large. The maximum file size is 20MB. */
-      413: never;
+      413: {
+        content: never;
+      };
       /** @description Your store already has an active Redirects import or export job running. */
-      429: never;
+      429: {
+        content: never;
+      };
     };
   };
   /**
@@ -505,7 +517,9 @@ export interface operations {
         };
       };
       /** @description The provided export job ID does not exist. */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
   /**
@@ -529,7 +543,9 @@ export interface operations {
         };
       };
       /** @description The provided import job ID does not exist. */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
   /**
@@ -553,7 +569,9 @@ export interface operations {
         };
       };
       /** @description The requested export download does not exist. */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
 }

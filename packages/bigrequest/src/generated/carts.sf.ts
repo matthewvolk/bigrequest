@@ -179,7 +179,7 @@ export interface components {
      * Create Cart Request Object
      * @description Cart object used in create cart requests.
      */
-    requestCart: Record<string, never> & OneOf<[{
+    requestCart: OneOf<[{
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       locale?: string;
     }, {
@@ -249,7 +249,7 @@ export interface components {
      * requestLineItems
      * @description Cart object used in add items requests.
      */
-    LineItemsRequest: Record<string, never> & OneOf<[{
+    LineItemsRequest: OneOf<[{
       lineItems: components["schemas"]["requestCartPostLineItem"][];
     }, {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
@@ -258,7 +258,7 @@ export interface components {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
     }]>;
     /** requestLineItemPut */
-    requestLineItemPut: Record<string, never> & OneOf<[{
+    requestLineItemPut: OneOf<[{
       lineItem: components["schemas"]["requestCartPostLineItem"];
     }, {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
@@ -604,6 +604,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -667,7 +669,9 @@ export interface operations {
     };
     responses: {
       /** @description No Content */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -812,11 +816,17 @@ export interface operations {
     responses: {
       200: components["responses"]["getCarts"];
       /** @description Bad request. Authentication Required. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Currency not found */
-      404: never;
+      404: {
+        content: never;
+      };
       /** @description Missing or invalid data */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
 }

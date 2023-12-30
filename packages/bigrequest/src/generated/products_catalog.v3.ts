@@ -699,7 +699,7 @@ export interface components {
        */
       sort_order: number;
       /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
-      value_data?: Record<string, unknown> | null;
+      value_data?: unknown;
       adjusters?: components["schemas"]["adjusters_Full"];
     };
     /**
@@ -971,7 +971,7 @@ export interface components {
        */
       sort_order: number;
       /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
-      value_data?: Record<string, unknown> | null;
+      value_data?: unknown;
     };
     /**
      * productOptionOptionValue_Full
@@ -2086,6 +2086,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -5566,7 +5568,9 @@ export interface operations {
     };
     responses: {
       /** @description Updated */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description Error response for batch PUT of Channel Assignments. Includes the errors for each reference id. */
       422: {
         content: {
@@ -5591,7 +5595,9 @@ export interface operations {
     };
     responses: {
       /** @description Deleted */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description At least one filter must be provided in order to delete channel assignments */
       422: {
         content: {
@@ -5646,7 +5652,9 @@ export interface operations {
     };
     responses: {
       /** @description Updated */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description Error response for batch PUT of Category Assignments. Includes the errors for each reference id. */
       422: {
         content: {
@@ -5671,7 +5679,9 @@ export interface operations {
     };
     responses: {
       /** @description Deleted */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description At least one filter must be provided in order to delete category assignments */
       422: {
         content: {

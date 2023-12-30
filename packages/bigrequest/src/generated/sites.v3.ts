@@ -653,6 +653,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -678,7 +680,9 @@ export interface operations {
       400: components["responses"]["400_BadRequest"];
       403: components["responses"]["403_Unauthorized"];
       404: components["responses"]["404_NotFound"];
-      502: never;
+      502: {
+        content: never;
+      };
       504: components["responses"]["504_GatewayTimeout"];
     };
   };
@@ -736,7 +740,9 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -863,7 +869,9 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**

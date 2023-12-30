@@ -176,6 +176,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -204,7 +206,9 @@ export interface operations {
         };
       };
       /** @description Request parameters invalid */
-      400: never;
+      400: {
+        content: never;
+      };
     };
   };
   /**
@@ -234,7 +238,9 @@ export interface operations {
         };
       };
       /** @description The request body does not meet specifications. */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
   /**
@@ -264,7 +270,9 @@ export interface operations {
         };
       };
       /** @description The request body does not meet specifications. */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
   /**
@@ -282,11 +290,17 @@ export interface operations {
     };
     responses: {
       /** @description No Content */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description Request parameters invalid */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Tax Property is in use and cannot be deleted. */
-      409: never;
+      409: {
+        content: never;
+      };
     };
   };
   /**
@@ -313,7 +327,9 @@ export interface operations {
         };
       };
       /** @description Request parameters invalid */
-      400: never;
+      400: {
+        content: never;
+      };
     };
   };
   /**
@@ -343,7 +359,9 @@ export interface operations {
         };
       };
       /** @description The request body does not meet specifications. */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
   /**
@@ -361,9 +379,13 @@ export interface operations {
     };
     responses: {
       /** @description No Content */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description Request parameters invalid */
-      400: never;
+      400: {
+        content: never;
+      };
     };
   };
 }

@@ -844,6 +844,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -926,9 +928,13 @@ export interface operations {
         };
       };
       /** @description Not Found */
-      404: never;
+      404: {
+        content: never;
+      };
       /** @description Unprocessable Entity */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
   /**
@@ -994,7 +1000,9 @@ export interface operations {
     };
     responses: {
       /** @description An empty response. */
-      204: never;
+      204: {
+        content: never;
+      };
       404: components["responses"]["Error404_Resp"];
       422: components["responses"]["Error422_Resp"];
     };
@@ -1114,7 +1122,9 @@ export interface operations {
     };
     responses: {
       /** @description An empty response. */
-      204: never;
+      204: {
+        content: never;
+      };
       404: components["responses"]["Error404_Resp"];
       422: components["responses"]["Error422_Resp"];
     };
@@ -1234,7 +1244,9 @@ export interface operations {
     };
     responses: {
       /** @description An empty response. */
-      204: never;
+      204: {
+        content: never;
+      };
       404: components["responses"]["Error404_Resp"];
       422: components["responses"]["Error422_Resp"];
     };

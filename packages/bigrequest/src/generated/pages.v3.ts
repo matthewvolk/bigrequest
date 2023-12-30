@@ -653,7 +653,9 @@ export interface components {
       };
     };
     /** @description No content. A 204 response with no payload indicates successful deletion of all specified pages. */
-    HTTP204: never;
+    HTTP204: {
+      content: never;
+    };
     HTTP400: {
       content: {
         "application/problem+json": components["schemas"]["ResponseErrorBrief"];
@@ -705,6 +707,8 @@ export interface components {
   };
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 

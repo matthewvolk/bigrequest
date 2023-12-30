@@ -319,7 +319,7 @@ export interface components {
       currency?: string;
     };
     DetailedErrors: {
-      [key: string]: string | undefined;
+      [key: string]: string;
     };
     PriceListAssignmentsBatchErrorResponse: {
       status?: number;
@@ -466,6 +466,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -729,7 +731,7 @@ export interface operations {
       /** @description `204 No Content`. The action has been performed and no further information will be supplied. `null` is returned. */
       204: {
         content: {
-          "application/json": Record<string, unknown> | null;
+          "application/json": unknown;
         };
       };
     };
@@ -951,7 +953,9 @@ export interface operations {
     };
     responses: {
       /** @description Action has been enacted and no further information is to be supplied. `null` is returned. */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -2166,7 +2170,9 @@ export interface operations {
     };
     responses: {
       /** @description No Content. */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -2198,7 +2204,9 @@ export interface operations {
         };
       };
       /** @description A matching customer group or channel wasnʼt found, so no assignment is created or returned. */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
 }

@@ -50,6 +50,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -71,15 +73,25 @@ export interface operations {
     };
     responses: {
       /** @description Customer successfully created. */
-      204: never;
+      204: {
+        content: never;
+      };
       /** @description Could not create customer. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Thereʼs already an account for the provided email. Please enter a different email address or sign in. */
-      409: never;
+      409: {
+        content: never;
+      };
       /** @description Missing Required Fields. */
-      422: never;
+      422: {
+        content: never;
+      };
       /** @description Spam Protection Failed. */
-      429: never;
+      429: {
+        content: never;
+      };
     };
   };
 }

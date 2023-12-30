@@ -68,7 +68,7 @@ export interface components {
       instance?: string;
     };
     DetailedErrors: {
-      [key: string]: string | undefined;
+      [key: string]: string;
     };
     /**
      * EmailTemplatesCollection
@@ -145,6 +145,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -276,7 +278,9 @@ export interface operations {
     };
     responses: {
       /** @description OK */
-      200: never;
+      200: {
+        content: never;
+      };
     };
   };
 }
