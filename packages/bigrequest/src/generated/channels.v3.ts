@@ -427,7 +427,7 @@ export interface components {
      * @enum {string}
      */
     ChannelStatus: "active" | "prelaunch" | "inactive" | "connected" | "disconnected" | "archived" | "deleted" | "terminated";
-    /** @description Name of the channel as it will appear to merchants in the control panel. */
+    /** @description Name of the channel as it will appear in the store control panel. The only characters it can include are Latin alphabet letters, Arabic numerals, dashes, and underscores. */
     ChannelName: string;
     /**
      * @description The type of channel; channel `platform` and `type` must be a [valid combination](/docs/rest-management/channels#status).
@@ -925,7 +925,7 @@ export interface components {
       /**
        * @description Description for the metafield.
        *
-       * @example Location in the warehouse
+       * @example Location in the warehouse.
        */
       description?: string;
     };
@@ -1248,6 +1248,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -1961,7 +1963,9 @@ export interface operations {
     };
     responses: {
       /** @description No Content */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
 }

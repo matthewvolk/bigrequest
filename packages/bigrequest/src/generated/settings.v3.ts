@@ -307,7 +307,9 @@ export interface paths {
       };
       responses: {
         /** @description OK */
-        200: never;
+        200: {
+          content: never;
+        };
       };
     };
     parameters: {
@@ -1161,7 +1163,7 @@ export interface components {
     };
     AnalyticsProviders: components["schemas"]["AnalyticsProvider"][];
     /** AvailableFilter */
-    AvailableFilter: Record<string, never> & (components["schemas"]["AvailableNormalFilter"] | components["schemas"]["AvailablePriceFilter"] | components["schemas"]["AvailableOtherFilter"]);
+    AvailableFilter: components["schemas"]["AvailableNormalFilter"] | components["schemas"]["AvailablePriceFilter"] | components["schemas"]["AvailableOtherFilter"];
     /** AvailableNormalFilter */
     AvailableNormalFilter: {
       id?: string;
@@ -1701,6 +1703,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -1787,7 +1791,9 @@ export interface operations {
     };
     responses: {
       /** @description OK */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -1879,7 +1885,9 @@ export interface operations {
     };
     responses: {
       /** @description OK */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**

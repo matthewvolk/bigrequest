@@ -392,7 +392,7 @@ export interface components {
       type?: string;
       instance?: string;
       errors?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
     };
     /** customer_Full */
@@ -1571,6 +1571,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -1674,7 +1676,9 @@ export interface operations {
     responses: {
       200: components["responses"]["CustomerCollectionResponse"];
       /** @description The request payload is too large. The maximum number of items allowed in the array is 10. */
-      413: never;
+      413: {
+        content: never;
+      };
       /** @description The `Customer` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
       422: {
         content: {
@@ -1722,7 +1726,9 @@ export interface operations {
     responses: {
       200: components["responses"]["CustomerCollectionResponse"];
       /** @description The request payload is too large. The maximum number of items allowed in the array is 10. */
-      413: never;
+      413: {
+        content: never;
+      };
       /** @description The *Customer* was not valid. This is the result of missing required fields or trying to edit a read only field. See the response for more details. */
       422: {
         content: {
@@ -1753,7 +1759,11 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        headers: {
+        };
+        content: never;
+      };
     };
   };
   /**
@@ -1914,7 +1924,11 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        headers: {
+        };
+        content: never;
+      };
     };
   };
   /**
@@ -2169,7 +2183,11 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        headers: {
+        };
+        content: never;
+      };
     };
   };
   /**
@@ -2264,7 +2282,11 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        headers: {
+        };
+        content: never;
+      };
     };
   };
   /**

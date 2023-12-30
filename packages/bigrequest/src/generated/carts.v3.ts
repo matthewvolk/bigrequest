@@ -1820,6 +1820,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -2026,7 +2028,9 @@ export interface operations {
         };
       };
       /** @description If the action’s result is an empty cart, the cart is automatically deleted. */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -2054,7 +2058,9 @@ export interface operations {
     responses: {
       200: components["responses"]["CartResponse"];
       /** @description Cart not found. */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
   /**
@@ -2112,7 +2118,9 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -2397,7 +2405,9 @@ export interface operations {
         };
       };
       /** @description Internal Server Error */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
@@ -2454,7 +2464,9 @@ export interface operations {
     };
     responses: {
       /** @description An empty response. */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
 }

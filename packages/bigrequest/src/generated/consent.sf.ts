@@ -58,6 +58,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -88,9 +90,13 @@ export interface operations {
     };
     responses: {
       /** @description Consent Settings Saved */
-      200: never;
+      200: {
+        content: never;
+      };
       /** @description Invalid input */
-      400: never;
+      400: {
+        content: never;
+      };
     };
   };
 }

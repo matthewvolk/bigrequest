@@ -86,7 +86,7 @@ export interface components {
       type?: string;
     };
     DetailedErrors: {
-      [key: string]: string | undefined;
+      [key: string]: string;
     };
   };
   responses: {
@@ -106,6 +106,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 

@@ -82,6 +82,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -111,7 +113,9 @@ export interface operations {
         };
       };
       /** @description Provider does not exist */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
   /**
@@ -165,9 +169,13 @@ export interface operations {
         };
       };
       /** @description Provider does not exist */
-      404: never;
+      404: {
+        content: never;
+      };
       /** @description Unprocessable Entity, will include a specific error message referencing the issue. */
-      422: never;
+      422: {
+        content: never;
+      };
     };
   };
   /**
@@ -196,7 +204,9 @@ export interface operations {
         };
       };
       /** @description Provider or provider connection does not exist */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
 }

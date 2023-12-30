@@ -89,6 +89,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -112,7 +114,9 @@ export interface operations {
         };
       };
       /** @description User Not Found */
-      404: never;
+      404: {
+        content: never;
+      };
     };
   };
   /**
@@ -146,9 +150,13 @@ export interface operations {
         };
       };
       /** @description User Not Found */
-      404: never;
+      404: {
+        content: never;
+      };
       /** @description Email Already Taken */
-      409: never;
+      409: {
+        content: never;
+      };
     };
   };
   /**
@@ -176,9 +184,13 @@ export interface operations {
         };
       };
       /** @description Missing Required Information */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Email Already Taken */
-      409: never;
+      409: {
+        content: never;
+      };
     };
   };
 }

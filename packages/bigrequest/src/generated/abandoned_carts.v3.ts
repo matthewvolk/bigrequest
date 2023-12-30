@@ -97,7 +97,7 @@ export interface components {
     errorDetailed_Full: {
       /** DetailedErrors */
       errors?: {
-        [key: string]: string | undefined;
+        [key: string]: string;
       };
     };
     /** abandonedCartInfo_Full */
@@ -241,6 +241,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -412,7 +414,9 @@ export interface operations {
       502: components["responses"]["502_GatewayError"];
       503: components["responses"]["503_ServiceUnavailable"];
       504: components["responses"]["504_GatewayTimeout"];
-      default: never;
+      default: {
+        content: never;
+      };
     };
   };
 }

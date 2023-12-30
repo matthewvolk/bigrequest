@@ -71,7 +71,7 @@ export interface components {
       };
     };
     DetailedErrors: {
-      [key: string]: string | undefined;
+      [key: string]: string;
     };
     /** @description Error payload for the BigCommerce API. */
     BaseError: {
@@ -120,6 +120,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -214,7 +216,9 @@ export interface operations {
     };
     responses: {
       /** @description No Content */
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
 }

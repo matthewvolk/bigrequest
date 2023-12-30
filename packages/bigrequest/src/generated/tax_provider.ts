@@ -364,6 +364,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -416,11 +418,17 @@ export interface operations {
         };
       };
       /** @description Fallback Tax will be used for this transaction. General response that points to an issue with the incoming request that means a valid response is unable to be returned. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Response to indicate that the merchant’s authentication credentials are invalid. The merchant will receive an update in their Store Logs. */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Fallback Tax will be used for this transaction. General response that points to an error on the tax provider side. These types of errors should be promptly resolved by the tax provider. */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
@@ -443,13 +451,21 @@ export interface operations {
     };
     responses: {
       /** @description OK */
-      200: never;
+      200: {
+        content: never;
+      };
       /** @description General response that points to an issue with the incoming request that means a valid response is unable to be returned. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Response to indicate that the merchant’s authentication credentials are invalid. The merchant will receive an update in their Store Logs. */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description General response that points to an error on the tax provider side. These types of errors should be promptly resolved by the tax provider. */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
@@ -479,11 +495,17 @@ export interface operations {
         };
       };
       /** @description General response that points to an issue with the incoming request that means a valid response is unable to be returned. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Response to indicate that the merchant’s authentication credentials are invalid. The merchant will receive an update in their Store Logs. */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description General response that points to an error on the tax provider side. These types of errors should be promptly resolved by the tax provider. */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
@@ -521,9 +543,13 @@ export interface operations {
         };
       };
       /** @description General response that points to an issue with the incoming request that means a valid response is unable to be returned. */
-      400: never;
+      400: {
+        content: never;
+      };
       /** @description Response to indicate that the merchant’s authentication credentials are invalid. The merchant will receive an update in their Store Logs. */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description General response that points to an error on the tax provider side. These types of errors should be promptly resolved by the tax provider. */
       500: {
         content: {

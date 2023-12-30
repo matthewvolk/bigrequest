@@ -1084,7 +1084,7 @@ export interface components {
         exclude_fixed_shipping_products?: boolean;
       };
       /** Shipping Zone Handling Fees */
-      handling_fees?: Record<string, never> & OneOf<[{
+      handling_fees?: OneOf<[{
         /**
          * @description Flat-rate handling fee applied to shipping cost.
          * @example 0
@@ -1137,7 +1137,7 @@ export interface components {
       state_iso2?: string;
     };
     /** Shipping Zone Handling Fees */
-    HandlingFees: Record<string, never> & OneOf<[{
+    HandlingFees: OneOf<[{
       /**
        * @description Flat-rate handling fee applied to shipping cost.
        * @example 0
@@ -1195,7 +1195,7 @@ export interface components {
        * @example true
        */
       enabled?: boolean;
-      handling_fees?: Record<string, never> & OneOf<[{
+      handling_fees?: OneOf<[{
         /**
          * @description Flat-rate handling fee applied to shipping cost.
          * @example 0
@@ -1285,6 +1285,8 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
@@ -1348,7 +1350,7 @@ export interface operations {
                 exclude_fixed_shipping_products?: boolean;
               };
               /** Shipping Zone Handling Fees */
-              handling_fees?: Record<string, never> & OneOf<[{
+              handling_fees?: OneOf<[{
                 /**
                  * @description Flat-rate handling fee applied to shipping cost.
                  * @example 0
@@ -1435,7 +1437,7 @@ export interface operations {
             exclude_fixed_shipping_products?: boolean;
           };
           /** Shipping Zone Handling Fees */
-          handling_fees?: Record<string, never> & OneOf<[{
+          handling_fees?: OneOf<[{
             /**
              * @description Flat-rate handling fee applied to shipping cost.
              * @example 0
@@ -1515,7 +1517,7 @@ export interface operations {
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: Record<string, never> & OneOf<[{
+            handling_fees?: OneOf<[{
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -1611,7 +1613,7 @@ export interface operations {
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: Record<string, never> & OneOf<[{
+            handling_fees?: OneOf<[{
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -1713,7 +1715,7 @@ export interface operations {
             exclude_fixed_shipping_products?: boolean;
           };
           /** Shipping Zone Handling Fees */
-          handling_fees?: Record<string, never> & OneOf<[{
+          handling_fees?: OneOf<[{
             /**
              * @description Flat-rate handling fee applied to shipping cost.
              * @example 0
@@ -1793,7 +1795,7 @@ export interface operations {
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: Record<string, never> & OneOf<[{
+            handling_fees?: OneOf<[{
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -1841,7 +1843,9 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -2476,7 +2480,7 @@ export interface operations {
              * @example true
              */
             enabled?: boolean;
-            handling_fees?: Record<string, never> & OneOf<[{
+            handling_fees?: OneOf<[{
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -2711,7 +2715,9 @@ export interface operations {
       };
     };
     responses: {
-      204: never;
+      204: {
+        content: never;
+      };
     };
   };
   /**
@@ -2744,7 +2750,9 @@ export interface operations {
     };
     responses: {
       /** @description Returns if request was successful. */
-      204: never;
+      204: {
+        content: never;
+      };
       /**
        * @description If a required field is not provided, the request will return a 400 response.
        *
@@ -2986,7 +2994,9 @@ export interface operations {
     };
     responses: {
       /** @description Returns if request was successful. */
-      204: never;
+      204: {
+        content: never;
+      };
       /**
        * @description Invalid requests will return a 400 response.
        *
@@ -3041,7 +3051,9 @@ export interface operations {
     };
     responses: {
       /** @description Returns if request was successful. */
-      204: never;
+      204: {
+        content: never;
+      };
       /**
        * @description If a required field is not provided, the request will return a 400 response.
        *
