@@ -1073,7 +1073,7 @@ export interface components {
     };
     /**
      * metafield_Base
-     * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 250. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     metafield_Base: {
       /**
