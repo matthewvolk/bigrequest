@@ -1645,10 +1645,7 @@ export interface operations {
   getPriceListRecord: {
     parameters: {
       query?: {
-        /**
-         * @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored.
-         * Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored.
-         */
+        /** @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored. */
         include?: ("bulk_pricing_tiers" | "sku")[];
       };
       header: {
