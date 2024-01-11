@@ -14,16 +14,13 @@ export interface paths {
     get: {
       parameters: {
         header: {
-          Accept: string;
-          "Content-Type": string;
+          Accept: components["parameters"]["Accept"];
         };
       };
       responses: {
         200: {
           content: {
-            "Time": components["schemas"]["StoreInformation"];
-            "application/json": unknown;
-            "Response Schema": unknown;
+            "application/json": components["schemas"]["StoreInformation"];
           };
         };
       };
@@ -37,8 +34,7 @@ export interface paths {
     get: {
       parameters: {
         header: {
-          Accept: string;
-          "Content-Type": string;
+          Accept: components["parameters"]["Accept"];
         };
       };
       responses: {
@@ -75,11 +71,11 @@ export interface components {
       secure_url?: string;
       /**
        * @description The secure hostname of the control panel.
-       * @example "https://store-abc123.mybigcommerce.com"
+       * @example https://store-abc123.mybigcommerce.com
        */
       control_panel_base_url?: string;
       /**
-       * @description Store's name.
+       * @description Store’s name.
        * @example BigCommerce
        */
       name?: string;
@@ -112,7 +108,7 @@ export interface components {
       admin_email?: string;
       /**
        * @description Email address for orders and fulfillment.
-       * @example orders@emai
+       * @example orders@example.com
        */
       order_email?: string;
       timezone?: components["schemas"]["Timezone"];
@@ -122,7 +118,7 @@ export interface components {
        */
       language?: string;
       /**
-       * @description Default currency code
+       * @description Default currency code.
        * @example USD
        */
       currency?: string;
@@ -172,7 +168,7 @@ export interface components {
        */
       dimension_decimal_token?: string;
       /** @description The symbol used to denote thousands. */
-      "dimension_thousands_token:"?: string;
+      dimension_thousands_token?: string;
       /**
        * @description Name of the BigCommerce plan to which this store is subscribed.
        * @example Standard
@@ -188,10 +184,11 @@ export interface components {
        * @example Technology
        */
       industry?: string;
+      /** @description Either an object describing the logo image, or an empty array. */
       logo?: {
-        /** @example https://cdn8.bigcommerce.com/s-{store_hash}/product_images/screen_shot_2018-05-15_at_12.22.26_pm__05547_1529512135.png" */
+        /** @example https://cdn8.bigcommerce.com/s-{store_hash}/product_images/screen_shot_2018-05-15_at_12.22.26_pm__05547_1529512135.png */
         url?: string;
-      };
+      } | unknown[];
       /**
        * @description A Boolean value that indicates whether or not prices are entered with tax.
        * @example false
@@ -209,7 +206,7 @@ export interface components {
          * @example optimized
          */
         checkout_type?: string;
-        /** @description Id of the facebook by meta catalog. If there is none, it returns an empty string. */
+        /** @description ID of the facebook by meta catalog. If there is none, it returns an empty string. */
         facebook_catalog_id?: string;
         graphql_storefront_api_enabled?: boolean;
         /**
@@ -218,7 +215,7 @@ export interface components {
          */
         stencil_enabled?: boolean;
         /**
-         * @description Indicates if there is sitewide https.
+         * @description Indicates whether there is site-wide https.
          * @example false
          */
         sitewidehttps_enabled?: boolean;
@@ -243,7 +240,7 @@ export interface components {
     /** Time Zone */
     Timezone: {
       /**
-       * @description a string identifying the time zone, in the format: /.
+       * @description A string identifying the time zone, in the format `Continent/City`.
        * @example America/Chicago
        */
       name?: string;
@@ -267,17 +264,17 @@ export interface components {
     /** Date Format */
     DateFormat: {
       /**
-       * @description string that defines dates’ display format, in the pattern: M jS Y
+       * @description A string that defines dates’ display format, in the pattern `M jS Y`.
        * @example M jS Y
        */
       display?: string;
       /**
-       * @description string that defines the CSV export format for orders, customers, and products, in the pattern: M jS Y
+       * @description A string that defines the CSV export format for orders, customers, and products, in the pattern `M jS Y`.
        * @example M jS Y
        */
       export?: string;
       /**
-       * @description string that defines dates’ extended-display format, in the pattern: M jS Y @ g:i A.
+       * @description A string that defines dates’ extended-display format, in the pattern `M jS Y @ g:i A`.
        * @example M jS Y @ g:i A
        */
       extended_display?: string;
@@ -292,7 +289,10 @@ export interface components {
     };
   };
   responses: never;
-  parameters: never;
+  parameters: {
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. The default is application/xml, but application/json is available when specified. */
+    Accept: string;
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;
