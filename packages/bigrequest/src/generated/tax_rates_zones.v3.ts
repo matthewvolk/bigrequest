@@ -79,7 +79,7 @@ export interface components {
       /** @description Tax Zone ID. Internal identifier used to get, update, or delete a specific tax zone. */
       id?: number;
       /**
-       * @description The human-readable name for this tax zone. The name displays on the merchant's control panel.
+       * @description The human-readable name for this tax zone. The name appears in the store control panel.
        * @example Australia
        */
       name?: string;
@@ -130,7 +130,7 @@ export interface components {
       /** @description Tax Zone ID. Internal identifier used to get, update, or delete a specific tax zone. */
       id: number;
       /**
-       * @description The human-readable name for this tax zone. The name displays on the merchant's control panel.
+       * @description The human-readable name for this tax zone. The name appears in the store control panel.
        * @example Australia
        */
       name?: string;
@@ -179,7 +179,7 @@ export interface components {
     };
     Tax_ZonePOST: {
       /**
-       * @description The human-readable name for this tax zone. The name displays on the merchant's control panel.
+       * @description The human-readable name for this tax zone. The name appears in the store control panel.
        * @example Australia
        */
       name: string;
@@ -257,7 +257,7 @@ export interface components {
        */
       id?: number;
       /**
-       * @description The human-readable name for this tax zone. The name displays on the merchant control panel and to shoppers, depending on store tax settings.
+       * @description The human-readable name for this tax zone. The name appears in the store control panel and may be visible to shoppers, depending on store tax settings.
        * @example Sales Tax
        */
       name?: string;
@@ -297,7 +297,7 @@ export interface components {
        */
       id: number;
       /**
-       * @description The human-readable name for this tax zone. The name displays on the merchant control panel and to shoppers, depending on store tax settings.
+       * @description The human-readable name for this tax zone. The name appears in the store control panel and may be visible to shoppers, depending on store tax settings.
        * @example Sales Tax
        */
       name?: string;
@@ -332,7 +332,7 @@ export interface components {
        */
       enabled?: boolean;
       /**
-       * @description The human-readable name for this tax zone. The name displays on the merchant control panel and to shoppers, depending on store tax settings.
+       * @description The human-readable name for this tax zone. The name appears in the store control panel and may be visible to shoppers, depending on store tax settings.
        * @example Sales Tax
        */
       name: string;
