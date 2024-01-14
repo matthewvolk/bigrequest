@@ -40,7 +40,7 @@ export interface paths {
   "/void": {
     /**
      * Void Tax Quote
-     * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations or when moving an order from a paid status to an unpaid status.
+     * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations, full refunds, or moving an order from a paid status to an unpaid status.
      *
      * > Server URL
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
@@ -64,7 +64,7 @@ export interface paths {
      * Adjust Tax Quote
      * @description Replace the persisted tax quote (identified by the given unique ID) with the provided quote request (represented by the **AdjustRequest**).
      *
-     * Relevant for partial refunds, full refunds, returns, and other Order modifications where there have been changes to the tax liabilities.
+     * Relevant for returns, partial refunds, and other Order modifications where there have been changes to the tax liabilities.
      *
      * The returned **Tax Quote** response is expected to be the same to a response returned by an equivalent response to **estimate** or **commit** methods.
      *
@@ -433,7 +433,7 @@ export interface operations {
   };
   /**
    * Void Tax Quote
-   * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations or when moving an order from a paid status to an unpaid status.
+   * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations, full refunds, or moving an order from a paid status to an unpaid status.
    *
    * > Server URL
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
@@ -512,7 +512,7 @@ export interface operations {
    * Adjust Tax Quote
    * @description Replace the persisted tax quote (identified by the given unique ID) with the provided quote request (represented by the **AdjustRequest**).
    *
-   * Relevant for partial refunds, full refunds, returns, and other Order modifications where there have been changes to the tax liabilities.
+   * Relevant for returns, partial refunds, and other Order modifications where there have been changes to the tax liabilities.
    *
    * The returned **Tax Quote** response is expected to be the same to a response returned by an equivalent response to **estimate** or **commit** methods.
    *
