@@ -1,5 +1,12 @@
 # bigexec
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`4443b02`](https://github.com/matthewvolk/bigrequest/commit/4443b02802b133d6c641a7ca6da35adc2e5d9838)]:
+  - bigrequest@0.0.21
+
 ## 0.0.21
 
 ### Patch Changes
