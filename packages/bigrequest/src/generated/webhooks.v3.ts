@@ -1802,7 +1802,7 @@ export interface components {
            */
           method?: "absolute" | "relative";
           /**
-           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2`
+           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2`.
            * @example 2
            */
           value?: number;
@@ -1868,7 +1868,7 @@ export interface components {
            */
           method?: "absolute" | "relative";
           /**
-           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2`
+           * @description The number of items that the inventory changed by. This can be negative if the inventory is decreased `-3` or positive if an item is returned to the inventory from an order, `2`.
            * @example 2
            */
           value?: number;
@@ -2134,12 +2134,12 @@ export interface components {
        */
       store_hash?: string;
       /**
-       * @description Time when the webhook was created.
+       * @description The time the webhook was created, represented in UNIX epoch time.
        * @example 1561488106
        */
       created_at?: number;
       /**
-       * @description Time when the webhook was updated.
+       * @description The time the webhook was most recently updated, represented in UNIX epoch time.
        * @example 1561488106
        */
       updated_at?: number;
@@ -2184,8 +2184,8 @@ export interface components {
     };
     webhook_callback_base: {
       /**
-       * @description Hook creation date, in Unix timestamp format.
-       * @example 1561482670
+       * @description The time the webhook was created, represented in UNIX epoch time.
+       * @example 1561488106
        */
       created_at?: number;
       /**
@@ -2243,7 +2243,9 @@ export interface components {
                 [key: string]: string;
               } | null;
               is_active?: boolean;
+              /** @description The time the webhook was created, represented in UNIX epoch time. */
               created_at?: number;
+              /** @description The time the webhook was most recently updated, represented in UNIX epoch time. */
               updated_at?: number;
             })[];
           meta?: {
@@ -2313,7 +2315,9 @@ export interface components {
               [key: string]: string;
             } | null;
             is_active?: boolean;
+            /** @description The time the webhook was created, represented in UNIX epoch time. */
             created_at?: number;
+            /** @description The time the webhook was most recently updated, represented in UNIX epoch time. */
             updated_at?: number;
           };
           meta?: {
@@ -2516,9 +2520,15 @@ export interface operations {
                    * @default true
                    */
                   is_active?: boolean;
-                  /** @description Created time */
+                  /**
+                   * @description The time the webhook was created, represented in UNIX epoch time.
+                   * @example 1561488106
+                   */
                   created_at?: number;
-                  /** @description Updated time */
+                  /**
+                   * @description The time the webhook was most recently updated, represented in UNIX epoch time.
+                   * @example 1561488106
+                   */
                   updated_at?: number;
                   /**
                    * @description The webhook status.
