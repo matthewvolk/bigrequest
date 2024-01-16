@@ -67,7 +67,7 @@ export interface paths {
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    get: operations["getCategoryById"];
+    get: operations["getCategory"];
     /**
      * Update a Category
      * @description Updates a *Category*.
@@ -89,7 +89,7 @@ export interface paths {
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    delete: operations["deleteCategoryById"];
+    delete: operations["deleteCategory"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -104,7 +104,7 @@ export interface paths {
      * Get All Category Metafields
      * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
      */
-    get: operations["getCategoryMetafieldsByCategoryId"];
+    get: operations["getCategoryMetafields"];
     /**
      * Create a Category Metafield
      * @description Creates a *Category Metafield*.
@@ -135,7 +135,7 @@ export interface paths {
      * Get a Category Metafield
      * @description Returns a single *Category Metafield*. Optional parameters can be passed in.
      */
-    get: operations["getCategoryMetafieldByCategoryId"];
+    get: operations["getCategoryMetafield"];
     /**
      * Update a Category Metafield
      * @description Updates a *Category Metafield*.
@@ -158,7 +158,7 @@ export interface paths {
      * Delete a Category Metafield
      * @description Deletes a *Category Metafield*.
      */
-    delete: operations["deleteCategoryMetafieldById"];
+    delete: operations["deleteCategoryMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -210,12 +210,12 @@ export interface paths {
      *   - Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
      *   - Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
      */
-    get: operations["getsortorders"];
+    get: operations["getCategorySortOrders"];
     /**
      * Update Product Sort Order
      * @description Updates sort order of products within a specific category.
      */
-    put: operations["updatesortorder"];
+    put: operations["updateCategorySortOrders"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -921,7 +921,7 @@ export interface operations {
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  getCategoryById: {
+  getCategory: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1226,7 +1226,7 @@ export interface operations {
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  deleteCategoryById: {
+  deleteCategory: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1246,7 +1246,7 @@ export interface operations {
    * Get All Category Metafields
    * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
    */
-  getCategoryMetafieldsByCategoryId: {
+  getCategoryMetafields: {
     parameters: {
       query?: {
         /** @description Filter items by ID. */
@@ -1380,7 +1380,7 @@ export interface operations {
    * Get a Category Metafield
    * @description Returns a single *Category Metafield*. Optional parameters can be passed in.
    */
-  getCategoryMetafieldByCategoryId: {
+  getCategoryMetafield: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1481,7 +1481,7 @@ export interface operations {
    * Delete a Category Metafield
    * @description Deletes a *Category Metafield*.
    */
-  deleteCategoryMetafieldById: {
+  deleteCategoryMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1609,7 +1609,7 @@ export interface operations {
    *   - Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
    *   - Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
    */
-  getsortorders: {
+  getCategorySortOrders: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1639,7 +1639,7 @@ export interface operations {
    * Update Product Sort Order
    * @description Updates sort order of products within a specific category.
    */
-  updatesortorder: {
+  updateCategorySortOrders: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

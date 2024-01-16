@@ -35,7 +35,7 @@ export interface paths {
      * - Edit order.
      * - Test connection feature in Tax Settings.
      */
-    post: operations["estimate"];
+    post: operations["estimateTaxes"];
   };
   "/void": {
     /**
@@ -46,7 +46,7 @@ export interface paths {
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      */
-    post: operations["void"];
+    post: operations["voidTaxQuote"];
   };
   "/commit": {
     /**
@@ -57,7 +57,7 @@ export interface paths {
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      */
-    post: operations["commit"];
+    post: operations["commitTaxQuote"];
   };
   "/adjust": {
     /**
@@ -72,7 +72,7 @@ export interface paths {
      * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      */
-    post: operations["adjust"];
+    post: operations["adjustTaxQuote"];
   };
 }
 
@@ -398,7 +398,7 @@ export interface operations {
    * - Edit order.
    * - Test connection feature in Tax Settings.
    */
-  estimate: {
+  estimateTaxes: {
     parameters: {
       header: {
         "X-BC-Store-Hash": components["parameters"]["header-storehash"];
@@ -439,7 +439,7 @@ export interface operations {
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    */
-  void: {
+  voidTaxQuote: {
     parameters: {
       query: {
         /** @description Unique ID identifying the existing, persisted Tax Quote that will be voided. */
@@ -476,7 +476,7 @@ export interface operations {
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    */
-  commit: {
+  commitTaxQuote: {
     parameters: {
       header: {
         "X-BC-Store-Hash": components["parameters"]["header-storehash"];
@@ -520,7 +520,7 @@ export interface operations {
    * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    */
-  adjust: {
+  adjustTaxQuote: {
     parameters: {
       query: {
         /** @description Unique ID identifying the existing, persisted Tax Quote that will be adjusted. */

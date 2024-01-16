@@ -52,7 +52,7 @@ export interface paths {
      * Get All Category Trees
      * @description Returns a list of *Category Trees*.
      */
-    get: operations["GetCategoryTrees"];
+    get: operations["getCategoryTrees"];
     /**
      * Upsert Category Trees
      * @description Upserts *Category Trees*.
@@ -62,12 +62,12 @@ export interface paths {
      * **Usage Notes**
      * * `channel_id` is required to create a *Category Tree*. You can assign one `channel_id` to one category tree.
      */
-    put: operations["UpsertCategoryTrees"];
+    put: operations["upsertCategoryTrees"];
     /**
      * Delete Category Trees
      * @description Deletes *Category Trees*. A filter must be supplied with the endpoint.
      */
-    delete: operations["DeleteCategoryTrees"];
+    delete: operations["deleteCategoryTrees"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -79,7 +79,7 @@ export interface paths {
      * Get a Category Tree
      * @description Returns a *Category Tree*.
      */
-    get: operations["GetCategoryTreeByTreeId"];
+    get: operations["getCategoryTree"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -607,7 +607,7 @@ export interface operations {
    * Get All Category Trees
    * @description Returns a list of *Category Trees*.
    */
-  GetCategoryTrees: {
+  getCategoryTrees: {
     parameters: {
       query?: {
         "id:in"?: string;
@@ -638,7 +638,7 @@ export interface operations {
    * **Usage Notes**
    * * `channel_id` is required to create a *Category Tree*. You can assign one `channel_id` to one category tree.
    */
-  UpsertCategoryTrees: {
+  upsertCategoryTrees: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -683,7 +683,7 @@ export interface operations {
    * Delete Category Trees
    * @description Deletes *Category Trees*. A filter must be supplied with the endpoint.
    */
-  DeleteCategoryTrees: {
+  deleteCategoryTrees: {
     parameters: {
       query?: {
         "id:in"?: string;
@@ -703,7 +703,7 @@ export interface operations {
    * Get a Category Tree
    * @description Returns a *Category Tree*.
    */
-  GetCategoryTreeByTreeId: {
+  getCategoryTree: {
     parameters: {
       query?: {
         /** @description Max depth for a tree of categories. */

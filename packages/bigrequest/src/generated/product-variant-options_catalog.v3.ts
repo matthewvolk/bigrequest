@@ -11,7 +11,7 @@ export interface paths {
      * Get All Product Variant Options
      * @description Returns a list of product *Variant Options*. Optional parameters can be passed in.
      */
-    get: operations["getOptions"];
+    get: operations["getProductVariantOptions"];
     /**
      * Create a Product Variant Option
      * @description Creates a *Variant Option*.
@@ -34,7 +34,7 @@ export interface paths {
      * * Variant options will show on the storefront as an option that can be selected by the customer. A request like this could be used to add new choices to a variant that has already been created.
      * * If more than one variant needs to be created, use the [Create a Product](/docs/rest-catalog/products#create-a-product) endpoint.
      */
-    post: operations["createOption"];
+    post: operations["createProductVariantOption"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -49,7 +49,7 @@ export interface paths {
      * Get a Product Variant Option
      * @description Returns a single *Variant Option*. Optional parameters can be passed in.
      */
-    get: operations["getOptionById"];
+    get: operations["getProductVariantOption"];
     /**
      * Update a Product Variant Option
      * @description Updates a *Variant Option*.
@@ -57,12 +57,12 @@ export interface paths {
      * **Read-Only Fields**
      * * id
      */
-    put: operations["updateOption"];
+    put: operations["updateProductVariantOption"];
     /**
      * Delete a Product Variant Option
      * @description Deletes a *Variant Option*.
      */
-    delete: operations["deleteOptionById"];
+    delete: operations["deleteProductVariantOption"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -78,7 +78,7 @@ export interface paths {
      * Get All Product Variant Option Values
      * @description Returns a list of all *Variant Option Values*. Optional parameters can be passed in.
      */
-    get: operations["getOptionValues"];
+    get: operations["getProductVariantOptionValues"];
     /**
      * Create a Product Variant Option Value
      * @description Creates a *Variant Option Value*.
@@ -93,7 +93,7 @@ export interface paths {
      * **Limits**
      * * 250 option values per option limit.
      */
-    post: operations["createOptionValue"];
+    post: operations["createProductVariantOptionValue"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -109,7 +109,7 @@ export interface paths {
      * Get a Product Variant Option Value
      * @description Returns a single *Variant Option Value*. Optional parameters can be passed in.
      */
-    get: operations["getOptionValueById"];
+    get: operations["getProductVariantOptionValue"];
     /**
      * Update a Product Variant Option Value
      * @description Updates a *Variant Option Value*.
@@ -117,12 +117,12 @@ export interface paths {
      * **Read-Only Fields**
      * * id
      */
-    put: operations["updateOptionValue"];
+    put: operations["updateProductVariantOptionValue"];
     /**
      * Delete a Product Variant Option Value
      * @description Deletes a *Variant Option Value*.
      */
-    delete: operations["deleteOptionValueById"];
+    delete: operations["deleteProductVariantOptionValue"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -428,7 +428,7 @@ export interface operations {
    * Get All Product Variant Options
    * @description Returns a list of product *Variant Options*. Optional parameters can be passed in.
    */
-  getOptions: {
+  getProductVariantOptions: {
     parameters: {
       query?: {
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -493,7 +493,7 @@ export interface operations {
    * * Variant options will show on the storefront as an option that can be selected by the customer. A request like this could be used to add new choices to a variant that has already been created.
    * * If more than one variant needs to be created, use the [Create a Product](/docs/rest-catalog/products#create-a-product) endpoint.
    */
-  createOption: {
+  createProductVariantOption: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -926,7 +926,7 @@ export interface operations {
    * Get a Product Variant Option
    * @description Returns a single *Variant Option*. Optional parameters can be passed in.
    */
-  getOptionById: {
+  getProductVariantOption: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -973,7 +973,7 @@ export interface operations {
    * **Read-Only Fields**
    * * id
    */
-  updateOption: {
+  updateProductVariantOption: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1409,7 +1409,7 @@ export interface operations {
    * Delete a Product Variant Option
    * @description Deletes a *Variant Option*.
    */
-  deleteOptionById: {
+  deleteProductVariantOption: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1430,7 +1430,7 @@ export interface operations {
    * Get All Product Variant Option Values
    * @description Returns a list of all *Variant Option Values*. Optional parameters can be passed in.
    */
-  getOptionValues: {
+  getProductVariantOptionValues: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1501,7 +1501,7 @@ export interface operations {
    * **Limits**
    * * 250 option values per option limit.
    */
-  createOptionValue: {
+  createProductVariantOptionValue: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1597,7 +1597,7 @@ export interface operations {
    * Get a Product Variant Option Value
    * @description Returns a single *Variant Option Value*. Optional parameters can be passed in.
    */
-  getOptionValueById: {
+  getProductVariantOptionValue: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1674,7 +1674,7 @@ export interface operations {
    * **Read-Only Fields**
    * * id
    */
-  updateOptionValue: {
+  updateProductVariantOptionValue: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1782,7 +1782,7 @@ export interface operations {
    * Delete a Product Variant Option Value
    * @description Deletes a *Variant Option Value*.
    */
-  deleteOptionValueById: {
+  deleteProductVariantOptionValue: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

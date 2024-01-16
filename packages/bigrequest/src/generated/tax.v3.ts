@@ -14,7 +14,7 @@ export interface paths {
      * > #### Note
      * > * Requires **read** permissions on the **Information and Settings** scope.
      */
-    get: operations["provider-connection-get"];
+    get: operations["getTaxProviderConnection"];
     /**
      * Update a Connection
      * @description Set authentication information associated with a merchant's account on the tax provider's infrastructure:
@@ -28,7 +28,7 @@ export interface paths {
      * > * This operation will be logged in [Store Logs](https://support.bigcommerce.com/s/article/Using-Store-Logs) under **Staff Actions**.
      * > * Requires **write** permissions on the **Information and Settings** [scope](/docs/start/authentication/api-accounts#oauth-scopes).
      */
-    put: operations["provider-connection-put"];
+    put: operations["updateTaxProviderConnection"];
     /**
      * Delete a Connection
      * @description Remove any previously set basic connection credentials for the specified provider. If the specified provider is the active tax provider on the store, the store's active tax provider will be reset to BigCommerce Manual Tax. It is suggested to call this endpoint during a single-click app [uninstall callback](/docs/integrations/apps/guide/callbacks#uninstall-callback).
@@ -37,7 +37,7 @@ export interface paths {
      * > * This operation will be logged in [Store Logs](https://support.bigcommerce.com/s/article/Using-Store-Logs) under **Staff Actions**.
      * > * Requires **write** permissions on the **Information and Settings** [scope](/docs/start/authentication/api-accounts#oauth-scopes).
      */
-    delete: operations["provider-connection-delete"];
+    delete: operations["deleteTaxProviderConnection"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -95,7 +95,7 @@ export interface operations {
    * > #### Note
    * > * Requires **read** permissions on the **Information and Settings** scope.
    */
-  "provider-connection-get": {
+  getTaxProviderConnection: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -131,7 +131,7 @@ export interface operations {
    * > * This operation will be logged in [Store Logs](https://support.bigcommerce.com/s/article/Using-Store-Logs) under **Staff Actions**.
    * > * Requires **write** permissions on the **Information and Settings** [scope](/docs/start/authentication/api-accounts#oauth-scopes).
    */
-  "provider-connection-put": {
+  updateTaxProviderConnection: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -186,7 +186,7 @@ export interface operations {
    * > * This operation will be logged in [Store Logs](https://support.bigcommerce.com/s/article/Using-Store-Logs) under **Staff Actions**.
    * > * Requires **write** permissions on the **Information and Settings** [scope](/docs/start/authentication/api-accounts#oauth-scopes).
    */
-  "provider-connection-delete": {
+  deleteTaxProviderConnection: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

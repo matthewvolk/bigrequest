@@ -20,7 +20,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    get: operations["getACart"];
+    get: operations["getCart"];
     /**
      * Create a Cart
      * @description Creates a *Cart*.
@@ -29,7 +29,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["createACart"];
+    post: operations["createCart"];
   };
   "/carts/{cartId}": {
     /**
@@ -41,7 +41,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    delete: operations["deleteACart"];
+    delete: operations["deleteCart"];
   };
   "/carts/{cartId}/items": {
     /**
@@ -92,7 +92,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["addCartCurrency"];
+    post: operations["updateCartCurrency"];
   };
 }
 
@@ -618,7 +618,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  getACart: {
+  getCart: {
     parameters: {
       query?: {
         include?: components["parameters"]["include"];
@@ -636,7 +636,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  createACart: {
+  createCart: {
     parameters: {
       query?: {
         include?: components["parameters"]["include"];
@@ -660,7 +660,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  deleteACart: {
+  deleteCart: {
     parameters: {
       path: {
         /** @description This cart's unique ID. */
@@ -798,7 +798,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  addCartCurrency: {
+  updateCartCurrency: {
     parameters: {
       path: {
         /** @description This cart's unique ID. */

@@ -17,7 +17,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    get: operations["CheckoutsByCheckoutIdGet"];
+    get: operations["getCheckout"];
     /**
      * Update Customer Messages
      * @description Updates *Checkout* customer messages.
@@ -30,7 +30,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    put: operations["CheckoutsByCheckoutIdPut"];
+    put: operations["updateCheckout"];
   };
   "/checkouts/{checkoutId}/carts/{cartId}/items/{itemId}": {
     /**
@@ -44,7 +44,7 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
-    put: operations["CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdPut"];
+    put: operations["updateCheckoutLineItem"];
     /**
      * Delete a Line Item
      * @description Deletes a *Line Item* from the *Cart*.
@@ -53,7 +53,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    delete: operations["CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdDelete"];
+    delete: operations["deleteCheckoutLineItem"];
   };
   "/checkouts/{checkoutId}/billing-address": {
     /**
@@ -70,7 +70,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["CheckoutsBillingAddressByCheckoutIdPost"];
+    post: operations["addCheckoutBillingAddress"];
   };
   "/checkouts/{checkoutId}/billing-address/{addressId}": {
     /**
@@ -81,7 +81,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    put: operations["CheckoutsBillingAddressByCheckoutIdAndAddressIdPut"];
+    put: operations["updateCheckoutBillingAddress"];
   };
   "/checkouts/{checkoutId}/consignments": {
     /**
@@ -115,7 +115,7 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
-    post: operations["CheckoutsConsignmentsByCheckoutIdPost"];
+    post: operations["createCheckoutConsignment"];
   };
   "/checkouts/{checkoutId}/consignments/{consignmentId}": {
     /**
@@ -148,7 +148,7 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
-    put: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut"];
+    put: operations["updateCheckoutConsignment"];
     /**
      * Delete a Consignment
      * @description Removes an existing *Consignment* from *Checkout*.
@@ -157,7 +157,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    delete: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete"];
+    delete: operations["deleteCheckoutConsignment"];
   };
   "/checkouts/{checkoutId}/gift-certificates": {
     /**
@@ -171,7 +171,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["CheckoutsGiftCertificatesByCheckoutIdPost"];
+    post: operations["addCheckoutGiftCertificate"];
   };
   "/checkouts/{checkoutId}/gift-certificates/{giftCertificateCode}": {
     /**
@@ -184,7 +184,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    delete: operations["CheckoutsGiftCertificatesByCheckoutIdAndGiftCertificateCodeDelete"];
+    delete: operations["deleteCheckoutGiftCertificate"];
   };
   "/checkouts/{checkoutId}/coupons": {
     /**
@@ -198,7 +198,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["CheckoutsCouponsByCheckoutIdPost"];
+    post: operations["addCheckoutCoupon"];
   };
   "/checkouts/{checkoutId}/coupons/{couponCode}": {
     /**
@@ -209,7 +209,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    delete: operations["CheckoutsCouponsByCheckoutIdAndCouponCodeDelete"];
+    delete: operations["deleteCheckoutCoupon"];
   };
   "/checkouts/{checkoutId}/store-credit": {
     /**
@@ -220,7 +220,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["CheckoutStoreCreditAdd"];
+    post: operations["addCheckoutStoreCredit"];
     /**
      * Remove Store Credit
      * @description Removes store credit from a checkout.
@@ -229,7 +229,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    delete: operations["CheckoutsStoreCreditRemove"];
+    delete: operations["removeCheckoutStoreCredit"];
   };
   "/checkouts/{checkoutId}/spam-protection": {
     /**
@@ -978,7 +978,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsByCheckoutIdGet: {
+  getCheckout: {
     parameters: {
       query?: {
         /**
@@ -1033,7 +1033,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsByCheckoutIdPut: {
+  updateCheckout: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1063,7 +1063,7 @@ export interface operations {
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
-  CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdPut: {
+  updateCheckoutLineItem: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1092,7 +1092,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsCartsItemsItemIdByCheckoutIdAndCartIdDelete: {
+  deleteCheckoutLineItem: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1123,7 +1123,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsBillingAddressByCheckoutIdPost: {
+  addCheckoutBillingAddress: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1160,7 +1160,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsBillingAddressByCheckoutIdAndAddressIdPut: {
+  updateCheckoutBillingAddress: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1221,7 +1221,7 @@ export interface operations {
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
-  CheckoutsConsignmentsByCheckoutIdPost: {
+  createCheckoutConsignment: {
     parameters: {
       query?: {
         include?: string;
@@ -1273,7 +1273,7 @@ export interface operations {
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
-  CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut: {
+  updateCheckoutConsignment: {
     parameters: {
       query?: {
         include?: string;
@@ -1304,7 +1304,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete: {
+  deleteCheckoutConsignment: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1330,7 +1330,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsGiftCertificatesByCheckoutIdPost: {
+  addCheckoutGiftCertificate: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1365,7 +1365,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsGiftCertificatesByCheckoutIdAndGiftCertificateCodeDelete: {
+  deleteCheckoutGiftCertificate: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1391,7 +1391,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsCouponsByCheckoutIdPost: {
+  addCheckoutCoupon: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1420,7 +1420,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsCouponsByCheckoutIdAndCouponCodeDelete: {
+  deleteCheckoutCoupon: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1443,7 +1443,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutStoreCreditAdd: {
+  addCheckoutStoreCredit: {
     parameters: {
       path: {
         checkoutId: string;
@@ -1465,7 +1465,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  CheckoutsStoreCreditRemove: {
+  removeCheckoutStoreCredit: {
     parameters: {
       path: {
         checkoutId: string;

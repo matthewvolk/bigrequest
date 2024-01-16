@@ -16,7 +16,7 @@ export interface paths {
      * Update Global Abandoned Cart Settings
      * @description Updates the global abandoned cart settings of a store.
      */
-    put: operations["UpdateGlobalAbandonedCartSettings"];
+    put: operations["updateGlobalAbandonedCartSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -38,7 +38,7 @@ export interface paths {
      * |----------------------------------------------|------------|-----------------------------------------------|
      * | Information & Settings                       | modify     | `store_v2_information`                        |
      */
-    put: operations["UpdateChannelAbandonedCartSettings"];
+    put: operations["updateChannelAbandonedCartSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -277,7 +277,7 @@ export interface operations {
    * Update Global Abandoned Cart Settings
    * @description Updates the global abandoned cart settings of a store.
    */
-  UpdateGlobalAbandonedCartSettings: {
+  updateGlobalAbandonedCartSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -348,7 +348,7 @@ export interface operations {
    * |----------------------------------------------|------------|-----------------------------------------------|
    * | Information & Settings                       | modify     | `store_v2_information`                        |
    */
-  UpdateChannelAbandonedCartSettings: {
+  updateChannelAbandonedCartSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

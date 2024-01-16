@@ -11,31 +11,12 @@ export interface paths {
      * Get Sites
      * @description Get sites linked to a [headless storefront](/docs/storefront/headless) sales channels.
      */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Specifies the page number in a limited (paginated) list of items. */
-          page?: number;
-          /** @description Controls the number of items per page in a limited (paginated) list of items. */
-          limit?: number;
-          /** @description Filters returned sites by channel ID. */
-          "channel_id:in"?: number;
-          /** @description Filters sites returned in the `data.urls` array by their URL type. */
-          "url_type:in"?: string;
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        200: components["responses"]["site_RespCollection"];
-      };
-    };
+    get: operations["getSites"];
     /**
      * Create a Site
      * @description Create a site that links a [headless storefront](/docs/storefront/headless) to a sales [channel](/docs/rest-management/channels).
      */
-    post: operations["post-site"];
+    post: operations["createSite"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -52,7 +33,7 @@ export interface paths {
      * Update a Site
      * @description Update a site with site ID `{site_id}`.
      */
-    put: operations["putSite"];
+    put: operations["updateSite"];
     /**
      * Delete a Site
      * @description Delete a site with site ID `{site_id}`.
@@ -72,7 +53,7 @@ export interface paths {
      * Get a Site’s Routes
      * @description Get a site’s routes.
      */
-    get: operations["index-site-routes"];
+    get: operations["getSiteRoutes"];
     /**
      * Update a Site’s Routes
      * @description Upsert routes for site with ID `{site_id}`.
@@ -80,33 +61,7 @@ export interface paths {
      * ## Usage Notes
      * * `id` is required when updating an existing route.
      */
-    put: {
-      parameters: {
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-        path: {
-          site_id: number;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["siteRoute_Full"];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["siteRoute_Full"][];
-              meta?: components["schemas"]["_metaCollection"];
-            };
-          };
-        };
-        422: components["responses"]["BulkErrorResponse"];
-      };
-    };
+    put: operations["updateSiteRoutes"];
     /**
      * Create a Site Route
      * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/docs/storefront/headless).
@@ -114,7 +69,7 @@ export interface paths {
      * ## Usage Notes
      * * For a list of supported route types, see [Route types](/docs/rest-management/sites#route-types).
      */
-    post: operations["post-site-route"];
+    post: operations["createSiteRoute"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -129,17 +84,17 @@ export interface paths {
      * Get a Site Route
      * @description Get a site’s route.
      */
-    get: operations["get-site-route"];
+    get: operations["getSiteRoute"];
     /**
      * Update a Site Route
      * @description Update a site’s route.
      */
-    put: operations["put-site-route"];
+    put: operations["updateSiteRoute"];
     /**
      * Delete a Site Route
      * @description Delete a site’s route.
      */
-    delete: operations["delete-route"];
+    delete: operations["deleteSiteRoute"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -155,13 +110,13 @@ export interface paths {
      * Get a Site’s SSL/TLS Certificate Information
      * @description Obtain information about a site’s SSL/TLS certificate.
      */
-    get: operations["getSitesIdCertificate"];
+    get: operations["getSiteCertificate"];
     /**
      * Upsert a Site’s SSL/TLS Certificate Information
      * @description - If a value for `url` is not supplied, the saved certificate is associated with the specified site’s `primary` URL.
      * - Use caution. Because this endpoint upserts, supplying an SSL certificate for a domain that already has a certificate connected overwrites the domain’s extant certificate.'
      */
-    put: operations["putSiteIdCertificate"];
+    put: operations["upsertSiteCertificate"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -176,7 +131,7 @@ export interface paths {
      * Get Site Certificates
      * @description Return all SSL certificates connected to domains within a store.
      */
-    get: operations["get-sites-certificates"];
+    get: operations["getSitesCertificates"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -660,10 +615,34 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
+   * Get Sites
+   * @description Get sites linked to a [headless storefront](/docs/storefront/headless) sales channels.
+   */
+  getSites: {
+    parameters: {
+      query?: {
+        /** @description Specifies the page number in a limited (paginated) list of items. */
+        page?: number;
+        /** @description Controls the number of items per page in a limited (paginated) list of items. */
+        limit?: number;
+        /** @description Filters returned sites by channel ID. */
+        "channel_id:in"?: number;
+        /** @description Filters sites returned in the `data.urls` array by their URL type. */
+        "url_type:in"?: string;
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: components["responses"]["site_RespCollection"];
+    };
+  };
+  /**
    * Create a Site
    * @description Create a site that links a [headless storefront](/docs/storefront/headless) to a sales [channel](/docs/rest-management/channels).
    */
-  "post-site": {
+  createSite: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -707,7 +686,7 @@ export interface operations {
    * Update a Site
    * @description Update a site with site ID `{site_id}`.
    */
-  putSite: {
+  updateSite: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -749,7 +728,7 @@ export interface operations {
    * Get a Site’s Routes
    * @description Get a site’s routes.
    */
-  "index-site-routes": {
+  getSiteRoutes: {
     parameters: {
       query?: {
         /** @description Filter routes by a specified resource type. */
@@ -778,13 +757,47 @@ export interface operations {
     };
   };
   /**
+   * Update a Site’s Routes
+   * @description Upsert routes for site with ID `{site_id}`.
+   *
+   * ## Usage Notes
+   * * `id` is required when updating an existing route.
+   */
+  updateSiteRoutes: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        site_id: number;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["siteRoute_Full"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["siteRoute_Full"][];
+            meta?: components["schemas"]["_metaCollection"];
+          };
+        };
+      };
+      422: components["responses"]["BulkErrorResponse"];
+    };
+  };
+  /**
    * Create a Site Route
    * @description Create routes that tell BigCommerce how to link to pages on a [headless storefront](/docs/storefront/headless).
    *
    * ## Usage Notes
    * * For a list of supported route types, see [Route types](/docs/rest-management/sites#route-types).
    */
-  "post-site-route": {
+  createSiteRoute: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -809,7 +822,7 @@ export interface operations {
    * Get a Site Route
    * @description Get a site’s route.
    */
-  "get-site-route": {
+  getSiteRoute: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -834,7 +847,7 @@ export interface operations {
    * Update a Site Route
    * @description Update a site’s route.
    */
-  "put-site-route": {
+  updateSiteRoute: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -858,7 +871,7 @@ export interface operations {
    * Delete a Site Route
    * @description Delete a site’s route.
    */
-  "delete-route": {
+  deleteSiteRoute: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -878,7 +891,7 @@ export interface operations {
    * Get a Site’s SSL/TLS Certificate Information
    * @description Obtain information about a site’s SSL/TLS certificate.
    */
-  getSitesIdCertificate: {
+  getSiteCertificate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -901,7 +914,7 @@ export interface operations {
    * @description - If a value for `url` is not supplied, the saved certificate is associated with the specified site’s `primary` URL.
    * - Use caution. Because this endpoint upserts, supplying an SSL certificate for a domain that already has a certificate connected overwrites the domain’s extant certificate.'
    */
-  putSiteIdCertificate: {
+  upsertSiteCertificate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -930,7 +943,7 @@ export interface operations {
    * Get Site Certificates
    * @description Return all SSL certificates connected to domains within a store.
    */
-  "get-sites-certificates": {
+  getSitesCertificates: {
     parameters: {
       query?: {
         /** @description Query certificates by one or more URLs */

@@ -11,12 +11,12 @@ export interface paths {
      * Get Tax Settings
      * @description Retrieves global-level tax settings.
      */
-    get: operations["get-tax-settings"];
+    get: operations["getTaxSettings"];
     /**
      * Update Tax Settings
      * @description Updates global-level tax settings.
      */
-    put: operations["set-tax-settings"];
+    put: operations["updateTaxSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -100,7 +100,7 @@ export interface operations {
    * Get Tax Settings
    * @description Retrieves global-level tax settings.
    */
-  "get-tax-settings": {
+  getTaxSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -122,7 +122,7 @@ export interface operations {
    * Update Tax Settings
    * @description Updates global-level tax settings.
    */
-  "set-tax-settings": {
+  updateTaxSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
