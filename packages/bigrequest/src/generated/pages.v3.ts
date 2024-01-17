@@ -11,17 +11,17 @@ export interface paths {
      * Get Pages
      * @description Returns one or more content pages. This endpoint supports bulk operations.
      */
-    get: operations["content-pages-get"];
+    get: operations["getPages"];
     /**
      * Update Pages
      * @description Updates one or more content pages. This endpoint supports bulk operations.
      */
-    put: operations["content-pages-put"];
+    put: operations["updatePages"];
     /**
      * Create Pages
      * @description Creates one or more content pages. This endpoint supports bulk operations.
      */
-    post: operations["content-pages-post"];
+    post: operations["createPages"];
     /**
      * Delete Pages
      * @description Deletes one or more content pages. This endpoint supports bulk operations.
@@ -30,7 +30,7 @@ export interface paths {
      * > **Pay attention to query parameters**
      * > If you attempt to delete multiple pages by passing more than one page ID to `id:in` and one or more of them does not exist, you will receive a 404 response. However, the pages corresponding to the page IDs that do exist will still be deleted.
      */
-    delete: operations["content-pages-delete"];
+    delete: operations["deletePages"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -46,12 +46,12 @@ export interface paths {
      * > **Pay attention to query parameters**
      * > This endpoint recognizes the same query parameters as [Get Multiple Pages](/docs/rest-content/pages#get-pages). If the requested page does not meet the query parameters you specify, you will receive a 404 response even if the requested `pageId` does exist.
      */
-    get: operations["content-page-get"];
+    get: operations["getPage"];
     /**
      * Update a Page
      * @description Updates one content page.
      */
-    put: operations["content-page-put"];
+    put: operations["updatePage"];
     /**
      * Delete a Page
      * @description Deletes one content page.
@@ -60,7 +60,7 @@ export interface paths {
      * > **Query parameters not recognized**
      * > This endpoint does not recognize query parameters.
      */
-    delete: operations["content-page-delete"];
+    delete: operations["deletePage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -718,7 +718,7 @@ export interface operations {
    * Get Pages
    * @description Returns one or more content pages. This endpoint supports bulk operations.
    */
-  "content-pages-get": {
+  getPages: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["channelIdQuery"];
@@ -757,7 +757,7 @@ export interface operations {
    * Update Pages
    * @description Updates one or more content pages. This endpoint supports bulk operations.
    */
-  "content-pages-put": {
+  updatePages: {
     parameters: {
       query?: {
         include?: components["parameters"]["includeQuery"];
@@ -797,7 +797,7 @@ export interface operations {
    * Create Pages
    * @description Creates one or more content pages. This endpoint supports bulk operations.
    */
-  "content-pages-post": {
+  createPages: {
     parameters: {
       query?: {
         include?: components["parameters"]["includeQuery"];
@@ -835,7 +835,7 @@ export interface operations {
    * > **Pay attention to query parameters**
    * > If you attempt to delete multiple pages by passing more than one page ID to `id:in` and one or more of them does not exist, you will receive a 404 response. However, the pages corresponding to the page IDs that do exist will still be deleted.
    */
-  "content-pages-delete": {
+  deletePages: {
     parameters: {
       query: {
         "id:in": components["parameters"]["idInQueryDelete"];
@@ -868,7 +868,7 @@ export interface operations {
    * > **Pay attention to query parameters**
    * > This endpoint recognizes the same query parameters as [Get Multiple Pages](/docs/rest-content/pages#get-pages). If the requested page does not meet the query parameters you specify, you will receive a 404 response even if the requested `pageId` does exist.
    */
-  "content-page-get": {
+  getPage: {
     parameters: {
       query?: {
         include?: components["parameters"]["includeQuery"];
@@ -904,7 +904,7 @@ export interface operations {
    * Update a Page
    * @description Updates one content page.
    */
-  "content-page-put": {
+  updatePage: {
     parameters: {
       query?: {
         include?: components["parameters"]["includeQuery"];
@@ -957,7 +957,7 @@ export interface operations {
    * > **Query parameters not recognized**
    * > This endpoint does not recognize query parameters.
    */
-  "content-page-delete": {
+  deletePage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

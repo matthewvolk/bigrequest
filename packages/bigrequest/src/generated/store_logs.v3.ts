@@ -11,7 +11,7 @@ export interface paths {
      * Get System Logs
      * @description Get system logs
      */
-    get: operations["get-sites"];
+    get: operations["getStoreSystemLogs"];
   };
 }
 
@@ -88,7 +88,7 @@ export interface operations {
    * Get System Logs
    * @description Get system logs
    */
-  "get-sites": {
+  getStoreSystemLogs: {
     parameters: {
       query?: {
         /** @description Query parameter that lets you return the number of results displayed per page. */

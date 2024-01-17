@@ -11,22 +11,22 @@ export interface paths {
      * Get Tax Properties
      * @description Retrieve all tax properties defined in this store.
      */
-    get: operations["get-tax-properties"];
+    get: operations["getTaxProperties"];
     /**
      * Update Tax Properties
      * @description Update one or more tax properties. Only fields specified will be adjusted.
      */
-    put: operations["update-tax-properties"];
+    put: operations["updateTaxProperties"];
     /**
      * Create Tax Properties
      * @description Create one or more tax properties. A **code** and a **display name** must be included when creating tax properties.
      */
-    post: operations["create-tax-properties"];
+    post: operations["createTaxProperties"];
     /**
      * Delete Tax Properties
      * @description Delete one or multiple tax properties. A tax property must have zero usages within product tax properties before you can delete it.
      */
-    delete: operations["delete-tax-properties"];
+    delete: operations["deleteTaxProperties"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -38,17 +38,17 @@ export interface paths {
      * Get Product Tax Properties
      * @description Retrieve the tax properties that are associated with one or more products.
      */
-    get: operations["get-product-tax-properties"];
+    get: operations["getProductsTaxProperties"];
     /**
      * Update Product Tax Properties
      * @description Update the tax properties associated with one or more products. This operation will be additive to any tax property values already associated with the product, overwriting any existing tax property values.
      */
-    put: operations["update-product-tax-properties"];
+    put: operations["updateProductTaxProperties"];
     /**
      * Delete Product Tax Properties
      * @description Delete tax properties that are associated with one or more products.
      */
-    delete: operations["delete-product-tax-properties"];
+    delete: operations["deleteProductTaxProperties"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -186,7 +186,7 @@ export interface operations {
    * Get Tax Properties
    * @description Retrieve all tax properties defined in this store.
    */
-  "get-tax-properties": {
+  getTaxProperties: {
     parameters: {
       query?: {
         "id:in"?: components["parameters"]["idin"];
@@ -215,7 +215,7 @@ export interface operations {
    * Update Tax Properties
    * @description Update one or more tax properties. Only fields specified will be adjusted.
    */
-  "update-tax-properties": {
+  updateTaxProperties: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -247,7 +247,7 @@ export interface operations {
    * Create Tax Properties
    * @description Create one or more tax properties. A **code** and a **display name** must be included when creating tax properties.
    */
-  "create-tax-properties": {
+  createTaxProperties: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -279,7 +279,7 @@ export interface operations {
    * Delete Tax Properties
    * @description Delete one or multiple tax properties. A tax property must have zero usages within product tax properties before you can delete it.
    */
-  "delete-tax-properties": {
+  deleteTaxProperties: {
     parameters: {
       query: {
         "id:in": components["parameters"]["idin_required"];
@@ -307,7 +307,7 @@ export interface operations {
    * Get Product Tax Properties
    * @description Retrieve the tax properties that are associated with one or more products.
    */
-  "get-product-tax-properties": {
+  getProductsTaxProperties: {
     parameters: {
       query: {
         "product_id:in": components["parameters"]["product_idin"];
@@ -336,7 +336,7 @@ export interface operations {
    * Update Product Tax Properties
    * @description Update the tax properties associated with one or more products. This operation will be additive to any tax property values already associated with the product, overwriting any existing tax property values.
    */
-  "update-product-tax-properties": {
+  updateProductTaxProperties: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -368,7 +368,7 @@ export interface operations {
    * Delete Product Tax Properties
    * @description Delete tax properties that are associated with one or more products.
    */
-  "delete-product-tax-properties": {
+  deleteProductTaxProperties: {
     parameters: {
       query: {
         "product_id:in": components["parameters"]["product_idin"];

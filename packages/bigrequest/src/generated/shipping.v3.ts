@@ -27,7 +27,7 @@ export interface paths {
      * **Limits**
      * * Limit of 50 customs information objects per `PUT` request.
      */
-    put: operations["putCustomsInformation"];
+    put: operations["updateCustomsInformation"];
     /**
      * Delete Customs Information
      * @description Deletes customs information objects for a product.
@@ -337,7 +337,7 @@ export interface operations {
    * **Limits**
    * * Limit of 50 customs information objects per `PUT` request.
    */
-  putCustomsInformation: {
+  updateCustomsInformation: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

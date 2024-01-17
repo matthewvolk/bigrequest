@@ -16,12 +16,12 @@ export interface paths {
      * Get All Shipping Zones
      * @description Returns a list of all *Shipping Zones*.
      */
-    get: operations["getAllShippingZones"];
+    get: operations["getShippingZones"];
     /**
      * Create a Shipping Zone
      * @description Creates a *Shipping Zone*.
      */
-    post: operations["createAShippingZones"];
+    post: operations["createShippingZones"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -33,7 +33,7 @@ export interface paths {
      * Get a Shipping Zones
      * @description Returns a single *Shipping Zone*.
      */
-    get: operations["getAShippingZone"];
+    get: operations["getShippingZone"];
     /**
      * Update a Shipping Zone
      * @description Updates a *Shipping Zone*.
@@ -44,12 +44,12 @@ export interface paths {
      * **Read Only Fields**
      * * id
      */
-    put: operations["updateAShippingZone"];
+    put: operations["updateShippingZone"];
     /**
      * Delete a Shipping Zone
      * @description Deletes a *Shipping Zone*.
      */
-    delete: operations["deleteAShippingZone"];
+    delete: operations["deleteShippingZone"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -65,7 +65,7 @@ export interface paths {
      * Get All Shipping Methods in a Zone
      * @description Returns a list of *Shipping Methods* in a zone. Default sorting is by shipping method ID, from lowest to highest.
      */
-    get: operations["getShippingMethodsZone"];
+    get: operations["getShippingZoneMethods"];
     /**
      * Create a Shipping Method
      * @description Creates a *Shipping Method* within a shipping zone. Real Time Carrier Connections are also supported by this endpoint.
@@ -452,7 +452,7 @@ export interface paths {
      * }
      * ```
      */
-    post: operations["createAShippingMethod"];
+    post: operations["createShippingMethod"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -617,7 +617,7 @@ export interface paths {
      * }
      * ```
      */
-    get: operations["getAShippingMethod"];
+    get: operations["getShippingMethod"];
     /**
      * Update a Shipping Method
      * @description Updates a *Shipping Method* in a zone. Real Time Carrier Connections are also supported by this endpoint.
@@ -777,12 +777,12 @@ export interface paths {
      * }
      * ```
      */
-    put: operations["updateAShippingMethod"];
+    put: operations["updateShippingMethod"];
     /**
      * Delete a Shipping Method
      * @description Deletes an *Shipping Method*. Real Time Carrier Connections can also be deleted.
      */
-    delete: operations["deleteAShippingMethod"];
+    delete: operations["deleteShippingMethod"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -802,7 +802,7 @@ export interface paths {
      *
      * Updating the carrier connection is done using the same information as creating the connection. This endpoint can be used to update credentials.
      */
-    put: operations["updateACarrierConnection"];
+    put: operations["updateCarrierConnection"];
     /**
      * Create a Carrier Connection
      * @description Creates a *Carrier Connection*.
@@ -1004,7 +1004,7 @@ export interface paths {
      * | auth_key | string | Zoom2U authorization key. |
      * | test_mode | boolean | Whether or not to use Zoom2U test-mode settings. Acceptable values are `true` or `false`. |
      */
-    post: operations["createACarrierConnection"];
+    post: operations["createCarrierConnection"];
     /**
      * Delete a Carrier Connection
      * @description Deletes a *Carrier Connection*.
@@ -1295,7 +1295,7 @@ export interface operations {
    * Get All Shipping Zones
    * @description Returns a list of all *Shipping Zones*.
    */
-  getAllShippingZones: {
+  getShippingZones: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1387,7 +1387,7 @@ export interface operations {
    * Create a Shipping Zone
    * @description Creates a *Shipping Zone*.
    */
-  createAShippingZones: {
+  createShippingZones: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1554,7 +1554,7 @@ export interface operations {
    * Get a Shipping Zones
    * @description Returns a single *Shipping Zone*.
    */
-  getAShippingZone: {
+  getShippingZone: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1656,7 +1656,7 @@ export interface operations {
    * **Read Only Fields**
    * * id
    */
-  updateAShippingZone: {
+  updateShippingZone: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1832,7 +1832,7 @@ export interface operations {
    * Delete a Shipping Zone
    * @description Deletes a *Shipping Zone*.
    */
-  deleteAShippingZone: {
+  deleteShippingZone: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1852,7 +1852,7 @@ export interface operations {
    * Get All Shipping Methods in a Zone
    * @description Returns a list of *Shipping Methods* in a zone. Default sorting is by shipping method ID, from lowest to highest.
    */
-  getShippingMethodsZone: {
+  getShippingZoneMethods: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2256,7 +2256,7 @@ export interface operations {
    * }
    * ```
    */
-  createAShippingMethod: {
+  createShippingMethod: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2446,7 +2446,7 @@ export interface operations {
    * }
    * ```
    */
-  getAShippingMethod: {
+  getShippingMethod: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2662,7 +2662,7 @@ export interface operations {
    * }
    * ```
    */
-  updateAShippingMethod: {
+  updateShippingMethod: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2702,7 +2702,7 @@ export interface operations {
    * Delete a Shipping Method
    * @description Deletes an *Shipping Method*. Real Time Carrier Connections can also be deleted.
    */
-  deleteAShippingMethod: {
+  deleteShippingMethod: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2726,7 +2726,7 @@ export interface operations {
    *
    * Updating the carrier connection is done using the same information as creating the connection. This endpoint can be used to update credentials.
    */
-  updateACarrierConnection: {
+  updateCarrierConnection: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2971,7 +2971,7 @@ export interface operations {
    * | auth_key | string | Zoom2U authorization key. |
    * | test_mode | boolean | Whether or not to use Zoom2U test-mode settings. Acceptable values are `true` or `false`. |
    */
-  createACarrierConnection: {
+  createCarrierConnection: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

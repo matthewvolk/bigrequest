@@ -39,7 +39,7 @@ export interface paths {
      * Get a Subscriber
      * @description Returns a *Subscriber*.
      */
-    get: operations["getSubscriberById"];
+    get: operations["getSubscriber"];
     /**
      * Update a Subscriber
      * @description Updates a *Subscriber*.
@@ -52,7 +52,7 @@ export interface paths {
      * Delete a Subscriber
      * @description Deletes a *Subscriber*.
      */
-    delete: operations["deleteSubscriberById"];
+    delete: operations["deleteSubscriber"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -496,7 +496,7 @@ export interface operations {
    * Get a Subscriber
    * @description Returns a *Subscriber*.
    */
-  getSubscriberById: {
+  getSubscriber: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -615,7 +615,7 @@ export interface operations {
    * Delete a Subscriber
    * @description Deletes a *Subscriber*.
    */
-  deleteSubscriberById: {
+  deleteSubscriber: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

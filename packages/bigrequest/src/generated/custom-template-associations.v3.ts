@@ -11,17 +11,17 @@ export interface paths {
      * Get Custom Template Associations
      * @description Get a collection of the storeʼs custom template associations across all storefronts
      */
-    get: operations["GetCustomTemplateAssociations"];
+    get: operations["getCustomTemplateAssociations"];
     /**
      * Upsert Custom Template Associations
      * @description Upsert new custom template associations data across all storefronts. If an existing record is found for the combination of channel ID, entity ID, and type, the existing record will be overwritten with the new template.
      */
-    put: operations["UpsertCustomTemplateAssociations"];
+    put: operations["upsertCustomTemplateAssociations"];
     /**
      * Delete Custom Template Associations
      * @description Delete custom template associations. At least one query parameter must be used.
      */
-    delete: operations["DeleteCustomTemplateAssociations"];
+    delete: operations["deleteCustomTemplateAssociations"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -131,7 +131,7 @@ export interface operations {
    * Get Custom Template Associations
    * @description Get a collection of the storeʼs custom template associations across all storefronts
    */
-  GetCustomTemplateAssociations: {
+  getCustomTemplateAssociations: {
     parameters: {
       query?: {
         /** @description Channel ID to return only custom template associations for a given Channel */
@@ -167,7 +167,7 @@ export interface operations {
    * Upsert Custom Template Associations
    * @description Upsert new custom template associations data across all storefronts. If an existing record is found for the combination of channel ID, entity ID, and type, the existing record will be overwritten with the new template.
    */
-  UpsertCustomTemplateAssociations: {
+  upsertCustomTemplateAssociations: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -198,7 +198,7 @@ export interface operations {
    * Delete Custom Template Associations
    * @description Delete custom template associations. At least one query parameter must be used.
    */
-  DeleteCustomTemplateAssociations: {
+  deleteCustomTemplateAssociations: {
     parameters: {
       query?: {
         /** @description List of Association IDs to delete explicitly. */

@@ -11,14 +11,14 @@ export interface paths {
      * Get All Countries
      * @description Get a list of all countries available. A country or territory, identifiable by an ISO 3166 country code.
      */
-    get: operations["get-all-countries"];
+    get: operations["getCountries"];
   };
   "/countries/{id}": {
     /**
      * Get a Country
      * @description Returns a single *Country*.  Gets a country. A country or territory, identifiable by an ISO 3166 country code.
      */
-    get: operations["get-a-country"];
+    get: operations["getCountry"];
     parameters: {
       path: {
         id: string;
@@ -27,11 +27,11 @@ export interface paths {
   };
   "/countries/{country_id}/states": {
     /**
-     * Get All Country's States
+     * Get All Countryʼs States
      * @description Returns a list of *States* belonging to a *Country*.
      * A state or province, identifiable by an ISO 3166 subdivision code.
      */
-    get: operations["get-all-country-states"];
+    get: operations["getCountryStates"];
     parameters: {
       path: {
         country_id: string;
@@ -40,11 +40,11 @@ export interface paths {
   };
   "/countries/{country_id}/states/{id}": {
     /**
-     * Get a Country's State
+     * Get a Countryʼs State
      * @description Returns a *State*.
      * A state or province, identifiable by an ISO 3166 subdivision code.
      */
-    get: operations["get-a-state"];
+    get: operations["getCountryState"];
     parameters: {
       path: {
         country_id: string;
@@ -57,28 +57,28 @@ export interface paths {
      * Get a Count of All Countries
      * @description Returns a count of all countries.
      */
-    get: operations["get-count-countries"];
+    get: operations["getCountriesCount"];
   };
   "/countries/states/count": {
     /**
      * Get a Count of All States
      * @description Returns a count of all states.
      */
-    get: operations["get-count-states"];
+    get: operations["getStatesCount"];
   };
   "/countries/states": {
     /**
      * Get All States
      * @description Returns a list of all states.
      */
-    get: operations["get-all-states"];
+    get: operations["getStates"];
   };
   "/countries/{country_id}/states/count": {
     /**
      * Get a Count of Country’s States
-     * @description Returns a count of a country's states.
+     * @description Returns a count of a countryʼs states.
      */
-    get: operations["get-count-country-states"];
+    get: operations["getCountryStatesCount"];
     parameters: {
       path: {
         country_id: string;
@@ -220,7 +220,7 @@ export interface operations {
    * Get All Countries
    * @description Get a list of all countries available. A country or territory, identifiable by an ISO 3166 country code.
    */
-  "get-all-countries": {
+  getCountries: {
     parameters: {
       query?: {
         /** @description Number of pages */
@@ -244,14 +244,14 @@ export interface operations {
    * Get a Country
    * @description Returns a single *Country*.  Gets a country. A country or territory, identifiable by an ISO 3166 country code.
    */
-  "get-a-country": {
+  getCountry: {
     parameters: {
       header: {
         Accept: string;
         "Content-Type": string;
       };
       path: {
-        /** @description The id of the country. */
+        /** @description The ID of the country. */
         id: number;
       };
     };
@@ -260,11 +260,11 @@ export interface operations {
     };
   };
   /**
-   * Get All Country's States
+   * Get All Countryʼs States
    * @description Returns a list of *States* belonging to a *Country*.
    * A state or province, identifiable by an ISO 3166 subdivision code.
    */
-  "get-all-country-states": {
+  getCountryStates: {
     parameters: {
       query?: {
         /** @description Name of the state/province. */
@@ -290,11 +290,11 @@ export interface operations {
     };
   };
   /**
-   * Get a Country's State
+   * Get a Countryʼs State
    * @description Returns a *State*.
    * A state or province, identifiable by an ISO 3166 subdivision code.
    */
-  "get-a-state": {
+  getCountryState: {
     parameters: {
       header: {
         Accept: string;
@@ -315,7 +315,7 @@ export interface operations {
    * Get a Count of All Countries
    * @description Returns a count of all countries.
    */
-  "get-count-countries": {
+  getCountriesCount: {
     responses: {
       200: components["responses"]["countResponse"];
     };
@@ -324,7 +324,7 @@ export interface operations {
    * Get a Count of All States
    * @description Returns a count of all states.
    */
-  "get-count-states": {
+  getStatesCount: {
     responses: {
       200: components["responses"]["countResponse"];
     };
@@ -333,7 +333,7 @@ export interface operations {
    * Get All States
    * @description Returns a list of all states.
    */
-  "get-all-states": {
+  getStates: {
     parameters: {
       query?: {
         /** @description The number of results to return per request. */
@@ -348,9 +348,9 @@ export interface operations {
   };
   /**
    * Get a Count of Country’s States
-   * @description Returns a count of a country's states.
+   * @description Returns a count of a countryʼs states.
    */
-  "get-count-country-states": {
+  getCountryStatesCount: {
     parameters: {
       path: {
         country_id: string;

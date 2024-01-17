@@ -11,40 +11,14 @@ export interface paths {
      * Get Store Information
      * @description Returns metadata about a store.
      */
-    get: {
-      parameters: {
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": components["schemas"]["StoreInformation"];
-          };
-        };
-      };
-    };
+    get: operations["getStoreInformation"];
   };
   "/time": {
     /**
      * Get System Timestamp
      * @description Returns the system timestamp at the time of the request. The time resource is useful for validating API authentication details and testing client connections.
      */
-    get: {
-      parameters: {
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": components["schemas"]["timeStamp_Full"];
-          };
-        };
-      };
-    };
+    get: operations["getSystemTimestamp"];
   };
 }
 
@@ -302,4 +276,42 @@ export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
+export interface operations {
+
+  /**
+   * Get Store Information
+   * @description Returns metadata about a store.
+   */
+  getStoreInformation: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["StoreInformation"];
+        };
+      };
+    };
+  };
+  /**
+   * Get System Timestamp
+   * @description Returns the system timestamp at the time of the request. The time resource is useful for validating API authentication details and testing client connections.
+   */
+  getSystemTimestamp: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["timeStamp_Full"];
+        };
+      };
+    };
+  };
+}

@@ -15,7 +15,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    get: operations["OrdersByOrderIdGet"];
+    get: operations["getOrder"];
   };
 }
 
@@ -647,7 +647,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  OrdersByOrderIdGet: {
+  getOrder: {
     parameters: {
       query?: {
         /** @description Sub-resources to include in an Order, in a comma-separated list. The ID and the specified fields will be returned. */

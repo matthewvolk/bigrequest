@@ -63,7 +63,7 @@ export interface paths {
      * Delete a Brand
      * @description Deletes a *Brand*.
      */
-    delete: operations["deleteBrandById"];
+    delete: operations["deleteBrand"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -78,7 +78,7 @@ export interface paths {
      * Get All Brand Metafields
      * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
      */
-    get: operations["getBrandMetafieldsByBrandId"];
+    get: operations["getBrandMetafields"];
     /**
      * Create a Brand Metafield
      * @description Creates a *Brand Metafield*.
@@ -109,7 +109,7 @@ export interface paths {
      * Get a Brand Metafields
      * @description Returns a *Brand Metafield*. Optional filter parameters can be passed in.
      */
-    get: operations["getBrandMetafieldByBrandId"];
+    get: operations["getBrandMetafield"];
     /**
      * Update a Brand Metafield
      * @description Updates a *Brand Metafield*.
@@ -133,7 +133,7 @@ export interface paths {
      * Delete a Brand Metafield
      * @description Deletes a *Brand Metafield*.
      */
-    delete: operations["deleteBrandMetafieldById"];
+    delete: operations["deleteBrandMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -920,7 +920,7 @@ export interface operations {
    * Delete a Brand
    * @description Deletes a *Brand*.
    */
-  deleteBrandById: {
+  deleteBrand: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -940,7 +940,7 @@ export interface operations {
    * Get All Brand Metafields
    * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
    */
-  getBrandMetafieldsByBrandId: {
+  getBrandMetafields: {
     parameters: {
       query?: {
         /** @description Filter items by ID. */
@@ -1078,7 +1078,7 @@ export interface operations {
    * Get a Brand Metafields
    * @description Returns a *Brand Metafield*. Optional filter parameters can be passed in.
    */
-  getBrandMetafieldByBrandId: {
+  getBrandMetafield: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1188,7 +1188,7 @@ export interface operations {
    * Delete a Brand Metafield
    * @description Deletes a *Brand Metafield*.
    */
-  deleteBrandMetafieldById: {
+  deleteBrandMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
