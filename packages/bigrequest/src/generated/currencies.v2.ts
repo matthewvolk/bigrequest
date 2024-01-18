@@ -11,7 +11,7 @@ export interface paths {
      * Get All Currencies
      * @description Returns a list of all store *Currency*.
      */
-    get: operations["getAllCurrencies"];
+    get: operations["getCurrencies"];
     /**
      * Create a Currency
      * @description Creates *Currency*.
@@ -35,12 +35,12 @@ export interface paths {
      *
      * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden. To change the storeʼs default currency in the BigCommerce control panel, please see [Managing Currencies (Help Center)](https://support.bigcommerce.com/s/article/Managing-Currencies-Beta).
      */
-    post: operations["createACurrency"];
+    post: operations["createCurrency"];
     /**
      * Delete All Currencies
      * @description Deletes all non-default store currencies.
      */
-    delete: operations["deleteAllCurrencies"];
+    delete: operations["deleteCurrencies"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -52,7 +52,7 @@ export interface paths {
      * Get a Currency
      * @description Returns a single *Currency*.
      */
-    get: operations["getACurrency"];
+    get: operations["getCurrency"];
     /**
      * Update a Currency
      * @description Updates a *Currency*.
@@ -67,14 +67,14 @@ export interface paths {
      *
      * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden.
      */
-    put: operations["updateACurrency"];
+    put: operations["updateCurrency"];
     /**
      * Delete a Currency
      * @description Deletes a *Currency*.
      *
      * If a currencyʼs `is_default` property is set to true, this currency cannot be deleted.
      */
-    delete: operations["deleteACurrency"];
+    delete: operations["deleteCurrency"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -226,7 +226,7 @@ export interface operations {
    * Get All Currencies
    * @description Returns a list of all store *Currency*.
    */
-  getAllCurrencies: {
+  getCurrencies: {
     parameters: {
       query?: {
         /** @description Specifies the page number in a limited (paginated) list of currencies. */
@@ -269,7 +269,7 @@ export interface operations {
    *
    * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden. To change the storeʼs default currency in the BigCommerce control panel, please see [Managing Currencies (Help Center)](https://support.bigcommerce.com/s/article/Managing-Currencies-Beta).
    */
-  createACurrency: {
+  createCurrency: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -293,7 +293,7 @@ export interface operations {
    * Delete All Currencies
    * @description Deletes all non-default store currencies.
    */
-  deleteAllCurrencies: {
+  deleteCurrencies: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -311,7 +311,7 @@ export interface operations {
    * Get a Currency
    * @description Returns a single *Currency*.
    */
-  getACurrency: {
+  getCurrency: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -343,7 +343,7 @@ export interface operations {
    *
    * The `is_default` property can only be set to true. The value of `is_default` cannot be unset, only overridden.
    */
-  updateACurrency: {
+  updateCurrency: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -373,7 +373,7 @@ export interface operations {
    *
    * If a currencyʼs `is_default` property is set to true, this currency cannot be deleted.
    */
-  deleteACurrency: {
+  deleteCurrency: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

@@ -19,7 +19,7 @@ export interface paths {
      * **Required Fields**
      * * file
      */
-    post: operations["uploadTheme"];
+    post: operations["uploadStoreTheme"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -52,7 +52,7 @@ export interface paths {
      * Download a Theme
      * @description Downloads a stores *Theme*.
      */
-    post: operations["downloadTheme"];
+    post: operations["downloadStoreTheme"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -81,7 +81,7 @@ export interface paths {
      * Get a Theme Job
      * @description Returns a theme *Job*. When the job is complete, the results array provides a generated link to access the theme. The link is active for 60 seconds.
      */
-    get: operations["getJob"];
+    get: operations["getStoreThemeJob"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -99,35 +99,7 @@ export interface paths {
      * **Usage Notes**:
      * * At least one filter must be provided.
      */
-    get: {
-      parameters: {
-        query: {
-          /** @description Filter configurations by a list of site_ids */
-          "site_id:in": number[];
-          /** @description Filter configurations by a list of configuration UUIDs. */
-          "uuid:in"?: string[];
-          /** @description Filter configurations by a variation_uuid. */
-          variation_uuid?: string;
-          /** @description Specifies the page number in a limited (paginated) list. */
-          page?: number;
-          /** @description Controls the number of items per page in a limited (paginated) list of products. */
-          limit?: number;
-          /** @description Filter configurations by a list of channel_ids. */
-          "channel_id:in"?: number[];
-          page?: components["parameters"]["PageParam"];
-          limit?: components["parameters"]["LimitParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-        path: {
-          uuid: components["parameters"]["ThemeIdParam"];
-        };
-      };
-      responses: {
-        200: components["responses"]["themesConfigurations_RespCollection"];
-      };
-    };
+    get: operations["getThemeConfiguration"];
     parameters: {
       query: {
         /** @description Filter configurations by a list of site_ids */
@@ -151,36 +123,7 @@ export interface paths {
      * Validate Theme Configuration
      * @description Validates a theme configuration against the theme's schema without creating it. Useful for testing schemas before creation.
      */
-    post: {
-      parameters: {
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-        path: {
-          uuid: components["parameters"]["ThemeIdParam"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["themeConfiguration_Write"];
-        };
-      };
-      responses: {
-        /** @description Theme passes validation. */
-        200: {
-          content: {
-            "application/json": Record<string, never>;
-          };
-        };
-        /** @description Theme failed validation, detailed errors in response. */
-        422: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse"];
-          };
-        };
-      };
-    };
+    post: operations["validateThemeConfiguration"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -195,7 +138,7 @@ export interface paths {
      * Get Custom Templates
      * @description Enumerate available custom templates for in the theme files in a specific theme version for each supported entity type.
      */
-    get: operations["get-themes-theme_uuid-custom-templates"];
+    get: operations["getThemeCustomTemplates"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -802,7 +745,7 @@ export interface operations {
    * **Required Fields**
    * * file
    */
-  uploadTheme: {
+  uploadStoreTheme: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -928,7 +871,7 @@ export interface operations {
    * Download a Theme
    * @description Downloads a stores *Theme*.
    */
-  downloadTheme: {
+  downloadStoreTheme: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1020,7 +963,7 @@ export interface operations {
    * Get a Theme Job
    * @description Returns a theme *Job*. When the job is complete, the results array provides a generated link to access the theme. The link is active for 60 seconds.
    */
-  getJob: {
+  getStoreThemeJob: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1056,10 +999,80 @@ export interface operations {
     };
   };
   /**
+   * Get Theme Configuration
+   * @description Returns a list of theme's configurations.
+   *
+   * **Usage Notes**:
+   * * At least one filter must be provided.
+   */
+  getThemeConfiguration: {
+    parameters: {
+      query: {
+        /** @description Filter configurations by a list of site_ids */
+        "site_id:in": number[];
+        /** @description Filter configurations by a list of configuration UUIDs. */
+        "uuid:in"?: string[];
+        /** @description Filter configurations by a variation_uuid. */
+        variation_uuid?: string;
+        /** @description Specifies the page number in a limited (paginated) list. */
+        page?: number;
+        /** @description Controls the number of items per page in a limited (paginated) list of products. */
+        limit?: number;
+        /** @description Filter configurations by a list of channel_ids. */
+        "channel_id:in"?: number[];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        uuid: components["parameters"]["ThemeIdParam"];
+      };
+    };
+    responses: {
+      200: components["responses"]["themesConfigurations_RespCollection"];
+    };
+  };
+  /**
+   * Validate Theme Configuration
+   * @description Validates a theme configuration against the theme's schema without creating it. Useful for testing schemas before creation.
+   */
+  validateThemeConfiguration: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        uuid: components["parameters"]["ThemeIdParam"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["themeConfiguration_Write"];
+      };
+    };
+    responses: {
+      /** @description Theme passes validation. */
+      200: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+      /** @description Theme failed validation, detailed errors in response. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
    * Get Custom Templates
    * @description Enumerate available custom templates for in the theme files in a specific theme version for each supported entity type.
    */
-  "get-themes-theme_uuid-custom-templates": {
+  getThemeCustomTemplates: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

@@ -11,7 +11,7 @@ export interface paths {
      * Get All Product Variants
      * @description Returns a list of product *Variants*. Optional parameters can be passed in.
      */
-    get: operations["getVariantsByProductId"];
+    get: operations["getProductVariants"];
     /**
      * Create a Product Variant
      * @description Creates a *Product Variant*.
@@ -29,7 +29,7 @@ export interface paths {
      *
      * Variants need to be created one at a time using this endpoint. To use a variant array and create products and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) during the initial product creation.
      */
-    post: operations["createVariant"];
+    post: operations["createProductVariant"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -44,17 +44,17 @@ export interface paths {
      * Get a Product Variant
      * @description Returns a single product *Variant*. Optional parameters can be passed in.
      */
-    get: operations["getVariantById"];
+    get: operations["getProductVariant"];
     /**
      * Update a Product Variant
      * @description Updates a product *Variant*.
      */
-    put: operations["updateVariant"];
+    put: operations["updateProductVariant"];
     /**
      * Delete a Product Variant
      * @description Deletes a product *Variant*.
      */
-    delete: operations["deleteVariantById"];
+    delete: operations["deleteProductVariant"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -70,7 +70,7 @@ export interface paths {
      * Get All Product Variant Metafields
      * @description Returns a list of product variant *Metafields*. Optional parameters can be passed in.
      */
-    get: operations["getVariantMetafieldsByProductIdAndVariantId"];
+    get: operations["getProductVariantMetafields"];
     /**
      * Create a Product Variant Metafield
      * @description Creates a product variant *Metafield*.
@@ -86,7 +86,7 @@ export interface paths {
      *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
-    post: operations["createVariantMetafield"];
+    post: operations["createProductVariantMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -102,7 +102,7 @@ export interface paths {
      * Get a Product Variant Metafields
      * @description Returns a single product variant *Metafield*. Optional parameters can be passed in.
      */
-    get: operations["getVariantMetafieldByProductIdAndVariantId"];
+    get: operations["getProductVariantMetafield"];
     /**
      * Update Product Variant Metafields
      * @description Updates a product variant *Metafield*.
@@ -120,12 +120,12 @@ export interface paths {
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
      */
-    put: operations["updateVariantMetafield"];
+    put: operations["updateProductVariantMetafield"];
     /**
-     * Delete a Variant Metafield
+     * Delete a Product Variant Metafield
      * @description Deletes a product variant *Metafield*.
      */
-    delete: operations["deleteVariantMetafieldById"];
+    delete: operations["deleteProductVariantMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -139,7 +139,7 @@ export interface paths {
   };
   "/catalog/products/{product_id}/variants/{variant_id}/image": {
     /**
-     * Create a Variant Image
+     * Create a Product Variant Image
      * @description Creates a *Variant Image*.
      *
      * Only one image can be explicitly associated with a Variant. If the Variant already has an associated image, overwrites the existing Variant Image.
@@ -150,7 +150,7 @@ export interface paths {
      * - image_file: Form posts. Files larger than 1 MB are not accepted
      * - image_url: Any publicly available URL
      */
-    post: operations["createVariantImage"];
+    post: operations["createProductVariantImage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -650,7 +650,7 @@ export interface operations {
    * Get All Product Variants
    * @description Returns a list of product *Variants*. Optional parameters can be passed in.
    */
-  getVariantsByProductId: {
+  getProductVariants: {
     parameters: {
       query?: {
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -710,7 +710,7 @@ export interface operations {
    *
    * Variants need to be created one at a time using this endpoint. To use a variant array and create products and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) during the initial product creation.
    */
-  createVariant: {
+  createProductVariant: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -767,7 +767,7 @@ export interface operations {
    * Get a Product Variant
    * @description Returns a single product *Variant*. Optional parameters can be passed in.
    */
-  getVariantById: {
+  getProductVariant: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -811,7 +811,7 @@ export interface operations {
    * Update a Product Variant
    * @description Updates a product *Variant*.
    */
-  updateVariant: {
+  updateProductVariant: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -869,7 +869,7 @@ export interface operations {
    * Delete a Product Variant
    * @description Deletes a product *Variant*.
    */
-  deleteVariantById: {
+  deleteProductVariant: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -890,7 +890,7 @@ export interface operations {
    * Get All Product Variant Metafields
    * @description Returns a list of product variant *Metafields*. Optional parameters can be passed in.
    */
-  getVariantMetafieldsByProductIdAndVariantId: {
+  getProductVariantMetafields: {
     parameters: {
       query?: {
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -955,7 +955,7 @@ export interface operations {
    *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
-  createVariantMetafield: {
+  createProductVariantMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1022,7 +1022,7 @@ export interface operations {
    * Get a Product Variant Metafields
    * @description Returns a single product variant *Metafield*. Optional parameters can be passed in.
    */
-  getVariantMetafieldByProductIdAndVariantId: {
+  getProductVariantMetafield: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1080,7 +1080,7 @@ export interface operations {
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
    */
-  updateVariantMetafield: {
+  updateProductVariantMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1122,10 +1122,10 @@ export interface operations {
     };
   };
   /**
-   * Delete a Variant Metafield
+   * Delete a Product Variant Metafield
    * @description Deletes a product variant *Metafield*.
    */
-  deleteVariantMetafieldById: {
+  deleteProductVariantMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1144,7 +1144,7 @@ export interface operations {
     };
   };
   /**
-   * Create a Variant Image
+   * Create a Product Variant Image
    * @description Creates a *Variant Image*.
    *
    * Only one image can be explicitly associated with a Variant. If the Variant already has an associated image, overwrites the existing Variant Image.
@@ -1155,7 +1155,7 @@ export interface operations {
    * - image_file: Form posts. Files larger than 1 MB are not accepted
    * - image_url: Any publicly available URL
    */
-  createVariantImage: {
+  createProductVariantImage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

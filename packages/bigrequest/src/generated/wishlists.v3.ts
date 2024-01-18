@@ -11,7 +11,7 @@ export interface paths {
      * Get All Wishlists
      * @description Returns a list of wishlists. Optional filter parameters can be passed in.
      */
-    get: operations["WishlistsGet"];
+    get: operations["getWishlists"];
     /**
      * Create a Wishlist
      * @description Creates a wishlist and wishlist item. More than one item can be added in the POST.
@@ -20,14 +20,14 @@ export interface paths {
      * * name
      * * customer_id
      */
-    post: operations["WishlistsPost"];
+    post: operations["createWishlist"];
   };
   "/wishlists/{wishlist_id}/items/{item_id}": {
     /**
      * Delete Wishlist Item
      * @description Deletes a wishlist item.
      */
-    delete: operations["WishlistsItemsByIdDelete"];
+    delete: operations["deleteWishlistItem"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -43,19 +43,19 @@ export interface paths {
      * Get a Wishlist
      * @description Returns a single wishlist.
      */
-    get: operations["WishlistsByIdGet"];
+    get: operations["getWishlist"];
     /**
      * Update a Wishlist
      * @description Updates a wishlist.
      *
      * Use this endpoint to update existing wishlist items, change the wishlistʼs name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
      */
-    put: operations["WishlistsByIdPut"];
+    put: operations["updateWishlist"];
     /**
      * Delete a Wishlist
      * @description Deletes a wishlist.
      */
-    delete: operations["WishlistsByIdDelete"];
+    delete: operations["deleteWishlist"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -70,7 +70,7 @@ export interface paths {
      * Add Wishlist Item
      * @description Adds a wishlist item. More than one item can be added at a time.
      */
-    post: operations["WishlistsItemsByIdPost"];
+    post: operations["addWishlistItem"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -276,7 +276,7 @@ export interface operations {
    * Get All Wishlists
    * @description Returns a list of wishlists. Optional filter parameters can be passed in.
    */
-  WishlistsGet: {
+  getWishlists: {
     parameters: {
       query?: {
         /** @description All wishlists relating to the customer. */
@@ -331,7 +331,7 @@ export interface operations {
    * * name
    * * customer_id
    */
-  WishlistsPost: {
+  createWishlist: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -383,7 +383,7 @@ export interface operations {
    * Delete Wishlist Item
    * @description Deletes a wishlist item.
    */
-  WishlistsItemsByIdDelete: {
+  deleteWishlistItem: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -439,7 +439,7 @@ export interface operations {
    * Get a Wishlist
    * @description Returns a single wishlist.
    */
-  WishlistsByIdGet: {
+  getWishlist: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -496,7 +496,7 @@ export interface operations {
    *
    * Use this endpoint to update existing wishlist items, change the wishlistʼs name and whether the wishlist is available publicly. To add or delete a wishlist item, see [Wishlist Items](/docs/rest-management/wishlists/wishlists-items).
    */
-  WishlistsByIdPut: {
+  updateWishlist: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -551,7 +551,7 @@ export interface operations {
    * Delete a Wishlist
    * @description Deletes a wishlist.
    */
-  WishlistsByIdDelete: {
+  deleteWishlist: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -593,7 +593,7 @@ export interface operations {
    * Add Wishlist Item
    * @description Adds a wishlist item. More than one item can be added at a time.
    */
-  WishlistsItemsByIdPost: {
+  addWishlistItem: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

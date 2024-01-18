@@ -15,7 +15,7 @@ export interface paths {
      *
      * The cart ID and checkout ID are the same.
      */
-    get: operations["CheckoutsByCheckoutIdGet"];
+    get: operations["getCheckout"];
     /**
      * Update Customer Messages
      * @description Change customer message pertaining to an existing *Checkout*.
@@ -23,7 +23,7 @@ export interface paths {
      * **Limits:**
      * * 2000 characters for customer message
      */
-    put: operations["CheckoutsByCheckoutIdPut"];
+    put: operations["updateCheckout"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -45,7 +45,7 @@ export interface paths {
      * Required Fields
      * * discounted_amount
      */
-    post: operations["post-store_hash-v3-checkouts-checkoutId-discounts"];
+    post: operations["addCheckoutDiscount"];
   };
   "/checkouts/{checkoutId}/billing-address": {
     /**
@@ -56,14 +56,14 @@ export interface paths {
      * * email
      * * country_code
      */
-    post: operations["CheckoutsBillingAddressByCheckoutIdPost"];
+    post: operations["addCheckoutBillingAddress"];
   };
   "/checkouts/{checkoutId}/billing-address/{addressId}": {
     /**
      * Update Checkout Billing Address
      * @description Updates an existing billing address on a checkout.
      */
-    put: operations["CheckoutsBillingAddressByCheckoutIdAndAddressIdPut"];
+    put: operations["updateCheckoutBillingAddress"];
   };
   "/checkouts/{checkoutId}/consignments": {
     /**
@@ -89,7 +89,7 @@ export interface paths {
      * * `postal_code`
      * * `state_or_province`
      */
-    post: operations["CheckoutsConsignmentsByCheckoutIdPost"];
+    post: operations["addCheckoutConsignment"];
   };
   "/checkouts/{checkoutId}/consignments/{consignmentId}": {
     /**
@@ -105,15 +105,18 @@ export interface paths {
      * To update an existing address and line item IDs, assign a new address and line item IDs by sending a `PUT` request.
      *
      * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     *
+     *
+     * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
      */
-    put: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut"];
+    put: operations["updateCheckoutConsignment"];
     /**
      * Delete Checkout Consignment
      * @description Removes an existing consignment from a checkout.
      *
      * Removing the last consignment will remove the cart from the customer it is assigned to. Create a new redirect URL for the customer so they can access the cart again.
      */
-    delete: operations["CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete"];
+    delete: operations["deleteCheckoutConsignment"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -135,14 +138,14 @@ export interface paths {
      * **Limits**
      * * Coupon codes have a 50-character limit.
      */
-    post: operations["CheckoutsCouponsByCheckoutIdPost"];
+    post: operations["addCheckoutCoupon"];
   };
   "/checkouts/{checkoutId}/coupons/{couponCode}": {
     /**
      * Delete Checkout Coupon
      * @description Deletes a coupon code from a checkout.
      */
-    delete: operations["CheckoutsCouponsByCheckoutIdAndCouponCodeDelete"];
+    delete: operations["deleteCheckoutCoupon"];
   };
   "/checkouts/{checkoutId}/orders": {
     /**
@@ -156,19 +159,19 @@ export interface paths {
      * * Once the order is paid, the cart is deleted.
      * * Cart deletion occurs if you are using BigCommerce to accept payments on orders.
      */
-    post: operations["createAnOrder"];
+    post: operations["createOrder"];
   };
   "/checkouts/settings": {
     /**
      * Get Checkout Settings
      * @description Get checkout settings
      */
-    get: operations["GetCheckoutSettings"];
+    get: operations["getCheckoutSettings"];
     /**
      * Update Checkout Settings
      * @description Update checkout settings
      */
-    put: operations["UpdateCheckoutSettings"];
+    put: operations["updateCheckoutSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -181,7 +184,7 @@ export interface paths {
      * @description Use the checkout token to display a confirmation page for a guest shopper.
      * **Usage Notes** * The response from performing this POST request is a checkout token. * The checkout token is a single-use token that is not order-dependent. You cannot create this token after finalizing an order. * After completing the order, you can redirect the shopper to /order-confirmation/{orderId}?t={checkoutToken}. * After token validation, the /order-confirmation/{orderId} page displays. * The `ORDER_TOKEN` should match the order or the logged-in customer can access the order.
      */
-    post: operations["checkout-token"];
+    post: operations["createCheckoutToken"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -878,7 +881,7 @@ export interface operations {
    *
    * The cart ID and checkout ID are the same.
    */
-  CheckoutsByCheckoutIdGet: {
+  getCheckout: {
     parameters: {
       query?: {
         /**
@@ -934,7 +937,7 @@ export interface operations {
    * **Limits:**
    * * 2000 characters for customer message
    */
-  CheckoutsByCheckoutIdPut: {
+  updateCheckout: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -978,7 +981,7 @@ export interface operations {
    * Required Fields
    * * discounted_amount
    */
-  "post-store_hash-v3-checkouts-checkoutId-discounts": {
+  addCheckoutDiscount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1027,7 +1030,7 @@ export interface operations {
    * * email
    * * country_code
    */
-  CheckoutsBillingAddressByCheckoutIdPost: {
+  addCheckoutBillingAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1063,7 +1066,7 @@ export interface operations {
    * Update Checkout Billing Address
    * @description Updates an existing billing address on a checkout.
    */
-  CheckoutsBillingAddressByCheckoutIdAndAddressIdPut: {
+  updateCheckoutBillingAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1119,7 +1122,7 @@ export interface operations {
    * * `postal_code`
    * * `state_or_province`
    */
-  CheckoutsConsignmentsByCheckoutIdPost: {
+  addCheckoutConsignment: {
     parameters: {
       query?: {
         include?: "consignments.available_shipping_options";
@@ -1167,8 +1170,11 @@ export interface operations {
    * To update an existing address and line item IDs, assign a new address and line item IDs by sending a `PUT` request.
    *
    * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   *
+   *
+   * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
    */
-  CheckoutsConsignmentsByCheckoutIdAndConsignmentIdPut: {
+  updateCheckoutConsignment: {
     parameters: {
       query?: {
         /** @description Include to get available shipping options. */
@@ -1211,7 +1217,7 @@ export interface operations {
    *
    * Removing the last consignment will remove the cart from the customer it is assigned to. Create a new redirect URL for the customer so they can access the cart again.
    */
-  CheckoutsConsignmentsByCheckoutIdAndConsignmentIdDelete: {
+  deleteCheckoutConsignment: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1248,7 +1254,7 @@ export interface operations {
    * **Limits**
    * * Coupon codes have a 50-character limit.
    */
-  CheckoutsCouponsByCheckoutIdPost: {
+  addCheckoutCoupon: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1284,7 +1290,7 @@ export interface operations {
    * Delete Checkout Coupon
    * @description Deletes a coupon code from a checkout.
    */
-  CheckoutsCouponsByCheckoutIdAndCouponCodeDelete: {
+  deleteCheckoutCoupon: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1322,7 +1328,7 @@ export interface operations {
    * * Once the order is paid, the cart is deleted.
    * * Cart deletion occurs if you are using BigCommerce to accept payments on orders.
    */
-  createAnOrder: {
+  createOrder: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1347,7 +1353,7 @@ export interface operations {
    * Get Checkout Settings
    * @description Get checkout settings
    */
-  GetCheckoutSettings: {
+  getCheckoutSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1369,7 +1375,7 @@ export interface operations {
    * Update Checkout Settings
    * @description Update checkout settings
    */
-  UpdateCheckoutSettings: {
+  updateCheckoutSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1398,7 +1404,7 @@ export interface operations {
    * @description Use the checkout token to display a confirmation page for a guest shopper.
    * **Usage Notes** * The response from performing this POST request is a checkout token. * The checkout token is a single-use token that is not order-dependent. You cannot create this token after finalizing an order. * After completing the order, you can redirect the shopper to /order-confirmation/{orderId}?t={checkoutToken}. * After token validation, the /order-confirmation/{orderId} page displays. * The `ORDER_TOKEN` should match the order or the logged-in customer can access the order.
    */
-  "checkout-token": {
+  createCheckoutToken: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

@@ -11,27 +11,7 @@ export interface paths {
      * Get All Web Analytics Providers
      * @description Returns a list of web analytics providers.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["AnalyticsProviders"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getAnalyticsProviders"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -43,105 +23,12 @@ export interface paths {
      * Get a Web Analytics Provider
      * @description Returns a single web analytics provider data for a default channel.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-        path: {
-          /** @description Web Analytics Provider ID. */
-          id: number;
-        };
-      };
-      responses: {
-        /** @description Successful operation. */
-        200: {
-          content: {
-            "application/json": components["schemas"]["AnalyticsProvider"];
-          };
-        };
-        /** @description Bad request. Authentication Required. */
-        400: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse400"];
-          };
-        };
-        /** @description The requested resource was not found. Please specify valid Web Analytics Provider ID. */
-        404: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse404"];
-          };
-        };
-      };
-    };
+    get: operations["getAnalyticsProvider"];
     /**
      * Update a Web Analytics Provider
      * @description Updates a single web analytics provider data for a default channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-        path: {
-          /** @description Web Analytics Provider ID. */
-          id: number;
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": {
-            channel_id?: number;
-            code?: string;
-            data_tag_enabled?: boolean;
-            enabled?: boolean;
-            id?: number;
-            is_oauth_connected?: unknown;
-            name?: string;
-            version?: number;
-          };
-        };
-      };
-      responses: {
-        /** @description Successful operation. */
-        200: {
-          content: {
-            "application/json": components["schemas"]["AnalyticsProvider"];
-          };
-        };
-        /** @description Bad request. Authentication Required. */
-        400: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse400"];
-          };
-        };
-        /** @description The requested resource was not found. Please specify valid Web Analytics Provider ID. */
-        404: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse404"];
-          };
-        };
-        /** @description Web Analytics Provider was in conflict with another Web Analytics Provider. This can be caused by duplicated unique values (such as ID). */
-        409: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse409"];
-          };
-        };
-        /** @description Web Analytics Provider data was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
-        422: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse422"];
-          };
-        };
-      };
-    };
+    put: operations["updateAnalyticsProvider"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -161,27 +48,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["CatalogSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsCatalog"];
     /**
      * Update Catalog Settings
      * @description Updates catalog settings.
@@ -190,34 +57,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      /** @description null set for a particular field removes override on a channel level and means inheritance from a global level */
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["CatalogSettings"];
-        };
-      };
-      responses: {
-        /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["CatalogSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsCatalog"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -229,12 +69,12 @@ export interface paths {
      * Get Transactional Email Settings
      * @description Get global transactional email settings or channel specific overrides by `channel_id`.
      */
-    get: operations["get-settings-emails-enabled"];
+    get: operations["getSettingsEmailStatuses"];
     /**
      * Update Transactional Email Settings
      * @description Update global transactional email settings or create channel specific overrides by `channel_id`.
      */
-    put: operations["put-settings-transactional-emails-enabled"];
+    put: operations["updateSettingsEmailStatuses"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -248,7 +88,7 @@ export interface paths {
      *
      *   - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
      */
-    post: operations["post-favicon-logo-image"];
+    post: operations["createSettingsFaviconImage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -261,27 +101,7 @@ export interface paths {
      * @description Returns inventory notification settings.
      * * `channel_id` can be used as a query parameter to get inventory notification settings per channel. If omitted, you will interact with the global setting only.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["InventoryNotificationsSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsInventoryNotifications"];
     /**
      * Update Inventory Notifications Settings
      * @description Updates inventory notification settings.
@@ -289,29 +109,7 @@ export interface paths {
      * * Supplying `null` settings values per channel will delete overrides per given channel and values will be inherited from global level.
      * * Partial updates are not supported within the given endpoint. In order to delete overrides per channel, `null` should be supplied for all the settings within the given endpoint.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      /** @description null set for a particular field removes override on a channel level and means inheritance from a global level */
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["InventoryNotificationsSettings"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: never;
-        };
-      };
-    };
+    put: operations["updateSettingsInventoryNotifications"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -327,7 +125,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: operations["get-settings-logo"];
+    get: operations["getSettingsLogo"];
     /**
      * Update Store Logo Settings
      * @description Updates the logo type and logo text for a textual logo. To upload new images, use the dedicated image POST endpoints.
@@ -336,7 +134,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: operations["put-settings-logo"];
+    put: operations["updateSettingsLogo"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -350,7 +148,7 @@ export interface paths {
      *
      *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
      */
-    post: operations["post-settings-logo-image"];
+    post: operations["createSettingsLogoImage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -362,19 +160,19 @@ export interface paths {
      * Get Enabled Filters
      * @description Returns a list of enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters. These filters will be used if a store does not have contextual overrides.
      */
-    get: operations["getEnabled"];
+    get: operations["getSettingsEnabledSearchFilters"];
     /**
      * Update Enabled Filters
      * @description Updates enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters.
      */
-    put: operations["updateEnabled"];
+    put: operations["updateSettingsEnabledSearchFilters"];
   };
   "/settings/search/filters/available": {
     /**
      * Get Available Filters
      * @description Returns a list of filters available to power [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings).
      */
-    get: operations["getAvailable"];
+    get: operations["getSettingsAvailableFilters"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -392,7 +190,7 @@ export interface paths {
      *
      * The order of the returned filters will match the sort order of the filters on the storefront.
      */
-    get: operations["getContexts"];
+    get: operations["getSettingsFiltersContexts"];
     /**
      * Upsert Contextual Filters
      * @description Upserts contextual filters for a particular channel or category.
@@ -403,7 +201,7 @@ export interface paths {
      *
      * You can change the order of the filters on the live site by changing the order of the filters you send.
      */
-    put: operations["upsertContexts"];
+    put: operations["upsertSettingsFiltersContexts"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -415,64 +213,14 @@ export interface paths {
      * Get Locale Settings
      * @description Returns global locale settings.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["Locale"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsLocale"];
     /**
      * Update Locale Settings
      * @description Updates global locale settings.
      *
      * Set a channel override by using the `channel_id` query parameter. To remove a channel override, set `null` for a field. The field then inherits the global value.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["Locale"];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["Locale"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-        /** @description Provided settings could not be applied for some reason - detailed errors in the response. */
-        422: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse"];
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsLocale"];
   };
   "/settings/store/profile": {
     /**
@@ -483,27 +231,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StoreProfile"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsStoreProfile"];
     /**
      * Update Store Profile Settings
      * @description Updates store profile settings.
@@ -512,38 +240,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["StoreProfile"];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StoreProfile"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-        /** @description Provided settings could not be applied for some reason - detailed errors in the response. */
-        422: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse"];
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsStoreProfile"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -555,67 +252,20 @@ export interface paths {
      * Get Storefront Category Settings
      * @description Returns category settings.
      *
-     *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+     *  - Channel ID can be used as a query parameter for getting channel-specific settings. If omitted, you will interact with the global setting only.
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontCategorySettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsStorefrontCategory"];
     /**
      * Update Storefront Category Settings
      * @description Updates category settings.
      *
-     *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+     *  - Channel ID can be used as a query parameter for updating channel-specific settings. If omitted, you will interact with the global setting only.
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["StorefrontCategorySettings"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontCategorySettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-        422: components["responses"]["422ErrorResp"];
-      };
-    };
+    put: operations["updateSettingsStorefrontCategory"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -631,7 +281,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: operations["get-settings-storefront-product"];
+    get: operations["getSettingsStorefrontProduct"];
     /**
      * Update Storefront Product Settings
      * @description Updates product settings.
@@ -640,7 +290,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: operations["put-settings-storefront-product"];
+    put: operations["updateSettingsStorefrontProduct"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -656,27 +306,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["RobotsTxtSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsRobotsTxt"];
     /**
      * Update Robots.txt Settings
      * @description Updates Robots.txt settings.
@@ -685,33 +315,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["RobotsTxtSettings"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["RobotsTxtSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsRobotsTxt"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -727,27 +331,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontSearchSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsStorefrontSearch"];
     /**
      * Update Storefront Search Settings
      * @description Updates search settings.
@@ -756,33 +340,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["StorefrontSearchSettings"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontSearchSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsStorefrontSearch"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -798,27 +356,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontSecuritySettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsStorefrontSecurity"];
     /**
      * Update Storefront Security Settings
      * @description Updates security settings.
@@ -827,33 +365,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["StorefrontSecuritySettings"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontSecuritySettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsStorefrontSecurity"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -869,27 +381,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["SEOSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsStorefrontSeo"];
     /**
      * Update Storefront SEO Settings
      * @description Updates SEO settings.
@@ -898,34 +390,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["SEOSettings"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["SEOSettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-        422: components["responses"]["422ErrorResp"];
-      };
-    };
+    put: operations["updateSettingsStorefrontSeo"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -941,27 +406,7 @@ export interface paths {
      *
      *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontStatus"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    get: operations["getSettingsStorefrontStatus"];
     /**
      * Update Storefront Status
      * @description Updates storefront status-related settings.
@@ -970,33 +415,7 @@ export interface paths {
      *
      *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["StorefrontStatus"];
-        };
-      };
-      responses: {
-        /** @description OK */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["StorefrontStatus"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsStorefrontStatus"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1008,65 +427,12 @@ export interface paths {
      * Get Inventory Settings
      * @description Get Inventory Settings
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["InventorySettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-        /** @description Provided settings could not be applied for some reason - detailed errors in the response. */
-        422: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse"];
-          };
-        };
-      };
-    };
+    get: operations["getSettingsInventory"];
     /**
      * Update Inventory Settings
      * @description Update inventory settings
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-        header: {
-          Accept: components["parameters"]["Accept"];
-          "Content-Type": components["parameters"]["ContentType"];
-        };
-      };
-      /** @description null set for a particular field removes override on a channel level and means inheritance from a global level */
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["InventorySettings"];
-        };
-      };
-      responses: {
-        /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["InventorySettings"];
-              meta?: components["schemas"]["MetaOpen"];
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsInventory"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1078,30 +444,7 @@ export interface paths {
      * Get Units of Measurement Settings
      * @description Get settings for [units of measurements](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#physical).
      */
-    get: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-      };
-      responses: {
-        /** @description OK. When you request channel-level settings, `null` indicates that a channel does not have overrides. */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["MeasurementUnitsSettings"];
-              meta?: Record<string, never>;
-            };
-          };
-        };
-        /** @description The provided settings could not be applied. See detailed errors in the response. */
-        422: {
-          content: {
-            "application/json": components["schemas"]["ErrorResponse"];
-          };
-        };
-      };
-    };
+    get: operations["getSettingsMeasurementUnits"];
     /**
      * Update Units of Measurement Settings
      * @description Update settings for [units of measurements](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#physical).
@@ -1114,29 +457,7 @@ export interface paths {
      *
      * The endpoint does not support 'null' as a value for global-level settings.
      */
-    put: {
-      parameters: {
-        query?: {
-          channel_id?: components["parameters"]["ChannelIdParam"];
-        };
-      };
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["MeasurementUnitsSettings"];
-        };
-      };
-      responses: {
-        /** @description OK. When you request channel-level settings, `null` indicates that a channel does not have overrides. */
-        200: {
-          content: {
-            "application/json": {
-              data?: components["schemas"]["MeasurementUnitsSettings"];
-              meta?: Record<string, never>;
-            };
-          };
-        };
-      };
-    };
+    put: operations["updateSettingsMeasurementUnits"];
   };
 }
 
@@ -1435,7 +756,7 @@ export interface components {
        */
       default_shopper_language: string;
       /**
-       * @description Determines whether to display the storefront content in the shopper's browser language or the shopper's selected default language.
+       * @description Determines whether to display the storefront content in the shopperʼs browser language or the shopperʼs selected default language.
        *
        * Available values:
        * * `browser` - language updates automatically based on the shopper browser language. Multiple languages are supported.
@@ -1542,25 +863,25 @@ export interface components {
        */
       show_product_sku?: boolean;
       /**
-       * @description Determines the visibility of the product's weight.
+       * @description Determines the visibility of the productʼs weight.
        *
        * @example false
        */
       show_product_weight?: boolean;
       /**
-       * @description Determines the visibility of the product's brand.
+       * @description Determines the visibility of the productʼs brand.
        *
        * @example true
        */
       show_product_brand?: boolean;
       /**
-       * @description Determines the visibility of the product's shipping option.
+       * @description Determines the visibility of the productʼs shipping option.
        *
        * @example false
        */
       show_product_shipping?: boolean;
       /**
-       * @description Determines the visibility of the product's rating.
+       * @description Determines the visibility of the productʼs rating.
        *
        * @example true
        */
@@ -1572,7 +893,7 @@ export interface components {
        */
       show_add_to_cart_link?: boolean;
       /**
-       * @description The product's pre-order message. If undefined, the message defaults to the storewide setting.
+       * @description The productʼs pre-order message. If undefined, the message defaults to the storewide setting.
        *
        * @example Preorder message
        */
@@ -1589,7 +910,7 @@ export interface components {
        */
       show_add_to_cart_qty_box?: boolean;
       /**
-       * @description Determines the visibilty of the Add to Wishlist setting.
+       * @description Determines the visibility of the Add to Wishlist setting.
        *
        * @example true
        */
@@ -1710,10 +1031,203 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
+   * Get All Web Analytics Providers
+   * @description Returns a list of web analytics providers.
+   */
+  getAnalyticsProviders: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["AnalyticsProviders"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get a Web Analytics Provider
+   * @description Returns a single web analytics provider data for a default channel.
+   */
+  getAnalyticsProvider: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        /** @description Web Analytics Provider ID. */
+        id: number;
+      };
+    };
+    responses: {
+      /** @description Successful operation. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AnalyticsProvider"];
+        };
+      };
+      /** @description Bad request. Authentication Required. */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse400"];
+        };
+      };
+      /** @description The requested resource was not found. Please specify valid Web Analytics Provider ID. */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse404"];
+        };
+      };
+    };
+  };
+  /**
+   * Update a Web Analytics Provider
+   * @description Updates a single web analytics provider data for a default channel.
+   */
+  updateAnalyticsProvider: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        /** @description Web Analytics Provider ID. */
+        id: number;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": {
+          channel_id?: number;
+          code?: string;
+          data_tag_enabled?: boolean;
+          enabled?: boolean;
+          id?: number;
+          is_oauth_connected?: unknown;
+          name?: string;
+          version?: number;
+        };
+      };
+    };
+    responses: {
+      /** @description Successful operation. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["AnalyticsProvider"];
+        };
+      };
+      /** @description Bad request. Authentication Required. */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse400"];
+        };
+      };
+      /** @description The requested resource was not found. Please specify valid Web Analytics Provider ID. */
+      404: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse404"];
+        };
+      };
+      /** @description Web Analytics Provider was in conflict with another Web Analytics Provider. This can be caused by duplicated unique values (such as ID). */
+      409: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse409"];
+        };
+      };
+      /** @description Web Analytics Provider data was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse422"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Catalog Settings
+   * @description Returns catalog settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsCatalog: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["CatalogSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Catalog Settings
+   * @description Updates catalog settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsCatalog: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    /** @description null set for a particular field removes override on a channel level and means inheritance from a global level */
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["CatalogSettings"];
+      };
+    };
+    responses: {
+      /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["CatalogSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
    * Get Transactional Email Settings
    * @description Get global transactional email settings or channel specific overrides by `channel_id`.
    */
-  "get-settings-emails-enabled": {
+  getSettingsEmailStatuses: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -1738,7 +1252,7 @@ export interface operations {
    * Update Transactional Email Settings
    * @description Update global transactional email settings or create channel specific overrides by `channel_id`.
    */
-  "put-settings-transactional-emails-enabled": {
+  updateSettingsEmailStatuses: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -1771,7 +1285,7 @@ export interface operations {
    *
    *   - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
    */
-  "post-favicon-logo-image": {
+  createSettingsFaviconImage: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -1797,6 +1311,62 @@ export interface operations {
     };
   };
   /**
+   * Get Inventory Notifications Settings
+   * @description Returns inventory notification settings.
+   * * `channel_id` can be used as a query parameter to get inventory notification settings per channel. If omitted, you will interact with the global setting only.
+   */
+  getSettingsInventoryNotifications: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["InventoryNotificationsSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Inventory Notifications Settings
+   * @description Updates inventory notification settings.
+   * * `channel_id` can be used as a query parameter to get inventory notification settings per channel. If omitted, you will interact with the global setting only.
+   * * Supplying `null` settings values per channel will delete overrides per given channel and values will be inherited from global level.
+   * * Partial updates are not supported within the given endpoint. In order to delete overrides per channel, `null` should be supplied for all the settings within the given endpoint.
+   */
+  updateSettingsInventoryNotifications: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    /** @description null set for a particular field removes override on a channel level and means inheritance from a global level */
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["InventoryNotificationsSettings"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: never;
+      };
+    };
+  };
+  /**
    * Get Store Logo Settings
    * @description Returns store logo settings.
    *
@@ -1804,7 +1374,7 @@ export interface operations {
    *
    *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
    */
-  "get-settings-logo": {
+  getSettingsLogo: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -1833,7 +1403,7 @@ export interface operations {
    *
    *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
    */
-  "put-settings-logo": {
+  updateSettingsLogo: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -1865,7 +1435,7 @@ export interface operations {
    *
    *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
    */
-  "post-settings-logo-image": {
+  createSettingsLogoImage: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -1894,7 +1464,7 @@ export interface operations {
    * Get Enabled Filters
    * @description Returns a list of enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters. These filters will be used if a store does not have contextual overrides.
    */
-  getEnabled: {
+  getSettingsEnabledSearchFilters: {
     responses: {
       200: {
         content: {
@@ -1910,7 +1480,7 @@ export interface operations {
    * Update Enabled Filters
    * @description Updates enabled default [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings) filters.
    */
-  updateEnabled: {
+  updateSettingsEnabledSearchFilters: {
     parameters: {
       header: {
         "Content-Type": components["parameters"]["ContentType"];
@@ -1936,7 +1506,7 @@ export interface operations {
    * Get Available Filters
    * @description Returns a list of filters available to power [Product Filtering](https://support.bigcommerce.com/s/article/Product-Filtering-Settings).
    */
-  getAvailable: {
+  getSettingsAvailableFilters: {
     parameters: {
       query?: {
         /** @description Narrows the list of available filters based on channel ID. Only products currently assigned to the given Channel will be considered. */
@@ -1970,7 +1540,7 @@ export interface operations {
    *
    * The order of the returned filters will match the sort order of the filters on the storefront.
    */
-  getContexts: {
+  getSettingsFiltersContexts: {
     parameters: {
       query?: {
         /** @description Only return contextual overrides related to a particular Channel. */
@@ -2004,7 +1574,7 @@ export interface operations {
    *
    * You can change the order of the filters on the live site by changing the order of the filters you send.
    */
-  upsertContexts: {
+  upsertSettingsFiltersContexts: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2029,6 +1599,202 @@ export interface operations {
     };
   };
   /**
+   * Get Locale Settings
+   * @description Returns global locale settings.
+   */
+  getSettingsLocale: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Locale"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Locale Settings
+   * @description Updates global locale settings.
+   *
+   * Set a channel override by using the `channel_id` query parameter. To remove a channel override, set `null` for a field. The field then inherits the global value.
+   */
+  updateSettingsLocale: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["Locale"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Locale"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      /** @description Provided settings could not be applied for some reason - detailed errors in the response. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Store Profile Settings
+   * @description Returns store profile settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsStoreProfile: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StoreProfile"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Store Profile Settings
+   * @description Updates store profile settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsStoreProfile: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["StoreProfile"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StoreProfile"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      /** @description Provided settings could not be applied for some reason - detailed errors in the response. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Storefront Category Settings
+   * @description Returns category settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific settings. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsStorefrontCategory: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK. `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontCategorySettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Storefront Category Settings
+   * @description Updates category settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific settings. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsStorefrontCategory: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["StorefrontCategorySettings"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontCategorySettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      422: components["responses"]["422ErrorResp"];
+    };
+  };
+  /**
    * Get Storefront Product Settings
    * @description Returns product settings.
    *
@@ -2036,7 +1802,7 @@ export interface operations {
    *
    *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
    */
-  "get-settings-storefront-product": {
+  getSettingsStorefrontProduct: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -2057,7 +1823,7 @@ export interface operations {
    *
    *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
    */
-  "put-settings-storefront-product": {
+  updateSettingsStorefrontProduct: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdParam"];
@@ -2075,6 +1841,453 @@ export interface operations {
     responses: {
       200: components["responses"]["200-storefront-product-settings"];
       422: components["responses"]["422ErrorResp"];
+    };
+  };
+  /**
+   * Get Robots.txt Settings
+   * @description Returns Robots.txt settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsRobotsTxt: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["RobotsTxtSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Robots.txt Settings
+   * @description Updates Robots.txt settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsRobotsTxt: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["RobotsTxtSettings"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["RobotsTxtSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get Storefront Search Settings
+   * @description Returns search settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsStorefrontSearch: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontSearchSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Storefront Search Settings
+   * @description Updates search settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsStorefrontSearch: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["StorefrontSearchSettings"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontSearchSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get Storefront Security Settings
+   * @description Returns security settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsStorefrontSecurity: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontSecuritySettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Storefront Security Settings
+   * @description Updates security settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsStorefrontSecurity: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["StorefrontSecuritySettings"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontSecuritySettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get Storefront SEO Settings
+   * @description Returns SEO settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsStorefrontSeo: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["SEOSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Storefront SEO Settings
+   * @description Updates SEO settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsStorefrontSeo: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["SEOSettings"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["SEOSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      422: components["responses"]["422ErrorResp"];
+    };
+  };
+  /**
+   * Get Storefront Status
+   * @description Returns storefront status-related settings.
+   *
+   *  - Channel ID can be used as a query parameter for getting channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` indicates that a particular field has not been overridden on a channel level when channel level settings are requested and values are inherited from global level.
+   */
+  getSettingsStorefrontStatus: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontStatus"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Storefront Status
+   * @description Updates storefront status-related settings.
+   *
+   *  - Channel ID can be used as a query parameter for updating channel-specific setting. If omitted, you will interact with the global setting only.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   */
+  updateSettingsStorefrontStatus: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["StorefrontStatus"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["StorefrontStatus"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get Inventory Settings
+   * @description Get Inventory Settings
+   */
+  getSettingsInventory: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested. */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["InventorySettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      /** @description Provided settings could not be applied for some reason - detailed errors in the response. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Update Inventory Settings
+   * @description Update inventory settings
+   */
+  updateSettingsInventory: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    /** @description null set for a particular field removes override on a channel level and means inheritance from a global level */
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["InventorySettings"];
+      };
+    };
+    responses: {
+      /** @description OK, null indicates that a particular field has not been overridden on a channel level when channel level settings are requested */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["InventorySettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get Units of Measurement Settings
+   * @description Get settings for [units of measurements](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#physical).
+   */
+  getSettingsMeasurementUnits: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+    };
+    responses: {
+      /** @description OK. When you request channel-level settings, `null` indicates that a channel does not have overrides. */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["MeasurementUnitsSettings"];
+            meta?: Record<string, never>;
+          };
+        };
+      };
+      /** @description The provided settings could not be applied. See detailed errors in the response. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Update Units of Measurement Settings
+   * @description Update settings for [units of measurements](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#physical).
+   *
+   * The endpoint does not support partial updates. Provide all fields to update global or channel-level settings.
+   *
+   * Create channel-level settings, or overrides for a channel, using the `channel_id`  query parameter.
+   *
+   * To delete overrides for a channel, supply `null` as a value for all fields. A channel then inherits global values.
+   *
+   * The endpoint does not support 'null' as a value for global-level settings.
+   */
+  updateSettingsMeasurementUnits: {
+    parameters: {
+      query?: {
+        channel_id?: components["parameters"]["ChannelIdParam"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["MeasurementUnitsSettings"];
+      };
+    };
+    responses: {
+      /** @description OK. When you request channel-level settings, `null` indicates that a channel does not have overrides. */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["MeasurementUnitsSettings"];
+            meta?: Record<string, never>;
+          };
+        };
+      };
     };
   };
 }

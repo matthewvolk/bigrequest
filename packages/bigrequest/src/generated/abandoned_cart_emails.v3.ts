@@ -8,15 +8,15 @@
 export interface paths {
   "/marketing/abandoned-cart-emails": {
     /**
-     * Get all email templates
+     * Get all abandoned cart email templates
      * @description An array of abandoned cart emails pertaining to a store.
      */
-    get: operations["getAbandonedCartEmails"];
+    get: operations["getAbandonedCartEmailTemplates"];
     /**
-     * Create email template
+     * Create abandoned cart email template
      * @description Create an Abandoned Cart Email template.
      */
-    post: operations["createEmailTemplate"];
+    post: operations["createAbandonedCartEmailTemplate"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -28,17 +28,17 @@ export interface paths {
      * Get an email template
      * @description Get a single Abandoned Cart Email template.
      */
-    get: operations["getAbandonedCartEmailTemplateId"];
+    get: operations["getAbandonedCartEmailTemplate"];
     /**
      * Update an email template
      * @description Update an email template.
      */
-    put: operations["updateAbandonedCartEmailsId"];
+    put: operations["updateAbandonedCartEmailTemplate"];
     /**
      * Delete email template
      * @description Delete Abandoned Cart Email template.
      */
-    delete: operations["deleteAbandonedCartEmailTemplateId"];
+    delete: operations["deleteAbandonedCartEmailTemplate"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -54,7 +54,7 @@ export interface paths {
      * Get default email template
      * @description Return default Abandoned Cart Email template.
      */
-    get: operations["GetDefaultAbandonedCartEmailTemplate"];
+    get: operations["getDefaultAbandonedCartEmailTemplate"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -66,12 +66,12 @@ export interface paths {
      * Get email template settings
      * @description Read Abandoned Cart Email Template settings.
      */
-    get: operations["GetAbandonedCartEmailTemplateSettings"];
+    get: operations["getAbandonedCartEmailTemplateSettings"];
     /**
      * Update email template settings
      * @description Update Abandoned Cart Email template settings.
      */
-    put: operations["updateEmailTemplateSettings"];
+    put: operations["updateAbandonedCartEmailTemplateSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -129,8 +129,9 @@ export interface components {
        */
       locale: string;
       /** @description Language keys for the template. User-defined. Should match any language keys used in the template. */
-      keys: string;
-      additionalProperties?: string;
+      keys: {
+        [key: string]: string;
+      };
     };
     /**
      * NotifyAtMinutes
@@ -185,10 +186,10 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get all email templates
+   * Get all abandoned cart email templates
    * @description An array of abandoned cart emails pertaining to a store.
    */
-  getAbandonedCartEmails: {
+  getAbandonedCartEmailTemplates: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdOptional"];
@@ -210,10 +211,10 @@ export interface operations {
     };
   };
   /**
-   * Create email template
+   * Create abandoned cart email template
    * @description Create an Abandoned Cart Email template.
    */
-  createEmailTemplate: {
+  createAbandonedCartEmailTemplate: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdOptional"];
@@ -250,7 +251,7 @@ export interface operations {
    * Get an email template
    * @description Get a single Abandoned Cart Email template.
    */
-  getAbandonedCartEmailTemplateId: {
+  getAbandonedCartEmailTemplate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -276,7 +277,7 @@ export interface operations {
    * Update an email template
    * @description Update an email template.
    */
-  updateAbandonedCartEmailsId: {
+  updateAbandonedCartEmailTemplate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -314,7 +315,7 @@ export interface operations {
    * Delete email template
    * @description Delete Abandoned Cart Email template.
    */
-  deleteAbandonedCartEmailTemplateId: {
+  deleteAbandonedCartEmailTemplate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -335,7 +336,7 @@ export interface operations {
    * Get default email template
    * @description Return default Abandoned Cart Email template.
    */
-  GetDefaultAbandonedCartEmailTemplate: {
+  getDefaultAbandonedCartEmailTemplate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -363,7 +364,7 @@ export interface operations {
    * Get email template settings
    * @description Read Abandoned Cart Email Template settings.
    */
-  GetAbandonedCartEmailTemplateSettings: {
+  getAbandonedCartEmailTemplateSettings: {
     parameters: {
       query: {
         channel_id: components["parameters"]["ChannelIdRequired"];
@@ -385,7 +386,7 @@ export interface operations {
    * Update email template settings
    * @description Update Abandoned Cart Email template settings.
    */
-  updateEmailTemplateSettings: {
+  updateAbandonedCartEmailTemplateSettings: {
     parameters: {
       query?: {
         channel_id?: components["parameters"]["ChannelIdOptional"];

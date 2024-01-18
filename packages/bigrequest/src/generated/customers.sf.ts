@@ -15,7 +15,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["createACustomer"];
+    post: operations["createCustomer"];
   };
 }
 
@@ -64,7 +64,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  createACustomer: {
+  createCustomer: {
     /** @description Data sent the the customer endpoint when creating a customer during checkout. */
     requestBody?: {
       content: {

@@ -36,7 +36,7 @@ export interface paths {
      * ...
      * ```
      */
-    get: operations["getAllCoupons"];
+    get: operations["getCoupons"];
     /**
      * Create a New Coupon
      * @description Creates a *Coupon*.
@@ -64,13 +64,13 @@ export interface paths {
      *
      * Legacy coupon codes only work with the store's default currency. Applying a coupon with any other currency other than the store's default will result in the error: "Coupons only apply to default currency."
      */
-    post: operations["createANewCoupon"];
+    post: operations["createCoupon"];
     /**
      * Delete All Coupons
      * @description ## Usage Notes
      * * Deleting a coupon via this endpoint will delete the coupon but not the promotion it is attached to
      */
-    delete: operations["deleteAllCoupons"];
+    delete: operations["deleteCoupons"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -82,7 +82,7 @@ export interface paths {
      * Get a Count of Coupons
      * @description Returns a count of all *Coupons* in the store.
      */
-    get: operations["getACountOfCoupons"];
+    get: operations["getCouponsCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -105,12 +105,12 @@ export interface paths {
      *
      * If the `applies_to` value is cleared, you can restore it to the coupon by reapplying the `applies_to` value in a new `PUT` request.
      */
-    put: operations["updateACoupon"];
+    put: operations["updateCoupon"];
     /**
      * Delete a Coupon
      * @description Deletes a *Coupon*.
      */
-    delete: operations["deleteACoupon"];
+    delete: operations["deleteCoupon"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -126,7 +126,7 @@ export interface paths {
      * Get All Banners
      * @description Returns a list of *Banners*. Default sorting is by banner id, from lowest to highest.
      */
-    get: operations["getAllBanners"];
+    get: operations["getBanners"];
     /**
      * Create a Banner
      * @description Creates a *Banner*.
@@ -142,12 +142,12 @@ export interface paths {
      * * date_created
      * * id
      */
-    post: operations["createABanner"];
+    post: operations["createBanner"];
     /**
      * Delete All Banners
      * @description By default, it deletes all *Banners*.
      */
-    delete: operations["deleteAllBanners"];
+    delete: operations["deleteBanners"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -159,7 +159,7 @@ export interface paths {
      * Get a Banner
      * @description Returns a single *Banner*
      */
-    get: operations["getABanner"];
+    get: operations["getBanner"];
     /**
      * Update a Banner
      * @description Updates a *Banner*.
@@ -168,12 +168,12 @@ export interface paths {
      * * date_created
      * * id
      */
-    put: operations["updateABanner"];
+    put: operations["updateBanner"];
     /**
      * Delete a Banner
      * @description Deletes a *Banner*.
      */
-    delete: operations["deleteABanner"];
+    delete: operations["deleteBanner"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -189,7 +189,7 @@ export interface paths {
      * Get a Count of Store Banners
      * @description Returns a count of *Banners*.
      */
-    get: operations["getACountOfBanners"];
+    get: operations["getBannersCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -201,7 +201,7 @@ export interface paths {
      * Get a Gift Certificate
      * @description Returns a single *Gift Certificate*.
      */
-    get: operations["getAGiftCertificate"];
+    get: operations["getGiftCertificate"];
     /**
      * Update a Gift Certificate
      * @description Updates a *Gift Certificate*.
@@ -210,12 +210,12 @@ export interface paths {
      * * id
      * * order_id
      */
-    put: operations["updateAGiftCertificate"];
+    put: operations["updateGiftCertificate"];
     /**
      * Delete a Gift Certificate
      * @description Deletes a *Gift Certificate*.
      */
-    delete: operations["deleteAGiftCertificate"];
+    delete: operations["deleteGiftCertificate"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -235,7 +235,7 @@ export interface paths {
      *
      * The maximum limit is 250. If a limit isn’t provided, up to 50 gift_certificates are returned by default.
      */
-    get: operations["getAllGiftCertificates"];
+    get: operations["getGiftCertificates"];
     /**
      * Create a Gift Certificate
      * @description Creates a *Gift Certificate*.
@@ -256,12 +256,12 @@ export interface paths {
      *
      * When a gift certificate is created through the API, no email notification is triggered to the specified recipient.
      */
-    post: operations["createAGiftCertificate"];
+    post: operations["createGiftCertificate"];
     /**
      * Delete All Gift Certificates
      * @description By default, it deletes all *Gift Certificates*.
      */
-    delete: operations["deleteAllGiftCertificates"];
+    delete: operations["deleteGiftCertificates"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -731,7 +731,7 @@ export interface operations {
    * ...
    * ```
    */
-  getAllCoupons: {
+  getCoupons: {
     parameters: {
       query?: {
         /** @description Optional filter param. `/api/v2/coupons?id={value}` */
@@ -810,7 +810,7 @@ export interface operations {
    *
    * Legacy coupon codes only work with the store's default currency. Applying a coupon with any other currency other than the store's default will result in the error: "Coupons only apply to default currency."
    */
-  createANewCoupon: {
+  createCoupon: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -835,7 +835,7 @@ export interface operations {
    * @description ## Usage Notes
    * * Deleting a coupon via this endpoint will delete the coupon but not the promotion it is attached to
    */
-  deleteAllCoupons: {
+  deleteCoupons: {
     parameters: {
       query?: {
         /** @description Optional param to identify a comma separated list of ids for coupons to delete in a batch. `/api/v2/coupons?id:in=1,2,3` */
@@ -856,7 +856,7 @@ export interface operations {
    * Get a Count of Coupons
    * @description Returns a count of all *Coupons* in the store.
    */
-  getACountOfCoupons: {
+  getCouponsCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -887,7 +887,7 @@ export interface operations {
    *
    * If the `applies_to` value is cleared, you can restore it to the coupon by reapplying the `applies_to` value in a new `PUT` request.
    */
-  updateACoupon: {
+  updateCoupon: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -915,7 +915,7 @@ export interface operations {
    * Delete a Coupon
    * @description Deletes a *Coupon*.
    */
-  deleteACoupon: {
+  deleteCoupon: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -936,7 +936,7 @@ export interface operations {
    * Get All Banners
    * @description Returns a list of *Banners*. Default sorting is by banner id, from lowest to highest.
    */
-  getAllBanners: {
+  getBanners: {
     parameters: {
       query?: {
         /** @description Optional filter param `/api/v2/banners?min_id={value}` */
@@ -975,7 +975,7 @@ export interface operations {
    * * date_created
    * * id
    */
-  createABanner: {
+  createBanner: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -999,7 +999,7 @@ export interface operations {
    * Delete All Banners
    * @description By default, it deletes all *Banners*.
    */
-  deleteAllBanners: {
+  deleteBanners: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1016,7 +1016,7 @@ export interface operations {
    * Get a Banner
    * @description Returns a single *Banner*
    */
-  getABanner: {
+  getBanner: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1042,7 +1042,7 @@ export interface operations {
    * * date_created
    * * id
    */
-  updateABanner: {
+  updateBanner: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1070,7 +1070,7 @@ export interface operations {
    * Delete a Banner
    * @description Deletes a *Banner*.
    */
-  deleteABanner: {
+  deleteBanner: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1091,7 +1091,7 @@ export interface operations {
    * Get a Count of Store Banners
    * @description Returns a count of *Banners*.
    */
-  getACountOfBanners: {
+  getBannersCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1111,7 +1111,7 @@ export interface operations {
    * Get a Gift Certificate
    * @description Returns a single *Gift Certificate*.
    */
-  getAGiftCertificate: {
+  getGiftCertificate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1137,7 +1137,7 @@ export interface operations {
    * * id
    * * order_id
    */
-  updateAGiftCertificate: {
+  updateGiftCertificate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1165,7 +1165,7 @@ export interface operations {
    * Delete a Gift Certificate
    * @description Deletes a *Gift Certificate*.
    */
-  deleteAGiftCertificate: {
+  deleteGiftCertificate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1190,7 +1190,7 @@ export interface operations {
    *
    * The maximum limit is 250. If a limit isn’t provided, up to 50 gift_certificates are returned by default.
    */
-  getAllGiftCertificates: {
+  getGiftCertificates: {
     parameters: {
       query?: {
         min_id?: number;
@@ -1236,7 +1236,7 @@ export interface operations {
    *
    * When a gift certificate is created through the API, no email notification is triggered to the specified recipient.
    */
-  createAGiftCertificate: {
+  createGiftCertificate: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1260,7 +1260,7 @@ export interface operations {
    * Delete All Gift Certificates
    * @description By default, it deletes all *Gift Certificates*.
    */
-  deleteAllGiftCertificates: {
+  deleteGiftCertificates: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

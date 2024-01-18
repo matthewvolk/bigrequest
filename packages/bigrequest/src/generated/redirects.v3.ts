@@ -9,19 +9,19 @@ export interface paths {
   "/storefront/redirects": {
     /**
      * Get Redirects
-     * @description Returns a collection of the storeʼs 301 redirects across all sites.
+     * @description Returns a collection of the store's 301 redirects across all sites.
      */
-    get: operations["GetRedirects"];
+    get: operations["getRedirects"];
     /**
      * Upsert Redirects
      * @description Upserts new redirect data across all storefronts.
      */
-    put: operations["UpsertRedirects"];
+    put: operations["upsertRedirects"];
     /**
      * Delete Redirects
      * @description Deletes redirects.
      */
-    delete: operations["DeleteRedirects"];
+    delete: operations["deleteRedirects"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -263,9 +263,9 @@ export interface operations {
 
   /**
    * Get Redirects
-   * @description Returns a collection of the storeʼs 301 redirects across all sites.
+   * @description Returns a collection of the store's 301 redirects across all sites.
    */
-  GetRedirects: {
+  getRedirects: {
     parameters: {
       query?: {
         /** @description Filters items by `site_id`. */
@@ -304,7 +304,7 @@ export interface operations {
    * Upsert Redirects
    * @description Upserts new redirect data across all storefronts.
    */
-  UpsertRedirects: {
+  upsertRedirects: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -332,7 +332,7 @@ export interface operations {
    * Delete Redirects
    * @description Deletes redirects.
    */
-  DeleteRedirects: {
+  deleteRedirects: {
     parameters: {
       query: {
         /** @description List of Redirect IDs to delete explicitly. */

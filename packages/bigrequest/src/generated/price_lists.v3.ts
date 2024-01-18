@@ -11,7 +11,7 @@ export interface paths {
      * Get All Price Lists
      * @description Returns a list of *Price Lists*. Optional parameters can be passed in.
      */
-    get: operations["getPriceListCollection"];
+    get: operations["getPriceLists"];
     /**
      * Create a Price List
      * @description Creates a *Price List*.
@@ -24,7 +24,7 @@ export interface paths {
      * Delete All Price Lists
      * @description Deletes a *Price List*. All associated price records are also removed. Optional parameters can be passed in.
      */
-    delete: operations["deletePriceListsByFilter"];
+    delete: operations["deletePriceLists"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -60,7 +60,7 @@ export interface paths {
      * Create Batch of Price Lists Records
      * @description Creates a batch of `Price Lists Records`; may include price list records from more than one price list.  Concurrency limit of 1.
      */
-    put: operations["UpsertPriceListRecords"];
+    put: operations["upsertPriceListsRecords"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -76,23 +76,25 @@ export interface paths {
      * * Supports up to 10 simultaneous GET requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error and your additional requests will fail.
      * * Store Pricelist Records data to reduce the number of calls and maximize performance.
      */
-    get: operations["getPriceListRecordCollection"];
+    get: operations["getPriceListRecords"];
     /**
      * Upsert Price List Records
      * @description Creates or updates *Price List Records*.
+     *
      * **Required Fields**
      * * currency
+     *
      * **Notes**
      * * Batch requests support up to 1,000 items per request.
      * * Up to 2 concurrent batch upsert requests are supported with this API. Running more than the allowed concurrent requests in parallel on the **same store** will cause a `429` error, and your additional requests will fail. You are encouraged to run requests sequentially with as many records per request as possible to maximize performance.
      * * When updating a product with variants, or multiple SKUs, don't include records for the parent product SKU.
      */
-    put: operations["setPriceListRecordCollection"];
+    put: operations["upsertPriceListRecords"];
     /**
      * Delete a Price List Record
      * @description Deletes a *Price List Record*. Deleting the records does not delete the Price List. Optional parameters can be passed in.
      */
-    delete: operations["deletePriceListRecordsByFilter"];
+    delete: operations["deletePriceListRecords"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -148,18 +150,18 @@ export interface paths {
      * Get Price List Assignments
      * @description Fetches an array of `Price List Assignments` matching a particular Customer Group and Price List and Channel.
      */
-    get: operations["GetListOfPriceListAssignments"];
+    get: operations["getListOfPriceListAssignments"];
     /**
      * Create Price List Assignments
      * @description Creates a batch of `Price List Assignments`.
      * **Note:** The batch limit for `Price List Assignments` is 25.
      */
-    post: operations["CreatePriceListAssignments"];
+    post: operations["createPriceListAssignments"];
     /**
      * Delete Price List Assignments
      * @description Deletes one or more `Price List Assignments` objects from BigCommerce using a query parameter. You must use at least one query parameter.
      */
-    delete: operations["deletePriceListAssignmentsByFilter"];
+    delete: operations["deletePriceListAssignments"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -477,7 +479,7 @@ export interface operations {
    * Get All Price Lists
    * @description Returns a list of *Price Lists*. Optional parameters can be passed in.
    */
-  getPriceListCollection: {
+  getPriceLists: {
     parameters: {
       query?: {
         /** @description Filter items by ID. */
@@ -715,7 +717,7 @@ export interface operations {
    * Delete All Price Lists
    * @description Deletes a *Price List*. All associated price records are also removed. Optional parameters can be passed in.
    */
-  deletePriceListsByFilter: {
+  deletePriceLists: {
     parameters: {
       query?: {
         /** @description Filter items by ID. */
@@ -962,7 +964,7 @@ export interface operations {
    * Create Batch of Price Lists Records
    * @description Creates a batch of `Price Lists Records`; may include price list records from more than one price list.  Concurrency limit of 1.
    */
-  UpsertPriceListRecords: {
+  upsertPriceListsRecords: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -996,7 +998,7 @@ export interface operations {
    * * Supports up to 10 simultaneous GET requests. Running more than the allowed number of requests concurrently on the same store will result in a `429` status error and your additional requests will fail.
    * * Store Pricelist Records data to reduce the number of calls and maximize performance.
    */
-  getPriceListRecordCollection: {
+  getPriceListRecords: {
     parameters: {
       query?: {
         /** @description The ID of the `Variant` for which prices were requested. */
@@ -1234,14 +1236,16 @@ export interface operations {
   /**
    * Upsert Price List Records
    * @description Creates or updates *Price List Records*.
+   *
    * **Required Fields**
    * * currency
+   *
    * **Notes**
    * * Batch requests support up to 1,000 items per request.
    * * Up to 2 concurrent batch upsert requests are supported with this API. Running more than the allowed concurrent requests in parallel on the **same store** will cause a `429` error, and your additional requests will fail. You are encouraged to run requests sequentially with as many records per request as possible to maximize performance.
    * * When updating a product with variants, or multiple SKUs, don't include records for the parent product SKU.
    */
-  setPriceListRecordCollection: {
+  upsertPriceListRecords: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1403,7 +1407,7 @@ export interface operations {
    * Delete a Price List Record
    * @description Deletes a *Price List Record*. Deleting the records does not delete the Price List. Optional parameters can be passed in.
    */
-  deletePriceListRecordsByFilter: {
+  deletePriceListRecords: {
     parameters: {
       query?: {
         /** @description The ID of the `Variant` for which prices were requested. */
@@ -2079,7 +2083,7 @@ export interface operations {
    * Get Price List Assignments
    * @description Fetches an array of `Price List Assignments` matching a particular Customer Group and Price List and Channel.
    */
-  GetListOfPriceListAssignments: {
+  getListOfPriceListAssignments: {
     parameters: {
       query?: {
         /** @description The ID of the `Price List Assignment`. */
@@ -2121,7 +2125,7 @@ export interface operations {
    * @description Creates a batch of `Price List Assignments`.
    * **Note:** The batch limit for `Price List Assignments` is 25.
    */
-  CreatePriceListAssignments: {
+  createPriceListAssignments: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2152,7 +2156,7 @@ export interface operations {
    * Delete Price List Assignments
    * @description Deletes one or more `Price List Assignments` objects from BigCommerce using a query parameter. You must use at least one query parameter.
    */
-  deletePriceListAssignmentsByFilter: {
+  deletePriceListAssignments: {
     parameters: {
       query?: {
         id?: components["parameters"]["FilterAssignmentIdParam"];

@@ -37,7 +37,7 @@ export interface paths {
      * * To restore a cart that was created by a shopper or through a Storefront API, first recreate the cart using the **REST Management API**.
      * * To get cart `promotions` in the response, append the following query parameter to the request URL: `include=promotions.banners`.
      */
-    post: operations["createACart"];
+    post: operations["createCart"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -59,7 +59,7 @@ export interface paths {
      *
      * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
-    post: operations["addCartLineItem"];
+    post: operations["addCartLineItems"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -140,7 +140,7 @@ export interface paths {
      * Get a Cart
      * @description Returns a store's *Cart*.
      */
-    get: operations["getACart"];
+    get: operations["getCart"];
     /**
      * Update Customer ID
      * @description Updates a *Cart's* `customer_id`.
@@ -149,12 +149,12 @@ export interface paths {
      *
      * Changing the *Cart* `customer_id` will remove any promotions or shipping calculations on the *Cart*. These are tied to the customer depending on cart conditions and any customer groups.
      */
-    put: operations["updateACart"];
+    put: operations["updateCart"];
     /**
      * Delete a Cart
      * @description Deletes a *Cart*. Once a *Cart* has been deleted it can’t be recovered.
      */
-    delete: operations["deleteACart"];
+    delete: operations["deleteCart"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -214,7 +214,7 @@ export interface paths {
      *
      * If you create an order from a Cart, you can continue referencing the Cart Metafields even if you delete the original Cart. Use the `cart_id` field on the Order to construct the Cart Metafield endpoint.
      */
-    post: operations["CreateCartMetafieldsByCartId"];
+    post: operations["createCartMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -229,17 +229,17 @@ export interface paths {
      * Get a Cart Metafield
      * @description Gets a cart metafield.
      */
-    get: operations["getACartMetafield"];
+    get: operations["getCartMetafield"];
     /**
      * Update a Cart Metafield
      * @description Update a `Metafield`, by `cart_id`.
      */
-    put: operations["UpdateCartMetafieldsByCartId"];
+    put: operations["updateCartMetafield"];
     /**
      * Delete a Metafield
      * @description Deletes a `Metafield`.
      */
-    delete: operations["deleteCartMetafieldById"];
+    delete: operations["deleteCartMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1851,7 +1851,7 @@ export interface operations {
    * * To restore a cart that was created by a shopper or through a Storefront API, first recreate the cart using the **REST Management API**.
    * * To get cart `promotions` in the response, append the following query parameter to the request URL: `include=promotions.banners`.
    */
-  createACart: {
+  createCart: {
     parameters: {
       query?: {
         /**
@@ -1890,7 +1890,7 @@ export interface operations {
    *
    * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
    */
-  addCartLineItem: {
+  addCartLineItems: {
     parameters: {
       query?: {
         /**
@@ -2037,7 +2037,7 @@ export interface operations {
    * Get a Cart
    * @description Returns a store's *Cart*.
    */
-  getACart: {
+  getCart: {
     parameters: {
       query?: {
         /**
@@ -2071,7 +2071,7 @@ export interface operations {
    *
    * Changing the *Cart* `customer_id` will remove any promotions or shipping calculations on the *Cart*. These are tied to the customer depending on cart conditions and any customer groups.
    */
-  updateACart: {
+  updateCart: {
     parameters: {
       query?: {
         /**
@@ -2108,7 +2108,7 @@ export interface operations {
    * Delete a Cart
    * @description Deletes a *Cart*. Once a *Cart* has been deleted it can’t be recovered.
    */
-  deleteACart: {
+  deleteCart: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2324,7 +2324,7 @@ export interface operations {
    *
    * If you create an order from a Cart, you can continue referencing the Cart Metafields even if you delete the original Cart. Use the `cart_id` field on the Order to construct the Cart Metafield endpoint.
    */
-  CreateCartMetafieldsByCartId: {
+  createCartMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2367,7 +2367,7 @@ export interface operations {
    * Get a Cart Metafield
    * @description Gets a cart metafield.
    */
-  getACartMetafield: {
+  getCartMetafield: {
     parameters: {
       query?: {
         page?: components["parameters"]["PageParam"];
@@ -2414,7 +2414,7 @@ export interface operations {
    * Update a Cart Metafield
    * @description Update a `Metafield`, by `cart_id`.
    */
-  UpdateCartMetafieldsByCartId: {
+  updateCartMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2451,7 +2451,7 @@ export interface operations {
    * Delete a Metafield
    * @description Deletes a `Metafield`.
    */
-  deleteCartMetafieldById: {
+  deleteCartMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

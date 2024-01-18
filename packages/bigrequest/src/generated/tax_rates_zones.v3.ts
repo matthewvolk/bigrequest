@@ -11,12 +11,12 @@ export interface paths {
      * Get Tax Zones
      * @description Retrieve a selection of tax zones when you provide a list of tax zone IDs. Otherwise, retrieve all tax zones defined on the store.
      */
-    get: operations["get-tax-zones"];
+    get: operations["getTaxZones"];
     /**
      * Update Tax Zones
      * @description Update one or more tax zones. Only the tax zone `id` field is required. Fields unspecified by the request will retain their current state.
      */
-    put: operations["update-tax-zones"];
+    put: operations["updateTaxZones"];
     /**
      * Create Tax Zones
      * @description Create one or more tax zones.
@@ -24,15 +24,14 @@ export interface paths {
      * > #### Note
      * > You cannot create a default tax zone.
      */
-    post: operations["create-tax-zones"];
+    post: operations["createTaxZones"];
     /**
      * Delete Tax Zones
      * @description Delete one or more tax zones. Deleting a tax zone removes all associated tax rates.
      *
-     * > #### Note
      * > You must specify which zone(s) to delete using the `id:in` query parameter.
      */
-    delete: operations["delete-tax-zones"];
+    delete: operations["deleteTaxZones"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -44,25 +43,24 @@ export interface paths {
      * Get Tax Rates
      * @description Retrieve a list of tax rates.
      */
-    get: operations["get-tax-rates"];
+    get: operations["getTaxRates"];
     /**
      * Update Tax Rates
      * @description Update one or more tax rates. Only the tax rate `id` field is required. Fields unspecified by the request will retain their current state.
      */
-    put: operations["update-tax-rates"];
+    put: operations["updateTaxRates"];
     /**
      * Create Tax Rates
      * @description Create one or more tax rates. Tax rates must be associated with a `tax_zone_id`.
      */
-    post: operations["create-tax-rates"];
+    post: operations["createTaxRates"];
     /**
      * Delete Tax Rates
      * @description Delete one or more tax rates.
      *
-     * > #### Note
      * > You must specify which rate(s) to delete using the `id:in` query parameter.
      */
-    delete: operations["delete-tax-rates"];
+    delete: operations["deleteTaxRates"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -421,7 +419,7 @@ export interface operations {
    * Get Tax Zones
    * @description Retrieve a selection of tax zones when you provide a list of tax zone IDs. Otherwise, retrieve all tax zones defined on the store.
    */
-  "get-tax-zones": {
+  getTaxZones: {
     parameters: {
       query?: {
         "id:in"?: components["parameters"]["zoneIdIn"];
@@ -446,7 +444,7 @@ export interface operations {
    * Update Tax Zones
    * @description Update one or more tax zones. Only the tax zone `id` field is required. Fields unspecified by the request will retain their current state.
    */
-  "update-tax-zones": {
+  updateTaxZones: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -473,7 +471,7 @@ export interface operations {
    * > #### Note
    * > You cannot create a default tax zone.
    */
-  "create-tax-zones": {
+  createTaxZones: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -497,10 +495,9 @@ export interface operations {
    * Delete Tax Zones
    * @description Delete one or more tax zones. Deleting a tax zone removes all associated tax rates.
    *
-   * > #### Note
    * > You must specify which zone(s) to delete using the `id:in` query parameter.
    */
-  "delete-tax-zones": {
+  deleteTaxZones: {
     parameters: {
       query?: {
         "id:in"?: components["parameters"]["zoneIdIn"];
@@ -520,7 +517,7 @@ export interface operations {
    * Get Tax Rates
    * @description Retrieve a list of tax rates.
    */
-  "get-tax-rates": {
+  getTaxRates: {
     parameters: {
       query?: {
         "id:in"?: components["parameters"]["rateIdIn"];
@@ -546,7 +543,7 @@ export interface operations {
    * Update Tax Rates
    * @description Update one or more tax rates. Only the tax rate `id` field is required. Fields unspecified by the request will retain their current state.
    */
-  "update-tax-rates": {
+  updateTaxRates: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -570,7 +567,7 @@ export interface operations {
    * Create Tax Rates
    * @description Create one or more tax rates. Tax rates must be associated with a `tax_zone_id`.
    */
-  "create-tax-rates": {
+  createTaxRates: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -594,10 +591,9 @@ export interface operations {
    * Delete Tax Rates
    * @description Delete one or more tax rates.
    *
-   * > #### Note
    * > You must specify which rate(s) to delete using the `id:in` query parameter.
    */
-  "delete-tax-rates": {
+  deleteTaxRates: {
     parameters: {
       query?: {
         "id:in"?: components["parameters"]["rateIdIn"];

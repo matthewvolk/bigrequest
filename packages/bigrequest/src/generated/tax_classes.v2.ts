@@ -13,14 +13,14 @@ export interface paths {
      *
      * Default sorting is by tax-class id, from lowest to highest.
      */
-    get: operations["getAllTaxClasses"];
+    get: operations["getTaxClasses"];
   };
   "/tax_classes/{id}": {
     /**
      * Get a Tax Class
      * @description Returns a single *Tax Class*.
      */
-    get: operations["getATaxClass"];
+    get: operations["getTaxClass"];
   };
 }
 
@@ -86,7 +86,7 @@ export interface operations {
    *
    * Default sorting is by tax-class id, from lowest to highest.
    */
-  getAllTaxClasses: {
+  getTaxClasses: {
     parameters: {
       query?: {
         /** @description Optional filter param. Number of pages. */
@@ -110,7 +110,7 @@ export interface operations {
    * Get a Tax Class
    * @description Returns a single *Tax Class*.
    */
-  getATaxClass: {
+  getTaxClass: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

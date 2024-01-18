@@ -18,7 +18,7 @@ export interface paths {
      * **Required Fields**
      * * order_id
      */
-    post: operations["PaymentsAccessTokensPost"];
+    post: operations["createPaymentAccessToken"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -75,7 +75,7 @@ export interface operations {
    * **Required Fields**
    * * order_id
    */
-  PaymentsAccessTokensPost: {
+  createPaymentAccessToken: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
