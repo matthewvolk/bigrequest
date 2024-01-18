@@ -20,7 +20,7 @@ export interface paths {
      *
      * Attribute names are not available on the customer object.
      */
-    get: operations["CustomersGet"];
+    get: operations["getCustomers"];
     /**
      * Update Customers
      * @description Updates Customers. Subresource updates are not supported. Up to 10 customers can be updated in one call.
@@ -40,7 +40,7 @@ export interface paths {
      * * Attributes Values can not be updated using Update a Customer. Use the [Update customer attribute values](/docs/rest-management/customers/customer-attribute-values#upsert-customer-attribute-values) endpoint.
      * * channel_ids -- Updating the list of channels a customer can access may create some side effects in a multi-storefront situation. This list determines which customer account we will use to authenticate a shopper given a channel.
      */
-    put: operations["CustomersPut"];
+    put: operations["updateCustomers"];
     /**
      * Create Customers
      * @description Creates Customers. Create up to 10 customers in one call.
@@ -71,7 +71,7 @@ export interface paths {
      * * **Channel-specific access:**
      *   * Provide a `channel_ids` array containing the channels accessible by the customer. This array cannot be empty.
      */
-    post: operations["CustomersPost"];
+    post: operations["createCustomers"];
     /**
      * Delete Customers
      * @description Deletes Customers.
@@ -83,14 +83,14 @@ export interface paths {
      *
      * A query is required to delete customers. If not provided, a 204 is returned, with no changes to the data.
      */
-    delete: operations["CustomersDelete"];
+    delete: operations["deleteCustomers"];
   };
   "/customers/addresses": {
     /**
      * Get All Customer Addresses
      * @description Returns a list of Customer Addresses. Optional filter parameters can be passed in.
      */
-    get: operations["CustomersAddressesGet"];
+    get: operations["getCustomersAddresses"];
     /**
      * Update a Customer Address
      * @description Updates a Customer Address. Multiple customer addresses can be updated in one call.
@@ -116,7 +116,7 @@ export interface paths {
      *   * **postal_code**
      * * An attempt to update an address such that it becomes identical to another address that already exists will result in no change to the target address or custom form field values. The response will have an HTTP 200 return code, and the address will be absent from the response body.
      */
-    put: operations["CustomersAddressesPut"];
+    put: operations["updateCustomersAddresses"];
     /**
      * Create a Customer Address
      * @description Creates a Customer Address. Multiple customer addresses can be created in one call.
@@ -146,7 +146,7 @@ export interface paths {
      * * An attempt to create an address that already exists will result in no change to the address or custom form field values, an HTTP 200 return code, and the address will be absent from the response body.
      * * The default rate limit for this endpoint is 10 concurrent requests.
      */
-    post: operations["CustomersAddressesPost"];
+    post: operations["createCustomersAddresses"];
     /**
      * Delete a Customer Address
      * @description Deletes a Customer Address.
@@ -154,26 +154,26 @@ export interface paths {
      * **Required Query**
      * * id:in -- ID of the *Customer Address*
      */
-    delete: operations["CustomersAddressesDelete"];
+    delete: operations["deleteCustomersAddresses"];
   };
   "/customers/validate-credentials": {
     /**
      * Validate a customer credentials
      * @description Validate a customer credentials - This endpoint has special rate limiting protections to protect against abuse.
      */
-    post: operations["CustomerValidateCredentials"];
+    post: operations["validateCustomerCredentials"];
   };
   "/customers/settings": {
     /**
      * Get Customer Settings
      * @description Returns the global-level customer settings.
      */
-    get: operations["CustomerSettingsGet"];
+    get: operations["getCustomersSettings"];
     /**
      * Update Customer Settings
      * @description Updates the customer settings on the global level.
      */
-    put: operations["CustomerSettingsPut"];
+    put: operations["updateCustomersSettings"];
   };
   "/customers/settings/channels/{channel_id}": {
     /**
@@ -184,7 +184,7 @@ export interface paths {
      *
      *  * `null` indicates that there is no override per given channel and values are inherited from the global level.
      */
-    get: operations["CustomerSettingsChannelGet"];
+    get: operations["getCustomersSettingsChannel"];
     /**
      * Update Customer Settings per Channel
      * @description Update the customer settings per channel
@@ -197,7 +197,7 @@ export interface paths {
      *
      * * Setting `null` will delete override per given channel, and values will be inherited from the global level. Make sure the channel has `allow_global_logins` enabled.
      */
-    put: operations["CustomerSettingsChannelPut"];
+    put: operations["updateCustomersSettingsChannel"];
     parameters: {
       path: {
         channel_id: string;
@@ -209,7 +209,7 @@ export interface paths {
      * Get All Customer Attributes
      * @description Returns a list of Customer Attributes. You can pass in optional filter parameters.
      */
-    get: operations["CustomersAttributesGet"];
+    get: operations["getCustomersAttributes"];
     /**
      * Update a Customer Attribute
      * @description Updates a Customer Attribute. Multiple customer attributes can be updated in one call.
@@ -222,7 +222,7 @@ export interface paths {
      * **Limits**
      * * Limit of 3 concurrent requests.
      */
-    put: operations["CustomersAttributesPut"];
+    put: operations["updateCustomersAttributes"];
     /**
      * Create a Customer Attribute
      * @description Creates a Customer Attribute. Multiple customer attributes can be created in one call.
@@ -242,7 +242,7 @@ export interface paths {
      *
      * A store cannot have more than 50 customer attributes.
      */
-    post: operations["CustomersAttributesPost"];
+    post: operations["createCustomersAttributes"];
     /**
      * Delete Customer Attributes
      * @description Deletes Customer Attributes from the store.
@@ -250,14 +250,14 @@ export interface paths {
      * **Required Query**
      * * id:in -- ID of the *Customer Attribute*
      */
-    delete: operations["CustomersAttributesDelete"];
+    delete: operations["deleteCustomersAttributes"];
   };
   "/customers/attribute-values": {
     /**
      * Get All Customer Attribute Values
      * @description Returns a list of Customer Attribute Values. Optional filter parameters can be passed in.
      */
-    get: operations["CustomersAttributeValuesGet"];
+    get: operations["getCustomersAttributeValues"];
     /**
      * Upsert Customer Attribute Values
      * @description Upserts Customer Attribute Values. Updates the attribute values on the Customer. Multiple customer attribute values can be updated in one call.
@@ -267,7 +267,7 @@ export interface paths {
      * **Limits**
      * * 10 per call limit.
      */
-    put: operations["CustomersAttributeValuesPut"];
+    put: operations["upsertCustomersAttributeValues"];
     /**
      * Delete Customer Attribute Values
      * @description Deletes Customer Attribute Values. Deletes the attribute value from the customer.
@@ -275,7 +275,7 @@ export interface paths {
      * **Required Query**
      * * id:in - ID of the *Customer Attribute Value*
      */
-    delete: operations["CustomersAttributeValuesDelete"];
+    delete: operations["deleteCustomersAttributeValues"];
   };
   "/customers/form-field-values": {
     /**
@@ -284,7 +284,7 @@ export interface paths {
      *
      * To learn about adding and managing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
      */
-    get: operations["CustomerFormFieldsGet"];
+    get: operations["getCustomersFormFieldValues"];
     /**
      * Upsert Customer Form Field Values
      * @description Updates form field values on the Customer or Customer Address objects. Multiple form field values can be updated in one call.
@@ -296,19 +296,19 @@ export interface paths {
      * **Limits**
      * * Limit of 10 concurrent requests.
      */
-    put: operations["CustomerFormFieldValuePUT"];
+    put: operations["updateCustomerFormFieldValues"];
   };
   "/customers/{customerId}/consent": {
     /**
      * Get Customer Consent
      * @description Gets the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
      */
-    get: operations["CustomersConsentByCustomerId_GET"];
+    get: operations["getCustomerConsent"];
     /**
      * Update Customer Consent
      * @description Updates the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
      */
-    put: operations["CustomersConsentByCustomerId_PUT"];
+    put: operations["updateCustomerConsent"];
     parameters: {
       path: {
         customerId: components["parameters"]["customerId"];
@@ -320,7 +320,7 @@ export interface paths {
      * Get Stored Instruments
      * @description Lists all available stored instruments for a customer. This list will include all types of stored instruments namely card, account and bank_account instruments
      */
-    get: operations["liststoredinstruments"];
+    get: operations["getCustomerStoredInstruments"];
     parameters: {
       path: {
         customerId: string;
@@ -1585,7 +1585,7 @@ export interface operations {
    *
    * Attribute names are not available on the customer object.
    */
-  CustomersGet: {
+  getCustomers: {
     parameters: {
       query?: {
         /** @description Page number. `page=1` */
@@ -1667,7 +1667,7 @@ export interface operations {
    * * Attributes Values can not be updated using Update a Customer. Use the [Update customer attribute values](/docs/rest-management/customers/customer-attribute-values#upsert-customer-attribute-values) endpoint.
    * * channel_ids -- Updating the list of channels a customer can access may create some side effects in a multi-storefront situation. This list determines which customer account we will use to authenticate a shopper given a channel.
    */
-  CustomersPut: {
+  updateCustomers: {
     requestBody?: {
       content: {
         "application/json": components["schemas"]["customer_Put"][];
@@ -1717,7 +1717,7 @@ export interface operations {
    * * **Channel-specific access:**
    *   * Provide a `channel_ids` array containing the channels accessible by the customer. This array cannot be empty.
    */
-  CustomersPost: {
+  createCustomers: {
     requestBody: {
       content: {
         "application/json": components["schemas"]["customer_Post"][];
@@ -1748,7 +1748,7 @@ export interface operations {
    *
    * A query is required to delete customers. If not provided, a 204 is returned, with no changes to the data.
    */
-  CustomersDelete: {
+  deleteCustomers: {
     parameters: {
       query: {
         /**
@@ -1770,7 +1770,7 @@ export interface operations {
    * Get All Customer Addresses
    * @description Returns a list of Customer Addresses. Optional filter parameters can be passed in.
    */
-  CustomersAddressesGet: {
+  getCustomersAddresses: {
     parameters: {
       query?: {
         /** @description Page number. `page=1` */
@@ -1829,7 +1829,7 @@ export interface operations {
    *   * **postal_code**
    * * An attempt to update an address such that it becomes identical to another address that already exists will result in no change to the target address or custom form field values. The response will have an HTTP 200 return code, and the address will be absent from the response body.
    */
-  CustomersAddressesPut: {
+  updateCustomersAddresses: {
     parameters: {
       header?: {
         Accept?: string;
@@ -1880,7 +1880,7 @@ export interface operations {
    * * An attempt to create an address that already exists will result in no change to the address or custom form field values, an HTTP 200 return code, and the address will be absent from the response body.
    * * The default rate limit for this endpoint is 10 concurrent requests.
    */
-  CustomersAddressesPost: {
+  createCustomersAddresses: {
     parameters: {
       header?: {
         Accept?: string;
@@ -1909,7 +1909,7 @@ export interface operations {
    * **Required Query**
    * * id:in -- ID of the *Customer Address*
    */
-  CustomersAddressesDelete: {
+  deleteCustomersAddresses: {
     parameters: {
       query: {
         /**
@@ -1935,7 +1935,7 @@ export interface operations {
    * Validate a customer credentials
    * @description Validate a customer credentials - This endpoint has special rate limiting protections to protect against abuse.
    */
-  CustomerValidateCredentials: {
+  validateCustomerCredentials: {
     requestBody: {
       content: {
         "application/json": components["schemas"]["ValidateCustomerCredentialsObject"];
@@ -1966,7 +1966,7 @@ export interface operations {
    * Get Customer Settings
    * @description Returns the global-level customer settings.
    */
-  CustomerSettingsGet: {
+  getCustomersSettings: {
     responses: {
       /** @description Returns customer settings values for global level. */
       200: {
@@ -1980,7 +1980,7 @@ export interface operations {
    * Update Customer Settings
    * @description Updates the customer settings on the global level.
    */
-  CustomerSettingsPut: {
+  updateCustomersSettings: {
     requestBody: {
       content: {
         "application/json": components["schemas"]["CustomerSettingsObject"];
@@ -2003,7 +2003,7 @@ export interface operations {
    *
    *  * `null` indicates that there is no override per given channel and values are inherited from the global level.
    */
-  CustomerSettingsChannelGet: {
+  getCustomersSettingsChannel: {
     parameters: {
       path: {
         channel_id: number;
@@ -2030,7 +2030,7 @@ export interface operations {
    *
    * * Setting `null` will delete override per given channel, and values will be inherited from the global level. Make sure the channel has `allow_global_logins` enabled.
    */
-  CustomerSettingsChannelPut: {
+  updateCustomersSettingsChannel: {
     parameters: {
       path: {
         channel_id: number;
@@ -2054,7 +2054,7 @@ export interface operations {
    * Get All Customer Attributes
    * @description Returns a list of Customer Attributes. You can pass in optional filter parameters.
    */
-  CustomersAttributesGet: {
+  getCustomersAttributes: {
     parameters: {
       query?: {
         /** @description Page number. `page=1` */
@@ -2101,7 +2101,7 @@ export interface operations {
    * **Limits**
    * * Limit of 3 concurrent requests.
    */
-  CustomersAttributesPut: {
+  updateCustomersAttributes: {
     parameters: {
       header?: {
         Accept?: string;
@@ -2142,7 +2142,7 @@ export interface operations {
    *
    * A store cannot have more than 50 customer attributes.
    */
-  CustomersAttributesPost: {
+  createCustomersAttributes: {
     parameters: {
       header?: {
         Accept?: string;
@@ -2171,7 +2171,7 @@ export interface operations {
    * **Required Query**
    * * id:in -- ID of the *Customer Attribute*
    */
-  CustomersAttributesDelete: {
+  deleteCustomersAttributes: {
     parameters: {
       query: {
         /** @description Filter items by ID. */
@@ -2194,7 +2194,7 @@ export interface operations {
    * Get All Customer Attribute Values
    * @description Returns a list of Customer Attribute Values. Optional filter parameters can be passed in.
    */
-  CustomersAttributeValuesGet: {
+  getCustomersAttributeValues: {
     parameters: {
       query?: {
         /** @description Page number. `page=1` */
@@ -2238,7 +2238,7 @@ export interface operations {
    * **Limits**
    * * 10 per call limit.
    */
-  CustomersAttributeValuesPut: {
+  upsertCustomersAttributeValues: {
     parameters: {
       header?: {
         Accept?: string;
@@ -2267,7 +2267,7 @@ export interface operations {
    * **Required Query**
    * * id:in - ID of the *Customer Attribute Value*
    */
-  CustomersAttributeValuesDelete: {
+  deleteCustomersAttributeValues: {
     parameters: {
       query: {
         /**
@@ -2295,7 +2295,7 @@ export interface operations {
    *
    * To learn about adding and managing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
    */
-  CustomerFormFieldsGet: {
+  getCustomersFormFieldValues: {
     parameters: {
       query?: {
         /** @description Page number. `page=1` */
@@ -2347,7 +2347,7 @@ export interface operations {
    * **Limits**
    * * Limit of 10 concurrent requests.
    */
-  CustomerFormFieldValuePUT: {
+  updateCustomerFormFieldValues: {
     requestBody?: {
       content: {
         "application/json": components["schemas"]["formFieldValue_Full"][];
@@ -2367,7 +2367,7 @@ export interface operations {
    * Get Customer Consent
    * @description Gets the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
    */
-  CustomersConsentByCustomerId_GET: {
+  getCustomerConsent: {
     parameters: {
       path: {
         customerId: components["parameters"]["customerId"];
@@ -2399,7 +2399,7 @@ export interface operations {
    * Update Customer Consent
    * @description Updates the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
    */
-  CustomersConsentByCustomerId_PUT: {
+  updateCustomerConsent: {
     parameters: {
       header?: {
         "Content-Type"?: string;
@@ -2439,7 +2439,7 @@ export interface operations {
    * Get Stored Instruments
    * @description Lists all available stored instruments for a customer. This list will include all types of stored instruments namely card, account and bank_account instruments
    */
-  liststoredinstruments: {
+  getCustomerStoredInstruments: {
     parameters: {
       path: {
         customerId: string;

@@ -13,7 +13,7 @@ export interface paths {
      *
      * *Note: BigCommerce determines the `client_id` from the `access_token`.*
      */
-    get: operations["getAllWebhooks"];
+    get: operations["getWebhooks"];
     /**
      * Create a Webhook
      * @description Creates a webhook. Only one webhook at a time can be created. Custom headers can be added. Destination URL must be served on port 443 (custom ports are not currently supported).
@@ -30,12 +30,12 @@ export interface paths {
      * Update a Webhook
      * @description Updates a webhook. Custom headers can be added.
      */
-    put: operations["updateAWebhook"];
+    put: operations["updateWebhook"];
     /**
      * Delete a Webhook
      * @description Deletes a webhook. Only one webhook at a time can be deleted. When a webhook is deleted, it is returned in the response as a 200 OK.
      */
-    delete: operations["deleteAWebhook"];
+    delete: operations["deleteWebhook"];
     parameters: {
       path: {
         webhook_id: components["parameters"]["WebhookId"];
@@ -52,7 +52,7 @@ export interface paths {
      * Upsert Email Notifications
      * @description Update email addresses that are sent notification emails when any domain associated with the API account is denylisted or when a webhook is deactivated. Supports `upsert` functionality in the case that no email address exists yet.
      */
-    put: operations["putHooksAdmin"];
+    put: operations["updateHooksAdmin"];
   };
   "/hooks/events": {
     /**
@@ -2364,7 +2364,7 @@ export interface operations {
    *
    * *Note: BigCommerce determines the `client_id` from the `access_token`.*
    */
-  getAllWebhooks: {
+  getWebhooks: {
     parameters: {
       query?: {
         page?: components["parameters"]["FilterPageParam"];
@@ -2441,7 +2441,7 @@ export interface operations {
    * Update a Webhook
    * @description Updates a webhook. Custom headers can be added.
    */
-  updateAWebhook: {
+  updateWebhook: {
     parameters: {
       header?: {
         Accept?: components["parameters"]["Accept"];
@@ -2464,7 +2464,7 @@ export interface operations {
    * Delete a Webhook
    * @description Deletes a webhook. Only one webhook at a time can be deleted. When a webhook is deleted, it is returned in the response as a 200 OK.
    */
-  deleteAWebhook: {
+  deleteWebhook: {
     parameters: {
       header?: {
         Accept?: components["parameters"]["Accept"];
@@ -2570,7 +2570,7 @@ export interface operations {
    * Upsert Email Notifications
    * @description Update email addresses that are sent notification emails when any domain associated with the API account is denylisted or when a webhook is deactivated. Supports `upsert` functionality in the case that no email address exists yet.
    */
-  putHooksAdmin: {
+  updateHooksAdmin: {
     /** @description List of notification emails. */
     requestBody: {
       content: {

@@ -11,12 +11,12 @@ export interface paths {
      * Get User Info by User ID
      * @description Retrieve the information of the user with the matching user ID.
      */
-    get: operations["get-users-userId"];
+    get: operations["getUser"];
     /**
      * Update User Information
      * @description Update the information of an existing user.
      */
-    patch: operations["patch-users-userId"];
+    patch: operations["updateUser"];
     parameters: {
       path: {
         /** @description Id of an existing user. */
@@ -29,7 +29,7 @@ export interface paths {
      * Create New User
      * @description Create a new user.
      */
-    post: operations["post-user"];
+    post: operations["createUser"];
   };
 }
 
@@ -99,7 +99,7 @@ export interface operations {
    * Get User Info by User ID
    * @description Retrieve the information of the user with the matching user ID.
    */
-  "get-users-userId": {
+  getUser: {
     parameters: {
       path: {
         /** @description Id of an existing user. */
@@ -123,7 +123,7 @@ export interface operations {
    * Update User Information
    * @description Update the information of an existing user.
    */
-  "patch-users-userId": {
+  updateUser: {
     parameters: {
       path: {
         /** @description Id of an existing user. */
@@ -163,7 +163,7 @@ export interface operations {
    * Create New User
    * @description Create a new user.
    */
-  "post-user": {
+  createUser: {
     /** @description Post the necessary fields for the API to create a new user. */
     requestBody?: {
       content: {

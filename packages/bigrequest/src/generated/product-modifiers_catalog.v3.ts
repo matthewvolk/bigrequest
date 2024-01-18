@@ -11,7 +11,7 @@ export interface paths {
      * Get All Product Modifiers
      * @description Returns a list of all *Product Modifiers*. Optional parameters can be passed in.
      */
-    get: operations["getModifiers"];
+    get: operations["getProductModifiers"];
     /**
      * Create a Product Modifier
      * @description Creates a *Product Modifier*.
@@ -27,7 +27,7 @@ export interface paths {
      * **Notes**
      * It takes two separate requests to create a new checkbox modifier with option values. Perform a request to create a modifier, then perform a second request to update option values.
      */
-    post: operations["createModifier"];
+    post: operations["createProductModifier"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -39,20 +39,20 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}": {
     /**
-     * Get a Modifier
+     * Get a Product Modifier
      * @description Returns a single *Product Modifier*. Optional parameters can be passed in.
      */
-    get: operations["getModifierById"];
+    get: operations["getProductModifier"];
     /**
-     * Update a Modifier
+     * Update a Product Modifier
      * @description Updates a *Product Modifier*.
      */
-    put: operations["updateModifier"];
+    put: operations["updateProductModifier"];
     /**
-     * Delete a Modifier
+     * Delete a Product Modifier
      * @description Deletes a *Product Modifier*.
      */
-    delete: operations["deleteModifierById"];
+    delete: operations["deleteProductModifier"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -65,12 +65,12 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values": {
     /**
-     * Get All Modifier Values
+     * Get All Product Modifier Values
      * @description Returns a list of all product *Modifier Values*. Optional parameters can be passed in.
      */
-    get: operations["getModifierValues"];
+    get: operations["getProductModifierValues"];
     /**
-     * Create Modifier Value
+     * Create Product Modifier Value
      * @description Creates a *Modifier Value*.
      *
      * **Required Fields**
@@ -80,7 +80,7 @@ export interface paths {
      * **Read-Only Fields**
      * * id
      */
-    post: operations["createModifierValue"];
+    post: operations["createProductModifierValue"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -93,12 +93,12 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}": {
     /**
-     * Get a Modifier Value
+     * Get a Product Modifier Value
      * @description Returns a single *Modifier Value*. Optional parameters can be passed in.
      */
-    get: operations["getModifierValueById"];
+    get: operations["getProductModifierValue"];
     /**
-     * Update a Modifier Value
+     * Update a Product Modifier Value
      * @description Updates a *Modifier Value*.
      *
      * **Required Fields**
@@ -107,12 +107,12 @@ export interface paths {
      * **Read-Only Fields**
      * * id
      */
-    put: operations["updateModifierValue"];
+    put: operations["updateProductModifierValue"];
     /**
-     * Delete Modifier Value
+     * Delete Product Modifier Value
      * @description Deletes a *Modifier Value*.
      */
-    delete: operations["deleteModifierValueById"];
+    delete: operations["deleteProductModifierValue"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -126,7 +126,7 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}/image": {
     /**
-     * Create Modifier Image
+     * Create Product Modifier Image
      * @description Creates a *Modifier Image*.
      *
      * The image will show on the storefront when the value is selected.
@@ -134,7 +134,7 @@ export interface paths {
      *  **Required Fields**
      * - image_file: Form posts are the only accepted upload option.
      */
-    post: operations["createModifierImage"];
+    post: operations["createProductModifierImage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -475,7 +475,7 @@ export interface operations {
    * Get All Product Modifiers
    * @description Returns a list of all *Product Modifiers*. Optional parameters can be passed in.
    */
-  getModifiers: {
+  getProductModifiers: {
     parameters: {
       query?: {
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -520,7 +520,7 @@ export interface operations {
    * **Notes**
    * It takes two separate requests to create a new checkbox modifier with option values. Perform a request to create a modifier, then perform a second request to update option values.
    */
-  createModifier: {
+  createProductModifier: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1040,10 +1040,10 @@ export interface operations {
     };
   };
   /**
-   * Get a Modifier
+   * Get a Product Modifier
    * @description Returns a single *Product Modifier*. Optional parameters can be passed in.
    */
-  getModifierById: {
+  getProductModifier: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1084,10 +1084,10 @@ export interface operations {
     };
   };
   /**
-   * Update a Modifier
+   * Update a Product Modifier
    * @description Updates a *Product Modifier*.
    */
-  updateModifier: {
+  updateProductModifier: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1518,10 +1518,10 @@ export interface operations {
     };
   };
   /**
-   * Delete a Modifier
+   * Delete a Product Modifier
    * @description Deletes a *Product Modifier*.
    */
-  deleteModifierById: {
+  deleteProductModifier: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1539,10 +1539,10 @@ export interface operations {
     };
   };
   /**
-   * Get All Modifier Values
+   * Get All Product Modifier Values
    * @description Returns a list of all product *Modifier Values*. Optional parameters can be passed in.
    */
-  getModifierValues: {
+  getProductModifierValues: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1576,7 +1576,7 @@ export interface operations {
     };
   };
   /**
-   * Create Modifier Value
+   * Create Product Modifier Value
    * @description Creates a *Modifier Value*.
    *
    * **Required Fields**
@@ -1586,7 +1586,7 @@ export interface operations {
    * **Read-Only Fields**
    * * id
    */
-  createModifierValue: {
+  createProductModifierValue: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1784,10 +1784,10 @@ export interface operations {
     };
   };
   /**
-   * Get a Modifier Value
+   * Get a Product Modifier Value
    * @description Returns a single *Modifier Value*. Optional parameters can be passed in.
    */
-  getModifierValueById: {
+  getProductModifierValue: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1833,7 +1833,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Modifier Value
+   * Update a Product Modifier Value
    * @description Updates a *Modifier Value*.
    *
    * **Required Fields**
@@ -1842,7 +1842,7 @@ export interface operations {
    * **Read-Only Fields**
    * * id
    */
-  updateModifierValue: {
+  updateProductModifierValue: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2046,10 +2046,10 @@ export interface operations {
     };
   };
   /**
-   * Delete Modifier Value
+   * Delete Product Modifier Value
    * @description Deletes a *Modifier Value*.
    */
-  deleteModifierValueById: {
+  deleteProductModifierValue: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2072,7 +2072,7 @@ export interface operations {
     };
   };
   /**
-   * Create Modifier Image
+   * Create Product Modifier Image
    * @description Creates a *Modifier Image*.
    *
    * The image will show on the storefront when the value is selected.
@@ -2080,7 +2080,7 @@ export interface operations {
    *  **Required Fields**
    * - image_file: Form posts are the only accepted upload option.
    */
-  createModifierImage: {
+  createProductModifierImage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

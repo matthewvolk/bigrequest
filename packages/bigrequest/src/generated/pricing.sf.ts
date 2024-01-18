@@ -14,7 +14,7 @@ export interface paths {
      * **Limits**
      * * Limit of 50 concurrent requests.
      */
-    post: operations["get-prices"];
+    post: operations["getPrices"];
   };
 }
 
@@ -416,7 +416,7 @@ export interface operations {
    * **Limits**
    * * Limit of 50 concurrent requests.
    */
-  "get-prices": {
+  getPrices: {
     requestBody: {
       content: {
         "application/json": {

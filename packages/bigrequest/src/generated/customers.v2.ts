@@ -12,7 +12,7 @@ export interface paths {
      * @deprecated
      * @description Returns a list of all *Customers*. Default sorting is by `customer_ID`, from lowest to highest. Optional parameters can be passed in.
      */
-    get: operations["getAllCustomers"];
+    get: operations["getCustomers"];
     /**
      * Create a New Customer
      * @deprecated
@@ -60,13 +60,13 @@ export interface paths {
      * }
      * ```
      */
-    post: operations["createANewCustomer"];
+    post: operations["createCustomer"];
     /**
      * Delete Customers
      * @deprecated
      * @description By default, it deletes all *Customers*. Up to 100 customers per batch can be deleted.
      */
-    delete: operations["deleteAllCustomers"];
+    delete: operations["deleteCustomers"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -79,7 +79,7 @@ export interface paths {
      * @deprecated
      * @description Returns a single *Customer*.
      */
-    get: operations["getACustomer"];
+    get: operations["getCustomer"];
     /**
      * Update a Customer
      * @deprecated
@@ -128,13 +128,13 @@ export interface paths {
      * }
      * ```
      */
-    put: operations["updateACustomer"];
+    put: operations["updateCustomer"];
     /**
      * Delete a Customer
      * @deprecated
      * @description Deletes a *Customer*.
      */
-    delete: operations["deleteACustomer"];
+    delete: operations["deleteCustomer"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -150,7 +150,7 @@ export interface paths {
      * @deprecated
      * @description Returns a count of all *Customers*.
      */
-    get: operations["getACountOfCustomers"];
+    get: operations["getCustomersCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -195,7 +195,7 @@ export interface paths {
      * @description Returns a list of *Customer Addresses*. Returns the addresses belonging to a customer. Default sorting is by address id, from lowest to highest.
      * The maximum limit is 250. If a limit isn’t provided, up to 50 `customer_addresses` are returned by default.
      */
-    get: operations["getAllCustomerAddresses"];
+    get: operations["getCustomerAddresses"];
     /**
      * Create a Customer Address
      * @deprecated
@@ -215,13 +215,13 @@ export interface paths {
      * *   id
      * *   country_iso2
      */
-    post: operations["createACustomerAddress"];
+    post: operations["createCustomerAddress"];
     /**
      * Delete Customer Address
      * @deprecated
      * @description By default, it deletes all *Customer Addresses*.
      */
-    delete: operations["deleteAllCustomerAddresses"];
+    delete: operations["deleteCustomerAddresses"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -237,7 +237,7 @@ export interface paths {
      * @deprecated
      * @description Returns a *Customer Address*.
      */
-    get: operations["getACustomerAddress"];
+    get: operations["getCustomerAddress"];
     /**
      * Update a Customer Address
      * @deprecated
@@ -247,13 +247,13 @@ export interface paths {
      * *   id
      * *   country_iso2
      */
-    put: operations["updateACustomerAddress"];
+    put: operations["updateCustomerAddress"];
     /**
      * Delete a Customer Address
      * @deprecated
      * @description Deletes a *Customer Address*.
      */
-    delete: operations["deletesACustomerAddress"];
+    delete: operations["deletesCustomerAddress"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -270,7 +270,7 @@ export interface paths {
      * @deprecated
      * @description Returns a count of addresses for a customer.
      */
-    get: operations["getACountofCustomerAddresses"];
+    get: operations["getCustomerAddressesCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -288,7 +288,7 @@ export interface paths {
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    get: operations["getAllCustomerGroups"];
+    get: operations["getCustomerGroups"];
     /**
      * Create a Customer Group
      * @description Creates a *Customer Group*.
@@ -299,13 +299,13 @@ export interface paths {
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    post: operations["createACustomerGroup"];
+    post: operations["createCustomerGroup"];
     /**
      * Delete Customer Groups
      * @description By default, it deletes all *Customer Groups*.
      * All existing customers are unassigned from the group when it is deleted.
      */
-    delete: operations["deleteAllCustomerGroups"];
+    delete: operations["deleteCustomerGroups"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -317,7 +317,7 @@ export interface paths {
      * Get a Customer Group
      * @description Returns a *Customer Group*.
      */
-    get: operations["getACustomerGroup"];
+    get: operations["getCustomerGroup"];
     /**
      * Update a Customer Group
      * @description Updates a *Customer Group*.
@@ -326,7 +326,7 @@ export interface paths {
      *
      * Any combination of fields can be updated at once. Discount rules are treated in bulk. The entire set of rules is overwritten when a request is sent.
      */
-    put: operations["updateACustomerGroup"];
+    put: operations["updateCustomerGroup"];
     /**
      * Delete a Customer Group
      * @description Deletes a *Customer Group*.
@@ -335,7 +335,7 @@ export interface paths {
      * - All existing customers are unassigned from the group when it is deleted.
      * - The default rate limit for this endpoint is 40 concurrent requests.
      */
-    delete: operations["deleteACustomerGroup"];
+    delete: operations["deleteCustomerGroup"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -350,7 +350,7 @@ export interface paths {
      * Get a Count of Customer Groups
      * @description Returns a count of all *Customer Groups*.
      */
-    get: operations["getACountOfCustomerGroups"];
+    get: operations["getCustomerGroupsCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -936,7 +936,7 @@ export interface operations {
    * @deprecated
    * @description Returns a list of all *Customers*. Default sorting is by `customer_ID`, from lowest to highest. Optional parameters can be passed in.
    */
-  getAllCustomers: {
+  getCustomers: {
     parameters: {
       query?: {
         first_name?: string;
@@ -1013,7 +1013,7 @@ export interface operations {
    * }
    * ```
    */
-  createANewCustomer: {
+  createCustomer: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1051,7 +1051,7 @@ export interface operations {
    * @deprecated
    * @description By default, it deletes all *Customers*. Up to 100 customers per batch can be deleted.
    */
-  deleteAllCustomers: {
+  deleteCustomers: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1069,7 +1069,7 @@ export interface operations {
    * @deprecated
    * @description Returns a single *Customer*.
    */
-  getACustomer: {
+  getCustomer: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1134,7 +1134,7 @@ export interface operations {
    * }
    * ```
    */
-  updateACustomer: {
+  updateCustomer: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1162,7 +1162,7 @@ export interface operations {
    * @deprecated
    * @description Deletes a *Customer*.
    */
-  deleteACustomer: {
+  deleteCustomer: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1183,7 +1183,7 @@ export interface operations {
    * @deprecated
    * @description Returns a count of all *Customers*.
    */
-  getACountOfCustomers: {
+  getCustomersCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1249,7 +1249,7 @@ export interface operations {
    * @description Returns a list of *Customer Addresses*. Returns the addresses belonging to a customer. Default sorting is by address id, from lowest to highest.
    * The maximum limit is 250. If a limit isn’t provided, up to 50 `customer_addresses` are returned by default.
    */
-  getAllCustomerAddresses: {
+  getCustomerAddresses: {
     parameters: {
       query?: {
         /** @description Number of pages. */
@@ -1291,7 +1291,7 @@ export interface operations {
    * *   id
    * *   country_iso2
    */
-  createACustomerAddress: {
+  createCustomerAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1319,7 +1319,7 @@ export interface operations {
    * @deprecated
    * @description By default, it deletes all *Customer Addresses*.
    */
-  deleteAllCustomerAddresses: {
+  deleteCustomerAddresses: {
     parameters: {
       query?: {
         /** @description Number of pages. */
@@ -1346,7 +1346,7 @@ export interface operations {
    * @deprecated
    * @description Returns a *Customer Address*.
    */
-  getACustomerAddress: {
+  getCustomerAddress: {
     parameters: {
       query?: {
         /** @description Number of pages. */
@@ -1379,7 +1379,7 @@ export interface operations {
    * *   id
    * *   country_iso2
    */
-  updateACustomerAddress: {
+  updateCustomerAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1476,7 +1476,7 @@ export interface operations {
    * @deprecated
    * @description Deletes a *Customer Address*.
    */
-  deletesACustomerAddress: {
+  deletesCustomerAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1498,7 +1498,7 @@ export interface operations {
    * @deprecated
    * @description Returns a count of addresses for a customer.
    */
-  getACountofCustomerAddresses: {
+  getCustomerAddressesCount: {
     parameters: {
       query?: {
         /** @description Number of pages. */
@@ -1528,7 +1528,7 @@ export interface operations {
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  getAllCustomerGroups: {
+  getCustomerGroups: {
     parameters: {
       query?: {
         /** @description Number of pages. */
@@ -1578,7 +1578,7 @@ export interface operations {
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  createACustomerGroup: {
+  createCustomerGroup: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1612,7 +1612,7 @@ export interface operations {
    * @description By default, it deletes all *Customer Groups*.
    * All existing customers are unassigned from the group when it is deleted.
    */
-  deleteAllCustomerGroups: {
+  deleteCustomerGroups: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1629,7 +1629,7 @@ export interface operations {
    * Get a Customer Group
    * @description Returns a *Customer Group*.
    */
-  getACustomerGroup: {
+  getCustomerGroup: {
     parameters: {
       query?: {
         /** @description Number of pages. */
@@ -1683,7 +1683,7 @@ export interface operations {
    *
    * Any combination of fields can be updated at once. Discount rules are treated in bulk. The entire set of rules is overwritten when a request is sent.
    */
-  updateACustomerGroup: {
+  updateCustomerGroup: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1723,7 +1723,7 @@ export interface operations {
    * - All existing customers are unassigned from the group when it is deleted.
    * - The default rate limit for this endpoint is 40 concurrent requests.
    */
-  deleteACustomerGroup: {
+  deleteCustomerGroup: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1750,7 +1750,7 @@ export interface operations {
    * Get a Count of Customer Groups
    * @description Returns a count of all *Customer Groups*.
    */
-  getACountOfCustomerGroups: {
+  getCustomerGroupsCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

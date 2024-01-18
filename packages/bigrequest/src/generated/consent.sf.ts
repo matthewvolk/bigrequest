@@ -24,7 +24,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      */
-    post: operations["postConsent"];
+    post: operations["postCookieConsent"];
   };
 }
 
@@ -81,7 +81,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    */
-  postConsent: {
+  postCookieConsent: {
     /** @description Data sent to the [Update customer consent](/docs/rest-management/customers/customer-consent#update-customer-consent) endpoint when creating a customer during checkout. */
     requestBody: {
       content: {

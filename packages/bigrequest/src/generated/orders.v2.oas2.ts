@@ -11,7 +11,7 @@ export interface paths {
      * Get an Order
      * @description Gets an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
-    get: operations["getAnOrder"];
+    get: operations["getOrder"];
     /**
      * Update an Order
      * @description Updates an *Order*.
@@ -24,12 +24,12 @@ export interface paths {
      *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
-    put: operations["updateAnOrder"];
+    put: operations["updateOrder"];
     /**
      * Archive an Order
      * @description Archives an order. To remove a single product from an order, see `PUT /orders/{order_id}`.
      */
-    delete: operations["deleteAnOrder"];
+    delete: operations["deleteOrder"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -44,7 +44,7 @@ export interface paths {
      * Get a Count of Orders
      * @description Gets an array of orders in the store organized by order status.
      */
-    get: operations["getCountOrder"];
+    get: operations["getOrdersCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -61,7 +61,7 @@ export interface paths {
      * * The default sort is by order id, from lowest to highest.
      * * By default, requests sent without parameters will only return 50 orders.
      */
-    get: operations["getAllOrders"];
+    get: operations["getOrders"];
     /**
      * Create an Order
      * @description Creates an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
@@ -87,12 +87,12 @@ export interface paths {
      * - `shipping_addresses`
      * - `products`
      */
-    post: operations["createAnOrder"];
+    post: operations["createOrder"];
     /**
      * Delete All Orders
      * @description Archives all orders.
      */
-    delete: operations["deleteAllOrders"];
+    delete: operations["deleteOrders"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -113,7 +113,7 @@ export interface paths {
      * |`4`|`free_shipping`|
      * |`5`|`promotion`|
      */
-    get: operations["getAllOrderCoupons"];
+    get: operations["getOrderCoupons"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -128,7 +128,7 @@ export interface paths {
      * List Order Products
      * @description Lists 50 order products on an order using `order_id`. By default, items sort from lowest to highest according to a newly created ID, separate from the `order_id` and the `product_id`.
      */
-    get: operations["getAllOrderProducts"];
+    get: operations["getOrderProducts"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -145,7 +145,7 @@ export interface paths {
      *
      * Returned in the response is shipping_quotes object. Please use the Get Shipping Quotes Endpoint. Using the response will return a 204 for the shipping quote.
      */
-    get: operations["getAllShippingAddresses"];
+    get: operations["getOrderShippingAddresses"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -179,7 +179,7 @@ export interface paths {
      * | 13 | Disputed | Customer has initiated a dispute resolution process for the PayPal transaction that paid for the order. |
      * | 14 | Partially Refunded | Seller has partially refunded the order. |
      */
-    get: operations["getOrderStatus"];
+    get: operations["getOrderStatuses"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -210,7 +210,7 @@ export interface paths {
      * | 13 | Disputed | Customer has initiated a dispute resolution process for the PayPal transaction that paid for the order. |
      * | 14 | Partially Refunded | Seller has partially refunded the order. |
      */
-    get: operations["getAOrderStatus"];
+    get: operations["getOrderStatusesStatus"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -245,7 +245,7 @@ export interface paths {
      * Get Order Shipments
      * @description Gets a list of all shipments on an order.
      */
-    get: operations["getAllOrderShipments"];
+    get: operations["getOrderShipments"];
     /**
      * Create Order Shipment
      * @description Creates an *Order Shipment*. For more details, see [Shipping an Order](/docs/store-operations/orders#creating-order-shipments).
@@ -273,7 +273,7 @@ export interface paths {
      * Delete Order Shipments
      * @description Deletes all shipments associated with an order.
      */
-    delete: operations["deleteAllOrderShipments"];
+    delete: operations["deleteOrderShipments"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -288,7 +288,7 @@ export interface paths {
      * Get Count of Order Shipments
      * @description Gets a count of the number of shipments that have been made for a single order.
      */
-    get: operations["getCountShipments"];
+    get: operations["getOrderShipmentsCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -344,7 +344,7 @@ export interface paths {
      * Get an Order Product
      * @description Gets a product line item associated with the order.
      */
-    get: operations["getAnOrderProduct"];
+    get: operations["getOrderProduct"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -362,14 +362,14 @@ export interface paths {
      *
      * Returned in the response is shipping_quotes object. Please use the Get Shipping Quotes Endpoint. Using the response will return a 204 for the shipping quote.
      */
-    get: operations["getAShippingAddress"];
+    get: operations["getOrderShippingAddress"];
     /**
      * Update a Shipping Address
      * @description Update a shipping address associated with an order.
      *
      * **Note**: Updating a shipping address will NOT trigger the recalculation of shipping cost and tax
      */
-    put: operations["updateAShippingAddress"];
+    put: operations["updateOrderShippingAddress"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -388,7 +388,7 @@ export interface paths {
      *
      * This is a read-only endpoint and the output can vary based on the shipping quote. A shipping quote can only be generated using the storefront at this time. Orders that are created in the control panel or using the API return a 204 for this endpoint since a shipping quote is not generated during that process.
      */
-    get: operations["getShippingQuotes"];
+    get: operations["getOrderShippingAddressShippingQuotes"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -404,7 +404,7 @@ export interface paths {
      * Get Consignments
      * @description Get all consignments for an order.
      */
-    get: operations["get-orders-orderId-consignments"];
+    get: operations["getOrderConsignments"];
     parameters: {
       query?: {
         /** @description * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. */
@@ -421,7 +421,7 @@ export interface paths {
      * @description Get all shipping quotes persisted on an order for a shipping consignment.
      * This is a read-only endpoint whose response depends on the shipping quote. You can only generate a shipping quote using the storefront at this time. Orders that are created in the control panel, or using the API, return a 204 status response since you can't generate a shipping quote during that process.
      */
-    get: operations["get-orders-orderId-consignments-shipping-shippingId-shippingQuotes"];
+    get: operations["getOrderConsignmentShippingQuotes"];
   };
 }
 
@@ -1712,8 +1712,13 @@ export interface components {
        */
       is_email_opt_in?: boolean;
       /**
-       * @description Orders submitted from the storeʼs website will include a `www` value. Orders submitted with the Checkout API will be set to `checkout_api`.
-       * @example www, iPhone, Android, mobile, manual
+       * @description The `order_source` is set upon order creation and reflects the origin of the order. It will indicate whether the order was created by one of the following:
+       * * storefront
+       * * control panel
+       * * manual order
+       * * /v2/orders API
+       * * Checkout API
+       * * or by an integration with an external platform such as Facebook by Meta or Amazon.
        */
       order_source?: string;
       consignments?: components["schemas"]["orderConsignments_Resource"];
@@ -2645,7 +2650,7 @@ export interface operations {
    * Get an Order
    * @description Gets an *Order*. To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
-  getAnOrder: {
+  getOrder: {
     parameters: {
       query?: {
         include?: components["parameters"]["order_includes"];
@@ -2679,7 +2684,7 @@ export interface operations {
    *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
-  updateAnOrder: {
+  updateOrder: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2702,7 +2707,7 @@ export interface operations {
    * Archive an Order
    * @description Archives an order. To remove a single product from an order, see `PUT /orders/{order_id}`.
    */
-  deleteAnOrder: {
+  deleteOrder: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2721,7 +2726,7 @@ export interface operations {
    * Get a Count of Orders
    * @description Gets an array of orders in the store organized by order status.
    */
-  getCountOrder: {
+  getOrdersCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2740,7 +2745,7 @@ export interface operations {
    * * The default sort is by order id, from lowest to highest.
    * * By default, requests sent without parameters will only return 50 orders.
    */
-  getAllOrders: {
+  getOrders: {
     parameters: {
       query?: {
         min_id?: components["parameters"]["min_id"];
@@ -2796,7 +2801,7 @@ export interface operations {
    * - `shipping_addresses`
    * - `products`
    */
-  createAnOrder: {
+  createOrder: {
     parameters: {
       query?: {
         include?: components["parameters"]["order_includes"];
@@ -2819,7 +2824,7 @@ export interface operations {
    * Delete All Orders
    * @description Archives all orders.
    */
-  deleteAllOrders: {
+  deleteOrders: {
     parameters: {
       query?: {
         limit?: components["parameters"]["limit"];
@@ -2847,7 +2852,7 @@ export interface operations {
    * |`4`|`free_shipping`|
    * |`5`|`promotion`|
    */
-  getAllOrderCoupons: {
+  getOrderCoupons: {
     parameters: {
       query?: {
         page?: components["parameters"]["page"];
@@ -2868,7 +2873,7 @@ export interface operations {
    * List Order Products
    * @description Lists 50 order products on an order using `order_id`. By default, items sort from lowest to highest according to a newly created ID, separate from the `order_id` and the `product_id`.
    */
-  getAllOrderProducts: {
+  getOrderProducts: {
     parameters: {
       query?: {
         page?: components["parameters"]["page"];
@@ -2892,7 +2897,7 @@ export interface operations {
    *
    * Returned in the response is shipping_quotes object. Please use the Get Shipping Quotes Endpoint. Using the response will return a 204 for the shipping quote.
    */
-  getAllShippingAddresses: {
+  getOrderShippingAddresses: {
     parameters: {
       query?: {
         page?: components["parameters"]["page"];
@@ -2932,7 +2937,7 @@ export interface operations {
    * | 13 | Disputed | Customer has initiated a dispute resolution process for the PayPal transaction that paid for the order. |
    * | 14 | Partially Refunded | Seller has partially refunded the order. |
    */
-  getOrderStatus: {
+  getOrderStatuses: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2965,7 +2970,7 @@ export interface operations {
    * | 13 | Disputed | Customer has initiated a dispute resolution process for the PayPal transaction that paid for the order. |
    * | 14 | Partially Refunded | Seller has partially refunded the order. |
    */
-  getAOrderStatus: {
+  getOrderStatusesStatus: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3010,7 +3015,7 @@ export interface operations {
    * Get Order Shipments
    * @description Gets a list of all shipments on an order.
    */
-  getAllOrderShipments: {
+  getOrderShipments: {
     parameters: {
       query?: {
         page?: components["parameters"]["page"];
@@ -3072,7 +3077,7 @@ export interface operations {
    * Delete Order Shipments
    * @description Deletes all shipments associated with an order.
    */
-  deleteAllOrderShipments: {
+  deleteOrderShipments: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3091,7 +3096,7 @@ export interface operations {
    * Get Count of Order Shipments
    * @description Gets a count of the number of shipments that have been made for a single order.
    */
-  getCountShipments: {
+  getOrderShipmentsCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3198,7 +3203,7 @@ export interface operations {
    * Get an Order Product
    * @description Gets a product line item associated with the order.
    */
-  getAnOrderProduct: {
+  getOrderProduct: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3218,7 +3223,7 @@ export interface operations {
    *
    * Returned in the response is shipping_quotes object. Please use the Get Shipping Quotes Endpoint. Using the response will return a 204 for the shipping quote.
    */
-  getAShippingAddress: {
+  getOrderShippingAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3239,7 +3244,7 @@ export interface operations {
    *
    * **Note**: Updating a shipping address will NOT trigger the recalculation of shipping cost and tax
    */
-  updateAShippingAddress: {
+  updateOrderShippingAddress: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3289,7 +3294,7 @@ export interface operations {
    *
    * This is a read-only endpoint and the output can vary based on the shipping quote. A shipping quote can only be generated using the storefront at this time. Orders that are created in the control panel or using the API return a 204 for this endpoint since a shipping quote is not generated during that process.
    */
-  getShippingQuotes: {
+  getOrderShippingAddressShippingQuotes: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3307,7 +3312,7 @@ export interface operations {
    * Get Consignments
    * @description Get all consignments for an order.
    */
-  "get-orders-orderId-consignments": {
+  getOrderConsignments: {
     parameters: {
       query?: {
         /** @description * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. */
@@ -3333,7 +3338,7 @@ export interface operations {
    * @description Get all shipping quotes persisted on an order for a shipping consignment.
    * This is a read-only endpoint whose response depends on the shipping quote. You can only generate a shipping quote using the storefront at this time. Orders that are created in the control panel, or using the API, return a 204 status response since you can't generate a shipping quote during that process.
    */
-  "get-orders-orderId-consignments-shipping-shippingId-shippingQuotes": {
+  getOrderConsignmentShippingQuotes: {
     parameters: {
       path: {
         order_id: components["parameters"]["order_id_path"];

@@ -11,7 +11,7 @@ export interface paths {
      * Get All Blog Tags
      * @description Returns a list of *Blog Tags*.
      */
-    get: operations["getAllBlogTags"];
+    get: operations["getBlogTags"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -23,7 +23,7 @@ export interface paths {
      * Get All Blog Posts
      * @description Returns all *Blog Posts*. Default sorting is by published_date, beginning with the most recent post.
      */
-    get: operations["getAllBlogPosts"];
+    get: operations["getBlogPosts"];
     /**
      * Create a Blog Post
      * @description Creates a *Blog Post*.
@@ -38,12 +38,12 @@ export interface paths {
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
      */
-    post: operations["createABlogPosts"];
+    post: operations["createBlogPosts"];
     /**
      * Delete Blog Posts
      * @description Deletes a page of `Blog Posts`.
      */
-    delete: operations["deleteAllBlogPosts"];
+    delete: operations["deleteBlogPosts"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -55,7 +55,7 @@ export interface paths {
      * Get a Blog Post
      * @description Returns a single *Blog Post*.
      */
-    get: operations["getABlogPost"];
+    get: operations["getBlogPost"];
     /**
      * Update a Blog Post
      * @description Updates a *Blog Post*.
@@ -66,12 +66,12 @@ export interface paths {
      *
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      */
-    put: operations["updateABlogPost"];
+    put: operations["updateBlogPost"];
     /**
      * Delete a Blog Post
      * @description Deletes a *Blog Post*.
      */
-    delete: operations["deleteABlogPost"];
+    delete: operations["deleteBlogPost"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -87,7 +87,7 @@ export interface paths {
      * Get A Count of All Blog Posts
      * @description Returns a count of all *Blog Posts*.
      */
-    get: operations["getACountOfAllBlogPosts"];
+    get: operations["getBlogPostsCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -105,7 +105,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To get one or more pages, use Pages V3ʼs [Get pages](/docs/rest-content/pages#get-pages) endpoint. To get a single page, use Pages V3ʼs [Get a page](/docs/rest-content/pages#get-a-page) endpoint.
      */
-    get: operations["getAllPages"];
+    get: operations["getPages"];
     /**
      * Create a Page
      * @deprecated
@@ -130,7 +130,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To create one or more pages, use Pages V3ʼs [Create pages](/docs/rest-content/pages#create-pages) endpoint.
      */
-    post: operations["createAPage"];
+    post: operations["createPage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -148,7 +148,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To get a single page, use Pages V3ʼs [Get a page](/docs/rest-content/pages#get-a-page) endpoint.
      */
-    get: operations["getAPage"];
+    get: operations["getPage"];
     /**
      * Update a Page
      * @deprecated
@@ -162,7 +162,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To update multiple pages, use Pages V3ʼs [Update pages](/docs/rest-content/pages#update-pages) endpoint. To update a single page, use Pages V3ʼs [Update a page](/docs/rest-content/pages#update-a-page) endpoint.
      */
-    put: operations["updateAPage"];
+    put: operations["updatePage"];
     /**
      * Delete a Page
      * @deprecated
@@ -173,7 +173,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To delete multiple pages, use Pages V3ʼs [Delete pages](/docs/rest-content/pages#delete-pages) endpoint. To delete a single page, use Pages V3ʼs [Delete a page](/docs/rest-content/pages#delete-a-page) endpoint.
      */
-    delete: operations["deleteAPage"];
+    delete: operations["deletePage"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -195,7 +195,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To get redirect URLs, use Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
      */
-    get: operations["getAListofRedirects"];
+    get: operations["getRedirects"];
     /**
      * Create a Redirect
      * @description Creates a *Redirect URL*.
@@ -213,7 +213,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To upsert new redirect data, use Redirects V3ʼs [Upsert redirects](/docs/rest-management/redirects#upsert-redirects) endpoint.
      */
-    post: operations["createARedirect"];
+    post: operations["createRedirect"];
     /**
      * Delete All Redirects
      * @deprecated
@@ -225,7 +225,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To delete redirect URLs, use Redirects V3ʼs [Delete redirects](/docs/rest-management/redirects#delete-redirects) endpoint.
      */
-    delete: operations["deleteAllRedirects"];
+    delete: operations["deleteRedirects"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -243,7 +243,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To get a redirect URL, use Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
      */
-    get: operations["getARedirectURL"];
+    get: operations["getRedirect"];
     /**
      * Update a Redirect
      * @description Updates a *Redirect URL*.
@@ -261,7 +261,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To update redirect data, use Redirects V3ʼs [Upsert redirects](/docs/rest-management/redirects#upsert-redirects) endpoint.
      */
-    put: operations["updateARedirectURL"];
+    put: operations["updateRedirect"];
     /**
      * Delete a Redirect
      * @description Deletes a *Redirect URL*.
@@ -271,7 +271,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To delete a redirect URL, use Redirects V3ʼs [Delete redirects](/docs/rest-management/redirects#delete-redirects) endpoint.
      */
-    delete: operations["deleteARedirect"];
+    delete: operations["deleteRedirect"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -293,7 +293,7 @@ export interface paths {
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To get a count of redirects, use the `meta` object data returned with the Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
      */
-    get: operations["getACountOfRedirects"];
+    get: operations["getRedirectsCount"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -943,7 +943,7 @@ export interface operations {
    * Get All Blog Tags
    * @description Returns a list of *Blog Tags*.
    */
-  getAllBlogTags: {
+  getBlogTags: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -961,7 +961,7 @@ export interface operations {
    * Get All Blog Posts
    * @description Returns all *Blog Posts*. Default sorting is by published_date, beginning with the most recent post.
    */
-  getAllBlogPosts: {
+  getBlogPosts: {
     parameters: {
       query?: {
         /** @description Filter param. */
@@ -1003,7 +1003,7 @@ export interface operations {
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
    */
-  createABlogPosts: {
+  createBlogPosts: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1033,7 +1033,7 @@ export interface operations {
    * Delete Blog Posts
    * @description Deletes a page of `Blog Posts`.
    */
-  deleteAllBlogPosts: {
+  deleteBlogPosts: {
     parameters: {
       query?: {
         /** @description Filter param. */
@@ -1056,7 +1056,7 @@ export interface operations {
    * Get a Blog Post
    * @description Returns a single *Blog Post*.
    */
-  getABlogPost: {
+  getBlogPost: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1084,7 +1084,7 @@ export interface operations {
    *
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    */
-  updateABlogPost: {
+  updateBlogPost: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1118,7 +1118,7 @@ export interface operations {
    * Delete a Blog Post
    * @description Deletes a *Blog Post*.
    */
-  deleteABlogPost: {
+  deleteBlogPost: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1139,7 +1139,7 @@ export interface operations {
    * Get A Count of All Blog Posts
    * @description Returns a count of all *Blog Posts*.
    */
-  getACountOfAllBlogPosts: {
+  getBlogPostsCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1163,7 +1163,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To get one or more pages, use Pages V3ʼs [Get pages](/docs/rest-content/pages#get-pages) endpoint. To get a single page, use Pages V3ʼs [Get a page](/docs/rest-content/pages#get-a-page) endpoint.
    */
-  getAllPages: {
+  getPages: {
     parameters: {
       query?: {
         /** @description Filter param. */
@@ -1208,7 +1208,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To create one or more pages, use Pages V3ʼs [Create pages](/docs/rest-content/pages#create-pages) endpoint.
    */
-  createAPage: {
+  createPage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1244,7 +1244,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To get a single page, use Pages V3ʼs [Get a page](/docs/rest-content/pages#get-a-page) endpoint.
    */
-  getAPage: {
+  getPage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1275,7 +1275,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To update multiple pages, use Pages V3ʼs [Update pages](/docs/rest-content/pages#update-pages) endpoint. To update a single page, use Pages V3ʼs [Update a page](/docs/rest-content/pages#update-a-page) endpoint.
    */
-  updateAPage: {
+  updatePage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1315,7 +1315,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To delete multiple pages, use Pages V3ʼs [Delete pages](/docs/rest-content/pages#delete-pages) endpoint. To delete a single page, use Pages V3ʼs [Delete a page](/docs/rest-content/pages#delete-a-page) endpoint.
    */
-  deleteAPage: {
+  deletePage: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1342,7 +1342,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To get redirect URLs, use Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
    */
-  getAListofRedirects: {
+  getRedirects: {
     parameters: {
       query?: {
         /** @description Filter param. */
@@ -1380,7 +1380,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To upsert new redirect data, use Redirects V3ʼs [Upsert redirects](/docs/rest-management/redirects#upsert-redirects) endpoint.
    */
-  createARedirect: {
+  createRedirect: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1411,7 +1411,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To delete redirect URLs, use Redirects V3ʼs [Delete redirects](/docs/rest-management/redirects#delete-redirects) endpoint.
    */
-  deleteAllRedirects: {
+  deleteRedirects: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1434,7 +1434,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To get a redirect URL, use Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
    */
-  getARedirectURL: {
+  getRedirect: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1469,7 +1469,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To update redirect data, use Redirects V3ʼs [Upsert redirects](/docs/rest-management/redirects#upsert-redirects) endpoint.
    */
-  updateARedirectURL: {
+  updateRedirect: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1531,7 +1531,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To delete a redirect URL, use Redirects V3ʼs [Delete redirects](/docs/rest-management/redirects#delete-redirects) endpoint.
    */
-  deleteARedirect: {
+  deleteRedirect: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1558,7 +1558,7 @@ export interface operations {
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To get a count of redirects, use the `meta` object data returned with the Redirects V3ʼs [Get redirects](/docs/rest-management/redirects#get-redirects) endpoint.
    */
-  getACountOfRedirects: {
+  getRedirectsCount: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

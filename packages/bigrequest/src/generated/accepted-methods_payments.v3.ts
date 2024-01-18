@@ -19,7 +19,7 @@ export interface paths {
      * **Required Fields**
      * * `order_id` or `checkout_id`
      */
-    get: operations["PaymentsMethodsGet"];
+    get: operations["getPaymentMethods"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -137,7 +137,7 @@ export interface operations {
    * **Required Fields**
    * * `order_id` or `checkout_id`
    */
-  PaymentsMethodsGet: {
+  getPaymentMethods: {
     parameters: {
       query?: {
         /** @description Identifier for the order */

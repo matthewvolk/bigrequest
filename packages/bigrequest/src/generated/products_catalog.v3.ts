@@ -32,7 +32,7 @@ export interface paths {
     put: operations["updateProducts"];
     /**
      * Create a Product
-     * @description Creates a *Product*. Only one product can be created at a time.
+     * @description Creates a *Product*. Only one product can be created at a time; however, you can create multiple product variants using the `variants` array.
      *
      * **Required Fields:**
      * - `name`
@@ -52,6 +52,7 @@ export interface paths {
      * - A product can have up to 1000 images. Each image file or image uploaded by URL can be up to 8 MB.
      *
      * **Usage Notes**
+     * * You can create multiple product variants using the `variants` array.
      * * This endpoint accepts a `video` array. To create a product video that accepts a `video` object, see [Create a Product Video](/docs/rest-catalog/products/videos#create-a-product-video) for information.
      */
     post: operations["createProduct"];
@@ -77,7 +78,7 @@ export interface paths {
      * Get a Product
      * @description Returns a single *Product*. Optional parameters can be passed in.
      */
-    get: operations["getProductById"];
+    get: operations["getProduct"];
     /**
      * Update a Product
      * @description Updates a *Product*.
@@ -97,7 +98,7 @@ export interface paths {
      * Delete a Product
      * @description Deletes a *Product*.
      */
-    delete: operations["deleteProductById"];
+    delete: operations["deleteProduct"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -143,7 +144,7 @@ export interface paths {
      * Get a Product Image
      * @description Returns a single *Product Image*. Optional parameters can be passed in.
      */
-    get: operations["getProductImageById"];
+    get: operations["getProductImage"];
     /**
      * Update a Product Image
      * @description Updates a *Product Image*.
@@ -203,7 +204,7 @@ export interface paths {
      * Get a Product Video
      * @description Returns a single *Product Video*. Optional parameters can be passed in.
      */
-    get: operations["getProductVideoById"];
+    get: operations["getProductVideo"];
     /**
      * Update a Product Video
      * @description Updates a *Product Video.
@@ -235,7 +236,7 @@ export interface paths {
      * Get Complex Rules
      * @description Returns a list of all product *Complex Rules*. Optional parameters may be passed in.
      */
-    get: operations["getComplexRules"];
+    get: operations["getProductComplexRules"];
     /**
      * Create a Complex Rule
      * @description Creates a product *Complex Rule*.
@@ -252,7 +253,7 @@ export interface paths {
      * - combination_id
      * - id
      */
-    post: operations["createComplexRule"];
+    post: operations["createProductComplexRule"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -264,12 +265,12 @@ export interface paths {
   };
   "/catalog/products/{product_id}/complex-rules/{complex_rule_id}": {
     /**
-     * Get a Complex Rule
+     * Get a Product Complex Rule
      * @description Returns a single *Complex Rule*. Optional parameters can be passed in.
      */
-    get: operations["getComplexRuleById"];
+    get: operations["getProductComplexRule"];
     /**
-     * Update a Complex Rule
+     * Update a Product Complex Rule
      * @description Updates a *Complex Rule*.
      *
      * **Required Fields**:
@@ -282,12 +283,12 @@ export interface paths {
      * - combination_id
      * - id
      */
-    put: operations["updateComplexRule"];
+    put: operations["updateProductComplexRule"];
     /**
-     * Delete a Complex Rule
+     * Delete a Product Complex Rule
      * @description Deletes a product *Complex Rule*.
      */
-    delete: operations["deleteComplexRuleById"];
+    delete: operations["deleteProductComplexRule"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -300,15 +301,15 @@ export interface paths {
   };
   "/catalog/products/{product_id}/custom-fields": {
     /**
-     * Get Custom Fields
+     * Get Product Custom Fields
      * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    get: operations["getCustomFields"];
+    get: operations["getProductCustomFields"];
     /**
-     * Create a Custom Fields
+     * Create a Product Custom Field
      * @description Creates a *Custom Field*.
      *
      * **Required Fields:**
@@ -318,10 +319,14 @@ export interface paths {
      * **Read-Only:**
      * - id
      *
+     * **Limits**
+     * - 200 custom fields per product limit.
+     * - 255 characters per custom field limit.
+     *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    post: operations["createCustomField"];
+    post: operations["createProductCustomField"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -333,12 +338,12 @@ export interface paths {
   };
   "/catalog/products/{product_id}/custom-fields/{custom_field_id}": {
     /**
-     * Get a Custom Field
+     * Get a Product Custom Field
      * @description Returns a single *Custom Field*. Optional parameters can be passed in.
      */
-    get: operations["getCustomFieldById"];
+    get: operations["getProductCustomField"];
     /**
-     * Update a Custom Field
+     * Update a Product Custom Field
      * @description Updates a *Custom Field*.
      *
      * **Required Fields**
@@ -347,15 +352,15 @@ export interface paths {
      * **Read-Only**
      * - id
      */
-    put: operations["updateCustomField"];
+    put: operations["updateProductCustomField"];
     /**
-     * Delete a Custom Field
+     * Delete a Product Custom Field
      * @description Deletes a product *Custom Field*.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    delete: operations["deleteCustomFieldById"];
+    delete: operations["deleteProductCustomField"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -403,7 +408,7 @@ export interface paths {
      * Get a Bulk Pricing Rule
      * @description Returns a single *Bulk Pricing Rule*. Optional parameters can be passed in.
      */
-    get: operations["getBulkPricingRuleById"];
+    get: operations["getBulkPricingRule"];
     /**
      * Update a Bulk Pricing Rule
      * @description Updates a *Bulk Pricing Rule*.
@@ -419,7 +424,7 @@ export interface paths {
      * Delete a Bulk Pricing Rule
      * @description Deletes a *Bulk Pricing Rule*.
      */
-    delete: operations["deleteBulkPricingRuleById"];
+    delete: operations["deleteBulkPricingRule"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -435,7 +440,7 @@ export interface paths {
      * Get All Product Metafields
      * @description Returns a list of *Product Metafields*. Optional parameters can be passed in.
      */
-    get: operations["getProductMetafieldsByProductId"];
+    get: operations["getProductMetafields"];
     /**
      * Create a Product Metafield
      * @description Creates a *Product Metafield*.
@@ -463,7 +468,7 @@ export interface paths {
      * Get a Product Metafield
      * @description Returns a single *Product Metafield*. Optional parameters can be passed in.
      */
-    get: operations["getProductMetafieldByProductId"];
+    get: operations["getProductMetafield"];
     /**
      * Update a Product Metafield
      * @description Updates a *Product Metafield*.
@@ -487,7 +492,7 @@ export interface paths {
      * Delete a Product Metafield
      * @description Deletes a *Product Metafield*.
      */
-    delete: operations["deleteProductMetafieldById"];
+    delete: operations["deleteProductMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -530,7 +535,7 @@ export interface paths {
      * Get a Product Review
      * @description Returns a single *Product Review*. Optional parameters maybe passed in.
      */
-    get: operations["getProductReviewById"];
+    get: operations["getProductReview"];
     /**
      * Update a Product Review
      * @description Updates a *Product Review*.
@@ -562,17 +567,17 @@ export interface paths {
      * Get Products Channel Assignments
      * @description Returns a list of products channel assignments.
      */
-    get: operations["GetProductsChannelAssignments"];
+    get: operations["getProductsChannelAssignments"];
     /**
      * Create Products Channel Assignments
      * @description Creates products channel assignments.
      */
-    put: operations["CreateProductsChannelAssignments"];
+    put: operations["createProductsChannelAssignments"];
     /**
      * Delete Products Channel Assignments
      * @description Delete products channel assignments. A filter must be supplied.
      */
-    delete: operations["DeleteProductsChannelAssignments"];
+    delete: operations["deleteProductsChannelAssignments"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -584,17 +589,17 @@ export interface paths {
      * Get Products Category Assignments
      * @description Returns a list of products category assignments.
      */
-    get: operations["GetProductsCategoryAssignments"];
+    get: operations["getProductsCategoryAssignments"];
     /**
      * Create Products Category Assignments.
      * @description Creates products category assignments.
      */
-    put: operations["CreateProductsCategoryAssignments"];
+    put: operations["createProductsCategoryAssignments"];
     /**
      * Delete Products Category Assignments
      * @description Deletes products category assignments. A filter must be supplied.
      */
-    delete: operations["DeleteProductsCategoryAssignments"];
+    delete: operations["deleteProductsCategoryAssignments"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2303,7 +2308,7 @@ export interface operations {
   };
   /**
    * Create a Product
-   * @description Creates a *Product*. Only one product can be created at a time.
+   * @description Creates a *Product*. Only one product can be created at a time; however, you can create multiple product variants using the `variants` array.
    *
    * **Required Fields:**
    * - `name`
@@ -2323,6 +2328,7 @@ export interface operations {
    * - A product can have up to 1000 images. Each image file or image uploaded by URL can be up to 8 MB.
    *
    * **Usage Notes**
+   * * You can create multiple product variants using the `variants` array.
    * * This endpoint accepts a `video` array. To create a product video that accepts a `video` object, see [Create a Product Video](/docs/rest-catalog/products/videos#create-a-product-video) for information.
    */
   createProduct: {
@@ -2465,7 +2471,7 @@ export interface operations {
    * Get a Product
    * @description Returns a single *Product*. Optional parameters can be passed in.
    */
-  getProductById: {
+  getProduct: {
     parameters: {
       query?: {
         /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. */
@@ -2622,7 +2628,7 @@ export interface operations {
    * Delete a Product
    * @description Deletes a *Product*.
    */
-  deleteProductById: {
+  deleteProduct: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2890,7 +2896,7 @@ export interface operations {
    * Get a Product Image
    * @description Returns a single *Product Image*. Optional parameters can be passed in.
    */
-  getProductImageById: {
+  getProductImage: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -3215,7 +3221,7 @@ export interface operations {
    * Get a Product Video
    * @description Returns a single *Product Video*. Optional parameters can be passed in.
    */
-  getProductVideoById: {
+  getProductVideo: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -3372,7 +3378,7 @@ export interface operations {
    * Get Complex Rules
    * @description Returns a list of all product *Complex Rules*. Optional parameters may be passed in.
    */
-  getComplexRules: {
+  getProductComplexRules: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -3418,7 +3424,7 @@ export interface operations {
    * - combination_id
    * - id
    */
-  createComplexRule: {
+  createProductComplexRule: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3689,10 +3695,10 @@ export interface operations {
     };
   };
   /**
-   * Get a Complex Rule
+   * Get a Product Complex Rule
    * @description Returns a single *Complex Rule*. Optional parameters can be passed in.
    */
-  getComplexRuleById: {
+  getProductComplexRule: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -3850,7 +3856,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Complex Rule
+   * Update a Product Complex Rule
    * @description Updates a *Complex Rule*.
    *
    * **Required Fields**:
@@ -3863,7 +3869,7 @@ export interface operations {
    * - combination_id
    * - id
    */
-  updateComplexRule: {
+  updateProductComplexRule: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4135,10 +4141,10 @@ export interface operations {
     };
   };
   /**
-   * Delete a Complex Rule
+   * Delete a Product Complex Rule
    * @description Deletes a product *Complex Rule*.
    */
-  deleteComplexRuleById: {
+  deleteProductComplexRule: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4156,13 +4162,13 @@ export interface operations {
     };
   };
   /**
-   * Get Custom Fields
+   * Get Product Custom Fields
    * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  getCustomFields: {
+  getProductCustomFields: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -4212,7 +4218,7 @@ export interface operations {
     };
   };
   /**
-   * Create a Custom Fields
+   * Create a Product Custom Field
    * @description Creates a *Custom Field*.
    *
    * **Required Fields:**
@@ -4222,10 +4228,14 @@ export interface operations {
    * **Read-Only:**
    * - id
    *
+   * **Limits**
+   * - 200 custom fields per product limit.
+   * - 255 characters per custom field limit.
+   *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  createCustomField: {
+  createProductCustomField: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4318,10 +4328,10 @@ export interface operations {
     };
   };
   /**
-   * Get a Custom Field
+   * Get a Product Custom Field
    * @description Returns a single *Custom Field*. Optional parameters can be passed in.
    */
-  getCustomFieldById: {
+  getProductCustomField: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -4362,7 +4372,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Custom Field
+   * Update a Product Custom Field
    * @description Updates a *Custom Field*.
    *
    * **Required Fields**
@@ -4371,7 +4381,7 @@ export interface operations {
    * **Read-Only**
    * - id
    */
-  updateCustomField: {
+  updateProductCustomField: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4471,13 +4481,13 @@ export interface operations {
     };
   };
   /**
-   * Delete a Custom Field
+   * Delete a Product Custom Field
    * @description Deletes a product *Custom Field*.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  deleteCustomFieldById: {
+  deleteProductCustomField: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4664,7 +4674,7 @@ export interface operations {
    * Get a Bulk Pricing Rule
    * @description Returns a single *Bulk Pricing Rule*. Optional parameters can be passed in.
    */
-  getBulkPricingRuleById: {
+  getBulkPricingRule: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -4830,7 +4840,7 @@ export interface operations {
    * Delete a Bulk Pricing Rule
    * @description Deletes a *Bulk Pricing Rule*.
    */
-  deleteBulkPricingRuleById: {
+  deleteBulkPricingRule: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4864,7 +4874,7 @@ export interface operations {
    * Get All Product Metafields
    * @description Returns a list of *Product Metafields*. Optional parameters can be passed in.
    */
-  getProductMetafieldsByProductId: {
+  getProductMetafields: {
     parameters: {
       query?: {
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -4987,7 +4997,7 @@ export interface operations {
    * Get a Product Metafield
    * @description Returns a single *Product Metafield*. Optional parameters can be passed in.
    */
-  getProductMetafieldByProductId: {
+  getProductMetafield: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -5089,7 +5099,7 @@ export interface operations {
    * Delete a Product Metafield
    * @description Deletes a *Product Metafield*.
    */
-  deleteProductMetafieldById: {
+  deleteProductMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5311,7 +5321,7 @@ export interface operations {
    * Get a Product Review
    * @description Returns a single *Product Review*. Optional parameters maybe passed in.
    */
-  getProductReviewById: {
+  getProductReview: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -5526,7 +5536,7 @@ export interface operations {
    * Get Products Channel Assignments
    * @description Returns a list of products channel assignments.
    */
-  GetProductsChannelAssignments: {
+  getProductsChannelAssignments: {
     parameters: {
       query?: {
         page?: number;
@@ -5554,7 +5564,7 @@ export interface operations {
    * Create Products Channel Assignments
    * @description Creates products channel assignments.
    */
-  CreateProductsChannelAssignments: {
+  createProductsChannelAssignments: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5583,7 +5593,7 @@ export interface operations {
    * Delete Products Channel Assignments
    * @description Delete products channel assignments. A filter must be supplied.
    */
-  DeleteProductsChannelAssignments: {
+  deleteProductsChannelAssignments: {
     parameters: {
       query?: {
         "product_id:in"?: string;
@@ -5610,7 +5620,7 @@ export interface operations {
    * Get Products Category Assignments
    * @description Returns a list of products category assignments.
    */
-  GetProductsCategoryAssignments: {
+  getProductsCategoryAssignments: {
     parameters: {
       query?: {
         page?: number;
@@ -5638,7 +5648,7 @@ export interface operations {
    * Create Products Category Assignments.
    * @description Creates products category assignments.
    */
-  CreateProductsCategoryAssignments: {
+  createProductsCategoryAssignments: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5667,7 +5677,7 @@ export interface operations {
    * Delete Products Category Assignments
    * @description Deletes products category assignments. A filter must be supplied.
    */
-  DeleteProductsCategoryAssignments: {
+  deleteProductsCategoryAssignments: {
     parameters: {
       query?: {
         "product_id:in"?: string;

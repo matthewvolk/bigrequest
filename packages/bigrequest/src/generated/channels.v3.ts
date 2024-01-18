@@ -13,7 +13,7 @@ export interface paths {
      *
      * Will always return the default BigCommerce storefront with an ID of `1`. This storefront is created by default when you provision a BigCommerce store.
      */
-    get: operations["listChannels"];
+    get: operations["getChannels"];
     /**
      * Create a Channel
      * @description Creates a *Channel*.
@@ -82,7 +82,7 @@ export interface paths {
      * Get All Channels Currency Assignments
      * @description Returns a list of currency assignments for all channels.
      */
-    get: operations["listAllCurrencyAssignments"];
+    get: operations["getAllCurrencyAssignments"];
     /**
      * Update Multiple Channels Currency Assignments
      * @description Updates enabled currencies and default currency for multiple channels. Note that currencies must be added first in the **Settings > Setup > Currencies** settings from an active MSF-enabled BigCommerce store control panel before the currencies can be assigned to a channel.
@@ -134,7 +134,7 @@ export interface paths {
      * Get Channel Listings
      * @description Returns a list of all *Channel Listings* for a specific channel. Note that if the *Channel* is not found or there is no listing associated to the *Channel*, it will return a 200 response with empty data.
      */
-    get: operations["listChannelListings"];
+    get: operations["getChannelListings"];
     /**
      * Update Channel Listings
      * @description Updates one or more *Channel Listings* for a specific channel.
@@ -183,12 +183,12 @@ export interface paths {
      * Upsert a Site's Checkout URL
      * @description Creates or updates (upserts) a site's checkout URL
      */
-    put: operations["putCheckoutUrl"];
+    put: operations["updateCheckoutUrl"];
     /**
      * Delete a Site's Checkout URL
      * @description Deletes a siteʼs checkout URL. After deletion, a shared checkout URL is used.
      */
-    delete: operations["delete-checkout-url"];
+    delete: operations["deleteCheckoutUrl"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -205,22 +205,22 @@ export interface paths {
      *
      * Returns site data for the specified channel.
      */
-    get: operations["get-channel-site"];
+    get: operations["getChannelSite"];
     /**
      * Update a Channel Site
      * @description Updates a site for provided channel.
      */
-    put: operations["put-channel-site"];
+    put: operations["updateChannelSite"];
     /**
      * Create a Channel Site
      * @description Alias of POST `/sites`. Creates a site for provided channel.
      */
-    post: operations["postChannelSite"];
+    post: operations["createChannelSite"];
     /**
      * Delete a Channel Site
      * @description Deletes the Channel's site.
      */
-    delete: operations["DeleteChannelSite"];
+    delete: operations["deleteChannelSite"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -235,17 +235,17 @@ export interface paths {
      * Get Channel Menus
      * @description Returns list of Control Panel side navigation menus for a channel.
      */
-    get: operations["get-channel-menus"];
+    get: operations["getChannelMenus"];
     /**
      * Create Channel Menus
      * @description Creates or replaces list of control panel side navigation menus for a channel.
      */
-    post: operations["postChannelMenus"];
+    post: operations["createChannelMenus"];
     /**
      * Delete Channel Menus
      * @description Deletes control panel side navigation menus for a channel.
      */
-    delete: operations["DeleteChannelMenus"];
+    delete: operations["deleteChannelMenus"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -260,14 +260,14 @@ export interface paths {
      * Get Channel Metafields
      * @description Returns a list of metafields on a channel. Optional filter parameters can be passed in.
      */
-    get: operations["get-channels-channel_id-metafields"];
+    get: operations["getChannelMetafields"];
     /**
      * Create a Channel Metafield
      * @description Creates a channel metafield.
      *
      * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, channel, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
-    post: operations["post-channels-channel_id-metafields"];
+    post: operations["createChannelMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -282,7 +282,7 @@ export interface paths {
      * Get a Channel Metafield
      * @description Returns a single channel metafield.
      */
-    get: operations["get-channels-channel_id-metafields-metafield_id"];
+    get: operations["getChannelMetafield"];
     /**
      * Update a Channel Metafield
      * @description Updates a single channel metafield.
@@ -290,12 +290,12 @@ export interface paths {
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a `403` error message.
      */
-    put: operations["put-channels-channel_id-metafields-metafield_id"];
+    put: operations["updateChannelMetafield"];
     /**
      * Delete a Channel Metafield
      * @description Deletes a single channel metafield.
      */
-    delete: operations["delete-channels-channel_id-metafields-metafield_id"];
+    delete: operations["deleteChannelMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1261,7 +1261,7 @@ export interface operations {
    *
    * Will always return the default BigCommerce storefront with an ID of `1`. This storefront is created by default when you provision a BigCommerce store.
    */
-  listChannels: {
+  getChannels: {
     parameters: {
       query?: {
         include?: components["parameters"]["include"];
@@ -1394,7 +1394,7 @@ export interface operations {
    * Get All Channels Currency Assignments
    * @description Returns a list of currency assignments for all channels.
    */
-  listAllCurrencyAssignments: {
+  getAllCurrencyAssignments: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1534,7 +1534,7 @@ export interface operations {
    * Get Channel Listings
    * @description Returns a list of all *Channel Listings* for a specific channel. Note that if the *Channel* is not found or there is no listing associated to the *Channel*, it will return a 200 response with empty data.
    */
-  listChannelListings: {
+  getChannelListings: {
     parameters: {
       query?: {
         limit?: components["parameters"]["limit"];
@@ -1639,7 +1639,7 @@ export interface operations {
    * Upsert a Site's Checkout URL
    * @description Creates or updates (upserts) a site's checkout URL
    */
-  putCheckoutUrl: {
+  updateCheckoutUrl: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1682,7 +1682,7 @@ export interface operations {
    * Delete a Site's Checkout URL
    * @description Deletes a siteʼs checkout URL. After deletion, a shared checkout URL is used.
    */
-  "delete-checkout-url": {
+  deleteCheckoutUrl: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1709,7 +1709,7 @@ export interface operations {
    *
    * Returns site data for the specified channel.
    */
-  "get-channel-site": {
+  getChannelSite: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1726,7 +1726,7 @@ export interface operations {
    * Update a Channel Site
    * @description Updates a site for provided channel.
    */
-  "put-channel-site": {
+  updateChannelSite: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1749,7 +1749,7 @@ export interface operations {
    * Create a Channel Site
    * @description Alias of POST `/sites`. Creates a site for provided channel.
    */
-  postChannelSite: {
+  createChannelSite: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1772,7 +1772,7 @@ export interface operations {
    * Delete a Channel Site
    * @description Deletes the Channel's site.
    */
-  DeleteChannelSite: {
+  deleteChannelSite: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1793,7 +1793,7 @@ export interface operations {
    * Get Channel Menus
    * @description Returns list of Control Panel side navigation menus for a channel.
    */
-  "get-channel-menus": {
+  getChannelMenus: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1810,7 +1810,7 @@ export interface operations {
    * Create Channel Menus
    * @description Creates or replaces list of control panel side navigation menus for a channel.
    */
-  postChannelMenus: {
+  createChannelMenus: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1833,7 +1833,7 @@ export interface operations {
    * Delete Channel Menus
    * @description Deletes control panel side navigation menus for a channel.
    */
-  DeleteChannelMenus: {
+  deleteChannelMenus: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1857,7 +1857,7 @@ export interface operations {
    * Get Channel Metafields
    * @description Returns a list of metafields on a channel. Optional filter parameters can be passed in.
    */
-  "get-channels-channel_id-metafields": {
+  getChannelMetafields: {
     parameters: {
       query?: {
         page?: components["parameters"]["PageParam"];
@@ -1883,7 +1883,7 @@ export interface operations {
    *
    * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, channel, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
-  "post-channels-channel_id-metafields": {
+  createChannelMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1906,7 +1906,7 @@ export interface operations {
    * Get a Channel Metafield
    * @description Returns a single channel metafield.
    */
-  "get-channels-channel_id-metafields-metafield_id": {
+  getChannelMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1927,7 +1927,7 @@ export interface operations {
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a `403` error message.
    */
-  "put-channels-channel_id-metafields-metafield_id": {
+  updateChannelMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1951,7 +1951,7 @@ export interface operations {
    * Delete a Channel Metafield
    * @description Deletes a single channel metafield.
    */
-  "delete-channels-channel_id-metafields-metafield_id": {
+  deleteChannelMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

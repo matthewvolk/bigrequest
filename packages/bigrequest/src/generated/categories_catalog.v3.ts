@@ -9,7 +9,10 @@ export interface paths {
   "/catalog/categories": {
     /**
      * Get All Categories
-     * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
+     * @deprecated
+     * @description When possible, use the [Catalog Trees - Get all categories](/docs/rest-catalog/category-trees/categories#get-all-categories) endpoint instead.
+     *
+     * Returns a list of *Categories*. Optional filter parameters can be passed in.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
@@ -17,11 +20,14 @@ export interface paths {
     get: operations["getCategories"];
     /**
      * Create a Category
-     * @description Creates a *Category*.
+     * @deprecated
+     * @description When possible, use the [Category Trees - Create categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint instead.
+     *
+     * Creates a *Category*.
      *
      * Use this endpoint when an API only works with categories of a default BigCommerce storefront (`channel_id=1`).
      *
-     * Use the [Create Categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint when an API works with categories across different category trees that belong to different storefront channels.
+     * Use the [Create categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint when an API works with categories across different category trees that belong to different storefront channels.
      *
      * **Required Fields**:
      * - `parent_id`:
@@ -45,7 +51,10 @@ export interface paths {
     post: operations["createCategory"];
     /**
      * Delete Categories
-     * @description Deletes *Category* objects. At least one filter parameter is required to perform the `DELETE` operation.
+     * @deprecated
+     * @description When possible, use the [Category Trees - Delete categories](/docs/rest-catalog/category-trees/categories#delete-categories) endpoint instead.
+     *
+     * Deletes *Category* objects. At least one filter parameter is required to perform the `DELETE` operation.
      *
      * **Usage Notes**
      *
@@ -62,15 +71,21 @@ export interface paths {
   "/catalog/categories/{category_id}": {
     /**
      * Get a Category
-     * @description Returns a single *Category*. Optional parameters can be passed in.
+     * @deprecated
+     * @description When possible, use the [Catalog Trees - Get all categories](/docs/rest-catalog/category-trees/categories#get-all-categories) endpoint instead. You can provide a category identifier using query parameters to retrieve a single category.
+     *
+     * Returns a single *Category*. Optional parameters can be passed in.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    get: operations["getCategoryById"];
+    get: operations["getCategory"];
     /**
      * Update a Category
-     * @description Updates a *Category*.
+     * @deprecated
+     * @description When possible, use the [Catalog Trees - Update categories](/docs/rest-catalog/category-trees/categories#update-categories) endpoint instead.
+     *
+     * Updates a *Category*.
      *
      * **Required Fields**
      * * none
@@ -84,12 +99,15 @@ export interface paths {
     put: operations["updateCategory"];
     /**
      * Delete a Category
-     * @description Deletes a *Category*.
+     * @deprecated
+     * @description When possible, use the [Category Trees - Delete categories](/docs/rest-catalog/category-trees/categories#delete-categories) endpoint instead. You can provide a category identifier using query parameters to delete a single category.
+     *
+     * Deletes a *Category*.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
-    delete: operations["deleteCategoryById"];
+    delete: operations["deleteCategory"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -104,7 +122,7 @@ export interface paths {
      * Get All Category Metafields
      * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
      */
-    get: operations["getCategoryMetafieldsByCategoryId"];
+    get: operations["getCategoryMetafields"];
     /**
      * Create a Category Metafield
      * @description Creates a *Category Metafield*.
@@ -135,7 +153,7 @@ export interface paths {
      * Get a Category Metafield
      * @description Returns a single *Category Metafield*. Optional parameters can be passed in.
      */
-    get: operations["getCategoryMetafieldByCategoryId"];
+    get: operations["getCategoryMetafield"];
     /**
      * Update a Category Metafield
      * @description Updates a *Category Metafield*.
@@ -158,7 +176,7 @@ export interface paths {
      * Delete a Category Metafield
      * @description Deletes a *Category Metafield*.
      */
-    delete: operations["deleteCategoryMetafieldById"];
+    delete: operations["deleteCategoryMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -210,12 +228,12 @@ export interface paths {
      *   - Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
      *   - Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
      */
-    get: operations["getsortorders"];
+    get: operations["getCategorySortOrders"];
     /**
      * Update Product Sort Order
      * @description Updates sort order of products within a specific category.
      */
-    put: operations["updatesortorder"];
+    put: operations["updateCategorySortOrders"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -631,7 +649,10 @@ export interface operations {
 
   /**
    * Get All Categories
-   * @description Returns a list of *Categories*. Optional filter parameters can be passed in.
+   * @deprecated
+   * @description When possible, use the [Catalog Trees - Get all categories](/docs/rest-catalog/category-trees/categories#get-all-categories) endpoint instead.
+   *
+   * Returns a list of *Categories*. Optional filter parameters can be passed in.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
@@ -700,11 +721,14 @@ export interface operations {
   };
   /**
    * Create a Category
-   * @description Creates a *Category*.
+   * @deprecated
+   * @description When possible, use the [Category Trees - Create categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint instead.
+   *
+   * Creates a *Category*.
    *
    * Use this endpoint when an API only works with categories of a default BigCommerce storefront (`channel_id=1`).
    *
-   * Use the [Create Categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint when an API works with categories across different category trees that belong to different storefront channels.
+   * Use the [Create categories](/docs/rest-catalog/category-trees/categories#create-categories) endpoint when an API works with categories across different category trees that belong to different storefront channels.
    *
    * **Required Fields**:
    * - `parent_id`:
@@ -867,7 +891,10 @@ export interface operations {
   };
   /**
    * Delete Categories
-   * @description Deletes *Category* objects. At least one filter parameter is required to perform the `DELETE` operation.
+   * @deprecated
+   * @description When possible, use the [Category Trees - Delete categories](/docs/rest-catalog/category-trees/categories#delete-categories) endpoint instead.
+   *
+   * Deletes *Category* objects. At least one filter parameter is required to perform the `DELETE` operation.
    *
    * **Usage Notes**
    *
@@ -916,12 +943,15 @@ export interface operations {
   };
   /**
    * Get a Category
-   * @description Returns a single *Category*. Optional parameters can be passed in.
+   * @deprecated
+   * @description When possible, use the [Catalog Trees - Get all categories](/docs/rest-catalog/category-trees/categories#get-all-categories) endpoint instead. You can provide a category identifier using query parameters to retrieve a single category.
+   *
+   * Returns a single *Category*. Optional parameters can be passed in.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  getCategoryById: {
+  getCategory: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -962,7 +992,10 @@ export interface operations {
   };
   /**
    * Update a Category
-   * @description Updates a *Category*.
+   * @deprecated
+   * @description When possible, use the [Catalog Trees - Update categories](/docs/rest-catalog/category-trees/categories#update-categories) endpoint instead.
+   *
+   * Updates a *Category*.
    *
    * **Required Fields**
    * * none
@@ -1221,12 +1254,15 @@ export interface operations {
   };
   /**
    * Delete a Category
-   * @description Deletes a *Category*.
+   * @deprecated
+   * @description When possible, use the [Category Trees - Delete categories](/docs/rest-catalog/category-trees/categories#delete-categories) endpoint instead. You can provide a category identifier using query parameters to delete a single category.
+   *
+   * Deletes a *Category*.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
-  deleteCategoryById: {
+  deleteCategory: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1246,7 +1282,7 @@ export interface operations {
    * Get All Category Metafields
    * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
    */
-  getCategoryMetafieldsByCategoryId: {
+  getCategoryMetafields: {
     parameters: {
       query?: {
         /** @description Filter items by ID. */
@@ -1380,7 +1416,7 @@ export interface operations {
    * Get a Category Metafield
    * @description Returns a single *Category Metafield*. Optional parameters can be passed in.
    */
-  getCategoryMetafieldByCategoryId: {
+  getCategoryMetafield: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -1481,7 +1517,7 @@ export interface operations {
    * Delete a Category Metafield
    * @description Deletes a *Category Metafield*.
    */
-  deleteCategoryMetafieldById: {
+  deleteCategoryMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1609,7 +1645,7 @@ export interface operations {
    *   - Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
    *   - Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
    */
-  getsortorders: {
+  getCategorySortOrders: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1639,7 +1675,7 @@ export interface operations {
    * Update Product Sort Order
    * @description Updates sort order of products within a specific category.
    */
-  updatesortorder: {
+  updateCategorySortOrders: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];

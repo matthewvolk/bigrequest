@@ -19,7 +19,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
-    post: operations["createASubscription"];
+    post: operations["createSubscription"];
   };
 }
 
@@ -78,7 +78,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    */
-  createASubscription: {
+  createSubscription: {
     requestBody?: {
       content: {
         "application/json": components["schemas"]["SubscriptionRequest"];

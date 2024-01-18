@@ -14,7 +14,7 @@ export interface paths {
      * * `store_v2_orders`
      * * `store_v2_transactions`
      */
-    post: operations["paymentactioncapture"];
+    post: operations["captureOrderPayment"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -33,7 +33,7 @@ export interface paths {
      * * `store_v2_orders`
      * * `store_v2_transactions`
      */
-    post: operations["paymentactionvoid"];
+    post: operations["voidOrderPayment"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -56,7 +56,7 @@ export interface paths {
      * * `store_v2_transactions_read_only`
      * * `store_v2_transactions`
      */
-    get: operations["getTransactions"];
+    get: operations["getOrderTransactions"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -78,7 +78,7 @@ export interface paths {
      * **Note:**
      * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
      */
-    post: operations["postrefundquote"];
+    post: operations["createOrderRefundQuotes"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -99,7 +99,7 @@ export interface paths {
      * * `store_v2_orders_read_only`
      * * `store_v2_orders`
      */
-    get: operations["getorderrefunds"];
+    get: operations["getOrderRefunds"];
     /**
      * Create a Refund
      * @description Creates a refund. When there are no payment method validation issues, the refund process is successful and the refund payment request is scheduled. The payment request itself occurs asynchronously.
@@ -111,7 +111,7 @@ export interface paths {
      * **Note:**
      * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
      */
-    post: operations["postrefund"];
+    post: operations["createOrderRefund"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -126,7 +126,7 @@ export interface paths {
      * Get a Refund
      * @description Returns a refund by refund ID.
      */
-    get: operations["RefundID_Get"];
+    get: operations["getOrderRefund"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -148,7 +148,7 @@ export interface paths {
      * * `store_v2_orders_read_only`
      * * `store_v2_orders`
      */
-    get: operations["getrefunds"];
+    get: operations["getOrdersRefunds"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -166,7 +166,7 @@ export interface paths {
      * * `store_v2_orders`
      * * `store_v2_transactions`
      */
-    post: operations["postrefundquotes"];
+    post: operations["createOrdersRefundQuotes"];
   };
   "/orders/{order_id}/metafields": {
     /**
@@ -175,7 +175,7 @@ export interface paths {
      *
      * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
      */
-    get: operations["getOrderMetafieldsByOrderId"];
+    get: operations["getOrderMetafields"];
     /**
      * Create Metafields
      * @description Creates an order `Metafield`.
@@ -197,7 +197,7 @@ export interface paths {
      * Get a Metafield
      * @description Gets a `Metafield`, by `order_id`.
      */
-    get: operations["getOrderMetafieldByOrderIdAndMetafieldId"];
+    get: operations["getOrderMetafield"];
     /**
      * Update a Metafield
      * @description Updates a `Metafield` object.
@@ -209,7 +209,7 @@ export interface paths {
      * Delete a Metafield
      * @description Deletes a `Metafield`.
      */
-    delete: operations["deleteOrderMetafieldById"];
+    delete: operations["deleteOrderMetafield"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -226,12 +226,12 @@ export interface paths {
      * Get Global Order Settings
      * @description Returns global order settings.
      */
-    get: operations["GetGlobalOrderSettings"];
+    get: operations["getGlobalOrderSettings"];
     /**
      * Update Global Order Settings
      * @description Updates global order settings.
      */
-    put: operations["UpdateGlobalOrderSettings"];
+    put: operations["updateGlobalOrderSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -243,14 +243,14 @@ export interface paths {
      * Get Channel Order Settings
      * @description Returns order settings for a specific channel.
      */
-    get: operations["GetChannelOrderSettings"];
+    get: operations["getChannelOrderSettings"];
     /**
      * Update Channel Order Settings
      * @description Updates order settings for a specific channel.
      *
      *  **Note:** You must override both notifications `email_addresses` or neither, i.e. either both notification `email_addresses` are an array of valid email addresses, or both `email_addresses` must be null. You may not have one set to an array of addresses and the other set to `null`.
      */
-    put: operations["UpdateChannelOrderSettings"];
+    put: operations["updateChannelOrderSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1951,7 +1951,7 @@ export interface operations {
    * * `store_v2_orders`
    * * `store_v2_transactions`
    */
-  paymentactioncapture: {
+  captureOrderPayment: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1979,7 +1979,7 @@ export interface operations {
    * * `store_v2_orders`
    * * `store_v2_transactions`
    */
-  paymentactionvoid: {
+  voidOrderPayment: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2011,7 +2011,7 @@ export interface operations {
    * * `store_v2_transactions_read_only`
    * * `store_v2_transactions`
    */
-  getTransactions: {
+  getOrderTransactions: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2061,7 +2061,7 @@ export interface operations {
    * **Note:**
    * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
    */
-  postrefundquote: {
+  createOrderRefundQuotes: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2093,7 +2093,7 @@ export interface operations {
    * * `store_v2_orders_read_only`
    * * `store_v2_orders`
    */
-  getorderrefunds: {
+  getOrderRefunds: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2117,7 +2117,7 @@ export interface operations {
    * **Note:**
    * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
    */
-  postrefund: {
+  createOrderRefund: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2157,7 +2157,7 @@ export interface operations {
    * Get a Refund
    * @description Returns a refund by refund ID.
    */
-  RefundID_Get: {
+  getOrderRefund: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2181,7 +2181,7 @@ export interface operations {
    * * `store_v2_orders_read_only`
    * * `store_v2_orders`
    */
-  getrefunds: {
+  getOrdersRefunds: {
     parameters: {
       query?: {
         /** @description Filter by `order_id`. Accepts multiple as comma-separated values. */
@@ -2228,7 +2228,7 @@ export interface operations {
    * * `store_v2_orders`
    * * `store_v2_transactions`
    */
-  postrefundquotes: {
+  createOrdersRefundQuotes: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2270,7 +2270,7 @@ export interface operations {
    *
    * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
    */
-  getOrderMetafieldsByOrderId: {
+  getOrderMetafields: {
     parameters: {
       query?: {
         page?: components["parameters"]["PageParam"];
@@ -2348,7 +2348,7 @@ export interface operations {
    * Get a Metafield
    * @description Gets a `Metafield`, by `order_id`.
    */
-  getOrderMetafieldByOrderIdAndMetafieldId: {
+  getOrderMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2417,7 +2417,7 @@ export interface operations {
    * Delete a Metafield
    * @description Deletes a `Metafield`.
    */
-  deleteOrderMetafieldById: {
+  deleteOrderMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2439,7 +2439,7 @@ export interface operations {
    * Get Global Order Settings
    * @description Returns global order settings.
    */
-  GetGlobalOrderSettings: {
+  getGlobalOrderSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2466,7 +2466,7 @@ export interface operations {
    * Update Global Order Settings
    * @description Updates global order settings.
    */
-  UpdateGlobalOrderSettings: {
+  updateGlobalOrderSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2505,7 +2505,7 @@ export interface operations {
    * Get Channel Order Settings
    * @description Returns order settings for a specific channel.
    */
-  GetChannelOrderSettings: {
+  getChannelOrderSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2538,7 +2538,7 @@ export interface operations {
    *
    *  **Note:** You must override both notifications `email_addresses` or neither, i.e. either both notification `email_addresses` are an array of valid email addresses, or both `email_addresses` must be null. You may not have one set to an array of addresses and the other set to `null`.
    */
-  UpdateChannelOrderSettings: {
+  updateChannelOrderSettings: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
