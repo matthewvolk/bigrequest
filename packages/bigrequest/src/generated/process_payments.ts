@@ -82,6 +82,16 @@ export interface components {
       /** @description Identifier representing this stored PayPal account (required) */
       token?: string;
     };
+    /** StoredBankAccount */
+    StoredBankAccount: {
+      /**
+       * @description Type to classify this payment instrument (required)
+       * @enum {string}
+       */
+      type?: "stored_bank_account";
+      /** @description Identifier representing this stored bank account (required) */
+      token?: string;
+    };
     /** GiftCertificate */
     GiftCertificate: {
       /** @example gift_certificate */
@@ -147,7 +157,7 @@ export interface operations {
         "application/json": {
           /** Payment */
           payment: {
-            instrument: components["schemas"]["Card"] | components["schemas"]["StoredCard"] | components["schemas"]["StoredPayPalAccount"] | components["schemas"]["GiftCertificate"] | components["schemas"]["StoreCredit"] | components["schemas"]["TokenizedCard"];
+            instrument: components["schemas"]["Card"] | components["schemas"]["StoredCard"] | components["schemas"]["StoredPayPalAccount"] | components["schemas"]["GiftCertificate"] | components["schemas"]["StoreCredit"] | components["schemas"]["TokenizedCard"] | components["schemas"]["StoredBankAccount"];
             /** @description Identifier for payment method that will be used for this payment and `id` from the Get Accepted Payment Methods API */
             payment_method_id: string;
             /** @description To use `save_instrument`, configure the payment gateway to accept stored cards. */
