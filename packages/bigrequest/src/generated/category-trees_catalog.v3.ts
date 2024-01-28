@@ -113,7 +113,7 @@ export interface components {
     CreateCategories: (components["schemas"]["TreeIdCreateData"] & components["schemas"]["ParentIdCreateData"] & components["schemas"]["CategoryDataPOST"])[];
     UpdateCategories: (components["schemas"]["TreeIdUpdateData"] & components["schemas"]["CategoryIdUpdateData"] & components["schemas"]["CategoryUuidData"] & components["schemas"]["ParentIdUpdateData"] & components["schemas"]["CategoryDataPUT"])[];
     /** Category */
-    Category: components["schemas"]["id"] & components["schemas"]["parent_id"] & components["schemas"]["name"] & components["schemas"]["description"] & components["schemas"]["views"] & components["schemas"]["sort_order"] & components["schemas"]["page_title"] & components["schemas"]["meta_keywords"] & components["schemas"]["meta_description"] & components["schemas"]["layout_file"] & components["schemas"]["image_url"] & components["schemas"]["is_visible"] & components["schemas"]["search_keywords"] & components["schemas"]["default_product_sort"] & {
+    Category: components["schemas"]["category_id"] & components["schemas"]["parent_id"] & components["schemas"]["name"] & components["schemas"]["description"] & components["schemas"]["views"] & components["schemas"]["sort_order"] & components["schemas"]["page_title"] & components["schemas"]["meta_keywords"] & components["schemas"]["meta_description"] & components["schemas"]["layout_file"] & components["schemas"]["image_url"] & components["schemas"]["is_visible"] & components["schemas"]["search_keywords"] & components["schemas"]["default_product_sort"] & {
       url?: components["schemas"]["Url"];
     };
     /** category_uuid */
@@ -363,13 +363,13 @@ export interface components {
       /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
       meta_description?: string;
     };
-    /** id */
-    id: {
+    /** category_id */
+    category_id: {
       /**
        * @description Unique ID of the *Category*. Increments sequentially.
        * Read-Only.
        */
-      id?: number;
+      category_id?: number;
     };
     /** parent_id */
     parent_id: {
