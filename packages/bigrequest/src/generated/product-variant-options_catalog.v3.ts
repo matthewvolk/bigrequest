@@ -192,7 +192,7 @@ export interface components {
      */
     productOptionOptionValue_Base: {
       /**
-       * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+       * @description The flag for preselecting a value as the default on the storefront.
        *
        * @example false
        */
@@ -664,7 +664,7 @@ export interface operations {
           sort_order?: number;
           option_values?: ({
               /**
-               * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+               * @description The flag for preselecting a value as the default on the storefront.
                *
                * @example false
                */
@@ -845,7 +845,7 @@ export interface operations {
               sort_order?: number;
               option_values?: ({
                   /**
-                   * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+                   * @description The flag for preselecting a value as the default on the storefront.
                    *
                    * @example false
                    */
@@ -1151,7 +1151,7 @@ export interface operations {
           sort_order?: number;
           option_values?: ({
               /**
-               * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+               * @description The flag for preselecting a value as the default on the storefront.
                *
                * @example false
                */
@@ -1332,7 +1332,7 @@ export interface operations {
               sort_order?: number;
               option_values?: ({
                   /**
-                   * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+                   * @description The flag for preselecting a value as the default on the storefront.
                    *
                    * @example false
                    */
@@ -1458,7 +1458,7 @@ export interface operations {
           "application/json": {
             data?: ({
                 /**
-                 * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+                 * @description The flag for preselecting a value as the default on the storefront.
                  *
                  * @example false
                  */
@@ -1518,7 +1518,7 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+           * @description The flag for preselecting a value as the default on the storefront.
            *
            * @example false
            */
@@ -1547,7 +1547,7 @@ export interface operations {
             /** Option Value */
             data?: {
               /**
-               * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+               * @description The flag for preselecting a value as the default on the storefront.
                *
                * @example false
                */
@@ -1625,7 +1625,7 @@ export interface operations {
             /** Option Value */
             data?: {
               /**
-               * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+               * @description The flag for preselecting a value as the default on the storefront.
                *
                * @example false
                */
@@ -1695,7 +1695,7 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+           * @description The flag for preselecting a value as the default on the storefront.
            *
            * @example false
            */
@@ -1727,7 +1727,7 @@ export interface operations {
             /** Option Value */
             data?: {
               /**
-               * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+               * @description The flag for preselecting a value as the default on the storefront.
                *
                * @example false
                */

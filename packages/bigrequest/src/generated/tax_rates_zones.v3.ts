@@ -38,6 +38,18 @@ export interface paths {
       };
     };
   };
+  "/tax/zonecheck": {
+    /**
+     * Check Tax Zone
+     * @description Returns the tax zone that applies to a given region and customer group.
+     */
+    post: operations["zoneCheck"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+  };
   "/tax/rates": {
     /**
      * Get Tax Rates
@@ -105,7 +117,7 @@ export interface components {
              */
             country_code?: string;
             /**
-             * @description Three-letter ISO 3166-2 subdivision code
+             * @description ISO 3166-2 subdivision code, up to three alphanumeric characters.
              * @example [
              *   "NSW",
              *   "QLD"
@@ -151,12 +163,12 @@ export interface components {
         /** @description A tax zone may target shoppers in one or more locations. */
         locations?: {
             /**
-             * @description Two-letter ISO 3166-1 country code
+             * @description Two-letter ISO 3166-1 country code.
              * @example AU
              */
             country_code?: string;
             /**
-             * @description Three-letter ISO 3166-2 subdivision code
+             * @description ISO 3166-2 subdivision code, up to three alphanumeric characters.
              * @example [
              *   "NSW",
              *   "QLD"
@@ -206,12 +218,12 @@ export interface components {
         /** @description A tax zone may target shoppers in one or more locations. */
         locations: {
             /**
-             * @description Two-letter ISO 3166-1 country code
+             * @description Two-letter ISO 3166-1 country code.
              * @example AU
              */
             country_code?: string;
             /**
-             * @description Three-letter ISO 3166-2 subdivision code
+             * @description ISO 3166-2 subdivision code, up to three alphanumeric characters.
              * @example [
              *   "NSW",
              *   "QLD"
@@ -344,6 +356,28 @@ export interface components {
        * @example 2
        */
       tax_zone_id: number;
+    };
+    ZoneCheck: {
+      /**
+       * @description Two-letter ISO 3166-1 country code.
+       * @example AU
+       */
+      country_code: string;
+      /**
+       * @description ISO 3166-2 subdivision code, up to three alphanumeric characters.
+       * @example NSW
+       */
+      subdivision_codes?: string;
+      /**
+       * @description Postal code.
+       * @example 2099
+       */
+      postal_code?: string;
+      /**
+       * @description Customer Group ID to which the customer is belongs.
+       * @example 0
+       */
+      customer_group_id?: number;
     };
     /** Meta */
     Meta: {
@@ -509,6 +543,38 @@ export interface operations {
     responses: {
       /** @description No Content */
       204: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Check Tax Zone
+   * @description Returns the tax zone that applies to a given region and customer group.
+   */
+  zoneCheck: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["Content-Type"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ZoneCheck"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Tax_Zone"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      /** @description The request body does not meet specifications. */
+      422: {
         content: never;
       };
     };
