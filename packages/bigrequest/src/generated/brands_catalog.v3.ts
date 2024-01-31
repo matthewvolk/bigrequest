@@ -197,7 +197,15 @@ export interface components {
        * @example Common Good
        */
       page_title?: string;
-      /** @description Comma-separated list of meta keywords to include in the HTML. */
+      /**
+       * @description An array of meta keywords to include in the HTML.
+       *
+       * @example [
+       *   "modern",
+       *   "clean",
+       *   "contemporary"
+       * ]
+       */
       meta_keywords?: string[];
       /**
        * @description A meta description to include.
@@ -495,7 +503,15 @@ export interface operations {
            * @example Common Good
            */
           page_title?: string;
-          /** @description Comma-separated list of meta keywords to include in the HTML. */
+          /**
+           * @description An array of meta keywords to include in the HTML.
+           *
+           * @example [
+           *   "modern",
+           *   "clean",
+           *   "contemporary"
+           * ]
+           */
           meta_keywords?: string[];
           /**
            * @description A meta description to include.
@@ -559,7 +575,15 @@ export interface operations {
                * @example Common Good
                */
               page_title?: string;
-              /** @description Comma-separated list of meta keywords to include in the HTML. */
+              /**
+               * @description An array of meta keywords to include in the HTML.
+               *
+               * @example [
+               *   "modern",
+               *   "clean",
+               *   "contemporary"
+               * ]
+               */
               meta_keywords?: string[];
               /**
                * @description A meta description to include.
@@ -748,10 +772,12 @@ export interface operations {
            */
           page_title?: string;
           /**
-           * @description Comma-separated list of meta keywords to include in the HTML.
+           * @description An array of meta keywords to include in the HTML.
            *
            * @example [
-           *   "modern, clean, contemporary"
+           *   "modern",
+           *   "clean",
+           *   "contemporary"
            * ]
            */
           meta_keywords?: string[];
@@ -818,10 +844,12 @@ export interface operations {
                */
               page_title?: string;
               /**
-               * @description Comma-separated list of meta keywords to include in the HTML.
+               * @description An array of meta keywords to include in the HTML.
                *
                * @example [
-               *   "modern, clean, contemporary"
+               *   "modern",
+               *   "clean",
+               *   "contemporary"
                * ]
                */
               meta_keywords?: string[];
