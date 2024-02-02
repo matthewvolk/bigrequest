@@ -720,8 +720,8 @@ export interface operations {
   deletePriceLists: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
+        /** @description Filter by `id`. Accepts multiple comma-separated values. */
+        "id:in"?: number;
         /** @description Filter items by name. */
         name?: string;
       };
