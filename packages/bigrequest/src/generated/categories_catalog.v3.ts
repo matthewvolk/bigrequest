@@ -1657,10 +1657,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": {
-              product_id?: number;
-              sort_order?: number;
-            }[];
+          "application/json": components["schemas"]["productSortOrder"][];
         };
       };
       /** @description The requested category was not found. */
