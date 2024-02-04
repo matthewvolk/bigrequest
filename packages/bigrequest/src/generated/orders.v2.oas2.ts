@@ -22,6 +22,8 @@ export interface paths {
      *
      * To remove a product from an order, set that product’s `quantity` to `0`.
      *
+     * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+     *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
     put: operations["updateOrder"];
@@ -2552,6 +2554,8 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you can update this field using a POST or PUT request. */
+    external_order_id?: number;
     /** @description The minimum order ID. */
     min_id?: number;
     /** @description The maximum order ID. */
@@ -2682,6 +2686,8 @@ export interface operations {
    *
    * To remove a product from an order, set that product’s `quantity` to `0`.
    *
+   * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+   *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
   updateOrder: {
@@ -2767,6 +2773,7 @@ export interface operations {
         is_deleted?: components["parameters"]["is_deleted"];
         channel_id?: components["parameters"]["channel_id"];
         include?: components["parameters"]["order_includes"];
+        external_order_id?: components["parameters"]["external_order_id"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

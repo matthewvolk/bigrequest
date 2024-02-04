@@ -1578,7 +1578,7 @@ export interface components {
     /** @description Allows app partners to write custom data to various resources in the API. */
     Metafield: components["schemas"]["MetafieldBase"] & {
       /** @description The unique identifier for the metafield. */
-      id?: number;
+      id?: string;
       /**
        * Format: date-time
        * @description Date and time of the metafield's creation.
