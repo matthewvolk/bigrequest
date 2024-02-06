@@ -22,6 +22,8 @@ export interface paths {
      *
      * To remove a product from an order, set that product’s `quantity` to `0`.
      *
+     * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+     *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
     put: operations["updateOrder"];
@@ -264,7 +266,19 @@ export interface paths {
      *
      * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
      *
-     * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
+     * Acceptable values for `shipping_provider` include the following, and this list may be updated at any time:
+     *  - `""`, an empty string
+     *  - `auspost`
+     *  - `canadapost
+     *  - `endicia`
+     *  - `usps`
+     *  - `fedex`
+     *  - `royalmail`
+     *  - `ups`
+     *  - `upsready`
+     *  - `upsonline`
+     *  - `shipperhq`
+     *  - `carrier_{your_carrier_id}`, when the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)
      *
      * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
      */
@@ -429,6 +443,19 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /**
+     * Standard Shipping Provider
+     * @description An enum identifying one of several core shipping providers.
+     * @example shipperhq
+     * @enum {string}
+     */
+    shipping_provider_standard: "auspost" | "canadapost" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq" | "royalmail" | "";
+    /**
+     * Custom Shipping Provider
+     * @description A string identifying the shipping provider. Some shipping providers may not be listed in the preceding enum list. In addition, if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping), the string takes the form `carrier_{your_carrier_id}`.
+     * @example carrier_1234567
+     */
+    shipping_provider_custom: string;
     /**
      * order_Resp
      * @description Order object returned in responses.
@@ -932,15 +959,12 @@ export interface components {
        * @example Ship by Weight
        */
       shipping_method?: string;
-      /**
-       * @description Enum of the BigCommerce shipping-carrier integration/module.
-       * @enum {string}
-       */
-      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq" | "";
+      shipping_provider?: components["schemas"]["shipping_provider_standard"] | components["schemas"]["shipping_provider_custom"];
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
        * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+       * @example
        */
       tracking_carrier?: string;
       /** @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property. */
@@ -1212,15 +1236,12 @@ export interface components {
        * @example Ship by Weight
        */
       shipping_method?: string;
-      /**
-       * @description Enum of the BigCommerce shipping-carrier integration/module.
-       * @enum {string}
-       */
-      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
+      shipping_provider?: components["schemas"]["shipping_provider_standard"] | components["schemas"]["shipping_provider_custom"];
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
        * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+       * @example
        */
       tracking_carrier?: string;
       /** @description Comments the shipper wishes to add. */
@@ -1252,15 +1273,12 @@ export interface components {
        * @example Ship by Weight
        */
       shipping_method?: string;
-      /**
-       * @description Enum of the BigCommerce shipping-carrier integration/module.
-       * @enum {string}
-       */
-      shipping_provider?: "auspost" | "canadapost" | "carrier_{your_carrier_id} (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping))" | "endicia" | "usps" | "fedex" | "ups" | "upsready" | "upsonline" | "shipperhq";
+      shipping_provider?: components["schemas"]["shipping_provider_standard"] | components["schemas"]["shipping_provider_custom"];
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
        * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+       * @example
        */
       tracking_carrier?: string;
       /**
@@ -2552,6 +2570,8 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you can update this field using a POST or PUT request. */
+    external_order_id?: number;
     /** @description The minimum order ID. */
     min_id?: number;
     /** @description The maximum order ID. */
@@ -2682,6 +2702,8 @@ export interface operations {
    *
    * To remove a product from an order, set that product’s `quantity` to `0`.
    *
+   * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+   *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
   updateOrder: {
@@ -2767,6 +2789,7 @@ export interface operations {
         is_deleted?: components["parameters"]["is_deleted"];
         channel_id?: components["parameters"]["channel_id"];
         include?: components["parameters"]["order_includes"];
+        external_order_id?: components["parameters"]["external_order_id"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3050,7 +3073,19 @@ export interface operations {
    *
    * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
    *
-   * Acceptable values for `shipping_provider` include an empty string (`""`), `auspost`, `carrier_{your_carrier_id}` (only used if the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)), `canadapost`, `endicia`, `usps`, `fedex`, `royalmail`, `ups`, `upsready`, `upsonline`, or `shipperhq`.
+   * Acceptable values for `shipping_provider` include the following, and this list may be updated at any time:
+   *  - `""`, an empty string
+   *  - `auspost`
+   *  - `canadapost
+   *  - `endicia`
+   *  - `usps`
+   *  - `fedex`
+   *  - `royalmail`
+   *  - `ups`
+   *  - `upsready`
+   *  - `upsonline`
+   *  - `shipperhq`
+   *  - `carrier_{your_carrier_id}`, when the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)
    *
    * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
    */
