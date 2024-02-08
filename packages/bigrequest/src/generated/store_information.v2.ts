@@ -9,7 +9,7 @@ export interface paths {
   "/store": {
     /**
      * Get Store Information
-     * @description Returns metadata about a store.
+     * @description Returns metadata about the global settings for a store. Some of these values are independently configurable on a per-storefront or per-channel basis. For channel overrides, see [Store Settings](/docs/rest-management/settings).
      */
     get: operations["getStoreInformation"];
   };
@@ -29,10 +29,15 @@ export interface components {
     /** Store Information */
     StoreInformation: {
       /**
-       * @description Unique store identifier.
+       * @description The store hash, a unique store identifier.
        * @example store_hash
        */
       id?: string;
+      /**
+       * Format: uuid
+       * @description The UUID of the account to which the store belongs.
+       */
+      account_uuid?: string;
       /**
        * @description Primary domain name.
        * @example your-store-url.com
@@ -48,6 +53,11 @@ export interface components {
        * @example https://store-abc123.mybigcommerce.com
        */
       control_panel_base_url?: string;
+      /**
+       * @description The status of the store.
+       * @example live
+       */
+      status?: string;
       /**
        * @description Store’s name.
        * @example BigCommerce
@@ -154,6 +164,11 @@ export interface components {
        */
       plan_level?: string;
       /**
+       * @description Whether the payment plan associated with the store is still in the trial phase.
+       * @example false
+       */
+      plan_is_trial?: boolean;
+      /**
        * @description Industry, or vertical category, in which the business operates. (As selected from drop-down list during the store sign-up process.)
        * @example Technology
        */
@@ -168,23 +183,25 @@ export interface components {
        * @example false
        */
       is_price_entered_with_tax?: boolean;
-      active_comparison_modules?: unknown[];
+      /** @description The numeric ID of the store. This is a different unique ID than the store hash. */
+      store_id?: number;
       /**
-       * @description + `stencil_enabled`: `true` (boolean)
-       * + `sitewidehttps_enabled`: `false` (boolean)
-       * + `facebook_catalog_id` (string)
+       * @description The ID of the default channel. The ID of the first hosted storefront created on the store is `1`.
+       * @default 1
+       * @example 1
        */
+      default_channel_id?: number;
+      /**
+       * @description The BigCommerce ID of the website associated with the default storefront.
+       * @example 1000
+       */
+      default_site_id?: number;
+      active_comparison_modules?: unknown[];
+      /** @description Describes some aspects of the storeʼs tech stack and configuration settings that affect the features available for the store to use. */
       features?: {
         /**
-         * @description What type of checkout is enabled on the store. Possible values returned are optimized, single (one page), single_customizable (one page for developers), klarna.
-         * @example optimized
-         */
-        checkout_type?: string;
-        /** @description ID of the facebook by meta catalog. If there is none, it returns an empty string. */
-        facebook_catalog_id?: string;
-        graphql_storefront_api_enabled?: boolean;
-        /**
          * @description Indicates whether a store is using a Stencil theme.
+         * @default true
          * @example true
          */
         stencil_enabled?: boolean;
@@ -193,23 +210,48 @@ export interface components {
          * @example false
          */
         sitewidehttps_enabled?: boolean;
+        /** @description The ID of the Facebook by Meta catalog. If there is none, this endpoint returns an empty string. */
+        facebook_catalog_id?: string;
         /**
-         * @description Indicates whether MSF feature flag is enabled on a store.
-         *
-         * Returns `true` when MSF feature flag is enabled.
-         * Returns `false` when MSF feature flag is disabled.
+         * @description What type of checkout is enabled on the store. Possible values returned are optimized, single (one page), single_customizable (one page for developers), klarna.
+         * @example optimized
+         * @enum {string}
+         */
+        checkout_type?: "optimized" | "single" | "single_customizable" | "klarna";
+        /** @example false */
+        wishlists_enabled?: boolean;
+        /**
+         * @description Describes whether you can use the [GraphQL Storefront API](/graphql-storefront/reference) on this store.
+         * @default true
+         * @example true
+         */
+        graphql_storefront_api_enabled?: boolean;
+        /**
+         * @description Indicates whether the store is tracking the values of the cookie and privacy consent settings that the shopper consented to and configured.
+         * @example true
+         */
+        shopper_consent_tracking_enabled?: boolean;
+        /**
+         * @description Indicates whether the storeʼs plan provides the possibility of using more than one storefront or sales channel. Internally, this value indicates whether the store has the MSF feature flag enabled.
+         * @default false
+         * @example true
          */
         multi_storefront_enabled?: boolean;
-        shopper_consent_tracking_enabled?: boolean;
-        wishlists_enabled?: boolean;
+        storefront_limits?: {
+          /**
+           * @description Describes the number of storefronts active on the store. If `multi_storefront_enabled` is `false`, this value is `1`.
+           * @default 1
+           * @example 3
+           */
+          active?: number;
+          /**
+           * @description Describes the total number of storefronts associated with the store, including both active and inactive storefronts. The default varies based on store plan.
+           * @default 1
+           * @example 15
+           */
+          total_including_inactive?: number;
+        };
       };
-      account_uuid?: string;
-      default_channel_id?: number;
-      default_site_id?: number;
-      plan_is_trial?: boolean;
-      store_id?: number;
-      /** @example live */
-      status?: string;
     };
     /** Time Zone */
     Timezone: {
@@ -280,7 +322,7 @@ export interface operations {
 
   /**
    * Get Store Information
-   * @description Returns metadata about a store.
+   * @description Returns metadata about the global settings for a store. Some of these values are independently configurable on a per-storefront or per-channel basis. For channel overrides, see [Store Settings](/docs/rest-management/settings).
    */
   getStoreInformation: {
     parameters: {

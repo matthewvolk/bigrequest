@@ -2198,8 +2198,8 @@ export interface operations {
         direction?: "asc" | "desc";
         /** @description Field name to sort by. Note: Since `id` increments when new products are added, you can use that field to sort by product create date. */
         sort?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
-        /** @description Filter items by categories. Use for products in multiple categories. For example, `categories:in=12`. */
-        "categories:in"?: number;
+        /** @description Filter items by categories. Use for products in multiple categories. For example, `categories:in=12,15`. */
+        "categories:in"?: number[];
         /** @description Filter items by main SKU. To filter by variant SKU, see [Get All Variants](/docs/rest-catalog/product-variants#get-all-product-variants). */
         sku?: string;
         /** @description Filter items by SKU. */

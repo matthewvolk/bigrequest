@@ -730,6 +730,7 @@ export interface components {
       total_pages?: number;
     };
     Site: {
+      /** @description The ID of the site. */
       id?: number;
       /**
        * @description The fully qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
