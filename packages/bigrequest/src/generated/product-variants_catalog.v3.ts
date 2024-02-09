@@ -504,6 +504,11 @@ export interface components {
     metaCollection_Full: {
       pagination?: components["schemas"]["pagination_Full"];
     };
+    MultiStatus: {
+      data?: components["schemas"]["productVariant_Full"];
+      errors?: components["schemas"]["errorMultiStatus"];
+      meta?: components["schemas"]["metaCollection_Full"];
+    };
     /**
      * pagination_Full
      * @description Data about the response, including pagination and collection totals.
@@ -741,11 +746,7 @@ export interface operations {
        */
       207: {
         content: {
-          "application/json": {
-            data?: components["schemas"]["productVariant_Full"];
-            errors?: components["schemas"]["errorMultiStatus"];
-            meta?: components["schemas"]["metaCollection_Full"];
-          };
+          "application/json": components["schemas"]["MultiStatus"];
         };
       };
       /** @description The resource was not found. */
@@ -843,11 +844,7 @@ export interface operations {
        */
       207: {
         content: {
-          "application/json": {
-            data?: components["schemas"]["productVariant_Full"];
-            errors?: components["schemas"]["errorMultiStatus"];
-            meta?: components["schemas"]["metaCollection_Full"];
-          };
+          "application/json": components["schemas"]["MultiStatus"];
         };
       };
       /** @description The resource was not found. */
