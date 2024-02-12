@@ -835,7 +835,10 @@ export interface components {
       category_id?: number;
       channel_id?: number;
     };
-    /** @description The basic profile settings for a store, used to give the shopper information about the business from which they are purchasing. */
+    /**
+     * Store Profile
+     * @description The basic profile settings for a store, used to give the shopper information about the business from which they are purchasing.
+     */
     StoreProfile: {
       store_address?: string;
       store_address_type?: components["schemas"]["AddressTypeEnumValues"];

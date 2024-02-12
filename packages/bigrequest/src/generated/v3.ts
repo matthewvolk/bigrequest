@@ -33,6 +33,7 @@ import * as tax_v3 from './tax.v3';
 import * as tax_properties_v3 from './tax_properties.v3';
 import * as tax_rates_zones_v3 from './tax_rates_zones.v3';
 import * as tax_settings_v3 from './tax_settings.v3';
+import * as tax_zone_check_v3 from './tax_zone_check.v3';
 import * as themes_v3 from './themes.v3';
 import * as webhooks_v3 from './webhooks.v3';
 import * as widgets_v3 from './widgets.v3';
@@ -72,6 +73,7 @@ tax_v3.paths &
 tax_properties_v3.paths &
 tax_rates_zones_v3.paths &
 tax_settings_v3.paths &
+tax_zone_check_v3.paths &
 themes_v3.paths &
 webhooks_v3.paths &
 widgets_v3.paths &

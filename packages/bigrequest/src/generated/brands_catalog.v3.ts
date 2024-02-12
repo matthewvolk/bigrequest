@@ -45,7 +45,7 @@ export interface paths {
      * Get a Brand
      * @description Returns a single *Brand*. Optional filter parameters can be passed in.
      */
-    get: operations["getBrandById"];
+    get: operations["getBrand"];
     /**
      * Update a Brand
      * @description Updates a *Brand*.
@@ -172,6 +172,28 @@ export interface paths {
       };
     };
   };
+  "/catalog/brands/metafields": {
+    /**
+     * Get All Metafields
+     * @description Get all brand metafields.
+     */
+    get: operations["getBrandsMetafields"];
+    /**
+     * Update multiple Metafields
+     * @description Create multiple metafields.
+     */
+    put: operations["updateBrandsMetafields"];
+    /**
+     * Create multiple Metafields
+     * @description Create multiple metafields.
+     */
+    post: operations["createBrandsMetafields"];
+    /**
+     * Delete All Metafields
+     * @description Delete all brand metafields.
+     */
+    delete: operations["deleteBrandsMetafields"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -197,7 +219,15 @@ export interface components {
        * @example Common Good
        */
       page_title?: string;
-      /** @description Comma-separated list of meta keywords to include in the HTML. */
+      /**
+       * @description An array of meta keywords to include in the HTML.
+       *
+       * @example [
+       *   "modern",
+       *   "clean",
+       *   "contemporary"
+       * ]
+       */
       meta_keywords?: string[];
       /**
        * @description A meta description to include.
@@ -370,7 +400,7 @@ export interface components {
       resource_id?: number;
       /**
        * Format: date-time
-       * @description Date and time of the metafield's creation. Read-Only.
+       * @description Date and time of the metafieldʼs creation. Read-Only.
        *
        * @example 2018-05-07T20:14:17+00:00
        */
@@ -383,9 +413,360 @@ export interface components {
        */
       date_modified?: string;
     });
+    /** @description Common Metafield properties. */
+    Metafield: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example order
+       */
+      description: string;
+      /**
+       * @description The type of resource with which the metafield is associated.
+       *
+       * @example cart
+       * @enum {string}
+       */
+      resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+      /**
+       * @description The unique identifier for the resource with which the metafield is associated.
+       *
+       * @example 424242
+       */
+      resource_id: number;
+      /** @description The unique identifier for the metafield. */
+      id: number;
+      /**
+       * Format: date-time
+       * @description Date and time of the metafieldʼs creation.
+       * @example 2022-06-16T18:39:00+00:00
+       */
+      date_created: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the metafield was last updated.
+       * @example 2022-06-16T18:39:00+00:00
+       */
+      date_modified: string;
+      /**
+       * @description Client ID for the metafieldʼs creator.
+       * @example asdfasdfasdfasdfasdfasdfasdf
+       */
+      owner_client_id?: string;
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse: {
+      data?: components["schemas"]["Metafield"][];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_DELETE: {
+      /**
+       * @example [
+       *   123
+       * ]
+       */
+      data?: number[];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionDeleteResponseSuccess: {
+      /**
+       * @example [
+       *   123,
+       *   124,
+       *   125
+       * ]
+       */
+      data?: number[];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["WriteCollectionSuccessMeta"];
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionPartialSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 1
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 2
+       */
+      failed?: number;
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 3
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 0
+       */
+      failed?: number;
+    };
+    /**
+     * @description Total number of items in the result set.
+     *
+     * @example 3
+     */
+    Total: number;
+    /** @description Error response payload for the BigCommerce API. */
+    Error: {
+      /**
+       * @description The HTTP status code for the error.
+       *
+       * @example 422
+       */
+      status?: number;
+      /**
+       * @description The error title.
+       *
+       * @example Bulk operation has failed
+       */
+      title?: string;
+      /**
+       * @description The error type.
+       *
+       * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
+       */
+      type?: string;
+      errors?: components["schemas"]["ErrorDetail"];
+    };
+    /**
+     * @description Error detail response payload for the BigCommerce API.
+     *
+     * @example {
+     *   "1": "Unauthorized to delete",
+     *   "2": "Metafield does not exist"
+     * }
+     */
+    ErrorDetail: Record<string, never>;
+    /**
+     * Collection Meta
+     * @description Data about the response, including pagination and collection totals.
+     */
+    CollectionMeta: {
+      /**
+       * Pagination
+       * @description Data about the response, including pagination and collection totals.
+       */
+      pagination?: {
+        /**
+         * @description Total number of items in the result set.
+         *
+         * @example 36
+         */
+        total?: number;
+        /**
+         * @description Total number of items in the collection response.
+         *
+         * @example 36
+         */
+        count?: number;
+        /**
+         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+         *
+         * @example 50
+         */
+        per_page?: number;
+        /**
+         * @description The page you are currently on within the collection.
+         *
+         * @example 1
+         */
+        current_page?: number;
+        /**
+         * @description The total number of pages in the collection.
+         *
+         * @example 1
+         */
+        total_pages?: number;
+        /** @description Pagination links for the previous and next parts of the whole collection. */
+        links?: {
+          /** @description Link to the previous page returned in the response. */
+          previous?: string;
+          /**
+           * @description Link to the current page returned in the response.
+           *
+           * @example ?page=1&limit=50
+           */
+          current?: string;
+          /** @description Link to the next page returned in the response. */
+          next?: string;
+        };
+      };
+      [key: string]: unknown;
+    };
+    /** @description Common Metafield properties. */
+    MetafieldBase_Post: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Name of Staff Member
+       */
+      description?: string;
+    };
+    /** @description The model for a POST to create metafield. */
+    MetafieldPost: components["schemas"]["MetafieldBase_Post"] & {
+      /**
+       * @description The ID for the resource with which the metafield is associated.
+       *
+       * @example 42
+       */
+      resource_id: number;
+    };
+    /** @description Common Metafield properties. */
+    MetafieldBase_Put: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace?: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key?: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value?: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Name of Staff Member
+       */
+      description?: string;
+    };
   };
   responses: {
-    /** @description Multi-status. Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occured, such as when a `POST` or `PUT` request is successful, but saving the URL or inventory data has failed. */
+    /** @description Multi-status. Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL or inventory data has failed. */
     General207Status: {
       content: {
         "application/json": components["schemas"]["error_Base"];
@@ -401,6 +782,20 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageParam?: number;
+    /** @description Filter based on a metafieldʼs key. */
+    MetafieldKeyParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
+    MetafieldKeyInParam?: string[];
+    /** @description Filter based on a metafieldʼs namespaces. */
+    MetafieldNamespaceParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
+    MetafieldNamespaceInParam?: string[];
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitParam?: number;
+    /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
+    DirectionParam?: "asc" | "desc";
   };
   requestBodies: never;
   headers: never;
@@ -495,7 +890,15 @@ export interface operations {
            * @example Common Good
            */
           page_title?: string;
-          /** @description Comma-separated list of meta keywords to include in the HTML. */
+          /**
+           * @description An array of meta keywords to include in the HTML.
+           *
+           * @example [
+           *   "modern",
+           *   "clean",
+           *   "contemporary"
+           * ]
+           */
           meta_keywords?: string[];
           /**
            * @description A meta description to include.
@@ -559,7 +962,15 @@ export interface operations {
                * @example Common Good
                */
               page_title?: string;
-              /** @description Comma-separated list of meta keywords to include in the HTML. */
+              /**
+               * @description An array of meta keywords to include in the HTML.
+               *
+               * @example [
+               *   "modern",
+               *   "clean",
+               *   "contemporary"
+               * ]
+               */
               meta_keywords?: string[];
               /**
                * @description A meta description to include.
@@ -669,7 +1080,7 @@ export interface operations {
    * Get a Brand
    * @description Returns a single *Brand*. Optional filter parameters can be passed in.
    */
-  getBrandById: {
+  getBrand: {
     parameters: {
       query?: {
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -748,10 +1159,12 @@ export interface operations {
            */
           page_title?: string;
           /**
-           * @description Comma-separated list of meta keywords to include in the HTML.
+           * @description An array of meta keywords to include in the HTML.
            *
            * @example [
-           *   "modern, clean, contemporary"
+           *   "modern",
+           *   "clean",
+           *   "contemporary"
            * ]
            */
           meta_keywords?: string[];
@@ -818,10 +1231,12 @@ export interface operations {
                */
               page_title?: string;
               /**
-               * @description Comma-separated list of meta keywords to include in the HTML.
+               * @description An array of meta keywords to include in the HTML.
                *
                * @example [
-               *   "modern, clean, contemporary"
+               *   "modern",
+               *   "clean",
+               *   "contemporary"
                * ]
                */
               meta_keywords?: string[];
@@ -955,9 +1370,9 @@ export interface operations {
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
         limit?: number;
-        /** @description Filter based on a metafield's key. */
+        /** @description Filter based on a metafieldʼs key. */
         key?: string;
-        /** @description Filter based on a metafield's namespace. */
+        /** @description Filter based on a metafieldʼs namespace. */
         namespace?: string;
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
         include_fields?: string;
@@ -1038,7 +1453,7 @@ export interface operations {
           };
         };
       };
-      /** @description The `Metafield` was in conflict with another `Metafield`. This can be the result of duplicate unique key combination of the app's client id, namespace, key, resource_type, and resource_id. */
+      /** @description The `Metafield` was in conflict with another `Metafield`. This can be the result of duplicate unique key combination of the appʼs client id, namespace, key, resource_type, and resource_id. */
       409: {
         content: {
           "application/json": {
@@ -1304,6 +1719,133 @@ export interface operations {
     responses: {
       204: {
         content: {
+        };
+      };
+    };
+  };
+  /**
+   * Get All Metafields
+   * @description Get all brand metafields.
+   */
+  getBrandsMetafields: {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+      };
+    };
+    responses: {
+      /** @description List of `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update multiple Metafields
+   * @description Create multiple metafields.
+   */
+  updateBrandsMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Put"] & {
+            /**
+             * @description The ID of metafield to update.
+             *
+             * @example 42
+             */
+            id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of updated `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Create multiple Metafields
+   * @description Create multiple metafields.
+   */
+  createBrandsMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Post"] & {
+            /**
+             * @description The ID for the brand with which the metafield is associated.
+             *
+             * @example 42
+             */
+            resource_id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of created `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Delete All Metafields
+   * @description Delete all brand metafields.
+   */
+  deleteBrandsMetafields: {
+    /** @description List of metafield IDs. */
+    requestBody?: {
+      content: {
+        "application/json": number[];
+      };
+    };
+    responses: {
+      /** @description Response object for metafields deletion with success. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionDeleteResponseSuccess"];
+        };
+      };
+      /** @description Response object for metafields deletion with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_DELETE"];
         };
       };
     };
