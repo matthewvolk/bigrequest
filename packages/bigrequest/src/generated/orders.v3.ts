@@ -46,7 +46,7 @@ export interface paths {
   "/orders/{order_id}/transactions": {
     /**
      * Get Transactions
-     * @description Returns an **order's** transactions.
+     * @description Returns an **orderʼs** transactions.
      *
      * **Usage Notes**
      * * Depending on the payment method, different information will be available (not all payment gateways return full card or fraud detail).
@@ -260,6 +260,28 @@ export interface paths {
         channel_id: string;
       };
     };
+  };
+  "/orders/metafields": {
+    /**
+     * Get All Metafields
+     * @description Get all order metafields.
+     */
+    get: operations["getOrdersMetafields"];
+    /**
+     * Update multiple Metafields
+     * @description Create multiple metafields.
+     */
+    put: operations["updateOrdersMetafields"];
+    /**
+     * Create multiple Metafields
+     * @description Create multiple metafields.
+     */
+    post: operations["createOrdersMetafields"];
+    /**
+     * Delete All Metafields
+     * @description Delete all order metafields.
+     */
+    delete: operations["deleteOrdersMetafields"];
   };
 }
 
@@ -892,7 +914,7 @@ export interface components {
       store_credit?: {
         /**
          * Format: float
-         * @description Remaining balance of shopper's store credit.
+         * @description Remaining balance of shopperʼs store credit.
          *
          * @example 35.42
          */
@@ -922,7 +944,7 @@ export interface components {
     StoreCredit: {
       /**
        * Format: float
-       * @description Remaining balance of shopper's store credit.
+       * @description Remaining balance of shopperʼs store credit.
        *
        * @example 35.42
        */
@@ -1120,6 +1142,7 @@ export interface components {
        * Note that `refund_methods` is an array of refund methods, with each refund method being an array of payment options.
        *
        * For example, if the order was placed by a combination of store credit and bank deposit the refund methods would be:
+       *
        * ```json
        * {
        *   "refund_methods": [
@@ -1400,7 +1423,7 @@ export interface components {
       id?: number;
       /** @description Reference to order ID. */
       order_id?: number;
-      /** @description Reference to the user's ID who create this refund. This is automatically populated by BigCommerce. */
+      /** @description Reference to the userʼs ID who create this refund. This is automatically populated by BigCommerce. */
       user_id?: number;
       /**
        * Format: date-time
@@ -1523,6 +1546,16 @@ export interface components {
       meta?: components["schemas"]["CollectionMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
     MetafieldResponse: {
       data?: components["schemas"]["Metafield"];
     } & components["schemas"]["Meta"];
@@ -1627,7 +1660,7 @@ export interface components {
       id?: number;
       /**
        * Format: date-time
-       * @description Date and time of the metafield's creation.
+       * @description Date and time of the metafieldʼs creation.
        *
        * @example 2022-06-16T18:39:00+00:00
        */
@@ -1639,9 +1672,12 @@ export interface components {
        * @example 2022-06-16T18:39:00+00:00
        */
       date_modified?: string;
+      /**
+       * @description Client ID for the metafieldʼs creator.
+       * @example asdfasdfasdfasdfasdfasdfasdf
+       */
+      owner_client_id?: string;
     };
-    /** @description The model for a POST to create metafield. */
-    MetafieldPost: components["schemas"]["MetafieldBase_Post"];
     /** @description The model for a PUT to update metafield. */
     MetafieldPut: components["schemas"]["MetafieldBase_Post"];
     /**
@@ -1664,6 +1700,161 @@ export interface components {
           email_addresses?: string[];
         };
       };
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_DELETE: {
+      /**
+       * @example [
+       *   123
+       * ]
+       */
+      data?: number[];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionDeleteResponseSuccess: {
+      /**
+       * @example [
+       *   123,
+       *   124,
+       *   125
+       * ]
+       */
+      data?: number[];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["WriteCollectionSuccessMeta"];
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionPartialSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 1
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 2
+       */
+      failed?: number;
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 3
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 0
+       */
+      failed?: number;
+    };
+    /**
+     * @description Total number of items in the result set.
+     *
+     * @example 3
+     */
+    Total: number;
+    /**
+     * @description Total number of items that were successfully deleted.
+     *
+     * @example 1
+     */
+    Success: number;
+    /**
+     * @description Total number of items that failed to be deleted.
+     *
+     * @example 2
+     */
+    Failed: number;
+    /** @description Error response payload for the BigCommerce API. */
+    Error: {
+      /**
+       * @description The HTTP status code for the error.
+       *
+       * @example 422
+       */
+      status?: number;
+      /**
+       * @description The error title.
+       *
+       * @example Bulk operation has failed
+       */
+      title?: string;
+      /**
+       * @description The error type.
+       *
+       * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
+       */
+      type?: string;
+      errors?: components["schemas"]["ErrorDetail"];
+    };
+    /**
+     * @description Error detail response payload for the BigCommerce API.
+     *
+     * @example {
+     *   "1": "Unauthorized to delete",
+     *   "2": "Metafield does not exist"
+     * }
+     */
+    ErrorDetail: Record<string, never>;
+    /** @description The model for a POST to create metafield. */
+    MetafieldPost_Batch: components["schemas"]["MetafieldBase_Post"] & {
+      /**
+       * @description The ID for the resource with which the metafield is associated.
+       *
+       * @example 42
+       */
+      resource_id: number;
+    };
+    /** @description The model for a PUT to create metafield. */
+    MetafieldPut_Batch: components["schemas"]["MetafieldBase_Post"] & {
+      /**
+       * @description The ID of metafield to update.
+       *
+       * @example 42
+       */
+      id: number;
+      /**
+       * @description The ID for the resource with which the metafield is associated.
+       *
+       * @example 42
+       */
+      resource_id?: number;
     };
     /** ChannelOrderSettings */
     ChannelOrderSettings: {
@@ -1924,10 +2115,14 @@ export interface components {
     PageParam?: number;
     /** @description The ID of the `Metafield`. */
     MetafieldIdParam: number;
-    /** @description Filter based on a metafield's key. */
+    /** @description Filter based on a metafieldʼs key. */
     MetafieldKeyParam?: string;
-    /** @description Filter based on a metafield's key. */
+    /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
+    MetafieldKeyInParam?: string[];
+    /** @description Filter based on a metafieldʼs key. */
     MetafieldNamespaceParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
+    MetafieldNamespaceInParam?: string[];
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
@@ -2001,7 +2196,7 @@ export interface operations {
   };
   /**
    * Get Transactions
-   * @description Returns an **order's** transactions.
+   * @description Returns an **orderʼs** transactions.
    *
    * **Usage Notes**
    * * Depending on the payment method, different information will be available (not all payment gateways return full card or fraud detail).
@@ -2320,7 +2515,7 @@ export interface operations {
     /** @description A `Metafield` object. */
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MetafieldPost"];
+        "application/json": components["schemas"]["MetafieldBase_Post"];
       };
     };
     responses: {
@@ -2330,7 +2525,7 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The `Metafield` conflicts with another `Metafield`. This can be the result of duplicate unique key combinations of the app's client ID, namespace, key, resource_type, and resource_id. */
+      /** @description The `Metafield` conflicts with another `Metafield`. This can result from duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
       409: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];
@@ -2573,6 +2768,133 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["ErrorResponse422"];
+        };
+      };
+    };
+  };
+  /**
+   * Get All Metafields
+   * @description Get all order metafields.
+   */
+  getOrdersMetafields: {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+      };
+    };
+    responses: {
+      /** @description List of `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update multiple Metafields
+   * @description Create multiple metafields.
+   */
+  updateOrdersMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Post"] & {
+            /**
+             * @description The ID of metafield to update.
+             *
+             * @example 42
+             */
+            id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of updated `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Create multiple Metafields
+   * @description Create multiple metafields.
+   */
+  createOrdersMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Post"] & {
+            /**
+             * @description The ID for the order with which the metafield is associated.
+             *
+             * @example 42
+             */
+            resource_id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of created `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Delete All Metafields
+   * @description Delete all order metafields.
+   */
+  deleteOrdersMetafields: {
+    /** @description List of metafield IDs. */
+    requestBody?: {
+      content: {
+        "application/json": number[];
+      };
+    };
+    responses: {
+      /** @description Response object for metafields deletion with success. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionDeleteResponseSuccess"];
+        };
+      };
+      /** @description Response object for metafields deletion with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_DELETE"];
         };
       };
     };
