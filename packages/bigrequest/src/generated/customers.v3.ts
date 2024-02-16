@@ -301,12 +301,12 @@ export interface paths {
   "/customers/{customerId}/consent": {
     /**
      * Get Customer Consent
-     * @description Gets the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
+     * @description Gets the status of a customerʼs consent to allow data collection by cookies and scripts while shopping on a storefront.
      */
     get: operations["getCustomerConsent"];
     /**
      * Update Customer Consent
-     * @description Updates the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
+     * @description Updates the status of a customerʼs consent to allow data collection by cookies and scripts while shopping on a storefront.
      */
     put: operations["updateCustomerConsent"];
     parameters: {
@@ -326,6 +326,57 @@ export interface paths {
         customerId: string;
       };
     };
+  };
+  "/customers/{customerId}/metafields": {
+    /**
+     * Get Customer metafields
+     * @description Get a customer's metafields.
+     */
+    get: operations["getCustomersMetafields"];
+    /**
+     * Create Customer Metafields
+     * @description Creates Customer metafields.
+     */
+    post: operations["createCustomerMetafields"];
+  };
+  "/customers/{customerId}/metafields/{metafieldId}": {
+    /**
+     * Get Metafields by CustomerId
+     * @description Lists all available metafields for a customer. Use both `customerId` and `metafieldId` in the parameters to retrieve the full list.
+     */
+    get: operations["getMetafieldsCustomerId"];
+    /**
+     * Update a metafield
+     * @description Updates Customer metafields. Use both 'customerId' and 'metafield' in the parameter to update the customer metafields.
+     */
+    put: operations["updateCustomerMetafield"];
+    /**
+     * Delete customer metafields
+     * @description Deletes customer metafields. Use both 'customerId' and 'metafieldId' in the parameter to delete the customer metafields.
+     */
+    delete: operations["deleteCustomerMetafieldsId"];
+  };
+  "/customers/metafields": {
+    /**
+     * Get All Metafields
+     * @description Get all customer metafields.
+     */
+    get: operations["getallCustomersMetafields"];
+    /**
+     * Update multiple Metafields
+     * @description Create multiple metafields.
+     */
+    put: operations["updateCustomersMetafields"];
+    /**
+     * Create multiple Metafields
+     * @description Create multiple metafields.
+     */
+    post: operations["createCustomersMetafields"];
+    /**
+     * Delete All Metafields
+     * @description Delete all customer metafields.
+     */
+    delete: operations["deleteCustomersMetafields"];
   };
 }
 
@@ -560,7 +611,7 @@ export interface components {
        */
       attribute_id: number;
       /**
-       * @description Attribute value. This will always be a string, regardless of the attribute's type.
+       * @description Attribute value. This will always be a string, regardless of the attributeʼs type.
        *
        * Corresponds to `attribute_value` used in customer attribute values `GET` requests.
        * @example string
@@ -797,7 +848,7 @@ export interface components {
     };
     /**
      * customerAddresses_Base
-     * @description The `address` object for the `customer` object's `addresses` array.
+     * @description The `address` object for the `customer` objectʼs `addresses` array.
      * @example {
      *   "address1": "Addr 1",
      *   "address2": "",
@@ -843,7 +894,7 @@ export interface components {
     };
     /**
      * customerAddresses_CustomerPost
-     * @description The `address` object for the `customer` object's `addresses` array.
+     * @description The `address` object for the `customer` objectʼs `addresses` array.
      * @example {
      *   "address1": "Addr 1",
      *   "address2": "",
@@ -1157,7 +1208,7 @@ export interface components {
         /** @description Determines if a customer requires consent for tracking privacy. */
         ask_shopper_for_tracking_consent?: boolean;
         /**
-         * @description The URL for a website's privacy policy.
+         * @description The URL for a websiteʼs privacy policy.
          * @example https://bigcommmerce.com/policy
          */
         policy_url?: string;
@@ -1183,7 +1234,7 @@ export interface components {
         /** @description Determines if a customer requires consent for tracking privacy. */
         ask_shopper_for_tracking_consent?: boolean;
         /**
-         * @description The URL for a website's privacy policy.
+         * @description The URL for a websiteʼs privacy policy.
          * @example https://bigcommmerce.com/policy
          */
         policy_url?: string;
@@ -1222,6 +1273,502 @@ export interface components {
       customer_id?: number | null;
       /** @description indicates if the provided credentials are valid. */
       is_valid?: boolean;
+    };
+    /** @description Common metafield properties. */
+    Metafield: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example order
+       */
+      description: string;
+      /**
+       * @description The type of resource with which the metafield is associated.
+       *
+       * @example cart
+       * @enum {string}
+       */
+      resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+      /**
+       * @description The unique identifier for the resource with which the metafield is associated.
+       *
+       * @example 424242
+       */
+      resource_id: number;
+      /** @description The unique identifier for the metafield. */
+      id: number;
+      /**
+       * Format: date-time
+       * @description Date and time of the metafieldʼs creation.
+       * @example 2022-06-16T18:39:00+00:00
+       */
+      date_created: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the metafield was last updated.
+       * @example 2022-06-16T18:39:00+00:00
+       */
+      date_modified: string;
+      /**
+       * @description Client ID for the metafieldʼs creator.
+       * @example asdfasdfasdfasdfasdfasdfasdf
+       */
+      owner_client_id?: string;
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse: {
+      data?: components["schemas"]["Metafield"][];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_DELETE: {
+      /**
+       * @example [
+       *   123
+       * ]
+       */
+      data?: number[];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionDeleteResponseSuccess: {
+      /**
+       * @example [
+       *   123,
+       *   124,
+       *   125
+       * ]
+       */
+      data?: number[];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["WriteCollectionSuccessMeta"];
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionPartialSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 1
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 2
+       */
+      failed?: number;
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 3
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 0
+       */
+      failed?: number;
+    };
+    /**
+     * @description Total number of items in the result set.
+     *
+     * @example 3
+     */
+    Total: number;
+    /**
+     * @description Total number of items that were successfully deleted.
+     *
+     * @example 1
+     */
+    Success: number;
+    /**
+     * @description Total number of items that failed to be deleted.
+     *
+     * @example 2
+     */
+    Failed: number;
+    /** @description Error response payload for the BigCommerce API. */
+    Error: {
+      /**
+       * @description The HTTP status code for the error.
+       *
+       * @example 422
+       */
+      status?: number;
+      /**
+       * @description The error title.
+       *
+       * @example Bulk operation has failed
+       */
+      title?: string;
+      /**
+       * @description The error type.
+       *
+       * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
+       */
+      type?: string;
+      errors?: components["schemas"]["ErrorDetail"];
+    };
+    /**
+     * @description Error detail response payload for the BigCommerce API.
+     *
+     * @example {
+     *   "1": "Unauthorized to delete",
+     *   "2": "Metafield does not exist"
+     * }
+     */
+    ErrorDetail: Record<string, never>;
+    /**
+     * Collection Meta
+     * @description Data about the response, including pagination and collection totals.
+     */
+    CollectionMeta: {
+      /**
+       * Pagination
+       * @description Data about the response, including pagination and collection totals.
+       */
+      pagination?: {
+        /**
+         * @description Total number of items in the result set.
+         *
+         * @example 36
+         */
+        total?: number;
+        /**
+         * @description Total number of items in the collection response.
+         *
+         * @example 36
+         */
+        count?: number;
+        /**
+         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+         *
+         * @example 50
+         */
+        per_page?: number;
+        /**
+         * @description The page you are currently on within the collection.
+         *
+         * @example 1
+         */
+        current_page?: number;
+        /**
+         * @description The total number of pages in the collection.
+         *
+         * @example 1
+         */
+        total_pages?: number;
+        /** @description Pagination links for the previous and next parts of the whole collection. */
+        links?: {
+          /** @description Link to the previous page returned in the response. */
+          previous?: string;
+          /**
+           * @description Link to the current page returned in the response.
+           *
+           * @example ?page=1&limit=50
+           */
+          current?: string;
+          /** @description Link to the next page returned in the response. */
+          next?: string;
+        };
+      };
+      [key: string]: unknown;
+    };
+    /** @description Common Metafield properties. */
+    MetafieldBase_Post: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Name of Staff Member
+       */
+      description?: string;
+    };
+    /** @description Common Metafield properties. */
+    MetafieldBase_Put: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace?: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key?: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value?: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Name of Staff Member
+       */
+      description?: string;
+    };
+    /** metafield_Full */
+    metafield_Full: {
+      /**
+       * @description Unique ID of the *Metafield*. Read-Only.
+       * @example 6
+       */
+      id?: number;
+    } & components["schemas"]["metafield_Base"] & ({
+      /**
+       * @description The type of resource with which the metafield is associated.
+       *
+       * @example customer
+       * @enum {string}
+       */
+      resource_type?: "category" | "brand" | "product" | "variant" | "customer";
+      /**
+       * @description The ID of the resource with which the metafield is associated.
+       *
+       * @example 111
+       */
+      resource_id?: number;
+      /**
+       * Format: date-time
+       * @description Date and time of the metafieldʼs creation. Read-Only.
+       *
+       * @example 2018-05-07T20:14:17+00:00
+       */
+      date_created?: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the metafield was last updated. Read-Only.
+       *
+       * @example 2018-05-07T20:14:17+00:00
+       */
+      date_modified?: string;
+    });
+    /**
+     * metafield_Base
+     * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 50. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     */
+    metafield_Base: {
+      /**
+       * @description The name of the field, for example: `location_id`, `color`. Required for POST.
+       *
+       * @example Location
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`. Required for POST.
+       *
+       * @example 4HG
+       */
+      value: string;
+      /**
+       * @description Namespace for the metafield, for organizational purposes. This is set by the developer. Required for POST.
+       *
+       * @example Warehouse Locations
+       */
+      namespace: string;
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       *
+       * |Value|Description
+       * |-|-|
+       * |`app_only`|Private to the app that owns the field|
+       * |`read`|Visible to other API consumers|
+       * |`write`|Open for reading and writing by other API consumers|
+       * |`read_and_sf_access`|Visible to other API consumers, including on storefront|
+       * |`write_and_sf_access`|Open for reading and writing by other API consumers, including on storefront|
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Location in the warehouse
+       */
+      description?: string;
+    };
+    /**
+     * Response meta
+     * @description Response metadata.
+     */
+    metaEmpty_Full: {
+      [key: string]: unknown;
+    };
+    /**
+     * metaCollection_Full
+     * @description Data about the response, including pagination and collection totals.
+     */
+    metaCollection_Full: {
+      pagination?: components["schemas"]["pagination_Full"];
+    };
+    /**
+     * pagination_Full
+     * @description Data about the response, including pagination and collection totals.
+     */
+    pagination_Full: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 36
+       */
+      total?: number;
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description The page you are currently on within the collection.
+       *
+       * @example 1
+       */
+      current_page?: number;
+      /**
+       * @description The total number of pages in the collection.
+       *
+       * @example 1
+       */
+      total_pages?: number;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /** @description Link to the previous page returned in the response. */
+        previous?: string;
+        /**
+         * @description Link to the current page returned in the response.
+         *
+         * @example ?page=1&limit=50
+         */
+        current?: string;
+        /** @description Link to the next page returned in the response. */
+        next?: string;
+      };
     };
   };
   responses: {
@@ -1557,6 +2104,78 @@ export interface components {
         };
       };
     };
+    /** @description Response payload for the BigCommerce API. */
+    MetafieldResponse_Post: {
+      content: never;
+    };
+    "application/json": {
+      content: never;
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetafieldCollectionResponse: {
+      content: {
+        "application/json": {
+          data?: unknown[];
+          /**
+           * @description Unique ID of the *Metafield*. Read-Only.
+           * @example 24
+           */
+          id: number;
+          /** @description The key for the metafields. */
+          key: string;
+          /** @description The description for the metafield. */
+          value: string;
+          /**
+           * @description Namespace for the metafield, for organizational purposes.
+           *
+           * @example Sales Department
+           */
+          namespace: string;
+          /**
+           * @description Determines the visibility and writeability of the field by other API consumers.
+           * | Value | Description |
+           * | :--- | :--- |
+           * | `app_only` | Private to the app that owns the field. |
+           * | `read` | Visible to other API consumers. |
+           * | `write` | Open for reading and writing by other API consumers. |
+           * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
+           * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
+           *
+           * @enum {string}
+           */
+          permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+          /**
+           * @description The type of resource with which the metafield is associated.
+           *
+           * @example cart
+           * @enum {string}
+           */
+          resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+          /**
+           * @description The unique identifier for the resource with which the metafield is associated.
+           *
+           * @example 424242
+           */
+          resource_id: number;
+          /** @description Description for the metafields. */
+          description: string;
+          /**
+           * Format: date-time
+           * @description Date and time of the metafieldʼs creation.
+           * @example 2022-06-16T18:39:00+00:00
+           */
+          date_created: string;
+          /**
+           * Format: date-time
+           * @description Date and time when the metafield was last updated.
+           * @example 2022-06-16T18:39:00+00:00
+           */
+          date_modified: string;
+          /** @description Client ID for the metafield's creator. */
+          owner_client_id?: string;
+        };
+      };
+    };
     consent_Resp: {
       content: {
         "application/json": components["schemas"]["consent_Full"];
@@ -1564,7 +2183,24 @@ export interface components {
     };
   };
   parameters: {
-    customerId: string;
+    /** @description The ID of the metafield belonging to the customer. The metafieldId is a generated response when sending a POST query to the Create a Customer Metafields endpoint. */
+    metafieldId: number;
+    /** @description The ID of the customer. */
+    customerId: number;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageParam?: number;
+    /** @description Filter based on a metafieldʼs key. */
+    MetafieldKeyParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla 'key' query parameter. */
+    MetafieldKeyInParam?: string[];
+    /** @description Filter based on a metafieldʼs namespaces. */
+    MetafieldNamespaceParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
+    MetafieldNamespaceInParam?: string[];
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitParam?: number;
+    /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
+    DirectionParam?: "asc" | "desc";
   };
   requestBodies: never;
   headers: never;
@@ -2365,7 +3001,7 @@ export interface operations {
   };
   /**
    * Get Customer Consent
-   * @description Gets the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
+   * @description Gets the status of a customerʼs consent to allow data collection by cookies and scripts while shopping on a storefront.
    */
   getCustomerConsent: {
     parameters: {
@@ -2397,7 +3033,7 @@ export interface operations {
   };
   /**
    * Update Customer Consent
-   * @description Updates the status of a customer's consent to allow data collection by cookies and scripts while shopping on a storefront.
+   * @description Updates the status of a customerʼs consent to allow data collection by cookies and scripts while shopping on a storefront.
    */
   updateCustomerConsent: {
     parameters: {
@@ -2463,6 +3099,262 @@ export interface operations {
       403: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Customer metafields
+   * @description Get a customer's metafields.
+   */
+  getCustomersMetafields: {
+    parameters: {
+      query?: {
+        customerId?: number;
+      };
+      path: {
+        customerId: components["parameters"]["customerId"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Metafield"];
+      };
+    };
+    responses: {
+      /** @description List of `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["responses"]["MetafieldResponse_Post"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Create Customer Metafields
+   * @description Creates Customer metafields.
+   */
+  createCustomerMetafields: {
+    parameters: {
+      query?: {
+        customerId?: number;
+      };
+      path: {
+        customerId: components["parameters"]["customerId"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": Record<string, never>;
+      };
+    };
+    responses: {
+      200: components["responses"]["MetafieldResponse_Post"];
+    };
+  };
+  /**
+   * Get Metafields by CustomerId
+   * @description Lists all available metafields for a customer. Use both `customerId` and `metafieldId` in the parameters to retrieve the full list.
+   */
+  getMetafieldsCustomerId: {
+    parameters: {
+      path: {
+        /** @description The ID that belongs to the customer. */
+        customerId: number;
+        /** @description The ID that is assigned to a metafield when created. */
+        metafieldId: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Metafield"];
+      };
+    };
+    responses: {
+      200: components["responses"]["MetafieldCollectionResponse"];
+    };
+  };
+  /**
+   * Update a metafield
+   * @description Updates Customer metafields. Use both 'customerId' and 'metafield' in the parameter to update the customer metafields.
+   */
+  updateCustomerMetafield: {
+    parameters: {
+      query?: {
+        /** @description The ID that is assigned to a metafield when created. */
+        metafieldId?: number;
+      };
+      path: {
+        metafieldId: components["parameters"]["metafieldId"];
+        customerId: components["parameters"]["customerId"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Put"] & {
+            /**
+             * @description The ID of metafield to update.
+             *
+             * @example 42
+             */
+            id: number;
+          })[];
+      };
+    };
+    responses: {
+      200: components["responses"]["MetafieldResponse_Post"];
+    };
+  };
+  /**
+   * Delete customer metafields
+   * @description Deletes customer metafields. Use both 'customerId' and 'metafieldId' in the parameter to delete the customer metafields.
+   */
+  deleteCustomerMetafieldsId: {
+    parameters: {
+      path: {
+        customerId: components["parameters"]["customerId"];
+        metafieldId: components["parameters"]["metafieldId"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": number[];
+      };
+    };
+    responses: {
+      /** @description Response object for customer metafields deletion with success. */
+      204: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Get All Metafields
+   * @description Get all customer metafields.
+   */
+  getallCustomersMetafields: {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+      };
+    };
+    responses: {
+      /** @description List of `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update multiple Metafields
+   * @description Create multiple metafields.
+   */
+  updateCustomersMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Put"] & {
+            /**
+             * @description The ID of metafield to update.
+             *
+             * @example 42
+             */
+            id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of updated `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Create multiple Metafields
+   * @description Create multiple metafields.
+   */
+  createCustomersMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Post"] & {
+            /**
+             * @description The ID for the resource with which the metafield is associated.
+             *
+             * @example 42
+             */
+            resource_id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of created `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Delete All Metafields
+   * @description Delete all customer metafields.
+   */
+  deleteCustomersMetafields: {
+    /** @description Metafields ID list. */
+    requestBody?: {
+      content: {
+        "application/json": number[];
+      };
+    };
+    responses: {
+      /** @description Response object for metafields deletion with success. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionDeleteResponseSuccess"];
+        };
+      };
+      /** @description Response object for metafields deletion with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_DELETE"];
         };
       };
     };
