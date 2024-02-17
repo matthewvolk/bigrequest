@@ -2,7 +2,7 @@ name: nightly
 
 on:
   schedule:
-    - cron: "15 1 * * *"
+    - cron: '15 1 * * *'
   workflow_dispatch:
 
 jobs:
@@ -21,7 +21,6 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Generate types
-        working-directory: packages/bigrequest
         run: pnpm generate ${{ secrets.GH_TOKEN }}
 
       - name: Check git status
