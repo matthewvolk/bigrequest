@@ -1,64 +1,171 @@
 # BigRequest
 
-A suite of tools for communication and authentication with the BigCommerce API.
+A typesafe, serverless-friendly Node.js HTTP request client for the BigCommerce API. Includes OAuth2 authorization flows for Single-Click App developers.
 
-## Packages
+## Overview
 
-### [bigrequest](https://github.com/matthewvolk/bigrequest/tree/main/packages/bigrequest)
+This module is available in two formats:
 
-A Node.js HTTP request client for the BigCommerce API
+- **ES Module:** `dist/index.mjs`
+- **CommonJS:** `dist/index.js`
 
-### [bigexec](https://github.com/matthewvolk/bigrequest/tree/main/packages/bigexec)
+## Requirements
 
-A CLI tool used to interface with the BigCommerce API
+- **Node.js:** `>=18`
+
+## Installation
+
+```sh
+npm i bigrequest
+```
+
+## Usage
+
+```ts
+// Typescript
+import bigrequest from 'bigrequest';
+```
+
+```js
+// CommonJS
+const bigrequest = require('bigrequest');
+```
+
+```js
+// ES Module
+import bigrequest from 'bigrequest';
+```
+
+### REST Management API
+
+```ts
+const bc = bigrequest.rest({
+  storeHash: 'your_store_hash',
+  accessToken: 'your_access_token',
+});
+
+// Use the REST client
+const product = await bc.v3.GET('/catalog/products/{product_id}', {
+  params: {
+    header: { Accept: 'application/json' },
+    path: { product_id: 111 },
+  },
+});
+
+/**
+ * product: {
+ *   data:
+ *     | {
+ *         data: {
+ *           id?: number | undefined;
+ *           name: string;
+ *           type: "physical" | "digital";
+ *           sku?: string | undefined;
+ *           ...
+ *         };
+ *         meta: {};
+ *       }
+ *     | undefined;
+ *   errors:
+ *     | {
+ *         status?: number | undefined;
+ *         title?: string | undefined;
+ *         type?: string | undefined;
+ *         instance?: string | undefined;
+ *       }
+ *     | undefined;
+ *   response: Response;
+ * }
+ */
+
+// Creating an image using FormData
+const categoryImage = await bc.v3.POST('/catalog/categories/{category_id}/image', {
+  params: {
+    header: {
+      'Content-Type': 'multipart/form-data',
+      Accept: 'application/json',
+    },
+    path: { category_id: 11 },
+  },
+  body: {
+    image_file: 'path/to/image.jpg',
+  },
+  bodySerializer(body) {
+    const fd = new FormData();
+
+    /**
+     * body: {
+     *   image_file: "path/to/image.jpg"
+     * }
+     */
+    for (const [k, v] of Object.entries(body)) {
+      const blob = new Blob([fs.readFileSync(v)]);
+
+      fd.append(k, blob, 'DESIRED_FILE_NAME.jpg');
+    }
+
+    return fd;
+  },
+});
+```
+
+### OAuth
+
+```ts
+const oauth = bigrequest.oauth({
+  clientId: 'YOUR_CLIENT_ID',
+  clientSecret: 'YOUR_CLIENT_SECRET',
+  authCallback: 'https://devtools.bigcommerce.com/my/apps',
+});
+
+// Receive the auth callback
+const accessTokenResponse = await oauth.authorize({
+  code: 'code',
+  context: 'context',
+  scope: 'scope',
+});
+
+/**
+ * accessTokenResponse: {
+ *   scope: string;
+ *   context: string;
+ *   access_token: string;
+ *   user: {
+ *     id: number;
+ *     username: string;
+ *     email: string;
+ *   }
+ *   account_uuid: string;
+ * }
+ */
+
+// Receive the load/uninstall/remove_user callback
+const signedJwtPayload = await oauth.verify('signed_payload_jwt');
+
+/**
+ * signedJwtPayload: {
+ *   user: {
+ *     id: number;
+ *     email: string;
+ *     locale: string;
+ *   }
+ *   aud: string;
+ *   iss: string;
+ *   iat: number;
+ *   nbf: number;
+ *   exp: number;
+ *   jti: string;
+ *   sub: string;
+ *   owner: {
+ *     id: number;
+ *     email: string;
+ *   }
+ *   url: string;
+ *   channel_id: number | null;
+ * }
+ */
+```
 
 ## Contributing
 
-### Requirements
-
-- **Node.js:** `>=18`
-- **PNPM:** `>=8`
-
-### Getting Started
-
-**1. Clone the repo**
-
-```sh
-git clone git@github.com:matthewvolk/bigrequest.git && cd bigrequest
-```
-
-**2. Install dependencies**
-
-```sh
-corepack enable pnpm
-pnpm i
-```
-
-### Automated Type Generation for the BigRequest HTTP Client
-
-The BigCommerce API is constantly changing. As a best effort to ensure that the types for the request client stay updated in response to changes in the BigCommerce Open API Specs repository, [a scheduled GitHub Action](.github/workflows/nightly.yml) runs once a night to re-generate types against [the latest version of the bigcommerce/docs repository](https://github.com/bigcommerce/docs/tree/main/reference).
-
-If changes are introduced during the GitHub Action workflow, the action will open a PR for review (example: [matthewvolk/bigrequest#30](https://github.com/matthewvolk/bigrequest/pull/30)).
-
-The PR should be analyzed to determine if the changes introduced by the action should result in a `patch`, `minor`, or `major` release. If a new release is required, the branch associated with the PR should be pulled down locally, `pnpm changeset` should be run on the branch, and the PR should be updated so that when merged, the changeset triggers a release to NPM (example: [matthewvolk/bigrequest#31](https://github.com/matthewvolk/bigrequest/pull/31)).
-
-## Publishing
-
-The BigRequest monorepository uses [changesets](https://github.com/changesets/changesets) to handle changelogs, semantic versioning, and publishing to the NPM public registry. In order for your pull request to be merged, you must think about whether or not the changes you introduce should result in releasing a new version of one of the packages to the NPM registry.
-
-**Examples:**
-
-- Pull request introducing changes to this `README.md`: _Does not need to be published to NPM._
-- Pull request introducing changes to `packages/[bigexec|bigrequest]`: _Should be published to NPM._
-
-If you determine that your pull request introduces changes that need to be released, you should submit a `changeset` with your Pull Request.
-
-Navigate to the root of the parent `bigrequest` monorepository and run:
-
-```sh
-pnpm changeset
-```
-
-An interactive prompt will take you through the process of [adding your changeset](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md).
-
-Once your PR is merged, our [GitHub Action](.github/workflows/release.yml) will handle the process of versioning and publishing your changes to NPM. No further action is needed from you.
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
