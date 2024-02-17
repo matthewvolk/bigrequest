@@ -5,9 +5,6 @@
  */
 
 
-/** WithRequired type helpers */
-type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
-
 export interface paths {
   "/catalog/trees/categories": {
     /**
@@ -85,6 +82,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
+        /** @description The ID of the Category Tree. */
         tree_id: string;
       };
     };
@@ -109,52 +107,106 @@ export interface components {
     DetailedErrors: {
       [key: string]: unknown;
     };
+    /** Get Categories */
+    GetCategories: {
+      name?: components["schemas"]["name"];
+      category_id?: components["schemas"]["category_id"];
+      category_uuid?: components["schemas"]["category_uuid"];
+      tree_id?: components["schemas"]["tree_id"];
+      parent_id?: components["schemas"]["parent_id"];
+    } & components["schemas"]["CategoryBase"] & {
+      url?: components["schemas"]["url"];
+    };
     /** Create Categories */
-    CreateCategories: (components["schemas"]["TreeIdCreateData"] & components["schemas"]["ParentIdCreateData"] & components["schemas"]["CategoryDataPOST"])[];
-    UpdateCategories: (components["schemas"]["TreeIdUpdateData"] & components["schemas"]["CategoryIdUpdateData"] & components["schemas"]["CategoryUuidData"] & components["schemas"]["ParentIdUpdateData"] & components["schemas"]["CategoryDataPUT"])[];
+    CreateCategories: ({
+        name: components["schemas"]["name"];
+        url: components["schemas"]["url"];
+        parent_id: components["schemas"]["parent_id"];
+        tree_id: components["schemas"]["tree_id"];
+      } & components["schemas"]["CategoryBase"])[];
+    UpdateCategories: ({
+        category_id: components["schemas"]["category_id"];
+        name?: components["schemas"]["name"];
+        tree_id?: components["schemas"]["tree_id"];
+        parent_id?: components["schemas"]["parent_id"];
+      } & components["schemas"]["CategoryBase"] & {
+        url?: components["schemas"]["url"];
+      })[];
     /** Category */
-    Category: components["schemas"]["id"] & components["schemas"]["parent_id"] & components["schemas"]["name"] & components["schemas"]["description"] & components["schemas"]["views"] & components["schemas"]["sort_order"] & components["schemas"]["page_title"] & components["schemas"]["meta_keywords"] & components["schemas"]["meta_description"] & components["schemas"]["layout_file"] & components["schemas"]["image_url"] & components["schemas"]["is_visible"] & components["schemas"]["search_keywords"] & components["schemas"]["default_product_sort"] & {
-      url?: components["schemas"]["Url"];
-    };
-    /** category_uuid */
-    CategoryUuidData: {
-      /** Format: uuid */
-      category_uuid?: string;
-    };
-    CategoryIdUpdateData: {
-      category_id: number;
-    };
-    ParentIdCreateData: {
-      parent_id: number;
-    };
-    TreeIdCreateData: {
-      tree_id: number;
-    };
-    ParentIdUpdateData: {
-      parent_id?: number;
-    };
-    TreeIdUpdateData: {
-      tree_id?: number;
-    };
-    CategoryData: {
-      name?: string;
+    CategoryBase: {
+      /**
+       * @description The product description, which can include HTML formatting.
+       *
+       * @example <p>We offer a wide variety of products perfect for relaxing</p>
+       */
       description?: string;
+      /**
+       * @description Number of views the category has on the storefront.
+       *
+       * @example 1050
+       */
       views?: number;
+      /**
+       * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
+       *
+       * @example 3
+       */
       sort_order?: number;
+      /**
+       * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
+       *
+       * @example Bath
+       */
       page_title?: string;
-      search_keywords?: string;
+      /**
+       * @description Custom meta keywords for the category page. If not defined, the storeʼs default keywords will be used. Must post as an array like: ["awesome","sauce"].
+       *
+       * @example [
+       *   "shower",
+       *   "tub"
+       * ]
+       */
       meta_keywords?: string[];
+      /** @description Custom meta description for the category page. If not defined, the storeʼs default meta description will be used. */
       meta_description?: string;
+      /**
+       * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied.
+       *
+       * @example category.html
+       */
       layout_file?: string;
-      is_visible?: boolean;
+      /**
+       * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field. Must be either a full-qualified URL or an empty string.
+       *
+       * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
+       */
       image_url?: string;
-      url?: components["schemas"]["Url"];
+      /** @description Flag to determine whether the product should be displayed to customers browsing the store. If `true`, the category will be displayed. If `false`, the category will be hidden from view. */
+      is_visible?: boolean;
+      /** @description A comma-separated list of keywords that can be used to locate the category when searching the store. */
+      search_keywords?: string;
+      /**
+       * @description Determines how the products are sorted on category page load.
+       *
+       * @enum {string}
+       */
+      default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
     };
-    CategoryDataPUT: components["schemas"]["CategoryData"] & components["schemas"]["default_product_sort"];
-    CategoryDataPOST: WithRequired<components["schemas"]["CategoryData"] & components["schemas"]["default_product_sort"], "name" | "url">;
-    Url: {
-      path?: string;
-      is_customized?: boolean;
+    CategoryList: {
+      data?: components["schemas"]["GetCategories"][];
+      meta?: components["schemas"]["MetaPagination"];
+    };
+    CategoryNodeTree: {
+      data?: components["schemas"]["CategoryNode"][];
+      meta?: components["schemas"]["metaEmpty_Full"];
+    };
+    CategoryTreeList: {
+      data?: components["schemas"]["Tree"][];
+      meta?: components["schemas"]["MetaPaginationObject"];
+    };
+    CategoryTree: {
+      data?: components["schemas"]["Tree"][];
+      meta?: components["schemas"]["metaEmpty_Full"];
     };
     MetaPagination: {
       pagination?: {
@@ -205,12 +257,12 @@ export interface components {
       meta?: components["schemas"]["MetaData"];
     };
     PartialSuccessResponse: {
-      data?: components["schemas"]["Category"][];
+      data?: components["schemas"]["GetCategories"][];
+      errors?: components["schemas"]["MetaError"];
       meta?: components["schemas"]["MetaData"];
     };
     SuccessResponse: {
-      data?: components["schemas"]["Category"][];
-      errors?: components["schemas"]["MetaError"];
+      data?: components["schemas"]["GetCategories"][];
       meta?: components["schemas"]["MetaData"];
     };
     ErrorResponse: {
@@ -222,11 +274,18 @@ export interface components {
       name?: string;
       channels?: number[];
     };
-    Tree_req: {
-      id?: number;
-      name?: string;
-      channels?: number[];
-    };
+    /**
+     * @example [
+     *   {
+     *     "id": 0,
+     *     "name": "string",
+     *     "channels": [
+     *       0
+     *     ]
+     *   }
+     * ]
+     */
+    CategoryTreeListRequest: components["schemas"]["Tree"][];
     CategoryNode: {
       id?: number;
       parent_id?: number;
@@ -271,115 +330,47 @@ export interface components {
     beta4ErrorResponse: components["schemas"]["BaseError"] & {
       errors?: components["schemas"]["beta4DetailedErrors"];
     };
-    /** default_product_sort */
-    default_product_sort: {
-      /**
-       * @description Determines how the products are sorted on category page load.
-       *
-       * @enum {string}
-       */
-      default_product_sort?: "use_store_settings" | "featured" | "newest" | "best_selling" | "alpha_asc" | "alpha_desc" | "avg_customer_review" | "price_asc" | "price_desc";
+    /** URL */
+    url: {
+      /** @example /bath/ */
+      path?: string;
+      /** @example false */
+      is_customized?: boolean;
     };
-    /** name */
-    name: {
-      /**
-       * @description The name displayed for the category. Name is unique with respect to the category's siblings.
-       * Required in a POST.
-       * @example Bath
-       */
-      name?: string;
-    };
-    /** description */
-    description: {
-      /**
-       * @description The product description, which can include HTML formatting.
-       *
-       * @example <p>We offer a wide variety of products perfect for relaxing</p>
-       */
-      description?: string;
-    };
-    /** views */
-    views: {
-      /**
-       * @description Number of views the category has on the storefront.
-       *
-       * @example 1050
-       */
-      views?: number;
-    };
-    /** sort_order */
-    sort_order: {
-      /**
-       * @description Priority this category will be given when included in the menu and category pages. The lower the number, the closer to the top of the results the category will be.
-       *
-       * @example 3
-       */
-      sort_order?: number;
-    };
-    /** page_title */
-    page_title: {
-      /**
-       * @description Custom title for the category page. If not defined, the category name will be used as the meta title.
-       *
-       * @example Bath
-       */
-      page_title?: string;
-    };
-    /** search_keywords */
-    search_keywords: {
-      /** @description A comma-separated list of keywords that can be used to locate the category when searching the store. */
-      search_keywords?: string;
-    };
-    /** meta_keywords */
-    meta_keywords: {
-      /** @description Custom meta keywords for the category page. If not defined, the store's default keywords will be used. Must post as an array like: ["awesome","sauce"]. */
-      meta_keywords?: string[];
-    };
-    /** layout_file */
-    layout_file: {
-      /**
-       * @description A valid layout file. (Please refer to [this article](https://support.bigcommerce.com/articles/Public/Creating-Custom-Template-Files/) on creating category files.) This field is writable only for stores with a Blueprint theme applied.
-       *
-       * @example category.html
-       */
-      layout_file?: string;
-    };
-    /** is_visible */
-    is_visible: {
-      /** @description Flag to determine whether the product should be displayed to customers browsing the store. If `true`, the category will be displayed. If `false`, the category will be hidden from view. */
-      is_visible?: boolean;
-    };
-    /** image_url */
-    image_url: {
-      /**
-       * @description Image URL used for this category on the storefront. Images can be uploaded via form file post to `/categories/{categoryId}/image`, or by providing a publicly accessible URL in this field.
-       *
-       * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
-       */
-      image_url?: string;
-    };
-    /** meta_description */
-    meta_description: {
-      /** @description Custom meta description for the category page. If not defined, the store's default meta description will be used. */
-      meta_description?: string;
-    };
-    /** id */
-    id: {
-      /**
-       * @description Unique ID of the *Category*. Increments sequentially.
-       * Read-Only.
-       */
-      id?: number;
-    };
-    /** parent_id */
-    parent_id: {
-      /**
-       * @description The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories that organize the catalog.
-       * Required in a POST if creating a child category.
-       * @example 2
-       */
-      parent_id?: number;
-    };
+    /**
+     * Category UUID
+     * Format: uuid
+     * @description An additional unique identifier for the category. Read-Only.
+     * @example d1964756-5e1d-4c72-9fa0-e1a3f7be4a34
+     */
+    readonly category_uuid: string;
+    /**
+     * Category ID
+     * @description Unique ID of the *Category*. Increments sequentially.
+     * Read-Only.
+     * @example 36
+     */
+    readonly category_id: number;
+    /**
+     * Parent ID
+     * @description The unique numeric ID of the categoryʼs parent. This field controls where the category sits in the tree of categories that organize the catalog.
+     * Required in a POST if creating a child category.
+     * @example 0
+     */
+    parent_id: number;
+    /**
+     * Tree ID
+     * @description The ID of the Category Tree.
+     * @example 1
+     */
+    tree_id: number;
+    /**
+     * Name
+     * @description The name displayed for the category. Name is unique with respect to the categoryʼs siblings.
+     * Required in a POST.
+     * @example Bath
+     */
+    name: string;
   };
   responses: never;
   parameters: {
@@ -435,10 +426,7 @@ export interface operations {
       /** @description List of categories. */
       200: {
         content: {
-          "application/json": {
-            data?: components["schemas"]["Category"][];
-            meta?: components["schemas"]["MetaPagination"];
-          };
+          "application/json": components["schemas"]["CategoryList"];
         };
       };
       /** @description Bad Request */
@@ -476,10 +464,6 @@ export interface operations {
     responses: {
       /** @description OK */
       200: {
-        content: never;
-      };
-      /** @description No Content */
-      204: {
         content: {
           "application/json": components["schemas"]["SuccessNoContentResponse"];
         };
@@ -621,10 +605,7 @@ export interface operations {
       /** @description List of category trees. */
       200: {
         content: {
-          "application/json": {
-            data?: components["schemas"]["Tree"][];
-            meta?: components["schemas"]["MetaPaginationObject"];
-          };
+          "application/json": components["schemas"]["CategoryTreeList"];
         };
       };
     };
@@ -647,28 +628,14 @@ export interface operations {
     };
     requestBody: {
       content: {
-        /**
-         * @example [
-         *   {
-         *     "id": 0,
-         *     "name": "string",
-         *     "channels": [
-         *       0
-         *     ]
-         *   }
-         * ]
-         */
-        "application/json": components["schemas"]["Tree_req"][];
+        "application/json": components["schemas"]["CategoryTreeListRequest"];
       };
     };
     responses: {
       /** @description Created a category tree. */
       200: {
         content: {
-          "application/json": {
-            data?: components["schemas"]["Tree"][];
-            meta?: components["schemas"]["metaEmpty_Full"];
-          };
+          "application/json": components["schemas"]["CategoryTree"];
         };
       };
       /** @description The Channel was not valid. See the response for more details. */
@@ -713,6 +680,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
+        /** @description The ID of the Category Tree. */
         tree_id: string;
       };
     };
@@ -720,10 +688,7 @@ export interface operations {
       /** @description Categories tree */
       200: {
         content: {
-          "application/json": {
-            data?: components["schemas"]["CategoryNode"][];
-            meta?: components["schemas"]["metaEmpty_Full"];
-          };
+          "application/json": components["schemas"]["CategoryNodeTree"];
         };
       };
       /** @description The tree was not found. */

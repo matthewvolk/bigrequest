@@ -300,12 +300,6 @@ export interface paths {
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createCustomerGroup"];
-    /**
-     * Delete Customer Groups
-     * @description By default, it deletes all *Customer Groups*.
-     * All existing customers are unassigned from the group when it is deleted.
-     */
-    delete: operations["deleteCustomerGroups"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1603,24 +1597,6 @@ export interface operations {
             status?: number;
             message?: string;
           };
-        };
-      };
-    };
-  };
-  /**
-   * Delete Customer Groups
-   * @description By default, it deletes all *Customer Groups*.
-   * All existing customers are unassigned from the group when it is deleted.
-   */
-  deleteCustomerGroups: {
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-    };
-    responses: {
-      204: {
-        content: {
         };
       };
     };

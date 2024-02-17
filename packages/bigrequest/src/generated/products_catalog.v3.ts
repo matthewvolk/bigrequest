@@ -64,7 +64,7 @@ export interface paths {
      * > The maximum number of products you can delete at one time is 250.
      *
      * **Example**:
-     * To delete products with the id's of 1,2 and 3, use `DELETE /v3/catalog/products?id:in=1,2,3`.
+     * To delete products with IDs 1,2 and 3, use `DELETE /v3/catalog/products?id:in=1,2,3`.
      */
     delete: operations["deleteProducts"];
     parameters: {
@@ -630,6 +630,28 @@ export interface paths {
       };
     };
   };
+  "/catalog/products/metafields": {
+    /**
+     * Get All Metafields
+     * @description Get all product metafields.
+     */
+    get: operations["getProductsMetafields"];
+    /**
+     * Update multiple Metafields
+     * @description Update multiple metafields.
+     */
+    put: operations["updateProductsMetafields"];
+    /**
+     * Create multiple Metafields
+     * @description Create multiple metafields.
+     */
+    post: operations["createProductsMetafields"];
+    /**
+     * Delete All Metafields
+     * @description Delete all product metafields.
+     */
+    delete: operations["deleteProductsMetafields"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -785,17 +807,17 @@ export interface components {
       weight?: number | null;
       /**
        * Format: double
-       * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
+       * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the productʼs default width (set in the Product resourceʼs `width` field) will be used as the base width.
        */
       width?: number | null;
       /**
        * Format: double
-       * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
+       * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the productʼs default height (set in the Product resourceʼs `height` field) will be used as the base height.
        */
       height?: number | null;
       /**
        * Format: double
-       * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
+       * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the productʼs default depth (set in the Product resourceʼs `depth` field) will be used as the base depth.
        */
       depth?: number | null;
       /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
@@ -834,7 +856,7 @@ export interface components {
     productVariant_Full: WithRequired<components["schemas"]["productVariant_Base"] & {
       product_id?: number;
       sku?: string;
-      /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant. */
+      /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the productʼs base variant. */
       option_values?: components["schemas"]["productVariantOptionValue_Full"][];
       /**
        * Format: double
@@ -875,17 +897,17 @@ export interface components {
       weight?: number | null;
       /**
        * Format: double
-       * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default width (set in the Product resource's `width` field) will be used as the base width.
+       * @description Width of the variant, which can be used when calculating shipping costs. If this value is `null`, the productʼs default width (set in the Product resourceʼs `width` field) will be used as the base width.
        */
       width?: number | null;
       /**
        * Format: double
-       * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default height (set in the Product resource's `height` field) will be used as the base height.
+       * @description Height of the variant, which can be used when calculating shipping costs. If this value is `null`, the productʼs default height (set in the Product resourceʼs `height` field) will be used as the base height.
        */
       height?: number | null;
       /**
        * Format: double
-       * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the product's default depth (set in the Product resource's `depth` field) will be used as the base depth.
+       * @description Depth of the variant, which can be used when calculating shipping costs. If this value is `null`, the productʼs default depth (set in the Product resourceʼs `depth` field) will be used as the base depth.
        */
       depth?: number | null;
       /** @description Flag used to indicate whether the variant has free shipping. If `true`, the shipping cost for the variant will be zero. */
@@ -997,9 +1019,9 @@ export interface components {
        * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
        */
       image_file?: string;
-      /** @description Flag for identifying whether the image is used as the product's thumbnail. */
+      /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
       is_thumbnail?: boolean;
-      /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the image's new `sort_order` value will have their `sort_order`s reordered. */
+      /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
       sort_order?: number;
       /** @description The description for the image. */
       description?: string;
@@ -1040,7 +1062,7 @@ export interface components {
        */
       description?: string;
       /**
-       * @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered.
+       * @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the videoʼs new `sort_order` value will have their `sort_order`s reordered.
        *
        * @example 1
        */
@@ -1143,7 +1165,7 @@ export interface components {
        */
       sort_order?: number;
       /**
-       * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
+       * @description Flag for determining whether the rule is to be used when adjusting a productʼs price, weight, image, or availabilty.
        *
        * @example true
        */
@@ -1404,10 +1426,10 @@ export interface components {
       number_integers_only?: boolean;
       /** @description (product_list, product_list_with_images) Flag for automatically adjusting inventory on a product included in the list. */
       product_list_adjusts_inventory?: boolean;
-      /** @description (product_list, product_list_with_images) Flag to add the optional product's price to the main product's price. */
+      /** @description (product_list, product_list_with_images) Flag to add the optional productʼs price to the main productʼs price. */
       product_list_adjusts_pricing?: boolean;
       /**
-       * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
+       * @description (product_list, product_list_with_images) How to factor the optional productʼs weight and package dimensions into the shipping quote. Values: `none` - donʼt adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
        *
        * @example weight
        * @enum {string}
@@ -1697,10 +1719,10 @@ export interface components {
       number_integers_only?: boolean;
       /** @description (product_list, product_list_with_images) Flag for automatically adjusting inventory on a product included in the list. */
       product_list_adjusts_inventory?: boolean;
-      /** @description (product_list, product_list_with_images) Flag to add the optional product's price to the main product's price. */
+      /** @description (product_list, product_list_with_images) Flag to add the optional productʼs price to the main productʼs price. */
       product_list_adjusts_pricing?: boolean;
       /**
-       * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
+       * @description (product_list, product_list_with_images) How to factor the optional productʼs weight and package dimensions into the shipping quote. Values: `none` - donʼt adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
        *
        * @example weight
        * @enum {string}
@@ -1794,14 +1816,14 @@ export interface components {
       retail_price?: number;
       /**
        * Format: float
-       * @description If entered, the sale price will be used instead of value in the price field when calculating the product's cost.
+       * @description If entered, the sale price will be used instead of value in the price field when calculating the productʼs cost.
        */
       sale_price?: number;
       /** @description Minimum Advertised Price */
       map_price?: number;
       /** @description The ID of the tax class applied to the product. (NOTE: Value ignored if automatic tax is enabled.) */
       tax_class_id?: number;
-      /** @description Tax Codes, such as AvaTax System Tax Codes, identify products and services that fall into special sales-tax categories. By using these codes, merchants who subscribe to a tax provider integration, such as BigCommerce's Avalara Premium, can calculate sales taxes more accurately. Stores without a tax provider will ignore the code when calculating sales tax. Do not pass more than one code. The codes are case-sensitive. For details, please see the tax provider's documentation. */
+      /** @description Tax Codes, such as AvaTax System Tax Codes, identify products and services that fall into special sales-tax categories. By using these codes, merchants who subscribe to a tax provider integration, such as BigCommerceʼs Avalara Premium, can calculate sales taxes more accurately. Stores without a tax provider will ignore the code when calculating sales tax. Do not pass more than one code. The codes are case-sensitive. For details, please see the tax providerʼs documentation. */
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
@@ -1820,7 +1842,7 @@ export interface components {
        * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
        */
       inventory_level?: number;
-      /** @description Inventory warning level for the product. When the product's inventory level drops below the warning level, the store owner will be informed. Simple inventory tracking must be enabled (see the `inventory_tracking` field) for this to take any effect. */
+      /** @description Inventory warning level for the product. When the productʼs inventory level drops below the warning level, the store owner will be informed. Simple inventory tracking must be enabled (see the `inventory_tracking` field) for this to take any effect. */
       inventory_warning_level?: number;
       /**
        * @description The type of inventory tracking for the product. Values are: `none` - inventory levels will not be tracked; `product` - inventory levels will be tracked using the `inventory_level` and `inventory_warning_level` fields; `variant` - inventory levels will be tracked based on variants, which maintain their own warning levels and inventory levels.
@@ -1854,7 +1876,7 @@ export interface components {
       /** @description Availability text displayed on the checkout page, under the product title. Tells the customer how long it will normally take to ship this product, such as: 'Usually ships in 24 hours.' */
       availability_description?: string;
       /**
-       * @description Availability of the product. (Corresponds to the product's [Purchasability](https://support.bigcommerce.com/s/article/Adding-Products-v3?language=en_US#sections) section in the control panel.) Supported values: `available` - the product is available for purchase; `disabled` - the product is listed on the storefront, but cannot be purchased; `preorder` - the product is listed for pre-orders.
+       * @description Availability of the product. (Corresponds to the productʼs [Purchasability](https://support.bigcommerce.com/s/article/Adding-Products-v3?language=en_US#sections) section in the control panel.) Supported values: `available` - the product is available for purchase; `disabled` - the product is listed on the storefront, but cannot be purchased; `preorder` - the product is listed for pre-orders.
        *
        * @enum {string}
        */
@@ -1876,7 +1898,7 @@ export interface components {
       /** @description Priority to give this product when included in product lists on category pages and in search results. Lower integers will place the product closer to the top of the results. */
       sort_order?: number;
       /**
-       * @description The product condition. Will be shown on the product page if the `is_condition_shown` field's value is `true`. Possible values: `New`, `Used`, `Refurbished`.
+       * @description The product condition. Will be shown on the product page if the `is_condition_shown` fieldʼs value is `true`. Possible values: `New`, `Used`, `Refurbished`.
        *
        * @enum {string}
        */
@@ -1889,9 +1911,9 @@ export interface components {
       order_quantity_maximum?: number;
       /** @description Custom title for the product page. If not defined, the product name will be used as the meta title. */
       page_title?: string;
-      /** @description Custom meta keywords for the product page. If not defined, the store's default keywords will be used. */
+      /** @description Custom meta keywords for the product page. If not defined, the storeʼs default keywords will be used. */
       meta_keywords?: string[];
-      /** @description Custom meta description for the product page. If not defined, the store's default meta description will be used. */
+      /** @description Custom meta description for the product page. If not defined, the storeʼs default meta description will be used. */
       meta_description?: string;
       /**
        * @deprecated
@@ -1900,7 +1922,7 @@ export interface components {
       view_count?: number;
       /**
        * Format: date-time
-       * @description Pre-order release date. See the `availability` field for details on setting a product's availability to accept pre-orders.
+       * @description Pre-order release date. See the `availability` field for details on setting a productʼs availability to accept pre-orders.
        */
       preorder_release_date?: string | null;
       /** @description Custom expected-date message to display on the product page. If undefined, the message defaults to the storewide setting. Can contain the `%%DATE%%` placeholder, which will be substituted for the release date. */
@@ -1911,7 +1933,7 @@ export interface components {
        * control panel or using the API. Using the API set `availability` to `available`.
        */
       is_preorder_only?: boolean;
-      /** @description False by default, indicating that this product's price should be shown on the product page. If set to `true`, the price is hidden. (NOTE: To successfully set `is_price_hidden` to `true`, the `availability` value must be `disabled`.) */
+      /** @description False by default, indicating that this productʼs price should be shown on the product page. If set to `true`, the price is hidden. (NOTE: To successfully set `is_price_hidden` to `true`, the `availability` value must be `disabled`.) */
       is_price_hidden?: boolean;
       /** @description By default, an empty string. If `is_price_hidden` is `true`, the value of `price_hidden_label` is displayed instead of the price. (NOTE: To successfully set a non-empty string value with `is_price_hidden` set to `true`, the `availability` value must be `disabled`.) */
       price_hidden_label?: string;
@@ -1987,7 +2009,7 @@ export interface components {
       resource_id?: number;
       /**
        * Format: date-time
-       * @description Date and time of the metafield's creation. Read-Only.
+       * @description Date and time of the metafieldʼs creation. Read-Only.
        *
        * @example 2018-05-07T20:14:17+00:00
        */
@@ -2063,6 +2085,360 @@ export interface components {
     beta5ErrorResponse: components["schemas"]["BaseError"] & {
       errors?: components["schemas"]["beta5DetailedErrors"];
     };
+    /** @description Common Metafield properties. */
+    Metafield: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example order
+       */
+      description: string;
+      /**
+       * @description The type of resource with which the metafield is associated.
+       *
+       * @example cart
+       * @enum {string}
+       */
+      resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+      /**
+       * @description The unique identifier for the resource with which the metafield is associated.
+       *
+       * @example 424242
+       */
+      resource_id: number;
+      /** @description The unique identifier for the metafield. */
+      id: number;
+      /**
+       * Format: date-time
+       * @description Date and time of the metafieldʼs creation.
+       * @example 2022-06-16T18:39:00+00:00
+       */
+      date_created: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the metafield was last updated.
+       * @example 2022-06-16T18:39:00+00:00
+       */
+      date_modified: string;
+      /**
+       * @description Client ID for the metafieldʼs creator.
+       * @example asdfasdfasdfasdfasdfasdfasdf
+       */
+      owner_client_id?: string;
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse: {
+      data?: components["schemas"]["Metafield"][];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponse_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["CollectionMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_POST_PUT: {
+      data?: components["schemas"]["Metafield"][];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionResponsePartialSuccess_DELETE: {
+      /**
+       * @example [
+       *   123
+       * ]
+       */
+      data?: number[];
+      errors?: components["schemas"]["Error"][];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
+    };
+    /** @description Response payload for the BigCommerce API. */
+    MetaFieldCollectionDeleteResponseSuccess: {
+      /**
+       * @example [
+       *   123,
+       *   124,
+       *   125
+       * ]
+       */
+      data?: number[];
+      /**
+       * @description Empty for 200 responses.
+       * @example []
+       */
+      errors?: unknown[];
+      meta?: components["schemas"]["WriteCollectionSuccessMeta"];
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionPartialSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 1
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 2
+       */
+      failed?: number;
+    };
+    /**
+     * Collection Meta
+     * @description Additional data about the response.
+     */
+    WriteCollectionSuccessMeta: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 3
+       */
+      total?: number;
+      /**
+       * @description Total number of items that were successfully deleted.
+       *
+       * @example 3
+       */
+      success?: number;
+      /**
+       * @description Total number of items that failed to be deleted.
+       *
+       * @example 0
+       */
+      failed?: number;
+    };
+    /**
+     * @description Total number of items in the result set.
+     *
+     * @example 3
+     */
+    Total: number;
+    /**
+     * @description Total number of items that were successfully deleted.
+     *
+     * @example 1
+     */
+    Success: number;
+    /**
+     * @description Total number of items that failed to be deleted.
+     *
+     * @example 2
+     */
+    Failed: number;
+    /** @description Error response payload for the BigCommerce API. */
+    Error: {
+      /**
+       * @description The HTTP status code for the error.
+       *
+       * @example 422
+       */
+      status?: number;
+      /**
+       * @description The error title.
+       *
+       * @example Bulk operation has failed
+       */
+      title?: string;
+      /**
+       * @description The error type.
+       *
+       * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
+       */
+      type?: string;
+      errors?: components["schemas"]["ErrorDetail"];
+    };
+    /**
+     * @description Error detail response payload for the BigCommerce API.
+     *
+     * @example {
+     *   "1": "Unauthorized to delete",
+     *   "2": "Metafield does not exist"
+     * }
+     */
+    ErrorDetail: Record<string, never>;
+    /**
+     * Collection Meta
+     * @description Data about the response, including pagination and collection totals.
+     */
+    CollectionMeta: {
+      /**
+       * Pagination
+       * @description Data about the response, including pagination and collection totals.
+       */
+      pagination?: {
+        /**
+         * @description Total number of items in the result set.
+         *
+         * @example 36
+         */
+        total?: number;
+        /**
+         * @description Total number of items in the collection response.
+         *
+         * @example 36
+         */
+        count?: number;
+        /**
+         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+         *
+         * @example 50
+         */
+        per_page?: number;
+        /**
+         * @description The page you are currently on within the collection.
+         *
+         * @example 1
+         */
+        current_page?: number;
+        /**
+         * @description The total number of pages in the collection.
+         *
+         * @example 1
+         */
+        total_pages?: number;
+        /** @description Pagination links for the previous and next parts of the whole collection. */
+        links?: {
+          /** @description Link to the previous page returned in the response. */
+          previous?: string;
+          /**
+           * @description Link to the current page returned in the response.
+           *
+           * @example ?page=1&limit=50
+           */
+          current?: string;
+          /** @description Link to the next page returned in the response. */
+          next?: string;
+        };
+      };
+      [key: string]: unknown;
+    };
+    /** @description Common Metafield properties. */
+    MetafieldBase_Post: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Name of Staff Member
+       */
+      description?: string;
+    };
+    /** @description Common Metafield properties. */
+    MetafieldBase_Put: {
+      /**
+       * @description Determines the visibility and writeability of the field by other API consumers.
+       * | Value | Description |
+       * | :--- | :--- |
+       * | `app_only` | Private to the app that owns the field. |
+       * | `read` | Visible to other API consumers. |
+       * | `write` | Open for reading and writing by other API consumers. |
+       * | `read_and_sf_access` | Visible to other API consumers, including on the storefront. |
+       * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on the storefront. |
+       *
+       * @enum {string}
+       */
+      permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace?: string;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key?: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value?: string;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example Name of Staff Member
+       */
+      description?: string;
+    };
   };
   responses: never;
   parameters: {
@@ -2086,6 +2462,20 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageParam?: number;
+    /** @description Filter based on a metafieldʼs key. */
+    MetafieldKeyParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
+    MetafieldKeyInParam?: string[];
+    /** @description Filter based on a metafieldʼs namespaces. */
+    MetafieldNamespaceParam?: string;
+    /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
+    MetafieldNamespaceInParam?: string[];
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitParam?: number;
+    /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
+    DirectionParam?: "asc" | "desc";
   };
   requestBodies: never;
   headers: never;
@@ -2178,7 +2568,7 @@ export interface operations {
          *   * images
          *   * custom_fields
          *   * bulk_pricing_rules
-         *   * primary_images
+         *   * primary_image
          *   * modifiers
          *   * options
          *   * videos
@@ -2198,8 +2588,8 @@ export interface operations {
         direction?: "asc" | "desc";
         /** @description Field name to sort by. Note: Since `id` increments when new products are added, you can use that field to sort by product create date. */
         sort?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
-        /** @description Filter items by categories. Use for products in multiple categories. For example, `categories:in=12`. */
-        "categories:in"?: number;
+        /** @description Filter items by categories. Use for products in multiple categories. For example, `categories:in=12,15`. */
+        "categories:in"?: number[];
         /** @description Filter items by main SKU. To filter by variant SKU, see [Get All Variants](/docs/rest-catalog/product-variants#get-all-product-variants). */
         sku?: string;
         /** @description Filter items by SKU. */
@@ -2260,9 +2650,13 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       * @description Multi-status. Typically indicates that a partial failure has occurred, such as when a POST or PUT request is successful, but saving one of the attributes has failed.
        *
-       * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
+       * For example, the product information was updated successfully, but the inventory data failed to update or saving the URL failed.
+       *
+       * If inventory data failed to update, verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
+       *
+       * If the URL failed to update, check that the URL uses Latin letters, is no more than 255 characters, and is not taken by any other entity.
        */
       207: {
         content: {
@@ -2358,9 +2752,13 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       * @description Multi-status. Typically indicates that a partial failure has occurred, such as when a POST or PUT request is successful, but saving one of the attributes has failed.
        *
-       * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
+       * For example, the product information was updated successfully, but the inventory data failed to update or saving the URL failed.
+       *
+       * If inventory data failed to update, verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
+       *
+       * If the URL failed to update, check that the URL uses Latin letters, is no more than 255 characters, and is not taken by any other entity.
        */
       207: {
         content: {
@@ -2415,7 +2813,7 @@ export interface operations {
    * > The maximum number of products you can delete at one time is 250.
    *
    * **Example**:
-   * To delete products with the id's of 1,2 and 3, use `DELETE /v3/catalog/products?id:in=1,2,3`.
+   * To delete products with IDs 1,2 and 3, use `DELETE /v3/catalog/products?id:in=1,2,3`.
    */
   deleteProducts: {
     parameters: {
@@ -2562,9 +2960,13 @@ export interface operations {
         };
       };
       /**
-       * @description Multi-status. The product information was updated successfully, but the inventory data failed to update.
+       * @description Multi-status. Typically indicates that a partial failure has occurred, such as when a POST or PUT request is successful, but saving one of the attributes has failed.
        *
-       * Verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
+       * For example, the product information was updated successfully, but the inventory data failed to update or saving the URL failed.
+       *
+       * If inventory data failed to update, verify that the inventory-related updates are well-formed and correct; for example, that they donʼt result in negative stock levels. Then consider updating the inventory data again.
+       *
+       * If the URL failed to update, check that the URL uses Latin letters, is no more than 255 characters, and is not taken by any other entity.
        */
       207: {
         content: {
@@ -2739,9 +3141,9 @@ export interface operations {
            * @description The date on which the product image was modified.
            */
           date_modified?: string;
-          /** @description Flag for identifying whether the image is used as the product's thumbnail. */
+          /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
           is_thumbnail?: boolean;
-          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the image's new `sort_order` value will have their `sort_order`s reordered. */
+          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
           sort_order?: number;
           /** @description The description for the image. */
           description?: string;
@@ -2773,9 +3175,9 @@ export interface operations {
            * @description The date on which the product image was modified.
            */
           date_modified?: string;
-          /** @description Flag for identifying whether the image is used as the product's thumbnail. */
+          /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
           is_thumbnail?: boolean;
-          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the image's new `sort_order` value will have their `sort_order`s reordered. */
+          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
           sort_order?: number;
           /** @description The description for the image. */
           description?: string;
@@ -2815,9 +3217,9 @@ export interface operations {
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
-              /** @description Flag for identifying whether the image is used as the product's thumbnail. */
+              /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
               is_thumbnail?: boolean;
-              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the image's new `sort_order` value will have their `sort_order`s reordered. */
+              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
               sort_order?: number;
               /** @description The description for the image. */
               description?: string;
@@ -2984,9 +3386,9 @@ export interface operations {
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
-              /** @description Flag for identifying whether the image is used as the product's thumbnail. */
+              /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
               is_thumbnail?: boolean;
-              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the image's new `sort_order` value will have their `sort_order`s reordered. */
+              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
               sort_order?: number;
               /** @description The description for the image. */
               description?: string;
@@ -3146,7 +3548,7 @@ export interface operations {
            */
           description?: string;
           /**
-           * @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered.
+           * @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the videoʼs new `sort_order` value will have their `sort_order`s reordered.
            *
            * @example 1
            */
@@ -3180,7 +3582,7 @@ export interface operations {
               title?: string;
               /** @description The description for the video. If left blank, this will be filled in according to data on a host site. */
               description?: string;
-              /** @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered. */
+              /** @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the videoʼs new `sort_order` value will have their `sort_order`s reordered. */
               sort_order?: number;
               /**
                * @description The video type (a short name of a host site).
@@ -3289,7 +3691,7 @@ export interface operations {
           title?: string;
           /** @description The description for the video. If left blank, this will be filled in according to data on a host site. */
           description?: string;
-          /** @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered. */
+          /** @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the videoʼs new `sort_order` value will have their `sort_order`s reordered. */
           sort_order?: number;
           /**
            * @description The video type (a short name of a host site).
@@ -3316,7 +3718,7 @@ export interface operations {
               title?: string;
               /** @description The description for the video. If left blank, this will be filled in according to data on a host site. */
               description?: string;
-              /** @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered. */
+              /** @description The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the videoʼs new `sort_order` value will have their `sort_order`s reordered. */
               sort_order?: number;
               /**
                * @description The video type (a short name of a host site).
@@ -3450,7 +3852,7 @@ export interface operations {
            */
           sort_order?: number;
           /**
-           * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
+           * @description Flag for determining whether the rule is to be used when adjusting a productʼs price, weight, image, or availabilty.
            *
            * @example true
            */
@@ -3560,7 +3962,7 @@ export interface operations {
                */
               sort_order?: number;
               /**
-               * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
+               * @description Flag for determining whether the rule is to be used when adjusting a productʼs price, weight, image, or availabilty.
                *
                * @example true
                */
@@ -3742,7 +4144,7 @@ export interface operations {
                */
               sort_order?: number;
               /**
-               * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
+               * @description Flag for determining whether the rule is to be used when adjusting a productʼs price, weight, image, or availabilty.
                *
                * @example true
                */
@@ -3896,7 +4298,7 @@ export interface operations {
            */
           sort_order?: number;
           /**
-           * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
+           * @description Flag for determining whether the rule is to be used when adjusting a productʼs price, weight, image, or availabilty.
            *
            * @example true
            */
@@ -4006,7 +4408,7 @@ export interface operations {
                */
               sort_order?: number;
               /**
-               * @description Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.
+               * @description Flag for determining whether the rule is to be used when adjusting a productʼs price, weight, image, or availabilty.
                *
                * @example true
                */
@@ -4881,9 +5283,9 @@ export interface operations {
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
         limit?: number;
-        /** @description Filter based on a metafield's key. */
+        /** @description Filter based on a metafieldʼs key. */
         key?: string;
-        /** @description Filter based on a metafield's namespace. */
+        /** @description Filter based on a metafieldʼs namespace. */
         namespace?: string;
         /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
         include_fields?: string;
@@ -4957,7 +5359,7 @@ export interface operations {
           };
         };
       };
-      /** @description The `Metafield` was in conflict with another `Metafield`. This can be the result of duplicate unique key combinations of the app's client ID, namespace, key, resource_type, and resource_id. */
+      /** @description The `Metafield` was in conflict with another `Metafield`. This can be the result of duplicate unique key combinations of the appʼs client ID, namespace, key, resource_type, and resource_id. */
       409: {
         content: {
           "application/json": {
@@ -5739,7 +6141,7 @@ export interface operations {
               inventory_count?: number;
               /**
                * Format: double
-               * @description Total value of store's inventory.
+               * @description Total value of storeʼs inventory.
                *
                * @example 267000
                */
@@ -5785,6 +6187,133 @@ export interface operations {
             };
             meta?: components["schemas"]["metaEmpty_Full"];
           };
+        };
+      };
+    };
+  };
+  /**
+   * Get All Metafields
+   * @description Get all product metafields.
+   */
+  getProductsMetafields: {
+    parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+      };
+    };
+    responses: {
+      /** @description List of `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update multiple Metafields
+   * @description Update multiple metafields.
+   */
+  updateProductsMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Put"] & {
+            /**
+             * @description The ID of metafield to update.
+             *
+             * @example 42
+             */
+            id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of updated `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Create multiple Metafields
+   * @description Create multiple metafields.
+   */
+  createProductsMetafields: {
+    requestBody?: {
+      content: {
+        "application/json": (components["schemas"]["MetafieldBase_Post"] & {
+            /**
+             * @description The ID for the product with which the metafield is associated.
+             *
+             * @example 42
+             */
+            resource_id: number;
+          })[];
+      };
+    };
+    responses: {
+      /** @description List of created `Metafield` objects. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Delete All Metafields
+   * @description Delete all product metafields.
+   */
+  deleteProductsMetafields: {
+    /** @description List of metafield IDs. */
+    requestBody?: {
+      content: {
+        "application/json": number[];
+      };
+    };
+    responses: {
+      /** @description Response object for metafields deletion with success. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionDeleteResponseSuccess"];
+        };
+      };
+      /** @description Response object for metafields deletion with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_DELETE"];
         };
       };
     };
