@@ -1,6 +1,6 @@
 {
   "name": "bigexec",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "A CLI tool used to interface with the BigCommerce API",
   "author": "Matthew Volk",
   "license": "MIT",
