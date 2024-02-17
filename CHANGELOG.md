@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.24
+
+### Patch Changes
+
+- [#195](https://github.com/matthewvolk/bigrequest/pull/195) [`69beb8d`](https://github.com/matthewvolk/bigrequest/commit/69beb8d5880e34243a6768b638bec5f98c4c2f8a) Thanks [@matthewvolk](https://github.com/matthewvolk)! - consolidate monorepository, deprecate bigexec
+
 ## 0.0.23
 
 ### Patch Changes
