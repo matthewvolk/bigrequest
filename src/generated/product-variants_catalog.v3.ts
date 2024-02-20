@@ -67,7 +67,7 @@ export interface paths {
   };
   "/catalog/products/{product_id}/variants/{variant_id}/metafields": {
     /**
-     * Get All Product Variant Metafields
+     * Get Product Variant Metafields
      * @description Returns a list of product variant *Metafields*. Optional parameters can be passed in.
      */
     get: operations["getProductVariantMetafields"];
@@ -192,7 +192,7 @@ export interface paths {
   };
   "/catalog/variants/metafields": {
     /**
-     * Get All Metafields
+     * Get All Product Variant Metafields
      * @description Get all variant metafields.
      */
     get: operations["getVariantsMetafields"];
@@ -1274,7 +1274,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Variant Metafields
+   * Get Product Variant Metafields
    * @description Returns a list of product variant *Metafields*. Optional parameters can be passed in.
    */
   getProductVariantMetafields: {
@@ -2093,7 +2093,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Product Variant Metafields
    * @description Get all variant metafields.
    */
   getVariantsMetafields: {

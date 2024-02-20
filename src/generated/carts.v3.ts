@@ -204,8 +204,8 @@ export interface paths {
   };
   "/carts/{cart_id}/metafields": {
     /**
-     * Get All Metafields
-     * @description Get all cart metafields.
+     * Get Cart Metafields
+     * @description Get a cart's metafields.
      */
     get: operations["getCartMetafields"];
     /**
@@ -253,7 +253,7 @@ export interface paths {
   };
   "/carts/metafields": {
     /**
-     * Get All Metafields
+     * Get All Cart Metafields
      * @description Get all cart metafields.
      */
     get: operations["getCartsMetafields"];
@@ -2435,8 +2435,8 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
-   * @description Get all cart metafields.
+   * Get Cart Metafields
+   * @description Get a cart's metafields.
    */
   getCartMetafields: {
     parameters: {
@@ -2627,7 +2627,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Cart Metafields
    * @description Get all cart metafields.
    */
   getCartsMetafields: {

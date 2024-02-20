@@ -170,7 +170,7 @@ export interface paths {
   };
   "/orders/{order_id}/metafields": {
     /**
-     * Get Metafields
+     * Get Order Metafields
      * @description Gets a `Metafield` object list, by `order_id`.
      *
      * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
@@ -263,7 +263,7 @@ export interface paths {
   };
   "/orders/metafields": {
     /**
-     * Get All Metafields
+     * Get All Order Metafields
      * @description Get all order metafields.
      */
     get: operations["getOrdersMetafields"];
@@ -2460,7 +2460,7 @@ export interface operations {
     };
   };
   /**
-   * Get Metafields
+   * Get Order Metafields
    * @description Gets a `Metafield` object list, by `order_id`.
    *
    * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
@@ -2773,7 +2773,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Order Metafields
    * @description Get all order metafields.
    */
   getOrdersMetafields: {

@@ -308,7 +308,7 @@ export interface paths {
   };
   "/channels/metafields": {
     /**
-     * Get All Metafields
+     * Get All Channel Metafields
      * @description Get all channel metafields.
      */
     get: operations["getChannelsMetafields"];
@@ -2356,7 +2356,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Channel Metafields
    * @description Get all channel metafields.
    */
   getChannelsMetafields: {

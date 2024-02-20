@@ -119,7 +119,7 @@ export interface paths {
   };
   "/catalog/categories/{category_id}/metafields": {
     /**
-     * Get All Category Metafields
+     * Get Category Metafields
      * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
      */
     get: operations["getCategoryMetafields"];
@@ -245,7 +245,7 @@ export interface paths {
   };
   "/catalog/categories/metafields": {
     /**
-     * Get All Metafields
+     * Get All Category Metafields
      * @description Get all category metafields.
      */
     get: operations["getCategoriesMetafields"];
@@ -1669,7 +1669,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Category Metafields
+   * Get Category Metafields
    * @description Returns a list of *Metafields* on a *Category*. Optional filter parameters can be passed in.
    */
   getCategoryMetafields: {
@@ -2104,7 +2104,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Category Metafields
    * @description Get all category metafields.
    */
   getCategoriesMetafields: {

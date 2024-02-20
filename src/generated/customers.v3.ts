@@ -358,7 +358,7 @@ export interface paths {
   };
   "/customers/metafields": {
     /**
-     * Get All Metafields
+     * Get All Customer Metafields
      * @description Get all customer metafields.
      */
     get: operations["getallCustomersMetafields"];
@@ -3233,7 +3233,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Customer Metafields
    * @description Get all customer metafields.
    */
   getallCustomersMetafields: {
