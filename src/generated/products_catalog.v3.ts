@@ -302,7 +302,7 @@ export interface paths {
   "/catalog/products/{product_id}/custom-fields": {
     /**
      * Get Product Custom Fields
-     * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
+     * @description Returns a list of product *Custom Fields*. You can pass in optional parameters.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
@@ -316,21 +316,21 @@ export interface paths {
      * - name
      * - value
      *
+     * **Name-Value Pair Uniqueness**
+     * - Every name-value pair must be unique inside a product.
+     *
      * **Read-Only:**
      * - id
      *
      * **Limits**
      * - 200 custom fields per product limit.
-     * - 255 characters per custom field limit.
+     * - 250 characters per custom field limit.
      *
      * **Note:**
      * The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createProductCustomField"];
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
       };
@@ -339,7 +339,10 @@ export interface paths {
   "/catalog/products/{product_id}/custom-fields/{custom_field_id}": {
     /**
      * Get a Product Custom Field
-     * @description Returns a single *Custom Field*. Optional parameters can be passed in.
+     * @description Returns a *Custom Field*.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getProductCustomField"];
     /**
@@ -351,6 +354,9 @@ export interface paths {
      *
      * **Read-Only**
      * - id
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     put: operations["updateProductCustomField"];
     /**
@@ -362,44 +368,9 @@ export interface paths {
      */
     delete: operations["deleteProductCustomField"];
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
-      };
-    };
-  };
-  "/catalog/products/{product_id}/bulk-pricing-rules": {
-    /**
-     * Get All Bulk Pricing Rules
-     * @description Returns a list of *Bulk Pricing Rules*. Optional parameters can be passed in.
-     */
-    get: operations["getBulkPricingRules"];
-    /**
-     * Create a Bulk Pricing Rule
-     * @description Creates a *Bulk Pricing Rule*.
-     *
-     * **Required Fields**
-     * - quantity_min
-     * - quantity_max
-     * - type
-     * - amount
-     *
-     * **Read-Only Fields**
-     * - id
-     *
-     * **Limits**
-     * - 50 bulk pricing rule per product limit.
-     */
-    post: operations["createBulkPricingRule"];
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-      path: {
-        product_id: components["parameters"]["ProductIdParam"];
       };
     };
   };
@@ -437,7 +408,7 @@ export interface paths {
   };
   "/catalog/products/{product_id}/metafields": {
     /**
-     * Get All Product Metafields
+     * Get Product Metafields
      * @description Returns a list of *Product Metafields*. Optional parameters can be passed in.
      */
     get: operations["getProductMetafields"];
@@ -632,7 +603,7 @@ export interface paths {
   };
   "/catalog/products/metafields": {
     /**
-     * Get All Metafields
+     * Get All Product Metafields
      * @description Get all product metafields.
      */
     get: operations["getProductsMetafields"];
@@ -2439,8 +2410,221 @@ export interface components {
        */
       description?: string;
     };
+    /**
+     * Product Custom Field Data
+     * @description Gets custom fields associated with a product. These allow you to specify additional information that will appear on the product’s page, such as a book’s ISBN or a DVD’s release date.
+     */
+    customFieldData: {
+      /**
+       * @description The unique numeric ID of the custom field increments sequentially. Read-Only.
+       * @example 6
+       */
+      id?: number;
+      /**
+       * @description The name of the field, shown on the storefront, orders, etc. This field is a requirement for /POST requests.
+       *
+       * @example ISBN
+       */
+      name?: string;
+      /**
+       * @description The value of the field, shown on the storefront, orders, etc. This field is a requirement for /POST requests.
+       *
+       * @example 1234567890123
+       */
+      value?: string;
+    };
+    /**
+     * Custom Field Post
+     * @description Payload for POST request to create custom fields associated with a product.
+     */
+    customFieldPost: {
+      /**
+       * @description The name of the field, shown on the storefront, orders, etc. This field is a requirement for /POST requests.
+       *
+       * @example ISBN
+       */
+      name: string;
+      /**
+       * @description The value of the field, shown on the storefront, orders, etc. This field is a requirement for /POST requests.
+       *
+       * @example 1234567890123
+       */
+      value: string;
+    };
+    /**
+     * Custom Field Put
+     * @description Payload for PUT request to update custom fields associated with a product.
+     */
+    customFieldPut: {
+      /**
+       * @description The value of the field, shown on the storefront, orders, etc. This field is a requirement for /POST requests.
+       *
+       * @example ISBN
+       */
+      name?: string;
+      /**
+       * @description The value of the field, shown on the storefront, orders, etc. This field is a requirement for /POST requests.
+       *
+       * @example 1234567890123
+       */
+      value?: string;
+    };
+    /**
+     * metaCollectionFull
+     * @description Data about the response, including pagination and collection totals.
+     */
+    metaCollectionFull: {
+      /** @description Data about the response, including pagination and collection totals. */
+      pagination?: {
+        /**
+         * @description Total number of items in the result set.
+         *
+         * @example 36
+         */
+        total?: number;
+        /**
+         * @description Total number of items in the collection response.
+         *
+         * @example 36
+         */
+        count?: number;
+        /**
+         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+         *
+         * @example 50
+         */
+        per_page?: number;
+        /**
+         * @description The page you are currently on within the collection.
+         *
+         * @example 2
+         */
+        current_page?: number;
+        /**
+         * @description The total number of pages in the collection.
+         *
+         * @example 3
+         */
+        total_pages?: number;
+        /** @description Pagination links for the previous and next parts of the whole collection. */
+        links?: {
+          /**
+           * @description Link to the previous page returned in the response.
+           *
+           * @example ?page=1&limit=50
+           */
+          previous?: string;
+          /**
+           * @description Link to the current page returned in the response.
+           *
+           * @example ?page=2&limit=50
+           */
+          current?: string;
+          /**
+           * @description Link to the next page returned in the response.
+           *
+           * @example ?page=3&limit=50
+           */
+          next?: string;
+        };
+      };
+    };
+    /**
+     * Response meta
+     * @description Response metadata.
+     */
+    metaEmptyFull: {
+      [key: string]: unknown;
+    };
+    /** Error Response */
+    GeneralErrorWithErrors: {
+      /** @description The HTTP status code. */
+      status: number;
+      /** @description The error title describes the particular error. */
+      title: string;
+      type: string;
+      /** Detailed Errors */
+      errors: {
+        [key: string]: unknown;
+      };
+    };
+    /** Error Response */
+    GeneralError: {
+      /** @description The HTTP status code. */
+      status: number;
+      /** @description The error title describes the particular error. */
+      title: string;
+      type: string;
+      /** @description The custom code of the error. */
+      code?: number;
+    };
+    /** Error Response */
+    MethodNotAllowedError: {
+      /**
+       * @description The HTTP status code.
+       * @example 405
+       */
+      status: number;
+      /** @description The error title describes the particular error. */
+      title: string;
+      type: string;
+      /**
+       * Detailed Errors
+       * @description The detailed title describes the particular error.
+       */
+      detail: string;
+    };
   };
-  responses: never;
+  responses: {
+    /** @description General Error. */
+    GeneralError: {
+      content: {
+        "application/json": components["schemas"]["GeneralError"];
+      };
+    };
+    /** @description General Error */
+    GeneralErrorWithErrors: {
+      content: {
+        "application/json": components["schemas"]["GeneralErrorWithErrors"];
+      };
+    };
+    /** @description 401 Unauthorized */
+    UnauthorizedError: {
+      content: {
+        "plain/text": string;
+      };
+    };
+    /** @description 405 Method Not Allowed */
+    MethodNotAllowedError: {
+      content: {
+        "application/json": components["schemas"]["MethodNotAllowedError"];
+      };
+    };
+    /** @description 415 Unsupported Media Type */
+    UnsupportedMediaTypeError: {
+      content: {
+        "text/html": string;
+      };
+    };
+    /** @description Gets array of Custom fields. */
+    CustomFieldsResponse: {
+      content: {
+        "application/json": {
+          data?: components["schemas"]["customFieldData"][];
+          meta?: components["schemas"]["metaCollectionFull"];
+        };
+      };
+    };
+    /** @description Gets Custom field. */
+    CustomFieldResponse: {
+      content: {
+        "application/json": {
+          data?: components["schemas"]["customFieldData"];
+          meta?: components["schemas"]["metaEmptyFull"];
+        };
+      };
+    };
+  };
   parameters: {
     /** @description The ID of the `Product` to which the resource belongs. */
     ProductIdParam: number;
@@ -4565,7 +4749,7 @@ export interface operations {
   };
   /**
    * Get Product Custom Fields
-   * @description Returns a list of product *Custom Fields*. Optional parameters can be passed in.
+   * @description Returns a list of product *Custom Fields*. You can pass in optional parameters.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
@@ -4573,50 +4757,25 @@ export interface operations {
   getProductCustomFields: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+        /** @description Fields to include in a comma-separated list; returned fields are the ID and specified fields. */
         include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+        /** @description Fields to exclude in a comma-separated list; responses do not include specified fields, and you can not exclude the ID. */
         exclude_fields?: string;
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
         limit?: number;
       };
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
       };
     };
     responses: {
-      200: {
-        content: {
-          "application/json": {
-            data?: {
-                /**
-                 * @description The unique numeric ID of the custom field; increments sequentially.
-                 * Read-Only
-                 * @example 6
-                 */
-                id?: number;
-                /**
-                 * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-                 *
-                 * @example ISBN
-                 */
-                name: string;
-                /**
-                 * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-                 *
-                 * @example 1234567890123
-                 */
-                value: string;
-              }[];
-            meta?: components["schemas"]["metaCollection_Full"];
-          };
-        };
-      };
+      200: components["responses"]["CustomFieldsResponse"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["GeneralErrorWithErrors"];
+      404: components["responses"]["GeneralError"];
+      405: components["responses"]["MethodNotAllowedError"];
     };
   };
   /**
@@ -4627,122 +4786,54 @@ export interface operations {
    * - name
    * - value
    *
+   * **Name-Value Pair Uniqueness**
+   * - Every name-value pair must be unique inside a product.
+   *
    * **Read-Only:**
    * - id
    *
    * **Limits**
    * - 200 custom fields per product limit.
-   * - 255 characters per custom field limit.
+   * - 250 characters per custom field limit.
    *
    * **Note:**
    * The default rate limit for this endpoint is 40 concurrent requests.
    */
   createProductCustomField: {
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
-      };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
       };
     };
     requestBody: {
       content: {
-        "application/json": {
-          /**
-           * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *
-           * @example ISBN
-           */
-          name: string;
-          /**
-           * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *
-           * @example 1234567890123
-           */
-          value: string;
-        };
+        "application/json": components["schemas"]["customFieldPost"];
       };
     };
     responses: {
-      200: {
-        content: {
-          "application/json": {
-            /**
-             * Custom Field
-             * @description Gets custom fields associated with a product. These allow you to specify additional information that will appear on the product’s page, such as a book’s ISBN or a DVD’s release date.
-             */
-            data?: {
-              /**
-               * @description The unique numeric ID of the custom field; increments sequentially.
-               * Read-Only
-               * @example 6
-               */
-              id?: number;
-              /**
-               * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *
-               * @example ISBN
-               */
-              name: string;
-              /**
-               * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *
-               * @example 1234567890123
-               */
-              value: string;
-            };
-            meta?: components["schemas"]["metaEmpty_Full"];
-          };
-        };
-      };
-      /** @description The parent resource was not found. */
-      404: {
-        content: {
-          "application/json": {
-            /** @description 404 HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-            instance?: string;
-          };
-        };
-      };
-      /** @description The `CustomField` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
-      422: {
-        content: {
-          "application/json": {
-            /** Detailed Errors */
-            errors?: {
-              [key: string]: unknown;
-            };
-            instance?: string;
-            /** @description The HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-          };
-        };
-      };
+      200: components["responses"]["CustomFieldResponse"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["GeneralErrorWithErrors"];
+      404: components["responses"]["GeneralError"];
+      405: components["responses"]["MethodNotAllowedError"];
+      415: components["responses"]["UnsupportedMediaTypeError"];
+      422: components["responses"]["GeneralError"];
     };
   };
   /**
    * Get a Product Custom Field
-   * @description Returns a single *Custom Field*. Optional parameters can be passed in.
+   * @description Returns a *Custom Field*.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getProductCustomField: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+        /** @description Fields to include in a comma-separated list; returned fields are the ID and specified fields. */
         include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+        /** @description Fields to exclude in a comma-separated list; responses do not include specified fields, and you can not exclude the ID. */
         exclude_fields?: string;
-      };
-      header: {
-        Accept: components["parameters"]["Accept"];
       };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
@@ -4750,27 +4841,11 @@ export interface operations {
       };
     };
     responses: {
-      200: {
-        content: {
-          "application/json": {
-            data?: components["schemas"]["productCustomField_Base"];
-            meta?: components["schemas"]["metaEmpty_Full"];
-          };
-        };
-      };
-      /** @description The resource was not found. */
-      404: {
-        content: {
-          "application/json": {
-            /** @description 404 HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-            instance?: string;
-          };
-        };
-      };
+      200: components["responses"]["CustomFieldResponse"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["GeneralErrorWithErrors"];
+      404: components["responses"]["GeneralError"];
+      405: components["responses"]["MethodNotAllowedError"];
     };
   };
   /**
@@ -4782,13 +4857,12 @@ export interface operations {
    *
    * **Read-Only**
    * - id
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   updateProductCustomField: {
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
-      };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
@@ -4796,90 +4870,17 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": {
-          /**
-           * @description The unique numeric ID of the custom field; increments sequentially.
-           * Read-Only
-           * @example 6
-           */
-          id?: number;
-          /**
-           * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *
-           * @example ISBN
-           */
-          name: string;
-          /**
-           * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-           *
-           * @example 1234567890123
-           */
-          value: string;
-        };
+        "application/json": components["schemas"]["customFieldPut"];
       };
     };
     responses: {
-      200: {
-        content: {
-          "application/json": {
-            /**
-             * Custom Field
-             * @description Gets custom fields associated with a product. These allow you to specify additional information that will appear on the product’s page, such as a book’s ISBN or a DVD’s release date.
-             */
-            data?: {
-              /**
-               * @description The unique numeric ID of the custom field; increments sequentially.
-               * Read-Only
-               * @example 6
-               */
-              id?: number;
-              /**
-               * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *
-               * @example ISBN
-               */
-              name: string;
-              /**
-               * @description The name of the field, shown on the storefront, orders, etc. Required for /POST
-               *
-               * @example 1234567890123
-               */
-              value: string;
-            };
-            meta?: components["schemas"]["metaEmpty_Full"];
-          };
-        };
-      };
-      /** @description The resource was not found. */
-      404: {
-        content: {
-          "application/json": {
-            /** @description 404 HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-            instance?: string;
-          };
-        };
-      };
-      /** @description The `CustomField` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
-      422: {
-        content: {
-          "application/json": {
-            /** Detailed Errors */
-            errors?: {
-              [key: string]: unknown;
-            };
-            instance?: string;
-            /** @description The HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-          };
-        };
-      };
+      200: components["responses"]["CustomFieldResponse"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["GeneralErrorWithErrors"];
+      404: components["responses"]["GeneralError"];
+      405: components["responses"]["MethodNotAllowedError"];
+      415: components["responses"]["UnsupportedMediaTypeError"];
+      422: components["responses"]["GeneralError"];
     };
   };
   /**
@@ -4891,185 +4892,21 @@ export interface operations {
    */
   deleteProductCustomField: {
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
       };
     };
     responses: {
-      /** @description `204 No Content`. Action has been enacted and no further information is to be supplied. `null` is returned. */
+      /** @description 204 No Content */
       204: {
         content: {
         };
       };
-      /** @description The resource was not found. */
-      404: {
-        content: {
-          "application/json": {
-            /** @description 404 HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-            instance?: string;
-          };
-        };
-      };
-    };
-  };
-  /**
-   * Get All Bulk Pricing Rules
-   * @description Returns a list of *Bulk Pricing Rules*. Optional parameters can be passed in.
-   */
-  getBulkPricingRules: {
-    parameters: {
-      query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-      };
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-      path: {
-        product_id: components["parameters"]["ProductIdParam"];
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            data?: ({
-                /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
-                id: number;
-              } & components["schemas"]["bulkPricingRule_Full"])[];
-            meta?: components["schemas"]["metaCollection_Full"];
-          };
-        };
-      };
-      /** @description The parent resource was not found. */
-      404: {
-        content: {
-          "application/json": {
-            /** @description 404 HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-            instance?: string;
-          };
-        };
-      };
-    };
-  };
-  /**
-   * Create a Bulk Pricing Rule
-   * @description Creates a *Bulk Pricing Rule*.
-   *
-   * **Required Fields**
-   * - quantity_min
-   * - quantity_max
-   * - type
-   * - amount
-   *
-   * **Read-Only Fields**
-   * - id
-   *
-   * **Limits**
-   * - 50 bulk pricing rule per product limit.
-   */
-  createBulkPricingRule: {
-    parameters: {
-      query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-      };
-      header: {
-        Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
-      };
-      path: {
-        product_id: components["parameters"]["ProductIdParam"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["bulkPricingRule_Full"];
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            data?: {
-              /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
-              id: number;
-            } & components["schemas"]["bulkPricingRule_Full"];
-            /**
-             * Meta
-             * @description Empty meta object; may be used later.
-             */
-            meta?: Record<string, never>;
-          };
-        };
-      };
-      /** @description The parent resource was not found. */
-      404: {
-        content: {
-          "application/json": {
-            /** @description 404 HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-            instance?: string;
-          };
-        };
-      };
-      /** @description The `BulkPricingRule` was in conflict with another bulk pricing rule. This is the result of quantity range overlapping with existing bulk pricing rules. */
-      409: {
-        content: {
-          "application/json": {
-            /** Detailed Errors */
-            errors?: {
-              [key: string]: unknown;
-            };
-            instance?: string;
-            /** @description The HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-          };
-        };
-      };
-      /** @description The `BulkPricingRule` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
-      422: {
-        content: {
-          "application/json": {
-            /** Detailed Errors */
-            errors?: {
-              [key: string]: unknown;
-            };
-            instance?: string;
-            /** @description The HTTP status code. */
-            status?: number;
-            /** @description The error title describing the particular error. */
-            title?: string;
-            type?: string;
-          };
-        };
-      };
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["GeneralErrorWithErrors"];
+      404: components["responses"]["GeneralError"];
+      405: components["responses"]["MethodNotAllowedError"];
     };
   };
   /**
@@ -5273,7 +5110,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Metafields
+   * Get Product Metafields
    * @description Returns a list of *Product Metafields*. Optional parameters can be passed in.
    */
   getProductMetafields: {
@@ -6192,7 +6029,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Product Metafields
    * @description Get all product metafields.
    */
   getProductsMetafields: {

@@ -75,7 +75,7 @@ export interface paths {
   };
   "/catalog/brands/{brand_id}/metafields": {
     /**
-     * Get All Brand Metafields
+     * Get Brand Metafields
      * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
      */
     get: operations["getBrandMetafields"];
@@ -174,7 +174,7 @@ export interface paths {
   };
   "/catalog/brands/metafields": {
     /**
-     * Get All Metafields
+     * Get All Brand Metafields
      * @description Get all brand metafields.
      */
     get: operations["getBrandsMetafields"];
@@ -1352,7 +1352,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Brand Metafields
+   * Get Brand Metafields
    * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
    */
   getBrandMetafields: {
@@ -1724,7 +1724,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Metafields
+   * Get All Brand Metafields
    * @description Get all brand metafields.
    */
   getBrandsMetafields: {
