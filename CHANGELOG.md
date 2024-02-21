@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.25
+
+### Patch Changes
+
+- [#197](https://github.com/matthewvolk/bigrequest/pull/197) [`40ebb90`](https://github.com/matthewvolk/bigrequest/commit/40ebb904605213d9ffedc27d62d39fb28d8a43b9) Thanks [@matthewvolk](https://github.com/matthewvolk)! - bigcommerce/docs#97, bigcommerce/docs#115, bigcommerce/docs#117
+
 ## 0.0.24
 
 ### Patch Changes

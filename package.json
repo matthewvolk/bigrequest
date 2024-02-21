@@ -1,6 +1,6 @@
 {
   "name": "bigrequest",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "A typesafe, servelerless-friendly Node.js HTTP request client for the BigCommerce API",
   "author": "Matthew Volk",
   "license": "MIT",
