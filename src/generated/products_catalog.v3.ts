@@ -352,11 +352,16 @@ export interface paths {
      * **Required Fields**
      * - none
      *
+     * **Name-Value Pair Uniqueness**
+     * - Every name-value pair must be unique inside a product.
+     *
      * **Read-Only**
      * - id
      *
-     * **Note:**
-     * The default rate limit for this endpoint is 40 concurrent requests.
+     *  **Limits**
+     * - 200 custom fields per product limit.
+     * - 250 characters per custom field limit.
+     * - 40 concurrent requests default rate limit.
      */
     put: operations["updateProductCustomField"];
     /**
@@ -1929,6 +1934,8 @@ export interface components {
       gtin?: string;
       /** @description Manufacturer Part Number */
       mpn?: string;
+      /** @description the date when the Product had been imported */
+      date_last_imported?: string;
       /**
        * @description The total (cumulative) rating for the product.
        *
@@ -2707,9 +2714,11 @@ export interface operations {
         "date_modified:min"?: string;
         /** @description Filter items by date_last_imported. */
         date_last_imported?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2020-06-15`. */
+        /** @description Filter items by date_last_imported. For example, `date_last_imported:not=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+        "date_last_imported:not"?: string;
+        /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2015-08-21T22%3A53%3A23%2B00%3A00`. */
         "date_last_imported:max"?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2018-06-15`. */
+        /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00`. */
         "date_last_imported:min"?: string;
         /** @description Filter items based on whether the product is currently visible on the storefront. */
         is_visible?: boolean;
@@ -3016,7 +3025,7 @@ export interface operations {
         brand_id?: number;
         /** @description Filter items by date_modified. For example `v3/catalog/products?date_modified:min=2018-06-15` */
         date_modified?: string;
-        /** @description Filter items by date_last_imported. For example `v3/catalog/products?date_last_imported:min=2018-06-15` */
+        /** @description Filter items by date_last_imported. For example `v3/catalog/products?date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00` */
         date_last_imported?: string;
         /** @description Filter items by if visible on the storefront. */
         is_visible?: boolean;
@@ -4855,11 +4864,16 @@ export interface operations {
    * **Required Fields**
    * - none
    *
+   * **Name-Value Pair Uniqueness**
+   * - Every name-value pair must be unique inside a product.
+   *
    * **Read-Only**
    * - id
    *
-   * **Note:**
-   * The default rate limit for this endpoint is 40 concurrent requests.
+   *  **Limits**
+   * - 200 custom fields per product limit.
+   * - 250 characters per custom field limit.
+   * - 40 concurrent requests default rate limit.
    */
   updateProductCustomField: {
     parameters: {
