@@ -27,7 +27,7 @@ export interface paths {
      * * 600 SKUs per product limit.
      * * 255 characters SKU length limit.
      *
-     * Variants need to be created one at a time using this endpoint. To use a variant array and create products and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) during the initial product creation.
+     * Variants need to be created one at a time using this endpoint. To use a variant array, create products, and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) endpoint during the initial product creation.
      */
     post: operations["createProductVariant"];
     parameters: {
@@ -1103,7 +1103,7 @@ export interface operations {
    * * 600 SKUs per product limit.
    * * 255 characters SKU length limit.
    *
-   * Variants need to be created one at a time using this endpoint. To use a variant array and create products and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) during the initial product creation.
+   * Variants need to be created one at a time using this endpoint. To use a variant array, create products, and variants in the same call use the [Create Products](/docs/rest-catalog/products#create-a-product) endpoint during the initial product creation.
    */
   createProductVariant: {
     parameters: {
