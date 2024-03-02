@@ -1491,15 +1491,14 @@ export interface components {
        */
       subtotal_inc_tax?: string;
       /**
-       * @description BasicTaxProvider - Tax is set to manual and order is created in the store.
+       * @description Read-only.
+       * BasicTaxProvider - Tax is set to manual and order is created in the store.
        *
        * AvaTaxProvider - Tax is set to automatic and order is created in the store. Used for Avalara.
        *
        * "" (empty string) - The order is created with the API, or the tax provider is unknown.
-       *
-       * @enum {string}
        */
-      tax_provider_id?: "BasicTaxProvider" | "AvaTaxProvider" | "";
+      tax_provider_id?: string;
       /**
        * @description The customer’s locale.
        * @example en
@@ -2128,15 +2127,14 @@ export interface components {
        */
       subtotal_inc_tax?: string;
       /**
-       * @description BasicTaxProvider - Tax is set to manual and order is created in the store.
+       * @description Read-only.
+       * BasicTaxProvider - Tax is set to manual and order is created in the store.
        *
        * AvaTaxProvider - Tax is set to automatic and order is created in the store. Used for Avalara.
        *
        * "" (empty string) - The order is created with the API, or the tax provider is unknown.
-       *
-       * @enum {string}
        */
-      tax_provider_id?: "BasicTaxProvider" | "AvaTaxProvider" | "";
+      tax_provider_id?: string;
       /**
        * @description The customer’s locale.
        * @example en
@@ -2571,7 +2569,7 @@ export interface components {
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
     /** @description The order ID in another system, such as the Amazon Order ID if this is an Amazon order. After setting it, you can update this field using a POST or PUT request. */
-    external_order_id?: number;
+    external_order_id?: string;
     /** @description The minimum order ID. */
     min_id?: number;
     /** @description The maximum order ID. */
