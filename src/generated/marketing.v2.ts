@@ -9,7 +9,7 @@ export interface paths {
   "/coupons": {
     /**
      * Get All Coupons
-     * @description Returns a list of *Coupons*. Default sorting is by coupon/discount id, from lowest to highest. Optional filter parameters can be passed in.
+     * @description Returns a list of *Coupons*. Default sorting is by coupon/discount id, from lowest to highest. You can pass in optional filter parameters. We recommended using `?min_id=x&limit=y` to paginate through a large set of data because it offers better performance.
      *
      * ## Usage Notes
      *
@@ -704,7 +704,7 @@ export interface operations {
 
   /**
    * Get All Coupons
-   * @description Returns a list of *Coupons*. Default sorting is by coupon/discount id, from lowest to highest. Optional filter parameters can be passed in.
+   * @description Returns a list of *Coupons*. Default sorting is by coupon/discount id, from lowest to highest. You can pass in optional filter parameters. We recommended using `?min_id=x&limit=y` to paginate through a large set of data because it offers better performance.
    *
    * ## Usage Notes
    *

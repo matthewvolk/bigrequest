@@ -329,30 +329,30 @@ export interface paths {
   };
   "/customers/{customerId}/metafields": {
     /**
-     * Get Customer metafields
-     * @description Get a customer's metafields.
+     * Get Customer Metafields
+     * @description Gets customer metafields by passing the `customerId` in the query parameters.
      */
     get: operations["getCustomersMetafields"];
     /**
      * Create Customer Metafields
-     * @description Creates Customer metafields.
+     * @description Creates Customer metafields by passing the `customerId` in the query parameters.
      */
     post: operations["createCustomerMetafields"];
   };
   "/customers/{customerId}/metafields/{metafieldId}": {
     /**
-     * Get Metafields by CustomerId
-     * @description Lists all available metafields for a customer. Use both `customerId` and `metafieldId` in the parameters to retrieve the full list.
+     * Get Customer Metafields List
+     * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
      */
     get: operations["getMetafieldsCustomerId"];
     /**
-     * Update a metafield
-     * @description Updates Customer metafields. Use both 'customerId' and 'metafield' in the parameter to update the customer metafields.
+     * Update a Metafield
+     * @description Updates customer metafields. To update the customer metafields, use 'customerId' and 'metafield' in the query parameters.
      */
     put: operations["updateCustomerMetafield"];
     /**
-     * Delete customer metafields
-     * @description Deletes customer metafields. Use both 'customerId' and 'metafieldId' in the parameter to delete the customer metafields.
+     * Delete Customer Metafields
+     * @description Deletes customer metafields. To delete customer metafields, use 'customerId' and 'metafieldId' in the query parameters.
      */
     delete: operations["deleteCustomerMetafieldsId"];
   };
@@ -363,12 +363,12 @@ export interface paths {
      */
     get: operations["getallCustomersMetafields"];
     /**
-     * Update multiple Metafields
+     * Update Multiple Metafields
      * @description Create multiple metafields.
      */
     put: operations["updateCustomersMetafields"];
     /**
-     * Create multiple Metafields
+     * Create Multiple Metafields
      * @description Create multiple metafields.
      */
     post: operations["createCustomersMetafields"];
@@ -1342,17 +1342,16 @@ export interface components {
       date_modified: string;
       /**
        * @description Client ID for the metafieldʼs creator.
-       * @example asdfasdfasdfasdfasdfasdfasdf
+       * @example ramciw4fnoz87it3ynjfif2zrkil5p
        */
       owner_client_id?: string;
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
       data?: components["schemas"]["Metafield"][];
-      meta?: components["schemas"]["CollectionMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
-    MetaFieldCollectionResponse_POST_PUT: {
+    MetaFieldCollectionPostPutResponses: {
       data?: components["schemas"]["Metafield"][];
       /**
        * @description Empty for 200 responses.
@@ -2105,25 +2104,24 @@ export interface components {
       };
     };
     /** @description Response payload for the BigCommerce API. */
-    MetafieldResponse_Post: {
-      content: never;
-    };
-    "application/json": {
-      content: never;
-    };
-    /** @description Response payload for the BigCommerce API. */
     MetafieldCollectionResponse: {
       content: {
         "application/json": {
           data?: unknown[];
           /**
            * @description Unique ID of the *Metafield*. Read-Only.
-           * @example 24
+           * @example 0
            */
           id: number;
-          /** @description The key for the metafields. */
+          /**
+           * @description The key for the metafields.
+           * @example Staff Name
+           */
           key: string;
-          /** @description The description for the metafield. */
+          /**
+           * @description The description for the metafield.
+           * @example Ronaldo
+           */
           value: string;
           /**
            * @description Namespace for the metafield, for organizational purposes.
@@ -2154,10 +2152,14 @@ export interface components {
           /**
            * @description The unique identifier for the resource with which the metafield is associated.
            *
-           * @example 424242
+           * @example 0
            */
           resource_id: number;
-          /** @description Description for the metafields. */
+          /**
+           * @description Description for the metafields.
+           *
+           * @example order
+           */
           description: string;
           /**
            * Format: date-time
@@ -2171,7 +2173,10 @@ export interface components {
            * @example 2022-06-16T18:39:00+00:00
            */
           date_modified: string;
-          /** @description Client ID for the metafield's creator. */
+          /**
+           * @description Client ID for the metafield's creator.
+           * @example ramciw4fnoz87it3ynjfif2zrkil5p
+           */
           owner_client_id?: string;
         };
       };
@@ -3104,14 +3109,11 @@ export interface operations {
     };
   };
   /**
-   * Get Customer metafields
-   * @description Get a customer's metafields.
+   * Get Customer Metafields
+   * @description Gets customer metafields by passing the `customerId` in the query parameters.
    */
   getCustomersMetafields: {
     parameters: {
-      query?: {
-        customerId?: number;
-      };
       path: {
         customerId: components["parameters"]["customerId"];
       };
@@ -3122,12 +3124,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description List of `Metafield` objects. */
-      200: {
-        content: {
-          "application/json": components["responses"]["MetafieldResponse_Post"];
-        };
-      };
+      200: components["responses"]["MetafieldCollectionResponse"];
       /** @description Internal Server Error */
       500: {
         content: never;
@@ -3136,36 +3133,38 @@ export interface operations {
   };
   /**
    * Create Customer Metafields
-   * @description Creates Customer metafields.
+   * @description Creates Customer metafields by passing the `customerId` in the query parameters.
    */
   createCustomerMetafields: {
     parameters: {
-      query?: {
-        customerId?: number;
-      };
       path: {
         customerId: components["parameters"]["customerId"];
       };
     };
-    requestBody?: {
+    requestBody: {
       content: {
-        "application/json": Record<string, never>;
+        "application/json": components["schemas"]["MetafieldBase_Post"];
       };
     };
     responses: {
-      200: components["responses"]["MetafieldResponse_Post"];
+      /** @description Response payload for the BigCommerce API. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionPostPutResponses"];
+        };
+      };
     };
   };
   /**
-   * Get Metafields by CustomerId
-   * @description Lists all available metafields for a customer. Use both `customerId` and `metafieldId` in the parameters to retrieve the full list.
+   * Get Customer Metafields List
+   * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
    */
   getMetafieldsCustomerId: {
     parameters: {
       path: {
         /** @description The ID that belongs to the customer. */
         customerId: number;
-        /** @description The ID that is assigned to a metafield when created. */
+        /** @description The ID that is generated for a metafield when created. */
         metafieldId: number;
       };
     };
@@ -3179,13 +3178,13 @@ export interface operations {
     };
   };
   /**
-   * Update a metafield
-   * @description Updates Customer metafields. Use both 'customerId' and 'metafield' in the parameter to update the customer metafields.
+   * Update a Metafield
+   * @description Updates customer metafields. To update the customer metafields, use 'customerId' and 'metafield' in the query parameters.
    */
   updateCustomerMetafield: {
     parameters: {
       query?: {
-        /** @description The ID that is assigned to a metafield when created. */
+        /** @description The ID that is generated for a metafield when created. */
         metafieldId?: number;
       };
       path: {
@@ -3206,12 +3205,17 @@ export interface operations {
       };
     };
     responses: {
-      200: components["responses"]["MetafieldResponse_Post"];
+      /** @description Response payload for the BigCommerce API. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionPostPutResponses"];
+        };
+      };
     };
   };
   /**
-   * Delete customer metafields
-   * @description Deletes customer metafields. Use both 'customerId' and 'metafieldId' in the parameter to delete the customer metafields.
+   * Delete Customer Metafields
+   * @description Deletes customer metafields. To delete customer metafields, use 'customerId' and 'metafieldId' in the query parameters.
    */
   deleteCustomerMetafieldsId: {
     parameters: {
@@ -3262,7 +3266,7 @@ export interface operations {
     };
   };
   /**
-   * Update multiple Metafields
+   * Update Multiple Metafields
    * @description Create multiple metafields.
    */
   updateCustomersMetafields: {
@@ -3279,10 +3283,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description List of updated `Metafield` objects. */
+      /** @description Response payload for the BigCommerce API. */
       200: {
         content: {
-          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+          "application/json": components["schemas"]["MetaFieldCollectionPostPutResponses"];
         };
       };
       /** @description Response object for metafields creation with partial success. */
@@ -3298,7 +3302,7 @@ export interface operations {
     };
   };
   /**
-   * Create multiple Metafields
+   * Create Multiple Metafields
    * @description Create multiple metafields.
    */
   createCustomersMetafields: {
@@ -3315,10 +3319,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description List of created `Metafield` objects. */
+      /** @description Response payload for the BigCommerce API. */
       200: {
         content: {
-          "application/json": components["schemas"]["MetaFieldCollectionResponse_POST_PUT"];
+          "application/json": components["schemas"]["MetaFieldCollectionPostPutResponses"];
         };
       };
       /** @description Response object for metafields creation with partial success. */

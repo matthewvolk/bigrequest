@@ -84,6 +84,7 @@ export interface paths {
      * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
      * * Redirect URLs can be generated only from carts that were created using the **REST Management API**.
      * * To restore a cart that was created on the storefront, either by a shopper or a Storefront API, first recreate the cart using the **REST Management API**.
+     * * When redirecting the shopper, you can add a set of `query_params` to the URL. The `query_params` feature allows passing additional information to the redirect URL.
      */
     post: operations["createCartRedirectURL"];
     parameters: {
@@ -1347,6 +1348,13 @@ export interface components {
         })[];
       custom_items?: components["schemas"]["cart_PostCustomItem"];
     };
+    /** Redirect_urls_Post */
+    Redirect_urls_Post: {
+      query_params?: {
+          key?: string;
+          value?: string;
+        }[];
+    };
     /** Cart_Line_Item_Update_Post */
     Cart_Line_Item_Update_Post: {
       line_items?: unknown;
@@ -2088,6 +2096,7 @@ export interface operations {
    * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
    * * Redirect URLs can be generated only from carts that were created using the **REST Management API**.
    * * To restore a cart that was created on the storefront, either by a shopper or a Storefront API, first recreate the cart using the **REST Management API**.
+   * * When redirecting the shopper, you can add a set of `query_params` to the URL. The `query_params` feature allows passing additional information to the redirect URL.
    */
   createCartRedirectURL: {
     parameters: {
@@ -2097,6 +2106,11 @@ export interface operations {
       };
       path: {
         cartId: components["parameters"]["cartId"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["Redirect_urls_Post"];
       };
     };
     responses: {
