@@ -34,7 +34,7 @@ export interface paths {
      *
      * **Notes**
      *
-     * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
+     * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
      */
@@ -62,7 +62,7 @@ export interface paths {
      *
      * **Notes**
      *
-     * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
+     * * To include `published_date` in a request, provide a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
      *
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      */
@@ -309,7 +309,7 @@ export interface components {
     /** blogPost_Full */
     blogPost_Full: {
       /**
-       * @description ID of this blog post. (READ-ONLY)
+       * @description ID of this blog post. READ-ONLY.
        * @example 3
        */
       id?: number;
@@ -343,7 +343,7 @@ export interface components {
     /** page_Full */
     page_Full: {
       /**
-       * @description ID of the page.
+       * @description ID of the page. Read-Only.
        * @example 44
        */
       id?: number;
@@ -357,7 +357,7 @@ export interface components {
      *     "type": "product",
      *     "ref": 111
      *   },
-     *   "url": "http://store-url.mybigcommerce.com/towels/bath-towels/hand-towels/"
+     *   "url": "http://store-store_hash.mybigcommerce.com/towels/bath-towels/hand-towels/"
      * }
      */
     redirect: {
@@ -373,8 +373,8 @@ export interface components {
       path: string;
       forward: components["schemas"]["forward"];
       /**
-       * @description URL of the redirect. READ-ONLY
-       * @example http://store-url.mybigcommerce.com/towels/bath-towels/hand-towels/
+       * @description URL of the redirect. READ-ONLY.
+       * @example http://store-store_hash.mybigcommerce.com/towels/bath-towels/hand-towels/
        */
       url?: string;
     };
@@ -466,7 +466,7 @@ export interface components {
       accepts_marketing?: boolean;
       addresses?: components["schemas"]["addresses"];
       /** @description Array of custom fields. This is a READ-ONLY field; do not set or modify its value in a POST or PUT request. */
-      form_fields?: components["schemas"]["formField"][];
+      form_fields?: readonly components["schemas"]["formField"][];
       /**
        * @description Force a password change on next login.
        * @example false
@@ -477,23 +477,19 @@ export interface components {
     categoryAccessLevel: {
       /**
        * @description + `all` - Customers can access all categories
-       *  + `specific`  - Customers can access a specific list of categories
+       * + `specific`  - Customers can access a specific list of categories
        * + `none` - Customers are prevented from viewing any of the categories in this group.
        * @enum {string}
        */
       type?: "all" | "specific" | "none";
-      /**
-       * @description Is an array of category IDs and should be supplied only if `type` is specific.
-       * @example [
-       *   "18,19,23,34"
-       * ]
-       */
-      categories?: string[];
+      /** @description A comma-separated list of category IDs. Should be supplied only if `type` is `specific`. */
+      categories?: number[];
     };
     /** timeZone */
     timeZone: {
       /**
-       * @description A string identifying the time zone, in the format: <Continent-name>/<City-name>.
+       * @description A string identifying the time zone, in the format: `<Continent-name>/<City-name>`.
+       *
        * @example America/Chicago
        */
       name?: string;
@@ -558,6 +554,23 @@ export interface components {
     /**
      * blogPost_Base_Post
      * @description blogPost base for POST requests
+     * @example {
+     *   "title": "Welcome to BigCommerce",
+     *   "url": "/blog/welcome-bigcommerce/",
+     *   "preview_url": "/blog/welcome-bigcommerce/",
+     *   "body": "<p>Customize your site, manage shipping and payments, and list your products on Amazon, eBay, and Facebook by Meta with the #1 ecommerce platform. </p>",
+     *   "tags": [
+     *     "string"
+     *   ],
+     *   "summary": "<p>We power ecommerce websites for successful retailers all over the world</p>",
+     *   "is_published": true,
+     *   "published_date": "Thu, 18 May 2023 13:26:42 -0000",
+     *   "published_date_iso8601": "5/18/2023 1:26:42 PM",
+     *   "meta_description": "Welcome Post",
+     *   "meta_keywords": "BigCommerce, welcome, ecommerce",
+     *   "author": "BigCommerce",
+     *   "thumbnail_path": "string"
+     * }
      */
     blogPost_Base_Post: {
       /**
@@ -578,7 +591,8 @@ export interface components {
       /** @description Tags to characterize the blog post. */
       tags?: string[];
       /**
-       * @description Whether the blog post is published.
+       * @description Whether the blog post is published. If you want the post to be or remain published following the request, you must set the field explicitly to true, even if the blog post was already published prior to the request.
+       * @default false
        * @example true
        */
       is_published?: boolean;
@@ -597,12 +611,35 @@ export interface components {
        * @example BigCommerce
        */
       author?: string;
-      /** @description Local path to a thumbnail uploaded to `/product_images/` via [WebDav](https://support.bigcommerce.com/s/article/File-Access-WebDAV). */
+      /** @description Local path to a thumbnail uploaded to `/product_images/` using [WebDAV](https://support.bigcommerce.com/s/article/File-Access-WebDAV). */
       thumbnail_path?: string;
       /** @example Wed, 10 Aug 2022 15:39:15 -0500 */
       published_date?: string;
     };
-    /** blogPost_Base */
+    /**
+     * blogPost_Base
+     * @example {
+     *   "title": "Welcome to BigCommerce",
+     *   "url": "/blog/welcome-bigcommerce/",
+     *   "preview_url": "/blog/welcome-bigcommerce/",
+     *   "body": "<p>Customize your site, manage shipping and payments, and list your products on Amazon, eBay, and Facebook by Meta with the #1 ecommerce platform. </p>",
+     *   "tags": [
+     *     "string"
+     *   ],
+     *   "summary": "<p>We power ecommerce websites for successful retailers all over the world</p>",
+     *   "is_published": true,
+     *   "published_date": {
+     *     "timezone_type": 1,
+     *     "date": "2018-05-18T08:26:42Z",
+     *     "timezone": "+00:00"
+     *   },
+     *   "published_date_iso8601": "5/18/2018 1:26:42 PM",
+     *   "meta_description": "Welcome Post",
+     *   "meta_keywords": "BigCommerce, welcome, ecommerce",
+     *   "author": "BigCommerce",
+     *   "thumbnail_path": "string"
+     * }
+     */
     blogPost_Base: {
       /**
        * @description Title of this blog post.
@@ -615,7 +652,7 @@ export interface components {
        */
       url?: string;
       /**
-       * @description URL to preview the blog post. (READ-ONLY)
+       * @description URL to preview the blog post. READ-ONLY.
        * @example /blog/welcome-bigcommerce/
        */
       preview_url?: string;
@@ -627,19 +664,20 @@ export interface components {
       /** @description Tags to characterize the blog post. */
       tags?: string[];
       /**
-       * @description Summary of the blog post. (READ-ONLY)
+       * @description Summary of the blog post. READ-ONLY.
        * @example <p>We power ecommerce websites for successful retailers all over the world</p>
        */
       summary?: string;
       /**
-       * @description Whether the blog post is published.
+       * @description Whether the blog post is published. If you want the post to be or remain published following the request, you must set the field explicitly to true, even if the blog post was already published prior to the request.
+       * @default false
        * @example true
        */
       is_published?: boolean;
       published_date?: components["schemas"]["publishedDate"];
       /**
        * @description Published date in `ISO 8601` format.
-       * @example 5/18/2018 1:26:42 PM
+       * @example 5/18/2023 1:26:42 PM
        */
       published_date_iso8601?: string;
       /**
@@ -657,7 +695,7 @@ export interface components {
        * @example BigCommerce
        */
       author?: string;
-      /** @description Local path to a thumbnail uploaded to `/product_images/` via [WebDav](https://support.bigcommerce.com/s/article/File-Access-WebDAV). */
+      /** @description Local path to a thumbnail uploaded to `/product_images/` using [WebDAV](https://support.bigcommerce.com/s/article/File-Access-WebDAV). */
       thumbnail_path?: string;
     };
     /**
@@ -676,7 +714,7 @@ export interface components {
        */
       url?: string;
       /**
-       * @description URL to preview the blog post. (READ-ONLY)
+       * @description URL to preview the blog post. READ-ONLY.
        * @example /blog/welcome-bigcommerce/
        */
       preview_url?: string;
@@ -688,19 +726,20 @@ export interface components {
       /** @description Tags to characterize the blog post. */
       tags?: string[];
       /**
-       * @description Summary of the blog post. (READ-ONLY)
+       * @description Summary of the blog post. READ-ONLY.
        * @example <p>We power ecommerce websites for successful retailers all over the world</p>
        */
       summary?: string;
       /**
-       * @description Whether the blog post is published.
+       * @description Whether the blog post is published. If you want the post to be or remain published following the request, you must set the field explicitly to true, even if the blog post was already published prior to the request.
+       * @default false
        * @example true
        */
       is_published?: boolean;
       published_date?: components["schemas"]["publishedDate"];
       /**
        * @description Published date in `ISO 8601` format.
-       * @example 5/18/2018 1:26:42 PM
+       * @example 5/18/2023 1:26:42 PM
        */
       published_date_iso8601?: string;
       /**
@@ -718,7 +757,7 @@ export interface components {
        * @example BigCommerce
        */
       author?: string | null;
-      /** @description Local path to a thumbnail uploaded to `/product_images/` via [WebDav](https://support.bigcommerce.com/s/article/File-Access-WebDAV). */
+      /** @description Local path to a thumbnail uploaded to `/product_images/` using [WebDAV](https://support.bigcommerce.com/s/article/File-Access-WebDAV). */
       thumbnail_path?: string | null;
     };
     publishedDate: {
@@ -751,8 +790,7 @@ export interface components {
        * @description `page`: free-text page
        * `link`: link to another web address
        * `rss_feed`: syndicated content from an RSS feed
-       * `contact_form`: When the store's contact form is used.
-       *
+       * `contact_form`: When the store’s contact form is used
        *
        * @enum {string}
        */
@@ -763,7 +801,7 @@ export interface components {
        */
       contact_fields?: string;
       /**
-       * @description Where the page’s type is a contact form: email address that receives messages sent via the form.
+       * @description Where the page’s type is a contact form, the email address that receives messages sent using the form.
        * @example janedoes@example.com
        */
       email?: string;
@@ -785,7 +823,7 @@ export interface components {
        */
       body: string;
       /**
-       * @description HTML to use for this page's body when viewed in the mobile template (deprecated).
+       * @description HTML to use for this page’s body when viewed in the mobile template (deprecated).
        * @example 0
        */
       mobile_body?: string;
@@ -804,7 +842,7 @@ export interface components {
        * @example false
        */
       is_homepage?: boolean;
-      /** @description Text specified for this page’s `<title>` element. (If empty, the value of the name property is used.) */
+      /** @description Text specified for this page’s `<title>` element. If empty, the value of the name property is used. */
       meta_title?: string;
       /**
        * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied.
@@ -841,8 +879,7 @@ export interface components {
        * @description `page`: free-text page
        * `link`: link to another web address
        * `rss_feed`: syndicated content from an RSS feed
-       * `contact_form`: When the store's contact form is used.
-       *
+       * `contact_form`: When the store’s contact form is used
        *
        * @enum {string}
        */
@@ -853,7 +890,7 @@ export interface components {
        */
       contact_fields?: string;
       /**
-       * @description Where the page’s type is a contact form: email address that receives messages sent via the form.
+       * @description Where the page’s type is a contact form, the email address that receives messages sent using the form.
        * @example janedoes@example.com
        */
       email?: string;
@@ -875,7 +912,7 @@ export interface components {
        */
       body?: string;
       /**
-       * @description HTML to use for this page's body when viewed in the mobile template (deprecated).
+       * @description HTML to use for this page’s body when viewed in the mobile template (deprecated).
        * @example 0
        */
       mobile_body?: string;
@@ -894,7 +931,7 @@ export interface components {
        * @example false
        */
       is_homepage?: boolean;
-      /** @description Text specified for this page’s `<title>` element. (If empty, the value of the name property is used.) */
+      /** @description Text specified for this page’s `<title>` element. If empty, the value of the name property is used. */
       meta_title?: string;
       /**
        * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied.
@@ -965,7 +1002,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description Filter param. */
-        is_published?: string;
+        is_published?: boolean;
         /** @description Filter param. Value must be URL encoded. */
         url?: string;
         /** @description Filter param. */
@@ -999,7 +1036,7 @@ export interface operations {
    *
    * **Notes**
    *
-   * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
+   * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
    */
@@ -1080,7 +1117,7 @@ export interface operations {
    *
    * **Notes**
    *
-   * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The&#160;example request below includes a `published_date` in RFC 2822 format.
+   * * To include `published_date` in a request, provide a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
    *
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    */
@@ -1217,6 +1254,30 @@ export interface operations {
     };
     requestBody: {
       content: {
+        /**
+         * @example {
+         *   "parent_id": 5,
+         *   "type": "page",
+         *   "contact_fields": "fullname,companyname,phone,orderno,rma",
+         *   "email": "janedoes@example.com",
+         *   "name": "Contact Form",
+         *   "url": "/contact-us/",
+         *   "meta_description": "string",
+         *   "body": "<p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>",
+         *   "mobile_body": "0",
+         *   "has_mobile_version": false,
+         *   "is_visible": true,
+         *   "is_homepage": false,
+         *   "meta_title": "string",
+         *   "layout_file": "page.html",
+         *   "sort_order": 3,
+         *   "search_keywords": "string",
+         *   "meta_keywords": "string",
+         *   "feed": "string",
+         *   "link": "string",
+         *   "content_type": "text/html"
+         * }
+         */
         "application/json": components["schemas"]["page_Base"];
       };
     };
@@ -1288,13 +1349,13 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["page_Base"];
+        "application/json": components["schemas"]["page_Full"];
       };
     };
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["page_Base"];
+          "application/json": components["schemas"]["page_Full"];
         };
       };
       /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
@@ -1507,8 +1568,8 @@ export interface operations {
             ref?: string;
           };
           /**
-           * @description URL of the redirect. READ-ONLY
-           * @example http://store-url.mybigcommerce.com/towels/bath-towels/hand-towels/
+           * @description URL of the redirect. READ-ONLY.
+           * @example http://store-store_hash.mybigcommerce.com/towels/bath-towels/hand-towels/
            */
           url?: string;
         };

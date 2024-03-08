@@ -352,11 +352,16 @@ export interface paths {
      * **Required Fields**
      * - none
      *
+     * **Name-Value Pair Uniqueness**
+     * - Every name-value pair must be unique inside a product.
+     *
      * **Read-Only**
      * - id
      *
-     * **Note:**
-     * The default rate limit for this endpoint is 40 concurrent requests.
+     *  **Limits**
+     * - 200 custom fields per product limit.
+     * - 250 characters per custom field limit.
+     * - 40 concurrent requests default rate limit.
      */
     put: operations["updateProductCustomField"];
     /**
@@ -825,7 +830,10 @@ export interface components {
     };
     /** productVariant_Full */
     productVariant_Full: WithRequired<components["schemas"]["productVariant_Base"] & {
+      /** @description Product ID */
       product_id?: number;
+      /** @description Variant ID */
+      id?: number;
       sku?: string;
       /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the productʼs base variant. */
       option_values?: components["schemas"]["productVariantOptionValue_Full"][];
@@ -835,7 +843,7 @@ export interface components {
        */
       calculated_price?: number;
       calculated_weight?: number;
-    }, "sku">;
+    }, "sku" | "id" | "product_id">;
     /**
      * productVariant_Put_Product
      * @description The model for a PUT to update variants on a product.
@@ -1006,7 +1014,7 @@ export interface components {
     productImage_Put: {
       /** @description The unique numeric identifier for the product with which the image is associated. */
       product_id?: number;
-      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
       url_zoom?: string;
       /** @description The standard URL for this image. By default, this is used for product-page images. */
       url_standard?: string;
@@ -1066,9 +1074,7 @@ export interface components {
      * product_Put
      * @description The model for a PUT to update a product.
      */
-    product_Put: components["schemas"]["product_Base"] & {
-      variants?: components["schemas"]["productVariant_Put_Product"][];
-    };
+    product_Put: components["schemas"]["product_Base"] & Record<string, never>;
     /**
      * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 250. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
@@ -1258,6 +1264,8 @@ export interface components {
       url?: string;
       /** @description Returns `true` if the URL has been changed from its default state (the auto-assigned URL that BigCommerce provides). */
       is_customized?: boolean;
+      /** @description Optional field. This field automatically creates a dynamic 301 redirect when a product URL change occurs with a PUT request. Existing dynamic redirects will automatically update to a new URL to avoid a loop. */
+      create_redirect?: boolean;
     };
     /**
      * bulkPricingRule_Full
@@ -1551,7 +1559,6 @@ export interface components {
       option_set_id?: number;
       /** @description Legacy template setting which controls if the option set shows up to the side of or below the product image and description. */
       option_set_display?: string;
-      variants?: components["schemas"]["productVariant_Full"][];
     };
     /**
      * productImage_Full
@@ -1562,7 +1569,7 @@ export interface components {
       id?: number;
       /** @description The unique numeric identifier for the product with which the image is associated. */
       product_id?: number;
-      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
       url_zoom?: string;
       /** @description The standard URL for this image. By default, this is used for product-page images. */
       url_standard?: string;
@@ -1929,6 +1936,8 @@ export interface components {
       gtin?: string;
       /** @description Manufacturer Part Number */
       mpn?: string;
+      /** @description the date when the Product had been imported */
+      date_last_imported?: string;
       /**
        * @description The total (cumulative) rating for the product.
        *
@@ -2689,6 +2698,8 @@ export interface operations {
         "id:less"?: number[];
         /** @description Filter items by name. */
         name?: string;
+        /** @description Filter items by Manufacturer Part Number (MPN). */
+        mpn?: string;
         /** @description Filter items by UPC. */
         upc?: string;
         /** @description Filter items by price. */
@@ -2707,9 +2718,11 @@ export interface operations {
         "date_modified:min"?: string;
         /** @description Filter items by date_last_imported. */
         date_last_imported?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2020-06-15`. */
+        /** @description Filter items by date_last_imported. For example, `date_last_imported:not=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+        "date_last_imported:not"?: string;
+        /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2015-08-21T22%3A53%3A23%2B00%3A00`. */
         "date_last_imported:max"?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2018-06-15`. */
+        /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00`. */
         "date_last_imported:min"?: string;
         /** @description Filter items based on whether the product is currently visible on the storefront. */
         is_visible?: boolean;
@@ -3016,7 +3029,7 @@ export interface operations {
         brand_id?: number;
         /** @description Filter items by date_modified. For example `v3/catalog/products?date_modified:min=2018-06-15` */
         date_modified?: string;
-        /** @description Filter items by date_last_imported. For example `v3/catalog/products?date_last_imported:min=2018-06-15` */
+        /** @description Filter items by date_last_imported. For example `v3/catalog/products?date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00` */
         date_last_imported?: string;
         /** @description Filter items by if visible on the storefront. */
         is_visible?: boolean;
@@ -3312,7 +3325,7 @@ export interface operations {
         "application/json": {
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
           url_standard?: string;
@@ -3346,7 +3359,7 @@ export interface operations {
           id?: number;
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
           url_zoom?: string;
           /** @description The standard URL for this image. By default, this is used for product-page images. */
           url_standard?: string;
@@ -3388,7 +3401,7 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
               url_standard?: string;
@@ -3419,7 +3432,7 @@ export interface operations {
                * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
-              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
               url_standard?: string;
@@ -3557,7 +3570,7 @@ export interface operations {
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
-              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
               url_standard?: string;
@@ -3587,7 +3600,7 @@ export interface operations {
                * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
-              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. */
+              /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
               url_zoom?: string;
               /** @description The standard URL for this image. By default, this is used for product-page images. */
               url_standard?: string;
@@ -4855,11 +4868,16 @@ export interface operations {
    * **Required Fields**
    * - none
    *
+   * **Name-Value Pair Uniqueness**
+   * - Every name-value pair must be unique inside a product.
+   *
    * **Read-Only**
    * - id
    *
-   * **Note:**
-   * The default rate limit for this endpoint is 40 concurrent requests.
+   *  **Limits**
+   * - 200 custom fields per product limit.
+   * - 250 characters per custom field limit.
+   * - 40 concurrent requests default rate limit.
    */
   updateProductCustomField: {
     parameters: {
