@@ -539,7 +539,7 @@ export interface operations {
       /** @description Returned Tax Quote response matches the updated QuoteRequest provided to the service method. */
       200: {
         content: {
-          "application/json": components["schemas"]["request-adjust"];
+          "application/json": components["schemas"]["response-quote"];
         };
       };
       /** @description General response that points to an issue with the incoming request that means a valid response is unable to be returned. */
