@@ -819,10 +819,6 @@ export interface operations {
         id?: number;
         "id:in"?: number[];
         "id:not_in"?: number[];
-        "id:min"?: number[];
-        "id:max"?: number[];
-        "id:greater"?: number[];
-        "id:less"?: number[];
         /** @description Filter items by name. */
         name?: string;
         /** @description Filter items by part of a name. For example, `name:like=new` returns brands with names that include `new`. */
@@ -1559,7 +1555,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
         brand_id: components["parameters"]["BrandIdParam"];
@@ -1572,7 +1567,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["metafield_Base"];
+        "application/json": components["schemas"]["MetafieldBase_Put"];
       };
     };
     responses: {

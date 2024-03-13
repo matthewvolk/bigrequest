@@ -243,7 +243,7 @@ export interface components {
         channel_id?: number;
         /**
          * Format: double
-         * @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts.
+         * @description The amount includes order-level automatic promotions plus manual discounts and excludes coupon and product-based discounts.
          * @example 0.5
          */
         discount_amount?: number;
