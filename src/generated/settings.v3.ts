@@ -217,8 +217,6 @@ export interface paths {
     /**
      * Update Locale Settings
      * @description Updates global locale settings.
-     *
-     * Set a channel override by using the `channel_id` query parameter. To remove a channel override, set `null` for a field. The field then inherits the global value.
      */
     put: operations["updateSettingsLocale"];
   };
@@ -1607,9 +1605,6 @@ export interface operations {
    */
   getSettingsLocale: {
     parameters: {
-      query?: {
-        channel_id?: components["parameters"]["ChannelIdParam"];
-      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -1628,14 +1623,9 @@ export interface operations {
   /**
    * Update Locale Settings
    * @description Updates global locale settings.
-   *
-   * Set a channel override by using the `channel_id` query parameter. To remove a channel override, set `null` for a field. The field then inherits the global value.
    */
   updateSettingsLocale: {
     parameters: {
-      query?: {
-        channel_id?: components["parameters"]["ChannelIdParam"];
-      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
