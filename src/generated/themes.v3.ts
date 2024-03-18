@@ -71,6 +71,10 @@ export interface paths {
      */
     post: operations["activateStoreTheme"];
     parameters: {
+      query?: {
+        /** @description The ID for the channel where you want to activate the theme. */
+        channel_id?: number;
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -486,7 +490,7 @@ export interface components {
        * @description Which configuration to use.
        * @enum {string}
        */
-      which: "original" | "last_activated" | "last_created";
+      which?: "original" | "last_activated" | "last_created";
     };
     /** @description A variation. */
     Variation: {
@@ -921,6 +925,10 @@ export interface operations {
    */
   activateStoreTheme: {
     parameters: {
+      query?: {
+        /** @description The ID for the channel where you want to activate the theme. */
+        channel_id?: number;
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];

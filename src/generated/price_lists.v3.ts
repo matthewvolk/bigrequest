@@ -252,37 +252,68 @@ export interface components {
       };
       meta?: components["schemas"]["Meta"];
     };
-    PriceRecordCollectionPutWithPriceListId: components["schemas"]["PriceRecordBatchItem"][];
-    /** @description The `Price Record` object used in batch create or update. */
-    PriceRecordBatchItem: components["schemas"]["PriceRecordBase"][];
+    PriceRecordBatchItem: {
+      /**
+       * @description The price list ID the price record is associated with.
+       * @example 1
+       */
+      price_list_id?: number;
+      /**
+       * @description The price list with which the price record is associated. Either `variant_id` or `sku` is required.
+       * @example 5
+       */
+      variant_id?: number;
+      /**
+       * @description The SKU for the variant with which this price record is associated. Either `sku` or `variant_id` is required.
+       * @example SKU-001
+       */
+      sku?: string;
+      /**
+       * Format: ISO:4217
+       * @description The 3-letter country code with which this price record is associated.
+       * @example usd
+       */
+      currency?: string;
+      items?: components["schemas"]["PriceRecordBase"];
+    };
     /** @description Common Price Record properties. */
     PriceRecordBase: {
       /**
        * Format: double
        * @description The list price for the variant mapped in a Price List. Overrides any existing or Catalog list price for the variant/product. If empty, the sale price will be treated as not being set on this variant.
+       * @example 0
        */
       price?: number;
       /**
        * Format: double
        * @description The sale price for the variant mapped in a Price List. Overrides any existing or Catalog sale price for the variant/product. If empty, the sale price will be treated as not being set on this variant.
+       * @example 0
        */
       sale_price?: number;
       /**
        * Format: double
        * @description The retail price for the variant mapped in a Price List. Overrides any existing or Catalog retail price for the variant/product.  If empty, the retail price will be treated as not being set on this variant.
+       * @example 0
        */
       retail_price?: number;
       /**
        * Format: double
        * @description The MAP (Minimum Advertised Price) for the variant mapped in a Price List. Overrides any existing or Catalog MAP price for the variant/product. If empty, the `map_ price` will be treated as not being set on this variant.
+       * @example 0
        */
       map_price?: number;
       bulk_pricing_tiers?: components["schemas"]["BulkPricingTier"][];
     };
     BulkPricingTier: {
-      /** @description The cart's minimum quantity of associated variants needed to qualify for this tier's pricing. */
+      /**
+       * @description The cart's minimum quantity of associated variants needed to qualify for this tier's pricing.
+       * @example 1
+       */
       quantity_min?: number;
-      /** @description The cart's maximum allowed quantity of associated variants to qualify for this tier's pricing. */
+      /**
+       * @description The cart's maximum allowed quantity of associated variants to qualify for this tier's pricing.
+       * @example 10
+       */
       quantity_max?: number;
       /**
        * @description The type of adjustment that is made.
@@ -290,17 +321,24 @@ export interface components {
        * * price – the adjustment amount per product
        * * percent – the adjustment as a percentage of the original price
        * * fixed – the adjusted absolute price of the product
+       * @example fixed
        * @enum {string}
        */
       type?: "fixed" | "price" | "percent";
       /**
        * Format: double
        * @description The price adjustment amount. This value and the type will decide the price per variant for the pricing tier.
+       * @example 0
        */
       amount?: number;
     };
     /** @description Empty object for Success case for Batch API. */
-    SuccessBatchResponse: Record<string, never>;
+    SuccessBatchResponse: {
+      /** @example {} */
+      data?: Record<string, never>;
+      /** @example {} */
+      meta?: Record<string, never>;
+    };
     /** @description Error during `Price Record` batch PUT. Includes data sent in the request and errors. */
     PriceRecordBatchErrorResponse: {
       data?: components["schemas"]["PriceRecordIdentifiers"];
@@ -972,7 +1010,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["PriceRecordCollectionPutWithPriceListId"];
+        "application/json": components["schemas"]["PriceRecordBatchItem"];
       };
     };
     responses: {
