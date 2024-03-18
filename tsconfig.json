@@ -8,7 +8,9 @@
     "noUnusedLocals": false /* eslint */,
     "noUnusedParameters": false /* eslint */,
     "skipLibCheck": true,
-    "types": ["openapi-typescript-helpers"]
+    "types": ["openapi-typescript-helpers", "node"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*.ts", "tsup.config.ts"]
 }
