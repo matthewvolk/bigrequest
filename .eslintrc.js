@@ -13,5 +13,11 @@ module.exports = {
         '@typescript-eslint/naming-convention': ['off'],
       },
     },
+    {
+      files: ['src/cli.ts'],
+      rules: {
+        'no-console': ['off'],
+      },
+    },
   ],
 };
