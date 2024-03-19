@@ -478,6 +478,10 @@ export interface components {
       name?: string;
       /** @description Flag to identify private themes. */
       is_private?: boolean;
+      /** @description Indicates whether this theme is active on the storefront. */
+      is_active?: boolean;
+      /** @description The date-time of the last theme update. */
+      updated_at?: string;
     };
     /**
      * Activate
@@ -526,6 +530,10 @@ export interface components {
           name?: string;
           /** @description Flag to identify private themes. */
           is_private?: boolean;
+          /** @description Indicates whether this theme is active on the storefront. */
+          is_active?: boolean;
+          /** @description The date-time of the last theme update. */
+          updated_at?: string;
         }[];
       /**
        * Collection Meta
