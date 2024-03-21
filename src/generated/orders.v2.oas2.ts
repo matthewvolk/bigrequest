@@ -1426,11 +1426,6 @@ export interface components {
        */
       ip_address_v6?: string;
       /**
-       * @description Indicates whether the order was deleted (archived). Set to to true, to archive an order.
-       * @example false
-       */
-      is_deleted?: boolean;
-      /**
        * @description The number of items that have been shipped.
        * @example 0
        */
@@ -1917,7 +1912,7 @@ export interface components {
       price_inc_tax?: number;
       price_ex_tax?: number;
       upc?: string;
-      /** @description "" */
+      /** @description Products `variant_id`. PUT or POST. This field is not available for custom products. */
       variant_id?: number;
       /** @description ID of the gift wrapping that will be used for this product. If provided, then `wrapping_cost_ex_tax` and `wrapping_cost_inc_tax` are required. When updating an order product line item, if `wrapping_id` is set to `0` and no other wrapping fields are provided,then the wrapping will be removed from the order product. */
       wrapping_id?: number;
@@ -2061,11 +2056,6 @@ export interface components {
        * @example 2001:db8:3333:4444:5555:6666:7777:8888
        */
       ip_address_v6?: string;
-      /**
-       * @description Indicates whether the order was deleted (archived). Set to to true, to archive an order.
-       * @example false
-       */
-      is_deleted?: boolean;
       /**
        * @description The number of items that have been shipped.
        * @example 0
@@ -2589,8 +2579,6 @@ export interface components {
     status_id_path: number;
     /** @description The cart ID of the order. */
     cart_id?: string;
-    /** @description If the order was deleted or archived. */
-    is_deleted?: boolean;
     /** @description The display name of the payment method used on the order. */
     payment_method?: "Manual" | "Cash on Delivery" | "Credit Card" | "Test Payment Gateway" | "Pay In Store";
     /**
@@ -2785,7 +2773,6 @@ export interface operations {
         page?: components["parameters"]["page"];
         limit?: components["parameters"]["limit"];
         sort?: components["parameters"]["sort"];
-        is_deleted?: components["parameters"]["is_deleted"];
         channel_id?: components["parameters"]["channel_id"];
         include?: components["parameters"]["order_includes"];
         external_order_id?: components["parameters"]["external_order_id"];

@@ -82,6 +82,13 @@ export interface components {
        * @description The date of which the subscriber was created.
        */
       date_created?: string;
+      /**
+       * @description Shows what active subscriptions a shopper may have. If the consents array is empty, the user has unsubscribed or didn’t enable the newsletter subscription checkbox during checkout.
+       * @example [
+       *   "marketing_newsletter"
+       * ]
+       */
+      consents?: unknown[];
     };
     /**
      * subscriber_Base
@@ -291,7 +298,7 @@ export interface components {
     };
   };
   responses: {
-    subrscriberCollection_Resp: {
+    subscriberCollection_Resp: {
       content: {
         "application/json": {
           data?: components["schemas"]["subscriber_Full"][];
