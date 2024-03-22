@@ -711,10 +711,10 @@ export interface components {
           address2?: string;
           city?: string;
           /** @description Represents state or province. */
-          state_or_province?: string;
+          state_or_province: string;
           state_or_province_code?: string;
           country_code: string;
-          postal_code?: string;
+          postal_code: string;
           phone?: string;
           /** @description You can retrieve custom fields from the [Get Form Fields](/docs/rest-storefront/forms#get-form-fields) endpoint. */
           custom_fields?: {

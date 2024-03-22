@@ -1249,7 +1249,7 @@ export interface operations {
       };
     };
     responses: {
-      200: {
+      201: {
         content: {
           "application/json": components["schemas"]["giftCertificate_Full"];
         };
