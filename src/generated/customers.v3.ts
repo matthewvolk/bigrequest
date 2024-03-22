@@ -128,6 +128,8 @@ export interface paths {
      * * **city**
      * * **country_code**
      * * **address1**
+     * * **state_or_province**
+     * * **postal_code**
      *
      * **Notes**
      * * A unique customer address is a combination of the following core address fields:
@@ -814,12 +816,12 @@ export interface components {
        * @description The state or province name spelled out in full. It is required for countries that need a state/province to complete an address. State or province codes not accepted.
        * @example Texas
        */
-      state_or_province?: string;
+      state_or_province: string;
       /**
        * @description The postal code of the customer address. It is required for countries that need postal codes to complete an address.
        * @example 78759
        */
-      postal_code?: string;
+      postal_code: string;
       /**
        * @description The country code of the customer address.
        * @example US
@@ -2503,6 +2505,8 @@ export interface operations {
    * * **city**
    * * **country_code**
    * * **address1**
+   * * **state_or_province**
+   * * **postal_code**
    *
    * **Notes**
    * * A unique customer address is a combination of the following core address fields:
