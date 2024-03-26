@@ -36,14 +36,19 @@ export interface paths {
   "/checkouts/{checkoutId}/discounts": {
     /**
      * Add Discount to Checkout
-     * @description Adds a discount to an existing *checkout*.
+     * @description Adds a discount to an existing checkout.
      *
-     * This discount only applies to `line_items`. When you call this API, you clear out all existing discounts applied to line items, including product and order-based discounts.
+     * Use this endpoint to apply the following discounts:
+     * * Apply a manual discount to a cart. In this case, you can distribute the discount between each line item in the cart based on the item value.
+     * * Apply a manual discount against a specific line item.
+     * * Apply a manual discount at the item-level with a cart-level discount.
      *
-     * This endpoint splits the discount between line items based on the item value.
+     * Notes:
+     * * When you call this API, you clear out all existing discounts applied to line items, including product and order-based discounts.
+     * * You cannot apply a manual discount to a specific line item if you have already applied a coupon or automatic promotion to it.
      *
-     * Required Fields
-     * * discounted_amount
+     * Required Fields:
+     * * `discounted_amount` at the cart-level or at the item-level
      */
     post: operations["addCheckoutDiscount"];
   };
@@ -972,14 +977,19 @@ export interface operations {
   };
   /**
    * Add Discount to Checkout
-   * @description Adds a discount to an existing *checkout*.
+   * @description Adds a discount to an existing checkout.
    *
-   * This discount only applies to `line_items`. When you call this API, you clear out all existing discounts applied to line items, including product and order-based discounts.
+   * Use this endpoint to apply the following discounts:
+   * * Apply a manual discount to a cart. In this case, you can distribute the discount between each line item in the cart based on the item value.
+   * * Apply a manual discount against a specific line item.
+   * * Apply a manual discount at the item-level with a cart-level discount.
    *
-   * This endpoint splits the discount between line items based on the item value.
+   * Notes:
+   * * When you call this API, you clear out all existing discounts applied to line items, including product and order-based discounts.
+   * * You cannot apply a manual discount to a specific line item if you have already applied a coupon or automatic promotion to it.
    *
-   * Required Fields
-   * * discounted_amount
+   * Required Fields:
+   * * `discounted_amount` at the cart-level or at the item-level
    */
   addCheckoutDiscount: {
     parameters: {
@@ -1000,6 +1010,12 @@ export interface operations {
                 discounted_amount: number;
                 /** @example manual */
                 name?: string;
+              }[];
+            line_items?: {
+                /** @example 8edef915-8e8e-4ebd-bece-31fbb1191a7e */
+                id?: string;
+                /** @example 15 */
+                discounted_amount?: number;
               }[];
           };
         };
