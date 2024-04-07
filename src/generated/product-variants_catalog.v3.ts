@@ -269,7 +269,7 @@ export interface components {
     productVariant_Base: {
       /**
        * Format: double
-       * @description The cost price of the variant. Not affected by Price List prices.
+       * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
        */
       cost_price?: number | null;
       /**
@@ -362,7 +362,7 @@ export interface components {
     productVariant_Post: ({
       /**
        * Format: double
-       * @description The cost price of the variant. Not affected by Price List prices.
+       * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
        */
       cost_price?: number | null;
       /**
@@ -1674,7 +1674,7 @@ export interface operations {
             data?: ({
                 /**
                  * Format: double
-                 * @description The cost price of the variant. Not affected by Price List prices.
+                 * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
                  */
                 cost_price?: number;
                 /**
@@ -1816,7 +1816,7 @@ export interface operations {
         "application/json": ({
             /**
              * Format: double
-             * @description The cost price of the variant. Not affected by Price List prices.
+             * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
              * @example 40
              */
             cost_price?: number;
@@ -1912,7 +1912,7 @@ export interface operations {
             data?: ({
                 /**
                  * Format: double
-                 * @description The cost price of the variant. Not affected by Price List prices.
+                 * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
                  */
                 cost_price?: number;
                 /**
