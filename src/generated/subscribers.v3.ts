@@ -25,7 +25,7 @@ export interface paths {
     post: operations["createSubscriber"];
     /**
      * Delete Subscribers
-     * @description By default, it deletes all *Subscribers*. A filter should be added to avoid deleting all subscribers in a store.
+     * @description By default, it deletes all subscribers. Use a filter to avoid deleting all subscribers in a store.
      */
     delete: operations["deleteSubscribers"];
     parameters: {
@@ -338,7 +338,9 @@ export interface components {
     ScriptsSortKeyParam?: "name" | "description" | "date_created" | "date_modified";
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
-    /** @description The ID of the `Subscriber` requested. */
+    /** @description Filter items by ID. */
+    IdParam: number;
+    /** @description The ID of the subscriber requested. */
     SubscriberIdParam: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
@@ -362,27 +364,17 @@ export interface operations {
    */
   getSubscribers: {
     parameters: {
-      query?: {
-        /** @description Filter items by email. */
-        email?: string;
-        /** @description Filter items by first_name. */
-        first_name?: string;
-        /** @description Filter items by last_name. */
-        last_name?: string;
-        /** @description Filter items by source. */
-        source?: string;
-        /** @description Filter items by order_id. */
-        order_id?: number;
-        /** @description Filter items by date_created. */
-        date_created?: string;
-        /** @description Filter items by date_modified. For example `v3/catalog/products?date_last_imported:min=2018-06-15` */
-        date_modified?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Filter items by id. */
-        id?: number;
+      query: {
+        email?: components["parameters"]["FilterEmailParam"];
+        first_name?: components["parameters"]["FilterFirstNameParam"];
+        last_name?: components["parameters"]["FilterLastNameParam"];
+        source?: components["parameters"]["FilterSourceParam"];
+        order_id?: components["parameters"]["FilterOrderIdParam"];
+        date_created?: components["parameters"]["FilterDateCreatedParam"];
+        date_modified?: components["parameters"]["FilterDateModifiedParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        id: components["parameters"]["IdParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -468,25 +460,18 @@ export interface operations {
   };
   /**
    * Delete Subscribers
-   * @description By default, it deletes all *Subscribers*. A filter should be added to avoid deleting all subscribers in a store.
+   * @description By default, it deletes all subscribers. Use a filter to avoid deleting all subscribers in a store.
    */
   deleteSubscribers: {
     parameters: {
       query?: {
-        /** @description Filter items by email. */
-        email?: string;
-        /** @description Filter items by first_name. */
-        first_name?: string;
-        /** @description Filter items by last_name. */
-        last_name?: string;
-        /** @description Filter items by source. */
-        source?: string;
-        /** @description Filter items by order_id. */
-        order_id?: number;
-        /** @description Filter items by date_created. */
-        date_created?: string;
-        /** @description Filter items by date_modified. For example `v3/catalog/products?date_last_imported:min=2018-06-15` */
-        date_modified?: string;
+        email?: components["parameters"]["FilterEmailParam"];
+        first_name?: components["parameters"]["FilterFirstNameParam"];
+        last_name?: components["parameters"]["FilterLastNameParam"];
+        source?: components["parameters"]["FilterSourceParam"];
+        order_id?: components["parameters"]["FilterOrderIdParam"];
+        date_created?: components["parameters"]["FilterDateCreatedParam"];
+        date_modified?: components["parameters"]["FilterDateModifiedParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

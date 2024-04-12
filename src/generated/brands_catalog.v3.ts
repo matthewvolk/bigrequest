@@ -9,12 +9,12 @@ export interface paths {
   "/catalog/brands": {
     /**
      * Get All Brands
-     * @description Returns a list of *Brands*. Optional filter parameters can be passed in.
+     * @description Returns a list of brands. Optional filter parameters can be passed in.
      */
     get: operations["getBrands"];
     /**
      * Create a Brand
-     * @description Creates a *Brand*.
+     * @description Creates a brand.
      *
      * **Required Fields**
      * - name
@@ -28,10 +28,7 @@ export interface paths {
     post: operations["createBrand"];
     /**
      * Delete Brands
-     * @description To delete brand objects, you must include a filter.
-     *
-     * **Required Fields**
-     *  - name
+     * @description To delete brand objects, you must include a value for the name filter.
      */
     delete: operations["deleteBrands"];
     parameters: {
@@ -43,25 +40,19 @@ export interface paths {
   "/catalog/brands/{brand_id}": {
     /**
      * Get a Brand
-     * @description Returns a single *Brand*. Optional filter parameters can be passed in.
+     * @description Returns a single brand. Optional filter parameters can be passed in.
      */
     get: operations["getBrand"];
     /**
      * Update a Brand
-     * @description Updates a *Brand*.
+     * @description Updates a brand.
      *
-     * **Required Fields**
-     * - None
-     *
-     * **Read-Only Fields**
-     * - id
-     *
-     * To update a *Brand Image*, send a request with an `image_url`.
+     * To update a brand image, send a request with an `image_url`.
      */
     put: operations["updateBrand"];
     /**
      * Delete a Brand
-     * @description Deletes a *Brand*.
+     * @description Deletes a brand.
      */
     delete: operations["deleteBrand"];
     parameters: {
@@ -69,30 +60,21 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
   };
   "/catalog/brands/{brand_id}/metafields": {
     /**
-     * Get Brand Metafields
-     * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
+     * Get brand metafields
+     * @description Returns a list of brand metafields. Optional filter parameters can be passed in.
      */
     get: operations["getBrandMetafields"];
     /**
      * Create a Brand Metafield
-     * @description Creates a *Brand Metafield*.
+     * @description Creates a brand metafield.
      *
-     * **Required Fields**
-     * - permission_set
-     * - namespace
-     * - key
-     * - value
-     *
-     * **Read-Only Fields**
-     * - id
-     *
-     * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * **Note:** The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     post: operations["createBrandMetafield"];
     parameters: {
@@ -100,19 +82,19 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
   };
   "/catalog/brands/{brand_id}/metafields/{metafield_id}": {
     /**
      * Get a Brand Metafields
-     * @description Returns a *Brand Metafield*. Optional filter parameters can be passed in.
+     * @description Returns a brand metafield. Optional filter parameters can be passed in.
      */
     get: operations["getBrandMetafield"];
     /**
      * Update a Brand Metafield
-     * @description Updates a *Brand Metafield*.
+     * @description Updates a brand metafield.
      *
      * **Required Fields**
      * * none
@@ -126,12 +108,12 @@ export interface paths {
      *
      * **Usage Notes**
      * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
-     * * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+     * * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
      */
     put: operations["updateBrandMetafield"];
     /**
      * Delete a Brand Metafield
-     * @description Deletes a *Brand Metafield*.
+     * @description Deletes a brand metafield.
      */
     delete: operations["deleteBrandMetafield"];
     parameters: {
@@ -139,15 +121,15 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
-        metafield_id: components["parameters"]["MetafieldIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
+        metafield_id: components["parameters"]["MetafieldIdPath"];
       };
     };
   };
   "/catalog/brands/{brand_id}/image": {
     /**
      * Create a Brand Image
-     * @description Creates a *Brand Image*.
+     * @description Creates a brand image.
      *
      * **Required Fields**
      * - image_file: Form posts are the only accepted upload option.
@@ -155,12 +137,12 @@ export interface paths {
      * **Read-Only Fields**
      * - id
      *
-     * Only one image at a time can be created. To update a *Brand Image*, use the [Update a brand](/docs/rest-catalog/brands#update-a-brand) endpoint and an `image_url`.
+     * Only one image at a time can be created. To update a brand image, use the [Update a brand](/docs/rest-catalog/brands#update-a-brand) endpoint and an `image_url`.
      */
     post: operations["createBrandImage"];
     /**
      * Delete a Brand Image
-     * @description Deletes a *Brand Image*.
+     * @description Deletes a brand image.
      */
     delete: operations["deleteBrandImage"];
     parameters: {
@@ -168,7 +150,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
   };
@@ -179,12 +161,12 @@ export interface paths {
      */
     get: operations["getBrandsMetafields"];
     /**
-     * Update multiple Metafields
+     * Update multiple metafields
      * @description Create multiple metafields.
      */
     put: operations["updateBrandsMetafields"];
     /**
-     * Create multiple Metafields
+     * Create multiple metafields
      * @description Create multiple metafields.
      */
     post: operations["createBrandsMetafields"];
@@ -193,6 +175,11 @@ export interface paths {
      * @description Delete all brand metafields.
      */
     delete: operations["deleteBrandsMetafields"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
   };
 }
 
@@ -205,7 +192,7 @@ export interface components {
      * @description Common Brand properties.
      */
     brand_Full: {
-      /** @description Unique ID of the *Brand*. Read-Only. */
+      /** @description Unique ID of the brand. */
       id?: number;
       /**
        * @description The name of the brand. Must be unique.
@@ -380,7 +367,7 @@ export interface components {
     /** metafield_Full */
     metafield_Full: {
       /**
-       * @description Unique ID of the *Metafield*. Read-Only.
+       * @description Unique ID of the metafield.
        * @example 6
        */
       id?: number;
@@ -400,14 +387,14 @@ export interface components {
       resource_id?: number;
       /**
        * Format: date-time
-       * @description Date and time of the metafieldʼs creation. Read-Only.
+       * @description Date and time of the metafieldʼs creation.
        *
        * @example 2018-05-07T20:14:17+00:00
        */
       date_created?: string;
       /**
        * Format: date-time
-       * @description Date and time when the metafield was last updated. Read-Only.
+       * @description Date and time when the metafield was last updated.
        *
        * @example 2018-05-07T20:14:17+00:00
        */
@@ -774,16 +761,14 @@ export interface components {
     };
   };
   parameters: {
-    /** @description The ID of the `Brand` to which the resource belongs. */
-    BrandIdParam: number;
+    /** @description The ID of the brand to which the resource belongs. */
+    BrandIdPath: number;
     /** @description The ID of the `Metafield`. */
-    MetafieldIdParam: number;
+    MetafieldIdPath: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
-    /** @description Specifies the page number in a limited (paginated) list of products. */
-    PageParam?: number;
     /** @description Filter based on a metafieldʼs key. */
     MetafieldKeyParam?: string;
     /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
@@ -792,10 +777,34 @@ export interface components {
     MetafieldNamespaceParam?: string;
     /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
     MetafieldNamespaceInParam?: string[];
-    /** @description Controls the number of items per page in a limited (paginated) list of products. */
-    LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
+    /** @description Filter items by ID. */
+    IdQuery?: number;
+    IdInQuery?: number[];
+    IdNotInQuery?: number[];
+    IdMinQuery?: number[];
+    IdMaxQuery?: number[];
+    IdGreaterQuery?: number[];
+    IdLessQuery?: number[];
+    /** @description Filter items by name. */
+    NameQuery?: string;
+    /** @description Filter items by name. */
+    NameRequired: string;
+    /** @description Filter items by part of a name. For example, `name:like=new` returns brands with names that include `new`. */
+    NameLikeQuery?: string;
+    /** @description Filter items by page_title. */
+    PageTitleQuery?: string;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageQuery?: number;
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitQuery?: number;
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsQuery?: string[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsQuery?: string[];
+    /** @description Field name to sort by. */
+    SortQuery?: "name";
   };
   requestBodies: never;
   headers: never;
@@ -810,31 +819,22 @@ export interface operations {
 
   /**
    * Get All Brands
-   * @description Returns a list of *Brands*. Optional filter parameters can be passed in.
+   * @description Returns a list of brands. Optional filter parameters can be passed in.
    */
   getBrands: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
-        "id:in"?: number[];
-        "id:not_in"?: number[];
-        /** @description Filter items by name. */
-        name?: string;
-        /** @description Filter items by part of a name. For example, `name:like=new` returns brands with names that include `new`. */
-        "name:like"?: string;
-        /** @description Filter items by page_title. */
-        page_title?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Field name to sort by. */
-        sort?: "name";
+        id?: components["parameters"]["IdQuery"];
+        "id:in"?: components["parameters"]["IdInQuery"];
+        "id:not_in"?: components["parameters"]["IdNotInQuery"];
+        name?: components["parameters"]["NameQuery"];
+        "name:like"?: components["parameters"]["NameLikeQuery"];
+        page_title?: components["parameters"]["PageTitleQuery"];
+        page?: components["parameters"]["PageQuery"];
+        limit?: components["parameters"]["LimitQuery"];
+        include_fields?: components["parameters"]["IncludeFieldsQuery"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsQuery"];
+        sort?: components["parameters"]["SortQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -853,7 +853,7 @@ export interface operations {
   };
   /**
    * Create a Brand
-   * @description Creates a *Brand*.
+   * @description Creates a brand.
    *
    * **Required Fields**
    * - name
@@ -944,7 +944,7 @@ export interface operations {
              * @description Common Brand properties.
              */
             data?: {
-              /** @description Unique ID of the *Brand*. Read-Only. */
+              /** @description Unique ID of the brand. */
               id?: number;
               /**
                * @description The name of the brand. Must be unique.
@@ -1048,18 +1048,13 @@ export interface operations {
   };
   /**
    * Delete Brands
-   * @description To delete brand objects, you must include a filter.
-   *
-   * **Required Fields**
-   *  - name
+   * @description To delete brand objects, you must include a value for the name filter.
    */
   deleteBrands: {
     parameters: {
       query: {
-        /** @description Filter items by name. */
-        name: string;
-        /** @description Filter items by page_title. */
-        page_title?: string;
+        name: components["parameters"]["NameRequired"];
+        page_title?: components["parameters"]["PageTitleQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1074,21 +1069,19 @@ export interface operations {
   };
   /**
    * Get a Brand
-   * @description Returns a single *Brand*. Optional filter parameters can be passed in.
+   * @description Returns a single brand. Optional filter parameters can be passed in.
    */
   getBrand: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsQuery"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     responses: {
@@ -1117,15 +1110,9 @@ export interface operations {
   };
   /**
    * Update a Brand
-   * @description Updates a *Brand*.
+   * @description Updates a brand.
    *
-   * **Required Fields**
-   * - None
-   *
-   * **Read-Only Fields**
-   * - id
-   *
-   * To update a *Brand Image*, send a request with an `image_url`.
+   * To update a brand image, send a request with an `image_url`.
    */
   updateBrand: {
     parameters: {
@@ -1134,13 +1121,13 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     requestBody: {
       content: {
         "application/json": {
-          /** @description Unique ID of the *Brand*. Read-Only. */
+          /** @description Unique ID of the brand. */
           id?: number;
           /**
            * @description The name of the brand. Must be unique.
@@ -1212,7 +1199,7 @@ export interface operations {
              * @description Common Brand properties.
              */
             data?: {
-              /** @description Unique ID of the *Brand*. Read-Only. */
+              /** @description Unique ID of the brand. */
               id?: number;
               /**
                * @description The name of the brand. Must be unique.
@@ -1329,7 +1316,7 @@ export interface operations {
   };
   /**
    * Delete a Brand
-   * @description Deletes a *Brand*.
+   * @description Deletes a brand.
    */
   deleteBrand: {
     parameters: {
@@ -1337,7 +1324,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     responses: {
@@ -1348,38 +1335,31 @@ export interface operations {
     };
   };
   /**
-   * Get Brand Metafields
-   * @description Returns a list of *Brand Metafields*. Optional filter parameters can be passed in.
+   * Get brand metafields
+   * @description Returns a list of brand metafields. Optional filter parameters can be passed in.
    */
   getBrandMetafields: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
-        "id:in"?: number[];
-        "id:not_in"?: number[];
-        "id:min"?: number[];
-        "id:max"?: number[];
-        "id:greater"?: number[];
-        "id:less"?: number[];
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Filter based on a metafieldʼs key. */
-        key?: string;
-        /** @description Filter based on a metafieldʼs namespace. */
-        namespace?: string;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        id?: components["parameters"]["IdQuery"];
+        "id:in"?: components["parameters"]["IdInQuery"];
+        "id:not_in"?: components["parameters"]["IdNotInQuery"];
+        "id:min"?: components["parameters"]["IdMinQuery"];
+        "id:max"?: components["parameters"]["IdMaxQuery"];
+        "id:greater"?: components["parameters"]["IdGreaterQuery"];
+        "id:less"?: components["parameters"]["IdLessQuery"];
+        page?: components["parameters"]["PageQuery"];
+        limit?: components["parameters"]["LimitQuery"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        include_fields?: components["parameters"]["IncludeFieldsQuery"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     responses: {
@@ -1408,18 +1388,9 @@ export interface operations {
   };
   /**
    * Create a Brand Metafield
-   * @description Creates a *Brand Metafield*.
+   * @description Creates a brand metafield.
    *
-   * **Required Fields**
-   * - permission_set
-   * - namespace
-   * - key
-   * - value
-   *
-   * **Read-Only Fields**
-   * - id
-   *
-   * **Note:** The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+   * **Note:** The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   createBrandMetafield: {
     parameters: {
@@ -1428,7 +1399,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     requestBody: {
@@ -1487,26 +1458,20 @@ export interface operations {
   };
   /**
    * Get a Brand Metafields
-   * @description Returns a *Brand Metafield*. Optional filter parameters can be passed in.
+   * @description Returns a brand metafield. Optional filter parameters can be passed in.
    */
   getBrandMetafield: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsQuery"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
-        metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
+        brand_id: components["parameters"]["BrandIdPath"];
+        metafield_id: components["parameters"]["MetafieldIdPath"];
       };
     };
     responses: {
@@ -1535,7 +1500,7 @@ export interface operations {
   };
   /**
    * Update a Brand Metafield
-   * @description Updates a *Brand Metafield*.
+   * @description Updates a brand metafield.
    *
    * **Required Fields**
    * * none
@@ -1549,20 +1514,17 @@ export interface operations {
    *
    * **Usage Notes**
    * * Attempting to modify `namespace`, `key`, and `permission_set` fields using a client ID different from the one used to create those metafields will result in a 403 error message.
-   * * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
+   * * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
    */
   updateBrandMetafield: {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
-        metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
+        brand_id: components["parameters"]["BrandIdPath"];
+        metafield_id: components["parameters"]["MetafieldIdPath"];
       };
     };
     requestBody: {
@@ -1596,7 +1558,7 @@ export interface operations {
   };
   /**
    * Delete a Brand Metafield
-   * @description Deletes a *Brand Metafield*.
+   * @description Deletes a brand metafield.
    */
   deleteBrandMetafield: {
     parameters: {
@@ -1604,12 +1566,8 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
-        metafield_id: components["parameters"]["MetafieldIdParam"];
-        /** @description The ID of the `Metafield`. */
-        metafield_id: number;
-        /** @description The ID of the `Brand` to which the resource belongs. */
-        brand_id: number;
+        brand_id: components["parameters"]["BrandIdPath"];
+        metafield_id: components["parameters"]["MetafieldIdPath"];
       };
     };
     responses: {
@@ -1621,7 +1579,7 @@ export interface operations {
   };
   /**
    * Create a Brand Image
-   * @description Creates a *Brand Image*.
+   * @description Creates a brand image.
    *
    * **Required Fields**
    * - image_file: Form posts are the only accepted upload option.
@@ -1629,7 +1587,7 @@ export interface operations {
    * **Read-Only Fields**
    * - id
    *
-   * Only one image at a time can be created. To update a *Brand Image*, use the [Update a brand](/docs/rest-catalog/brands#update-a-brand) endpoint and an `image_url`.
+   * Only one image at a time can be created. To update a brand image, use the [Update a brand](/docs/rest-catalog/brands#update-a-brand) endpoint and an `image_url`.
    */
   createBrandImage: {
     parameters: {
@@ -1638,7 +1596,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     requestBody?: {
@@ -1700,7 +1658,7 @@ export interface operations {
   };
   /**
    * Delete a Brand Image
-   * @description Deletes a *Brand Image*.
+   * @description Deletes a brand image.
    */
   deleteBrandImage: {
     parameters: {
@@ -1708,7 +1666,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        brand_id: components["parameters"]["BrandIdParam"];
+        brand_id: components["parameters"]["BrandIdPath"];
       };
     };
     responses: {
@@ -1725,13 +1683,16 @@ export interface operations {
   getBrandsMetafields: {
     parameters: {
       query?: {
-        page?: components["parameters"]["PageParam"];
-        limit?: components["parameters"]["LimitParam"];
+        page?: components["parameters"]["PageQuery"];
+        limit?: components["parameters"]["LimitQuery"];
         key?: components["parameters"]["MetafieldKeyParam"];
         "key:in"?: components["parameters"]["MetafieldKeyInParam"];
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
       };
     };
     responses: {
@@ -1748,10 +1709,16 @@ export interface operations {
     };
   };
   /**
-   * Update multiple Metafields
+   * Update multiple metafields
    * @description Create multiple metafields.
    */
   updateBrandsMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": (components["schemas"]["MetafieldBase_Put"] & {
@@ -1784,10 +1751,16 @@ export interface operations {
     };
   };
   /**
-   * Create multiple Metafields
+   * Create multiple metafields
    * @description Create multiple metafields.
    */
   createBrandsMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": (components["schemas"]["MetafieldBase_Post"] & {
@@ -1824,6 +1797,11 @@ export interface operations {
    * @description Delete all brand metafields.
    */
   deleteBrandsMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
     /** @description List of metafield IDs. */
     requestBody?: {
       content: {

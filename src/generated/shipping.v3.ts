@@ -375,7 +375,7 @@ export interface operations {
   deleteCustomsInformation: {
     parameters: {
       query: {
-        "product_id:in": string;
+        "product_id:in": number[];
       };
       header: {
         Accept: components["parameters"]["Accept"];

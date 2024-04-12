@@ -106,9 +106,9 @@ export interface paths {
     get: operations["getThemeConfiguration"];
     parameters: {
       query: {
-        /** @description Filter configurations by a list of site_ids */
+        /** @description Filter configurations by passing a comma-separated list of site IDs. */
         "site_id:in": number[];
-        /** @description Filter configurations by a list of configuration UUIDs */
+        /** @description Filter configurations by a list of configuration UUIDs. */
         "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid */
         variation_uuid?: string;
@@ -1024,9 +1024,9 @@ export interface operations {
   getThemeConfiguration: {
     parameters: {
       query: {
-        /** @description Filter configurations by a list of site_ids */
+        /** @description Filter configurations by passing a comma-separated list of site IDs. */
         "site_id:in": number[];
-        /** @description Filter configurations by a list of configuration UUIDs. */
+        /** @description Filter configurations by passing a comma-separated list of configuration UUIDs. */
         "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid. */
         variation_uuid?: string;
@@ -1034,7 +1034,7 @@ export interface operations {
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
         limit?: number;
-        /** @description Filter configurations by a list of channel_ids. */
+        /** @description Filter configurations by passing a comma-separated list of channel IDs. */
         "channel_id:in"?: number[];
         page?: components["parameters"]["PageParam"];
         limit?: components["parameters"]["LimitParam"];

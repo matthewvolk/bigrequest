@@ -369,9 +369,9 @@ export interface components {
     /** @description The identifier for a specific widget. */
     FilterWidgetUUIDParam?: string;
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-    FilterIncludeFieldsParam?: string;
+    FilterIncludeFieldsParam?: string[];
     /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-    FilterExcludeFieldsParam?: string;
+    FilterExcludeFieldsParam?: string[];
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
@@ -419,8 +419,8 @@ export interface operations {
         sort?: "name" | "description" | "date_created" | "date_modified";
         /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
         direction?: "asc" | "desc";
-        /** @description Filters list of scripts by the associated channel_id. */
-        "channel_id:in"?: unknown[];
+        /** @description Filters list of scripts by the associated channel ID. */
+        "channel_id:in"?: number[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
