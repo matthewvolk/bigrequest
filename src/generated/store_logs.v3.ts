@@ -109,8 +109,8 @@ export interface operations {
         "severity:min"?: number;
         /** @description Query parameter that lets you filter by maximum severity, as an integer. */
         "severity:max"?: number;
-        /** @description Query parameter that lets you filter by a list of log IDs, as a CSV. For example ?id:in=3,4,6 */
-        "id:in"?: string;
+        /** @description A comma-separated list of log IDs by which to filter. For example, `?id:in=3,4,6`. */
+        "id:in"?: number[];
         /** @description Query parameter that lets you filter by the minimum date created in [Unix time](https://www.unixtimestamp.com/), for example, `?date_created:min=1657688400`. Returns logs created after this date. */
         "date_created:min"?: string;
         /** @description Query parameter that lets you filter by the maximum date created in [Unix time](https://www.unixtimestamp.com/), for example, `?date_created:min=1658379600`. Returns logs created before this date. */

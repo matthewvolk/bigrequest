@@ -422,7 +422,7 @@ export interface paths {
     parameters: {
       query?: {
         /** @description * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. */
-        include?: "consignments.line_items";
+        include?: "consignments.line_items"[];
       };
       path: {
         order_id: string;
@@ -2621,7 +2621,7 @@ export interface components {
     sort?: "id" | "customer_id" | "date_created" | "date_modified" | "status_id" | "channel_id" | "external_id";
     /** @description Status of the order message. */
     status?: "read" | "unread";
-    /** @description If the message is [flagged](https://support.bigcommerce.com/s/article/Communicating-with-Customers#Messages). */
+    /** @description Whether the message is [flagged](https://support.bigcommerce.com/s/article/Communicating-with-Customers#Messages). */
     is_flagged?: boolean;
     /** @description ID of the order. */
     order_id_path: number;
@@ -2631,7 +2631,7 @@ export interface components {
     shipping_address_id_path: number;
     /** @description Shipment ID. */
     shipment_id_path: number;
-    /** @description The Channel ID of the Order. */
+    /** @description The channel ID of the sales channel the shopper used to place the order. */
     channel_id?: number;
     /** @description Shipping consignment ID. */
     shipping_consignment_id: number;
@@ -2640,7 +2640,7 @@ export interface components {
      *
      * * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. This implies `include=consignments`.
      */
-    order_includes?: "consignments" | "consignments.line_items";
+    order_includes?: ("consignments" | "consignments.line_items")[];
   };
   requestBodies: never;
   headers: never;
@@ -3337,7 +3337,7 @@ export interface operations {
     parameters: {
       query?: {
         /** @description * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. */
-        include?: "consignments.line_items";
+        include?: "consignments.line_items"[];
       };
       path: {
         order_id: string;

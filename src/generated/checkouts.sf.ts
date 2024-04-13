@@ -31,6 +31,14 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["updateCheckout"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/carts/{cartId}/items/{itemId}": {
     /**
@@ -54,6 +62,16 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCheckoutLineItem"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        cartId: components["parameters"]["CartIdPath"];
+        itemId: components["parameters"]["ItemIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/billing-address": {
     /**
@@ -71,6 +89,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["addCheckoutBillingAddress"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/billing-address/{addressId}": {
     /**
@@ -82,6 +109,16 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     put: operations["updateCheckoutBillingAddress"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        addressId: components["parameters"]["AddressIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/consignments": {
     /**
@@ -116,6 +153,18 @@ export interface paths {
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     post: operations["createCheckoutConsignment"];
+    parameters: {
+      query?: {
+        include?: components["parameters"]["IncludeShippingDefault"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/consignments/{consignmentId}": {
     /**
@@ -158,6 +207,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCheckoutConsignment"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        consignmentId: components["parameters"]["ConsignmentIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/gift-certificates": {
     /**
@@ -172,6 +230,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["addCheckoutGiftCertificate"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/gift-certificates/{giftCertificateCode}": {
     /**
@@ -185,6 +252,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCheckoutGiftCertificate"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        giftCertificateCode: components["parameters"]["GiftCertificateCodePath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/coupons": {
     /**
@@ -199,6 +275,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["addCheckoutCoupon"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/coupons/{couponCode}": {
     /**
@@ -210,6 +295,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCheckoutCoupon"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        couponCode: components["parameters"]["CouponCodePath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/store-credit": {
     /**
@@ -230,6 +324,14 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["removeCheckoutStoreCredit"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
   "/checkouts/{checkoutId}/spam-protection": {
     /**
@@ -241,6 +343,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["checkoutSpamProtection"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+      };
+    };
   };
 }
 
@@ -787,8 +898,12 @@ export interface components {
         shouldSaveAddress?: boolean;
       };
       lineItems?: {
+          /** @description The ID of a line item. */
           itemId: string;
-          /** Format: int32 */
+          /**
+           * Format: int32
+           * @description The quantity of the line item.
+           */
           quantity: number;
         }[];
       shippingOptionId?: string;
@@ -835,8 +950,12 @@ export interface components {
         shouldSaveAddress?: boolean;
       };
       lineItems?: {
+          /** @description The ID of a line item. */
           itemId: string;
-          /** Format: int32 */
+          /**
+           * Format: int32
+           * @description The quantity of a line item.
+           */
           quantity: number;
         }[];
       shippingOptionId?: string;
@@ -955,7 +1074,52 @@ export interface components {
     };
   };
   parameters: {
-    include?: string;
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
+    Accept: string;
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
+    ContentType: string;
+    /** @description The ID of the subject checkout. Identical to the cart ID. */
+    CheckoutIdPath: string;
+    /** @description The ID of the cart associated with this checkout. Identical to the checkout ID. */
+    CartIdPath: string;
+    /** @description The ID of an item being purchased. */
+    ItemIdPath: string;
+    /** @description The ID of the subject address. */
+    AddressIdPath: number;
+    /** @description The ID of the subject consignment. */
+    ConsignmentIdPath: string;
+    /** @description The code of the subject gift certificate. */
+    GiftCertificateCodePath: string;
+    /** @description The code of the subject coupon. */
+    CouponCodePath: string;
+    /**
+     * @description * `cart.lineItems.physicalItems.options` - physical options
+     * * `cart.lineItems.digitalItems.options` - digital options
+     * * `cart.lineItems.physicalItems.categoryNames` - physical categories
+     * * `cart.lineItems.digitalItems.categoryNames` - digital categories
+     * * `cart.lineItems.customItems.categoryNames` - custom categories
+     * * `customer` - customer
+     * * `customer.customerGroup` - customer group
+     * * `payments` - payments
+     * * `promotions` - promotions
+     * * `consignments.availableShippingOptions` - shipping options
+     * * `consignments.availablePickupOptions` - pickup options
+     */
+    IncludeShippingDefault?: ("cart.lineItems.physicalItems.options" | "cart.lineItems.digitalItems.options" | "cart.lineItems.physicalItems.categoryNames" | "cart.lineItems.digitalItems.categoryNames" | "cart.lineItems.customItems.categoryNames" | "customer" | "customer.customerGroup" | "payments" | "promotions" | "consignments.availableShippingOptions" | "consignments.availablePickupOptions")[];
+    /**
+     * @description * `cart.lineItems.physicalItems.options` - physical options
+     * * `cart.lineItems.digitalItems.options` - digital options
+     * * `cart.lineItems.physicalItems.categoryNames` - physical categories
+     * * `cart.lineItems.digitalItems.categoryNames` - digital categories
+     * * `cart.lineItems.customItems.categoryNames` - custom categories
+     * * `customer` - customer
+     * * `customer.customerGroup` - customer group
+     * * `payments` - payments
+     * * `promotions` - promotions
+     * * `consignments.availableShippingOptions` - shipping options
+     * * `consignments.availablePickupOptions` - pickup options
+     */
+    IncludeShippingPickupDefault?: ("cart.lineItems.physicalItems.options" | "cart.lineItems.digitalItems.options" | "cart.lineItems.physicalItems.categoryNames" | "cart.lineItems.digitalItems.categoryNames" | "cart.lineItems.customItems.categoryNames" | "customer" | "customer.customerGroup" | "payments" | "promotions" | "consignments.availableShippingOptions" | "consignments.availablePickupOptions")[];
   };
   requestBodies: never;
   headers: never;
@@ -981,22 +1145,13 @@ export interface operations {
   getCheckout: {
     parameters: {
       query?: {
-        /**
-         * @description * `cart.lineItems.physicalItems.options` - physical options
-         * * `cart.lineItems.digitalItems.options` - digital options
-         * * `cart.lineItems.physicalItems.categoryNames` - physical categories
-         * * `cart.lineItems.digitalItems.categoryNames` - digital categories
-         * * `cart.lineItems.customItems.categoryNames` - custom categories
-         * * `customer` - customer
-         * * `customer.customerGroup` - customer group
-         * * `payments` - payments
-         * * `promotions` - promotions
-         * * `consignments.availableShippingOptions` - shipping options
-         */
-        include?: "cart.lineItems.physicalItems.options" | "cart.lineItems.digitalItems.options" | "cart.lineItems.physicalItems.categoryNames" | "cart.lineItems.digitalItems.categoryNames" | "cart.lineItems.customItems.categoryNames" | "customer" | "customer.customerGroup" | "payments" | "promotions" | "consignments.availableShippingOptions";
+        include?: components["parameters"]["IncludeShippingDefault"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
       };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     responses: {
@@ -1035,8 +1190,12 @@ export interface operations {
    */
   updateCheckout: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     requestBody: {
@@ -1065,10 +1224,14 @@ export interface operations {
    */
   updateCheckoutLineItem: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
-        cartId: string;
-        itemId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        cartId: components["parameters"]["CartIdPath"];
+        itemId: components["parameters"]["ItemIdPath"];
       };
     };
     requestBody: {
@@ -1094,10 +1257,13 @@ export interface operations {
    */
   deleteCheckoutLineItem: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
       path: {
-        checkoutId: string;
-        cartId: string;
-        itemId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        cartId: components["parameters"]["CartIdPath"];
+        itemId: components["parameters"]["ItemIdPath"];
       };
     };
     responses: {
@@ -1125,8 +1291,12 @@ export interface operations {
    */
   addCheckoutBillingAddress: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     requestBody: {
@@ -1162,9 +1332,13 @@ export interface operations {
    */
   updateCheckoutBillingAddress: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
-        addressId: number;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        addressId: components["parameters"]["AddressIdPath"];
       };
     };
     requestBody: {
@@ -1224,10 +1398,14 @@ export interface operations {
   createCheckoutConsignment: {
     parameters: {
       query?: {
-        include?: string;
+        include?: components["parameters"]["IncludeShippingDefault"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     requestBody: {
@@ -1276,11 +1454,15 @@ export interface operations {
   updateCheckoutConsignment: {
     parameters: {
       query?: {
-        include?: string;
+        include?: components["parameters"]["IncludeShippingPickupDefault"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        checkoutId: string;
-        consignmentId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        consignmentId: components["parameters"]["ConsignmentIdPath"];
       };
     };
     requestBody: {
@@ -1306,9 +1488,12 @@ export interface operations {
    */
   deleteCheckoutConsignment: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
       path: {
-        checkoutId: string;
-        consignmentId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        consignmentId: components["parameters"]["ConsignmentIdPath"];
       };
     };
     responses: {
@@ -1332,8 +1517,12 @@ export interface operations {
    */
   addCheckoutGiftCertificate: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     requestBody: {
@@ -1367,9 +1556,12 @@ export interface operations {
    */
   deleteCheckoutGiftCertificate: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
       path: {
-        checkoutId: string;
-        giftCertificateCode: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        giftCertificateCode: components["parameters"]["GiftCertificateCodePath"];
       };
     };
     responses: {
@@ -1393,8 +1585,12 @@ export interface operations {
    */
   addCheckoutCoupon: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     requestBody: {
@@ -1422,9 +1618,12 @@ export interface operations {
    */
   deleteCheckoutCoupon: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
       path: {
-        checkoutId: string;
-        couponCode: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
+        couponCode: components["parameters"]["CouponCodePath"];
       };
     };
     responses: {
@@ -1445,8 +1644,12 @@ export interface operations {
    */
   addCheckoutStoreCredit: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     responses: {
@@ -1467,8 +1670,11 @@ export interface operations {
    */
   removeCheckoutStoreCredit: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     responses: {
@@ -1489,8 +1695,12 @@ export interface operations {
    */
   checkoutSpamProtection: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        checkoutId: string;
+        checkoutId: components["parameters"]["CheckoutIdPath"];
       };
     };
     requestBody: {
