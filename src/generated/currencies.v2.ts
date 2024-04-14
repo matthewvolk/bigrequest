@@ -80,8 +80,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description Currency ID */
-        id: string;
+        id: components["parameters"]["CurrencyIdPath"];
       };
     };
   };
@@ -208,6 +207,12 @@ export interface components {
   };
   parameters: {
     StoreHash: string;
+    /** @description The ID of the subject currency. */
+    CurrencyIdPath: string;
+    /** @description Specifies the page number in a limited (paginated) list of currencies. */
+    PageNumberQuery?: number;
+    /** @description Controls the number of items per page in a limited (paginated) list of currencies. */
+    LimitQuery?: number;
     Accept: string;
     ContentType: string;
   };
@@ -229,10 +234,8 @@ export interface operations {
   getCurrencies: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of currencies. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of currencies. */
-        limit?: number;
+        page?: components["parameters"]["PageNumberQuery"];
+        limit?: components["parameters"]["LimitQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -317,8 +320,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description Currency ID */
-        id: string;
+        id: components["parameters"]["CurrencyIdPath"];
       };
     };
     responses: {
@@ -350,8 +352,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        /** @description Currency ID */
-        id: string;
+        id: components["parameters"]["CurrencyIdPath"];
       };
     };
     requestBody?: {
@@ -379,8 +380,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description Currency ID */
-        id: string;
+        id: components["parameters"]["CurrencyIdPath"];
       };
     };
     responses: {

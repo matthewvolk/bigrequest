@@ -55,9 +55,9 @@ export interface components {
        * @enum {string}
        */
       fieldType?: "checkbox" | "text" | "date" | "multiline" | "radio" | "dropdown";
-      /** @description The minimun valid value for the field (integer and date type only) */
+      /** @description The minimum valid value for the field (integer and date type only). */
       min?: string;
-      /** @description The minimun valid value for the field (integer and date type only) */
+      /** @description The minimum valid value for the field (integer and date type only). */
       max?: string;
       /** @description The maximum length for the value (string type only) */
       maxLength?: number;
@@ -99,7 +99,7 @@ export interface operations {
   getFormFields: {
     parameters: {
       query?: {
-        filter?: "customerAccount" | "shippingAddress" | "billingAddress";
+        filter?: ("customerAccount" | "shippingAddress" | "billingAddress")[];
       };
     };
     responses: {

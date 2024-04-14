@@ -9,7 +9,7 @@ export interface paths {
   "/storefront/custom-template-associations": {
     /**
      * Get Custom Template Associations
-     * @description Get a collection of the storeʼs custom template associations across all storefronts
+     * @description Get a collection of the storeʼs custom template associations across all storefronts.
      */
     get: operations["getCustomTemplateAssociations"];
     /**
@@ -105,7 +105,6 @@ export interface components {
       /** @enum {string} */
       entity_type: "product" | "category" | "brand" | "page";
       entity_id: number;
-      /** @example custom-product-1.html */
       file_name: string;
     };
   };
@@ -115,6 +114,20 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description A comma-separated string that specifies a list of association IDs to delete. */
+    IdInQuery?: number[];
+    /** @description Return results or act upon only template associations in the specified channel. */
+    ChannelIdQuery?: number;
+    /** @description A comma-separated list of entity IDs to return or act upon. Must be used together with the `type` filter. Currently, all supported entities have integer-type IDs. */
+    EntityIdInQuery?: number[];
+    /** @description Filter associations by type. */
+    TypeQuery?: "product" | "category" | "brand" | "page";
+    /** @description Number of results to return per page. */
+    LimitQuery?: number;
+    /** @description Which page number to return, based on the limit value. Used to paginate large collections. */
+    PageQuery?: number;
+    /** @description Optional toggle to filter for exclusively valid or invalid associations entries. An invalid entry is one where its file name does not match up to an existing custom layout file in the currently active theme for the channel. */
+    IsValidQuery?: boolean;
   };
   requestBodies: never;
   headers: never;
@@ -129,23 +142,17 @@ export interface operations {
 
   /**
    * Get Custom Template Associations
-   * @description Get a collection of the storeʼs custom template associations across all storefronts
+   * @description Get a collection of the storeʼs custom template associations across all storefronts.
    */
   getCustomTemplateAssociations: {
     parameters: {
       query?: {
-        /** @description Channel ID to return only custom template associations for a given Channel */
-        channel_id?: number;
-        /** @description Filter by a list of entity IDs. Must be used together with "type" filter. */
-        "entity_id:in"?: string;
-        /** @description Number of results to return per page */
-        limit?: number;
-        /** @description Which page number to return, based on the page size. Used to paginate large collections. */
-        page?: number;
-        /** @description Filter associations by type */
-        type?: "product" | "category" | "brand" | "page";
-        /** @description Optional toggle to filter for exclusively valid or invalid associations entries. An invalid entry is one where its file name does not match up to an existing custom layout file in the currently active theme for the channel. */
-        is_valid?: boolean;
+        channel_id?: components["parameters"]["ChannelIdQuery"];
+        "entity_id:in"?: components["parameters"]["EntityIdInQuery"];
+        type?: components["parameters"]["TypeQuery"];
+        limit?: components["parameters"]["LimitQuery"];
+        page?: components["parameters"]["PageQuery"];
+        is_valid?: components["parameters"]["IsValidQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -201,14 +208,10 @@ export interface operations {
   deleteCustomTemplateAssociations: {
     parameters: {
       query?: {
-        /** @description List of Association IDs to delete explicitly. */
-        "id:in"?: number;
-        /** @description List of Entity IDs to delete explicitly. Must be used together with "type" */
-        "entity_id:in"?: number;
-        /** @description Channel ID provided to delete all custom template associations for a given Channel */
-        channel_id?: number;
-        /** @description Filter associations by type */
-        type?: "product" | "category" | "brand" | "page";
+        "id:in"?: components["parameters"]["IdInQuery"];
+        channel_id?: components["parameters"]["ChannelIdQuery"];
+        type?: components["parameters"]["TypeQuery"];
+        "entity_id:in"?: components["parameters"]["EntityIdInQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

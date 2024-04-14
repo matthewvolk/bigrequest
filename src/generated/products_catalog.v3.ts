@@ -2678,6 +2678,101 @@ export interface components {
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
+    /** @description Field name to sort by. Note: Since ID increments when new products are added, you can use the ID value to sort by product create date. */
+    SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParam?: string[];
+    /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. The ID and the specified fields will be returned. */
+    IncludeFieldsEnumParam?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsParam?: string[];
+    /** @description Pass a comma-separated list to filter by one or more product IDs. */
+    IdInParam?: number[];
+    /** @description Pass a comma-separated list to exclude one or more product IDs. */
+    IdNotInParam?: number[];
+    /** @description Pass a comma-separated list to filter by one or more product IDs. */
+    ProductIdInParam?: number[];
+    /** @description Pass a comma-separated list to filter by one or more category IDs. */
+    CategoryIdInParam?: number[];
+    /** @description A comma-separated list of category IDs. Returns a list of products that are in all the categories specified. */
+    CategoriesInParam?: number[];
+    /** @description Pass a comma-separated list to filter by one or more channel IDs. */
+    ChannelIdInParam?: number[];
+    /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
+    IncludeParam?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
+    IdMinParam?: number;
+    IdMaxParam?: number;
+    IdGreaterParam?: number;
+    IdLessParam?: number;
+    /** @description Filter items by name. */
+    NameParam?: string;
+    /** @description Filter items by Manufacturer Part Number (MPN). */
+    MpnParam?: string;
+    /** @description Filter items by UPC. */
+    UpcParam?: string;
+    /** @description Filter items by price. */
+    PriceParam?: number;
+    /** @description Filter items by weight. */
+    WeightParam?: number;
+    /** @description Filter items by condition. */
+    ConditionParam?: "new" | "used" | "refurbished";
+    /** @description Filter items by brand ID. */
+    BrandIdParam?: number;
+    /** @description Filter items by `date_modified`. */
+    DateModifiedParam?: string;
+    /** @description Filter items by `date_modified`. For example, `date_modified:max=2020-06-15`. */
+    DateModifiedMaxParam?: string;
+    /** @description Filter items by `date_modified`. For example, `date_modified:min=2018-06-15`. */
+    DateModifiedMinParam?: string;
+    /** @description Filter items by date_last_imported. */
+    DateLastImportedParam?: string;
+    /** @description Filter products by specifying a date they were NOT last imported. For example, `date_last_imported:not=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+    DateLastImportedNotParam?: string;
+    /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+    DateLastImportedMaxParam?: string;
+    /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+    DateLastImportedMinParam?: string;
+    /** @description Filter items based on whether the product is currently visible on the storefront. */
+    IsVisibleParam?: boolean;
+    /** @description Filter items by is_featured. `1` for true, `0` for false. */
+    IsFeaturedParam?: 1 | 0;
+    /** @description Filter items by is_free_shipping. `1` for true, `0` for false. */
+    IsFreeShippingParam?: number;
+    /** @description Filter items by inventory_level. */
+    InventoryLevelParam?: number;
+    /** @description A comma-separated list of inventory levels. Returns a list of all products that have any of the listed inventory amounts. */
+    InventoryLevelInParam?: number[];
+    /** @description A comma-separated list of inventory levels. Returns a list of all products that have inventory amounts other than those specified. */
+    InventoryLevelNotInParam?: number[];
+    InventoryLevelMinParam?: number;
+    InventoryLevelMaxParam?: number;
+    InventoryLevelGreaterParam?: number;
+    InventoryLevelLessParam?: number;
+    /** @description Filter items by inventory_low. Values: 1, 0. */
+    InventoryLowParam?: number;
+    /** @description Filter items by out_of_stock. To enable the filter, pass `out_of_stock`=`1`. */
+    OutOfStockParam?: number;
+    /** @description Filter items by total_sold. */
+    TotalSoldParam?: number;
+    /** @description Filter items by type. */
+    ProductTypeParam?: "digital" | "physical";
+    /**
+     * @description Filter items by categories.
+     *   If a product is in more than one category, using this query will not return the product. Instead use `categories:in=12`.
+     */
+    CategoriesParam?: number;
+    /** @description Filter items by keywords found in the `name`, `description`, or `sku` fields, or in the brand name. */
+    KeywordParam?: string;
+    /** @description Set context used by the search algorithm to return results targeted towards the specified group. Use `merchant` to help merchants search their own catalog. Use `shopper` to return shopper-facing search results. */
+    KeywordContextParam?: "shopper" | "merchant";
+    /** @description Filter items by status. */
+    StatusParam?: number;
+    /** @description Filter items by availability. Values are: available, disabled, preorder. */
+    AvailabilityParam?: "available" | "disabled" | "preorder";
+    /** @description Filter items by main SKU. To filter by variant SKU, see [Get all variants](/docs/rest-catalog/product-variants#get-all-product-variants). */
+    SkuParam?: string;
+    /** @description A comma-separated list of SKUs. Returns a list of products with those SKUs. */
+    SkuInParam?: string[];
   };
   requestBodies: never;
   headers: never;
@@ -2697,109 +2792,57 @@ export interface operations {
   getProducts: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
+        /** @description Filter items by product ID. */
         id?: number;
-        "id:in"?: number[];
-        "id:not_in"?: number[];
-        "id:min"?: number[];
-        "id:max"?: number[];
-        "id:greater"?: number[];
-        "id:less"?: number[];
-        /** @description Filter items by name. */
-        name?: string;
-        /** @description Filter items by Manufacturer Part Number (MPN). */
-        mpn?: string;
-        /** @description Filter items by UPC. */
-        upc?: string;
-        /** @description Filter items by price. */
-        price?: number;
-        /** @description Filter items by weight. */
-        weight?: number;
-        /** @description Filter items by condition. */
-        condition?: "new" | "used" | "refurbished";
-        /** @description Filter items by brand_id. */
-        brand_id?: number;
-        /** @description Filter items by `date_modified`. */
-        date_modified?: string;
-        /** @description Filter items by `date_modified`. For example, `date_modified:max=2020-06-15`. */
-        "date_modified:max"?: string;
-        /** @description Filter items by `date_modified`. For example, `date_modified:min=2018-06-15`. */
-        "date_modified:min"?: string;
-        /** @description Filter items by date_last_imported. */
-        date_last_imported?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:not=2015-08-21T22%3A53%3A23%2B00%3A00`. */
-        "date_last_imported:not"?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2015-08-21T22%3A53%3A23%2B00%3A00`. */
-        "date_last_imported:max"?: string;
-        /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00`. */
-        "date_last_imported:min"?: string;
-        /** @description Filter items based on whether the product is currently visible on the storefront. */
-        is_visible?: boolean;
-        /** @description Filter items by is_featured. `1` for true, `0` for false. */
-        is_featured?: 1 | 0;
-        /** @description Filter items by is_free_shipping. `1` for true, `0` for false. */
-        is_free_shipping?: number;
-        /** @description Filter items by inventory_level. */
-        inventory_level?: number;
-        "inventory_level:in"?: number;
-        "inventory_level:not_in"?: number;
-        "inventory_level:min"?: number;
-        "inventory_level:max"?: number;
-        "inventory_level:greater"?: number;
-        "inventory_level:less"?: number;
-        /** @description Filter items by inventory_low. Values: 1, 0. */
-        inventory_low?: number;
-        /** @description Filter items by out_of_stock. To enable the filter, pass `out_of_stock`=`1`. */
-        out_of_stock?: number;
-        /** @description Filter items by total_sold. */
-        total_sold?: number;
-        /** @description Filter items by type. */
-        type?: "digital" | "physical";
-        /**
-         * @description Filter items by categories.
-         *  If a product is in more than one category, using this query will not return the product. Instead use `categories:in=12`.
-         */
-        categories?: number;
-        /** @description Filter items by keywords found in the `name` or `sku` fields */
-        keyword?: string;
-        /** @description Set context used by the search algorithm to return results targeted towards the specified group. Use `merchant` to help merchants search their own catalog. Use `shopper` to return shopper-facing search results. */
-        keyword_context?: "shopper" | "merchant";
-        /** @description Filter items by status. */
-        status?: number;
-        /**
-         * @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page.
-         *
-         * **Note:** The following sub-resources include:
-         *   * variants
-         *   * images
-         *   * custom_fields
-         *   * bulk_pricing_rules
-         *   * primary_image
-         *   * modifiers
-         *   * options
-         *   * videos
-         */
-        include?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Filter items by availability. Values are: available, disabled, preorder. */
-        availability?: "available" | "disabled" | "preorder";
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. The default product limit is 50 with a maximum limit of 250. */
-        limit?: number;
-        /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
-        direction?: "asc" | "desc";
-        /** @description Field name to sort by. Note: Since `id` increments when new products are added, you can use that field to sort by product create date. */
-        sort?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
-        /** @description Filter items by categories. Use for products in multiple categories. For example, `categories:in=12,15`. */
-        "categories:in"?: number[];
-        /** @description Filter items by main SKU. To filter by variant SKU, see [Get All Variants](/docs/rest-catalog/product-variants#get-all-product-variants). */
-        sku?: string;
-        /** @description Filter items by SKU. */
-        "sku:in"?: string[];
+        "id:in"?: components["parameters"]["IdInParam"];
+        "id:not_in"?: components["parameters"]["IdNotInParam"];
+        include?: components["parameters"]["IncludeParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        sort?: components["parameters"]["SortParam"];
+        "categories:in"?: components["parameters"]["CategoriesInParam"];
+        "id:min"?: components["parameters"]["IdMinParam"];
+        "id:max"?: components["parameters"]["IdMaxParam"];
+        "id:greater"?: components["parameters"]["IdGreaterParam"];
+        "id:less"?: components["parameters"]["IdLessParam"];
+        name?: components["parameters"]["NameParam"];
+        mpn?: components["parameters"]["MpnParam"];
+        upc?: components["parameters"]["UpcParam"];
+        price?: components["parameters"]["PriceParam"];
+        weight?: components["parameters"]["WeightParam"];
+        condition?: components["parameters"]["ConditionParam"];
+        brand_id?: components["parameters"]["BrandIdParam"];
+        date_modified?: components["parameters"]["DateModifiedParam"];
+        "date_modified:max"?: components["parameters"]["DateModifiedMaxParam"];
+        "date_modified:min"?: components["parameters"]["DateModifiedMinParam"];
+        date_last_imported?: components["parameters"]["DateLastImportedParam"];
+        "date_last_imported:not"?: components["parameters"]["DateLastImportedNotParam"];
+        "date_last_imported:max"?: components["parameters"]["DateLastImportedMaxParam"];
+        "date_last_imported:min"?: components["parameters"]["DateLastImportedMinParam"];
+        is_visible?: components["parameters"]["IsVisibleParam"];
+        is_featured?: components["parameters"]["IsFeaturedParam"];
+        is_free_shipping?: components["parameters"]["IsFreeShippingParam"];
+        inventory_level?: components["parameters"]["InventoryLevelParam"];
+        "inventory_level:in"?: components["parameters"]["InventoryLevelInParam"];
+        "inventory_level:not_in"?: components["parameters"]["InventoryLevelNotInParam"];
+        "inventory_level:min"?: components["parameters"]["InventoryLevelMinParam"];
+        "inventory_level:max"?: components["parameters"]["InventoryLevelMaxParam"];
+        "inventory_level:greater"?: components["parameters"]["InventoryLevelGreaterParam"];
+        "inventory_level:less"?: components["parameters"]["InventoryLevelLessParam"];
+        inventory_low?: components["parameters"]["InventoryLowParam"];
+        out_of_stock?: components["parameters"]["OutOfStockParam"];
+        total_sold?: components["parameters"]["TotalSoldParam"];
+        type?: components["parameters"]["ProductTypeParam"];
+        categories?: components["parameters"]["CategoriesParam"];
+        keyword?: components["parameters"]["KeywordParam"];
+        keyword_context?: components["parameters"]["KeywordContextParam"];
+        status?: components["parameters"]["StatusParam"];
+        availability?: components["parameters"]["AvailabilityParam"];
+        sku?: components["parameters"]["SkuParam"];
+        "sku:in"?: components["parameters"]["SkuInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2833,8 +2876,7 @@ export interface operations {
   updateProducts: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2934,8 +2976,7 @@ export interface operations {
   createProduct: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3024,41 +3065,22 @@ export interface operations {
   deleteProducts: {
     parameters: {
       query?: {
-        /** @description Filter items by name. */
-        name?: string;
-        /** @description Filter items by SKU. */
-        sku?: string;
-        /** @description Filter items by price. */
-        price?: number;
-        /** @description Filter items by weight. */
-        weight?: number;
-        /** @description Filter items by condition. */
-        condition?: "new" | "used" | "refurbished";
-        /** @description Filter items by brand_id. */
-        brand_id?: number;
-        /** @description Filter items by date_modified. For example `v3/catalog/products?date_modified:min=2018-06-15` */
-        date_modified?: string;
-        /** @description Filter items by date_last_imported. For example `v3/catalog/products?date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00` */
-        date_last_imported?: string;
-        /** @description Filter items by if visible on the storefront. */
-        is_visible?: boolean;
-        /** @description Filter items by is_featured. */
-        is_featured?: number;
-        /** @description Filter by product ID(s). */
-        "id:in"?: number[];
-        /** @description Filter items by inventory_level. */
-        inventory_level?: number;
-        /** @description Filter items by total_sold. */
-        total_sold?: number;
-        /** @description Filter items by type: `physical` or `digital`. */
-        type?: "digital" | "physical";
-        /**
-         * @description Filter items by categories.
-         *  If a product is in more than one category, using this query will not return the product. Instead use `categories:in=12`.
-         */
-        categories?: number;
-        /** @description Filter items by keywords found in the `name`, `description`, or `sku` fields, or in the brand name. */
-        keyword?: string;
+        name?: components["parameters"]["NameParam"];
+        sku?: components["parameters"]["SkuParam"];
+        price?: components["parameters"]["PriceParam"];
+        weight?: components["parameters"]["WeightParam"];
+        condition?: components["parameters"]["ConditionParam"];
+        brand_id?: components["parameters"]["BrandIdParam"];
+        date_modified?: components["parameters"]["DateModifiedParam"];
+        date_last_imported?: components["parameters"]["DateLastImportedParam"];
+        is_visible?: components["parameters"]["IsVisibleParam"];
+        is_featured?: components["parameters"]["IsFeaturedParam"];
+        "id:in"?: components["parameters"]["IdInParam"];
+        inventory_level?: components["parameters"]["InventoryLevelParam"];
+        total_sold?: components["parameters"]["TotalSoldParam"];
+        type?: components["parameters"]["ProductTypeParam"];
+        categories?: components["parameters"]["CategoriesParam"];
+        keyword?: components["parameters"]["KeywordParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3078,12 +3100,9 @@ export interface operations {
   getProduct: {
     parameters: {
       query?: {
-        /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. */
-        include?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include?: components["parameters"]["IncludeParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3133,8 +3152,7 @@ export interface operations {
   updateProduct: {
     parameters: {
       query?: {
-        /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. The ID and the specified fields will be returned. */
-        include_fields?: "variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos";
+        include_fields?: components["parameters"]["IncludeFieldsEnumParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3259,14 +3277,10 @@ export interface operations {
   getProductImages: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3507,10 +3521,8 @@ export interface operations {
   getProductImage: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3688,14 +3700,10 @@ export interface operations {
   getProductVideos: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3834,10 +3842,8 @@ export interface operations {
   getProductVideo: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3994,14 +4000,10 @@ export interface operations {
   getProductComplexRules: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4314,10 +4316,8 @@ export interface operations {
   getProductComplexRule: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -4784,14 +4784,10 @@ export interface operations {
   getProductCustomFields: {
     parameters: {
       query?: {
-        /** @description Fields to include in a comma-separated list; returned fields are the ID and specified fields. */
-        include_fields?: string;
-        /** @description Fields to exclude in a comma-separated list; responses do not include specified fields, and you can not exclude the ID. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
@@ -4857,10 +4853,8 @@ export interface operations {
   getProductCustomField: {
     parameters: {
       query?: {
-        /** @description Fields to include in a comma-separated list; returned fields are the ID and specified fields. */
-        include_fields?: string;
-        /** @description Fields to exclude in a comma-separated list; responses do not include specified fields, and you can not exclude the ID. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
@@ -4948,10 +4942,8 @@ export interface operations {
   getBulkPricingRule: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5148,18 +5140,12 @@ export interface operations {
   getProductMetafields: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Filter based on a metafieldʼs key. */
-        key?: string;
-        /** @description Filter based on a metafieldʼs namespace. */
-        namespace?: string;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5271,10 +5257,8 @@ export interface operations {
   getProductMetafield: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5394,16 +5378,12 @@ export interface operations {
   getProductReviews: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
         /** @description Filter items by status. `1` for approved, `0` for pending. */
-        status?: number;
+        status?: 0 | 1;
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5595,10 +5575,8 @@ export interface operations {
   getProductReview: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5810,10 +5788,10 @@ export interface operations {
   getProductsChannelAssignments: {
     parameters: {
       query?: {
-        page?: number;
-        limit?: number;
-        "product_id:in"?: string;
-        "channel_id:in"?: string;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        "product_id:in"?: components["parameters"]["ProductIdInParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5867,8 +5845,8 @@ export interface operations {
   deleteProductsChannelAssignments: {
     parameters: {
       query?: {
-        "product_id:in"?: string;
-        "channel_id:in"?: string;
+        "product_id:in"?: components["parameters"]["ProductIdInParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5894,10 +5872,10 @@ export interface operations {
   getProductsCategoryAssignments: {
     parameters: {
       query?: {
-        page?: number;
-        limit?: number;
-        "product_id:in"?: string;
-        "category_id:in"?: string;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        "product_id:in"?: components["parameters"]["ProductIdInParam"];
+        "category_id:in"?: components["parameters"]["CategoryIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -5951,8 +5929,8 @@ export interface operations {
   deleteProductsCategoryAssignments: {
     parameters: {
       query?: {
-        "product_id:in"?: string;
-        "category_id:in"?: string;
+        "product_id:in"?: components["parameters"]["ProductIdInParam"];
+        "category_id:in"?: components["parameters"]["CategoryIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

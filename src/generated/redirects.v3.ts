@@ -268,20 +268,20 @@ export interface operations {
   getRedirects: {
     parameters: {
       query?: {
-        /** @description Filters items by `site_id`. */
+        /** @description Filters items by site ID. */
         site_id?: number;
-        /** @description Filters items by redirect `id`. Also accepts comma-separated values to filter for multiple redirects. */
-        "id:in"?: string[];
+        /** @description Filters items by redirect ID. Also accepts comma-separated values to filter for multiple redirects. */
+        "id:in"?: number[];
         /** @description Controls the number of items to return per page. */
         limit?: number;
         /** @description Specifies the page number in a limited (paginated) list of items. Used to paginate large collections. */
         page?: number;
-        /** @description Field name to sort by. Note: Since redirect `id` increments when new redirects are added, you can use that field to sort by redirect create date. */
+        /** @description Field name to sort by. Since redirect IDs increment when new redirects are added, you can sort by ID to return results in redirect create date order. */
         sort?: "from_path" | "type" | "site_id" | "id";
         /** @description Sort direction. Acceptable values are `asc`, `desc`. */
         direction?: "asc" | "desc";
         /** @description Indicates whether to include redirect sub-resources. Only `to_url` is supported. */
-        include?: "to_url";
+        include?: "to_url"[];
         /** @description Filters redirects by the specified keyword. Will only search from the beginning of a URL path. For example, `blue` will match `/blue` and `/blue-shirt` ,  **not** `/royal-blue-shirt`. */
         keyword?: string;
       };
@@ -335,9 +335,9 @@ export interface operations {
   deleteRedirects: {
     parameters: {
       query: {
-        /** @description List of Redirect IDs to delete explicitly. */
+        /** @description A comma-separated list of redirect IDs to delete explicitly. */
         "id:in": number[];
-        /** @description Site ID provided to delete all redirects for a given Site. */
+        /** @description To delete all redirects for a given site, provide the site ID. */
         site_id?: number;
       };
       header: {
@@ -359,9 +359,9 @@ export interface operations {
   getRedirectImportExportJobs: {
     parameters: {
       query?: {
-        /** @description Filters results by Redirect Import-Export job ID. */
+        /** @description Filters results by redirect import-export job ID. */
         id?: string;
-        /** @description Filters results by the type of the Redirect Import-Export job. */
+        /** @description Filters results by the type of the redirect import-export job. */
         type?: components["schemas"]["ImportExportJobType"];
         /** @description Filters results by the status of the Redirect Import-Export job. */
         status?: components["schemas"]["ImportExportJobStatus"];
