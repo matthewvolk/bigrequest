@@ -264,6 +264,11 @@ export interface paths {
      * @description Delete all category metafields.
      */
     delete: operations["deleteCategoriesMetafields"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
   };
 }
 
@@ -1007,12 +1012,24 @@ export interface components {
     CategoryIdParam: number;
     /** @description The ID of the `Metafield`. */
     MetafieldIdParam: number;
+    /** @description Filter items by metafield ID. */
+    IdMetafieldQueryParam?: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
+    /**
+     * @description Controls the sort order of the response, for example, `sort=name`.
+     *
+     * Allowed values:
+     * - `name`: sort categories in alphabetical order by category name.
+     * - `id`: sort in ascending order by category ID.
+     * - `parent_id`: sort in ascending order by the ID of the parent category.
+     * - `sort_order`: sort in ascending order by sort order value.
+     */
+    SortParam?: "name" | "id" | "parent_id" | "sort_order";
     /** @description Filter based on a metafieldʼs key. */
     MetafieldKeyParam?: string;
     /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
@@ -1025,6 +1042,39 @@ export interface components {
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParam?: string[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsParam?: string[];
+    /** @description Filter items by keywords found in the `name`, `description`, or `sku` fields, or in the brand name. */
+    KeywordParam?: string;
+    /** @description Filter items based on whether the product is currently visible on the storefront. */
+    IsVisibleParam?: boolean;
+    /** @description Filter items by name. */
+    NameParam?: string;
+    /** @description Filter items by substring in the name property. `name:like=stick` returns both `Stickers` and `Lipstick colors`. */
+    NameLikeParam?: string;
+    /** @description Filter items by substring in the page title property. `page_title:like=oil` returns both `Soil and mulch` and `Oil pastels`. */
+    PageTitleLikeParam?: string;
+    /** @description Filter items by page_title. */
+    PageTitleParam?: string;
+    ParentIdInParam?: number[];
+    /** @description Filter items by parent_id. If the category is a child or sub-category it can be filtered with the parent_id. */
+    ParentIdParam?: number;
+    ParentIdMinParam?: number;
+    ParentIdMaxParam?: number;
+    ParentIdGreaterParam?: number;
+    ParentIdLessParam?: number;
+    /** @description Filter items by category ID. */
+    IdCategoryQueryParam?: number;
+    /** @description Explicitly include objects by passing a comma-separated list of IDs. */
+    IdInParam?: number[];
+    /** @description Exclude objects by passing a comma-separated list of IDs. */
+    IdNotInParam?: number[];
+    IdMinParam?: number;
+    IdMaxParam?: number;
+    IdGreaterParam?: number;
+    IdLessParam?: number;
   };
   requestBodies: never;
   headers: never;
@@ -1050,49 +1100,30 @@ export interface operations {
   getCategories: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
-        "id:in"?: number[];
-        "id:not_in"?: number[];
-        "id:min"?: number[];
-        "id:max"?: number[];
-        "id:greater"?: number[];
-        "id:less"?: number[];
-        /** @description Filter items by name. */
-        name?: string;
-        "name:like"?: string[];
-        /** @description Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id. */
-        parent_id?: number;
-        "parent_id:in"?: number[];
-        "parent_id:min"?: number[];
-        "parent_id:max"?: number[];
-        "parent_id:greater"?: number[];
-        "parent_id:less"?: number[];
-        /** @description Filter items by page_title. */
-        page_title?: string;
-        "page_title:like"?: string[];
-        /** @description Filter items by keywords. eg. new, towel, bath */
-        keyword?: string;
-        /** @description Filter items by if visible on the storefront. */
-        is_visible?: boolean;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /**
-         * @description Controls the sort order of the response, for example, `sort=name`.
-         *
-         * Allowed values:
-         * - `name`: sort categories in alphabetical order by category name.
-         * - `id`: sort in ascending order by category ID.
-         * - `parent_id`: sort in ascending order by the ID of the parent category.
-         * - `sort_order`: sort in ascending order by sort order value.
-         */
-        sort?: string;
+        id?: components["parameters"]["IdCategoryQueryParam"];
+        "id:in"?: components["parameters"]["IdInParam"];
+        "id:not_in"?: components["parameters"]["IdNotInParam"];
+        "id:min"?: components["parameters"]["IdMinParam"];
+        "id:max"?: components["parameters"]["IdMaxParam"];
+        "id:greater"?: components["parameters"]["IdGreaterParam"];
+        "id:less"?: components["parameters"]["IdLessParam"];
+        name?: components["parameters"]["NameParam"];
+        "name:like"?: components["parameters"]["NameLikeParam"];
+        parent_id?: components["parameters"]["ParentIdParam"];
+        "parent_id:in"?: components["parameters"]["ParentIdInParam"];
+        "parent_id:min"?: components["parameters"]["ParentIdMinParam"];
+        "parent_id:max"?: components["parameters"]["ParentIdMaxParam"];
+        "parent_id:greater"?: components["parameters"]["ParentIdGreaterParam"];
+        "parent_id:less"?: components["parameters"]["ParentIdLessParam"];
+        page_title?: components["parameters"]["PageTitleParam"];
+        "page_title:like"?: components["parameters"]["PageTitleLikeParam"];
+        keyword?: components["parameters"]["KeywordParam"];
+        is_visible?: components["parameters"]["IsVisibleParam"];
+        sort?: components["parameters"]["SortParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1294,31 +1325,25 @@ export interface operations {
   deleteCategories: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
-        "id:in"?: number[];
-        "id:not_in"?: number[];
-        "id:min"?: number[];
-        "id:max"?: number[];
-        "id:greater"?: number[];
-        "id:less"?: number[];
-        /** @description Filter items by name. */
-        name?: string;
-        /** @description Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id. */
-        parent_id?: number;
-        /** @description Filter items by page_title. */
-        page_title?: string;
-        /** @description Filter items by keywords. eg. new, towel, bath */
-        keyword?: string;
-        /** @description Filter items by if visible on the storefront. */
-        is_visible?: boolean;
-        "name:like"?: string[];
-        "parent_id:in"?: number[];
-        "parent_id:min"?: number[];
-        "parent_id:max"?: number[];
-        "parent_id:greater"?: number[];
-        "parent_id:less"?: number[];
-        "page_title:like"?: string[];
+        id?: components["parameters"]["IdCategoryQueryParam"];
+        "id:in"?: components["parameters"]["IdInParam"];
+        "id:not_in"?: components["parameters"]["IdNotInParam"];
+        "id:min"?: components["parameters"]["IdMinParam"];
+        "id:max"?: components["parameters"]["IdMaxParam"];
+        "id:greater"?: components["parameters"]["IdGreaterParam"];
+        "id:less"?: components["parameters"]["IdLessParam"];
+        name?: components["parameters"]["NameParam"];
+        parent_id?: components["parameters"]["ParentIdParam"];
+        page_title?: components["parameters"]["PageTitleParam"];
+        keyword?: components["parameters"]["KeywordParam"];
+        is_visible?: components["parameters"]["IsVisibleParam"];
+        "name:like"?: components["parameters"]["NameLikeParam"];
+        "parent_id:in"?: components["parameters"]["ParentIdInParam"];
+        "parent_id:min"?: components["parameters"]["ParentIdMinParam"];
+        "parent_id:max"?: components["parameters"]["ParentIdMaxParam"];
+        "parent_id:greater"?: components["parameters"]["ParentIdGreaterParam"];
+        "parent_id:less"?: components["parameters"]["ParentIdLessParam"];
+        "page_title:like"?: components["parameters"]["PageTitleLikeParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1344,10 +1369,8 @@ export interface operations {
   getCategory: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1675,26 +1698,19 @@ export interface operations {
   getCategoryMetafields: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
-        "id:in"?: number[];
-        "id:not_in"?: number[];
-        "id:min"?: number[];
-        "id:max"?: number[];
-        "id:greater"?: number[];
-        "id:less"?: number[];
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Filter based on a metafieldʼs key. */
-        key?: string;
-        /** @description Filter based on a metafieldʼs namespace. */
-        namespace?: string;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        id?: components["parameters"]["IdMetafieldQueryParam"];
+        "id:in"?: components["parameters"]["IdInParam"];
+        "id:not_in"?: components["parameters"]["IdNotInParam"];
+        "id:min"?: components["parameters"]["IdMinParam"];
+        "id:max"?: components["parameters"]["IdMaxParam"];
+        "id:greater"?: components["parameters"]["IdGreaterParam"];
+        "id:less"?: components["parameters"]["IdLessParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1809,10 +1825,8 @@ export interface operations {
   getCategoryMetafield: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2118,6 +2132,9 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
       };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
     };
     responses: {
       /** @description List of `Metafield` objects. */
@@ -2137,6 +2154,12 @@ export interface operations {
    * @description Create multiple metafields.
    */
   updateCategoriesMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": (components["schemas"]["MetafieldBase_Put"] & {
@@ -2173,6 +2196,12 @@ export interface operations {
    * @description Create multiple metafields.
    */
   createCategoriesMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": (components["schemas"]["MetafieldBase_Post"] & {
@@ -2209,6 +2238,11 @@ export interface operations {
    * @description Delete all category metafields.
    */
   deleteCategoriesMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
     /** @description List of metafield IDs. */
     requestBody?: {
       content: {

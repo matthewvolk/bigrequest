@@ -11,10 +11,9 @@ export interface paths {
      * Set Cookie Consent Preferences
      * @description Sets the status of a customer's consent to allow data collection by cookies and scripts according to the following consent categories:
      *
-     *
-     *   2. Analytics — These cookies provide statistical information on site usage so the store owner can improve the website over time.
-     *   3. Functional — These cookies enable enhanced functionality, such as videos and live chat. If a shopper does not allow these, then some or all of these functions may not work properly.
-     *   4. Targeting; Advertising — These cookies allow merchants to create profiles or personalize content to enhance users' shopping experience.
+     *   1. Analytics — These cookies provide statistical information on site usage so the store owner can improve the website over time.
+     *   2. Functional — These cookies enable enhanced functionality, such as videos and live chat. If a shopper does not allow these, then some or all of these functions may not work properly.
+     *   3. Targeting; Advertising — These cookies allow merchants to create profiles or personalize content to enhance users' shopping experience.
      *
      *
      * This endpoint only works if the cookie consent feature is enabled. It is assumed the shopper has not consented to anything until a value is explicitly set. The request body must be populated with a complete set of allowed and denied categories.
@@ -25,6 +24,12 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      */
     post: operations["postCookieConsent"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
   };
 }
 
@@ -52,7 +57,12 @@ export interface components {
     };
   };
   responses: never;
-  parameters: never;
+  parameters: {
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
+    Accept: string;
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
+    ContentType: string;
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;
@@ -68,10 +78,9 @@ export interface operations {
    * Set Cookie Consent Preferences
    * @description Sets the status of a customer's consent to allow data collection by cookies and scripts according to the following consent categories:
    *
-   *
-   *   2. Analytics — These cookies provide statistical information on site usage so the store owner can improve the website over time.
-   *   3. Functional — These cookies enable enhanced functionality, such as videos and live chat. If a shopper does not allow these, then some or all of these functions may not work properly.
-   *   4. Targeting; Advertising — These cookies allow merchants to create profiles or personalize content to enhance users' shopping experience.
+   *   1. Analytics — These cookies provide statistical information on site usage so the store owner can improve the website over time.
+   *   2. Functional — These cookies enable enhanced functionality, such as videos and live chat. If a shopper does not allow these, then some or all of these functions may not work properly.
+   *   3. Targeting; Advertising — These cookies allow merchants to create profiles or personalize content to enhance users' shopping experience.
    *
    *
    * This endpoint only works if the cookie consent feature is enabled. It is assumed the shopper has not consented to anything until a value is explicitly set. The request body must be populated with a complete set of allowed and denied categories.
@@ -82,6 +91,12 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    */
   postCookieConsent: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     /** @description Data sent to the [Update customer consent](/docs/rest-management/customers/customer-consent#update-customer-consent) endpoint when creating a customer during checkout. */
     requestBody: {
       content: {

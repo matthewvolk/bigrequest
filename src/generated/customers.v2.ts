@@ -873,7 +873,7 @@ export interface components {
        */
       city: string;
       /**
-       * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word, e.g.: California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
+       * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word. For example, California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
        * @example Texas
        */
       state: string;
@@ -1425,7 +1425,7 @@ export interface operations {
            */
           city: string;
           /**
-           * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word, e.g.: California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
+           * @description The customer’s state/province. Do not abbreviate the state; spell out the entire word. For example, California. (Cannot be null. As a workaround for addresses that include no state/province string, pass a space as the “state” value.)
            * @example Texas
            */
           state: string;
@@ -1544,7 +1544,7 @@ export interface operations {
         /** @description Filter customer groups by date_modified. `date_modified=2018-09-05T13:45:03` */
         date_modified?: string;
         /** @description Filter customer groups by minimum date_modified. `date_modified:min=2019-09-04T:00:00:00` or `date_modified:min=2019-09-04` */
-        "`date_modified:min`"?: string;
+        "date_modified:min"?: string;
         /** @description Filter customer groups by maximum date_modified. `date_modified:max=2018-09-05T13:45:03` or `date_modified:max=2019-09-04` */
         "`date_modified:max`"?: string;
         /** @description Filter whether the group is for guests. There can only be one customer group for guests at a time. */

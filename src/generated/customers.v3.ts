@@ -363,7 +363,7 @@ export interface paths {
      * Get All Customer Metafields
      * @description Get all customer metafields.
      */
-    get: operations["getallCustomersMetafields"];
+    get: operations["getAllCustomersMetafields"];
     /**
      * Update Multiple Metafields
      * @description Create multiple metafields.
@@ -2257,12 +2257,12 @@ export interface operations {
         /** @description Filter items by maximum date_modified. `date_modified:max=2018-09-05T13:45:03` or `date_modified:max=2019-09-04` */
         "date_modified:max"?: string;
         /** @description Filter items by email. `email:in=janedoe@example.com` */
-        "email:in"?: string;
+        "email:in"?: string[];
         /** @description Filter items by first_name and last_name. `name=james moriarty` */
         "name:in"?: string[];
         /**
          * @description Filter items by substring in first_name and last_name.
-         * `name:like=moriarty, sherlock`
+         * `name:like=moriarty,sherlock`
          * Concatenates the first_name and last_name fields.
          */
         "name:like"?: string[];
@@ -2431,7 +2431,7 @@ export interface operations {
          * * `formfields` - address form fields
          * `include=formfields`
          */
-        include?: "formfields";
+        include?: "formfields"[];
         /**
          * @description Filter items by ID.
          * `id:in=4,5,6`
@@ -2616,7 +2616,10 @@ export interface operations {
       /** @description Returns customer settings values for global level. */
       200: {
         content: {
-          "application/json": components["schemas"]["CustomerSettingsObject"];
+          "application/json": {
+            data?: components["schemas"]["CustomerSettingsObject"];
+            meta?: Record<string, never>;
+          };
         };
       };
     };
@@ -2635,7 +2638,10 @@ export interface operations {
       /** @description Customer settings are returned on a global level. */
       200: {
         content: {
-          "application/json": components["schemas"]["CustomerSettingsObject"];
+          "application/json": {
+            data?: components["schemas"]["CustomerSettingsObject"];
+            meta?: Record<string, never>;
+          };
         };
       };
     };
@@ -2658,7 +2664,10 @@ export interface operations {
       /** @description Customer settings for this channel are returned. */
       200: {
         content: {
-          "application/json": components["schemas"]["CustomerChannelSettingsObject"];
+          "application/json": {
+            data?: components["schemas"]["CustomerChannelSettingsObject"];
+            meta?: Record<string, never>;
+          };
         };
       };
     };
@@ -2690,7 +2699,10 @@ export interface operations {
       /** @description Customer settings are returned. */
       200: {
         content: {
-          "application/json": components["schemas"]["CustomerSettingsObject"];
+          "application/json": {
+            data?: components["schemas"]["CustomerSettingsObject"];
+            meta?: Record<string, never>;
+          };
         };
       };
     };
@@ -3244,7 +3256,7 @@ export interface operations {
    * Get All Customer Metafields
    * @description Get all customer metafields.
    */
-  getallCustomersMetafields: {
+  getAllCustomersMetafields: {
     parameters: {
       query?: {
         page?: components["parameters"]["PageParam"];
