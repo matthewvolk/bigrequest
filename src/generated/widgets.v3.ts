@@ -812,6 +812,8 @@ export interface components {
     FilterWidgetTemplateUUIDParam?: string;
     /** @description The kind of widget template. */
     FilterWidgetTemplateKindParam?: string;
+    /** @description The URL-encoded name of the widget. */
+    FilterWidgetNameParam?: string;
     /** @description The template file, for example: `pages/home`. */
     FilterTemplateFileParam?: string;
     /** @description The template file, for example: `templateFile=pages/home`. */
@@ -828,6 +830,8 @@ export interface components {
     PageParam?: number;
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
+    /** @description This is an optional query parameter used to fetch a specific widget template version. */
+    FilterVersionUUID?: string;
     /** @description The query string associated with a widget's name and description. */
     QueryWidgetsParam?: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
@@ -835,9 +839,11 @@ export interface components {
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
     /** @description A comma-separated list of channel ids to filter the results by. */
-    ChannelIDInParam?: string;
+    ChannelIdInParam?: number[];
     /** @description A comma-separated list of site IDs to filter the results by. */
-    SiteIDInParam?: string;
+    SiteIdInParam?: number[];
+    /** @description Use to pass in comma-separated list of widget names. Example: `/widgets?name:in=test-widget-name,header%20images` */
+    NameInParam?: string[];
   };
   requestBodies: never;
   headers: never;
@@ -857,14 +863,10 @@ export interface operations {
   getWidgetTemplates: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description The kind of widget template. */
-        widget_template_kind?: string;
-        /** @description Filter items by channel_id. */
-        "channel_id:in"?: number;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        widget_template_kind?: components["parameters"]["FilterWidgetTemplateKindParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -944,8 +946,7 @@ export interface operations {
   getWidgetTemplate: {
     parameters: {
       query?: {
-        /** @description This is an optional query parameter used to attempt to fetch a specific Widget Template version. */
-        version_uuid?: string;
+        version_uuid?: components["parameters"]["FilterVersionUUID"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1014,22 +1015,14 @@ export interface operations {
   getWidgets: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description The kind of widget template. */
-        widget_template_kind?: string;
-        /** @description The identifier for a specific widget template. */
-        widget_template_uuid?: string;
-        /** @description The URL encoded name of the widget. */
-        name?: string;
-        /** @description Use to pass in comma-separated list of widget names. Example: `/widgets?name:in=test-widget-name,header%20images` */
-        "name:in"?: unknown[];
-        /** @description Filter items by channel_id. */
-        "channel_id:in"?: number;
-        /** @description A comma-separated list of site ids to filter the results by. */
-        "site_id:in"?: string;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        widget_template_kind?: components["parameters"]["FilterWidgetTemplateKindParam"];
+        widget_template_uuid?: components["parameters"]["FilterWidgetTemplateUUIDParam"];
+        name?: components["parameters"]["FilterWidgetNameParam"];
+        "name:in"?: components["parameters"]["NameInParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
+        "site_id:in"?: components["parameters"]["SiteIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1136,20 +1129,14 @@ export interface operations {
   getPlacements: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description The kind of widget template. */
-        widget_template_kind?: string;
-        /** @description The template file, for example: `pages/home`. */
-        template_file?: string;
-        /** @description The identifier for a specific widget. */
-        widget_uuid?: string;
-        /** @description The identifier for a specific widget template. */
-        widget_template_uuid?: string;
-        "channel_id:in"?: components["parameters"]["ChannelIDInParam"];
-        "site_id:in"?: components["parameters"]["SiteIDInParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        widget_template_kind?: components["parameters"]["FilterWidgetTemplateKindParam"];
+        template_file?: components["parameters"]["FilterTemplateFileParam"];
+        widget_uuid?: components["parameters"]["FilterWidgetUUIDParam"];
+        widget_template_uuid?: components["parameters"]["FilterWidgetTemplateUUIDParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
+        "site_id:in"?: components["parameters"]["SiteIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1258,8 +1245,7 @@ export interface operations {
   getContentRegions: {
     parameters: {
       query: {
-        /** @description The template file, for example: `templateFile=pages/home`. */
-        template_file: string;
+        templateFile: components["parameters"]["RequiredTemplateFile"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

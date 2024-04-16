@@ -30,6 +30,14 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["createCart"];
+    parameters: {
+      query?: {
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
   };
   "/carts/{cartId}": {
     /**
@@ -42,6 +50,14 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCart"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        cartId: components["parameters"]["CartIdPath"];
+      };
+    };
   };
   "/carts/{cartId}/items": {
     /**
@@ -54,6 +70,18 @@ export interface paths {
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
      */
     post: operations["addCartLineItem"];
+    parameters: {
+      query?: {
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        cartId: components["parameters"]["CartIdPath"];
+      };
+    };
   };
   "/carts/{cartId}/items/{itemId}": {
     /**
@@ -80,6 +108,18 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     delete: operations["deleteCartLineItem"];
+    parameters: {
+      query?: {
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        cartId: components["parameters"]["CartIdPath"];
+        itemId: components["parameters"]["ItemIdPath"];
+      };
+    };
   };
   "/carts/{cartId}/currency": {
     /**
@@ -93,6 +133,15 @@ export interface paths {
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      */
     post: operations["updateCartCurrency"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        cartId: components["parameters"]["CartIdPath"];
+      };
+    };
   };
 }
 
@@ -596,8 +645,24 @@ export interface components {
     };
   };
   parameters: {
-    /** @description Include product options in specified line item types. */
-    include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
+    Accept: string;
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
+    ContentType: string;
+    /** @description This cartʼs unique ID. */
+    CartIdPath: string;
+    /** @description The ID of the subject item. */
+    ItemIdPath: string;
+    /**
+     * @description To return product options add one of the following include:
+     *
+     * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
+     *
+     * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
+     *
+     * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
+     */
+    Include?: ("lineItems.physicalItems.options" | "lineItems.digitalItems.options")[];
   };
   requestBodies: never;
   headers: never;
@@ -621,7 +686,10 @@ export interface operations {
   getCart: {
     parameters: {
       query?: {
-        include?: components["parameters"]["include"];
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
       };
     };
     responses: {
@@ -639,7 +707,11 @@ export interface operations {
   createCart: {
     parameters: {
       query?: {
-        include?: components["parameters"]["include"];
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
       };
     };
     requestBody: {
@@ -662,9 +734,11 @@ export interface operations {
    */
   deleteCart: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
       path: {
-        /** @description This cart's unique ID. */
-        cartId: string;
+        cartId: components["parameters"]["CartIdPath"];
       };
     };
     responses: {
@@ -686,20 +760,14 @@ export interface operations {
   addCartLineItem: {
     parameters: {
       query?: {
-        /**
-         * @description To return product options add one of the following include:
-         *
-         * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
-         *
-         * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
-         *
-         * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
-         */
-        include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        /** @description This cart's unique ID. */
-        cartId: string;
+        cartId: components["parameters"]["CartIdPath"];
       };
     };
     requestBody?: {
@@ -726,22 +794,15 @@ export interface operations {
   updateCartLineItem: {
     parameters: {
       query?: {
-        /**
-         * @description To return product options add one of the following include:
-         *
-         * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
-         *
-         * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
-         *
-         * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
-         */
-        include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        /** @description This cart's unique ID. */
-        cartId: string;
-        /** @description This item's ID. */
-        itemId: string;
+        cartId: components["parameters"]["CartIdPath"];
+        itemId: components["parameters"]["ItemIdPath"];
       };
     };
     requestBody: {
@@ -766,22 +827,14 @@ export interface operations {
   deleteCartLineItem: {
     parameters: {
       query?: {
-        /**
-         * @description To return product options add one of the following include:
-         *
-         * `lineItems.physicalItems.options`: The Cart returns an abbreviated result. Use this to return physical items product options. Can also be used in a /POST to have the extended Cart object return.
-         *
-         * `lineItems.digitalItems.options`:  The Cart returns an abbreviated result. Use this to return digital items product options.  Can also be used in a /POST to have the extended Cart object return.
-         *
-         * `lineItems.digitalItems.options,lineItems.physicalItems.options`:  The Cart returns an abbreviated result. Use this to return digital and physical options. Can also be used in a /POST to have the extended Cart object return.
-         */
-        include?: "lineItems.physicalItems.options" | "lineItems.digitalItems.options" | "lineItems.digitalItems.options,lineItems.physicalItems.options";
+        include?: components["parameters"]["Include"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description This cart's unique ID. */
-        cartId: string;
-        /** @description The ID of the item to delete. */
-        itemId: string;
+        cartId: components["parameters"]["CartIdPath"];
+        itemId: components["parameters"]["ItemIdPath"];
       };
     };
     responses: {
@@ -800,9 +853,12 @@ export interface operations {
    */
   updateCartCurrency: {
     parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
       path: {
-        /** @description This cart's unique ID. */
-        cartId: string;
+        cartId: components["parameters"]["CartIdPath"];
       };
     };
     requestBody?: {

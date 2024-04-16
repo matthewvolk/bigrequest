@@ -408,6 +408,14 @@ export interface components {
     ValueIdParam: number;
     /** @description The ID of the `Option`. */
     OptionIdParam: number;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageParam?: number;
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitParam?: number;
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParam?: string[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsParam?: string[];
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
@@ -431,14 +439,10 @@ export interface operations {
   getProductVariantOptions: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -929,10 +933,8 @@ export interface operations {
   getProductVariantOption: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1433,14 +1435,10 @@ export interface operations {
   getProductVariantOptionValues: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1448,8 +1446,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
       };
     };
     responses: {
@@ -1510,8 +1506,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
       };
     };
     requestBody: {
@@ -1600,10 +1594,8 @@ export interface operations {
   getProductVariantOptionValue: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1612,10 +1604,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
-        /** @description The ID of the `Modifier/Option Value`. */
-        value_id: number;
       };
     };
     responses: {
@@ -1684,10 +1672,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
-        /** @description The ID of the `Modifier/Option Value`. */
-        value_id: number;
       };
     };
     /** @description A BigCommerce `OptionValue` object. */
@@ -1791,10 +1775,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         option_id: components["parameters"]["OptionIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Option`. */
-        option_id: number;
-        /** @description The ID of the `Modifier/Option Value`. */
-        value_id: number;
       };
     };
     responses: {

@@ -5,6 +5,9 @@
  */
 
 
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface paths {
   "/content/pages": {
     /**
@@ -137,10 +140,10 @@ export interface components {
     };
     /**
      * PageResponseObject
-     * @description Response payload for the BigCommerce API.
+     * @description Response payload for a single content page.
      */
-    PageResponse: {
-      data?: Record<string, never>;
+    SinglePageResponse: {
+      data?: components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"];
       meta?: components["schemas"]["ResponseMeta"];
     };
     ContactFields: {
@@ -156,7 +159,7 @@ export interface components {
       rma?: string;
     };
     /** @description Properties of the page modification request body. */
-    PagePutBulk: {
+    PagePutObj: {
       /**
        * @description The name of the page. Must be unique.
        *
@@ -166,7 +169,6 @@ export interface components {
       /**
        * @description Boolean value that specifies the visibility of the page in the storefront’s navigation menu.
        *
-       *
        * Indicates whether the page is available to users and visible in any menus.
        */
       is_visible?: boolean;
@@ -185,16 +187,7 @@ export interface components {
        */
       sort_order?: number;
       /**
-       * @description Specifies the type of the page. The following values are possible;
-       *
-       * |Value|Description|
-       * |-|-|
-       * | `blog` | blog page. Read-only; blog pages can only be created in the store control panel. |
-       * |`contact_form`|hosts the store's contact form|
-       * |`link`|link to another absolute URL|
-       * |`page`|user-defined plain-text page|
-       * |`raw`|page that contains markup, such as HTML.|
-       * |`rss_feed`|contains syndicated content from an RSS feed|
+       * @description Specifies the type of page. See [Pages V3 page types](/docs/rest-content/pages#page-types) for more about the differences.
        * @example page
        * @enum {string}
        */
@@ -203,8 +196,6 @@ export interface components {
       is_homepage?: boolean;
       /** @description Boolean value. If this value is set to `true`, this page will not be visible when the user is logged in to the store control panel. */
       is_customers_only?: boolean;
-      /** @description The ID of the target page. */
-      id: number;
       /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. */
       email?: string;
       meta_title?: string | null;
@@ -214,7 +205,7 @@ export interface components {
        * @example <div>Hello World!</div>
        */
       body?: string | null;
-      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `rss_feed`. */
+      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `feed`. */
       feed?: string;
       /** @description Required in a `POST` request to create a link if the page type is `link`. */
       link?: string;
@@ -254,223 +245,20 @@ export interface components {
       url?: string;
       /**
        * @description The ID of the channel where this page should be shown.
-       *
-       * @default 0
-       * @example 12
-       */
-      channel_id?: number;
-    };
-    /** @description Properties of the page modification request body. */
-    PagePut: {
-      /**
-       * @description The name of the page. Must be unique.
-       *
-       * @example My Store Page
-       */
-      name?: string;
-      /** @description Boolean value that specifies the visibility of the page in the storefront’s navigation menu. */
-      is_visible?: boolean;
-      /**
-       * @description ID of any parent Web page.
-       *
-       * @default 0
-       * @example 0
-       */
-      parent_id?: number;
-      /**
-       * @description Specifies the order in which the page is displayed on the storefront. (Lower integers specify earlier display.)
-       *
-       * @default 0
-       * @example 0
-       */
-      sort_order?: number;
-      /**
-       * @description Specifies the type of the page.
-       *
-       * |Value|Description|
-       * |-|-|
-       * | `blog` | blog page. Read-only; blog pages can only be created in the store control panel. |
-       * |`contact_form`|hosts the store's contact form|
-       * |`link`|link to another absolute URL|
-       * |`page`|user-defined plain-text page|
-       * |`raw`|page that contains markup, such as HTML.|
-       * |`rss_feed`|contains syndicated content from an RSS feed|
-       * @example page
-       * @enum {string}
-       */
-      type?: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
-      /** @description Boolean value that specifies whether this page is the storefront’s home page. */
-      is_homepage?: boolean;
-      /** @description Boolean value. If this value is set to `true`, this page will not be visible when the user is logged in to the store control panel. */
-      is_customers_only?: boolean;
-      /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. */
-      email?: string;
-      meta_title?: string | null;
-      /**
-       * @description HTML or variable that populates the elment of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *
-       * @example <div>Hello World!</div>
-       */
-      body?: string | null;
-      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `rss_feed`. */
-      feed?: string;
-      /** @description Required in a `POST` request to create a link if the page type is `link`. */
-      link?: string;
-      /**
-       * @description Applicable when the page type is `contact_form`: comma-separated list of keywords representing the fields enabled in the control panel for storefront display. Possible fields include:
-       *
-       * |Field|Description|
-       * |-|-|
-       * |`fullname`|Full name of the customer submitting the form|
-       * |`phone`|Customer’s phone number, as submitted on the form|
-       * |`companyname`|Customer’s submitted company name|
-       * |`orderno`|Customer’s submitted order number|
-       * |`rma`|Customer’s submitted RMA (Return Merchandise Authorization) number|
-       *
-       * @example fullname,companyname,phone,orderno,rma
-       */
-      contact_fields?: string;
-      /**
-       * @description Comma-separated list of SEO-relevant keywords to include in the element of this page.
-       *
-       * @default
-       */
-      meta_keywords?: string | null;
-      /** @description Description contained within the element of this page. */
-      meta_description?: string | null;
-      /**
-       * @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store.
-       *
-       * @example trousers,pockets,luxury
-       */
-      search_keywords?: string | null;
-      /**
-       * @description Relative URL on the storefront for this page.
-       *
-       * @example /my-store-page
-       */
-      url?: string;
-      /**
-       * @description The ID of the channel where this page should be shown.
-       *
-       * @default 0
-       * @example 12
-       */
-      channel_id?: number;
-    };
-    Page: ({
-      /**
-       * @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique.
-       * @default
-       */
-      email?: string;
-      meta_title?: string | null;
-      /**
-       * @description HTML or variable that populates this page’s element, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *
-       * @example <div>Hello World!</div>
-       */
-      body?: string | null;
-      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `rss_feed`. */
-      feed?: string;
-      /** @description Required in a `POST` request to create a link if the page type is `link`. */
-      link?: string;
-      /**
-       * @description Applicable when the page type is `contact_form`: comma-separated list of keywords representing the fields enabled in the control panel for storefront display. Possible fields include:
-       *
-       * |Field|Description|
-       * |-|-|
-       * |`fullname`|Full name of the customer submitting the form|
-       * |`phone`|Customer’s phone number, as submitted on the form|
-       * |`companyname`|Customer’s submitted company name|
-       * |`orderno`|Customer’s submitted order number|
-       * |`rma`|Customer’s submitted RMA (Return Merchandise Authorization) number|
-       *
-       * @default
-       * @example fullname,orderno,rma
-       */
-      contact_fields?: string;
-      /**
-       * @description Comma-separated list of SEO-relevant keywords to include in the page’s element.
-       *
-       * @default
-       */
-      meta_keywords?: string | null;
-      /** @description Description contained within this page’s element. */
-      meta_description?: string | null;
-      /**
-       * @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store.
-       *
-       * @example trousers,pockets,luxury
-       */
-      search_keywords?: string | null;
-      /**
-       * @description Relative URL on the storefront for this page.
-       *
-       * @example /my-store-page
-       */
-      url?: string;
-      /**
-       * @description The Id of the channel where this page should be shown.
        *
        * @default 1
        * @example 12
        */
       channel_id?: number;
-    }) & components["schemas"]["PageBase"];
-    /** @description Common Page properties. */
-    PageBase: {
-      /**
-       * @description The name of the page. Must be unique.
-       *
-       * @example My Store Page
-       */
-      name: string;
-      /**
-       * @description Determines the visibility of the page in the storefront’s navigation menu.
-       *
-       * Boolean value that specifies the visibility of the page in the storefront’s navigation menu.
-       *
-       * Indicates whether the page is available to users and visible in any menus.
-       */
-      is_visible?: boolean;
-      /**
-       * @description ID of any parent Web page.
-       *
-       * @default 0
-       * @example 0
-       */
-      parent_id?: number;
-      /**
-       * @description Determines the order in which the page is displayed on the storefront. (Lower integers specify earlier display.)
-       *
-       * @default 0
-       * @example 0
-       */
-      sort_order?: number;
-      /**
-       * @description Determines the type of the page.
-       *
-       * |Value|Description|
-       * |-|-|
-       * | `blog` | blog page. Read-only; blog pages can only be created in the store control panel. |
-       * |`contact_form`|hosts the store's contact form|
-       * |`link`|link to another absolute URL|
-       * |`page`|user-defined plain-text page|
-       * |`raw`|page that contains markup, such as HTML.|
-       * |`rss_feed`|contains syndicated content from an RSS feed|
-       * @example page
-       * @enum {string}
-       */
-      type: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
-      /** @description Determines whether this page is the storefront’s home page. */
-      is_homepage?: boolean;
-      /** @description If `true`, this page will only be visible to customers that are logged in to the store. */
-      is_customers_only?: boolean;
     };
+    PagePutBulk: WithRequired<{
+      /** @description The ID of the target page. */
+      id?: number;
+    } & components["schemas"]["PagePutObj"], "id">;
     /** @description Properties of all Pages V3 pages. */
     anyTypePage: {
       id?: number;
+      /** @default 1 */
       channel_id?: number;
       /**
        * @description The name of the page. Must be unique.
@@ -495,7 +283,7 @@ export interface components {
        */
       sort_order?: number;
       /**
-       * @description Determines the type of page. See [Pages v3 page types](/docs/rest-content/pages#page-types) for more about the differences.
+       * @description Determines the type of page. See [Pages V3 page types](/docs/rest-content/pages#page-types) for more about the differences.
        * @example page
        * @enum {string}
        */
@@ -517,8 +305,9 @@ export interface components {
        */
       url?: string;
     };
-    /** @description Schema for a Pages V3 page with `type: page` */
+    /** @description `type: page`. A user-defined plain-text page. */
     typePage: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"];
+    /** @description A page that contains blog posts. Use caution; `blog`-type pages can only be created in the store control panel, but you may be able to change the type of a blog page to something else with this API. Use the [blog feature of the REST Content API](/docs/rest-content/store-content/blog-posts#create-a-blog-post) to work with blog posts and tags. */
     typeBlog: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & {
       /**
        * @description Relative URL on the storefront for this page.
@@ -527,8 +316,9 @@ export interface components {
        */
       url?: string;
     };
+    /** @description `type: contact_form`. A user-customizable page that contains a contact form. Body content returns HTML. */
     typeContactForm: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & ({
-      /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. */
+      /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent using the form. Must be unique. */
       email?: string;
       /**
        * @description A comma-separated list of the contact field forms that are enabled in the store control panel for display on the subject storefront. Possible fields include:
@@ -545,10 +335,12 @@ export interface components {
        */
       contact_fields?: string;
     });
+    /** @description `type: feed`.  Makes RSS-syndicated content feeds available in the menu of other pages that contain markup. No page body. */
     typeFeed: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & {
-      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `rss_feed`. */
+      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `feed`. */
       feed: string;
     };
+    /** @description `type: raw`. A user-defined page with a body that contains HTML markup or other stringified code. */
     typeRaw: components["schemas"]["anyTypePage"] & components["schemas"]["searchKeywords"] & ({
       /**
        * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
@@ -562,6 +354,7 @@ export interface components {
        */
       content_type?: string;
     });
+    /** @description `type: link`. A link to an external absolute URL. Displays in the menu of other pages that contain markup. Does not contain a body. */
     typeLink: components["schemas"]["anyTypePage"] & {
       /** @description The link for the page type `link`. */
       link: string;
@@ -638,7 +431,7 @@ export interface components {
     /**
      * @description Created.
      *
-     * Response.data will inherit the datatype of the request. A single entry passed as an object will return an object for the data property. Any number of entries passed in an array will return an array for the data property.
+     * Response.data will inherit the data type of the request. A single entry passed as an object will return an object for the data property. Any number of entries passed in an array will return an array for the data property.
      *
      * Properties associated with a page `type` that are not required to create an entry will be created with default values.
      *
@@ -680,13 +473,13 @@ export interface components {
     /** @description The ID of the page to be operated on. */
     pageIdPath: string;
     /** @description Include the requested property in the response. The `body` property returns the page’s markup, text, or raw content. */
-    includeQuery?: "body";
+    includeQuery?: "body"[];
     /** @description Return only pages associated with the specified channel. */
     channelIdQuery?: number;
     /** @description A comma-separated string of page IDs to fetch. Supports bulk operations. If none of the page IDs passed exist, the query will return an empty `data` array. */
-    idInQueryGet?: string;
+    idInQueryGet?: number[];
     /** @description Request deletion of multiple pages by passing a comma-separated string of corresponding page IDs. Supports bulk operations. */
-    idInQueryDelete: string;
+    idInQueryDelete: number[];
     /** @description Name of the page. */
     nameQuery?: string;
     /** @description Return only pages whose `name` or `body` contain the supplied string. */
@@ -809,7 +602,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["Page"];
+        "application/json": (components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"]) | ((components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"])[]);
       };
     };
     responses: {
@@ -883,7 +676,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["PageResponse"];
+          "application/json": components["schemas"]["SinglePageResponse"];
         };
       };
       /** @description Not Found. */
@@ -919,14 +712,13 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["PagePut"];
+        "application/json": components["schemas"]["PagePutObj"];
       };
     };
     responses: {
-      /** @description */
       200: {
         content: {
-          "application/json": components["schemas"]["PageResponse"];
+          "application/json": components["schemas"]["SinglePageResponse"];
         };
       };
       /** @description Bad Request; reasons for failure include invalid query parameters. See the response for more details. */
