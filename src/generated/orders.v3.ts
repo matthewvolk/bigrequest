@@ -202,7 +202,7 @@ export interface paths {
      * Update a Metafield
      * @description Updates a `Metafield` object.
      *
-     * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
+     * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
      */
     put: operations["updateOrderMetafield"];
     /**
@@ -713,7 +713,7 @@ export interface components {
        */
       event: "purchase" | "authorization" | "capture" | "refund" | "void" | "pending" | "settled";
       /**
-       * @description The payment method: `credit_card` - a credit-card transaction; `electronic_wallet` - an online wallet; `store_credit` - a transaction using store credit; `gift_certificate` - a transaction using a gift certificate; `custom` - manual payment methods; `token` - payment token; `nonce` - temporary payment token; `offsite` - online payment off the site (e.g., PayPal); `offline` - payment method that takes place offline.
+       * @description The payment method: `credit_card` - a credit card transaction; `electronic_wallet` - an online wallet; `store_credit` - a transaction using store credit; `gift_certificate` - a transaction using a gift certificate; `custom` - manual payment methods; `token` - payment token; `nonce` - temporary payment token; `offsite` - online payment off the site (e.g., PayPal); `offline` - payment method that takes place offline.
        *
        * @enum {string}
        */
@@ -776,7 +776,7 @@ export interface components {
        */
       event: "purchase" | "authorization" | "capture" | "refund" | "void" | "pending" | "settled";
       /**
-       * @description The payment method: `credit_card` - a credit-card transaction; `electronic_wallet` - an online wallet; `store_credit` - a transaction using store credit; `gift_certificate` - a transaction using a gift certificate; `custom` - manual payment methods; `token` - payment token; `nonce` - temporary payment token; `offsite` - online payment off the site; `offline` - payment method that takes place offline.
+       * @description The payment method: `credit_card` - a credit card transaction; `electronic_wallet` - an online wallet; `store_credit` - a transaction using store credit; `gift_certificate` - a transaction using a gift certificate; `custom` - manual payment methods; `token` - payment token; `nonce` - temporary payment token; `offsite` - online payment off the site; `offline` - payment method that takes place offline.
        *
        * @enum {string}
        */
@@ -923,7 +923,7 @@ export interface components {
     });
     /**
      * Credit Card
-     * @description A credit-card model.
+     * @description A credit card model.
      */
     CreditCard: {
       /**
@@ -931,13 +931,13 @@ export interface components {
        * @enum {string}
        */
       card_type?: "alelo" | "alia" | "american_express" | "cabal" | "carnet" | "dankort" | "diners_club" | "discover" | "elo" | "forbrugsforeningen" | "jcb" | "maestro" | "master" | "naranja" | "sodexo" | "unionpay" | "visa" | "vr";
-      /** @description The IIN of a credit-card number. */
+      /** @description The IIN of a credit card number. */
       card_iin?: string;
-      /** @description The last 4 digits of a credit-card number. */
+      /** @description The last 4 digits of a credit card number. */
       card_last4?: string;
-      /** @description The expiry month of a credit-card. */
+      /** @description The expiry month of a credit card. */
       card_expiry_month?: number;
-      /** @description The expiry year of a credit-card. */
+      /** @description The expiry year of a credit card. */
       card_expiry_year?: number;
     };
     /** @description A store credit model. */
@@ -2117,11 +2117,11 @@ export interface components {
     MetafieldIdParam: number;
     /** @description Filter based on a metafieldʼs key. */
     MetafieldKeyParam?: string;
-    /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
+    /** @description Filter using a comma-separated list of metafield keys. Could be used with vanilla `key` query parameter. */
     MetafieldKeyInParam?: string[];
     /** @description Filter based on a metafieldʼs key. */
     MetafieldNamespaceParam?: string;
-    /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
+    /** @description Filter using a comma-separated list of metafield namespaces. Can be used with vanilla `namespace` query parameter. */
     MetafieldNamespaceInParam?: string[];
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
@@ -2379,9 +2379,9 @@ export interface operations {
   getOrdersRefunds: {
     parameters: {
       query?: {
-        /** @description Filter by `order_id`. Accepts multiple as comma-separated values. */
+        /** @description Pass a comma-separated list of order IDs to filter the included orders. Accepts multiple values. */
         "order_id:in"?: number[];
-        /** @description Filter by refund `id`. Accepts multiple as comma-separated values. */
+        /** @description Pass a comma-separated list of refund IDs to filter the included refunds. Accepts multiple values. */
         "id:in"?: number[];
         /**
          * @description Filter results so they are later than or equal to provided date.
@@ -2525,7 +2525,7 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The `Metafield` conflicts with another `Metafield`. This can result from duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
+      /** @description The metafield conflicts with another metafield. This can result from duplicate unique key combinations of the appʼs client ID, namespace, key, resource type, and resource ID. */
       409: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];
@@ -2573,7 +2573,7 @@ export interface operations {
    * Update a Metafield
    * @description Updates a `Metafield` object.
    *
-   * The maxiumum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
+   * The maximum number of metafields allowed on each order, product, category, variant, or brand is 250 per client ID.
    */
   updateOrderMetafield: {
     parameters: {

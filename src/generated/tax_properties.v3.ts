@@ -164,12 +164,12 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
-    /** @description ID of product. To target multiple products, provide a comma-separated list of IDs such as `12,34,56` */
-    product_idin: string;
-    /** @description ID of tax property. To target multiple tax properties, provide a comma-separated list of IDs such as `12,34,56` */
-    idin?: string;
-    /** @description ID of tax property. To target multiple tax properties, provide a comma-separated list of IDs such as `12,34,56` */
-    idin_required: string;
+    /** @description ID of product. To target multiple products, provide a comma-separated list of IDs such as `12,34,56`. */
+    product_idin: number[];
+    /** @description ID of tax property. To target multiple tax properties, provide a comma-separated list of IDs such as `12,34,56`. */
+    idin?: number[];
+    /** @description ID of tax property. To target multiple tax properties, provide a comma-separated list of IDs such as `12,34,56`. */
+    idin_required: number[];
   };
   requestBodies: never;
   headers: never;

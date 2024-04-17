@@ -223,9 +223,9 @@ export interface operations {
   getCountries: {
     parameters: {
       query?: {
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
         country?: string;
         country_iso2?: string;
@@ -271,9 +271,9 @@ export interface operations {
         state?: string;
         /** @description Abbreviation for the state/province. */
         state_abbreviation?: string;
-        /** @description Number of pages */
+        /** @description Number of pages. */
         page?: number;
-        /** @description Count per page */
+        /** @description Count per page. */
         limit?: number;
       };
       header: {

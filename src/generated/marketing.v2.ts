@@ -740,17 +740,8 @@ export interface operations {
         code?: string;
         /** @description Optional filter param `/api/v2/coupons?name={value}` */
         name?: string;
-        /**
-         * @description |Type|
-         * |-|
-         * |`per_item_discount`|
-         * |`percentage_discount`|
-         * |`per_total_discount`|
-         * |`shipping_discount`|
-         * |`free_shipping`|
-         * |`promotion`|
-         */
-        type?: string;
+        /** @description The type of discount. */
+        type?: "per_item_discount" | "percentage_discount" | "per_total_discount" | "shipping_discount" | "free_shipping" | "promotion";
         /** @description Optional filter param `/api/v2/coupons?min_id={value}` */
         min_id?: number;
         /** @description Optional filter param`/api/v2/coupons?max_id={value}` */
@@ -759,17 +750,8 @@ export interface operations {
         page?: number;
         /** @description Count per page `/api/v2/coupons?limit={count}` */
         limit?: number;
-        /**
-         * @description |Type|
-         * |-|
-         * |`per_item_discount`|
-         * |`percentage_discount`|
-         * |`per_total_discount`|
-         * |`shipping_discount`|
-         * |`free_shipping`|
-         * |`promotion`|
-         */
-        exclude_type?: string;
+        /** @description Exclude a type of coupon. */
+        exclude_type?: "per_item_discount" | "percentage_discount" | "per_total_discount" | "shipping_discount" | "free_shipping" | "promotion";
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -838,8 +820,8 @@ export interface operations {
   deleteCoupons: {
     parameters: {
       query?: {
-        /** @description Optional param to identify a comma separated list of ids for coupons to delete in a batch. `/api/v2/coupons?id:in=1,2,3` */
-        "id:in"?: string;
+        /** @description Optional param to identify a comma-separated list of IDs for coupons to delete in a batch. `/api/v2/coupons?id:in=1,2,3` */
+        "id:in"?: number[];
       };
       header: {
         Accept: components["parameters"]["Accept"];

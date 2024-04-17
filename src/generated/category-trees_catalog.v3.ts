@@ -31,7 +31,7 @@ export interface paths {
      */
     post: operations["createCategories"];
     /**
-     * Delete Categories
+     * Delete categories
      * @description Deletes categories.
      *
      * To delete a specific category in a tree, provide a category ID.
@@ -45,23 +45,23 @@ export interface paths {
   };
   "/catalog/trees": {
     /**
-     * Get All Category Trees
-     * @description Returns a list of *Category Trees*.
+     * Get all category trees
+     * @description Returns a list of category trees.
      */
     get: operations["getCategoryTrees"];
     /**
-     * Upsert Category Trees
-     * @description Upserts *Category Trees*.
+     * Upsert category trees
+     * @description Upserts category trees.
      *
      * This single endpoint updates and creates category trees. If a tree object contains an ID, it is processed as an update operation using that ID. If you do not provide an ID, a new tree is created. The category tree `name` field is required to create trees, but is not required on the update.
      *
      * **Usage Notes**
-     * * `channel_id` is required to create a *Category Tree*. You can assign one `channel_id` to one category tree.
+     * * `channel_id` is required to create a category tree. You can assign one `channel_id` to one category tree.
      */
     put: operations["upsertCategoryTrees"];
     /**
-     * Delete Category Trees
-     * @description Deletes *Category Trees*. A filter must be supplied with the endpoint.
+     * Delete category trees
+     * @description Deletes category trees. A filter must be supplied with the endpoint.
      */
     delete: operations["deleteCategoryTrees"];
     parameters: {
@@ -72,8 +72,8 @@ export interface paths {
   };
   "/catalog/trees/{tree_id}/categories": {
     /**
-     * Get a Category Tree
-     * @description Returns a *Category Tree*.
+     * Get a category tree
+     * @description Returns a category tree.
      */
     get: operations["getCategoryTree"];
     parameters: {
@@ -81,8 +81,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description The ID of the Category Tree. */
-        tree_id: string;
+        tree_id: components["parameters"]["TreeIdParam"];
       };
     };
   };
@@ -362,7 +361,7 @@ export interface components {
     parent_id: number;
     /**
      * Tree ID
-     * @description The ID of the Category Tree.
+     * @description The ID of the category tree.
      * @example 1
      */
     tree_id: number;
@@ -380,6 +379,46 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageParam?: number;
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitParam?: number;
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParam?: string[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsParam?: string[];
+    /** @description Filter items by keywords found in the `name`, `description`, or `sku` fields, or in the brand name. */
+    KeywordParam?: string;
+    /** @description Filter items based on whether the product is currently visible on the storefront. */
+    IsVisibleParam?: boolean;
+    /** @description Filter items by name. */
+    NameParam?: string;
+    /** @description Filter items by substring in the name property. `name:like=stick` returns both `Stickers` and `Lipstick colors`. */
+    NameLikeParam?: string;
+    /** @description Filter items by substring in the page title property. `page_title:like=oil` returns both `Soil and mulch` and `Oil pastels`. */
+    PageTitleLikeParam?: string;
+    /** @description Filter items by page_title. */
+    PageTitleParam?: string;
+    /** @description The ID of the category tree. */
+    TreeIdParam: number;
+    /** @description Filter by supplying a comma-separated list of category tree IDs. */
+    IdInParam?: number[];
+    /** @description Filter by supplying a comma-separated list of channel IDs. */
+    ChannelIdInParam?: number[];
+    /** @description Filter using a comma-separated list of one or more category UUIDs. To use category IDs, use the `category_id:in` parameter. */
+    CategoryUuidInParam?: string[];
+    /** @description Filter using a comma-separated list of one or more category IDs. To use category UUIDs, use the `category_uuid:in` parameter. */
+    CategoryIdInParam?: number[];
+    /** @description Filter using a comma-separated list of one or more category tree IDs. */
+    TreeIdInParam?: number[];
+    ParentIdInParam?: number[];
+    /** @description Filter using a comma-separated list to exclude one or more category UUIDs. To exclude using category IDs, use the `category_id:not_in` parameter. */
+    CategoryUuidNotInParam?: string[];
+    /** @description Filter using a comma-separated list to exclude one or more category IDs. To exclude using category UUIDs, use the `category_uuid:not_in` parameter. */
+    CategoryIdNotInParam?: number[];
+    /** @description Filter using a comma-separated list to exclude one or more category tree IDs. */
+    TreeIdNotInParam?: number[];
+    ParentIdNotInParam?: number[];
   };
   requestBodies: never;
   headers: never;
@@ -401,24 +440,24 @@ export interface operations {
   getAllCategories: {
     parameters: {
       query?: {
-        "category_uuid:in"?: string;
-        "category_uuid:not_in"?: string;
-        "category_id:in"?: string;
-        "category_id:not_in"?: string;
-        "tree_id:in"?: string;
-        "tree_id:not_in"?: string;
-        "parent_id:in"?: string;
-        "parent_id:not_in"?: string;
-        name?: string;
-        "name:like"?: string;
-        page_title?: string;
-        "page_title:like"?: string;
-        keyword?: string;
-        is_visible?: boolean;
-        page?: number;
-        limit?: number;
-        include_fields?: string;
-        exclude_fields?: string;
+        "category_uuid:in"?: components["parameters"]["CategoryUuidInParam"];
+        "category_id:in"?: components["parameters"]["CategoryIdInParam"];
+        "tree_id:in"?: components["parameters"]["TreeIdInParam"];
+        "parent_id:in"?: components["parameters"]["ParentIdInParam"];
+        "category_uuid:not_in"?: components["parameters"]["CategoryUuidNotInParam"];
+        "category_id:not_in"?: components["parameters"]["CategoryIdNotInParam"];
+        "tree_id:not_in"?: components["parameters"]["TreeIdNotInParam"];
+        "parent_id:not_in"?: components["parameters"]["ParentIdNotInParam"];
+        page_title?: components["parameters"]["PageTitleParam"];
+        "page_title:like"?: components["parameters"]["PageTitleLikeParam"];
+        name?: components["parameters"]["NameParam"];
+        "name:like"?: components["parameters"]["NameLikeParam"];
+        keyword?: components["parameters"]["KeywordParam"];
+        is_visible?: components["parameters"]["IsVisibleParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -550,7 +589,7 @@ export interface operations {
     };
   };
   /**
-   * Delete Categories
+   * Delete categories
    * @description Deletes categories.
    *
    * To delete a specific category in a tree, provide a category ID.
@@ -558,10 +597,10 @@ export interface operations {
   deleteTreeCategories: {
     parameters: {
       query?: {
-        "category_uuid:in"?: string;
-        "category_id:in"?: string;
-        "tree_id:in"?: string;
-        "parent_id:in"?: string;
+        "category_uuid:in"?: components["parameters"]["CategoryUuidInParam"];
+        "category_id:in"?: components["parameters"]["CategoryIdInParam"];
+        "tree_id:in"?: components["parameters"]["TreeIdInParam"];
+        "parent_id:in"?: components["parameters"]["ParentIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -589,14 +628,14 @@ export interface operations {
     };
   };
   /**
-   * Get All Category Trees
-   * @description Returns a list of *Category Trees*.
+   * Get all category trees
+   * @description Returns a list of category trees.
    */
   getCategoryTrees: {
     parameters: {
       query?: {
-        "id:in"?: string;
-        "channel_id:in"?: string;
+        "id:in"?: components["parameters"]["IdInParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -612,13 +651,13 @@ export interface operations {
     };
   };
   /**
-   * Upsert Category Trees
-   * @description Upserts *Category Trees*.
+   * Upsert category trees
+   * @description Upserts category trees.
    *
    * This single endpoint updates and creates category trees. If a tree object contains an ID, it is processed as an update operation using that ID. If you do not provide an ID, a new tree is created. The category tree `name` field is required to create trees, but is not required on the update.
    *
    * **Usage Notes**
-   * * `channel_id` is required to create a *Category Tree*. You can assign one `channel_id` to one category tree.
+   * * `channel_id` is required to create a category tree. You can assign one `channel_id` to one category tree.
    */
   upsertCategoryTrees: {
     parameters: {
@@ -648,13 +687,13 @@ export interface operations {
     };
   };
   /**
-   * Delete Category Trees
-   * @description Deletes *Category Trees*. A filter must be supplied with the endpoint.
+   * Delete category trees
+   * @description Deletes category trees. A filter must be supplied with the endpoint.
    */
   deleteCategoryTrees: {
     parameters: {
       query?: {
-        "id:in"?: string;
+        "id:in"?: components["parameters"]["IdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -668,8 +707,8 @@ export interface operations {
     };
   };
   /**
-   * Get a Category Tree
-   * @description Returns a *Category Tree*.
+   * Get a category tree
+   * @description Returns a category tree.
    */
   getCategoryTree: {
     parameters: {
@@ -681,8 +720,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description The ID of the Category Tree. */
-        tree_id: string;
+        tree_id: components["parameters"]["TreeIdParam"];
       };
     };
     responses: {

@@ -171,7 +171,7 @@ export interface components {
     ContentType: string;
     /** @description Channel ID to use for channel-level data. */
     ChannelIdOptional?: number;
-    /** @description Channel ID to use for channel-specific setting. */
+    /** @description Channel ID to use for channel-specific settings. */
     ChannelIdRequired: number;
   };
   requestBodies: never;

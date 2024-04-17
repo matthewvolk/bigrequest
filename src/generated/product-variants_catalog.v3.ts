@@ -8,13 +8,13 @@
 export interface paths {
   "/catalog/products/{product_id}/variants": {
     /**
-     * Get All Product Variants
-     * @description Returns a list of product *Variants*. Optional parameters can be passed in.
+     * Get all product variants
+     * @description Returns a list of product variants. Optional parameters can be passed in.
      */
     get: operations["getProductVariants"];
     /**
-     * Create a Product Variant
-     * @description Creates a *Product Variant*.
+     * Create a product variant
+     * @description Creates a product variant.
      *
      * **Required Fields**
      * * sku
@@ -35,24 +35,24 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
       };
     };
   };
   "/catalog/products/{product_id}/variants/{variant_id}": {
     /**
-     * Get a Product Variant
-     * @description Returns a single product *Variant*. Optional parameters can be passed in.
+     * Get a product variant
+     * @description Returns a single product variant. Optional parameters can be passed in.
      */
     get: operations["getProductVariant"];
     /**
-     * Update a Product Variant
-     * @description Updates a product *Variant*.
+     * Update a product variant
+     * @description Updates a product variant.
      */
     put: operations["updateProductVariant"];
     /**
-     * Delete a Product Variant
-     * @description Deletes a product *Variant*.
+     * Delete a product variant
+     * @description Deletes a product variant.
      */
     delete: operations["deleteProductVariant"];
     parameters: {
@@ -60,7 +60,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
       };
     };
@@ -92,7 +92,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
       };
     };
@@ -131,7 +131,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
       };
@@ -156,14 +156,14 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
       };
     };
   };
   "/catalog/variants": {
     /**
-     * Get All Variants
+     * Get all variants
      * @description Returns a list of all variants in your catalog. Optional parameters can be passed in.
      */
     get: operations["getVariants"];
@@ -207,10 +207,15 @@ export interface paths {
      */
     post: operations["createVariantsMetafields"];
     /**
-     * Delete All Metafields
+     * Delete all metafields
      * @description Delete all variant metafields.
      */
     delete: operations["deleteVariantsMetafields"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
   };
 }
 
@@ -1006,7 +1011,7 @@ export interface components {
   responses: never;
   parameters: {
     /** @description The ID of the `Product` to which the resource belongs. Product variant metafield endpoints that have the `product_id` in the request path are successful as long as the parameter is not empty. The `product_id` segment is there only for path consistency. */
-    ProductIdParam: number;
+    ProductIdPathParam: number;
     /** @description ID of the variant on a product, or on an associated Price List Record. */
     VariantIdParam: number;
     /** @description The ID of the `Metafield`. */
@@ -1029,6 +1034,16 @@ export interface components {
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParam?: string[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsParam?: string[];
+    /** @description A comma-separated list of IDs of products you want to request. For example, `?product_id:in=77,80,81`. */
+    ProductIdInParam?: number[];
+    /** @description Filter items by UPC. */
+    UpcParam?: string;
+    /** @description Filter items by variant SKU. To filter by product / base variant SKU, see [Get all products](/docs/rest-catalog/products#get-all-products). */
+    SkuParam?: string;
   };
   requestBodies: never;
   headers: never;
@@ -1042,26 +1057,22 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Product Variants
-   * @description Returns a list of product *Variants*. Optional parameters can be passed in.
+   * Get all product variants
+   * @description Returns a list of product variants. Optional parameters can be passed in.
    */
   getProductVariants: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
       };
     };
     responses: {
@@ -1089,8 +1100,8 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Variant
-   * @description Creates a *Product Variant*.
+   * Create a product variant
+   * @description Creates a product variant.
    *
    * **Required Fields**
    * * sku
@@ -1112,7 +1123,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
       };
     };
     requestBody: {
@@ -1155,22 +1166,20 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Variant
-   * @description Returns a single product *Variant*. Optional parameters can be passed in.
+   * Get a product variant
+   * @description Returns a single product variant. Optional parameters can be passed in.
    */
   getProductVariant: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
       };
     };
@@ -1199,8 +1208,8 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Variant
-   * @description Updates a product *Variant*.
+   * Update a product variant
+   * @description Updates a product variant.
    */
   updateProductVariant: {
     parameters: {
@@ -1209,7 +1218,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
       };
     };
@@ -1253,8 +1262,8 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Variant
-   * @description Deletes a product *Variant*.
+   * Delete a product variant
+   * @description Deletes a product variant.
    */
   deleteProductVariant: {
     parameters: {
@@ -1262,7 +1271,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
       };
     };
@@ -1280,27 +1289,19 @@ export interface operations {
   getProductVariantMetafields: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Filter based on a metafieldʼs key. */
-        key?: string;
-        /** @description Filter based on a metafieldʼs namespace. */
-        namespace?: string;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     responses: {
@@ -1349,10 +1350,8 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     requestBody: {
@@ -1412,16 +1411,14 @@ export interface operations {
   getProductVariantMetafield: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
       };
@@ -1474,7 +1471,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
       };
@@ -1518,7 +1515,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
         metafield_id: components["parameters"]["MetafieldIdParam"];
       };
@@ -1549,10 +1546,8 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        product_id: components["parameters"]["ProductIdParam"];
+        product_id: components["parameters"]["ProductIdPathParam"];
         variant_id: components["parameters"]["VariantIdParam"];
-        /** @description ID of the variant on a product, or on an associated Price List Record. */
-        variant_id: number;
       };
     };
     requestBody?: {
@@ -1640,28 +1635,21 @@ export interface operations {
     };
   };
   /**
-   * Get All Variants
+   * Get all variants
    * @description Returns a list of all variants in your catalog. Optional parameters can be passed in.
    */
   getVariants: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
+        /** @description Filter items by variant ID. */
         id?: number;
-        /** @description Filter items by SKU. */
-        sku?: string;
-        /** @description Filter items by UPC. */
-        upc?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description A comma-separated list of IDs of products whose variants were requested. For example:`?product_id:in=77,80,81` */
-        product_id?: string;
+        sku?: components["parameters"]["SkuParam"];
+        upc?: components["parameters"]["UpcParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        "product_id:in"?: components["parameters"]["ProductIdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2107,6 +2095,9 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
       };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
     };
     responses: {
       /** @description List of `Metafield` objects. */
@@ -2126,6 +2117,12 @@ export interface operations {
    * @description Create multiple metafields.
    */
   updateVariantsMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": (components["schemas"]["MetafieldBase_Put"] & {
@@ -2162,6 +2159,12 @@ export interface operations {
    * @description Create multiple metafields.
    */
   createVariantsMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
     requestBody?: {
       content: {
         "application/json": (components["schemas"]["MetafieldBase_Post"] & {
@@ -2194,10 +2197,15 @@ export interface operations {
     };
   };
   /**
-   * Delete All Metafields
+   * Delete all metafields
    * @description Delete all variant metafields.
    */
   deleteVariantsMetafields: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
     /** @description List of metafield IDs. */
     requestBody?: {
       content: {

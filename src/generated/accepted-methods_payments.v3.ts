@@ -113,6 +113,10 @@ export interface components {
   parameters: {
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
+    /** @description The ID of the subject order. */
+    OrderIdQuery?: number;
+    /** @description The ID of the subject checkout; identical to the cart ID. */
+    CheckoutIdQuery?: string;
   };
   requestBodies: never;
   headers: never;
@@ -140,10 +144,8 @@ export interface operations {
   getPaymentMethods: {
     parameters: {
       query?: {
-        /** @description Identifier for the order */
-        order_id?: number;
-        /** @description Identifier for the checkout (same as the cart ID) */
-        checkout_id?: string;
+        order_id?: components["parameters"]["OrderIdQuery"];
+        checkout_id?: components["parameters"]["CheckoutIdQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
