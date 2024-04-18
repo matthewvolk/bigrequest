@@ -8,13 +8,13 @@
 export interface paths {
   "/catalog/products/{product_id}/modifiers": {
     /**
-     * Get All Product Modifiers
-     * @description Returns a list of all *Product Modifiers*. Optional parameters can be passed in.
+     * Get all product modifiers
+     * @description Returns a list of all product modifiers. Optional parameters can be passed in.
      */
     get: operations["getProductModifiers"];
     /**
-     * Create a Product Modifier
-     * @description Creates a *Product Modifier*.
+     * Create a product modifier
+     * @description Creates a product modifier.
      *
      * **Required Fields**
      * * `required`
@@ -39,18 +39,18 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}": {
     /**
-     * Get a Product Modifier
-     * @description Returns a single *Product Modifier*. Optional parameters can be passed in.
+     * Get a product modifier
+     * @description Returns a single product modifier. Optional parameters can be passed in.
      */
     get: operations["getProductModifier"];
     /**
-     * Update a Product Modifier
-     * @description Updates a *Product Modifier*.
+     * Update a product modifier
+     * @description Updates a product modifier.
      */
     put: operations["updateProductModifier"];
     /**
-     * Delete a Product Modifier
-     * @description Deletes a *Product Modifier*.
+     * Delete a product modifier
+     * @description Deletes a product modifier.
      */
     delete: operations["deleteProductModifier"];
     parameters: {
@@ -65,13 +65,13 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values": {
     /**
-     * Get All Product Modifier Values
+     * Get all product modifier values
      * @description Returns a list of all product *Modifier Values*. Optional parameters can be passed in.
      */
     get: operations["getProductModifierValues"];
     /**
-     * Create Product Modifier Value
-     * @description Creates a *Modifier Value*.
+     * Create product modifier value
+     * @description Creates a modifier value.
      *
      * **Required Fields**
      * * label
@@ -93,13 +93,13 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}": {
     /**
-     * Get a Product Modifier Value
-     * @description Returns a single *Modifier Value*. Optional parameters can be passed in.
+     * Get a product modifier value
+     * @description Returns a single modifier value. Optional parameters can be passed in.
      */
     get: operations["getProductModifierValue"];
     /**
-     * Update a Product Modifier Value
-     * @description Updates a *Modifier Value*.
+     * Update a product modifier value
+     * @description Updates a modifier value.
      *
      * **Required Fields**
      * * none
@@ -109,8 +109,8 @@ export interface paths {
      */
     put: operations["updateProductModifierValue"];
     /**
-     * Delete Product Modifier Value
-     * @description Deletes a *Modifier Value*.
+     * Delete product modifier value
+     * @description Deletes a modifier value.
      */
     delete: operations["deleteProductModifierValue"];
     parameters: {
@@ -126,7 +126,7 @@ export interface paths {
   };
   "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}/image": {
     /**
-     * Create Product Modifier Image
+     * Create product modifier Image
      * @description Creates a *Modifier Image*.
      *
      * The image will show on the storefront when the value is selected.
@@ -163,7 +163,7 @@ export interface components {
        * @enum {string}
        */
       type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
-      /** @description Whether or not this modifer is required or not at checkout. Required in a /POST. */
+      /** @description Whether or not this modifier is required at checkout. Required in a /POST. */
       required: boolean;
       /** @description The order the modifiers display on the product detail page. */
       sort_order?: number;
@@ -173,7 +173,7 @@ export interface components {
     };
     /**
      * productModifier_Full
-     * @description Product Modifier
+     * @description Product modifier
      */
     productModifier_Full: components["schemas"]["productModifier_Base"] & {
       /**
@@ -198,7 +198,7 @@ export interface components {
     };
     /**
      * productModifierOptionValue_Base
-     * @description Common Product Modifer `option_value` properties.
+     * @description Common Product modifier `option_value` properties.
      */
     productModifierOptionValue_Base: {
       /**
@@ -219,13 +219,13 @@ export interface components {
        * @example 0
        */
       sort_order: number;
-      /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
+      /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
       value_data?: unknown;
       adjusters?: components["schemas"]["adjusters_Full"];
     };
     /**
      * productModifierOptionValue_Full
-     * @description Product Modifer `option_value`.
+     * @description Product modifier `option_value`.
      */
     productModifierOptionValue_Full: components["schemas"]["productModifierOptionValue_Base"] & {
       /** @description The unique numeric ID of the value; increments sequentially. */
@@ -449,16 +449,24 @@ export interface components {
   };
   responses: never;
   parameters: {
-    /** @description The ID of the `Product` to which the resource belongs. */
+    /** @description The ID of the product to which the resource belongs. */
     ProductIdParam: number;
-    /** @description The ID of the `Modifier`. */
+    /** @description The ID of the product modifier. */
     ModifierIdParam: number;
-    /** @description The ID of the `Modifier/Option Value`. */
+    /** @description The ID of the product modifier value. */
     ValueIdParam: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
+    /** @description Specifies the page number in a limited (paginated) list of products. */
+    PageParam?: number;
+    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    LimitParam?: number;
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParam?: string[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ExcludeFieldsParam?: string[];
   };
   requestBodies: never;
   headers: never;
@@ -472,20 +480,16 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get All Product Modifiers
-   * @description Returns a list of all *Product Modifiers*. Optional parameters can be passed in.
+   * Get all product modifiers
+   * @description Returns a list of all product modifiers. Optional parameters can be passed in.
    */
   getProductModifiers: {
     parameters: {
       query?: {
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -506,8 +510,8 @@ export interface operations {
     };
   };
   /**
-   * Create a Product Modifier
-   * @description Creates a *Product Modifier*.
+   * Create a product modifier
+   * @description Creates a product modifier.
    *
    * **Required Fields**
    * * `required`
@@ -539,7 +543,7 @@ export interface operations {
            * @enum {string}
            */
           type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
-          /** @description Whether or not this modifer is required or not at checkout. Required in a /POST. */
+          /** @description Whether or not this modifier is required at checkout. Required in a /POST. */
           required: boolean;
           /** @description The order the modifiers display on the product detail page. */
           sort_order?: number;
@@ -695,7 +699,7 @@ export interface operations {
                * @example 0
                */
               sort_order: number;
-              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
               value_data?: Record<string, never>;
             } & ({
               adjusters?: {
@@ -767,8 +771,8 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Modifer
-             * @description Product Modifier
+             * Modifier
+             * @description Product modifier
              */
             data?: ({
               /**
@@ -777,7 +781,7 @@ export interface operations {
                * @enum {string}
                */
               type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
-              /** @description Whether or not this modifer is required or not at checkout. Required in a /POST. */
+              /** @description Whether or not this modifier is required at checkout. Required in a /POST. */
               required: boolean;
               /** @description The order the modifiers display on the product detail page. */
               sort_order?: number;
@@ -916,7 +920,7 @@ export interface operations {
                    * @example 0
                    */
                   sort_order: number;
-                  /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+                  /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
                   value_data?: Record<string, never>;
                 } & ({
                   adjusters?: {
@@ -1040,16 +1044,14 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Modifier
-   * @description Returns a single *Product Modifier*. Optional parameters can be passed in.
+   * Get a product modifier
+   * @description Returns a single product modifier. Optional parameters can be passed in.
    */
   getProductModifier: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1084,8 +1086,8 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Modifier
-   * @description Updates a *Product Modifier*.
+   * Update a product modifier
+   * @description Updates a product modifier.
    */
   updateProductModifier: {
     parameters: {
@@ -1107,7 +1109,7 @@ export interface operations {
            * @enum {string}
            */
           type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
-          /** @description Whether or not this modifier is required or not at checkout. Required in a /POST. */
+          /** @description Whether or not this modifier is required at checkout. Required in a /POST. */
           required: boolean;
           /** @description The order the modifiers display on the product detail page. */
           sort_order?: number;
@@ -1245,8 +1247,8 @@ export interface operations {
         content: {
           "application/json": {
             /**
-             * Modifer
-             * @description Product Modifier
+             * Modifier
+             * @description Product modifier
              */
             data?: ({
               /**
@@ -1255,7 +1257,7 @@ export interface operations {
                * @enum {string}
                */
               type: "date" | "checkbox" | "file" | "text" | "multi_line_text" | "numbers_only_text" | "radio_buttons" | "rectangles" | "dropdown" | "product_list" | "product_list_with_images" | "swatch";
-              /** @description Whether or not this modifer is required or not at checkout. Required in a /POST. */
+              /** @description Whether or not this modifier is required at checkout. Required in a /POST. */
               required: boolean;
               /** @description The order the modifiers display on the product detail page. */
               sort_order?: number;
@@ -1394,7 +1396,7 @@ export interface operations {
                    * @example 0
                    */
                   sort_order: number;
-                  /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+                  /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
                   value_data?: Record<string, never>;
                 } & ({
                   adjusters?: {
@@ -1518,8 +1520,8 @@ export interface operations {
     };
   };
   /**
-   * Delete a Product Modifier
-   * @description Deletes a *Product Modifier*.
+   * Delete a product modifier
+   * @description Deletes a product modifier.
    */
   deleteProductModifier: {
     parameters: {
@@ -1539,20 +1541,16 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Modifier Values
+   * Get all product modifier values
    * @description Returns a list of all product *Modifier Values*. Optional parameters can be passed in.
    */
   getProductModifierValues: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1560,8 +1558,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
       };
     };
     responses: {
@@ -1576,8 +1572,8 @@ export interface operations {
     };
   };
   /**
-   * Create Product Modifier Value
-   * @description Creates a *Modifier Value*.
+   * Create product modifier value
+   * @description Creates a modifier value.
    *
    * **Required Fields**
    * * label
@@ -1595,8 +1591,6 @@ export interface operations {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
       };
     };
     requestBody: {
@@ -1620,7 +1614,7 @@ export interface operations {
            * @example 0
            */
           sort_order: number;
-          /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+          /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
           value_data?: Record<string, never>;
         } & ({
           adjusters?: {
@@ -1703,7 +1697,7 @@ export interface operations {
                * @example 0
                */
               sort_order: number;
-              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
               value_data?: Record<string, never>;
             } & ({
               adjusters?: {
@@ -1784,16 +1778,14 @@ export interface operations {
     };
   };
   /**
-   * Get a Product Modifier Value
-   * @description Returns a single *Modifier Value*. Optional parameters can be passed in.
+   * Get a product modifier value
+   * @description Returns a single modifier value. Optional parameters can be passed in.
    */
   getProductModifierValue: {
     parameters: {
       query?: {
-        /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-        include_fields?: string;
-        /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
-        exclude_fields?: string;
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1802,10 +1794,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
-        /** @description The ID of the `Modifier/Option Value`. */
-        value_id: number;
       };
     };
     responses: {
@@ -1833,8 +1821,8 @@ export interface operations {
     };
   };
   /**
-   * Update a Product Modifier Value
-   * @description Updates a *Modifier Value*.
+   * Update a product modifier value
+   * @description Updates a modifier value.
    *
    * **Required Fields**
    * * none
@@ -1852,10 +1840,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
-        /** @description The ID of the `Modifier/Option Value`. */
-        value_id: number;
       };
     };
     requestBody: {
@@ -1879,7 +1863,7 @@ export interface operations {
            * @example 0
            */
           sort_order: number;
-          /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+          /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
           value_data?: Record<string, never>;
         } & ({
           adjusters?: {
@@ -1965,7 +1949,7 @@ export interface operations {
                * @example 0
                */
               sort_order: number;
-              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
               value_data?: Record<string, never>;
             } & ({
               adjusters?: {
@@ -2046,8 +2030,8 @@ export interface operations {
     };
   };
   /**
-   * Delete Product Modifier Value
-   * @description Deletes a *Modifier Value*.
+   * Delete product modifier value
+   * @description Deletes a modifier value.
    */
   deleteProductModifierValue: {
     parameters: {
@@ -2058,10 +2042,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
-        /** @description The ID of the `Modifier/Option Value`. */
-        value_id: number;
       };
     };
     responses: {
@@ -2072,7 +2052,7 @@ export interface operations {
     };
   };
   /**
-   * Create Product Modifier Image
+   * Create product modifier Image
    * @description Creates a *Modifier Image*.
    *
    * The image will show on the storefront when the value is selected.
@@ -2090,10 +2070,6 @@ export interface operations {
         product_id: components["parameters"]["ProductIdParam"];
         modifier_id: components["parameters"]["ModifierIdParam"];
         value_id: components["parameters"]["ValueIdParam"];
-        /** @description The ID of the `Modifier`. */
-        modifier_id: number;
-        /** @description The ID of the `Modifier`. */
-        value_id: number;
       };
     };
     requestBody?: {

@@ -33,8 +33,8 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
-        item_id: number;
+        wishlist_id: components["parameters"]["WishlistIdPath"];
+        item_id: components["parameters"]["ItemIdPath"];
       };
     };
   };
@@ -61,7 +61,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
+        wishlist_id: components["parameters"]["WishlistIdPath"];
       };
     };
   };
@@ -76,7 +76,7 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
+        wishlist_id: components["parameters"]["WishlistIdPath"];
       };
     };
   };
@@ -255,7 +255,14 @@ export interface components {
   responses: never;
   parameters: {
     /** @description ID of the Wishlist. */
-    WishlistID: number;
+    WishlistIdPath: number;
+    ItemIdPath: number;
+    /** @description All wishlists relating to the customer. */
+    CustomerIdQuery?: number;
+    /** @description The page number of results to return. 1 is the default and starts from record 0. Use in conjunction with the limit query parameter to request a specific set of records. */
+    PageQuery?: number;
+    /** @description The number of items to return per page. Default is 50 and maximum is 250. */
+    LimitQuery?: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
@@ -279,12 +286,9 @@ export interface operations {
   getWishlists: {
     parameters: {
       query?: {
-        /** @description All wishlists relating to the customer. */
-        customer_id?: number;
-        /** @description The page number of results per page. 1 is the default and starts from record 0. */
-        page?: number;
-        /** @description The numbers of items to return per page. Default is 50 and maximum is 250. */
-        limit?: number;
+        customer_id?: components["parameters"]["CustomerIdQuery"];
+        page?: components["parameters"]["PageQuery"];
+        limit?: components["parameters"]["LimitQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -389,8 +393,8 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
-        item_id: number;
+        wishlist_id: components["parameters"]["WishlistIdPath"];
+        item_id: components["parameters"]["ItemIdPath"];
       };
     };
     responses: {
@@ -445,7 +449,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
+        wishlist_id: components["parameters"]["WishlistIdPath"];
       };
     };
     responses: {
@@ -503,7 +507,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
+        wishlist_id: components["parameters"]["WishlistIdPath"];
       };
     };
     requestBody: {
@@ -557,7 +561,7 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
+        wishlist_id: components["parameters"]["WishlistIdPath"];
       };
     };
     responses: {
@@ -600,7 +604,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        wishlist_id: components["parameters"]["WishlistID"];
+        wishlist_id: components["parameters"]["WishlistIdPath"];
       };
     };
     requestBody?: {

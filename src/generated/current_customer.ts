@@ -9,12 +9,19 @@ export interface paths {
   "/customer/current.jwt": {
     /**
      * Get Current Customer
-     * @description Identify logged-in customers securely via JavaScript.
+     * @description Identify signed-in customers securely by requesting and decoding a BigCommerce-generated JWT.
+     *
+     * The response body will contain a JWT.
      *
      * > #### Note
      * > The Send a Test Request feature is not currently supported for this endpoint.
      */
     get: operations["getCurrentCustomer"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
   };
 }
 
@@ -23,7 +30,12 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: never;
   responses: never;
-  parameters: never;
+  parameters: {
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
+    Accept: string;
+    /** @description This is the client ID of an app-level API account you generate when you create an app in the Developer Portal. */
+    AppClientId: string;
+  };
   requestBodies: never;
   headers: never;
   pathItems: never;
@@ -37,7 +49,9 @@ export interface operations {
 
   /**
    * Get Current Customer
-   * @description Identify logged-in customers securely via JavaScript.
+   * @description Identify signed-in customers securely by requesting and decoding a BigCommerce-generated JWT.
+   *
+   * The response body will contain a JWT.
    *
    * > #### Note
    * > The Send a Test Request feature is not currently supported for this endpoint.
@@ -45,74 +59,40 @@ export interface operations {
   getCurrentCustomer: {
     parameters: {
       query: {
-        /** @description This is your applicationʼs client ID, which is obtained during application registration in the Developer Portal. */
-        app_client_id: string;
+        app_client_id: components["parameters"]["AppClientId"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
       };
     };
     responses: {
+      /**
+       * @description A JWT to decode using the client secret that corresponds with the app client ID you sent as a query parameter.
+       *
+       * After you decode the JWT, the payload resembles the following:
+       *
+       * ```json
+       *   {
+       *     "customer": {
+       *       "id": 4927,
+       *       "email": "john.doe@gmail.com",
+       *       "group_id": "6",
+       *     },
+       *     "iss": "bc/apps",
+       *     "sub": "abc123",
+       *     "iat": 1480831863,
+       *     "exp": 1480832763,
+       *     "version": 1,
+       *     "aud": "6sv16tfx3j5gsopm42ss5dd67g2srvq",
+       *     "application_id": "6sv16tasdgr2b5hs5dd67g2srvq",
+       *     "store_hash": "abc123",
+       *     "operation": "current_customer"
+       *   }
+       * ```
+       */
       default: {
         content: {
-          "application/json": {
-            customer?: {
-              /**
-               * @description Unique numeric ID of the customer.
-               * @example 4927
-               */
-              id?: number;
-              /**
-               * @description Email address of the customer.
-               * @example john.doe@gmail.com
-               */
-              email?: string;
-              /**
-               * @description The group to which the customer belongs.
-               * @example "6"
-               */
-              group_id?: string;
-            };
-            /**
-             * @description Indicates the token’s issuer.
-             * @example "bc/apps"
-             */
-            iss?: string;
-            /**
-             * @description The subject of the JWT - same as `store_hash`.
-             * @example "abc123"
-             */
-            sub?: string;
-            /**
-             * @description Time when the token was issued. This is a numeric value indicating the number of seconds since the [Unix epoch](https://en.wikipedia.org/wiki/Unix_time).
-             * @example 1480831863
-             */
-            iat?: number;
-            /**
-             * @description Time when the token expires. The token usually expires after 15 minutes. This is a numeric value indicating the number of seconds since the [Unix epoch](https://en.wikipedia.org/wiki/Unix_time).
-             * @example 1480832763
-             */
-            exp?: number;
-            /**
-             * @description Version of the Current Customer JWT
-             * @example 1
-             */
-            version?: number;
-            /**
-             * @description The "aud" (audience) claim identifies the recipients that the JWT is intended for. This should match the *App Client ID* and the `application_id`.
-             * @example "6sv16tfx3j5gsopm42ss5dd67g2srvq"
-             */
-            aud?: string;
-            /**
-             * @description The client ID created when the token was generated.
-             * @example "6sv16tasdgr2b5hs5dd67g2srvq"
-             */
-            application_id?: string;
-            /** @description The store’s unique identifier on the BigCommerce platform. */
-            store_hash?: string;
-            /**
-             * @description Must contain the string “current_customer”.
-             * @example "current_customer"
-             */
-            operation?: string;
-          };
+          "application/json": string;
         };
       };
     };

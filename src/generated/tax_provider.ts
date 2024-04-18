@@ -8,11 +8,11 @@
 export interface paths {
   "/estimate": {
     /**
-     * Estimate Taxes
+     * Estimate taxes
      * @description Submit the quote request to retrieve an estimate from the enabled third-party tax provider. Estimates are not expected to be persisted by the tax provider.
      *
      * > Server URL
-     * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+     * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      *
      * The following actions can trigger tax estimate requests multiple times during a standard checkout on a BigCommerce storefront, depending on the BigCommerce merchant’s settings.
@@ -39,11 +39,11 @@ export interface paths {
   };
   "/void": {
     /**
-     * Void Tax Quote
+     * Void tax quote
      * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations, full refunds, or moving an order from a paid status to an unpaid status.
      *
      * > Server URL
-     * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+     * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      */
     post: operations["voidTaxQuote"];
@@ -54,7 +54,7 @@ export interface paths {
      * @description Submit the quote request to be persisted by the enabled third-party tax provider. A commit operation is intended to be submitted once only, when the Order has been confirmed and paid.
      *
      * > Server URL
-     * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+     * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      */
     post: operations["commitTaxQuote"];
@@ -69,7 +69,7 @@ export interface paths {
      * The returned **Tax Quote** response is expected to be the same to a response returned by an equivalent response to **estimate** or **commit** methods.
      *
      * > Server URL
-     * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+     * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
      */
     post: operations["adjustTaxQuote"];
@@ -356,8 +356,12 @@ export interface components {
   };
   responses: never;
   parameters: {
-    /** @description BigCommerce will send through the Store Hash as part of all Tax Provider API operations. Each BigCommerce store on the platform has a unique Store Hash value for the store’s lifetime. This value can assist in account verification or profile matching responsibilities. */
-    "header-storehash": string;
+    /** @description BigCommerce will send through the store hash as part of all tax provider operations. Each BigCommerce store on the platform has a unique store hash value for the store’s lifetime. This value can assist in account verification or profile matching responsibilities. */
+    StoreHashHeader: string;
+    /** @description Unique ID identifying the existing, persisted tax quote that will be voided. */
+    IdQueryVoid: string;
+    /** @description Unique ID identifying the existing, persisted tax quote that will be adjusted. */
+    IdQueryAdjusted: string;
   };
   requestBodies: never;
   headers: never;
@@ -371,11 +375,11 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Estimate Taxes
+   * Estimate taxes
    * @description Submit the quote request to retrieve an estimate from the enabled third-party tax provider. Estimates are not expected to be persisted by the tax provider.
    *
    * > Server URL
-   * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+   * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    *
    * The following actions can trigger tax estimate requests multiple times during a standard checkout on a BigCommerce storefront, depending on the BigCommerce merchant’s settings.
@@ -401,7 +405,7 @@ export interface operations {
   estimateTaxes: {
     parameters: {
       header: {
-        "X-BC-Store-Hash": components["parameters"]["header-storehash"];
+        "X-Bc-Store-Hash": components["parameters"]["StoreHashHeader"];
       };
     };
     /** @description Estimates may not always contain complete data as these requests will be fired at different stages of the shopper checkout. For example, the **Estimate Shipping & Tax** function on the **Cart** page is not expected to provide any billing address data, but the tax provider will still be expected to return a valid estimate. */
@@ -432,21 +436,20 @@ export interface operations {
     };
   };
   /**
-   * Void Tax Quote
+   * Void tax quote
    * @description Invalidate the persisted tax quote as identified by the given unique ID. Relevant to order cancellations, full refunds, or moving an order from a paid status to an unpaid status.
    *
    * > Server URL
-   * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+   * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    */
   voidTaxQuote: {
     parameters: {
       query: {
-        /** @description Unique ID identifying the existing, persisted Tax Quote that will be voided. */
-        id: string;
+        id: components["parameters"]["IdQueryVoid"];
       };
       header: {
-        "X-BC-Store-Hash": components["parameters"]["header-storehash"];
+        "X-Bc-Store-Hash": components["parameters"]["StoreHashHeader"];
       };
     };
     responses: {
@@ -473,13 +476,13 @@ export interface operations {
    * @description Submit the quote request to be persisted by the enabled third-party tax provider. A commit operation is intended to be submitted once only, when the Order has been confirmed and paid.
    *
    * > Server URL
-   * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+   * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    */
   commitTaxQuote: {
     parameters: {
       header: {
-        "X-BC-Store-Hash": components["parameters"]["header-storehash"];
+        "X-Bc-Store-Hash": components["parameters"]["StoreHashHeader"];
       };
     };
     requestBody: {
@@ -517,17 +520,16 @@ export interface operations {
    * The returned **Tax Quote** response is expected to be the same to a response returned by an equivalent response to **estimate** or **commit** methods.
    *
    * > Server URL
-   * > - For supporting tax providers, the server URL contains the tax provider's profile field; for example, `your_profile.example.com`.
+   * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
    * > - The Try it feature is not currently supported for this endpoint.
    */
   adjustTaxQuote: {
     parameters: {
       query: {
-        /** @description Unique ID identifying the existing, persisted Tax Quote that will be adjusted. */
-        id: string;
+        id: components["parameters"]["IdQueryAdjusted"];
       };
       header: {
-        "X-BC-Store-Hash": components["parameters"]["header-storehash"];
+        "X-Bc-Store-Hash": components["parameters"]["StoreHashHeader"];
       };
     };
     requestBody?: {
