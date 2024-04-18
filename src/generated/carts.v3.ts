@@ -1962,7 +1962,7 @@ export interface components {
      * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
      * * `promotions.banners`: Returns a list of eligible banners.
      */
-    line_items?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options";
+    line_items?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options")[];
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
     /** @description The ID of the `Metafield`. */
@@ -2025,13 +2025,22 @@ export interface operations {
          * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
          * * `promotions.banners`: Returns a list of eligible banners.
          */
-        include?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners";
+        include?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
       };
     };
+    /**
+     * @description **Examples:**
+     *
+     * 1. Creating a cart by adding a simple product (a product without option selections).
+     * 2. Creating a cart with a variant. This works when a product can be specified purely by a variant, without any other required options.
+     * 3. Creating a cart using a date option. The API supports timestamps, “option_value”: 1743570000, and dates as an object literal, “option_value”: {“day”:”01”, “month”:”02”, “year”:”2020”}.
+     * 4. Creating a cart with a variant, a checkbox, and a picklist modifier added.
+     * 5. Creating a cart using a custom item.
+     */
     requestBody: {
       content: {
         "application/json": components["schemas"]["CartCreatePostData"];
@@ -2064,7 +2073,7 @@ export interface operations {
          * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
          * * `promotions.banners`: Returns a list of eligible banners.
          */
-        include?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners";
+        include?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2144,7 +2153,7 @@ export interface operations {
          * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
          * * `promotions.banners`: Returns a list of eligible banners.
          */
-        include?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners";
+        include?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2181,7 +2190,7 @@ export interface operations {
          * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
          * * `promotions.banners`: Returns a list of eligible banners.
          */
-        include?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners";
+        include?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2217,7 +2226,7 @@ export interface operations {
          * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
          * * `promotions.banners`: Returns a list of eligible banners.
          */
-        include?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners";
+        include?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2251,7 +2260,7 @@ export interface operations {
          * * `line_items.digital_items.options`: The cart returns an abbreviated result. Use this to return digital items product options. To return the extended cart object, use in a /POST request.
          * * `promotions.banners`: Returns a list of eligible banners.
          */
-        include?: "redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners";
+        include?: ("redirect_urls" | "line_items.physical_items.options" | "line_items.digital_items.options" | "promotions.banners")[];
       };
       header: {
         Accept: components["parameters"]["Accept"];

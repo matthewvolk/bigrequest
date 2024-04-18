@@ -58,6 +58,10 @@ export interface components {
   parameters: {
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
+    /** @description Request a specific page of results. The value of the limit query parameter determines the number of responses per page. */
+    PageQuery?: number;
+    /** @description Set the number of responses per page. */
+    LimitQuery?: number;
   };
   requestBodies: never;
   headers: never;
@@ -81,10 +85,8 @@ export interface operations {
   getAllPaymentMethods: {
     parameters: {
       query?: {
-        /** @description Optional filter param `/api/v2/payments/methods?page={number}` */
-        page?: number;
-        /** @description Optional filter param `/api/v2/payments/methods?limit={count}` */
-        limit?: number;
+        page?: components["parameters"]["PageQuery"];
+        limit?: components["parameters"]["LimitQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

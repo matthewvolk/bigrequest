@@ -485,8 +485,8 @@ export interface components {
   };
   responses: never;
   parameters: {
-    /** @description Filter results by a comma-separated list of `channel_id`s. */
-    ChannelIdInParam?: string;
+    /** @description Filter results by a comma-separated list of channel IDs. */
+    ChannelIdInParam?: number[];
     /** @description The ID of the `Price List` requested. */
     PriceListIdParam: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
@@ -758,8 +758,8 @@ export interface operations {
   deletePriceLists: {
     parameters: {
       query?: {
-        /** @description Filter by `id`. Accepts multiple comma-separated values. */
-        "id:in"?: number;
+        /** @description Filter by ID. Accepts multiple comma-separated values. */
+        "id:in"?: number[];
         /** @description Filter items by name. */
         name?: string;
       };
@@ -1039,10 +1039,10 @@ export interface operations {
   getPriceListRecords: {
     parameters: {
       query?: {
-        /** @description The ID of the `Variant` for which prices were requested. */
-        "variant_id:in"?: number;
-        /** @description A comma-separated list of IDs of `Product`s for which prices were requested. */
-        "product_id:in"?: string;
+        /** @description A comma-separated list of IDs for one or more variants for which prices were requested. */
+        "variant_id:in"?: number[];
+        /** @description A comma-separated list of IDs for one or more products for which prices were requested. */
+        "product_id:in"?: number[];
         /** @description Filter items by currency. */
         currency?: string;
         /** @description Specifies the page number in a limited (paginated) list of products. */
@@ -1448,8 +1448,8 @@ export interface operations {
   deletePriceListRecords: {
     parameters: {
       query?: {
-        /** @description The ID of the `Variant` for which prices were requested. */
-        "variant_id:in"?: number;
+        /** @description A comma-separated list of IDs for one or more variants for which prices were requested. */
+        "variant_id:in"?: number[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2132,13 +2132,13 @@ export interface operations {
         customer_group_id?: number;
         /** @description The ID of the `Channel`. */
         channel_id?: number;
-        /** @description Filter items by a comma-separated list of `id`s. */
+        /** @description Filter items by a comma-separated list of IDs. */
         "id:in"?: number[];
-        /** @description Filter items by a comma-separated list of `customer_group_id`s. */
+        /** @description Filter items by a comma-separated list of customer group IDs. */
         "customer_group_id:in"?: number[];
-        /** @description Filter items by a comma-separated list of `price_list_id`s. */
+        /** @description Filter items by a comma-separated list of price list IDs. */
         "price_list_id:in"?: number[];
-        /** @description Filter items by a comma-separated list of `channel_id`s. */
+        /** @description Filter items by a comma-separated list of channel IDs. */
         "channel_id:in"?: number[];
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;

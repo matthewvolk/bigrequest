@@ -865,7 +865,15 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     "Content-Type": string;
-    includeShippingOption?: "consignments.available_shipping_options";
+    /** @description Include the shipping options available to this checkout. */
+    IncludeShippingOptions?: "consignments.available_shipping_options";
+    /**
+     * @description * `cart.line_items.physical_items.options` - physical options
+     * * `cart.line_items.digital_items.options` - digital options
+     * * `consignments.available_shipping_options` - shipping options
+     * * `promotions.banners` - promotion options
+     */
+    IncludeGeneral?: ("cart.line_items.physical_items.options" | "cart.line_items.digital_items.options" | "consignments.available_shipping_options" | "promotions.banners")[];
   };
   requestBodies: never;
   headers: never;
@@ -889,13 +897,7 @@ export interface operations {
   getCheckout: {
     parameters: {
       query?: {
-        /**
-         * @description * `cart.line_items.physical_items.options` - physical options
-         * * `cart.line_items.digital_items.options` - digital options
-         * * `consignments.available_shipping_options` - shipping options
-         * * `promotions.banners` - promotion options
-         */
-        include?: "cart.line_items.physical_items.options" | "cart.line_items.digital_items.options" | "consignments.available_shipping_options" | "promotions.banners";
+        include?: components["parameters"]["IncludeGeneral"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1141,7 +1143,7 @@ export interface operations {
   addCheckoutConsignment: {
     parameters: {
       query?: {
-        include?: "consignments.available_shipping_options";
+        include?: components["parameters"]["IncludeShippingOptions"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1193,8 +1195,7 @@ export interface operations {
   updateCheckoutConsignment: {
     parameters: {
       query?: {
-        /** @description Include to get available shipping options. */
-        include?: "consignments.available_shipping_options";
+        include?: components["parameters"]["IncludeShippingOptions"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

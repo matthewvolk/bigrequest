@@ -625,10 +625,10 @@ export interface operations {
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of items. */
         limit?: number;
-        /** @description Filters returned sites by channel ID. */
-        "channel_id:in"?: number;
-        /** @description Filters sites returned in the `data.urls` array by their URL type. */
-        "url_type:in"?: string;
+        /** @description A comma-separated list that returns sites by channel ID. */
+        "channel_id:in"?: number[];
+        /** @description A comma-separated list that returns sites by their URL type, specified in the `data.urls` array. */
+        "url_type:in"?: string[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -946,8 +946,8 @@ export interface operations {
   getSitesCertificates: {
     parameters: {
       query?: {
-        /** @description Query certificates by one or more URLs */
-        "urls:in"?: string;
+        /** @description A comma-separated list that filters certificates by one or more URLs. */
+        "urls:in"?: string[];
       };
       header: {
         Accept: components["parameters"]["Accept"];

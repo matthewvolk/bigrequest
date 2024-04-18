@@ -136,7 +136,7 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
-    /** @description Channel ID to use for channel-specific setting. If omitted, you will interact with the global setting only. */
+    /** @description Channel ID to use for channel-specific settings. If omitted, you will interact with the global setting only. */
     ChannelIdParam?: number;
     /** @description Required Channel ID. This delete operation will delete overridden settings for this channel, thus restoring them to the global defaults. */
     RequiredChannelIdParamForDelete: number;
