@@ -572,7 +572,7 @@ export interface paths {
      */
     get: operations["getProductsCategoryAssignments"];
     /**
-     * Create Products Category Assignments.
+     * Create Products Category Assignments
      * @description Creates products category assignments.
      */
     put: operations["createProductsCategoryAssignments"];
@@ -1810,8 +1810,6 @@ export interface components {
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
-      /** @description An array of channel IDs for the channels that have this product. You can provide an empty request, a single ID, or an array of IDs. */
-      channels?: unknown[];
       /** @description You can add a product to an existing brand during a product /PUT or /POST. Use either the `brand_id` or the `brand_name` field. The response body can include `brand_id`. */
       brand_id?: number;
       /**
@@ -2806,7 +2804,6 @@ export interface operations {
         direction?: components["parameters"]["DirectionParam"];
         sort?: components["parameters"]["SortParam"];
         "categories:in"?: components["parameters"]["CategoriesInParam"];
-        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
         "id:min"?: components["parameters"]["IdMinParam"];
         "id:max"?: components["parameters"]["IdMaxParam"];
         "id:greater"?: components["parameters"]["IdGreaterParam"];
@@ -5897,7 +5894,7 @@ export interface operations {
     };
   };
   /**
-   * Create Products Category Assignments.
+   * Create Products Category Assignments
    * @description Creates products category assignments.
    */
   createProductsCategoryAssignments: {
