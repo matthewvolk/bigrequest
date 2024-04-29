@@ -1131,6 +1131,8 @@ export interface components {
       total_refund_amount?: components["schemas"]["Amount"];
       /** @example 1.95 */
       total_refund_tax_amount?: number;
+      /** @example 1.99 */
+      order_level_refund_amount?: number;
       /** @description Indicates rounding value to bring `refund_total` to an amount refundable with payment providers (in this case to 2 decimal places). */
       rounding?: number;
       adjustment?: components["schemas"]["AdjustmentAmount"];
