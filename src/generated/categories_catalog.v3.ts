@@ -1018,7 +1018,7 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
-    /** @description Specifies the page number in a limited (paginated) list of products. */
+    /** @description Specifies the page number in a limited (paginated) list of results. */
     PageParam?: number;
     /**
      * @description Controls the sort order of the response, for example, `sort=name`.
@@ -1038,7 +1038,7 @@ export interface components {
     MetafieldNamespaceParam?: string;
     /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
     MetafieldNamespaceInParam?: string[];
-    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    /** @description Controls the number of items per page in a limited (paginated) list of results. */
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
