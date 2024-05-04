@@ -1018,7 +1018,7 @@ export interface components {
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
     ContentType: string;
-    /** @description Specifies the page number in a limited (paginated) list of products. */
+    /** @description Specifies the page number in a limited (paginated) list of results. */
     PageParam?: number;
     /**
      * @description Controls the sort order of the response, for example, `sort=name`.
@@ -1038,12 +1038,14 @@ export interface components {
     MetafieldNamespaceParam?: string;
     /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
     MetafieldNamespaceInParam?: string[];
-    /** @description Controls the number of items per page in a limited (paginated) list of products. */
+    /** @description Controls the number of items per page in a limited (paginated) list of results. */
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParam?: string[];
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
     /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
     ExcludeFieldsParam?: string[];
     /** @description Filter items by keywords found in the `name`, `description`, or `sku` fields, or in the brand name. */
@@ -2131,6 +2133,7 @@ export interface operations {
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
