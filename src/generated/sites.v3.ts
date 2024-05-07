@@ -273,7 +273,9 @@ export interface components {
      * _errors
      * @description The keys and values in an errors object will vary depending on the error received.
      */
-    _errors: Record<string, never>;
+    _errors: {
+      [key: string]: unknown;
+    };
     EmptyResponse: {
       data?: Record<string, never>;
       meta?: Record<string, never>;

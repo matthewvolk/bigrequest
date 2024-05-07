@@ -501,7 +501,9 @@ export interface components {
       };
       consignments?: ({
           id?: string;
-          shippingAddress?: Record<string, never>;
+          shippingAddress?: {
+            [key: string]: unknown;
+          };
           /** Address Response */
           address?: {
             first_name?: string;
@@ -1482,7 +1484,9 @@ export interface operations {
              * @example https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes
              */
             type?: string;
-            errors?: Record<string, never>;
+            errors?: {
+              [key: string]: unknown;
+            };
           };
         };
       };

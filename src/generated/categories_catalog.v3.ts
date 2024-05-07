@@ -861,7 +861,9 @@ export interface components {
      *   "2": "Metafield does not exist"
      * }
      */
-    ErrorDetail: Record<string, never>;
+    ErrorDetail: {
+      [key: string]: unknown;
+    };
     /**
      * Collection Meta
      * @description Data about the response, including pagination and collection totals.

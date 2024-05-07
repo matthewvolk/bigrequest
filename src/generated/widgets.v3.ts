@@ -170,7 +170,9 @@ export interface components {
        * Format: json
        * @description The JSON data that populates the template.
        */
-      widget_configuration?: Record<string, never>;
+      widget_configuration?: {
+        [key: string]: unknown;
+      };
     };
     WidgetTemplatePreviewResponse: {
       data?: {
@@ -263,7 +265,9 @@ export interface components {
        * Format: json
        * @description The JSON data that populates the template.
        */
-      widget_configuration?: Record<string, never>;
+      widget_configuration?: {
+        [key: string]: unknown;
+      };
       /** @description The widget template UUID. */
       widget_template_uuid: string;
       /** @description The ID of the channel on which to create this widget. Defaults to the first channel created on the store. */
@@ -433,7 +437,9 @@ export interface components {
        * Format: json
        * @description The JSON data that populates the template.
        */
-      widget_configuration?: Record<string, never>;
+      widget_configuration?: {
+        [key: string]: unknown;
+      };
     };
     "new-model": {
         type?: string;
@@ -771,7 +777,6 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["widgetTemplate_Full"];
-        } & {
           meta?: components["schemas"]["Meta"];
         };
       };

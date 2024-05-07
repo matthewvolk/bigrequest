@@ -644,7 +644,217 @@ export interface components {
                */
               discountedAmount?: number;
             }[];
-          lineItems?: Record<string, never>;
+          /** Line Items */
+          lineItems?: {
+            physicalItems: {
+                /** @description The line-item ID. */
+                id?: string;
+                /** @description The product is part of a bundle, such as a product pick list, then the parentId or the main product ID will populate. */
+                parentId?: string;
+                /** @description ID of the variant. */
+                variantId?: number;
+                /** @description ID of the product. */
+                productId?: number;
+                /** @description SKU of the variant. */
+                sku?: string;
+                /** @description The itemʼs product name. */
+                name?: string;
+                /** @description The product URL. */
+                url?: string;
+                /**
+                 * Format: double
+                 * @description Quantity of this item.
+                 */
+                quantity: number;
+                /** @description Whether the item is taxable. */
+                isTaxable?: boolean;
+                /** @description A publicly-accessible URL for an image of this item. */
+                imageUrl?: string;
+                /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
+                discounts?: {
+                    /** @description The name provided by the merchant. */
+                    name?: string;
+                    /**
+                     * Format: double
+                     * @description The discounted amount applied within a given context.
+                     */
+                    discountedAmount?: number;
+                  }[];
+                /**
+                 * Format: double
+                 * @description The total value of all discounts applied to this item (excluding coupon).
+                 */
+                discountAmount?: number;
+                /** @description The product's brand. */
+                brand?: string;
+                /**
+                 * Format: double
+                 * @description The total value of all coupons applied to this item.
+                 */
+                couponAmount?: number;
+                /** @description The item’s original price is the same as the product’s default price. */
+                originalPrice?: number;
+                /**
+                 * Format: double
+                 * @description The item’s list price, as quoted by the manufacturer or distributor.
+                 */
+                listPrice?: number;
+                /**
+                 * Format: double
+                 * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
+                 */
+                salePrice?: number;
+                /**
+                 * Format: double
+                 * @description The itemʼs list price multiplied by the quantity.
+                 */
+                extendedListPrice?: number;
+                /**
+                 * Format: double
+                 * @description The itemʼs sale price multiplied by the quantity.
+                 */
+                extendedSalePrice?: number;
+                /** @description the product type - physical or digital */
+                type?: string;
+                /** @description If the item was added automatically by a promotion, such as a coupon or buy one, get one. */
+                addedByPromotion?: boolean;
+                /** @description Whether this item requires shipping to a physical address. */
+                isShippingRequired?: boolean;
+                isMutable?: boolean;
+                /** Gift Wrapping */
+                giftWrapping?: {
+                  name?: string;
+                  message?: string;
+                  /** Format: double */
+                  amount?: number;
+                };
+              }[];
+            digitalItems: {
+                /** @description The line-item ID. */
+                id?: string;
+                /** @description Bundled items will have their parentʼs item ID. */
+                parentId?: string;
+                /**
+                 * Format: double
+                 * @description ID of the variant.
+                 */
+                variantId?: number;
+                /**
+                 * Format: double
+                 * @description ID of the product.
+                 */
+                productId?: number;
+                /** @description SKU of the variant. */
+                sku?: string;
+                /** @description The itemʼs product name. */
+                name?: string;
+                /** @description The product URL. */
+                url?: string;
+                /**
+                 * Format: double
+                 * @description Quantity of this item.
+                 */
+                quantity: number;
+                /** @description The itemʼs brand. */
+                brand?: string;
+                /** @description Whether the item is taxable. */
+                isTaxable?: boolean;
+                /** @description A publicly-accessible URL for an image of this item. */
+                imageUrl?: string;
+                /** @description List of discounts applied to this item, as an array of AppliedDiscount objects. */
+                discounts?: {
+                    /** @description The name provided by the merchant. */
+                    name?: string;
+                    /**
+                     * Format: double
+                     * @description The discounted amount applied within a given context.
+                     */
+                    discountedAmount?: number;
+                  }[];
+                /**
+                 * Format: double
+                 * @description The total value of all discounts applied to this item (excluding coupon).
+                 */
+                discountAmount?: number;
+                /**
+                 * Format: double
+                 * @description The total value of all coupons applied to this item.
+                 */
+                couponAmount?: number;
+                /** @description The item’s original price is the same as the product’s default price. */
+                originalPrice?: number;
+                /**
+                 * Format: double
+                 * @description The item’s list price, as quoted by the manufacturer or distributor.
+                 */
+                listPrice?: number;
+                /**
+                 * Format: double
+                 * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
+                 */
+                salePrice?: number;
+                /**
+                 * Format: double
+                 * @description The itemʼs list price multiplied by the quantity.
+                 */
+                extendedListPrice?: number;
+                /**
+                 * Format: double
+                 * @description The itemʼs sale price multiplied by the quantity.
+                 */
+                extendedSalePrice?: number;
+                /** @description the product type - physical or digital */
+                type?: string;
+                isMutable?: boolean;
+                /** @description Whether this item requires shipping to a physical address. */
+                isShippingRequired?: boolean;
+                /** @description URLs to download all product files. */
+                downloadFileUrls?: string[];
+                /** @description The URL for the combined downloads page. */
+                downloadPageUrl?: string;
+                /** @description Specifies the combined download size in human-readable style; for example, `30MB`. */
+                downloadSize?: string;
+              }[];
+            giftCertificate?: {
+                /** @description Gift certificate identifier */
+                id?: string;
+                /** @description The name of the purchased gift certificate; for example, `$20 Gift Certificate`. */
+                name?: string;
+                /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
+                theme: string;
+                /**
+                 * Format: double
+                 * @description Value must be between $1.00 and $1,000.00.
+                 */
+                amount: number;
+                taxable?: boolean;
+                /** Contact Entity */
+                sender: {
+                  name?: string;
+                  email?: string;
+                };
+                /** Contact Entity */
+                recipient: {
+                  name?: string;
+                  email?: string;
+                };
+                /** @description Limited to 200 characters. */
+                message?: string;
+                /** @description Explicitly specifying the gift certificate type. */
+                type?: string;
+              }[];
+            customItems?: {
+                /** @description ID of the custom item */
+                id?: string;
+                /** @description Custom item SKU */
+                sku?: string;
+                /** @description Item name */
+                name?: string;
+                quantity?: string;
+                /** @description Price of the item. With or without tax depending on your store setup. */
+                listPrice?: string;
+              }[];
+          };
           /** @description Time when the cart was created. */
           createdTime?: string;
           /** @description Time when the cart was last updated. */
@@ -1024,7 +1234,212 @@ export interface components {
            */
           discountedAmount?: number;
         }[];
-      lineItems?: Record<string, never>;
+      /** Line Items */
+      lineItems?: {
+        physicalItems: {
+            /** @description The line-item ID. */
+            id?: string;
+            /** @description The product is part of a bundle such as a product pick list, then the parentId or the main product ID will populate. */
+            parentId?: string;
+            /** @description ID of the variant. */
+            variantId?: number;
+            /** @description ID of the product. */
+            productId?: number;
+            /** @description SKU of the variant. */
+            sku?: string;
+            /** @description The itemʼs product name. */
+            name?: string;
+            /** @description The product URL. */
+            url?: string;
+            /**
+             * Format: double
+             * @description Quantity of this item.
+             */
+            quantity: number;
+            /** @description Whether the item is taxable. */
+            isTaxable?: boolean;
+            /** @description A publicly-accessible URL for an image of this item. */
+            imageUrl?: string;
+            /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
+            discounts?: {
+                /** @description The name provided by the merchant. */
+                name?: string;
+                /**
+                 * Format: double
+                 * @description The discounted amount applied within a given context.
+                 */
+                discountedAmount?: number;
+              }[];
+            /**
+             * Format: double
+             * @description The total value of all discounts applied to this item (excluding coupon).
+             */
+            discountAmount?: number;
+            /**
+             * Format: double
+             * @description The total value of all coupons applied to this item.
+             */
+            couponAmount?: number;
+            /**
+             * Format: double
+             * @description The item’s list price, as quoted by the manufacturer or distributor.
+             */
+            listPrice?: number;
+            /**
+             * Format: double
+             * @description The itemʼs price after all discounts are applied. The final price before tax calculation.
+             */
+            salePrice?: number;
+            /**
+             * Format: double
+             * @description The itemʼs list price multiplied by the quantity.
+             */
+            extendedListPrice?: number;
+            /**
+             * Format: double
+             * @description The itemʼs sale price multiplied by the quantity.
+             */
+            extendedSalePrice?: number;
+            /** @description The itemʼs comparison price */
+            comparisonPrice?: number;
+            /** @description The itemʼs comparison price multiplied by the quantity. */
+            extendedComparisonPrice?: number;
+            /** @description the product type - physical or digital */
+            type?: string;
+            /** @description If the item was added automatically by a promotion, such as a coupon or buy one, get one. */
+            addedByPromotion?: boolean;
+            /** @description Whether this item requires shipping to a physical address. */
+            isShippingRequired?: boolean;
+            isMutable?: boolean;
+            /** Gift Wrapping */
+            giftWrapping?: {
+              name?: string;
+              message?: string;
+              /** Format: double */
+              amount?: number;
+            };
+          }[];
+        digitalItems: {
+            /** @description The line-item ID. */
+            id?: string;
+            /** @description Bundled items will have their parentʼs item ID. */
+            parentId?: string;
+            /**
+             * Format: double
+             * @description ID of the variant.
+             */
+            variantId?: number;
+            /**
+             * Format: double
+             * @description ID of the product.
+             */
+            productId?: number;
+            /** @description SKU of the variant. */
+            sku?: string;
+            /** @description The itemʼs product name. */
+            name?: string;
+            /** @description The product URL. */
+            url?: string;
+            /**
+             * Format: double
+             * @description Quantity of this item.
+             */
+            quantity: number;
+            /** @description Whether the item is taxable. */
+            isTaxable?: boolean;
+            /** @description A publicly-accessible URL for an image of this item. */
+            imageUrl?: string;
+            /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
+            discounts?: {
+                /** @description The name provided by the merchant. */
+                name?: string;
+                /**
+                 * Format: double
+                 * @description The discounted amount applied within a given context.
+                 */
+                discountedAmount?: number;
+              }[];
+            /**
+             * Format: double
+             * @description The total value of all discounts applied to this item (excluding coupon).
+             */
+            discountAmount?: number;
+            /**
+             * Format: double
+             * @description The total value of all coupons applied to this item.
+             */
+            couponAmount?: number;
+            /**
+             * Format: double
+             * @description The item’s list price, as quoted by the manufacturer or distributor.
+             */
+            listPrice?: number;
+            /**
+             * Format: double
+             * @description The itemʼs price after all discounts are applied. The final price before tax calculation.
+             */
+            salePrice?: number;
+            /**
+             * Format: double
+             * @description The itemʼs list price multiplied by the quantity.
+             */
+            extendedListPrice?: number;
+            /**
+             * Format: double
+             * @description The itemʼs sale price multiplied by the quantity.
+             */
+            extendedSalePrice?: number;
+            /** @description The product type - physical or digital. */
+            type?: string;
+            /** @description Whether this item requires shipping to a physical address. */
+            isShippingRequired?: boolean;
+            /** @description URLs to download all product files. */
+            downloadFileUrls?: string[];
+            /** @description The URL for the combined downloads page. */
+            downloadPageUrl?: string;
+            /** @description Specifies the combined download size in human-readable style; for example, `30MB`. */
+            downloadSize?: string;
+          }[];
+        giftCertificate?: {
+            /** @description Gift certificate identifier */
+            id?: string;
+            /** @description The name of the purchased gift certificate; for example, `$20 Gift Certificate`. */
+            name?: string;
+            /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
+            theme: string;
+            /**
+             * Format: double
+             * @description Value must be between $1.00 and $1,000.00.
+             */
+            amount: number;
+            taxable?: boolean;
+            /** Contact Entity */
+            sender: {
+              name?: string;
+              email?: string;
+            };
+            /** Contact Entity */
+            recipient: {
+              name?: string;
+              email?: string;
+            };
+            /** @description Limited to 200 characters. */
+            message?: string;
+            /** @description Explicitly specifying the gift certificate type. */
+            type?: string;
+          }[];
+        customItems?: {
+            /** @description ID of the custom item. */
+            id?: string;
+            /** @description Custom item SKU. */
+            sku?: string;
+            /** @description Item name. */
+            name?: string;
+            quantity?: string;
+            /** @description Price of the item. With or without tax depending on your store setup. */
+            listPrice?: string;
+          }[];
+      };
       /** @description Time when the cart was created. */
       createdTime?: string;
       /** @description Time when the cart was last updated. */

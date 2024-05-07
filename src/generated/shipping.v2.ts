@@ -5,11 +5,6 @@
  */
 
 
-/** OneOf type helpers */
-type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
-type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
-
 export interface paths {
   "/shipping/zones": {
     /**
@@ -1084,7 +1079,7 @@ export interface components {
         exclude_fixed_shipping_products?: boolean;
       };
       /** Shipping Zone Handling Fees */
-      handling_fees?: OneOf<[{
+      handling_fees?: {
         /**
          * @description Flat-rate handling fee applied to shipping cost.
          * @example 0
@@ -1095,7 +1090,7 @@ export interface components {
          * @example true
          */
         display_separately?: boolean;
-      }, {
+      } | {
         /**
          * @description Percentage handling fee applied to shipping cost.
          * @example 5
@@ -1106,7 +1101,7 @@ export interface components {
          * @example true
          */
         display_separately?: boolean;
-      }]>;
+      };
       /**
        * @description Whether this shipping zone is enabled.
        * @example true
@@ -1137,7 +1132,7 @@ export interface components {
       state_iso2?: string;
     };
     /** Shipping Zone Handling Fees */
-    HandlingFees: OneOf<[{
+    HandlingFees: {
       /**
        * @description Flat-rate handling fee applied to shipping cost.
        * @example 0
@@ -1148,7 +1143,7 @@ export interface components {
        * @example true
        */
       display_separately?: boolean;
-    }, {
+    } | {
       /**
        * @description Percentage handling fee applied to shipping cost.
        * @example 5
@@ -1159,7 +1154,7 @@ export interface components {
        * @example true
        */
       display_separately?: boolean;
-    }]>;
+    };
     /** shippingMethod_Full */
     shippingMethod_Full: {
       /**
@@ -1195,19 +1190,19 @@ export interface components {
        * @example true
        */
       enabled?: boolean;
-      handling_fees?: OneOf<[{
+      handling_fees?: {
         /**
          * @description Flat-rate handling fee applied to shipping cost.
          * @example 0
          */
         fixed_surcharge?: number;
-      }, {
+      } | {
         /**
          * @description Percentage handling fee applied to shipping cost.
          * @example 0
          */
         percentage_surcharge?: number;
-      }]>;
+      };
       /**
        * @description Whether or not this shipping zone is the fallback if all others are not valid for the order.
        * @example false
@@ -1220,7 +1215,9 @@ export interface components {
     carrierConnection: {
       carrier_id?: string;
       /** @description The `connection` object varies by carrier. */
-      connection?: Record<string, never>;
+      connection?: {
+        [key: string]: unknown;
+      };
     };
     /**
      * metaCollection
@@ -1350,7 +1347,7 @@ export interface operations {
                 exclude_fixed_shipping_products?: boolean;
               };
               /** Shipping Zone Handling Fees */
-              handling_fees?: OneOf<[{
+              handling_fees?: {
                 /**
                  * @description Flat-rate handling fee applied to shipping cost.
                  * @example 0
@@ -1361,7 +1358,7 @@ export interface operations {
                  * @example true
                  */
                 display_separately?: boolean;
-              }, {
+              } | {
                 /**
                  * @description Percentage handling fee applied to shipping cost.
                  * @example 5
@@ -1372,7 +1369,7 @@ export interface operations {
                  * @example true
                  */
                 display_separately?: boolean;
-              }]>;
+              };
               /**
                * @description Whether this shipping zone is enabled.
                * @example true
@@ -1437,7 +1434,7 @@ export interface operations {
             exclude_fixed_shipping_products?: boolean;
           };
           /** Shipping Zone Handling Fees */
-          handling_fees?: OneOf<[{
+          handling_fees?: {
             /**
              * @description Flat-rate handling fee applied to shipping cost.
              * @example 0
@@ -1448,7 +1445,7 @@ export interface operations {
              * @example true
              */
             display_separately?: boolean;
-          }, {
+          } | {
             /**
              * @description Percentage handling fee applied to shipping cost.
              * @example 5
@@ -1459,7 +1456,7 @@ export interface operations {
              * @example true
              */
             display_separately?: boolean;
-          }]>;
+          };
           /**
            * @description Whether this shipping zone is enabled.
            * @example true
@@ -1517,7 +1514,7 @@ export interface operations {
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: OneOf<[{
+            handling_fees?: {
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -1528,7 +1525,7 @@ export interface operations {
                * @example true
                */
               display_separately?: boolean;
-            }, {
+            } | {
               /**
                * @description Percentage handling fee applied to shipping cost.
                * @example 5
@@ -1539,7 +1536,7 @@ export interface operations {
                * @example true
                */
               display_separately?: boolean;
-            }]>;
+            };
             /**
              * @description Whether this shipping zone is enabled.
              * @example true
@@ -1613,7 +1610,7 @@ export interface operations {
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: OneOf<[{
+            handling_fees?: {
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -1624,7 +1621,7 @@ export interface operations {
                * @example true
                */
               display_separately?: boolean;
-            }, {
+            } | {
               /**
                * @description Percentage handling fee applied to shipping cost.
                * @example 5
@@ -1635,7 +1632,7 @@ export interface operations {
                * @example true
                */
               display_separately?: boolean;
-            }]>;
+            };
             /**
              * @description Whether this shipping zone is enabled.
              * @example true
@@ -1715,7 +1712,7 @@ export interface operations {
             exclude_fixed_shipping_products?: boolean;
           };
           /** Shipping Zone Handling Fees */
-          handling_fees?: OneOf<[{
+          handling_fees?: {
             /**
              * @description Flat-rate handling fee applied to shipping cost.
              * @example 0
@@ -1726,7 +1723,7 @@ export interface operations {
              * @example true
              */
             display_separately?: boolean;
-          }, {
+          } | {
             /**
              * @description Percentage handling fee applied to shipping cost.
              * @example 5
@@ -1737,7 +1734,7 @@ export interface operations {
              * @example true
              */
             display_separately?: boolean;
-          }]>;
+          };
           /**
            * @description Whether this shipping zone is enabled.
            * @example true
@@ -1795,7 +1792,7 @@ export interface operations {
               exclude_fixed_shipping_products?: boolean;
             };
             /** Shipping Zone Handling Fees */
-            handling_fees?: OneOf<[{
+            handling_fees?: {
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
@@ -1806,7 +1803,7 @@ export interface operations {
                * @example true
                */
               display_separately?: boolean;
-            }, {
+            } | {
               /**
                * @description Percentage handling fee applied to shipping cost.
                * @example 5
@@ -1817,7 +1814,7 @@ export interface operations {
                * @example true
                */
               display_separately?: boolean;
-            }]>;
+            };
             /**
              * @description Whether this shipping zone is enabled.
              * @example true
@@ -2474,25 +2471,27 @@ export interface operations {
             name?: string;
             type?: components["schemas"]["ShippingMethodType"];
             /** @description Depends on the shipping method type. See the [supported settings object](#supported-settings). */
-            settings?: Record<string, never>;
+            settings?: {
+              [key: string]: unknown;
+            };
             /**
              * @description Whether or not this shipping zone method is enabled.
              * @example true
              */
             enabled?: boolean;
-            handling_fees?: OneOf<[{
+            handling_fees?: {
               /**
                * @description Flat-rate handling fee applied to shipping cost.
                * @example 0
                */
               fixed_surcharge?: number;
-            }, {
+            } | {
               /**
                * @description Percentage handling fee applied to shipping cost.
                * @example 0
                */
               percentage_surcharge?: number;
-            }]>;
+            };
             /**
              * @description Whether or not this shipping zone is the fallback if all others are not valid for the order.
              * @example false

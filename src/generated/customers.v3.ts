@@ -952,7 +952,6 @@ export interface components {
     customerAuthentication_PostPut: {
       /** @description If `true`, this customer will be forced to change password on next login. */
       force_password_reset?: boolean;
-    } & {
       /** @description New password for customer. Write only field. */
       new_password?: string;
     };
@@ -1492,7 +1491,9 @@ export interface components {
      *   "2": "Metafield does not exist"
      * }
      */
-    ErrorDetail: Record<string, never>;
+    ErrorDetail: {
+      [key: string]: unknown;
+    };
     /**
      * Collection Meta
      * @description Data about the response, including pagination and collection totals.
@@ -1834,7 +1835,7 @@ export interface components {
     };
     AddressCollectionResponsePostPut: {
       content: {
-        "application/json": {
+        "application/json": ({
           data?: ({
               /** @description The address 1 line. */
               address1?: string;
@@ -1879,7 +1880,52 @@ export interface components {
               form_fields?: components["schemas"]["formFieldValue_Address"][];
             })[];
           meta?: components["schemas"]["MetaOpen"];
-        };
+        }) & (({
+          data?: ({
+              /** @description The address 1 line. */
+              address1?: string;
+              /** @description The address 2 line. */
+              address2?: string;
+              /**
+               * Address Type
+               * @description The address type. Residential or Commercial.
+               * @example residential
+               * @enum {string}
+               */
+              address_type?: "residential" | "commercial";
+              /** @description The city of the customer address. */
+              city?: string;
+              /** @description The company of the customer address. */
+              company?: string;
+              /** @description The country name of the customer address. */
+              country?: string;
+              /** @description The country code of the customer address. */
+              country_code?: string;
+              /**
+               * Format: int32
+               * @description The customer ID.
+               */
+              customer_id?: number;
+              /** @description The first name of the customer address. */
+              first_name?: string;
+              /**
+               * Format: int32
+               * @description The unique numeric ID of the address.
+               */
+              id?: number;
+              /** @description The last name of the customer address. */
+              last_name?: string;
+              /** @description The phone number of the customer address. */
+              phone?: string;
+              /** @description The postal code of the customer address. */
+              postal_code?: string;
+              /** @description The state or province name */
+              state_or_province?: string;
+              /** @description Array of form fields. Controlled by `formfields` parameter. */
+              form_fields?: components["schemas"]["formFieldValue_Full"][];
+            })[];
+          meta?: components["schemas"]["MetaOpen"];
+        }) | Record<string, never>);
       };
     };
     CustomerAttributeValueCollectionResponse: {
@@ -2109,77 +2155,78 @@ export interface components {
     MetafieldCollectionResponse: {
       content: {
         "application/json": {
-          data?: unknown[];
-          /**
-           * @description Unique ID of the *Metafield*. Read-Only.
-           * @example 0
-           */
-          id: number;
-          /**
-           * @description The key for the metafields.
-           * @example Staff Name
-           */
-          key: string;
-          /**
-           * @description The description for the metafield.
-           * @example Ronaldo
-           */
-          value: string;
-          /**
-           * @description Namespace for the metafield, for organizational purposes.
-           *
-           * @example Sales Department
-           */
-          namespace: string;
-          /**
-           * @description Determines the visibility and writeability of the field by other API consumers.
-           * | Value | Description |
-           * | :--- | :--- |
-           * | `app_only` | Private to the app that owns the field. |
-           * | `read` | Visible to other API consumers. |
-           * | `write` | Open for reading and writing by other API consumers. |
-           * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
-           * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
-           *
-           * @enum {string}
-           */
-          permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
-          /**
-           * @description The type of resource with which the metafield is associated.
-           *
-           * @example cart
-           * @enum {string}
-           */
-          resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
-          /**
-           * @description The unique identifier for the resource with which the metafield is associated.
-           *
-           * @example 0
-           */
-          resource_id: number;
-          /**
-           * @description Description for the metafields.
-           *
-           * @example order
-           */
-          description: string;
-          /**
-           * Format: date-time
-           * @description Date and time of the metafieldʼs creation.
-           * @example 2022-06-16T18:39:00+00:00
-           */
-          date_created: string;
-          /**
-           * Format: date-time
-           * @description Date and time when the metafield was last updated.
-           * @example 2022-06-16T18:39:00+00:00
-           */
-          date_modified: string;
-          /**
-           * @description Client ID for the metafield's creator.
-           * @example ramciw4fnoz87it3ynjfif2zrkil5p
-           */
-          owner_client_id?: string;
+          data?: ({
+              /**
+               * @description Unique ID of the *Metafield*. Read-Only.
+               * @example 0
+               */
+              id: number;
+              /**
+               * @description The key for the metafields.
+               * @example Staff Name
+               */
+              key: string;
+              /**
+               * @description The description for the metafield.
+               * @example Ronaldo
+               */
+              value: string;
+              /**
+               * @description Namespace for the metafield, for organizational purposes.
+               *
+               * @example Sales Department
+               */
+              namespace: string;
+              /**
+               * @description Determines the visibility and writeability of the field by other API consumers.
+               * | Value | Description |
+               * | :--- | :--- |
+               * | `app_only` | Private to the app that owns the field. |
+               * | `read` | Visible to other API consumers. |
+               * | `write` | Open for reading and writing by other API consumers. |
+               * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
+               * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
+               *
+               * @enum {string}
+               */
+              permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+              /**
+               * @description The type of resource with which the metafield is associated.
+               *
+               * @example cart
+               * @enum {string}
+               */
+              resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+              /**
+               * @description The unique identifier for the resource with which the metafield is associated.
+               *
+               * @example 0
+               */
+              resource_id: number;
+              /**
+               * @description Description for the metafields.
+               *
+               * @example order
+               */
+              description: string;
+              /**
+               * Format: date-time
+               * @description Date and time of the metafieldʼs creation.
+               * @example 2022-06-16T18:39:00+00:00
+               */
+              date_created: string;
+              /**
+               * Format: date-time
+               * @description Date and time when the metafield was last updated.
+               * @example 2022-06-16T18:39:00+00:00
+               */
+              date_modified: string;
+              /**
+               * @description Client ID for the metafield's creator.
+               * @example ramciw4fnoz87it3ynjfif2zrkil5p
+               */
+              owner_client_id?: string;
+            })[];
         };
       };
     };
@@ -2620,7 +2667,9 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["CustomerSettingsObject"];
-            meta?: Record<string, never>;
+            meta?: {
+              [key: string]: unknown;
+            };
           };
         };
       };
@@ -2642,7 +2691,9 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["CustomerSettingsObject"];
-            meta?: Record<string, never>;
+            meta?: {
+              [key: string]: unknown;
+            };
           };
         };
       };
@@ -2668,7 +2719,9 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["CustomerChannelSettingsObject"];
-            meta?: Record<string, never>;
+            meta?: {
+              [key: string]: unknown;
+            };
           };
         };
       };
@@ -2703,7 +2756,9 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["CustomerSettingsObject"];
-            meta?: Record<string, never>;
+            meta?: {
+              [key: string]: unknown;
+            };
           };
         };
       };

@@ -1834,7 +1834,9 @@ export interface components {
      *   "2": "Metafield does not exist"
      * }
      */
-    ErrorDetail: Record<string, never>;
+    ErrorDetail: {
+      [key: string]: unknown;
+    };
     /** @description The model for a POST to create metafield. */
     MetafieldPost_Batch: components["schemas"]["MetafieldBase_Post"] & {
       /**
@@ -1885,7 +1887,9 @@ export interface components {
       schema?: components["schemas"]["betaErrorResponse"];
     };
     betaErrorResponse: components["schemas"]["BaseError"] & {
-      errors?: Record<string, never>;
+      errors?: {
+        [key: string]: unknown;
+      };
     };
     /** @description Error payload for the BigCommerce API. */
     BaseError: {
@@ -1895,7 +1899,6 @@ export interface components {
       title?: string;
       type?: string;
     };
-    betaDetailedErrors: Record<string, never>;
   };
   responses: {
     Return_Resp: {
@@ -2019,7 +2022,9 @@ export interface components {
     /** @description Resource Created. */
     "201_Created": {
       content: {
-        "application/json": Record<string, never>;
+        "application/json": {
+          [key: string]: unknown;
+        };
       };
     };
     RefundCollection_Resp: {
@@ -2069,25 +2074,24 @@ export interface components {
     Transaction_Resp: {
       content: {
         "application/json": {
-          data?: components["schemas"]["Transaction_Post"];
-        } & {
-          /** @description Unique identifier for the transaction. */
-          id?: number;
-          /** @description Identifier for the BigCommerce Order with which this transaction is associated. */
-          order_id?: string;
-          /**
-           * Format: date-time
-           * @description The datetime of the transaction.
-           */
-          date_created?: string;
-          /** @description This field contains internal BigPay token for stored card that is then mapped to the actual third-party token. We currently do not offer a way to get third party tokens.These tokens are read-only and do not return any information about the payment. */
-          payment_instrument_token?: string;
-          avs_result?: components["schemas"]["AVSResult"];
-          cvv_result?: components["schemas"]["CVVResult"];
-          credit_card?: components["schemas"]["CreditCard"];
-          gift_certificate?: components["schemas"]["GiftCertificate"];
-          store_credit?: components["schemas"]["StoreCredit"];
-        } & {
+          data?: components["schemas"]["Transaction_Post"] & {
+            /** @description Unique identifier for the transaction. */
+            id?: number;
+            /** @description Identifier for the BigCommerce Order with which this transaction is associated. */
+            order_id?: string;
+            /**
+             * Format: date-time
+             * @description The datetime of the transaction.
+             */
+            date_created?: string;
+            /** @description This field contains internal BigPay token for stored card that is then mapped to the actual third-party token. We currently do not offer a way to get third party tokens.These tokens are read-only and do not return any information about the payment. */
+            payment_instrument_token?: string;
+            avs_result?: components["schemas"]["AVSResult"];
+            cvv_result?: components["schemas"]["CVVResult"];
+            credit_card?: components["schemas"]["CreditCard"];
+            gift_certificate?: components["schemas"]["GiftCertificate"];
+            store_credit?: components["schemas"]["StoreCredit"];
+          };
           meta?: components["schemas"]["metaEmpty_Full"];
         };
       };
@@ -2683,7 +2687,7 @@ export interface operations {
       /** @description OK */
       200: {
         content: {
-          "application/json": Record<string, never> & components["schemas"]["GlobalOrderSettings"] & {
+          "application/json": components["schemas"]["GlobalOrderSettings"] & {
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };

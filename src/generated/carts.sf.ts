@@ -5,11 +5,6 @@
  */
 
 
-/** OneOf type helpers */
-type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
-type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
-
 export interface paths {
   "/carts": {
     /**
@@ -228,17 +223,17 @@ export interface components {
      * Create Cart Request Object
      * @description Cart object used in create cart requests.
      */
-    requestCart: OneOf<[{
+    requestCart: {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       locale?: string;
-    }, {
+    } | {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
       locale?: string;
-    }, {
+    } | {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
       locale?: string;
-    }]>;
+    };
     /** Gift Wrapping */
     responseCartLineItemsPhysicalItemGiftWrapping: {
       /**
@@ -298,23 +293,23 @@ export interface components {
      * requestLineItems
      * @description Cart object used in add items requests.
      */
-    LineItemsRequest: OneOf<[{
+    LineItemsRequest: {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
-    }, {
+    } | {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
-    }, {
+    } | {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
-    }]>;
+    };
     /** requestLineItemPut */
-    requestLineItemPut: OneOf<[{
+    requestLineItemPut: {
       lineItem: components["schemas"]["requestCartPostLineItem"];
-    }, {
+    } | {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
-    }, {
+    } | {
       lineItem: components["schemas"]["requestCartPostLineItem"];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
-    }]>;
+    };
     /**
      * Currency
      * @description This will always be the same between cart and checkout.

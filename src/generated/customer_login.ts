@@ -110,7 +110,9 @@ export interface operations {
       /** @description OK */
       200: {
         content: {
-          "*/*": Record<string, never>;
+          "*/*": {
+            [key: string]: unknown;
+          };
         };
       };
     };

@@ -777,8 +777,6 @@ export interface components {
       password?: string;
       password_confirmation?: string;
     };
-    /** customer_Base */
-    customer_Base: Record<string, never>;
     /** page_Base */
     page_Base: {
       /**
@@ -1061,7 +1059,9 @@ export interface operations {
       /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occured, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };
@@ -1146,7 +1146,9 @@ export interface operations {
       /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };
@@ -1290,7 +1292,9 @@ export interface operations {
       /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };
@@ -1361,7 +1365,9 @@ export interface operations {
       /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };

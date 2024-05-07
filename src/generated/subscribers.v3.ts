@@ -88,7 +88,7 @@ export interface components {
        *   "marketing_newsletter"
        * ]
        */
-      consents?: unknown[];
+      consents?: string[];
     };
     /**
      * subscriber_Base

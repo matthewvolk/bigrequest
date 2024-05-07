@@ -555,6 +555,7 @@ export interface components {
       collapsed_by_default?: boolean;
       display_name?: string;
       display_product_count?: boolean;
+      /** @description The ID of the filter. */
       id?: string;
       is_enabled?: boolean;
       /** @enum {integer} */
@@ -572,6 +573,7 @@ export interface components {
       collapsed_by_default?: boolean;
       display_name?: string;
       display_product_count?: boolean;
+      /** @description The ID of the filter. */
       id?: string;
       is_enabled?: boolean;
       /** @enum {integer} */
@@ -579,27 +581,16 @@ export interface components {
       /** @enum {string} */
       type?: "category";
     };
-    /** EnabledFilter */
-    EnabledFilter: components["schemas"]["EnabledProductFilter"] | components["schemas"]["EnabledPriceFilter"] | components["schemas"]["EnabledCategoryFilter"] | components["schemas"]["EnabledBrandFilter"] | components["schemas"]["EnabledRatingFilter"] | components["schemas"]["EnabledMiscFilter"];
-    /** EnabledFilters */
-    EnabledFilters: components["schemas"]["EnabledFilter"][];
-    /**
-     * EnabledFiltersOverride
-     * @description A new set of enabled Product Filtering filters which should display in a particular context, such as on a particular Channel, or while viewing a particular Category. Array order indicates the display order on the storefront.
-     */
-    EnabledFiltersOverride: {
-      data?: components["schemas"]["EnabledFilters"];
-      scope?: components["schemas"]["SearchFilterOverrideScopeIdentifier"];
-    };
     /**
      * EnabledMiscFilter
-     * @description Miscellaneous Filters which appear as a group.
+     * @description Miscellaneous filters which appear as a group.
      */
     EnabledMiscFilter: {
       collapsed_by_default?: boolean;
       display_name?: string;
       display_product_count?: boolean;
-      id?: number;
+      /** @description The ID of the filter. */
+      id?: string;
       is_enabled?: boolean;
       show_free_shipping_filter?: boolean;
       show_in_stock_filter?: boolean;
@@ -615,6 +606,7 @@ export interface components {
     EnabledPriceFilter: {
       collapsed_by_default?: boolean;
       display_name?: string;
+      /** @description The ID of the filter. */
       id?: string;
       is_enabled?: boolean;
       /** @enum {string} */
@@ -628,6 +620,7 @@ export interface components {
       collapsed_by_default?: boolean;
       display_name?: string;
       display_product_count?: boolean;
+      /** @description The ID of the filter. */
       id?: string;
       is_enabled?: boolean;
       /** @enum {integer} */
@@ -644,6 +637,7 @@ export interface components {
     EnabledRatingFilter: {
       collapsed_by_default?: boolean;
       display_name?: string;
+      /** @description The ID of the filter. */
       id?: string;
       is_enabled?: boolean;
       /** @enum {string} */
@@ -825,11 +819,6 @@ export interface components {
     };
     /** ContextIdentifier */
     SearchFilterOverrideContextIdentifier: {
-      category_id?: number;
-      channel_id?: number;
-    };
-    /** ScopeIdentifier */
-    SearchFilterOverrideScopeIdentifier: {
       category_id?: number;
       channel_id?: number;
     };
@@ -1015,10 +1004,6 @@ export interface components {
     ContentType: string;
     /** @description Channel ID to use for channel-specific settings. If omitted, you will interact with the global settings only. */
     ChannelIdParam?: number;
-    /** @description A comma-separated list of strings representing which configuration keys should be cleared (un-overridden) for the channel. */
-    KeysToDelete: string[];
-    /** @description Required channel ID. This delete operation will delete overridden settings for this channel, thus restoring them to the global defaults. */
-    RequiredChannelIdParamForDelete: number;
   };
   requestBodies: never;
   headers: never;
@@ -2236,7 +2221,9 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["MeasurementUnitsSettings"];
-            meta?: Record<string, never>;
+            meta?: {
+              [key: string]: unknown;
+            };
           };
         };
       };
@@ -2277,7 +2264,9 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["MeasurementUnitsSettings"];
-            meta?: Record<string, never>;
+            meta?: {
+              [key: string]: unknown;
+            };
           };
         };
       };

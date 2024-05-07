@@ -148,7 +148,9 @@ export interface components {
        *   "B-6731789": "200"
        * }
        */
-      tax_properties: Record<string, never>;
+      tax_properties: {
+        [key: string]: unknown;
+      };
     };
     /**
      * Response meta

@@ -1079,7 +1079,7 @@ export interface components {
      * product_Put
      * @description The model for a PUT to update a product.
      */
-    product_Put: components["schemas"]["product_Base"] & Record<string, never>;
+    product_Put: Record<string, never> & components["schemas"]["product_Base"];
     /**
      * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 250. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
@@ -2291,7 +2291,9 @@ export interface components {
      *   "2": "Metafield does not exist"
      * }
      */
-    ErrorDetail: Record<string, never>;
+    ErrorDetail: {
+      [key: string]: unknown;
+    };
     /**
      * Collection Meta
      * @description Data about the response, including pagination and collection totals.
