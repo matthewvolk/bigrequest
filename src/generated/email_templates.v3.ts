@@ -107,7 +107,9 @@ export interface components {
        *   "reset_password": "To change your customer account password at {{name}} please click this link or copy and paste it into your browser:"
        * }
        */
-      keys?: Record<string, never>;
+      keys?: {
+        [key: string]: unknown;
+      };
     };
     /**
      * LocaleCollection

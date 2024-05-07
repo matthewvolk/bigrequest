@@ -450,7 +450,7 @@ export interface components {
       date_created?: string;
     } & components["schemas"]["banner_Base"];
     /** banner_Put */
-    banner_Put: Record<string, never> & components["schemas"]["banner_Base"];
+    banner_Put: components["schemas"]["banner_Base"];
     /** giftCertificate_Base */
     giftCertificate_Base: {
       /**

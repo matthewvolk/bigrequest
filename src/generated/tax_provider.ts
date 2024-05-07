@@ -155,9 +155,9 @@ export interface components {
       items: (components["schemas"]["request-item"] & ({
           type: components["schemas"]["item_type"];
           /** @description Optional gift wrapping for items in the consignment. */
-          wrapping?: (components["schemas"]["request-item"] & {
+          wrapping?: components["schemas"]["request-item"] & ({
             type: components["schemas"]["wrapping_type"];
-          }) | null;
+          } | null);
         }))[];
     };
     /**
@@ -266,9 +266,9 @@ export interface components {
       items: (components["schemas"]["response-item"] & ({
           type: components["schemas"]["item_type"];
           /** @description Optional gift wrapping for items in the consignment. */
-          wrapping?: (components["schemas"]["response-item"] & {
+          wrapping?: components["schemas"]["response-item"] & ({
             type: components["schemas"]["wrapping_type"];
-          }) | null;
+          } | null);
         }))[];
       /** @description Shipping line item present in each document request. */
       shipping: components["schemas"]["response-item"] & {

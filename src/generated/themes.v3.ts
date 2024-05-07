@@ -646,11 +646,12 @@ export interface components {
     };
     /**
      * Which Theme To Download
-     * @description An object specifying which theme to download. One of: `original`: the original Marketplace or uploaded custom theme; `last_activated`: the theme version most recently applied to the store; `last_created`: the theme version most recently created.
+     * @description An object specifying which theme to download. One of: `original`: the original Marketplace or uploaded custom theme; `last_activated`: the theme version most recently applied to the store; `last_created`: the theme version most recently created. If `which` is missing or invalid in the request, its value will default to `last_activated`.
      */
     WhichThemeToDownload: {
       /**
        * @description Which revision to use.
+       * @example original
        * @enum {string}
        */
       which?: "original" | "last_activated" | "last_created";
@@ -673,8 +674,13 @@ export interface components {
       theme_uuid?: string;
       /** @description The Variation to which the Configuration belongs. */
       variation_id?: string;
-      /** @description The content of the configuration, which is a JSON object which will vary in structure from theme to theme. */
-      settings?: Record<string, never>;
+      /**
+       * Format: json
+       * @description The content of the configuration, which is a JSON object which will vary in structure from theme to theme.
+       */
+      settings?: {
+        [key: string]: unknown;
+      };
       date_created?: string;
       /** @description Site ID to which this configuration belongs. Will be 0 for the original configuration for a Theme. */
       site_id?: number;
@@ -686,8 +692,13 @@ export interface components {
     themeConfiguration_Write: {
       /** @description The Variation to which the Configuration belongs. */
       variation_id?: string;
-      /** @description The content of the configuration, which is a JSON object which will vary in structure from theme to theme. */
-      settings?: Record<string, never>;
+      /**
+       * Format: json
+       * @description The content of the configuration, which is a JSON object which will vary in structure from theme to theme.
+       */
+      settings?: {
+        [key: string]: unknown;
+      };
     };
     /**
      * Response meta

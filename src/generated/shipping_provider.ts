@@ -224,12 +224,16 @@ export interface components {
      * Zone Options Instance
      * @description Any zone-specific request options declared by the carrier and configured by the merchant to retrieve rates. Optional.
      */
-    ZoneOptionsInstance: Record<string, never>;
+    ZoneOptionsInstance: {
+      [key: string]: unknown;
+    };
     /**
      * Connection Options Instance
      * @description Any global request options declared by the carrier and configured by the merchant to retrieve rates. Optional.
      */
-    ConnectionOptionsInstance: Record<string, never>;
+    ConnectionOptionsInstance: {
+      [key: string]: unknown;
+    };
     /**
      * Rate Options Instance
      * @description Optional, any checkout specific request options to retrieve rates

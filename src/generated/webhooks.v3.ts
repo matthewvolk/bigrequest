@@ -166,7 +166,6 @@ export interface components {
      * store/cart/deleted
      * @description Fires when a cart is deleted. Carts are deleted in two ways; when all items are removed from a cart, and when an API consumer explicitly removes the cart using a `DELETE` request. Cart deletion ends the cart lifecycle. The `store/cart/updated` webhook also fires when the last item is removed.
      *
-     *
      * ```json filename="Example callback object" showLineNumbers
      * {
      *   "created_at": 1561482670,
@@ -239,7 +238,6 @@ export interface components {
      * store/cart/abandoned
      * @description This webhook fires after a cart is abandoned. BigCommerce considers a cart abandoned when it has no activity for at least one hour. This webhook is available for all store plans, regardless of whether the Abandoned Cart Saver feature is enabled.
      *
-     *
      * ```json filename="Example callback object" showLineNumbers
      * {
      *   "created_at": 1561482670,
@@ -278,7 +276,6 @@ export interface components {
     /**
      * store/cart/converted
      * @description Fires when a cart/checkout is converted into an order, which is typically after the checkout payment step on the storefront. At this point, the cart is automatically deleted and no longer accessible. This webhook returns both the cart/checkout ID and order ID for correlation purposes.
-     *
      *
      * ```json filename="Example callback object" showLineNumbers
      * {
@@ -932,7 +929,7 @@ export interface components {
      * store/order/*
      * @description Fires for all `store/order` events.
      */
-    store_order_wildcard: Record<string, never>;
+    store_order_wildcard: unknown;
     /**
      * store/order/created
      * @description This webhook is triggered when an order is created in the control panel, using an app, or by API.
@@ -1194,7 +1191,7 @@ export interface components {
      * store/product/*
      * @description Fires for all `store/product` events.
      */
-    store_product_wildcard: Record<string, never>;
+    store_product_wildcard: unknown;
     /**
      * store/product/deleted
      * @description This webhook is triggered when a product is deleted.
@@ -1478,7 +1475,7 @@ export interface components {
      * store/shipment/*
      * @description Fires for all `store/shipment` events.
      */
-    store_shipment_wildcard: Record<string, never>;
+    store_shipment_wildcard: unknown;
     /**
      * store/shipment/created
      * @description Fires when a shipment is created.
@@ -1603,7 +1600,7 @@ export interface components {
      * store/sku/*
      * @description Fires for all `store/sku` events.
      */
-    store_sku_wildcard: Record<string, never>;
+    store_sku_wildcard: unknown;
     /**
      * store/sku/created
      * @description This webhook is triggered when a new SKU is created.
@@ -1943,7 +1940,7 @@ export interface components {
      * store/subscriber/*
      * @description Fires for all `store/subscriber` events.
      */
-    store_subscriber_wildcard: Record<string, never>;
+    store_subscriber_wildcard: unknown;
     /**
      * store/subscriber/created
      * @description Fires when a subscriber is created.
@@ -2060,7 +2057,7 @@ export interface components {
       title?: string;
       /** @description Typically a link to BigCommerce API Status codes */
       type?: string;
-      errors?: Record<string, never>;
+      errors?: unknown;
     };
     /** webhook_Put */
     webhook_Put: {
@@ -2150,7 +2147,9 @@ export interface components {
       /** @description A numerical identifier that is unique to each store. */
       store_id?: string;
       /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
-      data?: Record<string, never>;
+      data?: {
+        [key: string]: unknown;
+      };
       /** @description The payload data encoded in JSON format and then passed through SH1 encryption. */
       hash?: string;
       /**

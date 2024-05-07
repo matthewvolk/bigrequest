@@ -90,7 +90,7 @@ export interface operations {
        *   }
        * ```
        */
-      default: {
+      200: {
         content: {
           "application/json": string;
         };

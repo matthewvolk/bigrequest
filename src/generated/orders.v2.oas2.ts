@@ -1197,7 +1197,9 @@ export interface components {
        */
       shipping_provider_id?: string;
       /** @description This can vary based on the shipping provider. Manual shipping methods such as fixed will return an empty array. Shipping providers such as UPS will return an object with the shipping information. Since the shipping quote is tied to a shipping address only one quote will return in the response. */
-      shipping_provider_quote?: unknown[];
+      shipping_provider_quote?: {
+          [key: string]: unknown;
+        }[];
       /**
        * @description Code of the shipping provider.
        * @example shipping_byweight

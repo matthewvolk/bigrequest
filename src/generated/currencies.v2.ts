@@ -305,7 +305,9 @@ export interface operations {
     responses: {
       204: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };
@@ -386,7 +388,9 @@ export interface operations {
     responses: {
       204: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
     };

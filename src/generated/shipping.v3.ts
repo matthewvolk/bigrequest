@@ -192,11 +192,10 @@ export interface components {
         };
       };
     };
-    /**
-     * Error
-     * @description Meta data relating to pagination
-     */
-    error_Full: Record<string, never>;
+    /** Error */
+    error_Full: {
+      [key: string]: unknown;
+    };
   };
   responses: {
     /** @description If something happens during the request that causes it to fail, a 502 response will be returned. A new request should be made; however, it could fail. */

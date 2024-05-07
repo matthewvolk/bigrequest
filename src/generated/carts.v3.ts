@@ -600,6 +600,7 @@ export interface components {
       name?: string;
       email?: string;
     };
+    /** Digital Item */
     ItemDigital: ({
       /**
        * @description The line-item ID.
@@ -744,6 +745,7 @@ export interface components {
       /** @description Specifies the combined download size of all files in human-readable style; for example, `30MB`. */
       download_size?: string;
     };
+    /** Digital Item Response */
     ItemDigitalGet: ({
       /**
        * @description The line-item ID.
@@ -1356,7 +1358,7 @@ export interface components {
     };
     /** Cart_Line_Item_Update_Post */
     Cart_Line_Item_Update_Post: {
-      line_items?: unknown;
+      line_items?: components["schemas"]["cart_PostVariant"][] | components["schemas"]["cart_PostModifier"][];
       gift_certificates?: ({
           /** @description Given name for gift certificate line item. */
           name: string;
@@ -1414,7 +1416,9 @@ export interface components {
       title?: string;
       type?: string;
       instance?: string;
-      errors?: Record<string, never>;
+      errors?: {
+        [key: string]: unknown;
+      };
     };
     /**
      * LineItemsGet
@@ -1803,7 +1807,9 @@ export interface components {
      *   "2": "Metafield does not exist"
      * }
      */
-    ErrorDetail: Record<string, never>;
+    ErrorDetail: {
+      [key: string]: unknown;
+    };
     /**
      * Collection Meta
      * @description Additional data about the response.

@@ -628,7 +628,9 @@ export interface components {
      *   "2": "Metafield does not exist"
      * }
      */
-    ErrorDetail: Record<string, never>;
+    ErrorDetail: {
+      [key: string]: unknown;
+    };
     /**
      * Collection Meta
      * @description Data about the response, including pagination and collection totals.
@@ -2061,7 +2063,9 @@ export interface operations {
             title?: string;
             /** @default https://developer.bigcommerce.com/api-docs/getting-started/api-status-codes */
             type?: string;
-            errors?: Record<string, never>;
+            errors?: {
+              [key: string]: unknown;
+            };
           };
         };
       };

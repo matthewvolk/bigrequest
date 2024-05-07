@@ -335,9 +335,13 @@ export interface components {
     /** @description Empty object for Success case for Batch API. */
     SuccessBatchResponse: {
       /** @example {} */
-      data?: Record<string, never>;
+      data?: {
+        [key: string]: unknown;
+      };
       /** @example {} */
-      meta?: Record<string, never>;
+      meta?: {
+        [key: string]: unknown;
+      };
     };
     /** @description Error during `Price Record` batch PUT. Includes data sent in the request and errors. */
     PriceRecordBatchErrorResponse: {
@@ -771,7 +775,9 @@ export interface operations {
       /** @description `204 No Content`. The action has been performed and no further information will be supplied. `null` is returned. */
       204: {
         content: {
-          "application/json": unknown;
+          "application/json": {
+            [key: string]: unknown;
+          } | null;
         };
       };
     };

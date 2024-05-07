@@ -173,7 +173,9 @@ export interface components {
       title?: string;
       type?: string;
       instance?: string;
-      errors?: Record<string, never>;
+      errors?: {
+        [key: string]: unknown;
+      };
     };
   };
   responses: {

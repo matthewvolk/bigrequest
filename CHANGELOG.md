@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- [#262](https://github.com/matthewvolk/bigrequest/pull/262) [`f3e806f`](https://github.com/matthewvolk/bigrequest/commit/f3e806fd6b2016ea12a5a9a8ac8f770e22e29931) Thanks [@matthewvolk](https://github.com/matthewvolk)! - bigcommerce/docs#234, bigcommerce/docs#230, bigcommerce/docs#235, bigcommerce/docs#236, bigcommerce/docs#239, bigcommerce/docs#229, bigcommerce/docs#237, bigcommerce/docs#243, bigcommerce/docs#245, bigcommerce/docs#248, bigcommerce/docs#254
+- [#262](https://github.com/matthewvolk/bigrequest/pull/262) [`f3e806f`](https://github.com/matthewvolk/bigrequest/commit/f3e806fd6b2016ea12a5a9a8ac8f770e22e29931) Thanks [@matthewvolk](https://github.com/matthewvolk)! - bigcommerce/docs#234, bigcommerce/docs#230, bigcommerce/docs#235, bigcommerce/docs#236, bigcommerce/docs#239, bigcommerce/docs#229, bigcommerce/docs#237, bigcommerce/docs#243, bigcommerce/docs#245, bigcommerce/docs#248
 
 ## 0.0.32
 

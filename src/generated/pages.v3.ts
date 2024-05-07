@@ -146,18 +146,6 @@ export interface components {
       data?: components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"];
       meta?: components["schemas"]["ResponseMeta"];
     };
-    ContactFields: {
-      /** @description Full name of the customer who is submitting the form. */
-      fullname?: string;
-      /** @description Customer’s phone number, as submitted on the form. */
-      phone?: string;
-      /** @description Customer’s submitted company name. */
-      companyname?: string;
-      /** @description Customer’s submitted order number. */
-      orderno?: string;
-      /** @description Customer’s submitted RMA (Return Merchandise Authorization) number. */
-      rma?: string;
-    };
     /** @description Properties of the page modification request body. */
     PagePutObj: {
       /**
@@ -383,43 +371,6 @@ export interface components {
        */
       search_keywords?: string | null;
     };
-    ReadShared: {
-      /**
-       * @description The name of the page. Must be unique.
-       * @example About Our Company
-       */
-      name: string;
-      /** @description Indicates whether the page is available to users and visible in any menus. */
-      is_visible?: boolean;
-      /**
-       * @description ID of the parent page, if any.
-       * @default 0
-       * @example 0
-       */
-      parent_id?: number;
-      /**
-       * @description Determines the order in which the page is displayed in the parent page’s menu. Pages with lower integers display earlier.
-       * @default 0
-       * @example 0
-       */
-      sort_order?: number;
-      /**
-       * @description Determines the type of page. See [Pages v3 page types](/docs/rest-content/pages#page-types) for more about the differences.
-       * @example page
-       * @enum {string}
-       */
-      type: "page" | "contact_form" | "raw" | "blog" | "feed" | "link";
-      /**
-       * @description Determines whether this page loads at the siteʼs root route. For example, at `https://example.com/`.
-       * @default false
-       */
-      is_homepage?: boolean;
-      /**
-       * @description When `true`, this page is not visible to merchant users who are signed in to the store control panel.
-       * @default false
-       */
-      is_customers_only?: boolean;
-    };
   };
   responses: {
     /** @description Multiple operations have occurred and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
@@ -449,27 +400,10 @@ export interface components {
     HTTP204: {
       content: never;
     };
-    HTTP400: {
-      content: {
-        "application/problem+json": components["schemas"]["ResponseErrorBrief"];
-      };
-    };
-    HTTP404: {
-      content: {
-        "application/problem+json": components["schemas"]["ResponseErrorDetailed"];
-      };
-    };
-    HTTP422: {
-      content: {
-        "application/problem+json": components["schemas"]["ResponseErrorDetailed"];
-      };
-    };
   };
   parameters: {
     Accept: string;
     ContentType: string;
-    /** @description The permanent ID of the BigCommerce store. */
-    storeHashPath: string;
     /** @description The ID of the page to be operated on. */
     pageIdPath: string;
     /** @description Include the requested property in the response. The `body` property returns the page’s markup, text, or raw content. */
@@ -490,14 +424,7 @@ export interface components {
     pageQuery?: number;
   };
   requestBodies: never;
-  headers: {
-    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
-    "Content-Type": string;
-    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
-    Accept: string;
-    /** @description Your API account's access token. */
-    "X-Auth-Token": string;
-  };
+  headers: never;
   pathItems: never;
 }
 

@@ -190,7 +190,9 @@ export interface operations {
       /** @description Success response for batch upsert of custom template associations */
       200: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": {
+            [key: string]: unknown;
+          };
         };
       };
       /** @description Error response for batch PUT of Custom template associations. Includes the errors for each reference ID. */
