@@ -572,7 +572,7 @@ export interface paths {
      */
     get: operations["getProductsCategoryAssignments"];
     /**
-     * Create Products Category Assignments.
+     * Create Products Category Assignments
      * @description Creates products category assignments.
      */
     put: operations["createProductsCategoryAssignments"];
@@ -1810,8 +1810,6 @@ export interface components {
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
-      /** @description An array of channel IDs for the channels that have this product. You can provide an empty request, a single ID, or an array of IDs. */
-      channels?: unknown[];
       /** @description You can add a product to an existing brand during a product /PUT or /POST. Use either the `brand_id` or the `brand_name` field. The response body can include `brand_id`. */
       brand_id?: number;
       /**
@@ -2684,6 +2682,8 @@ export interface components {
     SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParam?: string[];
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
     /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. The ID and the specified fields will be returned. */
     IncludeFieldsEnumParam?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
     /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
@@ -2806,7 +2806,6 @@ export interface operations {
         direction?: components["parameters"]["DirectionParam"];
         sort?: components["parameters"]["SortParam"];
         "categories:in"?: components["parameters"]["CategoriesInParam"];
-        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
         "id:min"?: components["parameters"]["IdMinParam"];
         "id:max"?: components["parameters"]["IdMaxParam"];
         "id:greater"?: components["parameters"]["IdGreaterParam"];
@@ -5897,7 +5896,7 @@ export interface operations {
     };
   };
   /**
-   * Create Products Category Assignments.
+   * Create Products Category Assignments
    * @description Creates products category assignments.
    */
   createProductsCategoryAssignments: {
@@ -6055,6 +6054,7 @@ export interface operations {
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
       };
     };
     responses: {

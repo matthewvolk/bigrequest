@@ -1036,6 +1036,8 @@ export interface components {
     DirectionParam?: "asc" | "desc";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParam?: string[];
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
     /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
     ExcludeFieldsParam?: string[];
     /** @description A comma-separated list of IDs of products you want to request. For example, `?product_id:in=77,80,81`. */
@@ -2094,6 +2096,7 @@ export interface operations {
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
