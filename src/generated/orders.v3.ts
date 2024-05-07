@@ -75,8 +75,9 @@ export interface paths {
      * * `store_v2_orders`
      * * `store_v2_transactions`
      *
-     * **Note:**
-     * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
+     * **Notes:**
+     * * Create a refund quote before performing a refund request to best avoid a `422` error. Check the refund quote's response body for the `refund_methods` array. The `amount` given in the array must match the `amount` used in the refund request body.
+     * * Order refunds are processed consecutively. Processing synchronous refunds on an order is not yet supported.
      */
     post: operations["createOrderRefundQuotes"];
     parameters: {
@@ -1131,6 +1132,8 @@ export interface components {
       total_refund_amount?: components["schemas"]["Amount"];
       /** @example 1.95 */
       total_refund_tax_amount?: number;
+      /** @example 1.99 */
+      order_level_refund_amount?: number;
       /** @description Indicates rounding value to bring `refund_total` to an amount refundable with payment providers (in this case to 2 decimal places). */
       rounding?: number;
       adjustment?: components["schemas"]["AdjustmentAmount"];
@@ -2127,6 +2130,8 @@ export interface components {
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
   };
   requestBodies: never;
   headers: never;
@@ -2253,8 +2258,9 @@ export interface operations {
    * * `store_v2_orders`
    * * `store_v2_transactions`
    *
-   * **Note:**
-   * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
+   * **Notes:**
+   * * Create a refund quote before performing a refund request to best avoid a `422` error. Check the refund quote's response body for the `refund_methods` array. The `amount` given in the array must match the `amount` used in the refund request body.
+   * * Order refunds are processed consecutively. Processing synchronous refunds on an order is not yet supported.
    */
   createOrderRefundQuotes: {
     parameters: {
@@ -2786,6 +2792,7 @@ export interface operations {
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
       };
     };
     responses: {

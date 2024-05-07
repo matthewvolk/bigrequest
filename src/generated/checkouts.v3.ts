@@ -778,6 +778,12 @@ export interface components {
         /** @example 1 */
         pickup_method_id?: number;
       };
+      custom_shipping?: {
+        /** @example 12.9 */
+        price?: number;
+        /** @example custom shipping */
+        description?: string;
+      };
     };
     /** Coupon Code Request */
     CouponCodeRequest: {

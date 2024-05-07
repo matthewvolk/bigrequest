@@ -1598,6 +1598,8 @@ export interface components {
     DirectionParam?: "asc" | "desc";
     /** @description Channels subresources that can be included in the response. */
     include?: "currencies";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
     /** @description Filter items based on whether the channel is currently available for integration. Setting this query parameter to `true` will return channels with the status of `prelaunch`, `active` , `inactive`, and `connected`. Setting this query parameter to `false` will return channels with the status of `disconnected`, `archived`, `deleted`, and `terminated`. */
     available?: boolean;
     /** @description Filter items by a comma-separated list of statuses. */
@@ -2369,6 +2371,7 @@ export interface operations {
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
       };
     };
     responses: {

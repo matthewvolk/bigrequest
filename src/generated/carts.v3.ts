@@ -82,7 +82,6 @@ export interface paths {
      * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
      * * Once a redirect URL has been visited, it will be invalidated and cannot be used again.
      * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
-     * * Redirect URLs can be generated only from carts that were created using the **REST Management API**.
      * * To restore a cart that was created on the storefront, either by a shopper or a Storefront API, first recreate the cart using the **REST Management API**.
      * * When redirecting the shopper, you can add a set of `query_params` to the URL. The `query_params` feature allows passing additional information to the redirect URL.
      */
@@ -1979,6 +1978,8 @@ export interface components {
     LimitParam?: number;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
   };
   requestBodies: never;
   headers: never;
@@ -2103,7 +2104,6 @@ export interface operations {
    * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
    * * Once a redirect URL has been visited, it will be invalidated and cannot be used again.
    * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
-   * * Redirect URLs can be generated only from carts that were created using the **REST Management API**.
    * * To restore a cart that was created on the storefront, either by a shopper or a Storefront API, first recreate the cart using the **REST Management API**.
    * * When redirecting the shopper, you can add a set of `query_params` to the URL. The `query_params` feature allows passing additional information to the redirect URL.
    */
@@ -2663,6 +2663,7 @@ export interface operations {
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
       };
     };
     responses: {
