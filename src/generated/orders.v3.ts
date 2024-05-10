@@ -270,7 +270,7 @@ export interface paths {
     get: operations["getOrdersMetafields"];
     /**
      * Update multiple Metafields
-     * @description Create multiple metafields.
+     * @description Update multiple metafields.
      */
     put: operations["updateOrdersMetafields"];
     /**
@@ -764,10 +764,11 @@ export interface components {
     NotFound: {
       /** @description 404 HTTP status code. */
       status?: number;
-      /** @description The error title describing the particular error. */
+      /** @description The resource at that URL is not found. */
       title?: string;
       type?: string;
-      instance?: string;
+      /** @description Empty for 200 responses. */
+      errors?: unknown[];
     };
     Transaction: ({
       /**
@@ -2498,12 +2499,6 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse"];
         };
       };
-      /** @description The resource was not found. */
-      404: {
-        content: {
-          "application/json": components["schemas"]["NotFound"];
-        };
-      };
     };
   };
   /**
@@ -2525,6 +2520,15 @@ export interface operations {
     /** @description A `Metafield` object. */
     requestBody: {
       content: {
+        /**
+         * @example {
+         *   "permission_set": "app_only",
+         *   "namespace": "Sales Department",
+         *   "key": "Staff Name",
+         *   "value": "Sam",
+         *   "description": "Name of staff member"
+         * }
+         */
         "application/json": components["schemas"]["MetafieldBase_Post"];
       };
     };
@@ -2571,7 +2575,7 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The resource was not found. */
+      /** @description A metafield was not found with this query. */
       404: {
         content: {
           "application/json": components["schemas"]["NotFound"];
@@ -2610,7 +2614,7 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The resource was not found. */
+      /** @description A metafield was not found with this query. */
       404: {
         content: {
           "application/json": components["schemas"]["NotFound"];
@@ -2806,15 +2810,11 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse"];
         };
       };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
-      };
     };
   };
   /**
    * Update multiple Metafields
-   * @description Create multiple metafields.
+   * @description Update multiple metafields.
    */
   updateOrdersMetafields: {
     requestBody?: {
@@ -2841,10 +2841,6 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
         };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
       };
     };
   };
@@ -2877,10 +2873,6 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
         };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
       };
     };
   };
