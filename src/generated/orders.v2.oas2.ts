@@ -128,7 +128,9 @@ export interface paths {
   "/orders/{order_id}/products": {
     /**
      * List Order Products
-     * @description Lists 50 order products on an order using `order_id`. By default, items sort from lowest to highest according to a newly created ID, separate from the `order_id` and the `product_id`.
+     * @description Lists 50 order products on an order using `order_id`. By default, items are sorted from lowest to highest according to a newly created ID, separate from the `order_id` and the `product_id`.
+     *
+     * **Note**: The response `id` is required when you [create order shipments](/docs/store-operations/orders#creating-order-shipments).
      */
     get: operations["getOrderProducts"];
     parameters: {
@@ -276,7 +278,6 @@ export interface paths {
      *  - `royalmail`
      *  - `ups`
      *  - `upsready`
-     *  - `upsonline`
      *  - `shipperhq`
      *  - `carrier_{your_carrier_id}`, when the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)
      *
@@ -2882,7 +2883,9 @@ export interface operations {
   };
   /**
    * List Order Products
-   * @description Lists 50 order products on an order using `order_id`. By default, items sort from lowest to highest according to a newly created ID, separate from the `order_id` and the `product_id`.
+   * @description Lists 50 order products on an order using `order_id`. By default, items are sorted from lowest to highest according to a newly created ID, separate from the `order_id` and the `product_id`.
+   *
+   * **Note**: The response `id` is required when you [create order shipments](/docs/store-operations/orders#creating-order-shipments).
    */
   getOrderProducts: {
     parameters: {
@@ -3071,7 +3074,6 @@ export interface operations {
    *  - `royalmail`
    *  - `ups`
    *  - `upsready`
-   *  - `upsonline`
    *  - `shipperhq`
    *  - `carrier_{your_carrier_id}`, when the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)
    *
