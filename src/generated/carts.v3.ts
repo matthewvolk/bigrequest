@@ -268,7 +268,7 @@ export interface paths {
      */
     post: operations["createCartsMetafields"];
     /**
-     * Delete All Metafields
+     * Delete multiple Metafields
      * @description Delete all cart metafields.
      */
     delete: operations["deleteCartsMetafields"];
@@ -2490,18 +2490,6 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The `Metafield` conflicts with another `Metafield`. This can result from duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
-      409: {
-        content: {
-          "application/json": components["schemas"]["ErrorResponse"];
-        };
-      };
-      /** @description The `Metafield` is not valid. This is the result of missing required fields or of invalid data. See the response for more details. */
-      422: {
-        content: {
-          "application/json": components["schemas"]["ErrorResponse"];
-        };
-      };
     };
   };
   /**
@@ -2541,10 +2529,27 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse"];
         };
       };
-      /** @description The resource was not found. */
-      404: {
+      /** @description Bad Request. Input is invalid. */
+      400: {
         content: {
-          "application/json": components["schemas"]["NotFound"];
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
+        };
+      };
+      /** @description The `Metafield` conflicts with another `Metafield`. This can result from duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
+      409: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+      /** @description The `Metafield` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
         };
       };
     };
@@ -2578,21 +2583,11 @@ export interface operations {
           "application/json": components["schemas"]["MetafieldResponse"];
         };
       };
-      /** @description The `Metafield` conflicts with another `Metafield`. This can result from duplicate unique key combinations of the appʼs client id, namespace, key, resource_type, and resource_id. */
-      409: {
+      /** @description Not found (A metafield was not found with this query). */
+      404: {
         content: {
-          "application/json": components["schemas"]["ErrorResponse"];
+          "application/json": components["schemas"]["NotFound"];
         };
-      };
-      /** @description The `Metafield` is not valid. This is the result of missing required fields or of invalid data. See the response for more details. */
-      422: {
-        content: {
-          "application/json": components["schemas"]["ErrorResponse"];
-        };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
       };
     };
   };
@@ -2619,16 +2614,33 @@ export interface operations {
       };
     };
     responses: {
-      /** @description A metafield and metadata. */
+      /** @description A `Metafield` and metadata. */
       200: {
         content: {
           "application/json": components["schemas"]["MetaFieldCollectionResponse"];
         };
       };
-      /** @description The resource was not found. */
+      /** @description Bad Request. Metafield is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
+        };
+      };
+      /** @description The `Metafield` was not found. */
       404: {
         content: {
           "application/json": components["schemas"]["NotFound"];
+        };
+      };
+      /** @description Response object for metafields creation with partial success. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
         };
       };
     };
@@ -2652,6 +2664,12 @@ export interface operations {
       /** @description An empty response. */
       204: {
         content: never;
+      };
+      /** @description Not found (A metafield was not found with this query) */
+      404: {
+        content: {
+          "application/json": components["schemas"]["NotFound"];
+        };
       };
     };
   };
@@ -2679,10 +2697,6 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse_Batch"];
         };
       };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
-      };
     };
   };
   /**
@@ -2709,15 +2723,22 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse_Batch_POST_PUT"];
         };
       };
+      /** @description Bad Request. Input is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
+        };
+      };
       /** @description Response object for metafields creation with partial success. */
       422: {
         content: {
           "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
         };
-      };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
       };
     };
   };
@@ -2745,20 +2766,27 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse_Batch_POST_PUT"];
         };
       };
+      /** @description Bad Request. Input is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
+        };
+      };
       /** @description Response object for metafields creation with partial success. */
       422: {
         content: {
           "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
         };
       };
-      /** @description Internal Server Error */
-      500: {
-        content: never;
-      };
     };
   };
   /**
-   * Delete All Metafields
+   * Delete multiple Metafields
    * @description Delete all cart metafields.
    */
   deleteCartsMetafields: {
@@ -2773,6 +2801,17 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["MetaFieldCollectionDeleteResponseSuccess"];
+        };
+      };
+      /** @description Bad Request. Input is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
         };
       };
       /** @description Response object for metafields deletion with partial success. */
