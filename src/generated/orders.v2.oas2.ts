@@ -271,7 +271,7 @@ export interface paths {
      * Acceptable values for `shipping_provider` include the following, and this list may be updated at any time:
      *  - `""`, an empty string
      *  - `auspost`
-     *  - `canadapost
+     *  - `canadapost`
      *  - `endicia`
      *  - `usps`
      *  - `fedex`
@@ -3067,7 +3067,7 @@ export interface operations {
    * Acceptable values for `shipping_provider` include the following, and this list may be updated at any time:
    *  - `""`, an empty string
    *  - `auspost`
-   *  - `canadapost
+   *  - `canadapost`
    *  - `endicia`
    *  - `usps`
    *  - `fedex`
