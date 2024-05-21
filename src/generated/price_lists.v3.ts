@@ -537,7 +537,7 @@ export interface operations {
         /** @description Controls the number of items per page in a limited (paginated) list of products. */
         limit?: number;
         "id:in"?: number[];
-        "name:like"?: string[];
+        "name:like"?: string;
         "date_created:max"?: string;
         "date_created:min"?: string;
         "date_modified:max"?: string;
