@@ -114,6 +114,10 @@ export interface paths {
      */
     post: operations["createOrderRefund"];
     parameters: {
+      query?: {
+        /** @description Filters by refund payment using the BigCommerce `transaction_id`. */
+        transaction_id?: string;
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -1477,6 +1481,11 @@ export interface components {
       is_declined?: boolean;
       /** @description Message indicate why payment was declined. */
       declined_message?: string;
+      /**
+       * @description The BigCommerce `transaction_id`.
+       * @example 1234
+       */
+      transaction_id?: string;
     };
     /**
      * Payment Option
@@ -2301,6 +2310,10 @@ export interface operations {
    */
   getOrderRefunds: {
     parameters: {
+      query?: {
+        /** @description Filters by refund payment using the BigCommerce `transaction_id`. */
+        transaction_id?: string;
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -2325,6 +2338,10 @@ export interface operations {
    */
   createOrderRefund: {
     parameters: {
+      query?: {
+        /** @description Filters by refund payment using the BigCommerce `transaction_id`. */
+        transaction_id?: string;
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
@@ -2411,6 +2428,8 @@ export interface operations {
          * Url-encoded this will be `2020-01-15T01%3A02%3A34%2B01%3A00`
          */
         "created:max"?: string;
+        /** @description Filters by refund payment using the BigCommerce `transaction_id`. */
+        transaction_id?: string;
         /** @description Specifies the page number in a limited (paginated) list of items. */
         page?: number;
         /** @description Controls the number of items per page in a limited (paginated) list of items. */

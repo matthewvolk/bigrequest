@@ -323,11 +323,6 @@ export interface paths {
      * @description Lists all available stored instruments for a customer. This list will include all types of stored instruments namely card, account and bank_account instruments
      */
     get: operations["getCustomerStoredInstruments"];
-    parameters: {
-      path: {
-        customerId: string;
-      };
-    };
   };
   "/customers/{customerId}/metafields": {
     /**
@@ -3168,7 +3163,6 @@ export interface operations {
   getCustomerStoredInstruments: {
     parameters: {
       path: {
-        customerId: string;
         customerId: components["parameters"]["customerId"];
       };
     };

@@ -19,9 +19,6 @@ export interface paths {
      * **Required Fields**
      * - name
      *
-     * **Read-Only Fields**
-     * - id
-     *
      * **Limits**
      * - 30,000 brands per store limit
      */
@@ -362,7 +359,6 @@ export interface components {
       /** @description The error title describing the particular error. */
       title?: string;
       type?: string;
-      instance?: string;
     };
     /** metafield_Full */
     metafield_Full: {
@@ -753,12 +749,68 @@ export interface components {
        */
       description?: string;
     };
+    /** Error Response */
+    NotFoundError: {
+      /** @description The HTTP status code. */
+      status: number;
+      /** @description The error title describing the particular error. */
+      title: string;
+      type: string;
+    };
+    /** Error response */
+    Conflict: {
+      /** @description The HTTP status code. */
+      status?: number;
+      /** @description The error title describing the particular error. */
+      title?: string;
+      type?: string;
+      /** Detailed Errors */
+      errors?: Record<string, never>;
+    };
   };
   responses: {
-    /** @description Multi-status. Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL or inventory data has failed. */
-    General207Status: {
+    Error: {
       content: {
         "application/json": components["schemas"]["error_Base"];
+      };
+    };
+    ErrorWithDetails: {
+      content: {
+        "application/json": components["schemas"]["Error"];
+      };
+    };
+    /** @description Not Found */
+    NotFoundError: {
+      content: {
+        "application/json": components["schemas"]["NotFoundError"];
+      };
+    };
+    /** @description Unauthorized */
+    UnauthorizedError: {
+      content: {
+        "plain/text": string;
+      };
+    };
+    /** @description Bad Request */
+    BadRequestError: {
+      content: {
+        "plain/text": string;
+      };
+    };
+    /** @description Multi-status. Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but the URL or inventory data failed to save. */
+    MultiStatus: {
+      content: {
+        "application/json": {
+          data?: components["schemas"]["brand_Full"][];
+          errors?: components["schemas"]["Error"];
+          meta?: components["schemas"]["WriteCollectionSuccessMeta"];
+        };
+      };
+    };
+    /** @description Conflict */
+    Conflict: {
+      content: {
+        "application/json": components["schemas"]["Conflict"];
       };
     };
   };
@@ -767,10 +819,6 @@ export interface components {
     BrandIdPath: number;
     /** @description The ID of the `Metafield`. */
     MetafieldIdPath: number;
-    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
-    Accept: string;
-    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
-    ContentType: string;
     /** @description Filter based on a metafieldʼs key. */
     MetafieldKeyParam?: string;
     /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
@@ -809,6 +857,10 @@ export interface components {
     SortQuery?: "name";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
+    Accept: string;
+    /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
+    ContentType: string;
   };
   requestBodies: never;
   headers: never;
@@ -831,6 +883,10 @@ export interface operations {
         id?: components["parameters"]["IdQuery"];
         "id:in"?: components["parameters"]["IdInQuery"];
         "id:not_in"?: components["parameters"]["IdNotInQuery"];
+        "id:min"?: components["parameters"]["IdMinQuery"];
+        "id:max"?: components["parameters"]["IdMaxQuery"];
+        "id:greater"?: components["parameters"]["IdGreaterQuery"];
+        "id:less"?: components["parameters"]["IdLessQuery"];
         name?: components["parameters"]["NameQuery"];
         "name:like"?: components["parameters"]["NameLikeQuery"];
         page_title?: components["parameters"]["PageTitleQuery"];
@@ -853,6 +909,8 @@ export interface operations {
           };
         };
       };
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
     };
   };
   /**
@@ -861,9 +919,6 @@ export interface operations {
    *
    * **Required Fields**
    * - name
-   *
-   * **Read-Only Fields**
-   * - id
    *
    * **Limits**
    * - 30,000 brands per store limit
@@ -920,7 +975,7 @@ export interface operations {
           image_url?: string;
           /**
            * Custom Url Brand
-           * @description The custom URL for the brand on the storefront.
+           * @description The custom URL for the brand on the storefront. If not provided, the URL will be autogenerated from the brand name.
            */
           custom_url?: {
             /**
@@ -1013,7 +1068,10 @@ export interface operations {
           };
         };
       };
-      207: components["responses"]["General207Status"];
+      207: components["responses"]["MultiStatus"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
+      404: components["responses"]["NotFoundError"];
       /** @description Brand was in conflict with another brand. This is the result of duplicate unique fields such as name. */
       409: {
         content: {
@@ -1022,7 +1080,6 @@ export interface operations {
             errors?: {
               [key: string]: unknown;
             };
-            instance?: string;
             /** @description The HTTP status code. */
             status?: number;
             /** @description The error title describing the particular error. */
@@ -1039,7 +1096,6 @@ export interface operations {
             errors?: {
               [key: string]: unknown;
             };
-            instance?: string;
             /** @description The HTTP status code. */
             status?: number;
             /** @description The error title describing the particular error. */
@@ -1069,6 +1125,9 @@ export interface operations {
         content: {
         };
       };
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
+      422: components["responses"]["Error"];
     };
   };
   /**
@@ -1097,6 +1156,9 @@ export interface operations {
           };
         };
       };
+      207: components["responses"]["MultiStatus"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
       /** @description The resource was not found. */
       404: {
         content: {
@@ -1110,6 +1172,8 @@ export interface operations {
           };
         };
       };
+      409: components["responses"]["Conflict"];
+      422: components["responses"]["ErrorWithDetails"];
     };
   };
   /**
@@ -1268,7 +1332,7 @@ export interface operations {
           };
         };
       };
-      207: components["responses"]["General207Status"];
+      207: components["responses"]["MultiStatus"];
       /** @description The resource was not found. */
       404: {
         content: {
@@ -1278,7 +1342,6 @@ export interface operations {
             /** @description The error title describing the particular error. */
             title?: string;
             type?: string;
-            instance?: string;
           };
         };
       };
@@ -1290,7 +1353,6 @@ export interface operations {
             errors?: {
               [key: string]: unknown;
             };
-            instance?: string;
             /** @description The HTTP status code. */
             status?: number;
             /** @description The error title describing the particular error. */
@@ -1307,7 +1369,6 @@ export interface operations {
             errors?: {
               [key: string]: unknown;
             };
-            instance?: string;
             /** @description The HTTP status code. */
             status?: number;
             /** @description The error title describing the particular error. */
@@ -1336,6 +1397,9 @@ export interface operations {
         content: {
         };
       };
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
+      404: components["responses"]["NotFoundError"];
     };
   };
   /**

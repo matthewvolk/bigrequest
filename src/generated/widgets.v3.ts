@@ -30,12 +30,6 @@ export interface paths {
      * @description Render a widget template and return the widget html.
      */
     post: operations["previewWidget"];
-    parameters: {
-      path: {
-        /** @description The identifier for a specific widget. */
-        uuid: string;
-      };
-    };
   };
   "/content/widget-templates/{uuid}": {
     /**
@@ -917,8 +911,6 @@ export interface operations {
   previewWidget: {
     parameters: {
       path: {
-        /** @description The identifier for a specific widget. */
-        uuid: string;
         uuid: components["parameters"]["TemplateUUID"];
       };
     };

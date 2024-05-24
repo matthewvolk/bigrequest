@@ -112,10 +112,6 @@ export interface paths {
         "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid */
         variation_uuid?: string;
-        /** @description Specifies the page number in a limited (paginated) list. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1041,10 +1037,6 @@ export interface operations {
         "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid. */
         variation_uuid?: string;
-        /** @description Specifies the page number in a limited (paginated) list. */
-        page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
         /** @description Filter configurations by passing a comma-separated list of channel IDs. */
         "channel_id:in"?: number[];
         page?: components["parameters"]["PageParam"];
