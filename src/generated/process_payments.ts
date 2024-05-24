@@ -152,7 +152,7 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
     };
-    requestBody: {
+    requestBody?: {
       content: {
         "application/json": {
           /** Payment */

@@ -337,7 +337,7 @@ export interface components {
      * Tax estimate requests for order-level refunds have an additional line item with the type `refund`.
      * @enum {string}
      */
-    item_type: "item" | "refund";
+    item_type: "item" | "refund" | "fee";
     /**
      * @description The type of item for the line item in the document.
      * @enum {string}

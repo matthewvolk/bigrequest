@@ -192,7 +192,7 @@ export interface paths {
   };
   "/catalog/variants/metafields": {
     /**
-     * Get All Product Variant Metafields
+     * Get all product variant metafields
      * @description Get all variant metafields.
      */
     get: operations["getVariantsMetafields"];
@@ -655,8 +655,28 @@ export interface components {
       product_id?: number;
       sku?: string;
     };
-    /** @description Common Metafield properties. */
+    /** @description Common metafield properties. */
     Metafield: {
+      /** @description The unique identifier for the metafield. */
+      id?: number;
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key?: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value?: string;
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace?: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
        * | Value | Description |
@@ -669,58 +689,38 @@ export interface components {
        *
        * @enum {string}
        */
-      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
-      /**
-       * @description Namespace for the metafield, for organizational purposes.
-       *
-       * @example Sales Department
-       */
-      namespace: string;
-      /**
-       * @description The name of the field, for example: `location_id`, `color`.
-       *
-       * @example Staff Name
-       */
-      key: string;
-      /**
-       * @description The value of the field, for example: `1`, `blue`.
-       *
-       * @example Ronaldo
-       */
-      value: string;
-      /**
-       * @description Description for the metafields.
-       *
-       * @example order
-       */
-      description: string;
+      permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description The type of resource with which the metafield is associated.
        *
        * @example cart
        * @enum {string}
        */
-      resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+      resource_type?: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
       /**
        * @description The unique identifier for the resource with which the metafield is associated.
        *
        * @example 424242
        */
-      resource_id: number;
-      /** @description The unique identifier for the metafield. */
-      id: number;
+      resource_id?: number;
+      /**
+       * @description Description for the metafields.
+       *
+       * @example order
+       */
+      description?: string;
       /**
        * Format: date-time
        * @description Date and time of the metafieldʼs creation.
        * @example 2022-06-16T18:39:00+00:00
        */
-      date_created: string;
+      date_created?: string;
       /**
        * Format: date-time
        * @description Date and time when the metafield was last updated.
        * @example 2022-06-16T18:39:00+00:00
        */
-      date_modified: string;
+      date_modified?: string;
       /**
        * @description Client ID for the metafieldʼs creator.
        * @example asdfasdfasdfasdfasdfasdfasdf
@@ -931,8 +931,26 @@ export interface components {
       };
       [key: string]: unknown;
     };
-    /** @description Common Metafield properties. */
+    /** @description Common metafield properties. */
     MetafieldBase_Post: {
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value: string;
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
        * | Value | Description |
@@ -947,24 +965,6 @@ export interface components {
        */
       permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
-       * @description Namespace for the metafield, for organizational purposes.
-       *
-       * @example Sales Department
-       */
-      namespace: string;
-      /**
-       * @description The name of the field, for example: `location_id`, `color`.
-       *
-       * @example Staff Name
-       */
-      key: string;
-      /**
-       * @description The value of the field, for example: `1`, `blue`.
-       *
-       * @example Ronaldo
-       */
-      value: string;
-      /**
        * @description Description for the metafields.
        *
        * @example Name of Staff Member
@@ -973,6 +973,24 @@ export interface components {
     };
     /** @description Common Metafield properties. */
     MetafieldBase_Put: {
+      /**
+       * @description The name of the field, for example: `location_id`, `color`.
+       *
+       * @example Staff Name
+       */
+      key?: string;
+      /**
+       * @description The value of the field, for example: `1`, `blue`.
+       *
+       * @example Ronaldo
+       */
+      value?: string;
+      /**
+       * @description Namespace for the metafield, for organizational purposes.
+       *
+       * @example Sales Department
+       */
+      namespace?: string;
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
        * | Value | Description |
@@ -986,24 +1004,6 @@ export interface components {
        * @enum {string}
        */
       permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
-      /**
-       * @description Namespace for the metafield, for organizational purposes.
-       *
-       * @example Sales Department
-       */
-      namespace?: string;
-      /**
-       * @description The name of the field, for example: `location_id`, `color`.
-       *
-       * @example Staff Name
-       */
-      key?: string;
-      /**
-       * @description The value of the field, for example: `1`, `blue`.
-       *
-       * @example Ronaldo
-       */
-      value?: string;
       /**
        * @description Description for the metafields.
        *
@@ -2109,7 +2109,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Product Variant Metafields
+   * Get all product variant metafields
    * @description Get all variant metafields.
    */
   getVariantsMetafields: {

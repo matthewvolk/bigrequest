@@ -425,9 +425,6 @@ export interface paths {
         /** @description * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. */
         include?: "consignments.line_items"[];
       };
-      path: {
-        order_id: string;
-      };
     };
   };
   "/orders/{order_id}/consignments/shipping/{shipping_consignment_id}/shipping_quotes": {
@@ -3344,7 +3341,6 @@ export interface operations {
         include?: "consignments.line_items"[];
       };
       path: {
-        order_id: string;
         order_id: components["parameters"]["order_id_path"];
       };
     };
