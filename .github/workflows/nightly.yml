@@ -21,7 +21,7 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Generate types
-        run: pnpm generate ${{ secrets.GH_TOKEN }}
+        run: pnpm generate ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check git status
         id: status
@@ -49,7 +49,7 @@ jobs:
       - if: ${{ steps.status.outputs.changes == 'true' }}
         name: Get latest commit hash from bigcommerce/docs
         run: |
-          gh_response=$(curl -s -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" "https://api.github.com/repos/bigcommerce/docs/commits?per_page=1")
+          gh_response=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/bigcommerce/docs/commits?per_page=1")
 
           most_recent_commit=$(echo "$gh_response" | jq -r '.[0].sha')
           most_recent_commit_short=${most_recent_commit:0:7}
@@ -91,4 +91,4 @@ jobs:
         name: Open PR
         run: gh pr create --base main --title "$commit_message" --body "$pr_body"
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
