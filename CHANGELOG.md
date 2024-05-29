@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.38
+
+### Patch Changes
+
+- [#282](https://github.com/matthewvolk/bigrequest/pull/282) [`6944093`](https://github.com/matthewvolk/bigrequest/commit/6944093cf408876caea14bbff4ac927e82f29825) Thanks [@github-actions](https://github.com/apps/github-actions)! - bigcommerce/docs#292
+
 ## 0.0.37
 
 ### Patch Changes
