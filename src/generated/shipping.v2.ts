@@ -1466,7 +1466,7 @@ export interface operations {
       };
     };
     responses: {
-      200: {
+      201: {
         content: {
           "application/json": {
             /**
