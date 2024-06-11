@@ -1352,9 +1352,9 @@ export interface components {
     /** Redirect_urls_Post */
     Redirect_urls_Post: {
       query_params?: {
-          key?: string;
-          value?: string;
-        }[];
+        key?: string;
+        value?: string;
+      };
     };
     /** Cart_Line_Item_Update_Post */
     Cart_Line_Item_Update_Post: {
@@ -2125,6 +2125,14 @@ export interface operations {
     };
     requestBody?: {
       content: {
+        /**
+         * @example {
+         *   "query_params": {
+         *     "key_1": "value_1",
+         *     "key_2": "value_2"
+         *   }
+         * }
+         */
         "application/json": components["schemas"]["Redirect_urls_Post"];
       };
     };
