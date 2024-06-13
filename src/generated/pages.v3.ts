@@ -133,7 +133,10 @@ export interface components {
         };
       };
     };
-    /** @description Response payload for the BigCommerce API. */
+    /**
+     * Body
+     * @description Response payload for the BigCommerce API.
+     */
     PagesCollectionResponse: {
       data?: (components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"])[];
       meta?: components["schemas"]["ResponseMeta"];
@@ -148,6 +151,13 @@ export interface components {
     };
     /** @description Properties of the page modification request body. */
     PagePutObj: {
+      /**
+       * @description The ID of the channel where this page should be shown.
+       *
+       * @default 1
+       * @example 12
+       */
+      channel_id?: number;
       /**
        * @description The name of the page. Must be unique.
        *
@@ -180,6 +190,12 @@ export interface components {
        * @enum {string}
        */
       type?: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
+      /**
+       * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
+       *
+       * @example <div>Hello World!</div>
+       */
+      body?: string | null;
       /** @description Boolean value that specifies whether this page is the storefront’s home page. */
       is_homepage?: boolean;
       /** @description Boolean value. If this value is set to `true`, this page will not be visible when the user is logged in to the store control panel. */
@@ -187,12 +203,6 @@ export interface components {
       /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. */
       email?: string;
       meta_title?: string | null;
-      /**
-       * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
-       *
-       * @example <div>Hello World!</div>
-       */
-      body?: string | null;
       /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `feed`. */
       feed?: string;
       /** @description Required in a `POST` request to create a link if the page type is `link`. */
@@ -231,13 +241,6 @@ export interface components {
        * @example /my-store-page
        */
       url?: string;
-      /**
-       * @description The ID of the channel where this page should be shown.
-       *
-       * @default 1
-       * @example 12
-       */
-      channel_id?: number;
     };
     PagePutBulk: WithRequired<{
       /** @description The ID of the target page. */
@@ -293,9 +296,15 @@ export interface components {
        */
       url?: string;
     };
-    /** @description `type: page`. A user-defined plain-text page. */
+    /**
+     * page
+     * @description `type: page`. A user-defined plain-text page.
+     */
     typePage: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"];
-    /** @description A page that contains blog posts. Use caution; `blog`-type pages can only be created in the store control panel, but you may be able to change the type of a blog page to something else with this API. Use the [blog feature of the REST Content API](/docs/rest-content/store-content/blog-posts#create-a-blog-post) to work with blog posts and tags. */
+    /**
+     * blog
+     * @description A page that contains blog posts. Use caution; `blog`-type pages can only be created in the store control panel, but you may be able to change the type of a blog page to something else with this API. Use the [blog feature of the REST Content API](/docs/rest-content/store-content/blog-posts#create-a-blog-post) to work with blog posts and tags.
+     */
     typeBlog: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & {
       /**
        * @description Relative URL on the storefront for this page.
@@ -304,7 +313,10 @@ export interface components {
        */
       url?: string;
     };
-    /** @description `type: contact_form`. A user-customizable page that contains a contact form. Body content returns HTML. */
+    /**
+     * contact form
+     * @description `type: contact_form`. A user-customizable page that contains a contact form. Body content returns HTML.
+     */
     typeContactForm: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & ({
       /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent using the form. Must be unique. */
       email?: string;
@@ -323,12 +335,18 @@ export interface components {
        */
       contact_fields?: string;
     });
-    /** @description `type: feed`.  Makes RSS-syndicated content feeds available in the menu of other pages that contain markup. No page body. */
+    /**
+     * feed
+     * @description `type: feed`.  Makes RSS-syndicated content feeds available in the menu of other pages that contain markup. No page body.
+     */
     typeFeed: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & {
       /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `feed`. */
       feed: string;
     };
-    /** @description `type: raw`. A user-defined page with a body that contains HTML markup or other stringified code. */
+    /**
+     * raw
+     * @description `type: raw`. A user-defined page with a body that contains HTML markup or other stringified code.
+     */
     typeRaw: components["schemas"]["anyTypePage"] & components["schemas"]["searchKeywords"] & ({
       /**
        * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
@@ -342,7 +360,10 @@ export interface components {
        */
       content_type?: string;
     });
-    /** @description `type: link`. A link to an external absolute URL. Displays in the menu of other pages that contain markup. Does not contain a body. */
+    /**
+     * link
+     * @description `type: link`. A link to an external absolute URL. Displays in the menu of other pages that contain markup. Does not contain a body.
+     */
     typeLink: components["schemas"]["anyTypePage"] & {
       /** @description The link for the page type `link`. */
       link: string;
