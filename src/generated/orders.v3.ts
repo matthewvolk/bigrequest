@@ -160,19 +160,6 @@ export interface paths {
       };
     };
   };
-  "/orders/payment_actions/refund_quotes": {
-    /**
-     * Create Refund Quotes - BATCH
-     * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-     *
-     * This endpoint will accept a batch of one or more.
-     *
-     * Requires at least one of the following scopes:
-     * * `store_v2_orders`
-     * * `store_v2_transactions`
-     */
-    post: operations["createOrdersRefundQuotes"];
-  };
   "/orders/{order_id}/metafields": {
     /**
      * Get Order Metafields
@@ -2441,52 +2428,6 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["RefundCollection_Resp"];
-    };
-  };
-  /**
-   * Create Refund Quotes - BATCH
-   * @description Calculate the tax amount, total refund amount and get available payment options for an order refund by providing items and costs or quantities to refund.
-   *
-   * This endpoint will accept a batch of one or more.
-   *
-   * Requires at least one of the following scopes:
-   * * `store_v2_orders`
-   * * `store_v2_transactions`
-   */
-  createOrdersRefundQuotes: {
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["PostRefundQuotesRequest"];
-      };
-    };
-    responses: {
-      201: components["responses"]["RefundQuotesBATCH_Resp"];
-      /** @description Partial success/failure response. Status to roll up to the most severe individual failure to the whole request. */
-      422: {
-        content: {
-          "application/json": {
-            data?: components["schemas"]["RefundQuote_Full"][];
-            errors?: components["schemas"]["FailedQuoteError"][];
-            meta?: components["schemas"]["Meta"];
-          };
-          "Example 1": unknown;
-        };
-      };
-      /** @description Every request in the batch failed. The error object describes the failure for each component request. */
-      503: {
-        content: {
-          "application/json": {
-            data?: components["schemas"]["RefundQuote_Full"][];
-            errors?: components["schemas"]["FailedQuoteError"][];
-            meta?: components["schemas"]["Meta"];
-          };
-        };
-      };
     };
   };
   /**

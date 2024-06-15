@@ -58,7 +58,7 @@ export interface paths {
     /**
      * Get Events
      * @deprecated
-     * @description Get a list of events that were sent but not successfully received. Events are stored for not less than one week.
+     * @description Get a list of events that were sent but not successfully received. Events are stored for at least one week. This hook/event functionality is superseded by [Delivery exception hooks](/docs/integrations/webhooks/events#delivery-exception-hooks).
      */
     get: operations["getWebhookEvents"];
   };
@@ -2591,7 +2591,7 @@ export interface operations {
   /**
    * Get Events
    * @deprecated
-   * @description Get a list of events that were sent but not successfully received. Events are stored for not less than one week.
+   * @description Get a list of events that were sent but not successfully received. Events are stored for at least one week. This hook/event functionality is superseded by [Delivery exception hooks](/docs/integrations/webhooks/events#delivery-exception-hooks).
    */
   getWebhookEvents: {
     parameters: {
