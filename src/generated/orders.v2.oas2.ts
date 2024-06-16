@@ -2157,7 +2157,7 @@ export interface components {
      */
     order_Post: ({
       billing_address?: components["schemas"]["billingAddress_Base"];
-      /** @description The currency code of the transactional currency the shopper pays in is writeable when multi-currency is enabled. */
+      /** @description The currency code of the transactional currency the shopper pays in is writable when multi-currency is enabled. */
       default_currency_code?: string;
       products?: (components["schemas"]["orderCatalogProduct_Post"] | components["schemas"]["orderCustomProduct_Post"])[];
       shipping_addresses?: components["schemas"]["shippingAddress_Base"][];

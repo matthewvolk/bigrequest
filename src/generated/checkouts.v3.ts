@@ -233,7 +233,7 @@ export interface components {
         /** Currency */
         currency?: {
           /**
-           * @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.)
+           * @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.)
            * @example USD
            */
           code?: string;
