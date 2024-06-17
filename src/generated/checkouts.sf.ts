@@ -136,7 +136,7 @@ export interface paths {
      *         * `shipping_address` (deprecated) or `address`
      *         * `lineItems`
      *
-     *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
+     *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/docs/rest-storefront/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
      *
      * ### For **pickup** consignments:
      *   1. Create a new consignment object.
@@ -594,7 +594,7 @@ export interface components {
           currency?: {
             /** @description The currency name. */
             name?: string;
-            /** @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.) */
+            /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
             code?: string;
             /** @description The currency symbol. */
             symbol?: string;
@@ -1198,7 +1198,7 @@ export interface components {
       currency?: {
         /** @description The currency name. */
         name?: string;
-        /** @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.) */
+        /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
         code?: string;
         /** @description The currency symbol. */
         symbol?: string;
@@ -1795,7 +1795,7 @@ export interface operations {
    *         * `shipping_address` (deprecated) or `address`
    *         * `lineItems`
    *
-   *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
+   *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/docs/rest-storefront/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
    *
    * ### For **pickup** consignments:
    *   1. Create a new consignment object.

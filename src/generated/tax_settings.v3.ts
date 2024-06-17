@@ -69,6 +69,12 @@ export interface components {
        * @default 1
        */
       store_tax_zone_id?: number;
+      /**
+       * @description This setting determines whether BigCommerce submits tax documents to third-party tax providers when orders are created or when payments are captured online.
+       * @default ON_PAYMENT_CAPTURE
+       * @enum {string}
+       */
+      document_submission_strategy?: "ON_PAYMENT_CAPTURE" | "ON_ORDER_CREATION";
     };
     /**
      * Response meta

@@ -15,12 +15,18 @@ import * as checkouts_v3 from './checkouts.v3';
 import * as custom_template_associations_v3 from './custom-template-associations.v3';
 import * as customers_v3 from './customers.v3';
 import * as email_templates_v3 from './email_templates.v3';
+import * as inventory_v3 from './inventory.v3';
+import * as locations_v3 from './locations.v3';
 import * as orders_v3 from './orders.v3';
 import * as pages_v3 from './pages.v3';
 import * as accepted_methods_payments_v3 from './accepted-methods_payments.v3';
 import * as access_tokens_payments_v3 from './access-tokens_payments.v3';
+import * as pickup_v3 from './pickup.v3';
+import * as pickup_methods_v3 from './pickup_methods.v3';
+import * as pickup_options_v3 from './pickup_options.v3';
 import * as price_lists_v3 from './price_lists.v3';
 import * as pricing_sf from './pricing.sf';
+import * as promotions_v3 from './promotions.v3';
 import * as redirects_v3 from './redirects.v3';
 import * as scripts_v3 from './scripts.v3';
 import * as settings_v3 from './settings.v3';
@@ -55,12 +61,18 @@ checkouts_v3.paths &
 custom_template_associations_v3.paths &
 customers_v3.paths &
 email_templates_v3.paths &
+inventory_v3.paths &
+locations_v3.paths &
 orders_v3.paths &
 pages_v3.paths &
 accepted_methods_payments_v3.paths &
 access_tokens_payments_v3.paths &
+pickup_v3.paths &
+pickup_methods_v3.paths &
+pickup_options_v3.paths &
 price_lists_v3.paths &
 pricing_sf.paths &
+promotions_v3.paths &
 redirects_v3.paths &
 scripts_v3.paths &
 settings_v3.paths &
