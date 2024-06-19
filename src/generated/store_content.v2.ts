@@ -96,7 +96,7 @@ export interface paths {
   };
   "/pages": {
     /**
-     * Get All Pages
+     * Get All Pages (Deprecated)
      * @deprecated
      * @description Returns a list of *Pages*. Default sorting is by auto-generated ID from oldest to newest.
      *
@@ -107,7 +107,7 @@ export interface paths {
      */
     get: operations["getPages"];
     /**
-     * Create a Page
+     * Create a Page (Deprecated)
      * @deprecated
      * @description Creates a *Page*. The request payload limit is 1MB.
      *
@@ -123,7 +123,7 @@ export interface paths {
      *
      * ## Content Type
      *
-     * The default value for `content_type` is `text/html`; however, if `page_type` is set to `raw`, `content_type` can be changed to `text/javascript` or `application/json`. Updating this field allows you to place a JavaScript or a JSON file in the root directory.
+     * The default value for `content_type` is `text/html`; however, if `page_type` is set to `raw`, `content_type` can be changed to `text/javascript` or `application/json`. Updating this field lets you place a JavaScript or a JSON file in the root directory.
      *
      * > #### Warning
      * > **Deprecated**
@@ -139,7 +139,7 @@ export interface paths {
   };
   "/pages/{id}": {
     /**
-     * Get A Page
+     * Get A Page (Deprecated)
      * @deprecated
      * @description Returns a *Page*.
      *
@@ -150,7 +150,7 @@ export interface paths {
      */
     get: operations["getPage"];
     /**
-     * Update a Page
+     * Update a Page (Deprecated)
      * @deprecated
      * @description Updates a *Page*. The request payload limit is 1MB.
      *
@@ -164,7 +164,7 @@ export interface paths {
      */
     put: operations["updatePage"];
     /**
-     * Delete a Page
+     * Delete a Page (Deprecated)
      * @deprecated
      * @description Deletes a *Page*.
      *
@@ -306,7 +306,31 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    /** blogPost_Full */
+    /**
+     * blogPost_Full
+     * @example {
+     *   "id": 3,
+     *   "title": "Welcome to BigCommerce",
+     *   "url": "/blog/welcome-bigcommerce/",
+     *   "preview_url": "/blog/welcome-bigcommerce/",
+     *   "body": "<p>Customize your site, manage shipping and payments, and list your products on Amazon, eBay, and Facebook by Meta with the #1 ecommerce platform. </p>",
+     *   "tags": [
+     *     "string"
+     *   ],
+     *   "summary": "<p>We power ecommerce websites for successful retailers all over the world</p>",
+     *   "is_published": true,
+     *   "published_date": {
+     *     "timezone_type": 1,
+     *     "date": "2018-05-18T08:26:42Z",
+     *     "timezone": "+00:00"
+     *   },
+     *   "published_date_iso8601": "5/18/2018 1:26:42 PM",
+     *   "meta_description": "Welcome Post",
+     *   "meta_keywords": "BigCommerce, welcome, ecommerce",
+     *   "author": "BigCommerce",
+     *   "thumbnail_path": "string"
+     * }
+     */
     blogPost_Full: {
       /**
        * @description ID of this blog post. READ-ONLY.
@@ -780,10 +804,39 @@ export interface components {
     /** page_Base */
     page_Base: {
       /**
+       * @description channel ID
+       * @example 11
+       */
+      channel_id?: number;
+      /**
+       * @description Page name, as displayed on the storefront.
+       * @example Contact Form
+       */
+      name: string;
+      /** @description Text specified for this page’s `<title>` element. If empty, the value of the name property is used. */
+      meta_title?: string;
+      /**
+       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`.
+       * @example <p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>
+       */
+      body: string;
+      /**
+       * @description If true, this page appears in the storefront’s navigation menu.
+       * @example true
+       */
+      is_visible?: boolean;
+      /**
        * @description ID of any parent Web page.
        * @example 5
        */
       parent_id?: number;
+      /**
+       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.)
+       * @example 3
+       */
+      sort_order?: number;
+      /** @description Comma-separated list of SEO-relevant keywords to include in the page’s `<meta/>` element. */
+      meta_keywords?: string;
       /**
        * @description `page`: free-text page
        * `link`: link to another web address
@@ -793,6 +846,30 @@ export interface components {
        * @enum {string}
        */
       type: "page" | "rss_feed" | "contact_form" | "raw" | "link";
+      /** @description Description contained within this page’s `<meta/>` element. */
+      meta_description?: string;
+      /**
+       * @description If true, this page is the storefront’s home page.
+       * @example false
+       */
+      is_homepage?: boolean;
+      /**
+       * @description If true, this page is for customers only.
+       * @example false
+       */
+      is_customers_only?: boolean;
+      /** @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store. */
+      search_keywords?: string;
+      /**
+       * @description If true, this page has a mobile version. (For Blueprint themes only)
+       * @example false
+       */
+      has_mobile_version?: boolean;
+      /**
+       * @description HTML to use for this page’s body when viewed in the mobile template (deprecated - Blueprint themes only).
+       * @example 0
+       */
+      mobile_body?: string;
       /**
        * @description Where the page’s type is a contact form: object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname`: full name of the customer submitting the form; `phone`: customer’s phone number, as submitted on the form; `companyname`: customer’s submitted company name; `orderno`: customer’s submitted order number; `rma`: customer’s submitted RMA (Return Merchandise Authorization) number.
        * @example fullname,companyname,phone,orderno,rma
@@ -804,58 +881,15 @@ export interface components {
        */
       email?: string;
       /**
-       * @description Page name, as displayed on the storefront.
-       * @example Contact Form
-       */
-      name: string;
-      /**
        * @description Relative URL on the storefront for this page.
        * @example /contact-us/
        */
       url?: string;
-      /** @description Description contained within this page’s `<meta/>` element. */
-      meta_description?: string;
-      /**
-       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`.
-       * @example <p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>
-       */
-      body: string;
-      /**
-       * @description HTML to use for this page’s body when viewed in the mobile template (deprecated).
-       * @example 0
-       */
-      mobile_body?: string;
-      /**
-       * @description If true, this page has a mobile version.
-       * @example false
-       */
-      has_mobile_version?: boolean;
-      /**
-       * @description If true, this page appears in the storefront’s navigation menu.
-       * @example true
-       */
-      is_visible?: boolean;
-      /**
-       * @description If true, this page is the storefront’s home page.
-       * @example false
-       */
-      is_homepage?: boolean;
-      /** @description Text specified for this page’s `<title>` element. If empty, the value of the name property is used. */
-      meta_title?: string;
       /**
        * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied.
        * @example page.html
        */
       layout_file?: string;
-      /**
-       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.)
-       * @example 3
-       */
-      sort_order?: number;
-      /** @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store. */
-      search_keywords?: string;
-      /** @description Comma-separated list of SEO-relevant keywords to include in the page’s `<meta/>` element. */
-      meta_keywords?: string;
       /** @description If page type is `rss_feed` then this field is visible. Required in POST required for `rss page` type. */
       feed?: string;
       /** @description If page type is `link` this field is returned. Required in  POST to create a `link` page. */
@@ -869,10 +903,44 @@ export interface components {
     /** page_Base_Res */
     page_Base_Res: {
       /**
+       * @description channel ID
+       * @example 11
+       */
+      channel_id?: number;
+      /**
+       * @description Page name, as displayed on the storefront.
+       * @example Contact Form
+       */
+      name?: string;
+      /** @description Text specified for this page's `<title>` element. If empty, the value of the name property is used. */
+      meta_title?: string;
+      /**
+       * @description Where the page’s type is a contact form, the email address that receives messages sent using the form.
+       * @example janedoe@example.com
+       */
+      email?: string;
+      /**
+       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`.
+       * @example <p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>
+       */
+      body?: string;
+      /**
+       * @description If true, this page appears in the storefront navigation menu.
+       * @example true
+       */
+      is_visible?: boolean;
+      /**
        * @description ID of any parent Web page.
        * @example 5
        */
       parent_id?: number;
+      /**
+       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.)
+       * @example 3
+       */
+      sort_order?: number;
+      /** @description Comma-separated list of SEO-relevant keywords to include in the page's `<meta/>` element. */
+      meta_keywords?: string;
       /**
        * @description `page`: free-text page
        * `link`: link to another web address
@@ -883,77 +951,56 @@ export interface components {
        */
       type?: "page" | "rss_feed" | "contact_form" | "raw" | "link";
       /**
-       * @description Where the page’s type is a contact form: object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname`: full name of the customer submitting the form; `phone`: customer’s phone number, as submitted on the form; `companyname`: customer’s submitted company name; `orderno`: customer’s submitted order number; `rma`: customer’s submitted RMA (Return Merchandise Authorization) number.
+       * @description Where the page’s type is a contact form - object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname` - full name of the customer submitting the form; `phone` - customer’s phone number, as submitted on the form; `companyname`- customer’s submitted company name; `orderno`- customer’s submitted order number; `rma` - customer’s submitted RMA (Return Merchandise Authorization) number.
        * @example fullname,companyname,phone,orderno,rma
        */
       contact_fields?: string;
       /**
-       * @description Where the page’s type is a contact form, the email address that receives messages sent using the form.
-       * @example janedoes@example.com
-       */
-      email?: string;
-      /**
-       * @description Page name, as displayed on the storefront.
-       * @example Contact Form
-       */
-      name?: string;
-      /**
-       * @description Relative URL on the storefront for this page.
-       * @example /contact-us/
-       */
-      url?: string;
-      /** @description Description contained within this page’s `<meta/>` element. */
-      meta_description?: string;
-      /**
-       * @description HTML or variable that populates this page’s `<body>` element, in default/desktop view. Required in POST if page type is `raw`.
-       * @example <p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>
-       */
-      body?: string;
-      /**
-       * @description HTML to use for this page’s body when viewed in the mobile template (deprecated).
+       * @description Description contained within this page’s `<meta/>` element. HTML to use for this page’s body when viewed in the mobile template.
        * @example 0
        */
-      mobile_body?: string;
-      /**
-       * @description If true, this page has a mobile version.
-       * @example false
-       */
-      has_mobile_version?: boolean;
-      /**
-       * @description If true, this page appears in the storefront’s navigation menu.
-       * @example true
-       */
-      is_visible?: boolean;
+      meta_description?: string;
       /**
        * @description If true, this page is the storefront’s home page.
        * @example false
        */
       is_homepage?: boolean;
-      /** @description Text specified for this page’s `<title>` element. If empty, the value of the name property is used. */
-      meta_title?: string;
       /**
        * @description Layout template for this page. This field is writable only for stores with a Blueprint theme applied.
        * @example page.html
        */
       layout_file?: string;
       /**
-       * @description Order in which this page should display on the storefront. (Lower integers specify earlier display.)
-       * @example 3
+       * @description If true, this page is for customers only.
+       * @example false
        */
-      sort_order?: number;
+      is_customers_only?: boolean;
       /** @description Comma-separated list of keywords that shoppers can use to locate this page when searching the store. */
       search_keywords?: string;
-      /** @description Comma-separated list of SEO-relevant keywords to include in the page’s `<meta/>` element. */
-      meta_keywords?: string;
-      /** @description If page type is `rss_feed` then this field is visible. */
-      feed?: string;
-      /** @description If page type is `link` this field is returned. */
-      link?: string;
+      /**
+       * @description If true, this page has a mobile version. (For Blueprint themes only)
+       * @example false
+       */
+      has_mobile_version?: boolean;
+      /**
+       * @description HTML to use for this page’s body when viewed in the mobile template (deprecated - Blueprint only).
+       * @example 0
+       */
+      mobile_body?: string;
       /**
        * @example text/html
        * @enum {string}
        */
       content_type?: "application/json" | "text/javascript" | "text/html";
+      /**
+       * @description Relative URL on the storefront for this page.
+       * @example /contact-us/
+       */
+      url?: string;
+      /** @description If page type is `rss_feed`, then this field is visible. */
+      feed?: string;
+      /** @description If page type is `link`, this field is returned. */
+      link?: string;
     };
   };
   responses: never;
@@ -1056,7 +1103,7 @@ export interface operations {
           "application/json": components["schemas"]["blogPost_Base_Res"];
         };
       };
-      /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occured, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
+      /** @description Multiple operations have taken place and the status for each operation can be viewed in the body of the response. Typically indicates that a partial failure has occurred, such as when a `POST` or `PUT` request is successful, but saving the URL has failed. */
       207: {
         content: {
           "application/json": {
@@ -1193,7 +1240,7 @@ export interface operations {
     };
   };
   /**
-   * Get All Pages
+   * Get All Pages (Deprecated)
    * @deprecated
    * @description Returns a list of *Pages*. Default sorting is by auto-generated ID from oldest to newest.
    *
@@ -1218,13 +1265,12 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["page_Full"][];
-          "Example": unknown;
         };
       };
     };
   };
   /**
-   * Create a Page
+   * Create a Page (Deprecated)
    * @deprecated
    * @description Creates a *Page*. The request payload limit is 1MB.
    *
@@ -1240,7 +1286,7 @@ export interface operations {
    *
    * ## Content Type
    *
-   * The default value for `content_type` is `text/html`; however, if `page_type` is set to `raw`, `content_type` can be changed to `text/javascript` or `application/json`. Updating this field allows you to place a JavaScript or a JSON file in the root directory.
+   * The default value for `content_type` is `text/html`; however, if `page_type` is set to `raw`, `content_type` can be changed to `text/javascript` or `application/json`. Updating this field lets you place a JavaScript or a JSON file in the root directory.
    *
    * > #### Warning
    * > **Deprecated**
@@ -1258,26 +1304,23 @@ export interface operations {
       content: {
         /**
          * @example {
+         *   "channel_id": 1,
+         *   "name": "Contact Form",
+         *   "meta_title": "string",
+         *   "body": "<p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>",
+         *   "is_visible": true,
          *   "parent_id": 5,
+         *   "sort_order": 3,
+         *   "meta_keywords": "string",
          *   "type": "page",
          *   "contact_fields": "fullname,companyname,phone,orderno,rma",
-         *   "email": "janedoes@example.com",
-         *   "name": "Contact Form",
-         *   "url": "/contact-us/",
          *   "meta_description": "string",
-         *   "body": "<p>We're happy to answer questions or help you with returns.<br />Please fill out the form below if you need assistance.</p>",
-         *   "mobile_body": "0",
-         *   "has_mobile_version": false,
-         *   "is_visible": true,
          *   "is_homepage": false,
-         *   "meta_title": "string",
-         *   "layout_file": "page.html",
-         *   "sort_order": 3,
+         *   "is_customers_only": false,
          *   "search_keywords": "string",
-         *   "meta_keywords": "string",
-         *   "feed": "string",
-         *   "link": "string",
-         *   "content_type": "text/html"
+         *   "has_mobile_version": false,
+         *   "mobile_body": "0",
+         *   "url": "/contact-us/"
          * }
          */
         "application/json": components["schemas"]["page_Base"];
@@ -1300,7 +1343,7 @@ export interface operations {
     };
   };
   /**
-   * Get A Page
+   * Get A Page (Deprecated)
    * @deprecated
    * @description Returns a *Page*.
    *
@@ -1328,7 +1371,7 @@ export interface operations {
     };
   };
   /**
-   * Update a Page
+   * Update a Page (Deprecated)
    * @deprecated
    * @description Updates a *Page*. The request payload limit is 1MB.
    *
@@ -1373,7 +1416,7 @@ export interface operations {
     };
   };
   /**
-   * Delete a Page
+   * Delete a Page (Deprecated)
    * @deprecated
    * @description Deletes a *Page*.
    *

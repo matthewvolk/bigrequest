@@ -132,12 +132,12 @@ export interface paths {
   "/channels/{channel_id}/listings": {
     /**
      * Get Channel Listings
-     * @description Returns a list of all *Channel Listings* for a specific channel. Note that if the *Channel* is not found or there is no listing associated to the *Channel*, it will return a 200 response with empty data.
+     * @description Returns a list of all *Channel Listings* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels. Note that if the *Channel* is not found or there is no listing associated with the *Channel*, it will return a 200 response with empty data.
      */
     get: operations["getChannelListings"];
     /**
      * Update Channel Listings
-     * @description Updates one or more *Channel Listings* for a specific channel.
+     * @description Updates one or more *Channel Listings* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels.
      *
      * > #### Note
      * > * Partial updates are supported. In most cases, if a field that *cannot* be updated is passed in, the API **will not** respond with an error. It returns a 200 response with the object, in which you will see the field(s) were not updated.
@@ -150,7 +150,7 @@ export interface paths {
     put: operations["updateChannelListings"];
     /**
      * Create Channel Listings
-     * @description Creates one or more *Channel Listings* for a specific channel.
+     * @description Creates one or more *Channel Listings* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels.
      */
     post: operations["createChannelListings"];
     parameters: {
@@ -165,7 +165,7 @@ export interface paths {
   "/channels/{channel_id}/listings/{listing_id}": {
     /**
      * Get a Channel Listing
-     * @description Returns a *Channel Listing* for a specific channel.
+     * @description Returns a *Channel Listing* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels.
      */
     get: operations["getChannelListing"];
     parameters: {
@@ -869,9 +869,9 @@ export interface components {
      * @description Link to the platform icon.
      */
     IconUrl: string;
-    /** @description Currencies that are enabled for the specified channel in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) three character alphabetic format. */
+    /** @description Currencies that are enabled for the specified channel in [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) three character alphabetic format. */
     EnabledCurrencies: string[];
-    /** @description Default currency for the channel in [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) three character alphabetic format. Will be used on storefront when other currencies cannot. */
+    /** @description Default currency for the channel in [ISO 4217](https://www.iso.org/iso-4217-currency-codes.html) three character alphabetic format. Will be used on storefront when other currencies cannot. */
     DefaultCurrency: string;
     /** @description Name of the product for this channel listing specifically. This is an optional field that can be used to override the product name in the catalog. */
     ChannelProductName: string;
@@ -1944,7 +1944,7 @@ export interface operations {
   };
   /**
    * Get Channel Listings
-   * @description Returns a list of all *Channel Listings* for a specific channel. Note that if the *Channel* is not found or there is no listing associated to the *Channel*, it will return a 200 response with empty data.
+   * @description Returns a list of all *Channel Listings* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels. Note that if the *Channel* is not found or there is no listing associated with the *Channel*, it will return a 200 response with empty data.
    */
   getChannelListings: {
     parameters: {
@@ -1974,7 +1974,7 @@ export interface operations {
   };
   /**
    * Update Channel Listings
-   * @description Updates one or more *Channel Listings* for a specific channel.
+   * @description Updates one or more *Channel Listings* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels.
    *
    * > #### Note
    * > * Partial updates are supported. In most cases, if a field that *cannot* be updated is passed in, the API **will not** respond with an error. It returns a 200 response with the object, in which you will see the field(s) were not updated.
@@ -2006,7 +2006,7 @@ export interface operations {
   };
   /**
    * Create Channel Listings
-   * @description Creates one or more *Channel Listings* for a specific channel.
+   * @description Creates one or more *Channel Listings* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels.
    */
   createChannelListings: {
     parameters: {
@@ -2030,7 +2030,7 @@ export interface operations {
   };
   /**
    * Get a Channel Listing
-   * @description Returns a *Channel Listing* for a specific channel.
+   * @description Returns a *Channel Listing* for a specific channel. We recommend using this endpoint for non-storefront channels like marketplaces, marketing channels, and point of sale (POS) channels.
    */
   getChannelListing: {
     parameters: {
