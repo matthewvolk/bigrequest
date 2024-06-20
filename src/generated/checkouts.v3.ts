@@ -137,6 +137,8 @@ export interface paths {
      * Add Coupon to Checkout
      * @description Adds a coupon code to a checkout.
      *
+     * You can use multiple coupons by using this endpoint to apply one coupon at a time on your storefront. Ensure you enable the [Promotion Settings](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#promotion) in your control panel to allow for multiple coupons per order.
+     *
      * **Required Fields**
      * * coupon_code
      *
@@ -233,7 +235,7 @@ export interface components {
         /** Currency */
         currency?: {
           /**
-           * @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.)
+           * @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.)
            * @example USD
            */
           code?: string;
@@ -1272,6 +1274,8 @@ export interface operations {
   /**
    * Add Coupon to Checkout
    * @description Adds a coupon code to a checkout.
+   *
+   * You can use multiple coupons by using this endpoint to apply one coupon at a time on your storefront. Ensure you enable the [Promotion Settings](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#promotion) in your control panel to allow for multiple coupons per order.
    *
    * **Required Fields**
    * * coupon_code

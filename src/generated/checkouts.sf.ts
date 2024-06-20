@@ -16,6 +16,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     get: operations["getCheckout"];
     /**
@@ -29,6 +30,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     put: operations["updateCheckout"];
     parameters: {
@@ -51,6 +53,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     put: operations["updateCheckoutLineItem"];
     /**
@@ -60,6 +63,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     delete: operations["deleteCheckoutLineItem"];
     parameters: {
@@ -87,6 +91,7 @@ export interface paths {
      * > * Sending `email` property as a payload in POST request triggers the abandoned cart notification process.
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     post: operations["addCheckoutBillingAddress"];
     parameters: {
@@ -107,6 +112,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     put: operations["updateCheckoutBillingAddress"];
     parameters: {
@@ -136,7 +142,7 @@ export interface paths {
      *         * `shipping_address` (deprecated) or `address`
      *         * `lineItems`
      *
-     *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
+     *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/docs/rest-storefront/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
      *
      * ### For **pickup** consignments:
      *   1. Create a new consignment object.
@@ -152,6 +158,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     post: operations["createCheckoutConsignment"];
     parameters: {
@@ -197,6 +204,7 @@ export interface paths {
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
      * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     put: operations["updateCheckoutConsignment"];
     /**
@@ -206,6 +214,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     delete: operations["deleteCheckoutConsignment"];
     parameters: {
@@ -229,6 +238,7 @@ export interface paths {
      * > * The rate limit is 20/hour (only for unique gift-certificate codes).
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     post: operations["addCheckoutGiftCertificate"];
     parameters: {
@@ -251,6 +261,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     delete: operations["deleteCheckoutGiftCertificate"];
     parameters: {
@@ -274,6 +285,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     post: operations["addCheckoutCoupon"];
     parameters: {
@@ -294,6 +306,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     delete: operations["deleteCheckoutCoupon"];
     parameters: {
@@ -314,6 +327,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     post: operations["addCheckoutStoreCredit"];
     /**
@@ -323,6 +337,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     delete: operations["removeCheckoutStoreCredit"];
     parameters: {
@@ -342,6 +357,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
      */
     post: operations["checkoutSpamProtection"];
     parameters: {
@@ -594,7 +610,7 @@ export interface components {
           currency?: {
             /** @description The currency name. */
             name?: string;
-            /** @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.) */
+            /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
             code?: string;
             /** @description The currency symbol. */
             symbol?: string;
@@ -1198,7 +1214,7 @@ export interface components {
       currency?: {
         /** @description The currency name. */
         name?: string;
-        /** @description ISO-4217 currency code. (See: http://en.wikipedia.org/wiki/ISO_4217.) */
+        /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
         code?: string;
         /** @description The currency symbol. */
         symbol?: string;
@@ -1557,6 +1573,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   getCheckout: {
     parameters: {
@@ -1603,6 +1620,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   updateCheckout: {
     parameters: {
@@ -1637,6 +1655,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   updateCheckoutLineItem: {
     parameters: {
@@ -1670,6 +1689,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   deleteCheckoutLineItem: {
     parameters: {
@@ -1704,6 +1724,7 @@ export interface operations {
    * > * Sending `email` property as a payload in POST request triggers the abandoned cart notification process.
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   addCheckoutBillingAddress: {
     parameters: {
@@ -1745,6 +1766,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   updateCheckoutBillingAddress: {
     parameters: {
@@ -1795,7 +1817,7 @@ export interface operations {
    *         * `shipping_address` (deprecated) or `address`
    *         * `lineItems`
    *
-   *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
+   *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/docs/rest-storefront/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
    *
    * ### For **pickup** consignments:
    *   1. Create a new consignment object.
@@ -1811,6 +1833,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   createCheckoutConsignment: {
     parameters: {
@@ -1867,6 +1890,7 @@ export interface operations {
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
    * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   updateCheckoutConsignment: {
     parameters: {
@@ -1902,6 +1926,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   deleteCheckoutConsignment: {
     parameters: {
@@ -1931,6 +1956,7 @@ export interface operations {
    * > * The rate limit is 20/hour (only for unique gift-certificate codes).
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   addCheckoutGiftCertificate: {
     parameters: {
@@ -1970,6 +1996,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   deleteCheckoutGiftCertificate: {
     parameters: {
@@ -1999,6 +2026,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   addCheckoutCoupon: {
     parameters: {
@@ -2032,6 +2060,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   deleteCheckoutCoupon: {
     parameters: {
@@ -2058,6 +2087,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   addCheckoutStoreCredit: {
     parameters: {
@@ -2084,6 +2114,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   removeCheckoutStoreCredit: {
     parameters: {
@@ -2109,6 +2140,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * This endpoint requires using Stencil CLI, a local session, and a csrf token to work.
    */
   checkoutSpamProtection: {
     parameters: {
