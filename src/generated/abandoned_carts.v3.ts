@@ -8,29 +8,24 @@
 export interface paths {
   "/abandoned-carts/settings": {
     /**
-     * Get Global Abandoned Cart Settings
-     * @description Returns the global abandoned cart settings of a store.
+     * Get global abandoned cart settings
+     * @description Return the global abandoned cart settings of a store.
      */
     get: operations["getGlobalAbandonedCartSettings"];
     /**
-     * Update Global Abandoned Cart Settings
-     * @description Updates the global abandoned cart settings of a store.
+     * Update global abandoned cart settings
+     * @description Update the global abandoned cart settings of a store.
      */
     put: operations["updateGlobalAbandonedCartSettings"];
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-    };
   };
   "/abandoned-carts/settings/channels/{channel_id}": {
     /**
-     * Get Channel Abandoned Cart Settings
-     * @description Returns the per-channel overrides for the abandoned cart settings of a store.
+     * Get channel abandoned cart settings
+     * @description Return the per-channel overrides for the abandoned cart settings of a store.
      */
     get: operations["getChannelAbandonedCartSettings"];
     /**
-     * Update Channel Abandoned Cart Settings
+     * Update channel abandoned cart settings
      * @description Updates the per-channel overrides for the abandoned cart settings of a store.
      *
      * #### OAuth Scopes
@@ -39,20 +34,11 @@ export interface paths {
      * | Information & Settings                       | modify     | `store_v2_information`                        |
      */
     put: operations["updateChannelAbandonedCartSettings"];
-    parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
-      path: {
-        /** @description The channel ID of the settings overrides */
-        channel_id: number;
-      };
-    };
   };
   "/abandoned-carts/{token}": {
     /**
-     * Get an Abandoned Cart
-     * @description Returns the `cart_id` corresponding to the abandoned cart `{token}` passed in.
+     * Get an abandoned cart
+     * @description Return the `cart_id` corresponding to the abandoned cart `{token}` passed in.
      *
      * **Usage Notes**:
      * * `{token}` is the token in the query string of the abandoned cart link found in abandoned cart email notifications to shoppers
@@ -80,16 +66,19 @@ export interface components {
   schemas: {
     /**
      * Response meta
-     * @description Response metadata.
+     * @description Response metadata
      */
     metaEmpty_Full: {
       [key: string]: unknown;
     };
     /** error_Full */
     error_Full: {
-      /** @description The HTTP status code. */
+      /**
+       * Format: int32
+       * @description The HTTP status code
+       */
       status?: number;
-      /** @description The error title describing the particular error. */
+      /** @description The error title describing the particular error */
       title?: string;
       type?: string;
     };
@@ -102,7 +91,7 @@ export interface components {
     };
     /** abandonedCartInfo_Full */
     abandonedCartInfo_Full: {
-      /** @description The `cart_id` of the abandoned cart. Can be used to display the abandoned cart to the customer using storefront cart or server-to-server cart APIs. */
+      /** @description The `cart_id` of the abandoned cart. Can be used to display the abandoned cart to the customer using storefront cart or server-to-server cart APIs */
       cart_id?: string;
     };
     /** @description Represents all settings related to the abandoned cart functionality of a store */
@@ -111,7 +100,7 @@ export interface components {
       enable_notification?: boolean;
       /** @description Indicates whether or not a customer should continue to receive abandoned cart emails until their cart is recovered */
       email_customer_until_cart_is_recovered?: boolean;
-      /** @description Indicates whether or not a customer should receive abandoned cart emails based on their consent. By default customers will not receive emails. */
+      /** @description Indicates whether or not a customer should receive abandoned cart emails based on their consent. By default customers will not receive emails */
       marketing_emails_require_customer_consent?: boolean;
       /** @description Indicates whether or not a merchant should receive a notification email when a cart is converted into an order */
       email_merchant_when_cart_is_converted?: boolean;
@@ -127,7 +116,10 @@ export interface components {
        * @enum {string}
        */
       merchant_abandoned_cart_email_frequency_type?: "digest" | "individual";
-      /** @description The number of abandoned carts to accumulate before a digest email is sent to a merchant */
+      /**
+       * Format: int32
+       * @description The number of abandoned carts to accumulate before a digest email is sent to a merchant
+       */
       merchant_abandoned_cart_digest_email_frequency?: number;
     };
     /** @description Represents all settings overrides related to the abandoned cart functionality of a store for a channel */
@@ -152,7 +144,10 @@ export interface components {
        * @enum {string|null}
        */
       merchant_abandoned_cart_email_frequency_type?: "digest" | "individual" | null;
-      /** @description The number of abandoned carts to accumulate before a digest email is sent to a merchant. If it is null, it means there is no override for the specified channel. */
+      /**
+       * Format: int32
+       * @description The number of abandoned carts to accumulate before a digest email is sent to a merchant. If it is null, it means there is no override for the specified channel.
+       */
       merchant_abandoned_cart_digest_email_frequency?: number | null;
     };
     ChannelAbandonedCartSettingsRequest: components["schemas"]["ChannelAbandonedCartSettings"];
@@ -169,6 +164,7 @@ export interface components {
     };
     /** @description The response object containing details of an error */
     ErrorResponse: {
+      /** Format: int32 */
       status?: number;
       title?: string;
       type?: string;
@@ -189,11 +185,6 @@ export interface components {
     "504_GatewayTimeout": {
       content: {
         "application/json": components["schemas"]["errorDetailed_Full"];
-      };
-    };
-    "403_Unauthorized": {
-      content: {
-        "application/json": components["schemas"]["error_Full"];
       };
     };
     /**
@@ -251,13 +242,14 @@ export type external = Record<string, never>;
 export interface operations {
 
   /**
-   * Get Global Abandoned Cart Settings
-   * @description Returns the global abandoned cart settings of a store.
+   * Get global abandoned cart settings
+   * @description Return the global abandoned cart settings of a store.
    */
   getGlobalAbandonedCartSettings: {
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
+      query?: {
+        /** @description How many pages to return */
+        pagination?: number;
       };
     };
     responses: {
@@ -276,14 +268,14 @@ export interface operations {
     };
   };
   /**
-   * Update Global Abandoned Cart Settings
-   * @description Updates the global abandoned cart settings of a store.
+   * Update global abandoned cart settings
+   * @description Update the global abandoned cart settings of a store.
    */
   updateGlobalAbandonedCartSettings: {
     parameters: {
       header: {
-        Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
+        Accept: components["parameters"]["Accept"];
       };
     };
     requestBody: {
@@ -313,14 +305,11 @@ export interface operations {
     };
   };
   /**
-   * Get Channel Abandoned Cart Settings
-   * @description Returns the per-channel overrides for the abandoned cart settings of a store.
+   * Get channel abandoned cart settings
+   * @description Return the per-channel overrides for the abandoned cart settings of a store.
    */
   getChannelAbandonedCartSettings: {
     parameters: {
-      header: {
-        Accept: components["parameters"]["Accept"];
-      };
       path: {
         /** @description The channel ID of the settings overrides */
         channel_id: number;
@@ -342,7 +331,7 @@ export interface operations {
     };
   };
   /**
-   * Update Channel Abandoned Cart Settings
+   * Update channel abandoned cart settings
    * @description Updates the per-channel overrides for the abandoned cart settings of a store.
    *
    * #### OAuth Scopes
@@ -353,8 +342,8 @@ export interface operations {
   updateChannelAbandonedCartSettings: {
     parameters: {
       header: {
-        Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
+        Accept: components["parameters"]["Accept"];
       };
       path: {
         /** @description The channel ID of the settings overrides */
@@ -388,8 +377,8 @@ export interface operations {
     };
   };
   /**
-   * Get an Abandoned Cart
-   * @description Returns the `cart_id` corresponding to the abandoned cart `{token}` passed in.
+   * Get an abandoned cart
+   * @description Return the `cart_id` corresponding to the abandoned cart `{token}` passed in.
    *
    * **Usage Notes**:
    * * `{token}` is the token in the query string of the abandoned cart link found in abandoned cart email notifications to shoppers
