@@ -56,9 +56,6 @@ export interface paths {
       header: {
         Accept: components["parameters"]["Accept"];
       };
-      path: {
-        location_id: string;
-      };
     };
   };
   "/inventory/locations/{location_id}/metafields/{metafield_id}": {
@@ -1134,7 +1131,6 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        location_id: string;
         location_id: components["parameters"]["LocationIdParam"];
       };
     };
@@ -1182,7 +1178,6 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        location_id: string;
         location_id: components["parameters"]["LocationIdParam"];
       };
     };
