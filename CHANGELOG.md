@@ -1,5 +1,13 @@
 # bigrequest
 
+## 0.0.40
+
+### Patch Changes
+
+- [#306](https://github.com/matthewvolk/bigrequest/pull/306) [`34c9adc`](https://github.com/matthewvolk/bigrequest/commit/34c9adc724f4258aeb303bb44e52a81848d8f1c8) Thanks [@github-actions](https://github.com/apps/github-actions)! - bigcommerce/docs#340
+
+- [#307](https://github.com/matthewvolk/bigrequest/pull/307) [`87f0766`](https://github.com/matthewvolk/bigrequest/commit/87f07666911142adc34771dd4012827fbb9401e6) Thanks [@matthewvolk](https://github.com/matthewvolk)! - update @bigcommerce/eslint-config to fix eslint-plugin-jsdoc engine compatibility
+
 ## 0.0.39
 
 ### Patch Changes
