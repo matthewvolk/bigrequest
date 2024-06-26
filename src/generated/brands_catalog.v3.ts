@@ -1333,6 +1333,8 @@ export interface operations {
         };
       };
       207: components["responses"]["MultiStatus"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
       /** @description The resource was not found. */
       404: {
         content: {
