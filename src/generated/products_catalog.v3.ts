@@ -2916,6 +2916,14 @@ export interface components {
     MetafieldNamespaceInParam?: string[];
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
+    /** @description 'Query parameter that lets you filter by the minimum date created, ffor example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date.' */
+    date_created_min?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date.' */
+    date_created_max?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date modified created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date.' */
+    date_modified_max?: string;
+    /** @description 'Query parameter that lets you filter by the minimum date modified created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date.' */
+    date_modified_min?: string;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Field name to sort by. Note: Since ID increments when new products are added, you can use the ID value to sort by product create date. */
@@ -6427,6 +6435,10 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
         include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
       };
     };
     responses: {
