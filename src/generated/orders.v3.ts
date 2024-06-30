@@ -2117,6 +2117,14 @@ export interface components {
     ContentType: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
+    /** @description Filter items by minimum datevcreated. For example, `date_created:min=2019-09-04T00:00:00` or `date_created:min=2019-09-04`. Returns metafields created after this date. */
+    date_created_min?: string;
+    /** @description Filter items by maximum date created. For example, `date_created:max=2019-09-04T00:00:00` or `date_created:max=2019-09-04`. Returns metafields created before this date. */
+    date_created_max?: string;
+    /** @description Filter items by minimum date modified. For example, `date_modified:min=2019-09-04T00:00:00` or `date_modified:min=2019-09-04`. Returns metafields modified after this date. */
+    date_modified_min?: string;
+    /** @description Filter items by maximum date modified. For example, `date_modified:max=2019-09-04T00:00:00` or `date_modified:max=2019-09-04`. Returns metafields modified before this date. */
+    date_modified_max?: string;
     /** @description The ID of the `Metafield`. */
     MetafieldIdParam: number;
     /** @description Filter based on a metafieldʼs key. */
@@ -2789,6 +2797,10 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
         include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
       };
     };
     responses: {
