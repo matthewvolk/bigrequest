@@ -777,7 +777,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["siteRoute_Full"];
+        "application/json": components["schemas"]["siteRoute_Full"][];
       };
     };
     responses: {
