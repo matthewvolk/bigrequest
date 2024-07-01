@@ -1631,17 +1631,17 @@ export interface components {
     type_in?: ("marketplace" | "marketing" | "pos" | "storefront")[];
     /** @description Filter items by a comma-separated list of platforms. For a list of supported platforms, see [Platform](/docs/rest-management/channels#platform). */
     platform_in?: string[];
-    /** @description Filter items by date_created. For example, `date_created=2019-09-04T00:00:00`, `date_created=2019-09-04`, or `date_created=1567573200` */
+    /** @description Filter items by date created. For example, `date_created=2024-05-14T09:34:00` or `date_created=2024-05-14`. */
     date_created?: string;
-    /** @description Filter items by minimum date_created. For example, `date_created:min=2019-09-04T00:00:00`, `date_created:min=2019-09-04`, or `date_created:min=1567573200` */
+    /** @description Filter items by minimum date created. For example, `date_created=2024-05-14T09:34:00` or `date_created=2024-05-14`. Returns metafields created after this date. */
     date_created_min?: string;
-    /** @description Filter items by maximum date_created. For example, `date_created:max=2019-09-04T00:00:00`, `date_created:max=2019-09-04`, or `date_created:max=1567573200` */
+    /** @description Filter items by maximum date created. For example, `date_created=2024-05-14T09:34:00` or `date_created=2024-05-14`. Returns metafields created before this date. */
     date_created_max?: string;
-    /** @description Filter items by date_modified. For example, `date_modified=2019-09-04T00:00:00`, `date_modified=2019-09-04`, or `date_modified=1567573200` */
+    /** @description Filter items by date modified. For example, `date_created=2024-05-14T09:34:00` or `date_created=2024-05-14`. */
     date_modified?: string;
-    /** @description Filter items by minimum date_modified. For example, `date_modified:min=2019-09-04T00:00:00`, `date_modified:min=2019-09-04`, or `date_modified:min=1567573200` */
+    /** @description Filter items by minimum date modified. For example, `date_created=2024-05-14T09:34:00` or `date_created=2024-05-14`. Returns metafields modified after this date. */
     date_modified_min?: string;
-    /** @description Filter items by maximum date_modified. For example, `date_modified:max=2019-09-04T00:00:00`, `date_modified:max=2019-09-04`, or `date_modified:max=1567573200` */
+    /** @description Filter items by maximum date modified. For example, `date_created=2024-05-14T09:34:00` or `date_created=2024-05-14`. Returns metafields modified before this date. */
     date_modified_max?: string;
     /** @description Controls the number of items per page for paginated responses. */
     limit?: number;
@@ -2449,6 +2449,10 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
         include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
       };
     };
     responses: {

@@ -2262,6 +2262,14 @@ export interface components {
     MetafieldNamespaceInParam?: string[];
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
+    /** @description Filter items by minimum date created. For example, `date_created:min=2019-09-04T00:00:00` or `date_created:min=2019-09-04`. Returns metafields created after this date. */
+    date_created_min?: string;
+    /** @description Filter items by maximum date created. For example, `date_created:max=`2024-05-14T09:34:00` or `date_created:max=2019-09-04`. Returns metafields created before this date. */
+    date_created_max?: string;
+    /** @description Filter items by minimum date modified. For example, `date_modified:min=`2024-05-14T09:34:00` or `date_modified:min=2019-09-04`. Returns metafields modified after this date. */
+    date_modified_min?: string;
+    /** @description Filter items by maximum date modified. For example, `date_modified:max=2019-09-04T00:00:00` or `date_modified:max=2019-09-04`. Returns metafields modified before this date. */
+    date_modified_max?: string;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -2302,17 +2310,17 @@ export interface operations {
         "company:in"?: string[];
         /** @description Filter items by customer_group_id. `customer_group_id:in=5,6` */
         "customer_group_id:in"?: string[];
-        /** @description Filter items by date_created. `date_created=2018-09-05T13:43:54` */
+        /** @description Filter items by date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_created?: string;
-        /** @description Filter items by maximum date_created. `date_created:max=2018-09-10` */
+        /** @description Filter items by maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date. */
         "date_created:max"?: string;
-        /** @description Filter items by date_created. `date_created:min=2018-09-05` */
+        /** @description Filter items by date created for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date. */
         "date_created:min"?: string;
-        /** @description Filter items by date_modified. `date_modified=2018-09-05T13:45:03` */
+        /** @description Filter items by date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_modified?: string;
-        /** @description Filter items by minimum date_modified. `date_modified:min=2019-09-04T:00:00:00` or `date_modified:min=2019-09-04` */
+        /** @description Filter items by minimum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date. */
         "date_modified:min"?: string;
-        /** @description Filter items by maximum date_modified. `date_modified:max=2018-09-05T13:45:03` or `date_modified:max=2019-09-04` */
+        /** @description Filter items by maximum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date. */
         "date_modified:max"?: string;
         /** @description Filter items by email. `email:in=janedoe@example.com` */
         "email:in"?: string[];
@@ -2792,17 +2800,17 @@ export interface operations {
         "name:like"?: string;
         /** @description The type of the customer attribute. */
         type?: string;
-        /** @description Filter items by `date_created`. `date_created=2021-01-07T20:28:16Z` */
+        /** @description Filter items by `date_created`, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_created?: string;
-        /** @description Filter items by maximum `date_created`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by maximum `date_created`, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields created before this date. */
         "date_created:max"?: string;
-        /** @description Filter items by minimum `date_created`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by minimum `date_created`, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields created after this date. */
         "date_created:min"?: string;
-        /** @description Filter items by `date_modified`. */
+        /** @description Filter items by `date_modified`, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_modified?: string;
-        /** @description Filter items by maximum `date_modified`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by maximum `date_modified`, for example, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields modified before this date. */
         "date_modified:max"?: string;
-        /** @description Filter items by minimum `date_modified`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by minimum `date_modified`, for example, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields modified after this date. */
         "date_modified:min"?: string;
       };
       header?: {
@@ -2932,17 +2940,17 @@ export interface operations {
         "attribute_id:in"?: number[];
         /** @description Filter items by the attribute name. `name=age` */
         name?: string;
-        /** @description Filter items by `date_created`. `date_created=2018-09-05T13:43:54` */
+        /** @description Filter items by `date_created`, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_created?: string;
-        /** @description Filter items by maximum `date_created`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by maximum `date_created`, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields created before this date. */
         "date_created:max"?: string;
-        /** @description Filter items by minimum `date_created`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by minimum `date_created`, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields created after this date */
         "date_created:min"?: string;
-        /** @description Filter items by `date_modified`. `date_modified=2018-09-05T13:45:03` */
+        /** @description Filter items by `date_modified`, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_modified?: string;
-        /** @description Filter items by maximum `date_modified`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by maximum `date_modified`, for example, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields modified before this date. */
         "date_modified:max"?: string;
-        /** @description Filter items by minimum `date_modified`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. `date_created=2021-01-07` or `date_created=1610051296000` */
+        /** @description Filter items by minimum `date_modified`, for example, `2024-05-14T09:34:00` or `2024-05-14`. ISO 8601 full-date is required, ISO 8601 full-time is not required. UNIX timestamp also accepted. Returns metafields modified after this date. */
         "date_modified:min"?: string;
       };
       header?: {
@@ -3382,6 +3390,10 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
         include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
       };
     };
     responses: {
