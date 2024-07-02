@@ -827,6 +827,14 @@ export interface components {
     MetafieldNamespaceParam?: string;
     /** @description Filter based on comma-separated metafieldʼs namespaces. Could be used with vanilla `namespace` query parameter. */
     MetafieldNamespaceInParam?: string[];
+    /** @description 'Query parameter that lets you filter by the minimum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date.' */
+    date_created_min?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date.' */
+    date_created_max?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date modified created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date.' */
+    date_modified_max?: string;
+    /** @description 'Query parameter that lets you filter by the minimum date modified created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date.' */
+    date_modified_min?: string;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Filter items by ID. */
@@ -1333,6 +1341,8 @@ export interface operations {
         };
       };
       207: components["responses"]["MultiStatus"];
+      401: components["responses"]["UnauthorizedError"];
+      403: components["responses"]["Error"];
       /** @description The resource was not found. */
       404: {
         content: {
