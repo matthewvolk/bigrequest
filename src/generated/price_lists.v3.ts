@@ -1177,17 +1177,17 @@ export interface operations {
                 map_price?: number;
                 bulk_pricing_tiers?: ({
                     /**
-                     * @description The minimum quantity of associated variant in the cart needed to qualify for this tiers pricing.
+                     * @description The minimum quantity of associated variant in the cart needed to qualify for this tier's pricing.
                      *
                      * @example 1
                      */
                     quantity_min?: number;
                     /**
-                     * @description The maximum allowed quantity of associated variant in the cart to qualify for this tiers pricing.
+                     * @description The maximum allowed quantity of associated variant in the cart to qualify for this tier's pricing. `null` indicates that there is no maximum allowed quantity for this tier.
                      *
                      * @example 10
                      */
-                    quantity_max?: number;
+                    quantity_max?: number | null;
                     /**
                      * @description The type of adjustment that is made. Acceptable values: price – the adjustment amount per product; percent – the adjustment as a percentage of the original price; fixed – the adjusted absolute price of the product.
                      *
