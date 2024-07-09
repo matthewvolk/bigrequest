@@ -78,7 +78,7 @@ export interface paths {
      * **Usage Notes**
      *
      * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
-     * * A **Carts** redirect URL may only be used once.
+     * * A **Carts** redirect URL is valid for 30 days and may only be used once.
      * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
      * * Once a redirect URL has been visited, it will be invalidated and cannot be used again.
      * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
@@ -1982,6 +1982,14 @@ export interface components {
     MetafieldNamespaceInParam?: string[];
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
     LimitParam?: number;
+    /** @description 'Query parameter that lets you filter by the minimum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date.' */
+    date_created_min?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date.' */
+    date_created_max?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date modified created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date.' */
+    date_modified_max?: string;
+    /** @description 'Query parameter that lets you filter by the minimum date modified created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date.' */
+    date_modified_min?: string;
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -2106,7 +2114,7 @@ export interface operations {
    * **Usage Notes**
    *
    * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
-   * * A **Carts** redirect URL may only be used once.
+   * * A **Carts** redirect URL is valid for 30 days and may only be used once.
    * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
    * * Once a redirect URL has been visited, it will be invalidated and cannot be used again.
    * * If your application requires URLs to be visited more than once, consider generating a fresh one each time you need to restore a cart, and redirecting to the URL from your own application.
@@ -2696,6 +2704,10 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
         include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
       };
     };
     responses: {
