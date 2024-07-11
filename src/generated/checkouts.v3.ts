@@ -320,15 +320,15 @@ export interface components {
               url?: string;
               is_taxable?: boolean;
               image_url?: string;
-              discounts?: {
-                  /** @description ID of the applied discount. */
-                  id?: number;
+              discounts?: ({
+                  /** @description The string value is always equal to "manual-discount" regardless of the input. */
+                  id?: string | number;
                   /**
                    * Format: double
                    * @description The discounted amount applied within a given context.
                    */
                   discounted_amount?: number;
-                }[];
+                })[];
               /**
                * Format: double
                * @description The total value of all discounts applied to this item.
@@ -1015,6 +1015,18 @@ export interface operations {
     };
     requestBody?: {
       content: {
+        /**
+         * @example {
+         *   "carts": {
+         *     "discounts": [
+         *       {
+         *         "discounted_amount": 10,
+         *         "name": "manual-discount"
+         *       }
+         *     ]
+         *   }
+         * }
+         */
         "application/json": {
           cart?: {
             discounts?: {
