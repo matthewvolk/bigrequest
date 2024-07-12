@@ -49,10 +49,18 @@ export interface components {
   schemas: {
     TokenPostImpersonation: {
       /**
-       * @description Channel ID for requested token
+       * @description Channel ID for a requested token. Use this field to enter a channel ID. Do not use this field if you have more than one channel. You can not use both `channel_id` and `channel_ids` in your request.
        * @example 1
        */
       channel_id: number;
+      /**
+       * @description List of channel IDs for a requested token. Use this field if you have more than one channel ID. You can not use both `channel_id` and `channel_ids` in your request.
+       * @example [
+       *   667251,
+       *   1
+       * ]
+       */
+      channel_ids?: number[];
       /**
        * @description Unix timestamp (UTC time) defining when the token should expire. Supports seconds, but does not support milliseconds, microseconds, or nanoseconds.
        * @example 1885635176
@@ -129,6 +137,15 @@ export interface operations {
     };
     requestBody?: {
       content: {
+        /**
+         * @example {
+         *   "allowed_cors_origins": [
+         *     "https://www.yourstorefront.com/"
+         *   ],
+         *   "channel_id": 1,
+         *   "expires_at": 1885635176
+         * }
+         */
         "application/json": components["schemas"]["TokenPostSimple"] & components["schemas"]["TokenPostImpersonation"];
       };
     };
