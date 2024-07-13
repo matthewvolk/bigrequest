@@ -54,14 +54,6 @@ export interface paths {
      */
     put: operations["updateHooksAdmin"];
   };
-  "/hooks/events": {
-    /**
-     * Get Events
-     * @deprecated
-     * @description Get a list of events that were sent but not successfully received. Events are stored for at least one week. This hook/event functionality is superseded by [Delivery exception hooks](/docs/integrations/webhooks/events#delivery-exception-hooks).
-     */
-    get: operations["getWebhookEvents"];
-  };
 }
 
 export type webhooks = Record<string, never>;
@@ -2141,25 +2133,6 @@ export interface components {
        */
       updated_at?: number;
     };
-    HistoryEvent: {
-      /** @description Alias where the event occurred. */
-      scope?: string;
-      /** @description A numerical identifier that is unique to each store. */
-      store_id?: string;
-      /** @description A lightweight description of the event that triggered the webhook. Will vary depending on the event registered. */
-      data?: {
-        [key: string]: unknown;
-      };
-      /** @description The payload data encoded in JSON format and then passed through SH1 encryption. */
-      hash?: string;
-      /**
-       * Format: int64
-       * @description UTC timestamp, in seconds, that the events was created.
-       */
-      created_at?: number;
-      /** @description Will always follow the pattern stores/store_hash. This is the store that created the webhook. */
-      producer?: string;
-    };
     /** @description Data about the response, including pagination and collection totals. */
     Pagination: {
       /** @description Total number of returned items across all pages. */
@@ -2339,10 +2312,6 @@ export interface components {
     FilterPageParam?: number;
     /** @description Items count per page. */
     FilterLimitParam?: number;
-    /** @description Maximum value for returned data. */
-    FilterMaxCreatedAtParam?: string;
-    /** @description Minimum value for returned data. */
-    FilterMinCreatedAtParam?: string;
     Accept?: string;
     "Content-Type"?: string;
   };
@@ -2586,36 +2555,6 @@ export interface operations {
       400: components["responses"]["400_BadRequest"];
       401: components["responses"]["401_Unauthorized"];
       422: components["responses"]["422_UnprocessableEntity"];
-    };
-  };
-  /**
-   * Get Events
-   * @deprecated
-   * @description Get a list of events that were sent but not successfully received. Events are stored for at least one week. This hook/event functionality is superseded by [Delivery exception hooks](/docs/integrations/webhooks/events#delivery-exception-hooks).
-   */
-  getWebhookEvents: {
-    parameters: {
-      query?: {
-        page?: components["parameters"]["FilterPageParam"];
-        limit?: components["parameters"]["FilterLimitParam"];
-        "created_at:max"?: components["parameters"]["FilterMaxCreatedAtParam"];
-        "created_at:min"?: components["parameters"]["FilterMinCreatedAtParam"];
-      };
-    };
-    responses: {
-      /** @description Successful operation. */
-      200: {
-        content: {
-          "application/json": {
-            data?: components["schemas"]["HistoryEvent"][];
-            meta?: {
-              pagination?: components["schemas"]["Pagination"];
-            };
-          };
-        };
-      };
-      400: components["responses"]["400_BadRequest"];
-      401: components["responses"]["401_Unauthorized"];
     };
   };
 }
