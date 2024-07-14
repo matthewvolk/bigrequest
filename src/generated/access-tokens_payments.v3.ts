@@ -13,7 +13,7 @@ export interface paths {
      *
      * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront#handling-payments).
      *
-     * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment).
+     * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment). The token is valid for one hour.
      *
      * **Required Fields**
      * * order_id
@@ -70,7 +70,7 @@ export interface operations {
    *
    * You can also generate a payment access token during checkout by using the `completeCheckout` mutation in the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront#handling-payments).
    *
-   * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment).
+   * After the token is created, use the token to [Process a payment](/docs/rest-payments/processing#process-payment). The token is valid for one hour.
    *
    * **Required Fields**
    * * order_id
