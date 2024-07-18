@@ -5,6 +5,9 @@
  */
 
 
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface paths {
   "/storefront/api-token": {
     /**
@@ -47,18 +50,13 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    TokenPostImpersonation: {
-      /**
-       * @description Channel ID for requested token
-       * @example 1
-       */
-      channel_id: number;
+    TokenPostImpersonation: WithRequired<{
       /**
        * @description Unix timestamp (UTC time) defining when the token should expire. Supports seconds, but does not support milliseconds, microseconds, or nanoseconds.
        * @example 1885635176
        */
       expires_at: number;
-    };
+    } & (components["schemas"]["Channels"] | components["schemas"]["Channel"]), "expires_at">;
     TokenPostSimple: {
       /** @description List of allowed domains for Cross-Origin Request Sharing. Currently accepts a maximum of two domains per created token. */
       allowed_cors_origins?: string[];
@@ -73,6 +71,25 @@ export interface components {
     Token_Base: {
       /** @description JWT Token for accessing the Storefront API */
       token?: string;
+    };
+    /** channel_id */
+    Channel: {
+      /**
+       * @description Channel ID that is valid for the requested token. Use this field to enter a channel ID. Do not use this field if you have more than one channel. We support this field for backwards compatibility, but `channel_ids` is preferred. You can not use both `channel_id` and `channel_ids` in your request.
+       * @example 1
+       */
+      channel_id: number;
+    };
+    /** channel_ids */
+    Channels: {
+      /**
+       * @description A list of channel IDs that are valid for the requested token. Use this field if you have more than one channel ID. You can not use both `channel_id` and `channel_ids` in your request.
+       * @example [
+       *   667251,
+       *   1
+       * ]
+       */
+      channel_ids: number[];
     };
     ErrorResponse: components["schemas"]["BaseError"] & {
       errors?: components["schemas"]["DetailedErrors"];
@@ -129,6 +146,15 @@ export interface operations {
     };
     requestBody?: {
       content: {
+        /**
+         * @example {
+         *   "allowed_cors_origins": [
+         *     "https://www.yourstorefront.com/"
+         *   ],
+         *   "channel_id": 1,
+         *   "expires_at": 1885635176
+         * }
+         */
         "application/json": components["schemas"]["TokenPostSimple"] & components["schemas"]["TokenPostImpersonation"];
       };
     };
