@@ -805,6 +805,8 @@ export interface components {
     };
   };
   parameters: {
+    /** @description The channel ID. */
+    ChannelID?: string;
     /** @description The identifier for a specific template. */
     TemplateUUID: string;
     /** @description The identifier for a specific widget template. */
@@ -1242,7 +1244,8 @@ export interface operations {
   getContentRegions: {
     parameters: {
       query: {
-        templateFile: components["parameters"]["RequiredTemplateFile"];
+        template_file: components["parameters"]["RequiredTemplateFile"];
+        channel_id?: components["parameters"]["ChannelID"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
