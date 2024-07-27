@@ -18,6 +18,7 @@ import * as email_templates_v3 from './email_templates.v3';
 import * as inventory_v3 from './inventory.v3';
 import * as locations_v3 from './locations.v3';
 import * as orders_v3 from './orders.v3';
+import * as page_widgets_v3 from './page-widgets.v3';
 import * as pages_v3 from './pages.v3';
 import * as accepted_methods_payments_v3 from './accepted-methods_payments.v3';
 import * as access_tokens_payments_v3 from './access-tokens_payments.v3';
@@ -64,6 +65,7 @@ email_templates_v3.paths &
 inventory_v3.paths &
 locations_v3.paths &
 orders_v3.paths &
+page_widgets_v3.paths &
 pages_v3.paths &
 accepted_methods_payments_v3.paths &
 access_tokens_payments_v3.paths &
