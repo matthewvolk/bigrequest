@@ -118,8 +118,6 @@ export interface paths {
     /**
      * Delete Checkout Consignment
      * @description Removes an existing consignment from a checkout.
-     *
-     * Removing the last consignment will remove the cart from the customer it is assigned to. Create a new redirect URL for the customer so they can access the cart again.
      */
     delete: operations["deleteCheckoutConsignment"];
     parameters: {
@@ -1253,8 +1251,6 @@ export interface operations {
   /**
    * Delete Checkout Consignment
    * @description Removes an existing consignment from a checkout.
-   *
-   * Removing the last consignment will remove the cart from the customer it is assigned to. Create a new redirect URL for the customer so they can access the cart again.
    */
   deleteCheckoutConsignment: {
     parameters: {

@@ -242,7 +242,7 @@ export interface components {
       type?: "RESIDENTIAL" | "COMMERCIAL";
     };
     TaxClass: {
-      /** @description The provider-specific tax code for this item. Items can be classified with tax codes relevant to each Tax Provider, configured by the merchant, and assigned to their products within BigCommerce. A tax code is intended to apply to multiple products. This code should match the tax codes provided by the third-party integration. */
+      /** @description The provider-specific tax code for this item. Items can be classified with tax codes relevant to each tax provider, configured by the merchant, and assigned to their products within BigCommerce. A tax code is intended to apply to multiple products. This code should match the tax codes provided by the third-party integration. */
       code: string;
       /** @description The ID of the tax class defined in the merchant’s BigCommerce store. May have a UUID value. */
       class_id: string;
@@ -251,7 +251,7 @@ export interface components {
     };
     /** Quote */
     "response-quote": {
-      /** @description The unique identifier of the tax quote that was requested. This must match the ID of the requested quote. */
+      /** @description The unique identifier of the tax quote that was requested. This value must either match the ID of the requested quote or be an external ID on the tax provider’s system. This value will be used for future adjust and void operations. */
       id: string;
       /** @description Represents an order quote or part of an order quote of tax-relevant items fulfilled from a single origin address to a single destination address, including arrays of shipping and handling fee objects for each item. Most order quotes contain a single document; however, BigCommerce supports "multi-address orders", which may come from or go to distinct sets of addresses and thus require multiple documents per quote. */
       documents: components["schemas"]["response-document"][];
@@ -322,11 +322,11 @@ export interface components {
       amount: number;
       tax_class?: components["schemas"]["TaxClass"];
       /**
-       * @description Optional unique identifier for this sales tax, describing the relevant tax classification rule on the Tax Provider platform.
+       * @description Optional unique identifier for this sales tax, describing the relevant tax classification rule on the tax provider platform.
        *
        * Supplying an identifier allows BigCommerce to group related taxes together from all items in the order.
        *
-       * This identifier is persisted by BigCommerce and may be desirable for auditing purposes between BigCommerce and the Tax Provider. Currently supports persisting integer values only (the string type indicates we may support UUID values in the future).
+       * This identifier is persisted by BigCommerce and may be desirable for auditing purposes between BigCommerce and the tax provider. Currently supports persisting integer values only (the string type indicates we may support UUID values in the future).
        * @example 1701
        */
       id?: string;
