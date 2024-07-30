@@ -524,8 +524,6 @@ export interface operations {
   getPriceLists: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
         /** @description Filter items by name. */
         name?: string;
         /** @description Filter items by date_created. */
