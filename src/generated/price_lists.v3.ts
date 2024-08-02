@@ -274,8 +274,7 @@ export interface components {
        * @example usd
        */
       currency?: string;
-      items?: components["schemas"]["PriceRecordBase"];
-    };
+    } & components["schemas"]["PriceRecordBase"];
     /** @description Common Price Record properties. */
     PriceRecordBase: {
       /**
@@ -524,8 +523,6 @@ export interface operations {
   getPriceLists: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
         /** @description Filter items by name. */
         name?: string;
         /** @description Filter items by date_created. */
@@ -1016,7 +1013,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["PriceRecordBatchItem"];
+        "application/json": components["schemas"]["PriceRecordBatchItem"][];
       };
     };
     responses: {
@@ -1454,8 +1451,12 @@ export interface operations {
   deletePriceListRecords: {
     parameters: {
       query?: {
-        /** @description A comma-separated list of IDs for one or more variants for which prices were requested. */
+        /** @description The 3-letter currency code with which this set of prices is associated. */
+        currency?: string;
+        /** @description A comma-separated list of IDs for one or more variants for which prices exist. */
         "variant_id:in"?: number[];
+        /** @description A comma-separated list of SKUs for one or more variants for which prices exist. */
+        "sku:in"?: string[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
