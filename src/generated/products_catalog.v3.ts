@@ -813,7 +813,7 @@ export interface components {
       /** @description If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected. */
       purchasing_disabled_message?: string;
       /** @description The UPC code used in feeds for shopping comparison sites and external channel integrations. */
-      upc?: string | null;
+      upc?: string;
       /**
        * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
        *
@@ -906,7 +906,7 @@ export interface components {
       /** @description If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected. */
       purchasing_disabled_message?: string;
       /** @description The UPC code used in feeds for shopping comparison sites and external channel integrations. */
-      upc?: string | null;
+      upc?: string;
       /**
        * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
        *
