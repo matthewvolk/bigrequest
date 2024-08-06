@@ -841,7 +841,7 @@ export interface components {
     /** @description Indicates if a channel is visible within the BigCommerce merchant admin UI (control panel). If `false`, the channel will not show in Channel Manager nor in any channels dropdown throughout the UI. Default value for this field is `true` if not specified on create. */
     IsVisible: boolean;
     /**
-     * @description The status of the channel; channel `type`, `platform`, and `status` must be a [valid combination](/docs/rest-management/channels#status). `terminated` is not valid for `PUT` or `POST` requests. `deleted` is not valid for `POST` requests.
+     * @description The status of the channel; channel `type`, `platform`, and `status` must be a [valid combination](/docs/rest-management/channels#status). `terminated` is not valid for `PUT` or `POST` requests. `deleted` is not valid for `POST` requests. `prelaunch` is not valid for `PUT` requests.
      * @enum {string}
      */
     ChannelStatus: "active" | "prelaunch" | "inactive" | "connected" | "disconnected" | "archived" | "deleted" | "terminated";
