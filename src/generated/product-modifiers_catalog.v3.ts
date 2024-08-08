@@ -716,7 +716,8 @@ export interface operations {
         modifier_id: components["parameters"]["ModifierIdParam"];
       };
     };
-    requestBody: {
+    /** @description Common Modifier properties. */
+    requestBody?: {
       content: {
         "application/json": {
           /**
@@ -729,10 +730,7 @@ export interface operations {
           required: boolean;
           /** @description The order the modifiers display on the product detail page. */
           sort_order?: number;
-          /**
-           * Option Config
-           * @description The values for option config can vary based on the Modifier created.
-           */
+          /** @description The values for option config can vary based on the Modifier created. */
           config?: {
             /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. */
             default_value?: string;
@@ -993,7 +991,7 @@ export interface operations {
                  */
                 product_list_shipping_calc?: "none" | "weight" | "package";
               };
-              option_values?: (({
+              option_values?: ({
                   /**
                    * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
                    *
@@ -1014,12 +1012,8 @@ export interface operations {
                   sort_order: number;
                   /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
                   value_data?: Record<string, never>;
-                } & ({
                   adjusters?: {
-                    /**
-                     * Adjuster
-                     * @description Adjuster for Complex Rules.
-                     */
+                    /** @description Adjuster for Complex Rules. */
                     price?: {
                       /**
                        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
@@ -1034,10 +1028,7 @@ export interface operations {
                        */
                       adjuster_value?: number;
                     };
-                    /**
-                     * Adjuster
-                     * @description Adjuster for Complex Rules.
-                     */
+                    /** @description Adjuster for Complex Rules. */
                     weight?: {
                       /**
                        * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
@@ -1053,7 +1044,7 @@ export interface operations {
                       adjuster_value?: number;
                     };
                     /**
-                     * @description The URL for an image displayed on the storefront when the modifier value is selected.Limit of 8MB per file.
+                     * @description The URL for an image displayed on the storefront when the modifier value is selected. Limit of 8MB per file.
                      *
                      * @example https://cdn8.bigcommerce.com/s-{{store_hash}}/products/184/images/445/naturalcanvascart2_1024x1024__92347__29648.1534344533.1280.1280.jpg?c=2
                      */
@@ -1061,11 +1052,10 @@ export interface operations {
                     purchasing_disabled?: {
                       /** @description Flag for whether the modifier value disables purchasing when selected on the storefront. This can be used for temporarily disabling a particular modifier value. */
                       status?: boolean;
-                      /** @description The message displayed on the storefront when the purchasing disabled status is `true`. */
+                      /** @description The message displayed on the storefront when the purchasing disabled status is `true'. */
                       message?: string;
                     };
                   };
-                })) & {
                   /** @description The unique numeric ID of the value; increments sequentially. */
                   id?: number;
                 })[];

@@ -274,8 +274,7 @@ export interface components {
        * @example usd
        */
       currency?: string;
-      items?: components["schemas"]["PriceRecordBase"];
-    };
+    } & components["schemas"]["PriceRecordBase"];
     /** @description Common Price Record properties. */
     PriceRecordBase: {
       /**
@@ -448,19 +447,6 @@ export interface components {
          * @example 1
          */
         total_pages?: number;
-        /** @description Pagination links for the previous and next parts of the whole collection. */
-        links?: {
-          /** @description Link to the previous page returned in the response. */
-          previous?: string;
-          /**
-           * @description Link to the current page returned in the response.
-           *
-           * @example ?page=1&limit=50
-           */
-          current?: string;
-          /** @description Link to the next page returned in the response. */
-          next?: string;
-        };
       };
     };
     /**
@@ -524,8 +510,6 @@ export interface operations {
   getPriceLists: {
     parameters: {
       query?: {
-        /** @description Filter items by ID. */
-        id?: number;
         /** @description Filter items by name. */
         name?: string;
         /** @description Filter items by date_created. */
@@ -625,19 +609,6 @@ export interface operations {
                  * @example 1
                  */
                 total_pages?: number;
-                /** @description Pagination links for the previous and next parts of the whole collection. */
-                links?: {
-                  /** @description Link to the previous page returned in the response. */
-                  previous?: string;
-                  /**
-                   * @description Link to the current page returned in the response.
-                   *
-                   * @example ?page=1&limit=50
-                   */
-                  current?: string;
-                  /** @description Link to the next page returned in the response. */
-                  next?: string;
-                };
               };
             };
           };
@@ -788,20 +759,6 @@ export interface operations {
    */
   getPriceList: {
     parameters: {
-      query?: {
-        /** @description Filter items by ID. */
-        id?: number;
-        /** @description Filter items by name. */
-        name?: string;
-        /** @description Filter items by date_created. */
-        date_created?: string;
-        /** @description Filter items by date_modified. For example `v3/catalog/products?date_last_imported:min=2022-06-15` */
-        date_modified?: string;
-        /** @description Specifies the page number in a limited (paginated) list of products. */
-        page?: number;
-        /** @description Specifies the number of items per page in a limited (paginated) list of products. */
-        limit?: number;
-      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -1016,7 +973,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["PriceRecordBatchItem"];
+        "application/json": components["schemas"]["PriceRecordBatchItem"][];
       };
     };
     responses: {
@@ -1250,19 +1207,6 @@ export interface operations {
                  * @example 1
                  */
                 total_pages?: number;
-                /** @description Pagination links for the previous and next parts of the whole collection. */
-                links?: {
-                  /** @description Link to the previous page returned in the response. */
-                  previous?: string;
-                  /**
-                   * @description Link to the current page returned in the response.
-                   *
-                   * @example ?page=1&limit=50
-                   */
-                  current?: string;
-                  /** @description Link to the next page returned in the response. */
-                  next?: string;
-                };
               };
             };
           };
@@ -1454,8 +1398,12 @@ export interface operations {
   deletePriceListRecords: {
     parameters: {
       query?: {
-        /** @description A comma-separated list of IDs for one or more variants for which prices were requested. */
+        /** @description The 3-letter currency code with which this set of prices is associated. */
+        currency?: string;
+        /** @description A comma-separated list of IDs for one or more variants for which prices exist. */
         "variant_id:in"?: number[];
+        /** @description A comma-separated list of SKUs for one or more variants for which prices exist. */
+        "sku:in"?: string[];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1490,6 +1438,10 @@ export interface operations {
    */
   getPriceListRecordsByVariantId: {
     parameters: {
+      query?: {
+        /** @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored. */
+        include?: ("bulk_pricing_tiers" | "sku")[];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -1657,19 +1609,6 @@ export interface operations {
                  * @example 1
                  */
                 total_pages?: number;
-                /** @description Pagination links for the previous and next parts of the whole collection. */
-                links?: {
-                  /** @description Link to the previous page returned in the response. */
-                  previous?: string;
-                  /**
-                   * @description Link to the current page returned in the response.
-                   *
-                   * @example ?page=1&limit=50
-                   */
-                  current?: string;
-                  /** @description Link to the next page returned in the response. */
-                  next?: string;
-                };
               };
             };
           };
@@ -1911,12 +1850,6 @@ export interface operations {
                */
               amount?: number;
             })[];
-          /**
-           * @description The SKU code associated with this `Price Record` if requested and it exists.
-           *
-           * @example SMB-123
-           */
-          sku?: string;
         };
       };
     };
@@ -1969,8 +1902,6 @@ export interface operations {
                * @example 325
                */
               variant_id?: number;
-              /** @description The variant with which this price set is associated. Either `sku` or `variant_id` is required. */
-              sku?: string;
               /**
                * Format: ISO-4217
                * @description The 3-letter currency code with which this price set is associated.
@@ -2029,12 +1960,6 @@ export interface operations {
                    */
                   amount?: number;
                 })[];
-              /**
-               * @description The SKU code associated with this `Price Record` if requested and it exists.
-               *
-               * @example SMB-123
-               */
-              sku?: string;
             });
             meta?: components["schemas"]["Meta"];
           };
@@ -2182,11 +2107,9 @@ export interface operations {
       };
     };
     responses: {
-      /** @description OK */
+      /** @description No content */
       200: {
-        content: {
-          "application/json": components["schemas"]["SuccessBatchResponse"];
-        };
+        content: never;
       };
       /** @description Error response. Includes the errors for each reference ID. */
       422: {
