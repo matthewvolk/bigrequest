@@ -105,9 +105,7 @@ export interface paths {
      */
     get: operations["getThemeConfiguration"];
     parameters: {
-      query: {
-        /** @description Filter configurations by passing a comma-separated list of site IDs. */
-        "site_id:in": number[];
+      query?: {
         /** @description Filter configurations by a list of configuration UUIDs. */
         "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid */
@@ -115,6 +113,9 @@ export interface paths {
       };
       header: {
         Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        uuid: components["parameters"]["ThemeIdParam"];
       };
     };
   };
@@ -799,9 +800,7 @@ export interface operations {
    */
   getThemeConfiguration: {
     parameters: {
-      query: {
-        /** @description Filter configurations by passing a comma-separated list of site IDs. */
-        "site_id:in": number[];
+      query?: {
         /** @description Filter configurations by passing a comma-separated list of configuration UUIDs. */
         "uuid:in"?: string[];
         /** @description Filter configurations by a variation_uuid. */
