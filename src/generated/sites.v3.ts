@@ -107,12 +107,12 @@ export interface paths {
   };
   "/sites/{site_id}/certificate": {
     /**
-     * Get a Site’s SSL/TLS Certificate Information
+     * Get a Site’s SSL TLS Certificate Information
      * @description Obtain information about a site’s SSL/TLS certificate.
      */
     get: operations["getSiteCertificate"];
     /**
-     * Upsert a Site’s SSL/TLS Certificate Information
+     * Upsert a Site’s SSL TLS Certificate Information
      * @description - If a value for `url` is not supplied, the saved certificate is associated with the specified site’s `primary` URL.
      * - Use caution. Because this endpoint upserts, supplying an SSL certificate for a domain that already has a certificate connected overwrites the domain’s extant certificate.'
      */
@@ -890,7 +890,7 @@ export interface operations {
     };
   };
   /**
-   * Get a Site’s SSL/TLS Certificate Information
+   * Get a Site’s SSL TLS Certificate Information
    * @description Obtain information about a site’s SSL/TLS certificate.
    */
   getSiteCertificate: {
@@ -912,7 +912,7 @@ export interface operations {
     };
   };
   /**
-   * Upsert a Site’s SSL/TLS Certificate Information
+   * Upsert a Site’s SSL TLS Certificate Information
    * @description - If a value for `url` is not supplied, the saved certificate is associated with the specified site’s `primary` URL.
    * - Use caution. Because this endpoint upserts, supplying an SSL certificate for a domain that already has a certificate connected overwrites the domain’s extant certificate.'
    */

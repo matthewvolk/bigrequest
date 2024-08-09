@@ -359,6 +359,16 @@ export interface components {
                * @description Sale price of the item multiplied by the quantity.
                */
               extended_sale_price?: number;
+              /**
+               * Format: double
+               * @description The price of a single product used for strike-through.
+               */
+              comparison_price?: number;
+              /**
+               * Format: double
+               * @description The price of a line item (product * quantity) used for strike-through.
+               */
+              extended_comparison_price?: number;
               is_require_shipping?: boolean;
               is_mutable?: boolean;
               parent_id?: number | null;
@@ -435,6 +445,16 @@ export interface components {
                * @description Sale price of the item multiplied by the quantity.
                */
               extended_sale_price?: number;
+              /**
+               * Format: double
+               * @description The price of a single product used for strike-through.
+               */
+              comparison_price?: number;
+              /**
+               * Format: double
+               * @description The price of a line item (product * quantity) used for strike-through.
+               */
+              extended_comparison_price?: number;
             })[];
           gift_certificates: {
               /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
