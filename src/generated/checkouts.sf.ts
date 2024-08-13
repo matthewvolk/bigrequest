@@ -427,6 +427,11 @@ export interface components {
       outstandingBalance?: number;
       /** @description `true` value indicates StoreCredit has been applied. */
       isStoreCreditApplied?: boolean;
+      /**
+       * @description The current version of the checkout.
+       * @example 1
+       */
+      version?: number;
     };
     /** Cart Coupon */
     CartCoupon: {
@@ -513,6 +518,11 @@ export interface components {
       /** @description This can also be an array for fields that need to support list of values; for example, a set of checkboxes. When doing a PUT or POST to the `fieldValue` with a pick list, the input must be a number. The response will be a string. */
       fieldValue?: string;
     };
+    /** Billing address request */
+    BillingAddressRequest: components["schemas"]["address_Base"] & {
+      /** @description The expected version of the checkout. */
+      version?: number;
+    };
     /**
      * consignment_Full
      * @description This allows us to have multiple shipping addresses. Where there is only one shipping address, this array will contain only one value, with all the items.
@@ -579,6 +589,8 @@ export interface components {
     /** checkout_Put */
     checkout_Put: {
       customerMessage?: string;
+      /** @description The expected version of the checkout. */
+      version?: number;
     };
     /** checkouts_Resp */
     checkouts_Resp: {
@@ -1137,6 +1149,18 @@ export interface components {
       pickupOption?: {
         pickupMethodId?: number;
       };
+      /** @description The expected version of the checkout. */
+      version?: number;
+    };
+    /** Delete Coupon Request */
+    DeleteCouponCodeRequest: {
+      /** @description The expected version of the checkout. */
+      version?: number;
+    };
+    /** Delete Consignment Request */
+    DeleteConsignmentRequest: {
+      /** @description The expected version of the checkout. */
+      version?: number;
     };
     /** Gift Certificate Request */
     GiftCertificateRequest: {
@@ -1189,6 +1213,8 @@ export interface components {
       pickupOption?: {
         pickupMethodId?: number;
       };
+      /** @description The expected version of the checkout. */
+      version?: number;
     };
     /**
      * checkoutCart
@@ -1504,6 +1530,16 @@ export interface components {
         "application/json": components["schemas"]["checkout_Full"];
       };
     };
+    /** @description Cart conflict */
+    CartConflictErrorResponse: {
+      content: {
+        "application/json": {
+          status?: number;
+          title?: string;
+          type?: string;
+        };
+      };
+    };
   };
   parameters: {
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
@@ -1643,6 +1679,7 @@ export interface operations {
           "application/json": components["schemas"]["checkouts_Resp"];
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1738,7 +1775,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["address_Base"];
+        "application/json": components["schemas"]["BillingAddressRequest"];
       };
     };
     responses: {
@@ -1752,6 +1789,7 @@ export interface operations {
         content: {
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
       /** @description Unable to determine if provided email is associated with an account. The customer must sign in. */
       429: {
         content: {
@@ -1781,7 +1819,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["address_Base"];
+        "application/json": components["schemas"]["BillingAddressRequest"];
       };
     };
     responses: {
@@ -1795,6 +1833,7 @@ export interface operations {
         content: {
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
       /** @description Unable to determine if provided email is associated with an account. The customer must sign in. */
       429: {
         content: {
@@ -1859,6 +1898,7 @@ export interface operations {
           "application/json": components["schemas"]["checkout_Full"];
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1917,6 +1957,7 @@ export interface operations {
           "application/json": components["schemas"]["checkout_Full"];
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1938,12 +1979,18 @@ export interface operations {
         consignmentId: components["parameters"]["ConsignmentIdPath"];
       };
     };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["DeleteConsignmentRequest"];
+      };
+    };
     responses: {
       200: {
         content: {
           "application/json": components["schemas"]["checkout_Full"];
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -2042,6 +2089,8 @@ export interface operations {
       content: {
         "application/json": {
           couponCode?: string;
+          /** @description The expected version of the checkout. */
+          version?: number;
         };
       };
     };
@@ -2051,6 +2100,7 @@ export interface operations {
           "application/json": components["schemas"]["checkout_Full"];
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -2072,12 +2122,18 @@ export interface operations {
         couponCode: components["parameters"]["CouponCodePath"];
       };
     };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["DeleteCouponCodeRequest"];
+      };
+    };
     responses: {
       200: {
         content: {
           "application/json": components["schemas"]["checkout_Full"];
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
