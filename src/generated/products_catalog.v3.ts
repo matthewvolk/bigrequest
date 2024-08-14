@@ -124,7 +124,7 @@ export interface paths {
      *
      * **Usage Notes**
      * - `image_url` - `255` character limit
-     * - For file uploads, use the `multipart/form-data` media type.
+     * - For file uploads, use the `multipart/form-data` media type. See [Adding product images](/docs/store-operations/catalog#adding-product-images) for more information.
      * - You can create only one image at a time. A product can have up to 1000 images.
      * - Supported image file types are BMP, GIF, JPEG, PNG, WBMP, XBM, and WEBP.
      * - Each image file or image uploaded by URL can be up to 8 MB.
@@ -381,6 +381,22 @@ export interface paths {
       path: {
         product_id: components["parameters"]["ProductIdParam"];
         custom_field_id: components["parameters"]["CustomFieldIdParam"];
+      };
+    };
+  };
+  "/catalog/products/{product_id}/bulk-pricing-rules": {
+    /**
+     * Create a Bulk Pricing Rule
+     * @description Creates a *Bulk Pricing Rule*.
+     */
+    post: operations["createBulkPricingRule"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        product_id: components["parameters"]["ProductIdParam"];
       };
     };
   };
@@ -781,6 +797,8 @@ export interface components {
        * @description This variant’s retail price on the storefront. If a Price List ID is used, the Price List value will be used. If a Price List ID is not used, and this value is null, the product’s retail price (set in the Product resource’s `price` field) will be used as the retail price.
        */
       retail_price?: number | null;
+      /** @description Minimum Advertised Price. */
+      map_price?: number;
       /**
        * Format: double
        * @description This variant’s base weight on the storefront. If this value is null, the product’s default weight (set in the Product resource’s weight field) will be used as the base weight.
@@ -812,6 +830,12 @@ export interface components {
       purchasing_disabled?: boolean;
       /** @description If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected. */
       purchasing_disabled_message?: string;
+      /**
+       * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
+       *
+       * @example https://cdn8.bigcommerce.com/s-123456/product_images/d/fakeimage.png
+       */
+      image_url?: string;
       /** @description The UPC code used in feeds for shopping comparison sites and external channel integrations. */
       upc?: string | null;
       /**
@@ -840,6 +864,8 @@ export interface components {
       /** @description Variant ID */
       id?: number;
       sku?: string;
+      /** @example 70 */
+      sku_id?: number;
       /** @description Array of option and option values IDs that make up this variant. Will be empty if the variant is the productʼs base variant. */
       option_values?: components["schemas"]["productVariantOptionValue_Full"][];
       /**
@@ -929,18 +955,25 @@ export interface components {
     };
     /** productVariantOptionValue_Full */
     productVariantOptionValue_Full: WithRequired<{
-      /**
-       * @description The name of the option.
-       *
-       * @example Color
-       */
-      option_display_name?: string;
+      /** @description The option_value ID. */
+      id?: number;
       /**
        * @description The label of the option value.
        *
        * @example Beige
        */
       label?: string;
+      /**
+       * @description The option ID.
+       * @example 151
+       */
+      option_id?: number;
+      /**
+       * @description The name of the option.
+       *
+       * @example Color
+       */
+      option_display_name?: string;
     }, "option_display_name" | "label">;
     /**
      * productVariantOptionValue_Base
@@ -1272,10 +1305,7 @@ export interface components {
       /** @description Optional field. This field automatically creates a dynamic 301 redirect when a product URL change occurs with a PUT request. Existing dynamic redirects will automatically update to a new URL to avoid a loop. */
       create_redirect?: boolean;
     };
-    /**
-     * bulkPricingRule_Full
-     * @description Common Bulk Pricing Rule properties
-     */
+    /** bulkPricingRule_Full */
     bulkPricingRule_Full: {
       /**
        * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. For `fixed` rules, the minimum quantity canʼt be less than two.
@@ -1589,6 +1619,41 @@ export interface components {
       date_modified?: string;
     };
     /**
+     * primaryImage_Full
+     * @description Common PrimaryImage properties.
+     */
+    primaryImage_Full: {
+      /** @description The unique numeric ID of the image; increments sequentially. */
+      id?: number;
+      /** @description The unique numeric identifier for the product with which the image is associated. */
+      product_id?: number;
+      /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+      is_thumbnail?: boolean;
+      /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+      sort_order?: number;
+      /** @description The description for the image. */
+      description?: string;
+      /**
+       * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+       *
+       * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+       */
+      image_file?: string;
+      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
+      url_zoom?: string;
+      /** @description The standard URL for this image. By default, this is used for product-page images. */
+      url_standard?: string;
+      /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
+      url_thumbnail?: string;
+      /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
+      url_tiny?: string;
+      /**
+       * Format: date-time
+       * @description The date on which the product image was modified.
+       */
+      date_modified?: string;
+    };
+    /**
      * product_Put_Collection
      * @description The model for batch updating products.
      */
@@ -1734,7 +1799,6 @@ export interface components {
      * @description Shared `Product` properties used in:
      * * `POST`
      * * `PUT`
-     * * `GET`
      */
     product_Base: {
       /**
@@ -1985,14 +2049,14 @@ export interface components {
        *
        * @example Smith Journal 13
        */
-      name: string;
+      name?: string;
       /**
        * @description The product type. One of: `physical` - a physical stock unit, `digital` - a digital download.
        *
        * @example physical
        * @enum {string}
        */
-      type: "physical" | "digital";
+      type?: "physical" | "digital";
       /**
        * @description A unique user-defined alphanumeric product code/stock keeping unit (SKU).
        *
@@ -2009,7 +2073,7 @@ export interface components {
        * Format: float
        * @description Weight of the product, which can be used when calculating shipping costs. This is based on the unit set on the store
        */
-      weight: number;
+      weight?: number;
       /**
        * Format: float
        * @description Width of the product, which can be used when calculating shipping costs.
@@ -2029,7 +2093,7 @@ export interface components {
        * Format: float
        * @description The price of the product. The price should include or exclude tax, based on the store settings.
        */
-      price: number;
+      price?: number;
       /**
        * Format: float
        * @description The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
@@ -2206,6 +2270,7 @@ export interface components {
           id: number;
         } & components["schemas"]["bulkPricingRule_Full"])[];
       images?: components["schemas"]["productImage_Full"][];
+      primary_image?: components["schemas"]["primaryImage_Full"];
       /**
        * @description The Catalog API integrates with third-party YouTube.
        * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
@@ -2929,7 +2994,7 @@ export interface components {
     /** @description Field name to sort by. Note: Since ID increments when new products are added, you can use the ID value to sort by product create date. */
     SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
-    IncludeFieldsParam?: string[];
+    IncludeFieldsParam?: ("name" | "type" | "sku" | "description" | "weight" | "width" | "depth" | "height" | "price" | "cost_price" | "retail_price" | "sale_price" | "map_price" | "tax_class_id" | "product_tax_code" | "calculated_price" | "categories" | "brand_id" | "option_set_id" | "option_set_display" | "inventory_level" | "inventory_warning_level" | "inventory_tracking" | "reviews_rating_sum" | "reviews_count" | "total_sold" | "fixed_cost_shipping_price" | "is_free_shipping" | "is_visible" | "is_featured" | "related_products" | "warranty" | "bin_picking_number" | "layout_file" | "upc" | "mpn" | "gtin" | "date_last_imported" | "search_keywords" | "availability" | "availability_description" | "condition" | "is_condition_shown" | "order_quantity_minimum" | "order_quantity_maximum" | "page_title" | "meta_keywords" | "meta_description" | "date_created" | "date_modified" | "view_count" | "preorder_release_date" | "preorder_message" | "is_preorder_only" | "is_price_hidden" | "price_hidden_label" | "custom_url" | "base_variant_id" | "open_graph_type" | "open_graph_title" | "open_graph_description" | "open_graph_use_meta_description" | "open_graph_use_product_name" | "open_graph_use_image")[];
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
     /** @description Sub-resources to include on a product, in a comma-separated list. If `options` or `modifiers` is used, results are limited to 10 per page. The ID and the specified fields will be returned. */
@@ -2949,7 +3014,7 @@ export interface components {
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
     /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
-    IncludeParam?: ("variants" | "images" | "custom_fields" | "bulk_pricing_rules" | "primary_image" | "modifiers" | "options" | "videos")[];
+    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations")[];
     IdMinParam?: number;
     IdMaxParam?: number;
     IdGreaterParam?: number;
@@ -2968,21 +3033,39 @@ export interface components {
     ConditionParam?: "new" | "used" | "refurbished";
     /** @description Filter items by brand ID. */
     BrandIdParam?: number;
-    /** @description Filter items by `date_modified`. */
+    /**
+     * @description Filter items by `date_modified`.
+     * @example "2024-07-18T00:00:00.000Z"
+     */
     DateModifiedParam?: string;
     /** @description Filter items by `date_modified`. For example, `date_modified:max=2020-06-15`. */
     DateModifiedMaxParam?: string;
     /** @description Filter items by `date_modified`. For example, `date_modified:min=2018-06-15`. */
     DateModifiedMinParam?: string;
-    /** @description Filter items by date_last_imported. */
+    /**
+     * @description Filter items by date_last_imported.
+     * @example "2020-07-18T00:00:00.000Z"
+     */
     DateLastImportedParam?: string;
-    /** @description Filter products by specifying a date they were NOT last imported. For example, `date_last_imported:not=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+    /**
+     * @description Filter products by specifying a date they were NOT last imported. For example, `date_last_imported:not=2015-08-21T22%3A53%3A23%2B00%3A00`.
+     * @example "2020-07-18T00:00:00.000Z"
+     */
     DateLastImportedNotParam?: string;
-    /** @description Filter items by date_last_imported. For example, `date_last_imported:max=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+    /**
+     * @description Filter items by date_last_imported. For example, `date_last_imported:max=2015-08-21T22%3A53%3A23%2B00%3A00`.
+     * @example "2020-07-18T00:00:00.000Z"
+     */
     DateLastImportedMaxParam?: string;
-    /** @description Filter items by date_last_imported. For example, `date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00`. */
+    /**
+     * @description Filter items by date_last_imported. For example, `date_last_imported:min=2015-08-21T22%3A53%3A23%2B00%3A00`.
+     * @example "2020-07-18T00:00:00.000Z"
+     */
     DateLastImportedMinParam?: string;
-    /** @description Filter items based on whether the product is currently visible on the storefront. */
+    /**
+     * @description Filter items based on whether the product is currently visible on the storefront.
+     * @example true
+     */
     IsVisibleParam?: boolean;
     /** @description Filter items by is_featured. `1` for true, `0` for false. */
     IsFeaturedParam?: 1 | 0;
@@ -3015,8 +3098,6 @@ export interface components {
     KeywordParam?: string;
     /** @description Set context used by the search algorithm to return results targeted towards the specified group. Use `merchant` to help merchants search their own catalog. Use `shopper` to return shopper-facing search results. */
     KeywordContextParam?: "shopper" | "merchant";
-    /** @description Filter items by status. */
-    StatusParam?: number;
     /** @description Filter items by availability. Values are: available, disabled, preorder. */
     AvailabilityParam?: "available" | "disabled" | "preorder";
     /** @description Filter items by main SKU. To filter by variant SKU, see [Get all variants](/docs/rest-catalog/product-variants#get-all-product-variants). */
@@ -3089,7 +3170,6 @@ export interface operations {
         categories?: components["parameters"]["CategoriesParam"];
         keyword?: components["parameters"]["KeywordParam"];
         keyword_context?: components["parameters"]["KeywordContextParam"];
-        status?: components["parameters"]["StatusParam"];
         availability?: components["parameters"]["AvailabilityParam"];
         sku?: components["parameters"]["SkuParam"];
         "sku:in"?: components["parameters"]["SkuInParam"];
@@ -3236,10 +3316,6 @@ export interface operations {
          *         "image_url": "string",
          *         "id": 0,
          *         "product_id": 0,
-         *         "url_zoom": "string",
-         *         "url_standard": "string",
-         *         "url_thumbnail": "string",
-         *         "url_tiny": "string",
          *         "date_modified": "2019-08-24T14:15:22Z"
          *       }
          *     ]
@@ -3254,7 +3330,7 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["product_Full"][];
-            meta?: components["schemas"]["metaCollection_Full"];
+            meta?: unknown;
           };
         };
       };
@@ -3688,7 +3764,7 @@ export interface operations {
    *
    * **Usage Notes**
    * - `image_url` - `255` character limit
-   * - For file uploads, use the `multipart/form-data` media type.
+   * - For file uploads, use the `multipart/form-data` media type. See [Adding product images](/docs/store-operations/catalog#adding-product-images) for more information.
    * - You can create only one image at a time. A product can have up to 1000 images.
    * - Supported image file types are BMP, GIF, JPEG, PNG, WBMP, XBM, and WEBP.
    * - Each image file or image uploaded by URL can be up to 8 MB.
@@ -5296,6 +5372,39 @@ export interface operations {
     };
   };
   /**
+   * Create a Bulk Pricing Rule
+   * @description Creates a *Bulk Pricing Rule*.
+   */
+  createBulkPricingRule: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        product_id: components["parameters"]["ProductIdParam"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["bulkPricingRule_Full"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: {
+              /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
+              id: number;
+            } & components["schemas"]["bulkPricingRule_Full"];
+            meta?: components["schemas"]["metaEmpty_Full"];
+          };
+        };
+      };
+    };
+  };
+  /**
    * Get a Bulk Pricing Rule
    * @description Returns a single *Bulk Pricing Rule*. Optional parameters can be passed in.
    */
@@ -5373,39 +5482,10 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            /**
-             * Bulk Pricing Rule
-             * @description Common BulkPricingRule properties
-             */
             data?: {
               /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
-              id?: number;
-              /**
-               * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero.
-               * Required in /POST.
-               *
-               * @example 10
-               */
-              quantity_min: number;
-              /**
-               * @description The maximum inclusive quantity of a product to satisfy this rule. Must be greater than the `quantity_min` value – unless this field has a value of 0 (zero), in which case there will be no maximum bound for this rule.
-               * Required in /POST.
-               * @example 50
-               */
-              quantity_max: number;
-              /**
-               * @description The type of adjustment that is made. Values: `price` - the adjustment amount per product; `percent` - the adjustment as a percentage of the original price; `fixed` - the adjusted absolute price of the product.
-               * Required in /POST.
-               * @example price
-               * @enum {string}
-               */
-              type: "price" | "percent" | "fixed";
-              /**
-               * @description The discount can be a fixed dollar amount or a percentage. For a fixed dollar amount enter it as an integer and the response will return as an integer. For percentage enter the amount as the percentage divided by 100 using string format. For example 10% percent would be “.10”. The response will return as an integer.
-               * Required in /POST.
-               */
-              amount: number;
-            };
+              id: number;
+            } & components["schemas"]["bulkPricingRule_Full"];
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };

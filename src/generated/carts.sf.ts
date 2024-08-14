@@ -62,7 +62,7 @@ export interface paths {
      * > #### Notes
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
-     * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * > * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     post: operations["addCartLineItem"];
     parameters: {
@@ -89,7 +89,7 @@ export interface paths {
      * > #### Notes
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
-     * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * > * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     put: operations["updateCartLineItem"];
     /**
@@ -101,6 +101,7 @@ export interface paths {
      * > #### Note
      * > * Substitute your storefront domain for `yourstore.example.com`.
      * > * The Send a Test Request feature is not currently supported for this endpoint.
+     * > * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     delete: operations["deleteCartLineItem"];
     parameters: {
@@ -218,6 +219,11 @@ export interface components {
       updatedTime?: string;
       /** @description Locale of the cart. */
       locale?: string;
+      /**
+       * @description The current version of the cart.
+       * @example 1
+       */
+      version?: number;
     };
     /**
      * Create Cart Request Object
@@ -295,20 +301,36 @@ export interface components {
      */
     LineItemsRequest: {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
+      /** @description The expected version of the cart. */
+      version?: number;
     } | {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
+      /** @description The expected version of the cart. */
+      version?: number;
     } | {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      /** @description The expected version of the cart. */
+      version?: number;
     };
     /** requestLineItemPut */
     requestLineItemPut: {
       lineItem: components["schemas"]["requestCartPostLineItem"];
+      /** @description The expected version of the cart. */
+      version?: number;
     } | {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      /** @description The expected version of the cart. */
+      version?: number;
     } | {
       lineItem: components["schemas"]["requestCartPostLineItem"];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      /** @description The expected version of the cart. */
+      version?: number;
+    };
+    requestLineItemDelete: {
+      /** @description The expected version of the cart. */
+      version?: number;
     };
     /**
      * Currency
@@ -638,6 +660,16 @@ export interface components {
         "application/json": components["schemas"]["responseCart"];
       };
     };
+    /** @description Cart conflict */
+    CartConflictErrorResponse: {
+      content: {
+        "application/json": {
+          status?: number;
+          title?: string;
+          type?: string;
+        };
+      };
+    };
   };
   parameters: {
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
@@ -750,7 +782,7 @@ export interface operations {
    * > #### Notes
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
-   * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * > * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   addCartLineItem: {
     parameters: {
@@ -772,6 +804,7 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["postCartsItems"];
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -784,7 +817,7 @@ export interface operations {
    * > #### Notes
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
-   * > * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * > * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   updateCartLineItem: {
     parameters: {
@@ -807,6 +840,7 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["putCartsItems"];
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -818,6 +852,7 @@ export interface operations {
    * > #### Note
    * > * Substitute your storefront domain for `yourstore.example.com`.
    * > * The Send a Test Request feature is not currently supported for this endpoint.
+   * > * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   deleteCartLineItem: {
     parameters: {
@@ -832,8 +867,14 @@ export interface operations {
         itemId: components["parameters"]["ItemIdPath"];
       };
     };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["requestLineItemDelete"];
+      };
+    };
     responses: {
       200: components["responses"]["deleteCartsItems"];
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
