@@ -2164,78 +2164,78 @@ export interface components {
     MetafieldCollectionResponse: {
       content: {
         "application/json": {
-          data?: ({
-              /**
-               * @description Unique ID of the *Metafield*. Read-Only.
-               * @example 0
-               */
-              id: number;
-              /**
-               * @description The key for the metafields.
-               * @example Staff Name
-               */
-              key: string;
-              /**
-               * @description The description for the metafield.
-               * @example Ronaldo
-               */
-              value: string;
-              /**
-               * @description Namespace for the metafield, for organizational purposes.
-               *
-               * @example Sales Department
-               */
-              namespace: string;
-              /**
-               * @description Determines the visibility and writeability of the field by other API consumers.
-               * | Value | Description |
-               * | :--- | :--- |
-               * | `app_only` | Private to the app that owns the field. |
-               * | `read` | Visible to other API consumers. |
-               * | `write` | Open for reading and writing by other API consumers. |
-               * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
-               * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
-               *
-               * @enum {string}
-               */
-              permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
-              /**
-               * @description The type of resource with which the metafield is associated.
-               *
-               * @example cart
-               * @enum {string}
-               */
-              resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
-              /**
-               * @description The unique identifier for the resource with which the metafield is associated.
-               *
-               * @example 0
-               */
-              resource_id: number;
-              /**
-               * @description Description for the metafields.
-               *
-               * @example order
-               */
-              description: string;
-              /**
-               * Format: date-time
-               * @description Date and time of the metafieldʼs creation.
-               * @example 2022-06-16T18:39:00+00:00
-               */
-              date_created: string;
-              /**
-               * Format: date-time
-               * @description Date and time when the metafield was last updated.
-               * @example 2022-06-16T18:39:00+00:00
-               */
-              date_modified: string;
-              /**
-               * @description Client ID for the metafield's creator.
-               * @example ramciw4fnoz87it3ynjfif2zrkil5p
-               */
-              owner_client_id?: string;
-            })[];
+          items?: {
+            /**
+             * @description Unique ID of the *Metafield*. Read-Only.
+             * @example 0
+             */
+            id: number;
+            /**
+             * @description The key for the metafields.
+             * @example Staff Name
+             */
+            key: string;
+            /**
+             * @description The description for the metafield.
+             * @example Ronaldo
+             */
+            value: string;
+            /**
+             * @description Namespace for the metafield, for organizational purposes.
+             *
+             * @example Sales Department
+             */
+            namespace: string;
+            /**
+             * @description Determines the visibility and writeability of the field by other API consumers.
+             * | Value | Description |
+             * | :--- | :--- |
+             * | `app_only` | Private to the app that owns the field. |
+             * | `read` | Visible to other API consumers. |
+             * | `write` | Open for reading and writing by other API consumers. |
+             * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
+             * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
+             *
+             * @enum {string}
+             */
+            permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+            /**
+             * @description The type of resource with which the metafield is associated.
+             *
+             * @example cart
+             * @enum {string}
+             */
+            resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+            /**
+             * @description The unique identifier for the resource with which the metafield is associated.
+             *
+             * @example 0
+             */
+            resource_id: number;
+            /**
+             * @description Description for the metafields.
+             *
+             * @example order
+             */
+            description: string;
+            /**
+             * Format: date-time
+             * @description Date and time of the metafieldʼs creation.
+             * @example 2022-06-16T18:39:00+00:00
+             */
+            date_created: string;
+            /**
+             * Format: date-time
+             * @description Date and time when the metafield was last updated.
+             * @example 2022-06-16T18:39:00+00:00
+             */
+            date_modified: string;
+            /**
+             * @description Client ID for the metafield's creator.
+             * @example ramciw4fnoz87it3ynjfif2zrkil5p
+             */
+            owner_client_id?: string;
+          };
         };
       };
     };
