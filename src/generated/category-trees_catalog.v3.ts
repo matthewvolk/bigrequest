@@ -18,7 +18,7 @@ export interface paths {
      * Update Categories
      * @description Updates existing categories.
      *
-     *  To update a specific category in a tree, provide a category id.
+     * To update a specific category in a tree, provide a `category id`.
      */
     put: operations["updateCategories"];
     /**
@@ -348,10 +348,9 @@ export interface components {
     /**
      * Category ID
      * @description Unique ID of the *Category*. Increments sequentially.
-     * Read-Only.
      * @example 36
      */
-    readonly category_id: number;
+    category_id: number;
     /**
      * Parent ID
      * @description The unique numeric ID of the categoryʼs parent. This field controls where the category sits in the tree of categories that organize the catalog.
@@ -534,7 +533,7 @@ export interface operations {
    * Update Categories
    * @description Updates existing categories.
    *
-   *  To update a specific category in a tree, provide a category id.
+   * To update a specific category in a tree, provide a `category id`.
    */
   updateCategories: {
     parameters: {
