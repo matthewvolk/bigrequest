@@ -77,7 +77,7 @@ export interface paths {
      *
      * **Notes:**
      * * Create a refund quote before performing a refund request to best avoid a `422` error. Check the refund quote's response body for the `refund_methods` array. The `amount` given in the array must match the `amount` used in the refund request body.
-     * * Order refunds are processed consecutively. Processing synchronous refunds on an order is not yet supported.
+     * * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order is not yet supported.
      */
     post: operations["createOrderRefundQuotes"];
     parameters: {
@@ -110,7 +110,7 @@ export interface paths {
      * * `store_v2_transactions`
      *
      * **Note:**
-     * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
+     * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order are not yet supported.
      */
     post: operations["createOrderRefund"];
     parameters: {
@@ -2269,7 +2269,7 @@ export interface operations {
    *
    * **Notes:**
    * * Create a refund quote before performing a refund request to best avoid a `422` error. Check the refund quote's response body for the `refund_methods` array. The `amount` given in the array must match the `amount` used in the refund request body.
-   * * Order refunds are processed consecutively. Processing synchronous refunds on an order is not yet supported.
+   * * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order is not yet supported.
    */
   createOrderRefundQuotes: {
     parameters: {
@@ -2329,7 +2329,7 @@ export interface operations {
    * * `store_v2_transactions`
    *
    * **Note:**
-   * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
+   * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order are not yet supported.
    */
   createOrderRefund: {
     parameters: {

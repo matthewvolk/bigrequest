@@ -342,9 +342,9 @@ export interface components {
       /** @description Identifies where in a warehouse the variant is located. */
       bin_picking_number?: string | null;
       /** @description The Manufacturer Part Number (MPN) for the variant. */
-      mpn?: string;
+      mpn?: string | null;
       /** @example 012345678905 */
-      gtin?: string;
+      gtin?: string | null;
     };
     /** productVariant_Full */
     productVariant_Full: components["schemas"]["productVariant_Base"] & ({
@@ -440,12 +440,12 @@ export interface components {
        * @description Global Trade Item Number
        * @example 012345678905
        */
-      gtin?: string;
+      gtin?: string | null;
       /**
        * @description Manufacturer Part Number
        * @example HV-HM02
        */
-      mpn?: string;
+      mpn?: string | null;
     }) & {
       product_id?: number;
       sku?: string;
@@ -1695,7 +1695,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: ({
+            data?: (({
                 /**
                  * Format: double
                  * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
@@ -1748,7 +1748,7 @@ export interface operations {
                 /** @description If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected. */
                 purchasing_disabled_message?: string;
                 /** @description The UPC code used in feeds for shopping comparison sites and external channel integrations. */
-                upc?: string;
+                upc?: string | null;
                 /**
                  * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
                  *
@@ -1763,7 +1763,7 @@ export interface operations {
                 inventory_warning_level?: number;
                 /** @description Identifies where in a warehouse the variant is located. */
                 bin_picking_number?: string;
-              } & ({
+              }) & ({
                 id?: number;
                 product_id?: number;
                 sku?: string;
@@ -1837,7 +1837,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": ({
+        "application/json": (({
             /**
              * Format: double
              * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
@@ -1904,7 +1904,7 @@ export interface operations {
              * @description The UPC code used in feeds for shopping comparison sites and external channel integrations.
              * @example 1234
              */
-            upc?: string;
+            upc?: string | null;
             /**
              * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
              *
@@ -1923,7 +1923,7 @@ export interface operations {
             inventory_warning_level?: number;
             /** @description Identifies where in a warehouse the variant is located. */
             bin_picking_number?: string;
-          } & {
+          }) & {
             /** @example 154 */
             id?: number;
           })[];
@@ -1933,7 +1933,7 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: ({
+            data?: (({
                 /**
                  * Format: double
                  * @description The cost price of the variant. It is not affected by Price List prices. This value displays as null in the control panel when `cost_price` equals zero.
@@ -1986,7 +1986,7 @@ export interface operations {
                 /** @description If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected. */
                 purchasing_disabled_message?: string;
                 /** @description The UPC code used in feeds for shopping comparison sites and external channel integrations. */
-                upc?: string;
+                upc?: string | null;
                 /**
                  * @description Inventory level for the variant, which is used when the product’s inventory_tracking is set to `variant`. The Catalog API returns the inventory for only the default location.
                  *
@@ -2001,7 +2001,7 @@ export interface operations {
                 inventory_warning_level?: number;
                 /** @description Identifies where in a warehouse the variant is located. */
                 bin_picking_number?: string;
-              } & ({
+              }) & ({
                 id?: number;
                 product_id?: number;
                 sku?: string;
