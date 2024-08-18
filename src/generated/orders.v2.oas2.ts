@@ -22,7 +22,7 @@ export interface paths {
      *
      * To remove a product from an order, set that product’s `quantity` to `0`.
      *
-     * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+     * After the update, the PUT request clears all discounts and promotions applied to the changed order line items. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
      *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
@@ -2689,7 +2689,7 @@ export interface operations {
    *
    * To remove a product from an order, set that product’s `quantity` to `0`.
    *
-   * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+   * After the update, the PUT request clears all discounts and promotions applied to the changed order line items. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
    *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */

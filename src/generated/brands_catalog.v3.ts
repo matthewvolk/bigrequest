@@ -129,7 +129,7 @@ export interface paths {
      * @description Creates a brand image.
      *
      * **Required Fields**
-     * - image_file: Form posts are the only accepted upload option.
+     * - image_file: Form posts are the only accepted upload option. For more information on how to upload an image see [Adding product images](docs/store-operations/catalog#adding-product-images). NOTE:  Ensure you set the `Content-Type` header to `multipart/form-data; boundary=--example-boundary--` and set the correct URL for this endpoint.
      *
      * **Read-Only Fields**
      * - id
@@ -395,6 +395,11 @@ export interface components {
        * @example 2018-05-07T20:14:17+00:00
        */
       date_modified?: string;
+      /**
+       * @description Client ID for the metafieldʼs creator.
+       * @example asdfasdfasdfasdfasdfasdfasdf
+       */
+      owner_client_id?: string;
     });
     /** @description Common Metafield properties. */
     Metafield: {
@@ -1682,7 +1687,7 @@ export interface operations {
    * @description Creates a brand image.
    *
    * **Required Fields**
-   * - image_file: Form posts are the only accepted upload option.
+   * - image_file: Form posts are the only accepted upload option. For more information on how to upload an image see [Adding product images](docs/store-operations/catalog#adding-product-images). NOTE:  Ensure you set the `Content-Type` header to `multipart/form-data; boundary=--example-boundary--` and set the correct URL for this endpoint.
    *
    * **Read-Only Fields**
    * - id
@@ -1803,6 +1808,17 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionResponse"];
         };
       };
+      /** @description Bad Request. Input is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            errors?: unknown;
+          };
+        };
+      };
     };
   };
   /**
@@ -1842,14 +1858,20 @@ export interface operations {
             status?: number;
             title?: string;
             type?: string;
-            detail?: string;
+            errors?: Record<string, never>;
           };
         };
       };
-      /** @description Response object for metafields creation with partial success. */
+      /** @description JSON data is missing or invalid */
       422: {
         content: {
-          "application/json": components["schemas"]["MetaFieldCollectionResponsePartialSuccess_POST_PUT"];
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            /** @description Empty for 200 responses. */
+            errors?: Record<string, never>;
+          };
         };
       };
     };
