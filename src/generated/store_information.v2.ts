@@ -83,6 +83,11 @@ export interface components {
        * @example United States
        */
       country?: string;
+      /**
+       * @description Two-letter ISO 3166-1 country code
+       * @example AU
+       */
+      country_code?: string;
       /** @description Display phone number. */
       phone?: string;
       /**
@@ -95,6 +100,8 @@ export interface components {
        * @example orders@example.com
        */
       order_email?: string;
+      /** @description The URL of the favicon image associated with the website. This should be a valid URL pointing to an `.ico` or other supported icon format file. */
+      favicon_url?: string;
       timezone?: components["schemas"]["Timezone"];
       /**
        * @description Default language code.

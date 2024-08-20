@@ -22,7 +22,7 @@ export interface paths {
      *
      * To remove a product from an order, set that product’s `quantity` to `0`.
      *
-     * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+     * After the update, the PUT request clears all discounts and promotions applied to the changed order line items. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
      *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
@@ -637,6 +637,21 @@ export interface components {
        */
       weight?: number | string;
       /**
+       * @description Product width.
+       * @example 1.0000
+       */
+      width?: string;
+      /**
+       * @description Product height.
+       * @example 1.0000
+       */
+      height?: string;
+      /**
+       * @description Product depth.
+       * @example 1.0000
+       */
+      depth?: string;
+      /**
        * @description Tax applied to the product’s cost price. (Float, Float-As-String, Integer)
        * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only
        * @example 54.0000
@@ -657,12 +672,17 @@ export interface components {
        * @description The amount refunded from this transaction; always returns `0`. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
-      refunded_amount?: string;
+      refund_amount?: string;
       /**
        * @description Numeric ID for the refund.
        * @example 0
        */
       return_id?: number;
+      /**
+       * @description ID of the gift wrapping option.
+       * @example 0
+       */
+      wrapping_id?: number;
       /**
        * @description Name of gift-wrapping option.
        * @example null
@@ -736,6 +756,13 @@ export interface components {
       applied_discounts?: components["schemas"]["orderProductAppliedDiscounts"][];
       /** @description Array of product option objects. */
       product_options?: components["schemas"]["orderProductOptions"][];
+      /** @description Available for only [Catalog V2 stores](/docs/store-operations/catalog/migration). */
+      configurable_fields?: {
+          /** @example Engraving */
+          name?: string;
+          /** @example Rabin */
+          value?: string;
+        }[];
       /** @description Universal Product Code. Can be written to for custom products and catalog products. */
       upc?: string;
       /** @description Products `variant_id`. PUT or POST. This field is not available for custom products. */
@@ -856,7 +883,13 @@ export interface components {
       shipping_zone_name?: string;
       form_fields?: components["schemas"]["formFields"][];
       shipping_quotes?: components["schemas"]["shippingQuotes_Resource"];
-    } & components["schemas"]["shippingAddress_Base"];
+    } & components["schemas"]["shippingAddress_Base"] & {
+      /**
+       * @description Text code identifying the BigCommerce shipping module selected by the customer.
+       * @example Free Shipping
+       */
+      shipping_method?: string;
+    };
     /** orderTaxes_Base */
     orderTaxes_Base: {
       /**
@@ -951,6 +984,11 @@ export interface components {
        * @example w4se4b6ASFEW4T
        */
       tracking_number?: string;
+      /**
+       * @description Shipping cost for the merchant.
+       * @example 1.0000
+       */
+      merchant_shipping_cost?: string;
       /**
        * @description Additional information to describe the method of shipment (ex. Standard, Ship by Weight, Custom Shipment). Can be used for live quotes from certain shipping providers.
        * If different from `shipping_provider`, `shipping_method` should correspond to `tracking_carrier`.
@@ -1230,6 +1268,11 @@ export interface components {
        */
       tracking_link?: string;
       /**
+       * @description Shipping cost for the merchant.
+       * @example 1.0000
+       */
+      merchant_shipping_cost?: string;
+      /**
        * @description Additional information to describe the method of shipment (ex. Standard, Ship by Weight, Custom Shipment). Can be used for live quotes from certain shipping providers.
        * If different from `shipping_provider`, `shipping_method` should correspond to `tracking_carrier`.
        *
@@ -1266,6 +1309,11 @@ export interface components {
        * @example w4se4b6ASFEW4T
        */
       tracking_number?: string;
+      /**
+       * @description Shipping cost for the merchant.
+       * @example 1.0000
+       */
+      merchant_shipping_cost?: string;
       /**
        * @description Additional information to describe the method of shipment (ex. Standard, Ship by Weight, Custom Shipment). Can be used for live quotes from certain shipping providers.
        * If different from `shipping_provider`, `shipping_method` should correspond to `tracking_carrier`.
@@ -1589,11 +1637,6 @@ export interface components {
        * @example janedoe@example.com
        */
       email?: string;
-      /**
-       * @description Text code identifying the BigCommerce shipping module selected by the customer.
-       * @example Free Shipping
-       */
-      shipping_method?: string;
     };
     /**
      * order_RespOnly
@@ -2160,10 +2203,22 @@ export interface components {
       /** @description The currency code of the transactional currency the shopper pays in is writable when multi-currency is enabled. */
       default_currency_code?: string;
       products?: (components["schemas"]["orderCatalogProduct_Post"] | components["schemas"]["orderCustomProduct_Post"])[];
-      shipping_addresses?: components["schemas"]["shippingAddress_Base"][];
+      shipping_addresses?: (components["schemas"]["shippingAddress_Base"] & {
+          /**
+           * @description Text code identifying the BigCommerce shipping module selected by the customer.
+           * @example Free Shipping
+           */
+          shipping_method?: string;
+        })[];
       consignments?: components["schemas"]["orderConsignment_Post"];
     }) & components["schemas"]["order_Shared"];
     shippingAddress_Put: components["schemas"]["shippingAddress_Base"] & {
+      /**
+       * @description Text code identifying the BigCommerce shipping module selected by the customer.
+       * @example Free Shipping
+       */
+      shipping_method?: string;
+    } & {
       form_fields?: components["schemas"]["formFields"][];
     };
     billingAddress_Put: components["schemas"]["billingAddress_Base"] & {
@@ -2689,7 +2744,7 @@ export interface operations {
    *
    * To remove a product from an order, set that product’s `quantity` to `0`.
    *
-   * After the update, the PUT request clears all discounts and promotions applied to the order. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
+   * After the update, the PUT request clears all discounts and promotions applied to the changed order line items. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
    *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
@@ -3041,6 +3096,11 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["orderShipmentCollection_Resp"];
+      /** @description No Content (No shipments exist) */
+      204: {
+        content: {
+        };
+      };
     };
   };
   /**
