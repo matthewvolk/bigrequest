@@ -77,7 +77,7 @@ export interface paths {
      *
      * **Notes:**
      * * Create a refund quote before performing a refund request to best avoid a `422` error. Check the refund quote's response body for the `refund_methods` array. The `amount` given in the array must match the `amount` used in the refund request body.
-     * * Order refunds are processed consecutively. Processing synchronous refunds on an order is not yet supported.
+     * * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order is not yet supported.
      */
     post: operations["createOrderRefundQuotes"];
     parameters: {
@@ -110,7 +110,7 @@ export interface paths {
      * * `store_v2_transactions`
      *
      * **Note:**
-     * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
+     * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order are not yet supported.
      */
     post: operations["createOrderRefund"];
     parameters: {
@@ -1333,6 +1333,8 @@ export interface components {
        * @example 1
        */
       item_id?: number;
+      /** @description Array of product refund deductions */
+      adjustments?: components["schemas"]["RefundItemAdjustment"][];
       /** @example 3 */
       quantity?: number;
       /**
@@ -1340,6 +1342,24 @@ export interface components {
        * @example Wrong size.
        */
       reason?: string;
+    };
+    /**
+     * Refund Item Adjustment
+     * @description Use to reduce the amount refunded for an item.
+     */
+    RefundItemAdjustment: {
+      /**
+       * Refund Item Adjustment Amount
+       * Format: float
+       * @description A negative 2 decimal place rounded value to deduct from the amount refunded.
+       * @example -10.2
+       */
+      amount?: number;
+      /**
+       * @description Description of reason for the adjustment.
+       * @example Service fee
+       */
+      description?: string;
     };
     /**
      * Tax Exempt (Order Level)
@@ -1450,6 +1470,8 @@ export interface components {
       reason?: string;
       /** @description Quantity of item refunded. Note: this will only be populated for item_type PRODUCT */
       quantity?: number;
+      /** @description Adjustments to apply to the refunded amount for an item. Only supported for item_type PRODUCT */
+      adjustments?: components["schemas"]["RefundItemAdjustment"][];
       requested_amount?: components["schemas"]["Amount"];
     };
     /** Refund Payment */
@@ -2269,7 +2291,7 @@ export interface operations {
    *
    * **Notes:**
    * * Create a refund quote before performing a refund request to best avoid a `422` error. Check the refund quote's response body for the `refund_methods` array. The `amount` given in the array must match the `amount` used in the refund request body.
-   * * Order refunds are processed consecutively. Processing synchronous refunds on an order is not yet supported.
+   * * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order is not yet supported.
    */
   createOrderRefundQuotes: {
     parameters: {
@@ -2329,7 +2351,7 @@ export interface operations {
    * * `store_v2_transactions`
    *
    * **Note:**
-   * Order refunds are processed consecutively. Processing synchronous refunds on an order are not yet supported.
+   * Order refunds should be processed sequentially. Processing multiple concurrent refunds on the same order are not yet supported.
    */
   createOrderRefund: {
     parameters: {
