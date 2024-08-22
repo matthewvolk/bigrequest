@@ -57,7 +57,7 @@ export interface paths {
      *
      * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
      *
-     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     post: operations["addCartLineItems"];
     parameters: {
@@ -113,7 +113,7 @@ export interface paths {
      *
      * Deleting all line items from the cart will invalidate the cart.
      *
-     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     put: operations["updateCartLineItem"];
     /**
@@ -123,6 +123,8 @@ export interface paths {
      * **Notes**
      *
      * Removing the last `line_item` in the *Cart* deletes the *Cart*.
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     delete: operations["deleteCartLineItem"];
     parameters: {
@@ -148,6 +150,8 @@ export interface paths {
      * **Notes**
      *
      * Changing the *Cart* `customer_id` will remove any promotions or shipping calculations on the *Cart*. These are tied to the customer depending on cart conditions and any customer groups.
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     put: operations["updateCart"];
     /**
@@ -405,6 +409,11 @@ export interface components {
     /** Cart Update Put Request Data */
     CartUpdatePutRequestData: {
       customer_id?: number;
+      /**
+       * @description The expected version of the cart.
+       * @example 1
+       */
+      version?: number;
     };
     /** Line Item Request Data */
     LineItemRequestData: {
@@ -524,6 +533,11 @@ export interface components {
           text?: string;
         };
       };
+      /**
+       * @description The current version of the cart.
+       * @example 1
+       */
+      version?: number;
     };
     /**
      * Currency
@@ -1348,6 +1362,18 @@ export interface components {
           message?: string;
         })[];
       custom_items?: components["schemas"]["cart_PostCustomItem"];
+      /**
+       * @description The expected version of the cart.
+       * @example 1
+       */
+      version?: number;
+    };
+    CartLineItemDelete: {
+      /**
+       * @description The expected version of the cart.
+       * @example 1
+       */
+      version?: number;
     };
     /** Redirect_urls_Post */
     Redirect_urls_Post: {
@@ -1383,6 +1409,11 @@ export interface components {
           message?: string;
         })[];
       custom_items?: components["schemas"]["cart_PostCustomItem"];
+      /**
+       * @description The expected version of the cart.
+       * @example 1
+       */
+      version?: number;
     };
     /** Custom item */
     cart_PostCustomItem: {
@@ -1928,6 +1959,12 @@ export interface components {
         "application/json": components["schemas"]["Cart_Full"];
       };
     };
+    /** @description Cart conflict */
+    CartConflictErrorResponse: {
+      content: {
+        "application/json": components["schemas"]["ErrorResponse"];
+      };
+    };
     CartRedirectResponse: {
       content: {
         "application/json": {
@@ -2077,7 +2114,7 @@ export interface operations {
    *
    * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
    *
-   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   addCartLineItems: {
     parameters: {
@@ -2164,7 +2201,7 @@ export interface operations {
    *
    * Deleting all line items from the cart will invalidate the cart.
    *
-   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   updateCartLineItem: {
     parameters: {
@@ -2193,6 +2230,7 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["CartResponse"];
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -2202,6 +2240,8 @@ export interface operations {
    * **Notes**
    *
    * Removing the last `line_item` in the *Cart* deletes the *Cart*.
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   deleteCartLineItem: {
     parameters: {
@@ -2222,6 +2262,11 @@ export interface operations {
         itemId: string;
       };
     };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["CartLineItemDelete"];
+      };
+    };
     responses: {
       /** @description NOTE: Discounted line items are re-evaluated on cart actions and may be automatically added back to your cart with a new line item ID to satisfy promotional requirements. */
       200: {
@@ -2233,6 +2278,7 @@ export interface operations {
       204: {
         content: never;
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -2272,6 +2318,8 @@ export interface operations {
    * **Notes**
    *
    * Changing the *Cart* `customer_id` will remove any promotions or shipping calculations on the *Cart*. These are tied to the customer depending on cart conditions and any customer groups.
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   updateCart: {
     parameters: {
@@ -2296,7 +2344,8 @@ export interface operations {
       content: {
         /**
          * @example {
-         *   "customer_id": 5
+         *   "customer_id": 5,
+         *   "version": 1
          * }
          */
         "application/json": components["schemas"]["CartUpdatePutRequestData"];
@@ -2304,6 +2353,7 @@ export interface operations {
     };
     responses: {
       201: components["responses"]["CartResponse"];
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**

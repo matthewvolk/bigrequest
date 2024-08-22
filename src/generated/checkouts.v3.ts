@@ -49,6 +49,8 @@ export interface paths {
      *
      * Required Fields:
      * * `discounted_amount` at the cart-level or at the item-level
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     post: operations["addCheckoutDiscount"];
   };
@@ -60,6 +62,8 @@ export interface paths {
      * **Required Fields**
      * * email
      * * country_code
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     post: operations["addCheckoutBillingAddress"];
   };
@@ -67,6 +71,8 @@ export interface paths {
     /**
      * Update Checkout Billing Address
      * @description Updates an existing billing address on a checkout.
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     put: operations["updateCheckoutBillingAddress"];
   };
@@ -76,7 +82,7 @@ export interface paths {
      * @description Adds a new consignment to a checkout.
      *
      *
-     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      *
      * For more information about working with consignments, see [Checkout consignment](/docs/storefront/cart-checkout/guide/consignments).
      *
@@ -109,7 +115,7 @@ export interface paths {
      *
      * To update an existing address and line item IDs, assign a new address and line item IDs by sending a `PUT` request.
      *
-     * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      *
      *
      * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
@@ -118,6 +124,8 @@ export interface paths {
     /**
      * Delete Checkout Consignment
      * @description Removes an existing consignment from a checkout.
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     delete: operations["deleteCheckoutConsignment"];
     parameters: {
@@ -142,6 +150,8 @@ export interface paths {
      *
      * **Limits**
      * * Coupon codes have a 50-character limit.
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     post: operations["addCheckoutCoupon"];
   };
@@ -149,6 +159,8 @@ export interface paths {
     /**
      * Delete Checkout Coupon
      * @description Deletes a coupon code from a checkout.
+     *
+     * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
      */
     delete: operations["deleteCheckoutCoupon"];
   };
@@ -359,6 +371,16 @@ export interface components {
                * @description Sale price of the item multiplied by the quantity.
                */
               extended_sale_price?: number;
+              /**
+               * Format: double
+               * @description The price of a single product used for strike-through.
+               */
+              comparison_price?: number;
+              /**
+               * Format: double
+               * @description The price of a line item (product * quantity) used for strike-through.
+               */
+              extended_comparison_price?: number;
               is_require_shipping?: boolean;
               is_mutable?: boolean;
               parent_id?: number | null;
@@ -435,6 +457,16 @@ export interface components {
                * @description Sale price of the item multiplied by the quantity.
                */
               extended_sale_price?: number;
+              /**
+               * Format: double
+               * @description The price of a single product used for strike-through.
+               */
+              comparison_price?: number;
+              /**
+               * Format: double
+               * @description The price of a line item (product * quantity) used for strike-through.
+               */
+              extended_comparison_price?: number;
             })[];
           gift_certificates: {
               /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
@@ -655,10 +687,20 @@ export interface components {
               text?: string;
             }[];
         }[];
+      /**
+       * @description The current version of the checkout.
+       * @example 1
+       */
+      version?: number;
     };
     /** Checkout_Put */
     Checkout_Put: {
       customer_message: string;
+      /**
+       * @description The expected version of the checkout.
+       * @example 1
+       */
+      version?: number;
     };
     /** Applied Coupon */
     AppliedCoupon: {
@@ -705,6 +747,11 @@ export interface components {
           /** @description This can also be an array for fields that need to support a list of values (e.g., a set of check boxes.) */
           field_value?: string;
         }[];
+      /**
+       * @description The expected version of the checkout.
+       * @example 1
+       */
+      version?: number;
     };
     /** Create Consignment Request */
     CreateConsignmentRequest: {
@@ -742,7 +789,20 @@ export interface components {
           /** @example 1 */
           pickup_method_id?: number;
         };
+        /**
+         * @description The expected version of the checkout.
+         * @example 1
+         */
+        version?: number;
       }[];
+    /** Delete Consignment Request */
+    DeleteConsignmentRequest: {
+      /**
+       * @description The expected version of the checkout.
+       * @example 1
+       */
+      version?: number;
+    };
     /**
      * Update Consignment Request
      * @description One or more of these three fields are mandatory. `address` and `line_items` can be updated in one request. `shipping_option_id` has to be updated in a separate request because changing the address or line items can invalidate the previously available shipping options.
@@ -786,11 +846,29 @@ export interface components {
         /** @example custom shipping */
         description?: string;
       };
+      /**
+       * @description The expected version of the checkout.
+       * @example 1
+       */
+      version?: number;
     };
     /** Coupon Code Request */
     CouponCodeRequest: {
       /** @description Coupon codes have a 50-character limit. */
       coupon_code?: string;
+      /**
+       * @description The expected version of the checkout.
+       * @example 1
+       */
+      version?: number;
+    };
+    /** Delete Coupon Request */
+    DeleteCouponCodeRequest: {
+      /**
+       * @description The expected version of the checkout.
+       * @example 1
+       */
+      version?: number;
     };
     /** Order */
     Order: {
@@ -842,6 +920,16 @@ export interface components {
         "No Coupon Applied": unknown;
         "Include promotions": unknown;
         "example-1": unknown;
+      };
+    };
+    /** @description Cart conflict */
+    CartConflictErrorResponse: {
+      content: {
+        "application/json": {
+          status?: number;
+          title?: string;
+          type?: string;
+        };
       };
     };
     checkout_settings_resp: {
@@ -983,6 +1071,7 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1000,6 +1089,8 @@ export interface operations {
    *
    * Required Fields:
    * * `discounted_amount` at the cart-level or at the item-level
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   addCheckoutDiscount: {
     parameters: {
@@ -1015,14 +1106,15 @@ export interface operations {
       content: {
         /**
          * @example {
-         *   "carts": {
+         *   "cart": {
          *     "discounts": [
          *       {
          *         "discounted_amount": 10,
          *         "name": "manual-discount"
          *       }
          *     ]
-         *   }
+         *   },
+         *   "version": 1
          * }
          */
         "application/json": {
@@ -1039,6 +1131,11 @@ export interface operations {
                 /** @example 15 */
                 discounted_amount?: number;
               }[];
+            /**
+             * @description The expected version of the checkout.
+             * @example 1
+             */
+            version?: number;
           };
         };
       };
@@ -1058,6 +1155,7 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1067,6 +1165,8 @@ export interface operations {
    * **Required Fields**
    * * email
    * * country_code
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   addCheckoutBillingAddress: {
     parameters: {
@@ -1098,11 +1198,14 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
    * Update Checkout Billing Address
    * @description Updates an existing billing address on a checkout.
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   updateCheckoutBillingAddress: {
     parameters: {
@@ -1135,6 +1238,7 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1142,7 +1246,7 @@ export interface operations {
    * @description Adds a new consignment to a checkout.
    *
    *
-   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    *
    * For more information about working with consignments, see [Checkout consignment](/docs/storefront/cart-checkout/guide/consignments).
    *
@@ -1193,6 +1297,7 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
@@ -1207,7 +1312,7 @@ export interface operations {
    *
    * To update an existing address and line item IDs, assign a new address and line item IDs by sending a `PUT` request.
    *
-   * Please note that this API endpoint is not concurrent safe, meaning multiple simultaneous requests could result in unexpected and inconsistent results.
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    *
    *
    * 2. Assign a shipping option to the new consignment by sending a `PUT` request to update the consignment's `shipping_option_id` with a returned value from `data.consignments[N].available_shipping_option[N].id` obtained in Step One.
@@ -1246,11 +1351,14 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
    * Delete Checkout Consignment
    * @description Removes an existing consignment from a checkout.
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   deleteCheckoutConsignment: {
     parameters: {
@@ -1260,6 +1368,11 @@ export interface operations {
       path: {
         checkoutId: components["parameters"]["checkoutId"];
         consignmentId: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["DeleteConsignmentRequest"];
       };
     };
     responses: {
@@ -1290,6 +1403,8 @@ export interface operations {
    *
    * **Limits**
    * * Coupon codes have a 50-character limit.
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   addCheckoutCoupon: {
     parameters: {
@@ -1321,11 +1436,14 @@ export interface operations {
           "example-1": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
    * Delete Checkout Coupon
    * @description Deletes a coupon code from a checkout.
+   *
+   * To prevent lost updates due to concurrent requests overriding changes made by others, it is recommended to enable optimistic concurrency control by including the `version` field in the request payload. If the provided version does not match the version on the server, a conflict error will be returned, which the client can handle accordingly.
    */
   deleteCheckoutCoupon: {
     parameters: {
@@ -1336,6 +1454,11 @@ export interface operations {
         checkoutId: components["parameters"]["checkoutId"];
         /** @description The actual coupon code value, not the coupon ID. */
         couponCode: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["DeleteCouponCodeRequest"];
       };
     };
     responses: {
@@ -1352,6 +1475,7 @@ export interface operations {
           "Include promotions": unknown;
         };
       };
+      409: components["responses"]["CartConflictErrorResponse"];
     };
   };
   /**
