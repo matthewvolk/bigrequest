@@ -165,6 +165,8 @@ export interface components {
          * @description The discounted amount applied within a given context.
          */
         discountedAmount?: number;
+        /** @description The coupon name displayed on the storefront. */
+        displayName?: string;
         /** @description The coupon ID. */
         id?: string;
       })[];
@@ -237,7 +239,7 @@ export interface components {
       locale?: string;
     } | {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
-      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
       locale?: string;
     };
     /** Gift Wrapping */
@@ -315,7 +317,7 @@ export interface components {
       version?: number;
     } | {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
-      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
       /**
        * @description The expected version of the cart.
        * @example 1
@@ -331,7 +333,7 @@ export interface components {
        */
       version?: number;
     } | {
-      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      giftCertificate?: components["schemas"]["requestLineItemGiftCertificate"];
       /**
        * @description The expected version of the cart.
        * @example 1
@@ -339,7 +341,7 @@ export interface components {
       version?: number;
     } | {
       lineItem: components["schemas"]["requestCartPostLineItem"];
-      giftCertificates: components["schemas"]["requestLineItemGiftCertificate"];
+      giftCertificate?: components["schemas"]["requestLineItemGiftCertificate"];
       /**
        * @description The expected version of the cart.
        * @example 1
@@ -363,6 +365,18 @@ export interface components {
        * @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.)
        */
       code?: string;
+      /** @description The number of decimal places that prices have when you use the currency. */
+      decimalPlaces?: number;
+      /**
+       * @description The name for the currency that the merchant entered in the control panel.
+       * @example US Dollar
+       */
+      name?: string;
+      /**
+       * @description The currency symbol displayed on the storefront.
+       * @example $
+       */
+      symbol?: string;
     };
     /** Response Line Items Object */
     responseCartLineItems: {
@@ -436,6 +450,8 @@ export interface components {
        * @description URL of an image of this item, accessible on the internet.
        */
       imageUrl?: string;
+      /** @description Whether or not you can change or remove the item from the cart. Items that are immutable include those added automatically by promotions. */
+      isMutable?: boolean;
       /** @description Whether the item is taxable. */
       isTaxable?: boolean;
       /** @description The net item price before discounts and coupons. BigCommerce derives an item’s list price from the product default price or, if applicable, the sale price configured in the admin panel. */
@@ -457,6 +473,11 @@ export interface components {
       salePrice?: number;
       /** @description SKU of the variant. */
       sku?: string;
+      /**
+       * @description The type of line item.
+       * @enum {string}
+       */
+      type?: "digital";
       /**
        * Format: uri
        * @description The product URL.
@@ -502,7 +523,7 @@ export interface components {
       /** @description ID of this gift certificate. */
       id?: string;
       /** @description Whether or not the gift certificate is taxable. */
-      isTaxable?: boolean;
+      taxable?: boolean;
       /** @description Message that will be sent to the gift certificate's recipient. Limited to 200 characters. */
       message?: string;
       /** @description GiftCertificate-provided name that will appear in the control panel. */
@@ -511,6 +532,11 @@ export interface components {
       sender: components["schemas"]["responseCartLineItemsGiftCertificatesSender"];
       /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
       theme: string;
+      /**
+       * @description The type of line item.
+       * @enum {string}
+       */
+      type?: "giftCertificate";
     };
     /** Contact Entity */
     responseCartLineItemsGiftCertificatesRecipient: {
@@ -562,6 +588,8 @@ export interface components {
        * @description URL of an image of this item, accessible on the internet.
        */
       imageUrl?: string;
+      /** @description Whether or not you can change or remove the item from the cart. Items that are immutable include those added automatically by promotions. */
+      isMutable?: boolean;
       /** @description Whether the item is taxable. */
       isTaxable?: boolean;
       /** @description The net item price before discounts and coupons. BigCommerce derives an item’s list price from the product default price or, if applicable, the sale price configured in the admin panel. */
@@ -583,6 +611,11 @@ export interface components {
       salePrice?: number;
       /** @description SKU of the variant. */
       sku?: string;
+      /**
+       * @description The type of line item.
+       * @enum {string}
+       */
+      type?: "physical";
       /**
        * Format: uri
        * @description The product URL.
@@ -617,21 +650,39 @@ export interface components {
       isShippingRequired?: boolean;
     };
     /** Line Item Request Data */
-    requestCartPostLineItem: {
+    requestCartPostLineItem: ({
       /** @description ID of the product. */
       productId: number;
+      optionSelections?: ({
+          /**
+           * @description Modifier option ID.
+           * @example 2
+           */
+          optionId?: number;
+          /** @description Modifier option value. */
+          optionValue?: string | number;
+        })[];
       /** @description Quantity of this item. */
       quantity: number;
       giftWrapping?: components["schemas"]["requestPostOrPutGiftWrapping"];
-    } | {
+    }) | ({
       /** @description ID of the product. */
       productId: number;
       /** @description Quantity of this item. */
       quantity: number;
       /** @description ID of the variant. */
       variantId: number;
+      optionSelections?: ({
+          /**
+           * @description Modifier option ID.
+           * @example 2
+           */
+          optionId?: number;
+          /** @description Modifier option value. */
+          optionValue?: string | number;
+        })[];
       giftWrapping?: components["schemas"]["requestPostOrPutGiftWrapping"];
-    };
+    });
     /** Contact Entity */
     requestLineItemGiftCertificateRecipient: {
       /**
@@ -910,6 +961,9 @@ export interface operations {
    */
   updateCartCurrency: {
     parameters: {
+      query?: {
+        include?: components["parameters"]["Include"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
