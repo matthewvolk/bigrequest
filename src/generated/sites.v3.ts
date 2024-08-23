@@ -36,7 +36,7 @@ export interface paths {
     put: operations["updateSite"];
     /**
      * Delete a Site
-     * @description Delete a site with site ID `{site_id}`.
+     * @description Delete a site with site ID `{site_id}`. Remove the URL set for a given site ID.
      */
     delete: operations["deleteSite"];
     parameters: {
@@ -230,6 +230,7 @@ export interface components {
        */
       updated_at?: string;
       /**
+       * @deprecated
        * @description Indicates whether a site is using a private/dedicated SSL or a shared SSL.
        * @enum {string}
        */
@@ -503,6 +504,16 @@ export interface components {
     MetaOpen: {
       [key: string]: unknown;
     };
+    Meta: {
+      pagination?: {
+        /** @description The number of items skipped before starting the set of items returned. */
+        offset?: number;
+        /** @description The maximum number of items returned per page. */
+        limit?: number;
+        /** @description The total number of items available across all pages. */
+        total_items?: number;
+      };
+    };
   };
   responses: {
     /** @description If something happens during the request that causes it to fail, a 502 response will be returned. A new request should be made; however, it could fail. */
@@ -553,7 +564,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["_site"];
-          meta?: components["schemas"]["_metaCollection"];
+          meta?: components["schemas"]["MetaOpen"];
         };
       };
     };
@@ -585,7 +596,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["_site"][];
-          meta?: components["schemas"]["_metaCollection"];
+          meta?: components["schemas"]["Meta"];
         };
       };
     };
@@ -709,7 +720,7 @@ export interface operations {
   };
   /**
    * Delete a Site
-   * @description Delete a site with site ID `{site_id}`.
+   * @description Delete a site with site ID `{site_id}`. Remove the URL set for a given site ID.
    */
   deleteSite: {
     parameters: {
@@ -721,8 +732,14 @@ export interface operations {
       };
     };
     responses: {
+      /** @description No Content. */
       204: {
-        content: never;
+        content: {
+          "application/json": {
+            data?: Record<string, never>;
+            meta?: Record<string, never>;
+          };
+        };
       };
     };
   };
