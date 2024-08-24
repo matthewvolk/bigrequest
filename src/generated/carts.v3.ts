@@ -172,11 +172,26 @@ export interface paths {
     /**
      * Get Global Cart Settings
      * @description Returns the global cart settings of a store.
+     *
+     *   *Authentication*
+     *   ### OAuth scopes
+     *
+     *   | UI Name | Permission | Parameter |
+     *   |:--------|:-----------|:----------|
+     *   |Information & Settings | modify | `store_v2_information`|
+     *   |Information & Settings | read-only| `store_v2_information`|
      */
     get: operations["getGlobalCartSettings"];
     /**
      * Update Global Cart Settings
      * @description Update the global cart settings of a store.
+     *   *Authentication*
+     *   ### OAuth scopes
+     *
+     *   | UI Name | Permission | Parameter |
+     *   |:--------|:-----------|:----------|
+     *   |Information & Settings | modify | `store_v2_information`|
+     *   |Information & Settings | read-only| `store_v2_information`|
      */
     put: operations["updateGlobalCartSettings"];
     parameters: {
@@ -189,11 +204,27 @@ export interface paths {
     /**
      * Get Channel Cart Settings
      * @description Returns the per-channel overrides for the cart settings of a store.
+     *
+     *   *Authentication*
+     *   ### OAuth scopes
+     *
+     *   | UI Name | Permission | Parameter |
+     *   |:--------|:-----------|:----------|
+     *   |Information & Settings | modify | `store_v2_information`|
+     *   |Information & Settings | read-only| `store_v2_information`|
      */
     get: operations["getChannelCartSettings"];
     /**
      * Update Channel Cart Settings
      * @description Update the per-channel overrides for the cart settings of a store.
+     *
+     * *Authentication*
+     * ### OAuth scopes
+     *
+     * | UI Name | Permission | Parameter |
+     * |:--------|:-----------|:----------|
+     * |Information & Settings | modify | `store_v2_information`|
+     * |Information & Settings | read-only| `store_v2_information`|
      */
     put: operations["updateChannelCartSettings"];
     parameters: {
@@ -201,7 +232,17 @@ export interface paths {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description The channel ID of the settings overrides. */
+        /**
+         * @description The channel ID of the settings overrides.
+         *
+         *   *Authentication*
+         * ### OAuth scopes
+         *
+         * | UI Name | Permission | Parameter |
+         * |:--------|:-----------|:----------|
+         * |Information & Settings | modify | `store_v2_information`|
+         * |Information & Settings | read-only| `store_v2_information`|
+         */
         channel_id: number;
       };
     };
@@ -466,10 +507,10 @@ export interface components {
        * @description Cart ID, provided after creating a cart with a POST request.
        */
       id?: string;
-      /** @description Bundled items will have the ID of their parent item. */
-      parent_id?: string;
       /** @description ID of the customer to which the cart belongs. */
       customer_id?: number;
+      /** @description The channel ID. If no channel is specified, defaults to 1. */
+      channel_id?: number;
       /** @description The cart’s email. This is the same email that is used in the billing address. */
       email?: string;
       /**
@@ -489,6 +530,8 @@ export interface components {
       base_amount?: number;
       /** @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts. */
       discount_amount?: number;
+      /** @description The entered value represents the order level manual discount. */
+      manual_discount_amount?: number;
       /** @description Sum of cart line-item amounts minus cart-level discounts and coupons. This amount includes taxes (where applicable). */
       cart_amount?: number;
       coupons?: components["schemas"]["AppliedCoupon"][];
@@ -512,8 +555,6 @@ export interface components {
        * @description Time when the cart was last updated.
        */
       updated_time?: string;
-      /** @description The channel ID. If no channel is specified, defaults to 1. */
-      channel_id?: number;
       /**
        * Format: ISO-639
        * @description Locale of the cart. Accepts strings of format `xx` or `xx-YY`. Uses the [ISO-639 standard](https://www.iso.org/iso-639-language-codes.html) format.
@@ -595,7 +636,7 @@ export interface components {
       theme?: string;
       /** @description Value must be between 1.00 and 1,000.00 in the store’s default currency. */
       amount?: number;
-      is_taxable?: boolean;
+      taxable?: boolean;
       /** Contact Entity */
       sender?: {
         name?: string;
@@ -760,12 +801,14 @@ export interface components {
       download_size?: string;
     };
     /** Digital Item Response */
-    ItemDigitalGet: ({
+    ItemDigitalGet: {
       /**
        * @description The line-item ID.
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
+      /** @description Bundled items will have the ID of their parent item. */
+      parent_id?: string;
       /**
        * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
@@ -801,7 +844,7 @@ export interface components {
        * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
-      is_taxable?: boolean;
+      taxable?: boolean;
       /**
        * Format: uri
        * @description Image of the product or variant.
@@ -874,21 +917,16 @@ export interface components {
       extended_list_price?: number;
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
-      /** @description The list of selected options for this product. */
-      options?: {
-          /** @description The product option name; for example, Color or Size. */
-          name?: string;
-          /** @description The product option identifier. */
-          nameId?: number;
-          /** @description The product option value; for example, Red or Medium. */
-          value?: string;
-          /**
-           * @description The product option value identifier in number format.
-           * @example 128
-           */
-          valueId?: number;
-        }[];
-    }) & {
+      /**
+       * @description Whether or not a physical product requires shipping.
+       * @example false
+       */
+      is_require_shipping?: boolean;
+      /**
+       * @description Whether or not you can change or remove the item from the cart. Items that are immutable include those added automatically by promotions.
+       * @example true
+       */
+      is_mutable?: boolean;
       /** @description URLs to download all product files. */
       download_file_urls?: string[];
       /**
@@ -1277,6 +1315,14 @@ export interface components {
       quantity?: string;
       /** @description Specifies the price of the item. This value can include or exclude tax, depending on the store setup. */
       list_price?: string;
+      /** @description List price of the item multiplied by the quantity. */
+      extended_list_price?: number;
+      /**
+       * Format: uri
+       * @description Image of the product or variant.
+       * @example https://pathtoproductimage/ProductDefault.png
+       */
+      image_url?: string;
     };
     /**
      * Item with variant
@@ -1467,6 +1513,8 @@ export interface components {
        * @example 6e193ce6-f327-4dcc-b75e-72cf6738525e
        */
       id?: string;
+      /** @description Bundled items will have the ID of their parent item. */
+      parent_id?: string;
       /**
        * @description The ID of the variant. Required in the /PUT or /POST request if the product has variants.
        * @example 358
@@ -1488,28 +1536,6 @@ export interface components {
        */
       name?: string;
       /**
-       * @description The weight is displayed here if the item has a custom dimension.
-       * @example 1.2
-       */
-      weight?: number;
-      dimensions?: {
-        /**
-         * @description The height is displayed here if the item has a custom dimension.
-         * @example 2
-         */
-        height?: number;
-        /**
-         * @description The width is displayed here if the item has a custom dimension.
-         * @example 2.1
-         */
-        width?: number;
-        /**
-         * @description The depth is displayed here if the item has a custom dimension.
-         * @example 2.2
-         */
-        depth?: number;
-      };
-      /**
        * Format: uri
        * @description The product URL.
        * @example http://your-store-url.mybigcommerce.com/your-product/
@@ -1524,7 +1550,7 @@ export interface components {
        * @description Boolean value that specifies whether the item is taxable.
        * @example false
        */
-      is_taxable?: boolean;
+      taxable?: boolean;
       /**
        * Format: uri
        * @description Image of the product or variant.
@@ -1588,7 +1614,7 @@ export interface components {
       coupon_amount?: number;
       /** @description An item’s original price is the same as the product default price in the admin panel. */
       original_price?: number;
-      /** @description The net item price before discounts and coupons are applied. BigCommerce derives an item’s list price from the product default price or, if applicable, the sale price configured in the admin panel. */
+      /** @description The net item price before discounts and coupons are applied. BigCommerce derives an item’s list price from the product default price or, if applicable, the sale price configured in the admin panel. To enable v3 promotions at the product level, you must update the [promotion](https://support.bigcommerce.com/s/article/Store-Settings?language=en_US#promotion) settings in the control panel. */
       list_price?: number;
       /** @description Price of the item after all discounts are applied. (The final price before tax calculation.) */
       sale_price?: number;
@@ -1596,20 +1622,16 @@ export interface components {
       extended_list_price?: number;
       /** @description Sale price of the item multiplied by the quantity. */
       extended_sale_price?: number;
-      /** @description The list of selected options for this product. */
-      options?: ({
-          /** @description The product option name; for example, Color or Size. */
-          name?: string;
-          /**
-           * @description The product option identifier.
-           * @example 151
-           */
-          nameId?: number;
-          /** @description The product option value; for example, Red or Medium. */
-          value?: string;
-          /** @description The product option value identifier in number format. */
-          valueId?: number | string;
-        })[];
+      /**
+       * @description Whether or not a physical product requires shipping.
+       * @example false
+       */
+      is_require_shipping?: boolean;
+      /**
+       * @description Whether or not you can change or remove the item from the cart. Items that are immutable include those added automatically by promotions.
+       * @example true
+       */
+      is_mutable?: boolean;
       /** @description The gift wrapping details for this item. */
       gift_wrapping?: {
         /** @example Gift Wrap 1 */
@@ -1638,7 +1660,7 @@ export interface components {
     /** @description Response payload for the BigCommerce API. */
     MetafieldResponse: {
       data?: components["schemas"]["Metafield"];
-    } & components["schemas"]["CollectionMeta"];
+    } & components["schemas"]["metaCollection_open"];
     /** @description Allows app partners to write custom data to various resources in the API. */
     Metafield: components["schemas"]["MetafieldBase"] & {
       /** @description The unique identifier for the metafield. */
@@ -1675,7 +1697,7 @@ export interface components {
        *
        * @enum {string}
        */
-      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Namespace for the metafield, for organizational purposes.
        *
@@ -1757,7 +1779,7 @@ export interface components {
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
       data?: components["schemas"]["Metafield"];
-      meta?: components["schemas"]["CollectionMeta"];
+      meta?: components["schemas"]["metaCollection_open"];
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse_Batch: {
@@ -1772,7 +1794,7 @@ export interface components {
        * @example []
        */
       errors?: unknown[];
-      meta?: components["schemas"]["CollectionMeta"];
+      meta?: components["schemas"]["WriteCollectionPartialSuccessMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionDeleteResponseSuccess: {
@@ -1949,14 +1971,15 @@ export interface components {
      * Response meta
      * @description Response metadata.
      */
-    metaCollection_open: {
-      [key: string]: unknown;
-    };
+    metaCollection_open: Record<string, never>;
   };
   responses: {
     CartResponse: {
       content: {
-        "application/json": components["schemas"]["Cart_Full"];
+        "application/json": {
+          data?: components["schemas"]["Cart_Full"];
+          meta?: components["schemas"]["metaCollection_open"];
+        };
       };
     };
     /** @description Cart conflict */
@@ -2378,6 +2401,14 @@ export interface operations {
   /**
    * Get Global Cart Settings
    * @description Returns the global cart settings of a store.
+   *
+   *   *Authentication*
+   *   ### OAuth scopes
+   *
+   *   | UI Name | Permission | Parameter |
+   *   |:--------|:-----------|:----------|
+   *   |Information & Settings | modify | `store_v2_information`|
+   *   |Information & Settings | read-only| `store_v2_information`|
    */
   getGlobalCartSettings: {
     parameters: {
@@ -2403,6 +2434,13 @@ export interface operations {
   /**
    * Update Global Cart Settings
    * @description Update the global cart settings of a store.
+   *   *Authentication*
+   *   ### OAuth scopes
+   *
+   *   | UI Name | Permission | Parameter |
+   *   |:--------|:-----------|:----------|
+   *   |Information & Settings | modify | `store_v2_information`|
+   *   |Information & Settings | read-only| `store_v2_information`|
    */
   updateGlobalCartSettings: {
     parameters: {
@@ -2451,6 +2489,14 @@ export interface operations {
   /**
    * Get Channel Cart Settings
    * @description Returns the per-channel overrides for the cart settings of a store.
+   *
+   *   *Authentication*
+   *   ### OAuth scopes
+   *
+   *   | UI Name | Permission | Parameter |
+   *   |:--------|:-----------|:----------|
+   *   |Information & Settings | modify | `store_v2_information`|
+   *   |Information & Settings | read-only| `store_v2_information`|
    */
   getChannelCartSettings: {
     parameters: {
@@ -2458,7 +2504,17 @@ export interface operations {
         Accept: components["parameters"]["Accept"];
       };
       path: {
-        /** @description The channel ID of the settings overrides. */
+        /**
+         * @description The channel ID of the settings overrides.
+         *
+         *   *Authentication*
+         * ### OAuth scopes
+         *
+         * | UI Name | Permission | Parameter |
+         * |:--------|:-----------|:----------|
+         * |Information & Settings | modify | `store_v2_information`|
+         * |Information & Settings | read-only| `store_v2_information`|
+         */
         channel_id: number;
       };
     };
@@ -2480,6 +2536,14 @@ export interface operations {
   /**
    * Update Channel Cart Settings
    * @description Update the per-channel overrides for the cart settings of a store.
+   *
+   * *Authentication*
+   * ### OAuth scopes
+   *
+   * | UI Name | Permission | Parameter |
+   * |:--------|:-----------|:----------|
+   * |Information & Settings | modify | `store_v2_information`|
+   * |Information & Settings | read-only| `store_v2_information`|
    */
   updateChannelCartSettings: {
     parameters: {
@@ -2488,7 +2552,17 @@ export interface operations {
         "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
-        /** @description The channel ID of the settings overrides. */
+        /**
+         * @description The channel ID of the settings overrides.
+         *
+         *   *Authentication*
+         * ### OAuth scopes
+         *
+         * | UI Name | Permission | Parameter |
+         * |:--------|:-----------|:----------|
+         * |Information & Settings | modify | `store_v2_information`|
+         * |Information & Settings | read-only| `store_v2_information`|
+         */
         channel_id: number;
       };
     };

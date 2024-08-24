@@ -816,7 +816,7 @@ export interface components {
       offline?: {
         /** @description Display name for the offline payment. */
         display_name?: string;
-      };
+      } | null;
       /**
        * Custom
        * @description Custom payment from manual order.
@@ -824,7 +824,7 @@ export interface components {
       custom?: {
         /** @description Text entered for the payment method in the control panel. */
         payment_method?: string;
-      };
+      } | null;
       /** @description The payment method ID used for this transaction. */
       payment_method_id?: string;
     }) & ({
@@ -834,11 +834,11 @@ export interface components {
       order_id?: string;
       /**
        * Format: date-time
-       * @description The date/time of the transaction.
+       * @description The date/time of the transaction in ISO-8601 format.
        */
       date_created?: string;
       /** @description This field contains internal BigPay token for stored card that is then mapped to the actual third-party token. We currently do not offer a way to get third party tokens.These tokens are read-only and do not return any information about the payment. */
-      payment_instrument_token?: string;
+      payment_instrument_token?: string | null;
       /**
        * AVS Results
        * @description Address Verification Service (AVS) result from the payment gateway.
@@ -868,7 +868,7 @@ export interface components {
        * Gift Certificate
        * @description A gift-certificate model.
        */
-      gift_certificate?: {
+      gift_certificate?: ({
         /**
          * @description The gift-certificate code.
          *
@@ -902,7 +902,7 @@ export interface components {
          * @enum {string}
          */
         status?: "active" | "pending" | "disabled" | "expired";
-      };
+      }) | null;
       /** @description A store credit model. */
       store_credit?: {
         /**
@@ -912,7 +912,24 @@ export interface components {
          * @example 35.42
          */
         remaining_balance?: number;
-      };
+      } | null;
+      /**
+       * Custom Payment Provider Field
+       * @description Fields for custom payment providers.
+       */
+      custom_provider_field_result?: ({
+        /** @description The receipt number associated with the transaction. */
+        receipt_number?: string | null;
+        /** @description Authorization code for the transaction. */
+        authorization_code?: string | null;
+        /** @description The fraud response associated with the transaction. */
+        fraud_response?: string | null;
+        /**
+         * Format: float
+         * @description The amount received for the transaction, divided by 100 to convert to the correct currency format.
+         */
+        amount_received?: number | null;
+      }) | null;
     });
     /**
      * Credit Card
@@ -1575,12 +1592,13 @@ export interface components {
        * @example []
        */
       errors?: unknown[];
-      meta?: components["schemas"]["CollectionMeta"];
+      meta?: components["schemas"]["BatchOperationMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
     MetafieldResponse: {
       data?: components["schemas"]["Metafield"];
-    } & components["schemas"]["Meta"];
+      meta?: components["schemas"]["metaEmpty_Full"];
+    };
     /** @description Common Metafield properties. */
     MetafieldBase: {
       /**
@@ -2143,10 +2161,14 @@ export interface components {
     date_created_min?: string;
     /** @description Filter items by maximum date created. For example, `date_created:max=2019-09-04T00:00:00` or `date_created:max=2019-09-04`. Returns metafields created before this date. */
     date_created_max?: string;
+    /** @description Filter items by date created. For example, `date_created=2019-09-04T00:00:00`. Returns metafields created on this date. */
+    date_created?: string;
     /** @description Filter items by minimum date modified. For example, `date_modified:min=2019-09-04T00:00:00` or `date_modified:min=2019-09-04`. Returns metafields modified after this date. */
     date_modified_min?: string;
     /** @description Filter items by maximum date modified. For example, `date_modified:max=2019-09-04T00:00:00` or `date_modified:max=2019-09-04`. Returns metafields modified before this date. */
     date_modified_max?: string;
+    /** @description Filter items by date modified. For example, `date_modified=2019-09-04T00:00:00`. Returns metafields modified on this date. */
+    date_modified?: string;
     /** @description The ID of the `Metafield`. */
     MetafieldIdParam: number;
     /** @description Filter based on a metafieldʼs key. */
@@ -2819,6 +2841,8 @@ export interface operations {
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
         include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        date_created?: components["parameters"]["date_created"];
+        date_modified?: components["parameters"]["date_modified"];
         "date_created:min"?: components["parameters"]["date_created_min"];
         "date_created:max"?: components["parameters"]["date_created_max"];
         "date_modified:min"?: components["parameters"]["date_modified_min"];
