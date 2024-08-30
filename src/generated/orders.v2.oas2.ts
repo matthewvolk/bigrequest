@@ -1488,11 +1488,8 @@ export interface components {
        * @example false
        */
       order_is_digital?: boolean;
-      /**
-       * @description The payment method for this order. Can be one of the following: `Manual`, `Credit Card`, `cash`, `Test Payment Gateway`, etc.
-       * @enum {string}
-       */
-      payment_method?: "Credit Card" | "Cash" | "Test Payment Gateway" | "Manual";
+      /** @description The payment method for this order. Can be one of the following: `Manual`, `Credit Card`, `cash`, `Test Payment Gateway`, etc. */
+      payment_method?: string;
       /**
        * @description The external Transaction ID/Payment ID within this order’s payment provider (if a payment provider was used).
        * @example
