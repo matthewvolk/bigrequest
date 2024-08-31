@@ -173,7 +173,6 @@ export interface paths {
      * Get Global Cart Settings
      * @description Returns the global cart settings of a store.
      *
-     *   *Authentication*
      *   ### OAuth scopes
      *
      *   | UI Name | Permission | Parameter |
@@ -205,7 +204,6 @@ export interface paths {
      * Get Channel Cart Settings
      * @description Returns the per-channel overrides for the cart settings of a store.
      *
-     *   *Authentication*
      *   ### OAuth scopes
      *
      *   | UI Name | Permission | Parameter |
@@ -218,7 +216,6 @@ export interface paths {
      * Update Channel Cart Settings
      * @description Update the per-channel overrides for the cart settings of a store.
      *
-     * *Authentication*
      * ### OAuth scopes
      *
      * | UI Name | Permission | Parameter |
@@ -235,7 +232,6 @@ export interface paths {
         /**
          * @description The channel ID of the settings overrides.
          *
-         *   *Authentication*
          * ### OAuth scopes
          *
          * | UI Name | Permission | Parameter |
@@ -2402,7 +2398,6 @@ export interface operations {
    * Get Global Cart Settings
    * @description Returns the global cart settings of a store.
    *
-   *   *Authentication*
    *   ### OAuth scopes
    *
    *   | UI Name | Permission | Parameter |
@@ -2490,7 +2485,6 @@ export interface operations {
    * Get Channel Cart Settings
    * @description Returns the per-channel overrides for the cart settings of a store.
    *
-   *   *Authentication*
    *   ### OAuth scopes
    *
    *   | UI Name | Permission | Parameter |
@@ -2507,7 +2501,6 @@ export interface operations {
         /**
          * @description The channel ID of the settings overrides.
          *
-         *   *Authentication*
          * ### OAuth scopes
          *
          * | UI Name | Permission | Parameter |
@@ -2537,7 +2530,6 @@ export interface operations {
    * Update Channel Cart Settings
    * @description Update the per-channel overrides for the cart settings of a store.
    *
-   * *Authentication*
    * ### OAuth scopes
    *
    * | UI Name | Permission | Parameter |
@@ -2555,7 +2547,6 @@ export interface operations {
         /**
          * @description The channel ID of the settings overrides.
          *
-         *   *Authentication*
          * ### OAuth scopes
          *
          * | UI Name | Permission | Parameter |
