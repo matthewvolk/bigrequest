@@ -500,7 +500,7 @@ export interface components {
           method?: "percent" | "fixed" | "price";
           /**
            * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
-           * @example "5.0000"
+           * @example 5.0000
            */
           amount?: string;
           /**
@@ -595,10 +595,10 @@ export interface components {
       country_id?: number;
     };
     /**
-     * customerGroup_Post
+     * customerGroup_Post_Put
      * @description When creating a customer group category discount using the API it defaults to "products in this category and its subcategories". In the [store control panel](https://support.bigcommerce.com/s/article/Customer-Groups#pricing), this can be changed to either "products in this category only" or "products in this category and its subcategories". There are currently no settings to change this behavior with the API.
      */
-    customerGroup_Post: {
+    customerGroup_Post_Put: {
       /**
        * @description Name of the group.
        * @example Wholesale
@@ -618,7 +618,7 @@ export interface components {
           method?: "percent" | "fixed" | "price";
           /**
            * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
-           * @example "5.0000"
+           * @example 5.0000
            */
           amount?: string;
           /**
@@ -627,16 +627,6 @@ export interface components {
            */
           price_list_id?: number;
         })[];
-      /**
-       * @description Date on which the customer group was created.
-       * @example "2023-07-17T06:30:41.000Z"
-       */
-      date_created?: string;
-      /**
-       * @description Date on which the customer group was last modified.
-       * @example "2023-07-25T01:15:19.000Z"
-       */
-      date_modified?: string;
       /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
       is_group_for_guests?: boolean;
     };
@@ -1581,7 +1571,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["customerGroup_Post"];
+        "application/json": components["schemas"]["customerGroup_Post_Put"];
       };
     };
     responses: {
@@ -1671,7 +1661,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["customerGroup_Full"];
+        "application/json": components["schemas"]["customerGroup_Post_Put"];
       };
     };
     responses: {

@@ -792,11 +792,6 @@ export interface components {
       gateway: "2checkout" | "adyen" | "amazon" | "authorizenet" | "bankdeposit" | "braintree" | "cheque" | "cod" | "custom" | "firstdatagge4" | "giftcertificate" | "hps" | "instore" | "klarna" | "migs" | "moneyorder" | "nmi" | "paypalexpress" | "paypalpaymentsprous" | "paypalpaymentsprouk" | "plugnpay" | "qbmsv2" | "securenet" | "square" | "storecredit" | "stripe" | "testgateway" | "usaepay";
       /** @description The transaction ID returned by the payment gateway for this transaction item. */
       gateway_transaction_id?: string;
-      /**
-       * Format: date-time
-       * @description The date/time of the transaction.
-       */
-      date_created?: string;
       /** @description True if the transaction performed was a test, or if the gateway is in test mode. */
       test?: boolean;
       /**

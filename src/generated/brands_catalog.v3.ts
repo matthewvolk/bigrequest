@@ -415,58 +415,58 @@ export interface components {
        *
        * @enum {string}
        */
-      permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
+      permission_set?: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
       /**
        * @description Namespace for the metafield, for organizational purposes.
        *
        * @example Sales Department
        */
-      namespace: string;
+      namespace?: string;
       /**
        * @description The name of the field, for example: `location_id`, `color`.
        *
        * @example Staff Name
        */
-      key: string;
+      key?: string;
       /**
        * @description The value of the field, for example: `1`, `blue`.
        *
        * @example Ronaldo
        */
-      value: string;
+      value?: string;
       /**
        * @description Description for the metafields.
        *
        * @example order
        */
-      description: string;
+      description?: string;
       /**
        * @description The type of resource with which the metafield is associated.
        *
        * @example cart
        * @enum {string}
        */
-      resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
+      resource_type?: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
       /**
        * @description The unique identifier for the resource with which the metafield is associated.
        *
        * @example 424242
        */
-      resource_id: number;
+      resource_id?: number;
       /** @description The unique identifier for the metafield. */
-      id: number;
+      id?: number;
       /**
        * Format: date-time
        * @description Date and time of the metafieldʼs creation.
        * @example 2022-06-16T18:39:00+00:00
        */
-      date_created: string;
+      date_created?: string;
       /**
        * Format: date-time
        * @description Date and time when the metafield was last updated.
        * @example 2022-06-16T18:39:00+00:00
        */
-      date_modified: string;
+      date_modified?: string;
       /**
        * @description Client ID for the metafieldʼs creator.
        * @example asdfasdfasdfasdfasdfasdfasdf
