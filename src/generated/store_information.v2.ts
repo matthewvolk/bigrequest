@@ -88,6 +88,11 @@ export interface components {
        * @example AU
        */
       country_code?: string;
+      /**
+       * @description The infrastructure region where the store is located. Use this to determine where to place supporting infrastructure for minimum latency to the store. Compare against GCP regions on https://cloud.google.com/compute/docs/regions-zones
+       * @example us-central1
+       */
+      infrastructure_region?: string;
       /** @description Display phone number. */
       phone?: string;
       /**
