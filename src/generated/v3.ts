@@ -30,6 +30,7 @@ import * as pricing_sf from './pricing.sf';
 import * as promotions_v3 from './promotions.v3';
 import * as redirects_v3 from './redirects.v3';
 import * as scripts_v3 from './scripts.v3';
+import * as segments_v3 from './segments.v3';
 import * as settings_v3 from './settings.v3';
 import * as shipping_v3 from './shipping.v3';
 import * as sites_v3 from './sites.v3';
@@ -77,6 +78,7 @@ pricing_sf.paths &
 promotions_v3.paths &
 redirects_v3.paths &
 scripts_v3.paths &
+segments_v3.paths &
 settings_v3.paths &
 shipping_v3.paths &
 sites_v3.paths &
