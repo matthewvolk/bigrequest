@@ -923,6 +923,11 @@ export interface components {
        * @example true
        */
       is_mutable?: boolean;
+      /**
+       * @description Whether or not a promotion added an additional item.
+       * @example false
+       */
+      added_by_promotion?: boolean;
       /** @description URLs to download all product files. */
       download_file_urls?: string[];
       /**
@@ -1628,6 +1633,11 @@ export interface components {
        * @example true
        */
       is_mutable?: boolean;
+      /**
+       * @description Whether or not a promotion added an additional item.
+       * @example false
+       */
+      added_by_promotion?: boolean;
       /** @description The gift wrapping details for this item. */
       gift_wrapping?: {
         /** @example Gift Wrap 1 */
