@@ -383,6 +383,11 @@ export interface components {
               extended_comparison_price?: number;
               is_require_shipping?: boolean;
               is_mutable?: boolean;
+              /**
+               * @description Whether or not a promotion added an additional item.
+               * @example false
+               */
+              added_by_promotion?: boolean;
               parent_id?: number | null;
               /** Gift Wrapping */
               gift_wrapping?: {
@@ -411,6 +416,11 @@ export interface components {
               url?: string;
               is_mutable?: boolean;
               is_require_shipping?: boolean;
+              /**
+               * @description Whether or not a promotion added an additional item.
+               * @example false
+               */
+              added_by_promotion?: boolean;
               is_taxable?: boolean;
               image_url?: string;
               discounts?: {
