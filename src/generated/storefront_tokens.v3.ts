@@ -149,7 +149,7 @@ export interface operations {
         /**
          * @example {
          *   "allowed_cors_origins": [
-         *     "https://www.yourstorefront.com/"
+         *     "https://www.yourstorefront.com"
          *   ],
          *   "channel_id": 1,
          *   "expires_at": 1885635176
