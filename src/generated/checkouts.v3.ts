@@ -383,6 +383,11 @@ export interface components {
               extended_comparison_price?: number;
               is_require_shipping?: boolean;
               is_mutable?: boolean;
+              /**
+               * @description Whether or not a promotion added an additional item.
+               * @example false
+               */
+              added_by_promotion?: boolean;
               parent_id?: number | null;
               /** Gift Wrapping */
               gift_wrapping?: {
@@ -411,6 +416,11 @@ export interface components {
               url?: string;
               is_mutable?: boolean;
               is_require_shipping?: boolean;
+              /**
+               * @description Whether or not a promotion added an additional item.
+               * @example false
+               */
+              added_by_promotion?: boolean;
               is_taxable?: boolean;
               image_url?: string;
               discounts?: {
@@ -688,7 +698,7 @@ export interface components {
             }[];
         }[];
       /**
-       * @description The current version of the checkout.
+       * @description The current version of the checkout increments with each successful update. You can use it to enable optimistic concurrency control for subsequent updates.
        * @example 1
        */
       version?: number;
@@ -697,7 +707,7 @@ export interface components {
     Checkout_Put: {
       customer_message: string;
       /**
-       * @description The expected version of the checkout.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -748,7 +758,7 @@ export interface components {
           field_value?: string;
         }[];
       /**
-       * @description The expected version of the checkout.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -790,7 +800,7 @@ export interface components {
           pickup_method_id?: number;
         };
         /**
-         * @description The expected version of the checkout.
+         * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
          * @example 1
          */
         version?: number;
@@ -798,7 +808,7 @@ export interface components {
     /** Delete Consignment Request */
     DeleteConsignmentRequest: {
       /**
-       * @description The expected version of the checkout.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -847,7 +857,7 @@ export interface components {
         description?: string;
       };
       /**
-       * @description The expected version of the checkout.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -857,7 +867,7 @@ export interface components {
       /** @description Coupon codes have a 50-character limit. */
       coupon_code?: string;
       /**
-       * @description The expected version of the checkout.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -865,7 +875,7 @@ export interface components {
     /** Delete Coupon Request */
     DeleteCouponCodeRequest: {
       /**
-       * @description The expected version of the checkout.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -1132,7 +1142,7 @@ export interface operations {
                 discounted_amount?: number;
               }[];
             /**
-             * @description The expected version of the checkout.
+             * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
              * @example 1
              */
             version?: number;
