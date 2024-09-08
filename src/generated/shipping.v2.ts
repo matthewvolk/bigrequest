@@ -1204,7 +1204,7 @@ export interface components {
         percentage_surcharge?: number;
       };
       /**
-       * @description Whether or not this shipping zone is the fallback if all others are not valid for the order.
+       * @description Whether or not this shipping method is a fallback method used when advanced shipping rules are unavailable.
        * @example false
        */
       is_fallback?: boolean;

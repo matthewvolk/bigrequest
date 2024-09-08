@@ -447,7 +447,7 @@ export interface components {
     CartUpdatePutRequestData: {
       customer_id?: number;
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -571,7 +571,7 @@ export interface components {
         };
       };
       /**
-       * @description The current version of the cart.
+       * @description The current version of the cart increments with each successful update. You can use it to enable optimistic concurrency control for subsequent updates.
        * @example 1
        */
       version?: number;
@@ -923,6 +923,11 @@ export interface components {
        * @example true
        */
       is_mutable?: boolean;
+      /**
+       * @description Whether or not a promotion added an additional item.
+       * @example false
+       */
+      added_by_promotion?: boolean;
       /** @description URLs to download all product files. */
       download_file_urls?: string[];
       /**
@@ -1405,14 +1410,14 @@ export interface components {
         })[];
       custom_items?: components["schemas"]["cart_PostCustomItem"];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
     };
     CartLineItemDelete: {
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -1452,7 +1457,7 @@ export interface components {
         })[];
       custom_items?: components["schemas"]["cart_PostCustomItem"];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -1628,6 +1633,11 @@ export interface components {
        * @example true
        */
       is_mutable?: boolean;
+      /**
+       * @description Whether or not a promotion added an additional item.
+       * @example false
+       */
+      added_by_promotion?: boolean;
       /** @description The gift wrapping details for this item. */
       gift_wrapping?: {
         /** @example Gift Wrap 1 */

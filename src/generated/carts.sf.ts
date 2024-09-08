@@ -222,7 +222,7 @@ export interface components {
       /** @description Locale of the cart. */
       locale?: string;
       /**
-       * @description The current version of the cart.
+       * @description The current version of the cart increments with each successful update. You can use it to enable optimistic concurrency control for subsequent updates.
        * @example 1
        */
       version?: number;
@@ -304,14 +304,14 @@ export interface components {
     LineItemsRequest: {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
     } | {
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -319,7 +319,7 @@ export interface components {
       lineItems: components["schemas"]["requestCartPostLineItem"][];
       giftCertificates: components["schemas"]["requestLineItemGiftCertificate"][];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -328,14 +328,14 @@ export interface components {
     requestLineItemPut: {
       lineItem: components["schemas"]["requestCartPostLineItem"];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
     } | {
       giftCertificate?: components["schemas"]["requestLineItemGiftCertificate"];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
@@ -343,14 +343,14 @@ export interface components {
       lineItem: components["schemas"]["requestCartPostLineItem"];
       giftCertificate?: components["schemas"]["requestLineItemGiftCertificate"];
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
     };
     requestLineItemDelete: {
       /**
-       * @description The expected version of the cart.
+       * @description The cart version that you expect to apply the updates. If the provided version doesn't match the current cart version, you will receive a conflict error. This field is optional; if not provided, optimistic concurrency control will not apply.
        * @example 1
        */
       version?: number;
