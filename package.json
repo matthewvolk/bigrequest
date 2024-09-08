@@ -62,5 +62,6 @@
     "url": "https://github.com/matthewvolk/bigrequest/issues"
   },
   "homepage": "https://github.com/matthewvolk/bigrequest#readme",
-  "prettier": "@bigcommerce/eslint-config/prettier"
+  "prettier": "@bigcommerce/eslint-config/prettier",
+  "packageManager": "pnpm@9.9.0"
 }
