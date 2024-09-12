@@ -1892,8 +1892,6 @@ export interface components {
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
-      /** @description An array of channel IDs to which this product is assigned. */
-      channels?: number[];
       /** @description You can add a product to an existing brand during a product /PUT or /POST. Use either the `brand_id` or the `brand_name` field. The response body can include `brand_id`. */
       brand_id?: number;
       /**
@@ -2137,8 +2135,6 @@ export interface components {
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
-      /** @description An array of channel IDs to which this product is assigned. */
-      channels?: number[];
       /** @description You can add a product to an existing brand during a product /PUT or /POST use the `brand_id` field. The response body can include `brand_id'. */
       brand_id?: number;
       /**
@@ -3040,7 +3036,7 @@ export interface components {
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
     /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
-    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels")[];
+    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields")[];
     IdMinParam?: number;
     IdMaxParam?: number;
     IdGreaterParam?: number;
@@ -3262,9 +3258,6 @@ export interface operations {
          *     "product_tax_code": "string",
          *     "categories": [
          *       0
-         *     ],
-         *     "channels": [
-         *       1
          *     ],
          *     "brand_id": 37,
          *     "inventory_level": 0,

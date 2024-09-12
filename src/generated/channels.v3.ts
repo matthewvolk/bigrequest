@@ -1068,7 +1068,7 @@ export interface components {
       variants?: components["schemas"]["ChannelProductVariantFull"][];
     };
     /** @description List of channel-specific control panel menu navigation items and corresponding settings pages an app developer can choose to enable for the subject channel. Protected settings override any settings set in those UI sections at the storewide level. Learn more in the [Building Storefront Channels](/docs/integrations/channels/guide/storefronts#protected-ui-sections) tutorial. */
-    BigCommerceProtectedAppSections: ("storefront_settings" | "social" | "carousel" | "domains" | "currencies" | "notifications")[];
+    BigCommerceProtectedAppSections: ("storefront_settings" | "social" | "carousel" | "domains" | "currencies" | "notifications" | "localization")[];
     channel_menus_Post: {
       bigcommerce_protected_app_sections?: components["schemas"]["BigCommerceProtectedAppSections"];
       custom_app_sections?: components["schemas"]["CustomAppSections"];
