@@ -43,17 +43,17 @@ export interface components {
      *
      * Configurable categories are:
      *
+     * 1 - Analytics
      * 2 - Functional
-     * 3 - Analytics
-     * 4 - Targeting; Advertising
+     * 3 - Targeting; Advertising
      *
      * For further definition of these categories, see [Scripts API](/docs/integrations/scripts).
      */
     ConsentPreferences: {
-      /** @description Explicitly allowed consent categories. Allowed values are 2, 3, 4. */
-      allow: (2 | 3 | 4)[];
+      /** @description Explicitly allowed consent categories. Allowed values are 1, 2, 3. */
+      allow: (1 | 2 | 3)[];
       /** @description Denied consent categories. Allowed values are 2, 3, 4. */
-      deny: (2 | 3 | 4)[];
+      deny: (1 | 2 | 3)[];
     };
   };
   responses: never;

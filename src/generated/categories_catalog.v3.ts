@@ -1991,7 +1991,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
