@@ -353,14 +353,13 @@ export interface components {
     category_id: number;
     /**
      * Parent ID
-     * @description The unique numeric ID of the categoryʼs parent. This field controls where the category sits in the tree of categories that organize the catalog.
-     * Required in a POST if creating a child category.
+     * @description The unique numeric ID of the category parent. To create a top-level category, specify the `tree_id`. Otherwise, you can specify the `parent_id`. Required in a POST if creating a child category.
      * @example 0
      */
     parent_id: number;
     /**
      * Tree ID
-     * @description The ID of the category tree.
+     * @description The ID of the category tree. To create a top-level category, specify the `tree_id`. Otherwise, you can specify the `parent_id`.
      * @example 1
      */
     tree_id: number;

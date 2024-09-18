@@ -1557,6 +1557,11 @@ export interface components {
        */
       total_inc_tax?: string;
       /**
+       * @description Indicates whether the order total is inclusive of tax.
+       * @example false
+       */
+      is_tax_inclusive_pricing?: boolean;
+      /**
        * @description The value of the wrapping cost, excluding tax. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
@@ -1760,6 +1765,11 @@ export interface components {
        * @example false
        */
       is_deleted?: boolean;
+      /**
+       * @description Indicates whether the order total is inclusive of tax.
+       * @example false
+       */
+      is_tax_inclusive_pricing?: boolean;
       /**
        * @description Indicates whether the shopper has selected an opt-in check box (on the checkout page) to receive emails. A read-only value. Do not pass in a POST or PUT.
        * @example false
