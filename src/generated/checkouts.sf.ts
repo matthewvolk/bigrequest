@@ -382,51 +382,76 @@ export interface components {
     };
     /** checkout_Full */
     checkout_Full: {
-      /** Format: uuid */
-      id?: string;
-      cart?: components["schemas"]["checkoutCart"];
       billingAddress?: components["schemas"]["address_Base"];
+      cart?: components["schemas"]["checkoutCart"];
+      /** @description Channel ID. */
+      channelId?: number;
       consignments?: components["schemas"]["consignment_Full"][];
       /** @description Coupons applied at the checkout level. */
       coupons?: components["schemas"]["CheckoutCoupon"][];
-      orderId?: string | null;
-      /**
-       * Format: float
-       * @description Shipping cost before any discounts are applied.
-       */
-      shippingCostTotal?: number;
+      /** @description Time when the cart was created. */
+      createdTime?: string;
+      customer?: components["schemas"]["Customer"];
+      /** @description Shopperʼs message provided as details for the order to be created from this cart */
+      customerMessage?: string;
+      /** @description Applied gift certificate (as a payment method). */
+      giftCertificates?: components["schemas"]["checkoutGiftCertificates"][];
       /** @description Gift wrapping cost for all items, including or excluding tax. */
       giftWrappingCostTotal?: number;
-      /**
-       * Format: float
-       * @description Handling cost for all consignments including or excluding tax.
-       */
-      handlingCostTotal?: number;
-      /** Format: float */
-      taxTotal?: number;
-      taxes?: components["schemas"]["checkoutTax"][];
-      /**
-       * Format: float
-       * @description Subtotal of the checkout before applying item-level discounts. Tax inclusive based on the store settings.
-       */
-      subtotal?: number;
       /**
        * Format: float
        * @description The total payable amount, before applying any store credit or gift certificate.
        */
       grandTotal?: number;
-      /** @description Applied gift certificate (as a payment method). */
-      giftCertificates?: components["schemas"]["checkoutGiftCertificates"][];
-      /** @description Time when the cart was created. */
-      createdTime?: string;
-      /** @description Time when the cart was last updated. */
-      updatedTime?: string;
-      /** @description Shopperʼs message provided as details for the order to be created from this cart */
-      customerMessage?: string;
-      /** @description `grandTotal` subtract the store-credit amount */
-      outstandingBalance?: number;
+      /**
+       * Format: float
+       * @description Handling cost for all consignments including or excluding tax.
+       */
+      handlingCostTotal?: number;
+      /** Format: uuid */
+      id?: string;
       /** @description `true` value indicates StoreCredit has been applied. */
       isStoreCreditApplied?: boolean;
+      orderId?: string | null;
+      /** @description `grandTotal` subtract the store-credit amount */
+      outstandingBalance?: number;
+      payments?: ({
+          /** @description Payment provider ID. */
+          providerId?: string;
+          /** @description Payment gateway ID. */
+          gatewayId?: string | null;
+          /**
+           * @description Type of payment provider.
+           * @enum {string}
+           */
+          providerType?: "PAYMENT_TYPE_HOSTED";
+          /** @description Details regarding which checkout steps a shopper has completed. */
+          detail?: ("FINALIZE" | "INITIALIZE" | "ACKNOWLEDGE")[];
+        })[];
+      promotions?: ({
+          /** @enum {string} */
+          type?: "promotion" | "upsell" | "eligible" | "applied";
+          /** @description Text displayed on the storefront for the promotion. */
+          text?: string;
+        })[];
+      /** @description The shipping cost before discounts are applied. */
+      shippingCostBeforeDiscount?: number;
+      /**
+       * Format: float
+       * @description Shipping cost before any discounts are applied.
+       */
+      shippingCostTotal?: number;
+      shouldExecuteSpamCheck?: boolean;
+      /**
+       * Format: float
+       * @description Subtotal of the checkout before applying item-level discounts. Tax inclusive based on the store settings.
+       */
+      subtotal?: number;
+      taxes?: components["schemas"]["checkoutTax"][];
+      /** Format: float */
+      taxTotal?: number;
+      /** @description Time when the cart was last updated. */
+      updatedTime?: string;
       /**
        * @description The current version of the checkout increments with each successful update. You can use it to enable optimistic concurrency control for subsequent updates.
        * @example 1
@@ -477,6 +502,49 @@ export interface components {
        */
       discountedAmount?: number;
     };
+    /** @description Customer details. */
+    Customer: {
+      addresses?: {
+          id?: number;
+          firstName?: string;
+          lastName?: string;
+          company?: string;
+          address1?: string;
+          address2?: string;
+          city?: string;
+          /** @description State or province. */
+          stateOrProvince?: string;
+          stateOrProvinceCode?: string;
+          /** @description [ISO 3166-1 alpha-2 code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the country. */
+          countryCode?: string;
+          postalCode?: string;
+          phone?: string;
+          /** @description Address type. */
+          type?: string;
+          customFields?: components["schemas"]["customFields"][];
+        }[];
+      customerGroup?: {
+        /** @description ID of the customer group. */
+        id?: number;
+        /** @description Name of the customer group. */
+        name?: string;
+      };
+      /** @description Customer email. */
+      email?: string;
+      /** @description Customer's first name. */
+      firstName?: string;
+      /** @description Customer's full name. */
+      fullName?: string;
+      /** @description Customer ID. */
+      id?: number;
+      /** @description Whether the shopper is a guest or a logged-in customer. */
+      isGuest?: boolean;
+      /** @description Customer's last name. */
+      lastName?: string;
+      shouldEncourageSignIn?: boolean;
+      /** @description The amount of store credit a customer has. */
+      storeCredit?: number;
+    };
     /**
      * contactEntity
      * @description Model for sender and receiver objects.
@@ -493,21 +561,23 @@ export interface components {
     };
     /** address_Base */
     address_Base: {
-      firstName?: string;
-      lastName?: string;
-      email?: string;
-      company?: string;
       address1?: string;
       address2?: string;
       city?: string;
+      company?: string;
+      /** @description Country name. */
+      country?: string;
+      /** @description ISO 3166-1 alpha-2 country code. (See: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
+      countryCode: string;
+      customFields?: components["schemas"]["customFields"][];
+      email?: string;
+      firstName?: string;
+      lastName?: string;
       /** @description Represents state or province. */
       stateOrProvince?: string;
       stateOrProvinceCode?: string;
-      /** @description ISO 3166-1 alpha-2 country code. (See: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
-      countryCode: string;
-      postalCode?: string;
       phone?: string;
-      customFields?: components["schemas"]["customFields"][];
+      postalCode?: string;
     };
     /**
      * customFields
@@ -531,12 +601,28 @@ export interface components {
      * @description This allows us to have multiple shipping addresses. Where there is only one shipping address, this array will contain only one value, with all the items.
      */
     consignment_Full: {
-      id?: string;
-      shippingAddress?: Record<string, never>;
       address?: components["schemas"]["address_Full"];
-      selectedPickupOption?: components["schemas"]["PickupOption"];
       /** @description This is available only when "include=consignments.availableShippingOptions" is present in the URL. */
       availableShippingOptions?: components["schemas"]["consignmentAvailableShippingOptions"][];
+      /** @description List of consignment discounts applied through coupons. */
+      couponDiscounts?: {
+          /** Format: double */
+          amount?: number;
+          /** @description Coupon code that applied this discount. */
+          code?: string;
+        }[];
+      /** @description List of consignment discounts applied through cart level discounts. */
+      discounts?: {
+          /** @description Discount rule ID that applied this discount. */
+          id?: string;
+        }[];
+      /**
+       * Format: double
+       * @description The handling cost of shipping for this consignment.
+       */
+      handlingCost?: number;
+      id?: string;
+      selectedPickupOption?: components["schemas"]["PickupOption"];
       /** Selected Shipping Option */
       selectedShippingOption?: {
         /** @description Read only. */
@@ -552,28 +638,16 @@ export interface components {
         /** @description Read only. Field used for Shipping Provider API. */
         additionalDescription?: string;
       };
-      /** @description List of consignment discounts applied through coupons. */
-      couponDiscounts?: {
-          /** @description Coupon code that applied this discount. */
-          code?: string;
-          /** Format: double */
-          amount?: number;
-        }[];
-      /** @description List of consignment discounts applied through cart level discounts. */
-      discounts?: {
-          /** @description Discount rule ID that applied this discount. */
-          id?: string;
-        }[];
+      /**
+       * @deprecated
+       * @description Use the `address` field instead.
+       */
+      shippingAddress?: Record<string, never>;
       /**
        * Format: double
        * @description The shipping cost for this consignment.
        */
       shippingCost?: number;
-      /**
-       * Format: double
-       * @description The handling cost of shipping for this consignment.
-       */
-      handlingCost?: number;
       lineItemIds?: string[];
     };
     /** consignmentAvailableShippingOptions */
@@ -597,472 +671,6 @@ export interface components {
        * @example 1
        */
       version?: number;
-    };
-    /** checkouts_Resp */
-    checkouts_Resp: {
-      /** Checkout */
-      data?: {
-        /** Format: uuid */
-        id?: string;
-        /**
-         * Cart
-         * @description A cart contains a collection of items, prices, discounts, etc. It does not contain customer-related data.
-         */
-        cart?: {
-          /**
-           * Format: uuid
-           * @description Cart ID, provided after creating a cart with a POST.
-           */
-          id?: string;
-          /**
-           * Format: int32
-           * @description ID of the customer to which the cart belongs.
-           */
-          customer_id?: number;
-          /** @description The cartʼs email. This is the same email that is used in the billing address */
-          email?: string;
-          /**
-           * Currency
-           * @description The currency in which prices are displayed (the store default currency).
-           */
-          currency?: {
-            /** @description The currency name. */
-            name?: string;
-            /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
-            code?: string;
-            /** @description The currency symbol. */
-            symbol?: string;
-            /**
-             * Format: double
-             * @description The number of decimal places for the currency. For example, the USD currency has two decimal places.
-             */
-            decimalPlaces?: number;
-          };
-          /** @description Boolean representing whether tax information is included. */
-          istaxIncluded?: boolean;
-          /**
-           * Format: double
-           * @description The cost of the cart’s contents, before applying discounts.
-           */
-          baseAmount?: number;
-          /**
-           * Format: double
-           * @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts.
-           */
-          discountAmount?: number;
-          /**
-           * Format: double
-           * @description Sum of line-items amounts, minus cart-level discounts and coupons. This amount includes taxes, where applicable.
-           */
-          cartAmount?: number;
-          coupons?: {
-              /** @description The coupon ID. */
-              id?: string;
-              /** @description the coupon code */
-              code: string;
-              /** @description The coupon title based on different types provided in control panel section. */
-              displayName?: string;
-              /** @description Key name to identify the type of coupon. */
-              couponType?: string;
-              /**
-               * Format: double
-               * @description The discounted amount applied within a given context.
-               */
-              discountedAmount?: number;
-            }[];
-          discounts?: {
-              /** @description The name provided by the merchant. */
-              name?: string;
-              /**
-               * Format: double
-               * @description The discounted amount applied within a given context.
-               */
-              discountedAmount?: number;
-            }[];
-          /** Line Items */
-          lineItems?: {
-            physicalItems: {
-                /** @description The line-item ID. */
-                id?: string;
-                /** @description The product is part of a bundle, such as a product pick list, then the parentId or the main product ID will populate. */
-                parentId?: string;
-                /** @description ID of the variant. */
-                variantId?: number;
-                /** @description ID of the product. */
-                productId?: number;
-                /** @description SKU of the variant. */
-                sku?: string;
-                /** @description The itemʼs product name. */
-                name?: string;
-                /** @description The product URL. */
-                url?: string;
-                /**
-                 * Format: double
-                 * @description Quantity of this item.
-                 */
-                quantity: number;
-                /** @description Whether the item is taxable. */
-                isTaxable?: boolean;
-                /** @description A publicly-accessible URL for an image of this item. */
-                imageUrl?: string;
-                /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
-                discounts?: {
-                    /** @description The name provided by the merchant. */
-                    name?: string;
-                    /**
-                     * Format: double
-                     * @description The discounted amount applied within a given context.
-                     */
-                    discountedAmount?: number;
-                  }[];
-                /**
-                 * Format: double
-                 * @description The total value of all discounts applied to this item (excluding coupon).
-                 */
-                discountAmount?: number;
-                /** @description The product's brand. */
-                brand?: string;
-                /**
-                 * Format: double
-                 * @description The total value of all coupons applied to this item.
-                 */
-                couponAmount?: number;
-                /** @description The item’s original price is the same as the product’s default price. */
-                originalPrice?: number;
-                /**
-                 * Format: double
-                 * @description The item’s list price, as quoted by the manufacturer or distributor.
-                 */
-                listPrice?: number;
-                /**
-                 * Format: double
-                 * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
-                 */
-                salePrice?: number;
-                /**
-                 * Format: double
-                 * @description The itemʼs list price multiplied by the quantity.
-                 */
-                extendedListPrice?: number;
-                /**
-                 * Format: double
-                 * @description The itemʼs sale price multiplied by the quantity.
-                 */
-                extendedSalePrice?: number;
-                /** @description the product type - physical or digital */
-                type?: string;
-                /** @description If the item was added automatically by a promotion, such as a coupon or buy one, get one. */
-                addedByPromotion?: boolean;
-                /** @description Whether this item requires shipping to a physical address. */
-                isShippingRequired?: boolean;
-                isMutable?: boolean;
-                /** Gift Wrapping */
-                giftWrapping?: {
-                  name?: string;
-                  message?: string;
-                  /** Format: double */
-                  amount?: number;
-                };
-              }[];
-            digitalItems: {
-                /** @description The line-item ID. */
-                id?: string;
-                /** @description Bundled items will have their parentʼs item ID. */
-                parentId?: string;
-                /**
-                 * Format: double
-                 * @description ID of the variant.
-                 */
-                variantId?: number;
-                /**
-                 * Format: double
-                 * @description ID of the product.
-                 */
-                productId?: number;
-                /** @description SKU of the variant. */
-                sku?: string;
-                /** @description The itemʼs product name. */
-                name?: string;
-                /** @description The product URL. */
-                url?: string;
-                /**
-                 * Format: double
-                 * @description Quantity of this item.
-                 */
-                quantity: number;
-                /** @description The itemʼs brand. */
-                brand?: string;
-                /** @description Whether the item is taxable. */
-                isTaxable?: boolean;
-                /** @description A publicly-accessible URL for an image of this item. */
-                imageUrl?: string;
-                /** @description List of discounts applied to this item, as an array of AppliedDiscount objects. */
-                discounts?: {
-                    /** @description The name provided by the merchant. */
-                    name?: string;
-                    /**
-                     * Format: double
-                     * @description The discounted amount applied within a given context.
-                     */
-                    discountedAmount?: number;
-                  }[];
-                /**
-                 * Format: double
-                 * @description The total value of all discounts applied to this item (excluding coupon).
-                 */
-                discountAmount?: number;
-                /**
-                 * Format: double
-                 * @description The total value of all coupons applied to this item.
-                 */
-                couponAmount?: number;
-                /** @description The item’s original price is the same as the product’s default price. */
-                originalPrice?: number;
-                /**
-                 * Format: double
-                 * @description The item’s list price, as quoted by the manufacturer or distributor.
-                 */
-                listPrice?: number;
-                /**
-                 * Format: double
-                 * @description The itemʼs price after all discounts are applied. (The final price before tax calculation.)
-                 */
-                salePrice?: number;
-                /**
-                 * Format: double
-                 * @description The itemʼs list price multiplied by the quantity.
-                 */
-                extendedListPrice?: number;
-                /**
-                 * Format: double
-                 * @description The itemʼs sale price multiplied by the quantity.
-                 */
-                extendedSalePrice?: number;
-                /** @description the product type - physical or digital */
-                type?: string;
-                isMutable?: boolean;
-                /** @description Whether this item requires shipping to a physical address. */
-                isShippingRequired?: boolean;
-                /** @description URLs to download all product files. */
-                downloadFileUrls?: string[];
-                /** @description The URL for the combined downloads page. */
-                downloadPageUrl?: string;
-                /** @description Specifies the combined download size in human-readable style; for example, `30MB`. */
-                downloadSize?: string;
-              }[];
-            giftCertificate?: {
-                /** @description Gift certificate identifier */
-                id?: string;
-                /** @description The name of the purchased gift certificate; for example, `$20 Gift Certificate`. */
-                name?: string;
-                /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
-                theme: string;
-                /**
-                 * Format: double
-                 * @description Value must be between $1.00 and $1,000.00.
-                 */
-                amount: number;
-                taxable?: boolean;
-                /** Contact Entity */
-                sender: {
-                  name?: string;
-                  email?: string;
-                };
-                /** Contact Entity */
-                recipient: {
-                  name?: string;
-                  email?: string;
-                };
-                /** @description Limited to 200 characters. */
-                message?: string;
-                /** @description Explicitly specifying the gift certificate type. */
-                type?: string;
-              }[];
-            customItems?: {
-                /** @description ID of the custom item */
-                id?: string;
-                /** @description Custom item SKU */
-                sku?: string;
-                /** @description Item name */
-                name?: string;
-                quantity?: string;
-                /** @description Price of the item. With or without tax depending on your store setup. */
-                listPrice?: string;
-              }[];
-          };
-          /** @description Time when the cart was created. */
-          createdTime?: string;
-          /** @description Time when the cart was last updated. */
-          updatedTime?: string;
-        };
-        /** Address Response */
-        billingAddress?: {
-          firstName?: string;
-          lastName?: string;
-          email?: string;
-          company?: string;
-          address1?: string;
-          address2?: string;
-          city?: string;
-          /** @description Represents state or province. */
-          stateOrProvince?: string;
-          stateOrProvinceCode?: string;
-          /** @description ISO 3166-1 alpha-2 country code. (See: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
-          countryCode: string;
-          postalCode?: string;
-          phone?: string;
-          customFields?: {
-              fieldId?: string;
-              /** @description This can also be an array for fields that need to support list of values; for example, a set of checkboxes. */
-              fieldValue?: string;
-            }[];
-        } & {
-          id?: string;
-        };
-        /** @description This allows you to have multiple shipping addresses per checkout. Where there is only one shipping address, this array will contain only one value, with all the items. */
-        consignments?: ({
-            id?: string;
-            shippingAddress?: Record<string, never>;
-            /** Address Response */
-            address?: {
-              firstName?: string;
-              lastName?: string;
-              email?: string;
-              company?: string;
-              address1?: string;
-              address2?: string;
-              city?: string;
-              /** @description Represents state or province. */
-              stateOrProvince?: string;
-              stateOrProvinceCode?: string;
-              /** @description ISO 3166-1 alpha-2 country code. (See: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) */
-              countryCode: string;
-              postalCode?: string;
-              phone?: string;
-              customFields?: {
-                  fieldId?: string;
-                  /** @description This can also be an array for fields that need to support list of values; for example, a set of checkboxes. */
-                  fieldValue?: string;
-                }[];
-            } & {
-              id?: string;
-            };
-            /** @description This is available only when "include=consignments.availableShippingOptions" is presented in the URL. */
-            availableShippingOptions?: ({
-                /** @description Read only. */
-                description?: string;
-                id?: string;
-                /** @description Specified the type of shipping option. Flat rate, UPS, etc., */
-                type?: string;
-                imageUrl?: string;
-                /** Format: double */
-                cost?: number;
-                /** @description An estimate of the arrival time. */
-                transitTime?: string;
-              } & {
-                /** @description Is this shipping method the recommended shipping option or not. */
-                isRecommended?: boolean;
-              })[];
-            /** Selected Shipping Option */
-            selectedShippingOption?: {
-              /** @description Read only. */
-              description?: string;
-              id?: string;
-              /** @description Specifies the type of shipping option; for example, flat rate, UPS, etc. */
-              type?: string;
-              imageUrl?: string;
-              /** Format: double */
-              cost?: number;
-              /** @description An estimate of the arrival time. */
-              transitTime?: string;
-            };
-            /** @description List of consignment discounts applied through coupons */
-            couponDiscounts?: {
-                /** @description Coupon code that applied this discount */
-                code?: string;
-                /** Format: double */
-                amount?: number;
-              }[];
-            /** @description List of consignment discounts applied through cart level discounts. */
-            discounts?: {
-                /** @description Discount rule ID that applied this discount */
-                id?: string;
-              }[];
-            /**
-             * Format: double
-             * @description The shipping cost for this consignment.
-             */
-            shippingCost?: number;
-            /**
-             * Format: double
-             * @description The handling cost of shipping for this consignment.
-             */
-            handlingCost?: number;
-            lineItemIds?: string[];
-          })[];
-        /** @description Coupons applied at checkout level. */
-        coupons?: components["schemas"]["CheckoutCoupon"][];
-        orderId?: string;
-        /**
-         * Format: float
-         * @description Shipping cost before any discounts are applied.
-         */
-        shippingCostTotal?: number;
-        /** @description Gift wrapping for all items, including or excluding tax. */
-        giftWrappingCostTotal?: number;
-        /**
-         * Format: float
-         * @description Handling cost for all consignments including or excluding tax.
-         */
-        handlingCostTotal?: number;
-        /** Format: float */
-        taxTotal?: number;
-        taxes?: {
-            /**
-             * @description Name of the tax charged. This is either the system default or the custom name created for the tax.
-             * @example Texas Taxes
-             */
-            name?: string;
-            /**
-             * Format: float
-             * @description Amount of the tax.
-             * @example 1.12
-             */
-            amount?: number;
-          }[];
-        /**
-         * Format: float
-         * @description Subtotal of the checkout before applying item-level discounts. Tax inclusive based on the store settings.
-         */
-        subtotal?: number;
-        /**
-         * Format: float
-         * @description The total payable amount, before applying any store credit or gift certificate.
-         */
-        grandTotal?: number;
-        /** @description Applied gift certificate (as a payment method). */
-        giftCertificates?: {
-            /** Format: double */
-            balance?: number;
-            code?: string;
-            /** Format: date */
-            purchaseDate?: string;
-            /** Format: double */
-            remaining?: number;
-            /** Format: double */
-            used?: number;
-          }[];
-        /** @description Time when the cart was created. */
-        createdTime?: string;
-        /** @description Time when the cart was last updated. */
-        updatedTime?: string;
-        /** @description Shopperʼs message provided as details for the order to be created from this cart. */
-        customerMessage?: string;
-        /** @description `grandTotal` subtract the store-credit amount */
-        outstandingBalance?: number;
-        /** @description `true` value indicates StoreCredit has been applied. */
-        isStoreCreditApplied?: boolean;
-      };
     };
     /** cartLineItemPut */
     cartLineItemPut: {
@@ -1240,299 +848,240 @@ export interface components {
      */
     checkoutCart: {
       /**
-       * Format: uuid
-       * @description Cart ID, provided after creating a cart with a POST.
-       */
-      id?: string;
-      /**
-       * Format: int32
-       * @description ID of the customer to which the cart belongs.
-       */
-      customer_id?: number;
-      /** @description The cartʼs email. This is the same email that is used in the billing address. */
-      email?: string;
-      /**
-       * Currency
-       * @description The currency in which prices are displayed; the store default currency.
-       */
-      currency?: {
-        /** @description The currency name. */
-        name?: string;
-        /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
-        code?: string;
-        /** @description The currency symbol. */
-        symbol?: string;
-        /**
-         * Format: double
-         * @description The number of decimal places for the currency. For example, the USD currency has two decimal places.
-         */
-        decimalPlaces?: number;
-      };
-      /** @description Boolean representing whether tax information is included. */
-      isTaxIncluded?: boolean;
-      /**
        * Format: double
        * @description Cost of cart’s contents, before applying discounts.
        */
       baseAmount?: number;
       /**
        * Format: double
-       * @description Discounted amount.
-       */
-      discountAmount?: number;
-      /**
-       * Format: double
        * @description Sum of line-items amounts, minus cart-level discounts and coupons. This amount includes taxes, where applicable.
        */
       cartAmount?: number;
+      /** @description Time when the cart was created. */
+      createdTime?: string;
       coupons?: components["schemas"]["CartCoupon"][];
+      /**
+       * Currency
+       * @description The currency in which prices are displayed; the store default currency.
+       */
+      currency?: {
+        /** @description ISO-4217 currency code. (See: https://www.iso.org/iso-4217-currency-codes.html.) */
+        code?: string;
+        /**
+         * Format: double
+         * @description The number of decimal places for the currency. For example, the USD currency has two decimal places.
+         */
+        decimalPlaces?: number;
+        /** @description The currency name. */
+        name?: string;
+        /** @description The currency symbol. */
+        symbol?: string;
+      };
+      /**
+       * Format: int32
+       * @description ID of the customer to which the cart belongs.
+       */
+      customerId?: number;
+      /**
+       * Format: double
+       * @description Order-based discounted amount only - Excludes coupon discounts and product-based discounts.
+       */
+      discountAmount?: number;
       discounts?: {
-          /** @description The name provided by the merchant. */
-          name?: string;
+          /** @description Discount ID. */
+          id?: number;
           /**
            * Format: double
            * @description The discounted amount applied within a given context.
            */
           discountedAmount?: number;
         }[];
+      /** @description The cartʼs email. This is the same email that is used in the billing address. */
+      email?: string;
+      /**
+       * Format: uuid
+       * @description Cart ID, provided after creating a cart with a POST.
+       */
+      id?: string;
+      /** @description Boolean representing whether tax information is included. */
+      isTaxIncluded?: boolean;
       /** Line Items */
       lineItems?: {
-        physicalItems: {
-            /** @description The line-item ID. */
+        customItems?: {
+            /** @description ID of the custom item. */
             id?: string;
-            /** @description The product is part of a bundle such as a product pick list, then the parentId or the main product ID will populate. */
-            parentId?: string;
-            /** @description ID of the variant. */
-            variantId?: number;
-            /** @description ID of the product. */
-            productId?: number;
-            /** @description SKU of the variant. */
+            /** @description Price of the item. With or without tax depending on your store setup. */
+            listPrice?: string;
+            /** @description Item name. */
+            name?: string;
+            quantity?: string;
+            /** @description Custom item SKU. */
             sku?: string;
-            /** @description The itemʼs product name. */
-            name?: string;
-            /** @description The product URL. */
-            url?: string;
-            /**
-             * Format: double
-             * @description Quantity of this item.
-             */
-            quantity: number;
-            /** @description Whether the item is taxable. */
-            isTaxable?: boolean;
-            /** @description A publicly-accessible URL for an image of this item. */
-            imageUrl?: string;
-            /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
-            discounts?: {
-                /** @description The name provided by the merchant. */
-                name?: string;
-                /**
-                 * Format: double
-                 * @description The discounted amount applied within a given context.
-                 */
-                discountedAmount?: number;
-              }[];
-            /**
-             * Format: double
-             * @description The total value of all discounts applied to this item (excluding coupon).
-             */
-            discountAmount?: number;
-            /**
-             * Format: double
-             * @description The total value of all coupons applied to this item.
-             */
-            couponAmount?: number;
-            /**
-             * Format: double
-             * @description The item’s list price, as quoted by the manufacturer or distributor.
-             */
-            listPrice?: number;
-            /**
-             * Format: double
-             * @description The itemʼs price after all discounts are applied. The final price before tax calculation.
-             */
-            salePrice?: number;
-            /**
-             * Format: double
-             * @description The itemʼs list price multiplied by the quantity.
-             */
-            extendedListPrice?: number;
-            /**
-             * Format: double
-             * @description The itemʼs sale price multiplied by the quantity.
-             */
-            extendedSalePrice?: number;
-            /** @description The itemʼs comparison price */
-            comparisonPrice?: number;
-            /** @description The itemʼs comparison price multiplied by the quantity. */
-            extendedComparisonPrice?: number;
-            /** @description the product type - physical or digital */
-            type?: string;
-            /** @description If the item was added automatically by a promotion, such as a coupon or buy one, get one. */
-            addedByPromotion?: boolean;
-            /** @description Whether this item requires shipping to a physical address. */
-            isShippingRequired?: boolean;
-            isMutable?: boolean;
-            /** Gift Wrapping */
-            giftWrapping?: {
-              name?: string;
-              message?: string;
-              /** Format: double */
-              amount?: number;
-            };
           }[];
-        digitalItems: {
-            /** @description The line-item ID. */
-            id?: string;
-            /** @description Bundled items will have their parentʼs item ID. */
-            parentId?: string;
-            /**
-             * Format: double
-             * @description ID of the variant.
-             */
-            variantId?: number;
-            /**
-             * Format: double
-             * @description ID of the product.
-             */
-            productId?: number;
-            /** @description SKU of the variant. */
-            sku?: string;
-            /** @description The itemʼs product name. */
-            name?: string;
-            /** @description The product URL. */
-            url?: string;
-            /**
-             * Format: double
-             * @description Quantity of this item.
-             */
-            quantity: number;
-            /** @description Whether the item is taxable. */
-            isTaxable?: boolean;
-            /** @description A publicly-accessible URL for an image of this item. */
-            imageUrl?: string;
-            /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
-            discounts?: {
-                /** @description The name provided by the merchant. */
-                name?: string;
-                /**
-                 * Format: double
-                 * @description The discounted amount applied within a given context.
-                 */
-                discountedAmount?: number;
-              }[];
-            /**
-             * Format: double
-             * @description The total value of all discounts applied to this item (excluding coupon).
-             */
-            discountAmount?: number;
-            /**
-             * Format: double
-             * @description The total value of all coupons applied to this item.
-             */
-            couponAmount?: number;
-            /**
-             * Format: double
-             * @description The item’s list price, as quoted by the manufacturer or distributor.
-             */
-            listPrice?: number;
-            /**
-             * Format: double
-             * @description The itemʼs price after all discounts are applied. The final price before tax calculation.
-             */
-            salePrice?: number;
-            /**
-             * Format: double
-             * @description The itemʼs list price multiplied by the quantity.
-             */
-            extendedListPrice?: number;
-            /**
-             * Format: double
-             * @description The itemʼs sale price multiplied by the quantity.
-             */
-            extendedSalePrice?: number;
-            /** @description The product type - physical or digital. */
-            type?: string;
-            /** @description Whether this item requires shipping to a physical address. */
-            isShippingRequired?: boolean;
-            /** @description URLs to download all product files. */
-            downloadFileUrls?: string[];
-            /** @description The URL for the combined downloads page. */
-            downloadPageUrl?: string;
-            /** @description Specifies the combined download size in human-readable style; for example, `30MB`. */
-            downloadSize?: string;
-          }[];
-        giftCertificate?: {
-            /** @description Gift certificate identifier */
-            id?: string;
-            /** @description The name of the purchased gift certificate; for example, `$20 Gift Certificate`. */
-            name?: string;
-            /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
-            theme: string;
+        digitalItems: components["schemas"]["lineItemPhysicalDigital"][];
+        giftCertificates?: {
             /**
              * Format: double
              * @description Value must be between $1.00 and $1,000.00.
              */
             amount: number;
-            taxable?: boolean;
-            /** Contact Entity */
-            sender: {
-              name?: string;
-              email?: string;
-            };
+            /** @description Gift certificate identifier */
+            id?: string;
+            /** @description Limited to 200 characters. */
+            message?: string;
+            /** @description The name of the purchased gift certificate; for example, `$20 Gift Certificate`. */
+            name?: string;
             /** Contact Entity */
             recipient: {
               name?: string;
               email?: string;
             };
-            /** @description Limited to 200 characters. */
-            message?: string;
+            /** Contact Entity */
+            sender: {
+              name?: string;
+              email?: string;
+            };
+            taxable?: boolean;
+            /** @description Currently supports `Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
+            theme: string;
             /** @description Explicitly specifying the gift certificate type. */
             type?: string;
           }[];
-        customItems?: {
-            /** @description ID of the custom item. */
-            id?: string;
-            /** @description Custom item SKU. */
-            sku?: string;
-            /** @description Item name. */
-            name?: string;
-            quantity?: string;
-            /** @description Price of the item. With or without tax depending on your store setup. */
-            listPrice?: string;
-          }[];
+        physicalItems: components["schemas"]["lineItemPhysicalDigital"][];
       };
-      /** @description Time when the cart was created. */
-      createdTime?: string;
+      /**
+       * @description Shopper's locale.
+       * @example en
+       */
+      locale?: string;
       /** @description Time when the cart was last updated. */
       updatedTime?: string;
+      /** @description Cart version. */
+      version?: number;
+    };
+    lineItemPhysicalDigital: {
+      /** @description If the item was added automatically by a promotion, such as a coupon or buy one, get one. */
+      addedByPromotion?: boolean;
+      categoryNames?: string[];
+      /** @description The itemʼs comparison price */
+      comparisonPrice?: number;
+      /**
+       * Format: double
+       * @description The total value of all coupons applied to this item.
+       */
+      couponAmount?: number;
+      /** @description A list of discounts applied to this item, as an array of AppliedDiscount objects. */
+      discounts?: {
+          /** @description Discount ID. */
+          id?: number;
+          /**
+           * Format: double
+           * @description The discounted amount applied within a given context.
+           */
+          discountedAmount?: number;
+        }[];
+      /**
+       * Format: double
+       * @description The total value of all discounts applied to this item (excluding coupon).
+       */
+      discountAmount?: number;
+      /** @description The itemʼs comparison price multiplied by the quantity. */
+      extendedComparisonPrice?: number;
+      /**
+       * Format: double
+       * @description The itemʼs list price multiplied by the quantity.
+       */
+      extendedListPrice?: number;
+      /**
+       * Format: double
+       * @description The itemʼs sale price multiplied by the quantity.
+       */
+      extendedSalePrice?: number;
+      /** Gift Wrapping */
+      giftWrapping?: {
+        name?: string;
+        message?: string;
+        /** Format: double */
+        amount?: number;
+      };
+      /** @description The line-item ID. */
+      id?: string;
+      /** @description A publicly-accessible URL for an image of this item. */
+      imageUrl?: string;
+      isMutable?: boolean;
+      /** @description Whether this item requires shipping to a physical address. */
+      isShippingRequired?: boolean;
+      /** @description Whether the item is taxable. */
+      isTaxable?: boolean;
+      /**
+       * Format: double
+       * @description The item’s list price, as quoted by the manufacturer or distributor.
+       */
+      listPrice?: number;
+      /** @description The itemʼs product name. */
+      name?: string;
+      options?: {
+          /** @description Option name. */
+          name?: string;
+          /** @description Option ID. */
+          nameId?: number;
+          /** @description Option value. */
+          value?: string;
+          /** @description Option value ID. */
+          valueId?: string;
+        }[];
+      /** @description The item’s original price is the same as the product’s default price. */
+      originalPrice?: number;
+      /** @description The product is part of a bundle such as a product pick list, then the parentId or the main product ID will populate. */
+      parentId?: string;
+      /** @description ID of the product. */
+      productId?: number;
+      /** @description SKU of the variant. */
+      sku?: string;
+      /**
+       * Format: double
+       * @description Quantity of this item.
+       */
+      quantity: number;
+      /**
+       * Format: double
+       * @description The itemʼs price after all discounts are applied. The final price before tax calculation.
+       */
+      salePrice?: number;
+      /** @description the product type - physical or digital */
+      type?: string;
+      /** @description The product URL. */
+      url?: string;
+      /** @description ID of the variant. */
+      variantId?: number;
     };
     /**
      * checkoutGiftCertificates
      * @description Applied gift certificate (as a payment method).
      */
     checkoutGiftCertificates: {
-        /** Format: double */
-        balance?: number;
-        code?: string;
-        /** Format: date */
-        purchaseDate?: string;
-        /** Format: double */
-        remaining?: number;
-        /** Format: double */
-        used?: number;
-      }[];
+      /** Format: double */
+      balance?: number;
+      code?: string;
+      /** Format: date */
+      purchaseDate?: string;
+      /** Format: double */
+      remaining?: number;
+      /** Format: double */
+      used?: number;
+    };
     /** consignmentShippingOption_Base */
     consignmentShippingOption_Base: {
+      /** Format: double */
+      cost?: number;
       /** @description Read only. */
       description?: string;
       id?: string;
-      /** @description Specifies the type of shipping option; for example, flat rate, UPS, etc. */
-      type?: string;
       imageUrl?: string;
-      /** Format: double */
-      cost?: number;
       /** @description An estimate of the arrival time. */
       transitTime?: string;
+      /** @description Specifies the type of shipping option; for example, flat rate, UPS, etc. */
+      type?: string;
     };
     /**
      * Pickup Option
@@ -1543,11 +1092,6 @@ export interface components {
     };
   };
   responses: {
-    Checkout: {
-      content: {
-        "application/json": components["schemas"]["checkout_Full"];
-      };
-    };
     /** @description Cart conflict */
     CartConflictErrorResponse: {
       content: {
@@ -1644,7 +1188,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["checkouts_Resp"];
+          "application/json": components["schemas"]["checkout_Full"];
         };
       };
       /** @description When a problem arises, returns a generic response. */
@@ -1694,7 +1238,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["checkouts_Resp"];
+          "application/json": components["schemas"]["checkout_Full"];
         };
       };
       409: components["responses"]["CartConflictErrorResponse"];
@@ -2179,7 +1723,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["checkouts_Resp"];
+          "application/json": components["schemas"]["checkout_Full"];
         };
       };
     };
@@ -2205,7 +1749,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": Record<string, never>;
+          "application/json": components["schemas"]["checkout_Full"];
         };
       };
     };
