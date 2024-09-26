@@ -563,12 +563,12 @@ export interface components {
        */
       base_price?: string;
       /**
-       * @description The product’s price excluding tax. (Float, Float-As-String, Integer)
+       * @description The product’s price excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 54.0000
        */
       price_ex_tax?: string;
       /**
-       * @description The product’s price including tax. (Float, Float-As-String, Integer)
+       * @description The product’s price including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 54.0000
        */
       price_inc_tax?: string;
@@ -590,12 +590,12 @@ export interface components {
        */
       base_total?: string;
       /**
-       * @description Total base price excluding tax. (Float, Float-As-String, Integer)
+       * @description Total base price excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 54.0000
        */
       total_ex_tax?: string;
       /**
-       * @description Total base price including tax. (Float, Float-As-String, Integer)
+       * @description Total base price including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 54.0000
        */
       total_inc_tax?: string;
@@ -621,33 +621,33 @@ export interface components {
       base_cost_price?: string;
       /**
        * @description The product’s cost price including tax. (Float, Float-As-String, Integer)
-       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes.
+       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. The value can't be negative.
        * @example 50.0000
        */
       cost_price_inc_tax?: string;
       /**
        * @description The product cost price excluding tax. (Float, Float-As-String, Integer)
-       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes.
+       * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. The value can't be negative.
        * @example 50.0000
        */
       cost_price_ex_tax?: string;
       /**
-       * @description Weight of the product. (Float, Float-As-String, Integer)
+       * @description Weight of the product. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 1
        */
       weight?: number | string;
       /**
-       * @description Product width.
+       * @description Product width. The value can't be negative.
        * @example 1.0000
        */
       width?: string;
       /**
-       * @description Product height.
+       * @description Product height. The value can't be negative.
        * @example 1.0000
        */
       height?: string;
       /**
-       * @description Product depth.
+       * @description Product depth. The value can't be negative.
        * @example 1.0000
        */
       depth?: string;
@@ -689,17 +689,17 @@ export interface components {
        */
       wrapping_name?: string | null;
       /**
-       * @description The value of the base wrapping cost. (Float, Float-As-String, Integer)
+       * @description The value of the base wrapping cost. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       base_wrapping_cost?: string | number;
       /**
-       * @description The value of the wrapping cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of the wrapping cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       wrapping_cost_ex_tax?: string;
       /**
-       * @description The value of the wrapping cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of the wrapping cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       wrapping_cost_inc_tax?: string;
@@ -850,17 +850,17 @@ export interface components {
        */
       cost_tax_class_id?: number;
       /**
-       * @description The base handling charge. (Float, Float-As-String, Integer)
+       * @description The base handling charge. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       base_handling_cost?: string;
       /**
-       * @description The handling charge, excluding tax. (Float, Float-As-String, Integer)
+       * @description The handling charge, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       handling_cost_ex_tax?: string;
       /**
-       * @description The handling charge, including tax. (Float, Float-As-String, Integer)
+       * @description The handling charge, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       handling_cost_inc_tax?: string;
@@ -1384,17 +1384,17 @@ export interface components {
      */
     order_Shared: {
       /**
-       * @description The value of the base handling cost. (Float, Float-As-String, Integer)
+       * @description The value of the base handling cost. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       base_handling_cost?: string;
       /**
-       * @description The value of the base shipping cost. (Float, Float-As-String, Integer)
+       * @description The value of the base shipping cost. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       base_shipping_cost?: string;
       /**
-       * @description The value of the base wrapping cost expressed as a floating point number to four decimal places in string format.
+       * @description The value of the base wrapping cost expressed as a floating point number to four decimal places in string format. The value can't be negative.
        * @example 0.0000
        */
       base_wrapping_cost?: string;
@@ -1412,7 +1412,7 @@ export interface components {
       /** @description The date the order was created, formatted in the RFC-2822 standard. You set this attribute on Order creation (POST) to support the migration of historical orders. If you do not provide a value, then it will default to the current date/time. e.g., `Tue, 20 Nov 2012 00:00:00 +0000`. */
       date_created?: string;
       /**
-       * @description Amount of discount for this transaction. (Float, Float-As-String, Integer)
+       * @description Amount of discount for this transaction. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       discount_amount?: string;
@@ -1450,12 +1450,12 @@ export interface components {
        */
       geoip_country_iso2?: string;
       /**
-       * @description The value of the handling cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of the handling cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       handling_cost_ex_tax?: string;
       /**
-       * @description The value of the handling cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of the handling cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       handling_cost_inc_tax?: string;
@@ -1496,17 +1496,17 @@ export interface components {
        */
       payment_provider_id?: string | number;
       /**
-       * @description The amount refunded from this transaction; always returns `0`. (Float, Float-As-String, Integer)
+       * @description The amount refunded from this transaction; always returns `0`. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       refunded_amount?: string;
       /**
-       * @description The value of shipping cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of shipping cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       shipping_cost_ex_tax?: string;
       /**
-       * @description The value of shipping cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of shipping cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       shipping_cost_inc_tax?: string;
@@ -1518,12 +1518,12 @@ export interface components {
       /** @description The status ID of the order. */
       status_id?: number;
       /**
-       * @description Override value for subtotal excluding tax. If specified, the field `subtotal_inc_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for subtotal excluding tax. The value can't be negative. If specified, the field `subtotal_inc_tax` is also required. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       subtotal_ex_tax?: string;
       /**
-       * @description Override value for subtotal including tax. If specified, the field `subtotal_ex_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for subtotal including tax. The value can't be negative. If specified, the field `subtotal_ex_tax` is also required. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       subtotal_inc_tax?: string;
@@ -1547,22 +1547,22 @@ export interface components {
        */
       external_order_id?: string;
       /**
-       * @description Override value for the total, excluding tax. If specified, the field `total_inc_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for the total, excluding tax. If specified, the field `total_inc_tax` is also required. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       total_ex_tax?: string;
       /**
-       * @description Override value for the total, including tax. If specified, the field `total_ex_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for the total, including tax. If specified, the field `total_ex_tax` is also required. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       total_inc_tax?: string;
       /**
-       * @description The value of the wrapping cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of the wrapping cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       wrapping_cost_ex_tax?: string;
       /**
-       * @description The value of the wrapping cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of the wrapping cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       wrapping_cost_inc_tax?: string;
@@ -1761,6 +1761,15 @@ export interface components {
        */
       is_deleted?: boolean;
       /**
+       * @description Indicate whether the order's base prices include tax.
+       *
+       * If true, the base prices are inclusive of tax, and the values of `subtotal_inc_tax`, `shipping_cost_inc_tax`, `handling_cost_inc_tax`, `wrapping_cost_inc_tax` and `total_inc_tax` are not estimated but actual values and can be reliable for accounting purposes.
+       *
+       * If false, the base prices are exclusive of tax, and the values of `subtotal_ex_tax`, `shipping_cost_ex_tax`, `handling_cost_ex_tax`, `wrapping_cost_ex_tax` and `total_ex_tax` are not estimated but actual values and can be reliable for accounting purposes.
+       * @example false
+       */
+      is_tax_inclusive_pricing?: boolean;
+      /**
        * @description Indicates whether the shopper has selected an opt-in check box (on the checkout page) to receive emails. A read-only value. Do not pass in a POST or PUT.
        * @example false
        */
@@ -1863,13 +1872,13 @@ export interface components {
       product_options?: {
           /**
            * @description The product’s cost price including tax. (Float, Float-As-String, Integer)
-           * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes.
+           * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. The value can't be negative.
            * @example 50.0000
            */
           cost_price_inc_tax?: string;
           /**
            * @description The products cost price excluding tax. (Float, Float-As-String, Integer)
-           * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only.
+           * The cost of your products to you; this is never shown to customers, but can be used for accounting purposes. Read Only. The value can't be negative.
            * @example 0.0000
            */
           price_ex_tax?: string;
@@ -1959,9 +1968,9 @@ export interface components {
       /** @description If the `wrapping_id` is provided, this field will populate with the name of the gift wrapping that is to be used. */
       wrapping_name?: string;
       wrapping_message?: string;
-      /** @description When provided, this value should be equal to `wrapping_cost_ex_tax` times quantity to accurately reflect wrapping cost per unit. */
+      /** @description When provided, this value should be equal to `wrapping_cost_ex_tax` times quantity to accurately reflect wrapping cost per unit. The value can't be negative. */
       wrapping_cost_ex_tax?: number;
-      /** @description When provided, this value should be equal to `wrapping_cost_inc_tax` times quantity to accurately reflect wrapping cost per unit. */
+      /** @description When provided, this value should be equal to `wrapping_cost_inc_tax` times quantity to accurately reflect wrapping cost per unit. The value can't be negative. */
       wrapping_cost_inc_tax?: number;
     };
     /**
@@ -2003,17 +2012,17 @@ export interface components {
     };
     order_Put: {
       /**
-       * @description The value of the base handling cost. (Float, Float-As-String, Integer)
+       * @description The value of the base handling cost. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       base_handling_cost?: string;
       /**
-       * @description The value of the base shipping cost. (Float, Float-As-String, Integer)
+       * @description The value of the base shipping cost. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       base_shipping_cost?: string;
       /**
-       * @description The value of the base wrapping cost expressed as a floating point number to four decimal places in string format.
+       * @description The value of the base wrapping cost expressed as a floating point number to four decimal places in string format. The value can't be negative.
        * @example 0.0000
        */
       base_wrapping_cost?: string;
@@ -2035,7 +2044,7 @@ export interface components {
       /** @description A read-only field displays the currency code of the [transactional currency](/docs/store-operations/currencies#display-vs-transactional) the shopper uses. */
       default_currency_code?: string;
       /**
-       * @description Amount of discount for this transaction. (Float, Float-As-String, Integer)
+       * @description Amount of discount for this transaction. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       discount_amount?: string;
@@ -2073,12 +2082,12 @@ export interface components {
        */
       geoip_country_iso2?: string;
       /**
-       * @description The value of the handling cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of the handling cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       handling_cost_ex_tax?: string;
       /**
-       * @description The value of the handling cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of the handling cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       handling_cost_inc_tax?: string;
@@ -2117,17 +2126,17 @@ export interface components {
       payment_provider_id?: string | number;
       products?: (components["schemas"]["orderCatalogProduct_Put"] | components["schemas"]["orderCustomProduct_Put"] | components["schemas"]["orderRemoveProduct_Put"])[];
       /**
-       * @description The amount refunded from this transaction; always returns `0`. (Float, Float-As-String, Integer)
+       * @description The amount refunded from this transaction; always returns `0`. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       refunded_amount?: string;
       /**
-       * @description The value of shipping cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of shipping cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       shipping_cost_ex_tax?: string;
       /**
-       * @description The value of shipping cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of shipping cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       shipping_cost_inc_tax?: string;
@@ -2142,12 +2151,12 @@ export interface components {
       /** @description The status ID of the order. */
       status_id?: number;
       /**
-       * @description Override value for subtotal excluding tax. If specified, the field `subtotal_inc_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for subtotal excluding tax. The value can't be negative. If specified, the field `subtotal_inc_tax` is also required. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       subtotal_ex_tax?: string;
       /**
-       * @description Override value for subtotal including tax. If specified, the field `subtotal_ex_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for subtotal including tax. The value can't be negative. If specified, the field `subtotal_ex_tax` is also required. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       subtotal_inc_tax?: string;
@@ -2171,22 +2180,22 @@ export interface components {
        */
       external_order_id?: string | null;
       /**
-       * @description Override value for the total, excluding tax. If specified, the field `total_inc_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for the total, excluding tax. If specified, the field `total_inc_tax` is also required. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       total_ex_tax?: string;
       /**
-       * @description Override value for the total, including tax. If specified, the field `total_ex_tax` is also required. (Float, Float-As-String, Integer)
+       * @description Override value for the total, including tax. If specified, the field `total_ex_tax` is also required. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 225.0000
        */
       total_inc_tax?: string;
       /**
-       * @description The value of the wrapping cost, excluding tax. (Float, Float-As-String, Integer)
+       * @description The value of the wrapping cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       wrapping_cost_ex_tax?: string;
       /**
-       * @description The value of the wrapping cost, including tax. (Float, Float-As-String, Integer)
+       * @description The value of the wrapping cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
        * @example 0.0000
        */
       wrapping_cost_inc_tax?: string;
@@ -2412,17 +2421,17 @@ export interface components {
        */
       cost_tax_class_id?: number;
       /**
-       * @description The base handling charge.
+       * @description The base handling charge. The value can't be negative.
        * @example 4.1
        */
       base_handling_cost?: number;
       /**
-       * @description The handling charge, excluding tax.
+       * @description The handling charge, excluding tax. The value can't be negative.
        * @example 4.1
        */
       handling_cost_ex_tax?: number;
       /**
-       * @description The handling charge, including tax.
+       * @description The handling charge, including tax. The value can't be negative.
        * @example 5.3
        */
       handling_cost_inc_tax?: number;
