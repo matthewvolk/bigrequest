@@ -561,6 +561,8 @@ export interface components {
       channel_ids?: number[];
       /** @description Array of form fields. Controlled by formfields parameter. */
       form_fields?: components["schemas"]["formFieldValue"][];
+      /** @description Indicates whether to send a customer registered welcome email. */
+      trigger_account_created_notification?: boolean;
     };
     /** customer_Put */
     customer_Put: {
