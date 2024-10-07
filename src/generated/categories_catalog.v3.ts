@@ -1207,7 +1207,7 @@ export interface operations {
            */
           name: string;
           /**
-           * @description The product description, which can include HTML formatting.
+           * @description The category description, which can include HTML formatting.
            *
            * @example <p>We offer a wide variety of products perfect for relaxing</p>
            */
@@ -1991,7 +1991,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
         category_id: components["parameters"]["CategoryIdParam"];
