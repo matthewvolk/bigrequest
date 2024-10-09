@@ -28,7 +28,7 @@ export interface paths {
     get: operations["getWebhook"];
     /**
      * Update a Webhook
-     * @description Updates a webhook. Custom headers can be added.
+     * @description Updates a webhook. You can add custom headers. At least one field is required to perform an update.
      */
     put: operations["updateWebhook"];
     /**
@@ -2068,11 +2068,6 @@ export interface components {
        * @example true
        */
       is_active?: boolean;
-      /**
-       * @description Boolean value that identifies whether events are stored that could not be received.
-       * @example true
-       */
-      events_history_enabled?: boolean;
       /** @description Headers used to validate that webhooks are active. You can pass in any number of custom headers to validate webhooks are being returned. */
       headers?: {
         [key: string]: string;
@@ -2095,12 +2090,6 @@ export interface components {
        * @example true
        */
       is_active?: boolean;
-      /**
-       * @deprecated
-       * @description Deprecated. Boolean value that identifies whether events are stored that could not be received.
-       * @example true
-       */
-      events_history_enabled?: boolean;
       /** @description Headers used to validate that webhooks are active. You can pass in any number of custom headers to validate webhooks are being returned. */
       headers?: {
         [key: string]: string;
@@ -2407,7 +2396,7 @@ export interface operations {
   };
   /**
    * Update a Webhook
-   * @description Updates a webhook. Custom headers can be added.
+   * @description Updates a webhook. You can add custom headers. At least one field is required to perform an update.
    */
   updateWebhook: {
     parameters: {
