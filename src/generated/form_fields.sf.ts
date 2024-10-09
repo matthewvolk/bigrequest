@@ -59,10 +59,30 @@ export interface components {
       min?: string;
       /** @description The minimum valid value for the field (integer and date type only). */
       max?: string;
-      /** @description The maximum length for the value (string type only) */
+      /** @description The maximum length for the value (string type only). */
       maxLength?: number;
-      /** @description Whether the field represents a password field */
+      /** @description Whether the field represents a password field (password field type only). */
       secret?: boolean;
+      /** @description Password requirements (password field type only). */
+      requirements?: {
+        /**
+         * @description Regex expression for the required alpha characters.
+         * @example [A-Za-z]
+         */
+        alpha?: string;
+        /**
+         * @description Description for the password requirements.
+         * @example Passwords must be at least 7 characters and contain both alphabetic and numeric characters.
+         */
+        description?: string;
+        /** @description Minimum password length. */
+        minlength?: number;
+        /**
+         * @description Regex expression for the required numeric characters.
+         * @example [0-9]
+         */
+        numeric?: string;
+      };
       /** @description Extra data for radio, dropdown and checkbox field types. */
       options?: {
         /** @description Placeholder text for dropdown field type. */
