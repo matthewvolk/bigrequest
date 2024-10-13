@@ -495,7 +495,7 @@ export interface components {
        */
       key: string;
       /**
-       * @description The value of the field, for example: `1`, `blue`. Required for POST.
+       * @description The value of the field, for example: `1`, `blue`. You must enter a JSON formatted string for [ShipperHQ](/docs/store-operations/shipping/shipper-hq#shipperhq-object-properties) metafields. Required for POST.
        *
        * @example 4HG
        */
@@ -1579,7 +1579,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
         product_id: components["parameters"]["ProductIdPathParam"];
