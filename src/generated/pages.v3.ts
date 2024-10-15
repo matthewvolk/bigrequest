@@ -198,7 +198,7 @@ export interface components {
       body?: string | null;
       /** @description Boolean value that specifies whether this page is the storefront’s home page. */
       is_homepage?: boolean;
-      /** @description Boolean value. If this value is set to `true`, this page will not be visible when the user is logged in to the store control panel. */
+      /** @description Boolean value. When `true`, this page is visible only to logged-in customers. */
       is_customers_only?: boolean;
       /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. */
       email?: string;
@@ -285,7 +285,7 @@ export interface components {
        */
       is_homepage?: boolean;
       /**
-       * @description When `true`, this page is not visible to merchant users who are signed in to the store control panel.
+       * @description When `true`, this page is visible only to logged-in customers.
        * @default false
        */
       is_customers_only?: boolean;
