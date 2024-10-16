@@ -27,6 +27,7 @@ import * as pickup_methods_v3 from './pickup_methods.v3';
 import * as pickup_options_v3 from './pickup_options.v3';
 import * as price_lists_v3 from './price_lists.v3';
 import * as pricing_sf from './pricing.sf';
+import * as promotion_settings_v3 from './promotion_settings.v3';
 import * as promotions_v3 from './promotions.v3';
 import * as redirects_v3 from './redirects.v3';
 import * as scripts_v3 from './scripts.v3';
@@ -75,6 +76,7 @@ pickup_methods_v3.paths &
 pickup_options_v3.paths &
 price_lists_v3.paths &
 pricing_sf.paths &
+promotion_settings_v3.paths &
 promotions_v3.paths &
 redirects_v3.paths &
 scripts_v3.paths &
