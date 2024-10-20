@@ -1666,7 +1666,7 @@ export interface components {
     /** @description Response payload for the BigCommerce API. */
     MetafieldResponse: {
       data?: components["schemas"]["Metafield"];
-    } & components["schemas"]["metaCollection_open"];
+    };
     /** @description Allows app partners to write custom data to various resources in the API. */
     Metafield: components["schemas"]["MetafieldBase"] & {
       /** @description The unique identifier for the metafield. */
@@ -1693,6 +1693,7 @@ export interface components {
     MetafieldBase: {
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
+       *
        * | Value | Description |
        * | :--- | :--- |
        * | `app_only` | Private to the app that owns the field. |
@@ -1746,6 +1747,7 @@ export interface components {
     MetafieldBase_Post: {
       /**
        * @description Determines the visibility and writeability of the field by other API consumers.
+       *
        * | Value | Description |
        * | :--- | :--- |
        * | `app_only` | Private to the app that owns the field. |
@@ -2770,12 +2772,6 @@ export interface operations {
             type?: string;
             detail?: string;
           };
-        };
-      };
-      /** @description The `Metafield` was not found. */
-      404: {
-        content: {
-          "application/json": components["schemas"]["NotFound"];
         };
       };
       /** @description Response object for metafields creation with partial success. */

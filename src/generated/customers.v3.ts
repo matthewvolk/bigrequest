@@ -23,7 +23,7 @@ export interface paths {
     get: operations["getCustomers"];
     /**
      * Update Customers
-     * @description Updates Customers. Subresource updates are not supported. Up to 10 customers can be updated in one call.
+     * @description Updates Customers. Subresource updates are not supported.
      *
      * **Required Fields**
      * * id -- ID of the *Customer* This must be included in the request body
@@ -35,6 +35,8 @@ export interface paths {
      * * date_modified
      * * origin_channel_id
      *
+     * **Limits**
+     * Limit of 10 customers per call.
      *
      * **Notes**
      *
@@ -294,10 +296,8 @@ export interface paths {
      */
     get: operations["getCustomersFormFieldValues"];
     /**
-     * Upsert Customer Form Field Values
-     * @description Updates form field values on the Customer or Customer Address objects. Multiple form field values can be updated in one call.
-     *
-     * Upsert checks for an existing record, if there is none it creates the record, if there is a matching record it updates that record.
+     * Upsert Customer Form Field Values (Deprecated)
+     * @description This endpoint is deprecated. Use [Update a Customer Address](/docs/rest-management/customers/addresses#update-a-customer-address) and [Update Customers](/docs/rest-management/customers#update-customers) endpoints instead.
      *
      * To learn more about editing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
      *
@@ -561,6 +561,8 @@ export interface components {
       channel_ids?: number[];
       /** @description Array of form fields. Controlled by formfields parameter. */
       form_fields?: components["schemas"]["formFieldValue"][];
+      /** @description Indicates whether to send a customer registered welcome email. */
+      trigger_account_created_notification?: boolean;
     };
     /** customer_Put */
     customer_Put: {
@@ -2359,11 +2361,17 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["CustomerCollectionResponse"];
+      /** @description The optional filter parameter was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
     };
   };
   /**
    * Update Customers
-   * @description Updates Customers. Subresource updates are not supported. Up to 10 customers can be updated in one call.
+   * @description Updates Customers. Subresource updates are not supported.
    *
    * **Required Fields**
    * * id -- ID of the *Customer* This must be included in the request body
@@ -2375,6 +2383,8 @@ export interface operations {
    * * date_modified
    * * origin_channel_id
    *
+   * **Limits**
+   * Limit of 10 customers per call.
    *
    * **Notes**
    *
@@ -2478,6 +2488,12 @@ export interface operations {
         headers: {
         };
         content: never;
+      };
+      /** @description The `id:in` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
       };
     };
   };
@@ -3078,10 +3094,8 @@ export interface operations {
     };
   };
   /**
-   * Upsert Customer Form Field Values
-   * @description Updates form field values on the Customer or Customer Address objects. Multiple form field values can be updated in one call.
-   *
-   * Upsert checks for an existing record, if there is none it creates the record, if there is a matching record it updates that record.
+   * Upsert Customer Form Field Values (Deprecated)
+   * @description This endpoint is deprecated. Use [Update a Customer Address](/docs/rest-management/customers/addresses#update-a-customer-address) and [Update Customers](/docs/rest-management/customers#update-customers) endpoints instead.
    *
    * To learn more about editing form fields, see [Adding and Editing Fields in the Account Signup Form](https://support.bigcommerce.com/s/article/Editing-Form-Fields).
    *
@@ -3217,11 +3231,6 @@ export interface operations {
         customerId: components["parameters"]["customerId"];
       };
     };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Metafield"];
-      };
-    };
     responses: {
       200: components["responses"]["MetafieldCollectionResponse"];
     };
@@ -3286,11 +3295,6 @@ export interface operations {
         metafieldId: number;
       };
     };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Metafield"];
-      };
-    };
     responses: {
       200: components["responses"]["MetafieldCollectionResponse"];
       /** @description Not found (A metafield was not found with this query). */
@@ -3318,14 +3322,14 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": (components["schemas"]["MetafieldBase_Put"] & {
-            /**
-             * @description The ID of metafield to update.
-             *
-             * @example 42
-             */
-            id: number;
-          })[];
+        "application/json": components["schemas"]["MetafieldBase_Put"] & {
+          /**
+           * @description The ID of metafield to update.
+           *
+           * @example 42
+           */
+          id: number;
+        };
       };
     };
     responses: {
@@ -3363,11 +3367,6 @@ export interface operations {
       path: {
         customerId: components["parameters"]["customerId"];
         metafieldId: components["parameters"]["metafieldId"];
-      };
-    };
-    requestBody?: {
-      content: {
-        "application/json": number[];
       };
     };
     responses: {
@@ -3504,12 +3503,6 @@ export interface operations {
    * @description Delete all customer metafields.
    */
   deleteCustomersMetafields: {
-    /** @description Metafields ID list. */
-    requestBody?: {
-      content: {
-        "application/json": number[];
-      };
-    };
     responses: {
       /** @description Response object for metafields deletion with success. */
       200: {
