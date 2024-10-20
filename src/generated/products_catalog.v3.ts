@@ -124,7 +124,7 @@ export interface paths {
      *
      * **Usage Notes**
      * - `image_url` - `255` character limit
-     * - For file uploads, use the `multipart/form-data` media type. See [Adding product images](/docs/store-operations/catalog#adding-product-images) for more information.
+     * - `Content-Type` - For `image_file`, use the `multipart/form-data` media type. For `image_url`, use the `application/json` type. See [Adding product images](/docs/store-operations/catalog#adding-product-images) for more information.
      * - You can create only one image at a time. A product can have up to 1000 images.
      * - Supported image file types are BMP, GIF, JPEG, PNG, WBMP, XBM, and WEBP.
      * - Each image file or image uploaded by URL can be up to 8 MB.
@@ -1143,7 +1143,7 @@ export interface components {
        */
       key: string;
       /**
-       * @description The value of the field, for example: `1`, `blue`. Required for POST.
+       * @description The value of the field, for example: `1`, `blue`. You must enter a JSON formatted string for [ShipperHQ](/docs/store-operations/shipping/shipper-hq#shipperhq-object-properties) metafields. Required for POST.
        *
        * @example 4HG
        */
@@ -1892,8 +1892,6 @@ export interface components {
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
-      /** @description An array of channel IDs to which this product is assigned. */
-      channels?: number[];
       /** @description You can add a product to an existing brand during a product /PUT or /POST. Use either the `brand_id` or the `brand_name` field. The response body can include `brand_id`. */
       brand_id?: number;
       /**
@@ -2137,8 +2135,6 @@ export interface components {
       product_tax_code?: string;
       /** @description An array of IDs for the categories to which this product belongs. When updating a product, if an array of categories is supplied, all product categories will be overwritten. Does not accept more than 1,000 ID values. */
       categories?: number[];
-      /** @description An array of channel IDs to which this product is assigned. */
-      channels?: number[];
       /** @description You can add a product to an existing brand during a product /PUT or /POST use the `brand_id` field. The response body can include `brand_id'. */
       brand_id?: number;
       /**
@@ -3040,7 +3036,7 @@ export interface components {
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
     /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
-    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels")[];
+    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields")[];
     IdMinParam?: number;
     IdMaxParam?: number;
     IdGreaterParam?: number;
@@ -3262,9 +3258,6 @@ export interface operations {
          *     "product_tax_code": "string",
          *     "categories": [
          *       0
-         *     ],
-         *     "channels": [
-         *       1
          *     ],
          *     "brand_id": 37,
          *     "inventory_level": 0,
@@ -3793,7 +3786,7 @@ export interface operations {
    *
    * **Usage Notes**
    * - `image_url` - `255` character limit
-   * - For file uploads, use the `multipart/form-data` media type. See [Adding product images](/docs/store-operations/catalog#adding-product-images) for more information.
+   * - `Content-Type` - For `image_file`, use the `multipart/form-data` media type. For `image_url`, use the `application/json` type. See [Adding product images](/docs/store-operations/catalog#adding-product-images) for more information.
    * - You can create only one image at a time. A product can have up to 1000 images.
    * - Supported image file types are BMP, GIF, JPEG, PNG, WBMP, XBM, and WEBP.
    * - Each image file or image uploaded by URL can be up to 8 MB.
@@ -3802,7 +3795,6 @@ export interface operations {
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
-        "Content-Type": components["parameters"]["ContentType"];
       };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
