@@ -263,9 +263,9 @@ export interface paths {
      *
      * There are three methods for generating a tracking link for a shipment:
      *
-     * 1. Use `shipping_provider` and `tracking_number`: This generates an automatic tracking link that you can click from the BigCommerce control panel and customer-facing emails. The `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+     * 1. Use `shipping_provider` and `tracking_number`: This generates a link to one of our integrated providers that you can click from the BigCommerce control panel and customer-facing emails. If a merchant still needs to set up a shipping provider or if the provider is not one of our natively integrated providers, you will click on an Aftership tracking link instead. The `generated_tracking_link` property in the API response represents one of these tracking links. The `tracking_link` property in the API response will remain empty.
      *
-     * 2. Use `tracking_carrier` and `tracking_number`: This also creates an automatic tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+     * 2. Use `tracking_carrier` and `tracking_number`: This also creates a link to one of our integrated providers or an Aftership tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
      *
      * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
      *
@@ -1004,7 +1004,7 @@ export interface components {
        * @example
        */
       tracking_carrier?: string;
-      /** @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property. */
+      /** @description The custom tracking link supplied on POST or PUT shipments. For the link to one of our integrated providers or Aftership tracking link, see the `generated_tracking_link` property. */
       tracking_link?: string;
       /** @description Comments the shipper wishes to add. */
       comments?: string;
@@ -1021,7 +1021,7 @@ export interface components {
         }[];
       /** @description The human-readable name for the `shipping_provider`. */
       shipping_provider_display_name?: string;
-      /** @description The tracking link that is generated using the combination of either the `tracking_number` and `shipping_provider` or `tracking_number` and `tracking_carrier`. This will be empty if the custom `tracking_link` value is provided. */
+      /** @description The link to one of our integrated providers or Aftership tracking link that is generated using the combination of either the `tracking_number` and `shipping_provider` or `tracking_number` and `tracking_carrier`. This will be empty if the custom `tracking_link` value is provided. */
       generated_tracking_link?: string;
     };
     /** orderConsignments_Resource */
@@ -1264,7 +1264,7 @@ export interface components {
        */
       tracking_number?: string;
       /**
-       * @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property.
+       * @description The custom tracking link supplied on POST or PUT shipments. For the link to one of our integrated providers or Aftership tracking link see the `generated_tracking_link` property.
        * @example https://www.mycustomtrackinglink.com/tracking
        */
       tracking_link?: string;
@@ -1331,7 +1331,7 @@ export interface components {
        */
       tracking_carrier?: string;
       /**
-       * @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property.
+       * @description The custom tracking link supplied on POST or PUT shipments. For the link to one of our integrated providers or Aftership tracking link see the `generated_tracking_link` property.
        * @example https://www.mycustomtrackinglink.com/tracking
        */
       tracking_link?: string;
@@ -3145,9 +3145,9 @@ export interface operations {
    *
    * There are three methods for generating a tracking link for a shipment:
    *
-   * 1. Use `shipping_provider` and `tracking_number`: This generates an automatic tracking link that you can click from the BigCommerce control panel and customer-facing emails. The `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+   * 1. Use `shipping_provider` and `tracking_number`: This generates a link to one of our integrated providers that you can click from the BigCommerce control panel and customer-facing emails. If a merchant still needs to set up a shipping provider or if the provider is not one of our natively integrated providers, you will click on an Aftership tracking link instead. The `generated_tracking_link` property in the API response represents one of these tracking links. The `tracking_link` property in the API response will remain empty.
    *
-   * 2. Use `tracking_carrier` and `tracking_number`: This also creates an automatic tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+   * 2. Use `tracking_carrier` and `tracking_number`: This also creates a link to one of our integrated providers or an Aftership tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
    *
    * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
    *
