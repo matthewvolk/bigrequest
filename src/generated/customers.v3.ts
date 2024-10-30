@@ -2338,6 +2338,8 @@ export interface operations {
          * Concatenates the first_name and last_name fields.
          */
         "name:like"?: string[];
+        /** @description Filter items by phone number. `phone:in=555-55-5555` */
+        "phone:in"?: string;
         /**
          * @description Filter items by registration_ip_address. If the customer was created using the API, then registration address is blank.
          * `registration_ip_address:in=12.345.6.789`
