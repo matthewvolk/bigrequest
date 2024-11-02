@@ -2318,15 +2318,15 @@ export interface operations {
         "customer_group_id:in"?: string[];
         /** @description Filter items by date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_created?: string;
-        /** @description Filter items by maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date. */
+        /** @description Filter items by maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers created before this date. */
         "date_created:max"?: string;
-        /** @description Filter items by date created for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date. */
+        /** @description Filter items by date created for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers created after this date. */
         "date_created:min"?: string;
         /** @description Filter items by date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_modified?: string;
-        /** @description Filter items by minimum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date. */
+        /** @description Filter items by minimum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers modified after this date. */
         "date_modified:min"?: string;
-        /** @description Filter items by maximum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date. */
+        /** @description Filter items by maximum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers modified before this date. */
         "date_modified:max"?: string;
         /** @description Filter items by email. `email:in=janedoe@example.com` */
         "email:in"?: string[];
@@ -2338,6 +2338,8 @@ export interface operations {
          * Concatenates the first_name and last_name fields.
          */
         "name:like"?: string[];
+        /** @description Filter items by phone number. `phone:in=555-55-5555` */
+        "phone:in"?: string;
         /**
          * @description Filter items by registration_ip_address. If the customer was created using the API, then registration address is blank.
          * `registration_ip_address:in=12.345.6.789`
