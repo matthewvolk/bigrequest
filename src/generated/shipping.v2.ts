@@ -91,7 +91,7 @@ export interface paths {
      * #### USPS by Endicia Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | PriorityExpress, PriorityMailExpressInternational, FirstClassPackageInternationalService, Priority, PriorityMailInternational, First, ParcelSelect, MediaMail |
      * | packaging_type | array | FlatRateLegalEnvelope, FlatRatePaddedEnvelope, Parcel, SmallFlatRateBox, MediumFlatRateBox, LargeFlatRateBox, FlatRateEnvelope, RegionalRateBoxA, RegionalRateBoxB |
      * |show_transit_time | boolean | true, false |
@@ -126,7 +126,7 @@ export interface paths {
      * #### FedEx Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | PRIORITY_OVERNIGHT, STANDARD_OVERNIGHT, FIRST_OVERNIGHT, FEDEX_2_DAY, FEDEX_EXPRESS_SAVER, INTERNATIONAL_PRIORITY, INTERNATIONAL_ECONOMY, INTERNATIONAL_FIRST, FEDEX_1_DAY_FREIGHT, FEDEX_2_DAY_FREIGHT, FEDEX_3_DAY_FREIGHT, FEDEX_GROUND, GROUND_HOME_DELIVERY, INTERNATIONAL_PRIORITY_FREIGHT, INTERNATIONAL_ECONOMY_FREIGHT, EUROPE_FIRST_INTERNATIONAL_PRIORITY |
      * | dropoff_type | string | REGULAR_PICKUP, REQUEST_COURIER, DROP_BOX, BUSINESS_SERVICE_CENTER, STATION |
      * | packaging_type | string | FEDEX_ENVELOPE,  FEDEX_PAK, FEDEX_BOX, FEDEX_TUBE, FEDEX_10KG_BOX, FEDEX_25KG_BOX, YOUR_PACKAGING |
@@ -164,7 +164,7 @@ export interface paths {
      * #### UPS Ready Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | 2nd_Day_Air, 2nd_Day_Air_AM, 3_Day_Select, Expedited, Express, Express_Plus, Express_Saver, Express_Early_AM, Ground, Next_Day_Air, Next_Day_Air_Early_AM, Next_Day_Air_Saver, Saver, Standard, Today_Dedicated_Courier, Today_Express, Today_Express_Saver, Today_Intercity, Today_Standard, Worldwide_Expedited, Worldwide_Express, Worldwide_Express_Plus, Worldwide_Express_Saver, Worldwide_Saver |
      * | destination_type | string | residential, business |
      * | packing_method | string | separate, combined |
@@ -212,7 +212,7 @@ export interface paths {
      * #### Canada Post Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | DOM.RP, DOM.EP, DOM.XP, DOM.XP.CERT, DOM.PC DOM.LIB, USA.EP, USA.PW.ENV, USA.PW.PAK, USA.PW.PARCEL, USA.SP.AIR, USA.TP, USA.TP.LVM, USA.XP, INT.XP, INT.IP.AIR, INT.IP.SURF, INT.PW.ENV, INT.PW.PAK, INT.PW.PARCEL, INT.SP.AIR, INT.SP.SURF, INT.TP |
      *
      * ### Australia Post
@@ -239,7 +239,7 @@ export interface paths {
      * #### Australia Post Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | AUS_LETTER_REGULAR_SMALL, AUS_LETTER_REGULAR_Large, AUS_LETTER_EXPRESS_SMALL, AUS_LETTER_EXPRESS_MEDIUM, AUS_LETTER_EXPRESS_LARGE, AUS_PARCEL_REGULAR, AUS_PARCEL_REGULAR_SATCHEL_500G, AUS_PARCEL_REGULAR_SATCHEL_3KG, AUS_PARCEL_REGULAR_SATCHEL_5KG, AUS_PARCEL_EXPRESS, AUS_PARCEL_EXPRESS_SATCHEL_500G, AUS_PARCEL_EXPRESS_SATCHEL_3KG, AUS_PARCEL_EXPRESS_SATCHEL_5KG, AUS_PARCEL_COURIER, AUS_PARCEL_COURIER_SATCHEL_MEDIUM, INT_PARCEL_COR_OWN_PACKAGING, INT_PARCEL_EXP_OWN_PACKAGING, INT_PARCEL_STD_OWN_PACKAGING, INT_PARCEL_AIR_OWN_PACKAGING, INT_PARCEL_SEA_OWN_PACKAGING |
      *
      * ### Royal Mail
@@ -265,7 +265,7 @@ export interface paths {
      * #### Royal Mail Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | SpecialDelivery1pm, SpecialDelivery9am, SpecialDelivery1pmSaturday, SpecialDelivery9amSaturday, SignedForFirstClass, SignedForSecondClass, Express9, Express10, ExpressAM, Express24, Express48, StandardFirstClass, StandardSecondClass, InternationalStandard, InternationalTracked, InternationalEconomy |
      *
      * ### Zoom2U
@@ -292,7 +292,7 @@ export interface paths {
      * #### Zoom2U Object Properties
      *
      * | Property | Type | Values |
-     * |:---------|:-----|:-------|
+     * | - | - | - |
      * | delivery_services | array | 3_hour, Same_day, VIP|
      *
      * ### Settings Objects
@@ -304,7 +304,7 @@ export interface paths {
      * Object model for flat-rate shipping quotes per order.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | rate | number | Flat rate per order. |
      *
      * Example request body:
@@ -327,7 +327,7 @@ export interface paths {
      * |:-----|:-----|:------------|
      * | rate | number | Flat rate per item. |
      *
-     * Ezample request body:
+     * Example request body:
      *
      * ```json
      * {
@@ -344,7 +344,7 @@ export interface paths {
      * Object model for shipping quotes by weight.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
@@ -379,7 +379,7 @@ export interface paths {
      * Object model for shipping quotes by orderʼs total value.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
@@ -431,7 +431,7 @@ export interface paths {
      * Object model to define ranges for shipping quotes. Units are defined in the parent object.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | lower_limit | number | Lower limit for order total. |
      * | upper_limit | number | Upper limit for order total. |
      * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
@@ -446,6 +446,25 @@ export interface paths {
      *   "shipping_cost": 8
      * }
      * ```
+     *
+     * ### Channels
+     *
+     * Example request body:
+     *
+     * ```json
+     * {
+     *   "name": "Method associated to channels 1, 3",
+     *   "type": "peritem",
+     *   "settings": {
+     *     "rate": 5
+     *   },
+     *   channels: [1, 3]
+     * }
+     * ```
+     *
+     * | Property | Type | Description |
+     * | - | - | - |
+     * | channels | array | Channels associated with the method as an array of integers. |
      */
     post: operations["createShippingMethod"];
     parameters: {
@@ -483,6 +502,8 @@ export interface paths {
      *     "type": "perorder",
      *     "settings": {
      *         "rate": 7
+     *     },
+     *     "channels": [1]
      * },
      * ```
      *
@@ -502,6 +523,8 @@ export interface paths {
      *     "type": "peritem",
      *     "settings": {
      *         "rate": 8
+     *     },
+     *     "channels: [1]
      * },
      * ```
      *
@@ -536,7 +559,8 @@ export interface paths {
      *                 "shipping_cost": 12
      *             }
      *         ]
-     *     }
+     *     },
+     *     "channels": [1]
      * }
      * ```
      *
@@ -588,7 +612,8 @@ export interface paths {
      *                 "shipping_cost": 0
      *             }
      *         ]
-     *     }
+     *     },
+     *     "channels": [1]
      * }
      * ```
      *
@@ -611,6 +636,25 @@ export interface paths {
      *     "shipping_cost": 8
      * }
      * ```
+     *
+     * ### Channels
+     *
+     * Example request body:
+     *
+     * ```json
+     * {
+     *   "name": "Method associated to channels 1, 3",
+     *   "type": "peritem",
+     *   "settings": {
+     *     "rate": 5
+     *   },
+     *   channels: [1, 3]
+     * }
+     * ```
+     *
+     * | Property | Type | Description |
+     * | - | - | - |
+     * | channels | array | Channels associated with the method as an array of integers. |
      */
     get: operations["getShippingMethod"];
     /**
@@ -629,7 +673,7 @@ export interface paths {
      * Object model for flat-rate shipping quotes per order.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | rate | number | Flat rate per order. |
      *
      * Example response:
@@ -649,7 +693,7 @@ export interface paths {
      * Object model for flat-rate shipping quotes per item ordered.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | rate | number | Flat rate per item. |
      *
      * Example response:
@@ -669,7 +713,7 @@ export interface paths {
      * Object model for shipping quotes by weight.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
@@ -705,7 +749,7 @@ export interface paths {
      * Object model for shipping quotes by orderʼs total value.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
      * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
@@ -757,7 +801,7 @@ export interface paths {
      * Object model to define ranges for shipping quotes. Units are defined in the parent object.
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | lower_limit | number | Lower limit for order total. |
      * | upper_limit | number | Upper limit for order total. |
      * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
@@ -771,6 +815,24 @@ export interface paths {
      *   "shipping_cost": 8
      * }
      * ```
+     * ### Channels
+     *
+     * Example request body:
+     *
+     * ```json
+     * {
+     *   "name": "Method associated to channels 1, 3",
+     *   "type": "peritem",
+     *   "settings": {
+     *   "rate": 5
+     *   },
+     *   channels: [1, 3]
+     * }
+     * ```
+     *
+     * | Property | Type | Description |
+     * | - | - | - |
+     * | channels | array | Channels associated with the method as an array of integers. |
      */
     put: operations["updateShippingMethod"];
     /**
@@ -841,7 +903,7 @@ export interface paths {
      *
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | auth_key | string | Australia Post authorization key. |
      * | test_mode | boolean | Whether or not to use Australia Post test-mode settings. Acceptable values are `true` or `false`. |
      *
@@ -874,7 +936,7 @@ export interface paths {
      *
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | account_id | string | Endicia account ID. |
      * | passphrase | string | Endicia passphrase. |
      *
@@ -909,7 +971,7 @@ export interface paths {
      *
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | key | string | FedEx account ID. |
      * | password | string | FedEx passphrase. |
      * | account_number | string | FedEx account number. |
@@ -995,7 +1057,7 @@ export interface paths {
      *
      *
      * | Property | Type | Description |
-     * |:---------|:-----|:------------|
+     * | - | - | - |
      * | auth_key | string | Zoom2U authorization key. |
      * | test_mode | boolean | Whether or not to use Zoom2U test-mode settings. Acceptable values are `true` or `false`. |
      */
@@ -1208,6 +1270,14 @@ export interface components {
        * @example false
        */
       is_fallback?: boolean;
+      /**
+       * @description List of channels associated to a method. When creating a new method, all available channels are associated by default. (Optional)
+       * @example [
+       *   1,
+       *   3
+       * ]
+       */
+      channels?: number[];
     };
     /** ShippingResponse */
     ShippingResponse: Record<string, never>;
@@ -1897,7 +1967,7 @@ export interface operations {
    * #### USPS by Endicia Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | PriorityExpress, PriorityMailExpressInternational, FirstClassPackageInternationalService, Priority, PriorityMailInternational, First, ParcelSelect, MediaMail |
    * | packaging_type | array | FlatRateLegalEnvelope, FlatRatePaddedEnvelope, Parcel, SmallFlatRateBox, MediumFlatRateBox, LargeFlatRateBox, FlatRateEnvelope, RegionalRateBoxA, RegionalRateBoxB |
    * |show_transit_time | boolean | true, false |
@@ -1932,7 +2002,7 @@ export interface operations {
    * #### FedEx Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | PRIORITY_OVERNIGHT, STANDARD_OVERNIGHT, FIRST_OVERNIGHT, FEDEX_2_DAY, FEDEX_EXPRESS_SAVER, INTERNATIONAL_PRIORITY, INTERNATIONAL_ECONOMY, INTERNATIONAL_FIRST, FEDEX_1_DAY_FREIGHT, FEDEX_2_DAY_FREIGHT, FEDEX_3_DAY_FREIGHT, FEDEX_GROUND, GROUND_HOME_DELIVERY, INTERNATIONAL_PRIORITY_FREIGHT, INTERNATIONAL_ECONOMY_FREIGHT, EUROPE_FIRST_INTERNATIONAL_PRIORITY |
    * | dropoff_type | string | REGULAR_PICKUP, REQUEST_COURIER, DROP_BOX, BUSINESS_SERVICE_CENTER, STATION |
    * | packaging_type | string | FEDEX_ENVELOPE,  FEDEX_PAK, FEDEX_BOX, FEDEX_TUBE, FEDEX_10KG_BOX, FEDEX_25KG_BOX, YOUR_PACKAGING |
@@ -1970,7 +2040,7 @@ export interface operations {
    * #### UPS Ready Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | 2nd_Day_Air, 2nd_Day_Air_AM, 3_Day_Select, Expedited, Express, Express_Plus, Express_Saver, Express_Early_AM, Ground, Next_Day_Air, Next_Day_Air_Early_AM, Next_Day_Air_Saver, Saver, Standard, Today_Dedicated_Courier, Today_Express, Today_Express_Saver, Today_Intercity, Today_Standard, Worldwide_Expedited, Worldwide_Express, Worldwide_Express_Plus, Worldwide_Express_Saver, Worldwide_Saver |
    * | destination_type | string | residential, business |
    * | packing_method | string | separate, combined |
@@ -2018,7 +2088,7 @@ export interface operations {
    * #### Canada Post Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | DOM.RP, DOM.EP, DOM.XP, DOM.XP.CERT, DOM.PC DOM.LIB, USA.EP, USA.PW.ENV, USA.PW.PAK, USA.PW.PARCEL, USA.SP.AIR, USA.TP, USA.TP.LVM, USA.XP, INT.XP, INT.IP.AIR, INT.IP.SURF, INT.PW.ENV, INT.PW.PAK, INT.PW.PARCEL, INT.SP.AIR, INT.SP.SURF, INT.TP |
    *
    * ### Australia Post
@@ -2045,7 +2115,7 @@ export interface operations {
    * #### Australia Post Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | AUS_LETTER_REGULAR_SMALL, AUS_LETTER_REGULAR_Large, AUS_LETTER_EXPRESS_SMALL, AUS_LETTER_EXPRESS_MEDIUM, AUS_LETTER_EXPRESS_LARGE, AUS_PARCEL_REGULAR, AUS_PARCEL_REGULAR_SATCHEL_500G, AUS_PARCEL_REGULAR_SATCHEL_3KG, AUS_PARCEL_REGULAR_SATCHEL_5KG, AUS_PARCEL_EXPRESS, AUS_PARCEL_EXPRESS_SATCHEL_500G, AUS_PARCEL_EXPRESS_SATCHEL_3KG, AUS_PARCEL_EXPRESS_SATCHEL_5KG, AUS_PARCEL_COURIER, AUS_PARCEL_COURIER_SATCHEL_MEDIUM, INT_PARCEL_COR_OWN_PACKAGING, INT_PARCEL_EXP_OWN_PACKAGING, INT_PARCEL_STD_OWN_PACKAGING, INT_PARCEL_AIR_OWN_PACKAGING, INT_PARCEL_SEA_OWN_PACKAGING |
    *
    * ### Royal Mail
@@ -2071,7 +2141,7 @@ export interface operations {
    * #### Royal Mail Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | SpecialDelivery1pm, SpecialDelivery9am, SpecialDelivery1pmSaturday, SpecialDelivery9amSaturday, SignedForFirstClass, SignedForSecondClass, Express9, Express10, ExpressAM, Express24, Express48, StandardFirstClass, StandardSecondClass, InternationalStandard, InternationalTracked, InternationalEconomy |
    *
    * ### Zoom2U
@@ -2098,7 +2168,7 @@ export interface operations {
    * #### Zoom2U Object Properties
    *
    * | Property | Type | Values |
-   * |:---------|:-----|:-------|
+   * | - | - | - |
    * | delivery_services | array | 3_hour, Same_day, VIP|
    *
    * ### Settings Objects
@@ -2110,7 +2180,7 @@ export interface operations {
    * Object model for flat-rate shipping quotes per order.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | rate | number | Flat rate per order. |
    *
    * Example request body:
@@ -2133,7 +2203,7 @@ export interface operations {
    * |:-----|:-----|:------------|
    * | rate | number | Flat rate per item. |
    *
-   * Ezample request body:
+   * Example request body:
    *
    * ```json
    * {
@@ -2150,7 +2220,7 @@ export interface operations {
    * Object model for shipping quotes by weight.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
@@ -2185,7 +2255,7 @@ export interface operations {
    * Object model for shipping quotes by orderʼs total value.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
@@ -2237,7 +2307,7 @@ export interface operations {
    * Object model to define ranges for shipping quotes. Units are defined in the parent object.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | lower_limit | number | Lower limit for order total. |
    * | upper_limit | number | Upper limit for order total. |
    * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
@@ -2252,6 +2322,25 @@ export interface operations {
    *   "shipping_cost": 8
    * }
    * ```
+   *
+   * ### Channels
+   *
+   * Example request body:
+   *
+   * ```json
+   * {
+   *   "name": "Method associated to channels 1, 3",
+   *   "type": "peritem",
+   *   "settings": {
+   *     "rate": 5
+   *   },
+   *   channels: [1, 3]
+   * }
+   * ```
+   *
+   * | Property | Type | Description |
+   * | - | - | - |
+   * | channels | array | Channels associated with the method as an array of integers. |
    */
   createShippingMethod: {
     parameters: {
@@ -2276,7 +2365,10 @@ export interface operations {
          *   "enabled": true,
          *   "handling_fees": {
          *     "fixed_surcharge": "3"
-         *   }
+         *   },
+         *   "channels": [
+         *     1
+         *   ]
          * }
          */
         "application/json": components["schemas"]["shippingMethod_Base"];
@@ -2314,6 +2406,8 @@ export interface operations {
    *     "type": "perorder",
    *     "settings": {
    *         "rate": 7
+   *     },
+   *     "channels": [1]
    * },
    * ```
    *
@@ -2333,6 +2427,8 @@ export interface operations {
    *     "type": "peritem",
    *     "settings": {
    *         "rate": 8
+   *     },
+   *     "channels: [1]
    * },
    * ```
    *
@@ -2367,7 +2463,8 @@ export interface operations {
    *                 "shipping_cost": 12
    *             }
    *         ]
-   *     }
+   *     },
+   *     "channels": [1]
    * }
    * ```
    *
@@ -2419,7 +2516,8 @@ export interface operations {
    *                 "shipping_cost": 0
    *             }
    *         ]
-   *     }
+   *     },
+   *     "channels": [1]
    * }
    * ```
    *
@@ -2442,6 +2540,25 @@ export interface operations {
    *     "shipping_cost": 8
    * }
    * ```
+   *
+   * ### Channels
+   *
+   * Example request body:
+   *
+   * ```json
+   * {
+   *   "name": "Method associated to channels 1, 3",
+   *   "type": "peritem",
+   *   "settings": {
+   *     "rate": 5
+   *   },
+   *   channels: [1, 3]
+   * }
+   * ```
+   *
+   * | Property | Type | Description |
+   * | - | - | - |
+   * | channels | array | Channels associated with the method as an array of integers. |
    */
   getShippingMethod: {
     parameters: {
@@ -2497,6 +2614,14 @@ export interface operations {
              * @example false
              */
             is_fallback?: boolean;
+            /**
+             * @description List of channels associated to a method. When creating a new method, all available channels are associated by default. (Optional)
+             * @example [
+             *   1,
+             *   3
+             * ]
+             */
+            channels?: number[];
           };
         };
       };
@@ -2518,7 +2643,7 @@ export interface operations {
    * Object model for flat-rate shipping quotes per order.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | rate | number | Flat rate per order. |
    *
    * Example response:
@@ -2538,7 +2663,7 @@ export interface operations {
    * Object model for flat-rate shipping quotes per item ordered.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | rate | number | Flat rate per item. |
    *
    * Example response:
@@ -2558,7 +2683,7 @@ export interface operations {
    * Object model for shipping quotes by weight.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
@@ -2594,7 +2719,7 @@ export interface operations {
    * Object model for shipping quotes by orderʼs total value.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
    * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
@@ -2646,7 +2771,7 @@ export interface operations {
    * Object model to define ranges for shipping quotes. Units are defined in the parent object.
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | lower_limit | number | Lower limit for order total. |
    * | upper_limit | number | Upper limit for order total. |
    * | shipping_cost | number | Shipping cost for orders whose total falls between the lower and upper limits. |
@@ -2660,6 +2785,24 @@ export interface operations {
    *   "shipping_cost": 8
    * }
    * ```
+   * ### Channels
+   *
+   * Example request body:
+   *
+   * ```json
+   * {
+   *   "name": "Method associated to channels 1, 3",
+   *   "type": "peritem",
+   *   "settings": {
+   *   "rate": 5
+   *   },
+   *   channels: [1, 3]
+   * }
+   * ```
+   *
+   * | Property | Type | Description |
+   * | - | - | - |
+   * | channels | array | Channels associated with the method as an array of integers. |
    */
   updateShippingMethod: {
     parameters: {
@@ -2683,7 +2826,11 @@ export interface operations {
          *   },
          *   "handling_fees": {
          *     "fixed_surcharge": "0"
-         *   }
+         *   },
+         *   "channels": [
+         *     2,
+         *     3
+         *   ]
          * }
          */
         "application/json": components["schemas"]["shippingMethod_Base"];
@@ -2812,7 +2959,7 @@ export interface operations {
    *
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | auth_key | string | Australia Post authorization key. |
    * | test_mode | boolean | Whether or not to use Australia Post test-mode settings. Acceptable values are `true` or `false`. |
    *
@@ -2845,7 +2992,7 @@ export interface operations {
    *
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | account_id | string | Endicia account ID. |
    * | passphrase | string | Endicia passphrase. |
    *
@@ -2880,7 +3027,7 @@ export interface operations {
    *
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | key | string | FedEx account ID. |
    * | password | string | FedEx passphrase. |
    * | account_number | string | FedEx account number. |
@@ -2966,7 +3113,7 @@ export interface operations {
    *
    *
    * | Property | Type | Description |
-   * |:---------|:-----|:------------|
+   * | - | - | - |
    * | auth_key | string | Zoom2U authorization key. |
    * | test_mode | boolean | Whether or not to use Zoom2U test-mode settings. Acceptable values are `true` or `false`. |
    */
