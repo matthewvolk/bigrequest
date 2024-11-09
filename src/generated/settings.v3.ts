@@ -384,9 +384,11 @@ export interface paths {
      * Update Storefront SEO Settings
      * @description Updates SEO settings.
      *
-     *  - Channel ID can be used as a query parameter for updating channel-specific settings. If omitted, you will interact with the global settings only.
+     *  - You can use `channel_id` as a query parameter to update channel-specific settings. If omitted, you will only interact with the global settings.
      *
-     *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+     *  - You can use `channel_id` in the request body of a headless channel of this endpoint to control the `www_redirect` settings for the headless channel's unique checkout URL.
+     *
+     *  - `null` should be supplied to delete overrides per given channel and to inherit values from a global level.
      */
     put: operations["updateSettingsStorefrontSeo"];
     parameters: {
@@ -2046,9 +2048,11 @@ export interface operations {
    * Update Storefront SEO Settings
    * @description Updates SEO settings.
    *
-   *  - Channel ID can be used as a query parameter for updating channel-specific settings. If omitted, you will interact with the global settings only.
+   *  - You can use `channel_id` as a query parameter to update channel-specific settings. If omitted, you will only interact with the global settings.
    *
-   *  - `null` should be supplied to delete overrides per given channel and to inherit values from global level. Partial updates are not supported and all settings should be supplied with `null` value in order to delete overrides per channel.
+   *  - You can use `channel_id` in the request body of a headless channel of this endpoint to control the `www_redirect` settings for the headless channel's unique checkout URL.
+   *
+   *  - `null` should be supplied to delete overrides per given channel and to inherit values from a global level.
    */
   updateSettingsStorefrontSeo: {
     parameters: {
