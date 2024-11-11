@@ -47,6 +47,23 @@ export interface paths {
       };
     };
   };
+  "/shipping/settings": {
+    /**
+     * Get Shipping Settings
+     * @description Get shipping settings.
+     */
+    get: operations["getShippingSettings"];
+    /**
+     * Update Shipping Settings
+     * @description Updates shipping settings.
+     */
+    post: operations["updateShippingSettings"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -81,6 +98,16 @@ export interface components {
        */
       international_shipping: true | false;
       hs_codes: components["schemas"]["harmonizedSystemCodes"];
+    };
+    shippingSettings: {
+      checkout?: {
+        /**
+         * @description The approach for displaying the list of countries at checkout.
+         * @example DISPLAY_ALL_COUNTRIES
+         * @enum {string}
+         */
+        country_list_strategy?: "DISPLAY_ALL_COUNTRIES" | "DISPLAY_ONLY_SHIPPABLE_COUNTRIES";
+      };
     };
     /**
      * customsInformation
@@ -384,6 +411,54 @@ export interface operations {
       /** @description No Content */
       204: {
         content: never;
+      };
+    };
+  };
+  /**
+   * Get Shipping Settings
+   * @description Get shipping settings.
+   */
+  getShippingSettings: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["shippingSettings"];
+            meta?: Record<string, never>;
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Shipping Settings
+   * @description Updates shipping settings.
+   */
+  updateShippingSettings: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["shippingSettings"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["shippingSettings"];
+            meta?: Record<string, never>;
+          };
+        };
       };
     };
   };
