@@ -238,6 +238,9 @@ export interface paths {
      */
     put: operations["updateCategorySortOrders"];
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -2105,6 +2108,9 @@ export interface operations {
    */
   getCategorySortOrders: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -2115,7 +2121,10 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["productSortOrder"][];
+          "application/json": {
+            data?: components["schemas"]["productSortOrder"][];
+            meta?: components["schemas"]["metaCollection_Full"];
+          };
         };
       };
       401: components["responses"]["UnauthorizedError"];
@@ -2134,6 +2143,9 @@ export interface operations {
    */
   updateCategorySortOrders: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
