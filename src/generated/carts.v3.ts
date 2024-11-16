@@ -77,6 +77,7 @@ export interface paths {
      *
      * **Usage Notes**
      *
+     * * To use redirect URLs, first create the cart using the REST Management API or GraphQL Storefront API.
      * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
      * * A **Carts** redirect URL is valid for 30 days and may only be used once.
      * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
@@ -2181,6 +2182,7 @@ export interface operations {
    *
    * **Usage Notes**
    *
+   * * To use redirect URLs, first create the cart using the REST Management API or GraphQL Storefront API.
    * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
    * * A **Carts** redirect URL is valid for 30 days and may only be used once.
    * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.

@@ -2244,6 +2244,12 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["channel_menus_Resp"];
+      /** @description Unprocessable entity (The following fields are invalid.) */
+      422: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
     };
   };
   /**
