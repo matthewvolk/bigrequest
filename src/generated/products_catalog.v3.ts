@@ -8,6 +8,11 @@
 /** WithRequired type helpers */
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
+/** OneOf type helpers */
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+
 export interface paths {
   "/catalog/products": {
     /**
@@ -1051,33 +1056,30 @@ export interface components {
      */
     productImage_Base: {
       /**
-       * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+       * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
        *
-       * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+       * Cannot be used with `image_file`.
        */
-      image_file?: string;
+      image_url?: string;
       /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
       is_thumbnail?: boolean;
       /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
       sort_order?: number;
       /** @description The description for the image. */
       description?: string;
+      /**
+       * Format: date-time
+       * @description The date on which the product image was modified.
+       */
+      date_modified?: string;
     };
     /**
-     * productImage_Put
-     * @description The model for a PUT to update applicable Product Image fields.
+     * productImage_Post_Put
+     * @description The model for a POST or PUT to create  or update applicable Product Image fields.
      */
-    productImage_Put: {
+    productImage_Post_Put: {
       /** @description The unique numeric identifier for the product with which the image is associated. */
       product_id?: number;
-      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
-      url_zoom?: string;
-      /** @description The standard URL for this image. By default, this is used for product-page images. */
-      url_standard?: string;
-      /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
-      url_thumbnail?: string;
-      /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
-      url_tiny?: string;
     } & components["schemas"]["productImage_Base"];
     /**
      * productVideo_Base
@@ -3802,51 +3804,10 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": {
-          /** @description The unique numeric identifier for the product with which the image is associated. */
-          product_id?: number;
-          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
-          url_zoom?: string;
-          /** @description The standard URL for this image. By default, this is used for product-page images. */
-          url_standard?: string;
-          /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
-          url_thumbnail?: string;
-          /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
-          url_tiny?: string;
-          /**
-           * Format: date-time
-           * @description The date on which the product image was modified.
-           */
-          date_modified?: string;
-          /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
-          is_thumbnail?: boolean;
-          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
-          sort_order?: number;
-          /** @description The description for the image. */
-          description?: string;
-        } & {
-          /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
-          image_url?: string;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
-           *
-           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
-           */
-          image_file?: string;
-        };
+        "application/json": components["schemas"]["productImage_Post_Put"];
         "multipart/form-data": {
-          /** @description The unique numeric ID of the image; increments sequentially. */
-          id?: number;
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
-          url_zoom?: string;
-          /** @description The standard URL for this image. By default, this is used for product-page images. */
-          url_standard?: string;
-          /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
-          url_thumbnail?: string;
-          /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
-          url_tiny?: string;
           /**
            * Format: date-time
            * @description The date on which the product image was modified.
@@ -3858,13 +3819,10 @@ export interface operations {
           sort_order?: number;
           /** @description The description for the image. */
           description?: string;
-        } & {
-          /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
-          image_url?: string;
           /**
-           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
            *
-           * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file. Cannot be used with `image_url`.
            */
           image_file?: string;
         };
@@ -3876,7 +3834,7 @@ export interface operations {
         content: {
           "application/json": {
             /** Product Image */
-            data?: {
+            data?: OneOf<[{
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
@@ -3900,7 +3858,9 @@ export interface operations {
               sort_order?: number;
               /** @description The description for the image. */
               description?: string;
-            } & {
+              /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
+              image_url?: string;
+            }, {
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
@@ -3925,7 +3885,13 @@ export interface operations {
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
-            };
+              /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+              is_thumbnail?: boolean;
+              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+              sort_order?: number;
+              /** @description The description for the image. */
+              description?: string;
+            }]>;
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -4029,15 +3995,37 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["productImage_Put"];
+        "application/json": components["schemas"]["productImage_Post_Put"];
+        "multipart/form-data": {
+          /** @description The unique numeric identifier for the product with which the image is associated. */
+          product_id?: number;
+          /**
+           * Format: date-time
+           * @description The date on which the product image was modified.
+           */
+          date_modified?: string;
+          /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+          is_thumbnail?: boolean;
+          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+          sort_order?: number;
+          /** @description The description for the image. */
+          description?: string;
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+           *
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file. Cannot be used with `image_url`.
+           */
+          image_file?: string;
+        };
       };
     };
     responses: {
+      /** @description Success */
       200: {
         content: {
           "application/json": {
             /** Product Image */
-            data?: {
+            data?: OneOf<[{
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
@@ -4061,15 +4049,18 @@ export interface operations {
               sort_order?: number;
               /** @description The description for the image. */
               description?: string;
-            } & {
+              /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
+              image_url?: string;
+            }, {
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
               /**
                * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+               * A `multipart/form-data` media type.
                *
-               * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+               * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
@@ -4085,7 +4076,13 @@ export interface operations {
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
-            };
+              /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+              is_thumbnail?: boolean;
+              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+              sort_order?: number;
+              /** @description The description for the image. */
+              description?: string;
+            }]>;
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
