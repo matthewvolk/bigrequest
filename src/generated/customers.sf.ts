@@ -35,6 +35,8 @@ export interface components {
       password?: string;
       /** @description Indicates whether customer provided consent to receive marketing emails. */
       acceptsMarketingEmails?: boolean;
+      /** @description A valid [reCAPTCHA](/docs/storefront/graphql/customers#recaptcha) token from a successful verification response. */
+      token?: string;
       customFields?: components["schemas"]["CustomFields"][];
     };
     /** CustomFields */

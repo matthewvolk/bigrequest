@@ -36,6 +36,7 @@ import * as settings_v3 from './settings.v3';
 import * as shipping_v3 from './shipping.v3';
 import * as sites_v3 from './sites.v3';
 import * as store_logs_v3 from './store_logs.v3';
+import * as store_metafields_v3 from './store_metafields.v3';
 import * as storefront_tokens_v3 from './storefront_tokens.v3';
 import * as subscribers_v3 from './subscribers.v3';
 import * as tax_v3 from './tax.v3';
@@ -85,6 +86,7 @@ settings_v3.paths &
 shipping_v3.paths &
 sites_v3.paths &
 store_logs_v3.paths &
+store_metafields_v3.paths &
 storefront_tokens_v3.paths &
 subscribers_v3.paths &
 tax_v3.paths &
