@@ -154,6 +154,7 @@ export interface paths {
      * @deprecated
      * @description Updates a *Page*. The request payload limit is 1MB.
      *
+     *
      * **Read Only Fields**
      * * id
      *
@@ -161,6 +162,7 @@ export interface paths {
      * > **Deprecated**
      * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
      * > * To update multiple pages, use Pages V3ʼs [Update pages](/docs/rest-content/pages#update-pages) endpoint. To update a single page, use Pages V3ʼs [Update a page](/docs/rest-content/pages#update-a-page) endpoint.
+     * > * Updating the channel ID for a page is not supported.
      */
     put: operations["updatePage"];
     /**
@@ -903,7 +905,7 @@ export interface components {
     /** page_Base_Res */
     page_Base_Res: {
       /**
-       * @description channel ID
+       * @description Channel ID.
        * @example 11
        */
       channel_id?: number;
@@ -1375,6 +1377,7 @@ export interface operations {
    * @deprecated
    * @description Updates a *Page*. The request payload limit is 1MB.
    *
+   *
    * **Read Only Fields**
    * * id
    *
@@ -1382,6 +1385,7 @@ export interface operations {
    * > **Deprecated**
    * > * This API operation is deprecated. Avoid using this API operation if possible. It will be removed in a future version.
    * > * To update multiple pages, use Pages V3ʼs [Update pages](/docs/rest-content/pages#update-pages) endpoint. To update a single page, use Pages V3ʼs [Update a page](/docs/rest-content/pages#update-a-page) endpoint.
+   * > * Updating the channel ID for a page is not supported.
    */
   updatePage: {
     parameters: {

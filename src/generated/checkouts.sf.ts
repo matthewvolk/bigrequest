@@ -910,7 +910,7 @@ export interface components {
         customItems?: {
             /** @description ID of the custom item. */
             id?: string;
-            /** @description Price of the item. With or without tax depending on your store setup. */
+            /** @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel. */
             listPrice?: string;
             /** @description Item name. */
             name?: string;
@@ -1015,7 +1015,7 @@ export interface components {
       isTaxable?: boolean;
       /**
        * Format: double
-       * @description The item’s list price, as quoted by the manufacturer or distributor.
+       * @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel.
        */
       listPrice?: number;
       /** @description The itemʼs product name. */
