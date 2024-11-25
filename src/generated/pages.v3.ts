@@ -28,10 +28,6 @@ export interface paths {
     /**
      * Delete Pages
      * @description Deletes one or more content pages. This endpoint supports bulk operations.
-     *
-     * > #### Warning
-     * > **Pay attention to query parameters**
-     * > If you attempt to delete multiple pages by passing more than one page ID to `id:in` and one or more of them does not exist, you will receive a 404 response. However, the pages corresponding to the page IDs that do exist will still be deleted.
      */
     delete: operations["deletePages"];
     parameters: {
@@ -435,6 +431,13 @@ export interface components {
     idInQueryGet?: number[];
     /** @description Request deletion of multiple pages by passing a comma-separated string of corresponding page IDs. Supports bulk operations. */
     idInQueryDelete: number[];
+    /**
+     * @description When you explicitly set this query parameter to `true`, deleting a parent page will recursively delete all its immediate children and their descendants.
+     * Otherwise, if you set this query parameter to `false` or not provided, deleting a parent page will update its immediate children by setting their `parent_id` to `0` and their `is_visible` status to `false`.
+     *
+     * @example true
+     */
+    deleteChildrenQuery?: boolean;
     /** @description Name of the page. */
     nameQuery?: string;
     /** @description Return only pages whose `name` or `body` contain the supplied string. */
@@ -571,15 +574,12 @@ export interface operations {
   /**
    * Delete Pages
    * @description Deletes one or more content pages. This endpoint supports bulk operations.
-   *
-   * > #### Warning
-   * > **Pay attention to query parameters**
-   * > If you attempt to delete multiple pages by passing more than one page ID to `id:in` and one or more of them does not exist, you will receive a 404 response. However, the pages corresponding to the page IDs that do exist will still be deleted.
    */
   deletePages: {
     parameters: {
       query: {
         "id:in": components["parameters"]["idInQueryDelete"];
+        delete_children?: components["parameters"]["deleteChildrenQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
