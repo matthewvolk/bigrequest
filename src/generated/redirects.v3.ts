@@ -272,6 +272,10 @@ export interface operations {
         site_id?: number;
         /** @description Filters items by redirect ID. Also accepts comma-separated values to filter for multiple redirects. */
         "id:in"?: number[];
+        /** @description Filters items by minimum redirect ID. */
+        "id:min"?: number;
+        /** @description Filters items by maximum redirect ID. */
+        "id:max"?: number;
         /** @description Controls the number of items to return per page. */
         limit?: number;
         /** @description Specifies the page number in a limited (paginated) list of items. Used to paginate large collections. */
