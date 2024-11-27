@@ -189,7 +189,7 @@ export interface components {
       couponAmount?: number;
       /**
        * Format: double
-       * @description The itemʼs list price, as quoted by the manufacturer/distributor.
+       * @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel.
        */
       listPrice?: number;
       /**
@@ -271,7 +271,7 @@ export interface components {
       couponAmount?: number;
       /**
        * Format: double
-       * @description The itemʼs list price, as quoted by the manufacturer/distributor.
+       * @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel.
        */
       listPrice?: number;
       /**
@@ -400,7 +400,7 @@ export interface components {
       couponAmount?: number;
       /**
        * Format: double
-       * @description The itemʼs list price, as quoted by the manufacturer/distributor.
+       * @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel.
        */
       listPrice?: number;
       /**
