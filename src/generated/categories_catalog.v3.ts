@@ -222,6 +222,9 @@ export interface paths {
      * Get Product Sort Order
      * @description Returns a list of products and their sort order for a specific category.
      *
+     * **Limits**
+     * * page=2&limit=250 will return page 2 of the results with 250 items per page.
+     *
      * **Usage Notes**
      * * Data pairs are displayed in ascending order based on products' `sort_order` values.
      * * `null` values are allowed for products without specified `sort_order` values.
@@ -238,6 +241,9 @@ export interface paths {
      */
     put: operations["updateCategorySortOrders"];
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -2094,6 +2100,9 @@ export interface operations {
    * Get Product Sort Order
    * @description Returns a list of products and their sort order for a specific category.
    *
+   * **Limits**
+   * * page=2&limit=250 will return page 2 of the results with 250 items per page.
+   *
    * **Usage Notes**
    * * Data pairs are displayed in ascending order based on products' `sort_order` values.
    * * `null` values are allowed for products without specified `sort_order` values.
@@ -2105,6 +2114,9 @@ export interface operations {
    */
   getCategorySortOrders: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -2115,7 +2127,10 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["productSortOrder"][];
+          "application/json": {
+            data?: components["schemas"]["productSortOrder"][];
+            meta?: components["schemas"]["metaCollection_Full"];
+          };
         };
       };
       401: components["responses"]["UnauthorizedError"];
@@ -2134,6 +2149,9 @@ export interface operations {
    */
   updateCategorySortOrders: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
