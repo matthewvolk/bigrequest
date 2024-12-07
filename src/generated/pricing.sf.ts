@@ -444,6 +444,11 @@ export interface operations {
            * @example USD
            */
           currency_code: string;
+          /**
+           * @description An ISO 3166-1 alpha-2 shopper's country code representing a country or special geographic area.
+           * @example US
+           */
+          country_code?: string;
           /** @description The customer group ID that's relevant for any customer group pricing, tax values, etc. */
           customer_group_id: number;
           /** @description The items for which to fetch prices. */
