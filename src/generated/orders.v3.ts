@@ -1263,8 +1263,8 @@ export interface components {
              *
              * @enum {string}
              */
-            item_type?: "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "ORDER";
-            /** @description `order_product.id` corresponding to the item_types of PRODUCT, GIFT_WRAPPING. `order_address.id` corresponding to the item_types of SHIPPING, HANDLING. `order.id` corresponding to the item_type of ORDER. */
+            item_type?: "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "ORDER" | "FEE";
+            /** @description `order_product.id` corresponding to the item_types of PRODUCT, GIFT_WRAPPING. `order_address.id` corresponding to the item_types of SHIPPING, HANDLING. `order.id` corresponding to the item_type of ORDER, FEE. */
             item_id?: number;
             /** @description Quantity of item refunded. Note: this will only be populated for item_type PRODUCT. */
             quantity?: number;
@@ -1300,7 +1300,7 @@ export interface components {
       error?: string;
     };
     /** ItemsRefund */
-    ItemsRefund: components["schemas"]["AmountBoundItem"] | components["schemas"]["QuantityBoundItem"] | components["schemas"]["TaxExemptItem"];
+    ItemsRefund: components["schemas"]["AmountBoundItem"] | components["schemas"]["QuantityBoundItem"] | components["schemas"]["TaxExemptItem"] | components["schemas"]["FeeItem"];
     /** Payment Request */
     PaymentRequest: {
       /**
@@ -1326,12 +1326,8 @@ export interface components {
      * @description Quantity Bound Item
      *
      * Type of refund item that capture refunding of items in the order that are of type quantity.
-     * * `ORDER`
      * * `PRODUCT`
      * * `GIFT_WRAPPING`
-     * * `SHIPPING`
-     * * `HANDLING`
-     * * `TAX`
      */
     QuantityBoundItem: {
       /**
@@ -1339,16 +1335,16 @@ export interface components {
        * @example PRODUCT
        * @enum {string}
        */
-      item_type?: "ORDER" | "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "TAX";
+      item_type: "PRODUCT" | "GIFT_WRAPPING";
       /**
        * @description Order Product ID.
        * @example 1
        */
-      item_id?: number;
+      item_id: number;
       /** @description Array of product refund deductions */
       adjustments?: components["schemas"]["RefundItemAdjustment"][];
       /** @example 3 */
-      quantity?: number;
+      quantity: number;
       /**
        * @description Reason for refund.
        * @example Wrong size.
@@ -1372,6 +1368,29 @@ export interface components {
        * @example Service fee
        */
       description?: string;
+    };
+    /**
+     * Fee
+     * @description Use this field to refund a custom fee at the order level.
+     */
+    FeeItem: {
+      /**
+       * @description The type of refund.
+       * @example FEE
+       * @enum {string}
+       */
+      item_type?: "FEE";
+      /**
+       * @description Numeric ID of the fee in the order.
+       * @example 1
+       */
+      item_id?: number;
+      amount?: components["schemas"]["Amount"];
+      /**
+       * @description Reason for the refund.
+       * @example Customer requested refund
+       */
+      reason?: string;
     };
     /**
      * Tax Exempt (Order Level)
@@ -1398,12 +1417,11 @@ export interface components {
      * @description Amount Bound Item
      *
      * Type of refund item that capture refunding of items in the order that are of type amount.
-     * * `PRODUCT`
      * * `ORDER`
-     * * `GIFT_WRAPPING`
      * * `SHIPPING`
      * * `HANDLING`
      * * `TAX`
+     * * `FEE`
      */
     AmountBoundItem: {
       /**
@@ -1411,18 +1429,13 @@ export interface components {
        * @example SHIPPING
        * @enum {string}
        */
-      item_type?: "PRODUCT" | "ORDER" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "TAX";
+      item_type: "ORDER" | "SHIPPING" | "HANDLING" | "TAX" | "FEE";
       /**
        * @description Order address ID.
        * @example 1
        */
-      item_id?: number;
-      amount?: components["schemas"]["Amount"];
-      /**
-       * @description Number of items in refund.
-       * @example 3
-       */
-      quantity?: number;
+      item_id: number;
+      amount: components["schemas"]["Amount"];
       /**
        * @description Explanation of refund.
        * @example Customer requested refund
@@ -1475,7 +1488,7 @@ export interface components {
        * @description Type of item that was refunded.
        * @enum {string}
        */
-      item_type?: "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "ORDER";
+      item_type?: "PRODUCT" | "GIFT_WRAPPING" | "SHIPPING" | "HANDLING" | "ORDER" | "FEE";
       /** @description order_product.id corresponding to the item_types of PRODUCT, GIFT_WRAPPING. order_address.id corresponding to the item_types of SHIPPING, HANDLING. order.id corresponding to the item_type of ORDER. */
       item_id?: number;
       /** @description Reason for refunding an item. */
@@ -1554,7 +1567,7 @@ export interface components {
     /**
      * Amount
      * Format: float
-     * @description A non-negative 2 decimal place rounded value that represents the amount that can be charged/refunded with payment providers.
+     * @description A non-negative 2 decimal place rounded value that represents the amount that can be charged/refunded with payment providers. When creating refunds and refund quotes, this field becomes irrelevant when you select PRODUCT or GIFT_WRAPPING for `item_type`.
      * @example 1.99
      */
     Amount: number;
