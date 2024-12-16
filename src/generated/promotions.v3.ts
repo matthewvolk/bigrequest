@@ -621,6 +621,32 @@ export interface components {
       title?: string;
     };
     /**
+     * 400 Error Response
+     * @description The server cannot process the request because the syntax or data is invalid.
+     */
+    ErrorResponse400: {
+      /** @description Bad request. */
+      status?: string;
+      /** @description The error title describing the particular error. */
+      title?: string;
+      /** @description Error payload for the BigCommerce API. */
+      type?: string;
+      /** @description Detailed summary describing the particular error. */
+      detail?: string;
+    };
+    /**
+     * 403 Error Response
+     * @description The client is authenticated but does not have the necessary permissions to perform the requested action.
+     */
+    ErrorResponse403: {
+      /** @description Forbidden. */
+      status?: string;
+      /** @description The error title describing the particular error. */
+      title?: string;
+      /** @description Error payload for the BigCommerce API. */
+      error?: string;
+    };
+    /**
      * Notification
      * @description **Notification**
      * A notification displayed to the user based on the result of executing a promotion, for example, a "Congratulations! Youʼve received free shipping!" message when the shopper receives free shipping.
@@ -1024,6 +1050,18 @@ export interface operations {
     };
     responses: {
       201: components["responses"]["PromotionsResponse"];
+      /** @description The request payload was invalid. */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse400"];
+        };
+      };
+      /** @description The request payload was invalid. */
+      403: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse403"];
+        };
+      };
       /** @description The request payload was invalid. */
       422: {
         content: {
