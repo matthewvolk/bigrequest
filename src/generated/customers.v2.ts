@@ -5,6 +5,11 @@
  */
 
 
+/** OneOf type helpers */
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+
 export interface paths {
   "/customers": {
     /**
@@ -492,8 +497,7 @@ export interface components {
        */
       is_default?: boolean;
       category_access?: components["schemas"]["categoryAccessLevel_Full"];
-      /** @description A collection of discount rules that are automatically applied to customers who are members of the group. */
-      discount_rules?: ({
+      discount_rules?: OneOf<[({
           /** @enum {string} */
           type?: "price_list" | "all" | "category" | "product";
           /** @enum {string} */
@@ -508,7 +512,47 @@ export interface components {
            * @example 3
            */
           price_list_id?: number;
-        })[];
+        })[], ({
+          /** @enum {string} */
+          type?: "price_list" | "all" | "category" | "product";
+          /** @enum {string} */
+          method?: "percent" | "fixed" | "price";
+          /**
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
+           * @example 5.0000
+           */
+          amount?: string;
+          /**
+           * @description If a customer group is assigned to a category, `method` and `amount` are not shown. `type` and `category_id` are returned.
+           * @example 30
+           */
+          category_id?: number;
+        })[], ({
+          /** @enum {string} */
+          type?: "price_list" | "all" | "category" | "product";
+          /** @enum {string} */
+          method?: "percent" | "fixed" | "price";
+          /**
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
+           * @example 5.0000
+           */
+          amount?: string;
+          /**
+           * @description If a customer group is assigned to a product,`method` and `amount` are not shown. `type` and `product` are returned.
+           * @example 3
+           */
+          product_id?: number;
+        })[], ({
+          /** @enum {string} */
+          type?: "price_list" | "all" | "category" | "product";
+          /** @enum {string} */
+          method?: "percent" | "fixed" | "price";
+          /**
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
+           * @example 5.0000
+           */
+          amount?: string;
+        })[]]>;
       /**
        * @description Date on which the customer group was created.
        * @example "2023-07-17T06:30:41.000Z"
@@ -610,10 +654,47 @@ export interface components {
        */
       is_default?: boolean;
       category_access?: components["schemas"]["categoryAccessLevel_Full"];
-      /** @description A collection of discount rules that are automatically applied to customers who are members of the group. */
-      discount_rules?: ({
+      discount_rules?: OneOf<[{
           /** @enum {string} */
-          type?: "price_list" | "all" | "category" | "product";
+          type: "price_list";
+          /**
+           * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned.
+           * @example 3
+           */
+          price_list_id?: number;
+        }[], (OneOf<[{
+          /** @enum {string} */
+          type: "category";
+          /** @enum {string} */
+          method: "percent" | "fixed" | "price";
+          /**
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
+           * @example 5.0000
+           */
+          amount: string;
+          /**
+           * @description The category the customer group discount is assigned to.
+           * @example 3
+           */
+          category_id: number;
+        }, {
+          /** @enum {string} */
+          type: "product";
+          /** @enum {string} */
+          method: "percent" | "fixed" | "price";
+          /**
+           * @description A float that specifies the value applied to the price modified. (Float, Float as String, Integer)
+           * @example 5.0000
+           */
+          amount: string;
+          /**
+           * @description The `product_id` the customer group discount is assigned to.
+           * @example 3
+           */
+          product_id: number;
+        }, {
+          /** @enum {string} */
+          type: "all";
           /** @enum {string} */
           method?: "percent" | "fixed" | "price";
           /**
@@ -621,12 +702,7 @@ export interface components {
            * @example 5.0000
            */
           amount?: string;
-          /**
-           * @description If a customer group is assigned to a price list,`method` and `amount` are not shown. `type` and `price_list_id` are returned.
-           * @example 3
-           */
-          price_list_id?: number;
-        })[];
+        }]>)[]]>;
       /** @description Describes whether the group is for guests. There can only be one customer group for guests at a time. */
       is_group_for_guests?: boolean;
     };
