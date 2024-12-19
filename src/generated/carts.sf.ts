@@ -671,7 +671,7 @@ export interface components {
       /** @description Quantity of this item. */
       quantity: number;
       /** @description ID of the variant. */
-      variantId: number;
+      variantId?: number;
       optionSelections?: ({
           /**
            * @description Modifier option ID.

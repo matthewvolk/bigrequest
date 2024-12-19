@@ -24,6 +24,14 @@ export interface paths {
      *
      * After the update, the PUT request clears all discounts and promotions applied to the changed order line items. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
      *
+     * To update order fees, include the fee id in the request body along with all relevant fee fields. Fees not included will be deleted. Fees with an id will be updated, and fees without an id will be created as new.
+     *
+     * **Notes**
+     *
+     * * Sub-resources like products in the /v2/orders PUT request behave like PATCH, updating only the provided fields. Fees, however, follow standard PUT semantics and fees in the request body will fully replace existing ones.
+     * To retain an existing fee, include it in the body with its associated id.
+     * * The values for cost_ex_tax, cost_inc_tax and cost_tax in the fees payload should reflect the tax rate associated with the tax_class_id. For a 10% tax rate, the difference between cost_inc_tax and cost_ex_tax should be 10%. If no tax_class_id is provided, the store's default "tax class for fee" will apply. Incorrect data may lead to issues in downstream operations like refunds.
+     *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      */
     put: operations["updateOrder"];
@@ -48,6 +56,23 @@ export interface paths {
      */
     get: operations["getOrdersCount"];
     parameters: {
+      query?: {
+        min_id?: components["parameters"]["min_id"];
+        max_id?: components["parameters"]["max_id"];
+        min_total?: components["parameters"]["min_total"];
+        max_total?: components["parameters"]["max_total"];
+        customer_id?: components["parameters"]["customer_id"];
+        email?: components["parameters"]["email"];
+        status_id?: components["parameters"]["status_id"];
+        cart_id?: components["parameters"]["cart_id"];
+        payment_method?: components["parameters"]["payment_method"];
+        min_date_created?: components["parameters"]["min_date_created"];
+        max_date_created?: components["parameters"]["max_date_created"];
+        min_date_modified?: components["parameters"]["min_date_modified"];
+        max_date_modified?: components["parameters"]["max_date_modified"];
+        channel_id?: components["parameters"]["channel_id"];
+        external_order_id?: components["parameters"]["external_order_id"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -88,6 +113,14 @@ export interface paths {
      * This means that if the `consignments` array is present in the request, then _none_ of the following may be present and vice-versa:
      * - `shipping_addresses`
      * - `products`
+     *
+     * Include the `fees` object along with all its attributes in the request to create order-level fees for the newly created order.
+     *
+     * **Notes**
+     *
+     * * The values for cost_ex_tax, cost_inc_tax and cost_tax in the fees payload should reflect the tax rate associated with the tax_class_id. For a 10% tax rate, the difference between cost_inc_tax and cost_ex_tax should be 10%. If no tax_class_id is provided, the store's default "tax class for fee" will apply. Incorrect data may lead to issues in downstream operations like refunds.
+     *
+     * The V2 Orders API will not trigger the typical [Order Email](https://support.bigcommerce.com/s/article/Customizing-Emails?language=en_US) when creating orders. To create an order that does trigger this email, you can instead [create a cart](/docs/rest-management/carts/carts-single#create-a-cart) and [convert that cart into an order](/docs/rest-management/checkouts/checkout-orders#create-an-order).
      */
     post: operations["createOrder"];
     /**
@@ -263,9 +296,9 @@ export interface paths {
      *
      * There are three methods for generating a tracking link for a shipment:
      *
-     * 1. Use `shipping_provider` and `tracking_number`: This generates an automatic tracking link that you can click from the BigCommerce control panel and customer-facing emails. The `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+     * 1. Use `shipping_provider` and `tracking_number`: This generates a link to one of our integrated providers that you can click from the BigCommerce control panel and customer-facing emails. If a merchant still needs to set up a shipping provider or if the provider is not one of our natively integrated providers, you will click on an Aftership tracking link instead. The `generated_tracking_link` property in the API response represents one of these tracking links. The `tracking_link` property in the API response will remain empty.
      *
-     * 2. Use `tracking_carrier` and `tracking_number`: This also creates an automatic tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+     * 2. Use `tracking_carrier` and `tracking_number`: This also creates a link to one of our integrated providers or an Aftership tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
      *
      * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
      *
@@ -282,7 +315,7 @@ export interface paths {
      *  - `shipperhq`
      *  - `carrier_{your_carrier_id}`, when the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)
      *
-     * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+     * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://www.aftership.com/docs/tracking/others/supported-couriers).
      */
     post: operations["createOrderShipments"];
     /**
@@ -436,6 +469,13 @@ export interface paths {
      */
     get: operations["getOrderConsignmentShippingQuotes"];
   };
+  "/orders/{order_id}/fees": {
+    /**
+     * Get Fees
+     * @description Get all fees for an order.
+     */
+    get: operations["getOrderFees"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -557,7 +597,7 @@ export interface components {
        * @example physical
        * @enum {string}
        */
-      type?: "physical" | "digital";
+      type?: "physical" | "digital" | "giftcertificate";
       /**
        * @description The product’s base price. (Float, Float-As-String, Integer)
        * @example 54.0000
@@ -914,10 +954,10 @@ export interface components {
        */
       tax_rate_id?: number;
       /**
-       * @description The unique numeric identifier of the tax class object. NOTE: Will be 0 if automatic tax was enabled, or if the default tax class was used.
+       * @description A unique numeric identifier for the tax class. If not provided or null, the default fee tax class from the control panel is used.
        * @example 0
        */
-      tax_class_id?: number;
+      tax_class_id?: number | null;
       /**
        * @description The name of the tax class object.
        * @example State Tax
@@ -948,6 +988,11 @@ export interface components {
        * @example 1.5200
        */
       line_amount?: string;
+      /**
+       * @description The ID of the order pickup method object (which contains pickup location details) associated with the order.
+       * @example 0
+       */
+      order_pickup_method_id?: number;
       /** @description If the `line_item_type` is `item` or `handling` then this field will be the order product id. Otherwise the field will return as null. */
       order_product_id?: string;
       /**
@@ -1000,11 +1045,11 @@ export interface components {
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
-       * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+       * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://www.aftership.com/docs/tracking/others/supported-couriers).
        * @example
        */
       tracking_carrier?: string;
-      /** @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property. */
+      /** @description The custom tracking link supplied on POST or PUT shipments. For the link to one of our integrated providers or Aftership tracking link, see the `generated_tracking_link` property. */
       tracking_link?: string;
       /** @description Comments the shipper wishes to add. */
       comments?: string;
@@ -1021,7 +1066,7 @@ export interface components {
         }[];
       /** @description The human-readable name for the `shipping_provider`. */
       shipping_provider_display_name?: string;
-      /** @description The tracking link that is generated using the combination of either the `tracking_number` and `shipping_provider` or `tracking_number` and `tracking_carrier`. This will be empty if the custom `tracking_link` value is provided. */
+      /** @description The link to one of our integrated providers or Aftership tracking link that is generated using the combination of either the `tracking_number` and `shipping_provider` or `tracking_number` and `tracking_carrier`. This will be empty if the custom `tracking_link` value is provided. */
       generated_tracking_link?: string;
     };
     /** orderConsignments_Resource */
@@ -1264,7 +1309,7 @@ export interface components {
        */
       tracking_number?: string;
       /**
-       * @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property.
+       * @description The custom tracking link supplied on POST or PUT shipments. For the link to one of our integrated providers or Aftership tracking link see the `generated_tracking_link` property.
        * @example https://www.mycustomtrackinglink.com/tracking
        */
       tracking_link?: string;
@@ -1284,7 +1329,7 @@ export interface components {
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
-       * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+       * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://www.aftership.com/docs/tracking/others/supported-couriers).
        * @example
        */
       tracking_carrier?: string;
@@ -1326,12 +1371,12 @@ export interface components {
       /**
        * Tracking Carrier
        * @description Tracking carrier for the shipment.
-       * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+       * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://www.aftership.com/docs/tracking/others/supported-couriers).
        * @example
        */
       tracking_carrier?: string;
       /**
-       * @description The custom tracking link supplied on POST or PUT shipments. For the auto-generated tracking link see the `generated_tracking_link` property.
+       * @description The custom tracking link supplied on POST or PUT shipments. For the link to one of our integrated providers or Aftership tracking link see the `generated_tracking_link` property.
        * @example https://www.mycustomtrackinglink.com/tracking
        */
       tracking_link?: string;
@@ -1500,7 +1545,7 @@ export interface components {
        * @example false
        */
       order_is_digital?: boolean;
-      /** @description The payment method for this order. Can be one of the following: `Manual`, `Credit Card`, `cash`, `Test Payment Gateway`, etc. */
+      /** @description The payment method for this order. For example, `Manual`, `Credit Card`, `cash`, `Test Payment Gateway`, etc. */
       payment_method?: string;
       /**
        * @description The external Transaction ID/Payment ID within this order’s payment provider (if a payment provider was used).
@@ -1801,6 +1846,7 @@ export interface components {
        */
       status_id?: number;
       billing_address?: components["schemas"]["billingAddress_Resp"];
+      fees?: components["schemas"]["orderFees_Resp"][];
     };
     /**
      * Custom product
@@ -2089,7 +2135,7 @@ export interface components {
       /**
        * @description This value identifies an external system that generated the order and submitted it to BigCommerce with the Orders API.
        * * When supplying the value, we recommend combining the type of system and vendor, e.g., ERP (Acumatica) or POS (Square).
-       * * If you are migrating historical orders processed on another eCommerce platform to BigCommerce, supply the following code as the value: M-MIG. This code will exclude historical orders from the store’s GMV/order count, which factors into pricing.
+       * * If you are migrating historical orders processed on another eCommerce platform to BigCommerce, supply the following code as the value: M-MIG. This code will exclude historical orders from the store’s GMV/order count, which factors into pricing. Also, this code will not affect the `total_sold` on products for imported orders.
        * * If you do not provide a value, then it will default to null.
        * @example null
        */
@@ -2143,7 +2189,7 @@ export interface components {
        * @example false
        */
       order_is_digital?: boolean;
-      /** @description The payment method for this order. Can be one of the following: `Manual`, `Credit Card`, `Cash`,`Test Payment Gateway`, etc. */
+      /** @description The payment method for this order. For example, `Manual`, `Credit Card`, `Cash`,`Test Payment Gateway`, etc. */
       payment_method?: string;
       /** @description The external Transaction ID/Payment ID within this order’s payment provider (if a payment provider was used). */
       payment_provider_id?: string | number;
@@ -2222,6 +2268,7 @@ export interface components {
        * @example 0.0000
        */
       wrapping_cost_inc_tax?: string;
+      fees?: components["schemas"]["orderFees_Put"][];
     };
     /**
      * order_Post
@@ -2240,6 +2287,7 @@ export interface components {
           shipping_method?: string;
         })[];
       consignments?: components["schemas"]["orderConsignment_Post"];
+      fees?: components["schemas"]["orderFees_Post"][];
     }) & components["schemas"]["order_Shared"];
     shippingAddress_Put: components["schemas"]["shippingAddress_Base"] & {
       /**
@@ -2540,6 +2588,150 @@ export interface components {
       recipient_email?: string;
       line_items?: components["schemas"]["products_Resource"][];
     };
+    /** orderFees_Resp */
+    orderFees_Resp: {
+      /**
+       * @description The unique numeric identifier of the fees object.
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description The type of the fee.
+       * @enum {string}
+       */
+      type?: "custom_fee";
+      /**
+       * @description The display name of the fee targeting customers.
+       * @example Package Protection Insurance
+       */
+      display_name_customer?: string;
+      /**
+       * @description The display name of the fee targeting shoppers.
+       * @example Package Protection Fee
+       */
+      display_name_merchant?: string;
+      /**
+       * @description The source of the request.
+       * @example v2
+       */
+      source?: string;
+      /**
+       * @description The base fee cost value. (Float, Float-As-String, Integer)
+       * @example 8.5
+       */
+      base_cost?: string | number;
+      /**
+       * @description The fee cost value excluding tax. (Float, Float-As-String, Integer)
+       * @example 8.5
+       */
+      cost_ex_tax?: string | number;
+      /**
+       * @description The fee cost value including tax. (Float, Float-As-String, Integer)
+       * @example 10
+       */
+      cost_inc_tax?: string | number;
+      /**
+       * @description The tax amount on the fee cost. (Float, Float-As-String, Integer)
+       * @example 1.5
+       */
+      cost_tax?: string | number;
+      /**
+       * @description A unique numeric identifier for the tax class. If not persisted or null, the default fee tax class from the control panel is used.
+       * @example 0
+       */
+      tax_class_id?: number | null;
+    };
+    /** orderFees_Post */
+    orderFees_Post: {
+      /**
+       * @description The type of the fee.
+       * @enum {string}
+       */
+      type?: "custom_fee";
+      /**
+       * @description The display name of the fee targeting customers.
+       * @example Package Protection Insurance
+       */
+      display_name_customer?: string;
+      /**
+       * @description The display name of the fee targeting shoppers. NOTE - At least one of the following fields (display_name_customer, display_name_merchant) must be included in the request.
+       * @example Package Protection Fee
+       */
+      display_name_merchant?: string;
+      /**
+       * @description The source of the request.
+       * @example v2
+       */
+      source?: string;
+      /**
+       * @description The fee cost value excluding tax. (Float, Float-As-String, Integer)
+       * @example 8.5
+       */
+      cost_ex_tax?: string | number;
+      /**
+       * @description The fee cost value including tax. (Float, Float-As-String, Integer)
+       * @example 10
+       */
+      cost_inc_tax?: string | number;
+      /**
+       * @description The tax amount on the fee cost. (Float, Float-As-String, Integer) NOTE - At least two of the following fields (cost_ex_tax, cost_inc_tax, and cost_tax) must be included in the request.
+       * @example 1.5
+       */
+      cost_tax?: string | number;
+      /**
+       * @description A unique numeric identifier for the tax class. If not provided or null, the default fee tax class from the control panel is used.
+       * @example 1
+       */
+      tax_class_id?: number | null;
+    };
+    /** orderFees_Put */
+    orderFees_Put: {
+      /**
+       * @description The unique numeric identifier of the fees object.
+       * @example 1
+       */
+      id?: number;
+      /**
+       * @description The type of the fee.
+       * @enum {string}
+       */
+      type?: "custom_fee";
+      /**
+       * @description The display name of the fee targeting customers.
+       * @example Package Protection Insurance
+       */
+      display_name_customer?: string;
+      /**
+       * @description The display name of the fee targeting shoppers. NOTE - At least one of the following fields (display_name_customer, display_name_merchant) must be included in the request.
+       * @example Package Protection Fee
+       */
+      display_name_merchant?: string;
+      /**
+       * @description The source of the request.
+       * @example v2
+       */
+      source?: string;
+      /**
+       * @description The fee cost value excluding tax. (Float, Float-As-String, Integer)
+       * @example 8.5
+       */
+      cost_ex_tax?: string | number;
+      /**
+       * @description The fee cost value including tax. (Float, Float-As-String, Integer)
+       * @example 10
+       */
+      cost_inc_tax?: string | number;
+      /**
+       * @description The tax amount on the fee cost. (Float, Float-As-String, Integer) NOTE - At least two of the following fields (cost_ex_tax, cost_inc_tax, and cost_tax) must be included in the request.
+       * @example 1.5
+       */
+      cost_tax?: string | number;
+      /**
+       * @description A unique numeric identifier for the tax class. If not provided or null, the default fee tax class from the control panel is used.
+       * @example 2
+       */
+      tax_class_id?: number | null;
+    };
   };
   responses: {
     /** @description Get All Order Status Collection Response. */
@@ -2663,8 +2855,8 @@ export interface components {
     status_id_path: number;
     /** @description The cart ID of the order. */
     cart_id?: string;
-    /** @description The display name of the payment method used on the order. */
-    payment_method?: "Manual" | "Cash on Delivery" | "Credit Card" | "Test Payment Gateway" | "Pay In Store";
+    /** @description The display name of the payment method used on the order. For example, `Manual`, `Credit Card`, `cash`, `Test Payment Gateway`, etc.' */
+    payment_method?: string;
     /**
      * @description Minimum date the order was created in RFC-2822 or ISO-8601.
      *
@@ -2723,8 +2915,10 @@ export interface components {
      * @description * `consignments` - include the response returned from the request to the `/orders/{order_id}/consignments` endpoint.
      *
      * * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. This implies `include=consignments`.
+     *
+     * * `fees` - include the response returned from the request to the `/orders/{order_id}/fees` endpoint.
      */
-    order_includes?: ("consignments" | "consignments.line_items")[];
+    order_includes?: ("consignments" | "consignments.line_items" | "fees")[];
   };
   requestBodies: never;
   headers: never;
@@ -2775,6 +2969,14 @@ export interface operations {
    *
    * After the update, the PUT request clears all discounts and promotions applied to the changed order line items. Since the order data syncs with other ERP systems, like Amazon or eBay, the updated order returns to the default setting, removing any applied discounts.
    *
+   * To update order fees, include the fee id in the request body along with all relevant fee fields. Fees not included will be deleted. Fees with an id will be updated, and fees without an id will be created as new.
+   *
+   * **Notes**
+   *
+   * * Sub-resources like products in the /v2/orders PUT request behave like PATCH, updating only the provided fields. Fees, however, follow standard PUT semantics and fees in the request body will fully replace existing ones.
+   * To retain an existing fee, include it in the body with its associated id.
+   * * The values for cost_ex_tax, cost_inc_tax and cost_tax in the fees payload should reflect the tax rate associated with the tax_class_id. For a 10% tax rate, the difference between cost_inc_tax and cost_ex_tax should be 10%. If no tax_class_id is provided, the store's default "tax class for fee" will apply. Incorrect data may lead to issues in downstream operations like refunds.
+   *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    */
   updateOrder: {
@@ -2787,7 +2989,7 @@ export interface operations {
         order_id: components["parameters"]["order_id_path"];
       };
     };
-    requestBody: {
+    requestBody?: {
       content: {
         "application/json": components["schemas"]["order_Put"];
       };
@@ -2821,6 +3023,23 @@ export interface operations {
    */
   getOrdersCount: {
     parameters: {
+      query?: {
+        min_id?: components["parameters"]["min_id"];
+        max_id?: components["parameters"]["max_id"];
+        min_total?: components["parameters"]["min_total"];
+        max_total?: components["parameters"]["max_total"];
+        customer_id?: components["parameters"]["customer_id"];
+        email?: components["parameters"]["email"];
+        status_id?: components["parameters"]["status_id"];
+        cart_id?: components["parameters"]["cart_id"];
+        payment_method?: components["parameters"]["payment_method"];
+        min_date_created?: components["parameters"]["min_date_created"];
+        max_date_created?: components["parameters"]["max_date_created"];
+        min_date_modified?: components["parameters"]["min_date_modified"];
+        max_date_modified?: components["parameters"]["max_date_modified"];
+        channel_id?: components["parameters"]["channel_id"];
+        external_order_id?: components["parameters"]["external_order_id"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -2893,6 +3112,14 @@ export interface operations {
    * This means that if the `consignments` array is present in the request, then _none_ of the following may be present and vice-versa:
    * - `shipping_addresses`
    * - `products`
+   *
+   * Include the `fees` object along with all its attributes in the request to create order-level fees for the newly created order.
+   *
+   * **Notes**
+   *
+   * * The values for cost_ex_tax, cost_inc_tax and cost_tax in the fees payload should reflect the tax rate associated with the tax_class_id. For a 10% tax rate, the difference between cost_inc_tax and cost_ex_tax should be 10%. If no tax_class_id is provided, the store's default "tax class for fee" will apply. Incorrect data may lead to issues in downstream operations like refunds.
+   *
+   * The V2 Orders API will not trigger the typical [Order Email](https://support.bigcommerce.com/s/article/Customizing-Emails?language=en_US) when creating orders. To create an order that does trigger this email, you can instead [create a cart](/docs/rest-management/carts/carts-single#create-a-cart) and [convert that cart into an order](/docs/rest-management/checkouts/checkout-orders#create-an-order).
    */
   createOrder: {
     parameters: {
@@ -3145,9 +3372,9 @@ export interface operations {
    *
    * There are three methods for generating a tracking link for a shipment:
    *
-   * 1. Use `shipping_provider` and `tracking_number`: This generates an automatic tracking link that you can click from the BigCommerce control panel and customer-facing emails. The `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+   * 1. Use `shipping_provider` and `tracking_number`: This generates a link to one of our integrated providers that you can click from the BigCommerce control panel and customer-facing emails. If a merchant still needs to set up a shipping provider or if the provider is not one of our natively integrated providers, you will click on an Aftership tracking link instead. The `generated_tracking_link` property in the API response represents one of these tracking links. The `tracking_link` property in the API response will remain empty.
    *
-   * 2. Use `tracking_carrier` and `tracking_number`: This also creates an automatic tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
+   * 2. Use `tracking_carrier` and `tracking_number`: This also creates a link to one of our integrated providers or an Aftership tracking link that you can click in both the BigCommerce control panel and customer-facing emails. Like the previous method, the `generated_tracking_link` property in the API response represents this tracking link. The `tracking_link` property in the API response will remain empty.
    *
    * 3. Supply a custom `tracking_link`: By providing a value for the `tracking_link` property, you can use your own tracking link within the BigCommerce control panel and in customer-facing emails. The API response will return your supplied tracking link as part of the `tracking_link` property in the response. In situations when there isn't a `generated_tracking_link`, the property in the API response will remain empty.
    *
@@ -3164,7 +3391,7 @@ export interface operations {
    *  - `shipperhq`
    *  - `carrier_{your_carrier_id}`, when the carrier is a [third-party Shipping Provider](/docs/integrations/shipping)
    *
-   * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://github.com/bigcommerce/dev-docs/blob/master/assets/csv/tracking_carrier_values.csv).
+   * Acceptable values for `tracking_carrier` include an empty string (`""`) or one of the valid [tracking-carrier values](https://www.aftership.com/docs/tracking/others/supported-couriers).
    */
   createOrderShipments: {
     parameters: {
@@ -3461,6 +3688,26 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["shippingQuotes_Base"];
+        };
+      };
+      404: components["responses"]["404_Resp"];
+    };
+  };
+  /**
+   * Get Fees
+   * @description Get all fees for an order.
+   */
+  getOrderFees: {
+    parameters: {
+      path: {
+        order_id: components["parameters"]["order_id_path"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        content: {
+          "application/json": components["schemas"]["orderFees_Resp"];
         };
       };
       404: components["responses"]["404_Resp"];
