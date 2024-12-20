@@ -495,7 +495,7 @@ export interface components {
                */
               conditional?: {
                 /**
-                 * @description The ID of the `setting` object the conditional attribute is related to.
+                 * @description The ID of the `settings` object the conditional attribute is related to. The key must be defined within the same settings array as the conditional property. This ensures the conditional logic is scoped to the relevant settings group.
                  * @example backgroundType
                  */
                 key?: string;
@@ -609,7 +609,7 @@ export interface components {
            */
           conditional?: {
             /**
-             * @description The ID of the `setting` object the conditional attribute is related to.
+             * @description The ID of the `settings` object the conditional attribute is related to. You must define the key within the same settings array as the conditional property to scope the conditional logic to the relevant settings group.
              * @example backgroundType
              */
             key?: string;
@@ -631,7 +631,7 @@ export interface components {
      */
     widgetSchemaConditional: {
       /**
-       * @description The ID of the `setting` object the conditional attribute is related to.
+       * @description The ID of the `settings` object the conditional attribute is related to. You must define the key within the same settings array as the conditional property to scope the conditional logic to the relevant settings group.
        * @example backgroundType
        */
       key?: string;
