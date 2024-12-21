@@ -132,8 +132,11 @@ export interface paths {
      * @description Adds a new *Consignment* to *Checkout*.
      *
      * Perform the following two steps to define the fulfillment of the items in the cart.
-     * ### For **shipping** consignments:
+     *
+     * ### For shipping consignments:
+     *
      *   1. Add a new Consignment to Checkout.
+     *
      *       * Send a `POST` request to `/consignments` with each shipping address, line item IDs, and quantities. Each address can have its own line item IDs.
      *       * Provide a full valid customer address before placing the order. If provided, the order placement will succeed.
      *       * As part of the request URL make sure to add `include=consignments.availableShippingOptions` to return the available shipping options based on the items, the address, and the shipping location. This will return `availableShippingOptions` in the response.
@@ -144,8 +147,10 @@ export interface paths {
      *
      *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/docs/rest-storefront/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
      *
-     * ### For **pickup** consignments:
-     *   1. Create a new consignment object.
+     * ### For pickup consignments:
+     *
+     *   Create a new consignment object.
+     *
      *       - Send a `POST` request to `/consignments` with line item IDs and quantities.
      *       - Provide a `pickupMethodId`. This is the `id` of the Pickup Method provided in the response body of the Storefront Pickup Options API.
      *       - Required Fields:
@@ -389,6 +394,8 @@ export interface components {
       consignments?: components["schemas"]["consignment_Full"][];
       /** @description Coupons applied at the checkout level. */
       coupons?: components["schemas"]["CheckoutCoupon"][];
+      /** @description Fees applied at the checkout level. */
+      fees?: components["schemas"]["CheckoutFee"][];
       /** @description Time when the cart was created. */
       createdTime?: string;
       customer?: components["schemas"]["Customer"];
@@ -501,6 +508,45 @@ export interface components {
        * @description The discounted amount applied within a given context.
        */
       discountedAmount?: number;
+    };
+    /** Checkout Fee */
+    CheckoutFee: {
+      /**
+       * Format: uuid
+       * @description The fee ID.
+       * @example 497f6eca-6276-4993-bfeb-53cbbbba6f08
+       */
+      id?: string;
+      /**
+       * @description The type of the fee.
+       * @enum {string}
+       */
+      type?: "custom_fee";
+      /**
+       * @description Name of the fee.
+       * @example AAINS
+       */
+      name?: string;
+      /**
+       * @description Display name of the fee targeting customers/shoppers.
+       * @example Package Protection Insurance
+       */
+      displayName?: string;
+      /**
+       * @description Cost of the fee (include or exclude tax dependent on tax settings, same as shipping cost).
+       * @example 10
+       */
+      cost?: number;
+      /**
+       * @description The source of the request.
+       * @example AA
+       */
+      source?: string;
+      /**
+       * @description The tax class ID.
+       * @example 1
+       */
+      taxClassId?: number;
     };
     /** @description Customer details. */
     Customer: {
@@ -910,7 +956,7 @@ export interface components {
         customItems?: {
             /** @description ID of the custom item. */
             id?: string;
-            /** @description Price of the item. With or without tax depending on your store setup. */
+            /** @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel. */
             listPrice?: string;
             /** @description Item name. */
             name?: string;
@@ -1015,7 +1061,7 @@ export interface components {
       isTaxable?: boolean;
       /**
        * Format: double
-       * @description The item’s list price, as quoted by the manufacturer or distributor.
+       * @description The net item price before discounts and coupons. BigCommerce derives an item's list price from the product default price or, if applicable, the sale price configured in the admin panel.
        */
       listPrice?: number;
       /** @description The itemʼs product name. */
@@ -1408,8 +1454,11 @@ export interface operations {
    * @description Adds a new *Consignment* to *Checkout*.
    *
    * Perform the following two steps to define the fulfillment of the items in the cart.
-   * ### For **shipping** consignments:
+   *
+   * ### For shipping consignments:
+   *
    *   1. Add a new Consignment to Checkout.
+   *
    *       * Send a `POST` request to `/consignments` with each shipping address, line item IDs, and quantities. Each address can have its own line item IDs.
    *       * Provide a full valid customer address before placing the order. If provided, the order placement will succeed.
    *       * As part of the request URL make sure to add `include=consignments.availableShippingOptions` to return the available shipping options based on the items, the address, and the shipping location. This will return `availableShippingOptions` in the response.
@@ -1420,8 +1469,10 @@ export interface operations {
    *
    *   2. Update the Consignment with Shipping Options using the [REST Storefront API](/docs/rest-storefront/checkouts/checkout-consignments#update-a-consignment), the [REST Management API](/docs/rest-management/checkouts/checkout-consignments#update-checkout-consignment) or the [GraphQL Storefront API](/docs/storefront/cart-checkout/guide/graphql-storefront).
    *
-   * ### For **pickup** consignments:
-   *   1. Create a new consignment object.
+   * ### For pickup consignments:
+   *
+   *   Create a new consignment object.
+   *
    *       - Send a `POST` request to `/consignments` with line item IDs and quantities.
    *       - Provide a `pickupMethodId`. This is the `id` of the Pickup Method provided in the response body of the Storefront Pickup Options API.
    *       - Required Fields:

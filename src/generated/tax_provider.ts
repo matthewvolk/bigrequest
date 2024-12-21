@@ -110,7 +110,7 @@ export interface components {
       quantity: number;
       tax_class?: components["schemas"]["TaxClass"];
       /**
-       * @description Flag whether or not this item is always tax-exempt. For example, gift certificate purchases and order-level refunds are tax-exempt. Tax-exempt items are included in the request for auditing purposes.
+       * @description Flag whether or not this item is always tax-exempt. For example, gift certificate purchases and order-level refunds are tax-exempt. Tax-exempt items are included in the request for auditing purposes. Tax-exempt items must have a tax amount of zero within the tax quote response.
        * @default false
        */
       tax_exempt?: boolean;
