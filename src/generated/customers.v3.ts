@@ -36,7 +36,8 @@ export interface paths {
      * * origin_channel_id
      *
      * **Limits**
-     * Limit of 10 customers per call.
+     * * Limit of 10 customers per call.
+     * * Limit of 3 concurrent requests
      *
      * **Notes**
      *
@@ -175,7 +176,7 @@ export interface paths {
      * @description Returns the global-level customer settings.
      *
      * **Notes:**
-     * * Global customer settings don't apply when the `default_customer_group_id` is present.
+     * * Global customer settings don't apply on a channel when there are channel specific settings configured through [Channel Settings](/docs/rest-management/customers/channel-settings).
      */
     get: operations["getCustomersSettings"];
     /**
@@ -191,8 +192,7 @@ export interface paths {
      *
      * **Notes:**
      *
-     *  * `null` indicates that there is no override per given channel and values are inherited from the global level.
-     *  * Global customer settings don't apply when the `default_customer_group_id` is present.
+     *  * `null` value configuration indicates that there is no override provided for a given channel; thus, values are inherited from [Global Settings](/docs/rest-management/customers/global-settings).
      */
     get: operations["getCustomersSettingsChannel"];
     /**
@@ -275,7 +275,8 @@ export interface paths {
      * Upsert checks for an existing record. If there is none, it creates the record, if there is a matching record, it updates that record.
      *
      * **Limits**
-     * * 10 per call limit.
+     * * Limit of 10 customers per call.
+     * * Limit of 3 concurrent requests.
      */
     put: operations["upsertCustomersAttributeValues"];
     /**
@@ -2318,15 +2319,15 @@ export interface operations {
         "customer_group_id:in"?: string[];
         /** @description Filter items by date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_created?: string;
-        /** @description Filter items by maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date. */
+        /** @description Filter items by maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers created before this date. */
         "date_created:max"?: string;
-        /** @description Filter items by date created for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date. */
+        /** @description Filter items by date created for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers created after this date. */
         "date_created:min"?: string;
         /** @description Filter items by date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. */
         date_modified?: string;
-        /** @description Filter items by minimum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date. */
+        /** @description Filter items by minimum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers modified after this date. */
         "date_modified:min"?: string;
-        /** @description Filter items by maximum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date. */
+        /** @description Filter items by maximum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns customers modified before this date. */
         "date_modified:max"?: string;
         /** @description Filter items by email. `email:in=janedoe@example.com` */
         "email:in"?: string[];
@@ -2338,6 +2339,8 @@ export interface operations {
          * Concatenates the first_name and last_name fields.
          */
         "name:like"?: string[];
+        /** @description Filter items by phone number. `phone:in=555-55-5555` */
+        "phone:in"?: string;
         /**
          * @description Filter items by registration_ip_address. If the customer was created using the API, then registration address is blank.
          * `registration_ip_address:in=12.345.6.789`
@@ -2384,7 +2387,8 @@ export interface operations {
    * * origin_channel_id
    *
    * **Limits**
-   * Limit of 10 customers per call.
+   * * Limit of 10 customers per call.
+   * * Limit of 3 concurrent requests
    *
    * **Notes**
    *
@@ -2700,7 +2704,7 @@ export interface operations {
    * @description Returns the global-level customer settings.
    *
    * **Notes:**
-   * * Global customer settings don't apply when the `default_customer_group_id` is present.
+   * * Global customer settings don't apply on a channel when there are channel specific settings configured through [Channel Settings](/docs/rest-management/customers/channel-settings).
    */
   getCustomersSettings: {
     responses: {
@@ -2747,8 +2751,7 @@ export interface operations {
    *
    * **Notes:**
    *
-   *  * `null` indicates that there is no override per given channel and values are inherited from the global level.
-   *  * Global customer settings don't apply when the `default_customer_group_id` is present.
+   *  * `null` value configuration indicates that there is no override provided for a given channel; thus, values are inherited from [Global Settings](/docs/rest-management/customers/global-settings).
    */
   getCustomersSettingsChannel: {
     parameters: {
@@ -2993,7 +2996,8 @@ export interface operations {
    * Upsert checks for an existing record. If there is none, it creates the record, if there is a matching record, it updates that record.
    *
    * **Limits**
-   * * 10 per call limit.
+   * * Limit of 10 customers per call.
+   * * Limit of 3 concurrent requests.
    */
   upsertCustomersAttributeValues: {
     parameters: {
