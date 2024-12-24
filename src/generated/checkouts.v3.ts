@@ -164,6 +164,27 @@ export interface paths {
      */
     delete: operations["deleteCheckoutCoupon"];
   };
+  "/checkouts/{checkoutId}/fees": {
+    /**
+     * Update order level fees in a checkout
+     * @description Updates order level fees in a checkout.
+     * > We do not support partial updates, so please send the total entity values for each fee to be updated.
+     */
+    put: operations["CheckoutsFeesByCheckoutIdPut"];
+    /**
+     * Add order level fees to a checkout
+     * @description Adds order level fees to a checkout.
+     *
+     * Limits:
+     *   - Maximum of 5 fees per checkout.
+     */
+    post: operations["CheckoutsFeesByCheckoutIdPost"];
+    /**
+     * Delete order level fees from a checkout.
+     * @description Delete fees from a checkout.
+     */
+    delete: operations["CheckoutsFeesByCheckoutIdDelete"];
+  };
   "/checkouts/{checkoutId}/orders": {
     /**
      * Create an Order
@@ -298,6 +319,11 @@ export interface components {
              * @example 0.9
              */
             discounted_amount?: number;
+            /**
+             * @description The display name of the coupon.
+             * @example 20% Off
+             */
+            display_name?: string;
           }[];
         discounts?: {
             /**
@@ -640,6 +666,8 @@ export interface components {
         }[];
       /** @description Coupons applied at checkout level. */
       coupons?: components["schemas"]["AppliedCoupon"][];
+      /** @description Fees applied at the checkout level. */
+      fees?: components["schemas"]["CheckoutFee"][];
       order_id?: string | null;
       /**
        * Format: double
@@ -730,11 +758,60 @@ export interface components {
        */
       coupon_type?: string;
       /**
+       * @description The display name of the coupon.
+       * @example 20% Off
+       */
+      display_name?: string;
+      /**
        * Format: float
        * @description The discounted amount applied within a given context.
        * @example 0.9
        */
       discounted_amount?: number;
+    };
+    /** Checkout Fee */
+    CheckoutFee: {
+      /**
+       * Format: uuid
+       * @description The fee ID.
+       * @example 497f6eca-6276-4993-bfeb-53cbbbba6f08
+       */
+      id?: string;
+      /**
+       * @description The type of the fee.
+       * @enum {string}
+       */
+      type?: "custom_fee";
+      /**
+       * @description Name of the fee.
+       * @example AAINS
+       */
+      name?: string;
+      /**
+       * @description Display name of the fee targeting customers/shoppers.
+       * @example Package Protection Insurance
+       */
+      display_name?: string;
+      /**
+       * @description Cost of the fee including tax.
+       * @example 10
+       */
+      cost_inc_tax?: number;
+      /**
+       * @description Cost of the fee excluding tax.
+       * @example 9.9
+       */
+      cost_ex_tax?: number;
+      /**
+       * @description The source of the request.
+       * @example AA
+       */
+      source?: string;
+      /**
+       * @description The tax class ID.
+       * @example 1
+       */
+      tax_class_id?: number | null;
     };
     /** Address Properties */
     AddressProperties: {
@@ -871,6 +948,60 @@ export interface components {
        * @example 1
        */
       version?: number;
+    };
+    BaseFee: {
+      /**
+       * @description The type of the fee.
+       * @enum {string}
+       */
+      type: "custom_fee";
+      /**
+       * @description The name of the fee.
+       * @example AAINS
+       */
+      name: string;
+      /**
+       * @description The display name of the fee targeting customers/shoppers.
+       * @example Package Protection Insurance
+       */
+      display_name: string;
+      /**
+       * @description The cost of the fee.
+       * @example 7.12
+       */
+      cost: number;
+      /**
+       * @description The source of the request.
+       * @example AA
+       */
+      source: string;
+      /**
+       * @description The tax class ID applied to this fee (you can retrieve the tax class ID from our management API - v2/tax_classes). If the tax class is not provided or is null, the tax class set in the control panel is applied.
+       * @example 1
+       */
+      tax_class_id?: number;
+    };
+    FeeWithId: components["schemas"]["BaseFee"] & {
+      /**
+       * @description ID of the fee.
+       * @example 3c26f3e6-146d-4dce-8159-2a77c0bba409
+       */
+      id: string;
+    };
+    /** Fees POST request */
+    AddFeesRequest: {
+      /** @description The fees to be added to a checkout. */
+      fees: components["schemas"]["BaseFee"][];
+    };
+    /** Fees PUT request */
+    UpdateFeesRequest: {
+      /** @description The fees to be updated in a checkout. */
+      fees: components["schemas"]["FeeWithId"][];
+    };
+    /** Fees DELETE request */
+    DeleteFeesRequest: {
+      /** @description The IDs of the fees to be deleted from a checkout. */
+      ids: string[];
     };
     /** Delete Coupon Request */
     DeleteCouponCodeRequest: {
@@ -1486,6 +1617,98 @@ export interface operations {
         };
       };
       409: components["responses"]["CartConflictErrorResponse"];
+    };
+  };
+  /**
+   * Update order level fees in a checkout
+   * @description Updates order level fees in a checkout.
+   * > We do not support partial updates, so please send the total entity values for each fee to be updated.
+   */
+  CheckoutsFeesByCheckoutIdPut: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["checkoutId"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateFeesRequest"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Checkout"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Add order level fees to a checkout
+   * @description Adds order level fees to a checkout.
+   *
+   * Limits:
+   *   - Maximum of 5 fees per checkout.
+   */
+  CheckoutsFeesByCheckoutIdPost: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["Content-Type"];
+      };
+      path: {
+        checkoutId: components["parameters"]["checkoutId"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AddFeesRequest"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Checkout"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Delete order level fees from a checkout.
+   * @description Delete fees from a checkout.
+   */
+  CheckoutsFeesByCheckoutIdDelete: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        checkoutId: components["parameters"]["checkoutId"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DeleteFeesRequest"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["Checkout"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
     };
   };
   /**

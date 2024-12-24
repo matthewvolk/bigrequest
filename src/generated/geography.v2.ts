@@ -47,7 +47,7 @@ export interface paths {
     get: operations["getCountryState"];
     parameters: {
       path: {
-        country_id: string;
+        country_id: number;
         id: string;
       };
     };
@@ -81,7 +81,7 @@ export interface paths {
     get: operations["getCountryStatesCount"];
     parameters: {
       path: {
-        country_id: string;
+        country_id: number;
       };
     };
   };
@@ -353,7 +353,7 @@ export interface operations {
   getCountryStatesCount: {
     parameters: {
       path: {
-        country_id: string;
+        country_id: number;
       };
     };
     responses: {
