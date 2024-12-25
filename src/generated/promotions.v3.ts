@@ -581,6 +581,14 @@ export interface components {
     Money: string;
     /**
      * Collection Meta
+     * @description Contains data about paginating the response via cursors. If no pagination details are specified, then both properties will be present.  When a 'before' or 'after' cursor is provided, only the 'cursor_pagination' property will be present. When a 'page' parameter is provided, only the offset based 'pagination' property will be present.
+     */
+    OptionalCursorCollectionMeta: {
+      pagination?: components["schemas"]["DeprecatedPagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
+    };
+    /**
+     * Collection Meta
      * @description Contains data about the response including pagination and collection totals.
      */
     CollectionMeta: {
@@ -611,6 +619,74 @@ export interface components {
         next?: string;
       };
     };
+    /**
+     * Pagination
+     * @deprecated
+     * @description Data about the response, including pagination and collection totals. This property has been deprecated and cursor_pagination should be used instead.
+     */
+    DeprecatedPagination: {
+      /** @description Total number of items in the result set. */
+      total?: number;
+      /** @description Total number of items in the collection response. */
+      count?: number;
+      /** @description The amount of items returned in the collection per page, controlled by the limit of items per page parameter. */
+      per_page?: number;
+      /** @description The page you are currently on within the collection. */
+      current_page?: number;
+      /** @description The total number of pages in the collection. */
+      total_pages?: number;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /** @description Link to the previous page returned in the response. */
+        previous?: string;
+        /** @description Link to the current page returned in the response. */
+        current?: string;
+        /** @description Link to the next page returned in the response. */
+        next?: string;
+      };
+    };
+    /**
+     * Cursor Pagination
+     * @description Contains data about paginating the response via cursors.
+     */
+    CursorPagination: {
+      /**
+       * @description Total number of items in the result set.
+       * @example 12
+       */
+      count: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit of items per page parameter.
+       * @example 12
+       */
+      per_page: number;
+      /**
+       * @description The cursor to the first item in the result set. Can be used with the "before" query parameter to paginate backwards. This property is omitted when the result set is empty.
+       *
+       * @example eyJpZCI6IjIzNzU1NyJ9
+       */
+      start_cursor?: string;
+      /**
+       * @description The cursor to the last item in the result set. Can be used with the "after" query parameter to paginate forwards. This property is omitted when the result set is empty.
+       *
+       * @example eyJpZCI6IjIzNzU1NyJ9
+       */
+      end_cursor?: string;
+      links: {
+        /**
+         * @description Link to the previous page returned in the response. This property is omitted when the result set is empty or on the first page.
+         *
+         * @example ?limit=5&before=eyJpZCI6IjIzNzU1NyJ9
+         */
+        previous?: string;
+        /**
+         * @description Link to the next page returned in the response. This property is omitted when the result set is empty.
+         *
+         * @example ?limit=5&after=eyJpZCI6IjIzNzU1NyJ9
+         */
+        next?: string;
+      };
+    };
     /** Error Response */
     ErrorResponse: {
       errors?: components["schemas"]["Error"][];
@@ -619,6 +695,32 @@ export interface components {
     Error: {
       status?: number;
       title?: string;
+    };
+    /**
+     * 400 Error Response
+     * @description The server cannot process the request because the syntax or data is invalid.
+     */
+    ErrorResponse400: {
+      /** @description Bad request. */
+      status?: string;
+      /** @description The error title describing the particular error. */
+      title?: string;
+      /** @description Error payload for the BigCommerce API. */
+      type?: string;
+      /** @description Detailed summary describing the particular error. */
+      detail?: string;
+    };
+    /**
+     * 403 Error Response
+     * @description The client is authenticated but does not have the necessary permissions to perform the requested action.
+     */
+    ErrorResponse403: {
+      /** @description Forbidden. */
+      status?: string;
+      /** @description The error title describing the particular error. */
+      title?: string;
+      /** @description Error payload for the BigCommerce API. */
+      error?: string;
     };
     /**
      * Notification
@@ -888,7 +990,7 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["CouponCode"][];
-          meta?: components["schemas"]["CollectionMeta"];
+          meta?: components["schemas"]["OptionalCursorCollectionMeta"];
         };
       };
     };
@@ -931,8 +1033,13 @@ export interface components {
     IdInQuery: number[];
     /** @description Query parameter that specifies the page number in a paginated list of resources. */
     PageQuery?: number;
-    /** @description Query parameter that limits the number of items displayed per page in a paginated list of resources. */
-    LimitQuery: number;
+    /**
+     * @deprecated
+     * @description Query parameter that specifies the page number in a paginated list of resources. This field is deprecated and the 'before' and 'after' cursor parameters should be used instead.
+     */
+    DeprecatedPageQuery?: number;
+    /** @description Query parameter that limits the number of items displayed per page in a paginated list of resources. When none is specified a default value of 50 is used. */
+    LimitQuery?: number;
     /** @description Filter items by `name`. */
     NameQuery?: string;
     /** @description Filter items by `code`. */
@@ -949,6 +1056,10 @@ export interface components {
     DirectionQuery?: "asc" | "desc";
     /** @description The ID of the associated promotion. */
     PromotionIdPath: string;
+    /** @description A cursor that can be used for backwards pagination. Will fetch results before the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'after' query parameter. */
+    BeforeCursorQuery?: string;
+    /** @description A cursor that can be used for forwards pagination. Will fetch results after the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'before' query parameter. */
+    AfterCursorQuery?: string;
     /** @description Filter promotions that target those `channel IDs`.  Example: **?channels=1,2**. Note: promotions that target all the channels are included in the filtering result. */
     ChannelQuery?: number[];
   };
@@ -974,7 +1085,7 @@ export interface operations {
    */
   getPromotions: {
     parameters: {
-      query: {
+      query?: {
         id?: components["parameters"]["IdQuery"];
         name?: components["parameters"]["NameQuery"];
         code?: components["parameters"]["CodeQuery"];
@@ -982,7 +1093,7 @@ export interface operations {
         redemption_type?: components["parameters"]["RedemptionTypeQuery"];
         status?: components["parameters"]["StatusQuery"];
         page?: components["parameters"]["PageQuery"];
-        limit: components["parameters"]["LimitQuery"];
+        limit?: components["parameters"]["LimitQuery"];
         sort?: components["parameters"]["SortQuery"];
         direction?: components["parameters"]["DirectionQuery"];
         channels?: components["parameters"]["ChannelQuery"];
@@ -1024,6 +1135,18 @@ export interface operations {
     };
     responses: {
       201: components["responses"]["PromotionsResponse"];
+      /** @description The request payload was invalid. */
+      400: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse400"];
+        };
+      };
+      /** @description The request payload was invalid. */
+      403: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse403"];
+        };
+      };
       /** @description The request payload was invalid. */
       422: {
         content: {
@@ -1150,6 +1273,12 @@ export interface operations {
    */
   getPromotionCodes: {
     parameters: {
+      query?: {
+        before?: components["parameters"]["BeforeCursorQuery"];
+        after?: components["parameters"]["AfterCursorQuery"];
+        page?: components["parameters"]["DeprecatedPageQuery"];
+        limit?: components["parameters"]["LimitQuery"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
