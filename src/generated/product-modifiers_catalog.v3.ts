@@ -190,6 +190,31 @@ export interface components {
       option_values?: {
           /** @description The unique numeric ID of the value; increments sequentially. */
           id?: number;
+          /**
+           * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+           *
+           * @example false
+           */
+          is_default?: boolean;
+          /** @description Adjuster for Complex Rules. */
+          adjusters?: {
+            price?: {
+              /**
+               * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
+               *   enum:
+               *     - relative
+               *     - percentage
+               *   x-nullable: true
+               */
+              adjuster?: string;
+              /**
+               * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
+               *
+               * @example 5
+               */
+              adjuster_value?: number;
+            };
+          };
         }[];
       /** @description The name of the option shown on the storefront. */
       display_name: string;
@@ -843,10 +868,34 @@ export interface operations {
              */
             product_list_shipping_calc?: "none" | "weight" | "package";
           };
-          option_values?: {
+          /** @description Part of Modifier Value Response */
+          option_values?: ({
               /** @description The unique numeric ID of the value; increments sequentially. */
               id?: number;
-            }[];
+              /**
+               * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
+               *
+               * @example false
+               */
+              is_default?: boolean;
+              adjusters?: {
+                /** @description Adjuster for Complex Rules. */
+                price?: {
+                  /**
+                   * @description The type of adjuster for either the price or the weight of the variant, when the modifier value is selected on the storefront.
+                   *
+                   * @enum {string}
+                   */
+                  adjuster?: "relative" | "percentage";
+                  /**
+                   * @description The numeric amount by which the adjuster will change either the price or the weight of the variant, when the modifier value is selected on the storefront.
+                   *
+                   * @example 5
+                   */
+                  adjuster_value?: number;
+                };
+              };
+            })[];
           /**
            * @description The name of the option shown on the storefront.
            *
