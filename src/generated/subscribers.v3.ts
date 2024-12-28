@@ -328,8 +328,16 @@ export interface components {
     FilterOrderIdParam?: number;
     /** @description Filter items by date_modified. For example `v3/catalog/products?date_last_imported:min=2018-06-15` */
     FilterDateModifiedParam?: string;
+    /** @description Filter items by minimum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date. */
+    FilterDateModifiedMinParam?: string;
+    /** @description Filter items by maximum date modified, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date. */
+    FilterDateModifiedMaxParam?: string;
     /** @description Filter items by date_created. */
     FilterDateCreatedParam?: string;
+    /** @description Filter items by minimum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date. */
+    FilterDateCreatedMinParam?: string;
+    /** @description Filter items by maximum date created, for example, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date. */
+    FilterDateCreatedMaxParam?: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
     /** @description Controls the number of items per page in a limited (paginated) list of products. */
@@ -340,6 +348,11 @@ export interface components {
     DirectionParam?: "asc" | "desc";
     /** @description Filter items by ID. */
     IdParam: number;
+    /**
+     * @description Filter items by ID.
+     * `id:in=4,5,6`
+     */
+    IdInParam?: number[];
     /** @description The ID of the subscriber requested. */
     SubscriberIdParam: number;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
@@ -371,10 +384,15 @@ export interface operations {
         source?: components["parameters"]["FilterSourceParam"];
         order_id?: components["parameters"]["FilterOrderIdParam"];
         date_created?: components["parameters"]["FilterDateCreatedParam"];
+        "date_created:min"?: components["parameters"]["FilterDateCreatedMinParam"];
+        "date_created:max"?: components["parameters"]["FilterDateCreatedMaxParam"];
         date_modified?: components["parameters"]["FilterDateModifiedParam"];
+        "date_modified:min"?: components["parameters"]["FilterDateModifiedMinParam"];
+        "date_modified:max"?: components["parameters"]["FilterDateModifiedMaxParam"];
         page?: components["parameters"]["PageParam"];
         limit?: components["parameters"]["LimitParam"];
         id: components["parameters"]["IdParam"];
+        "id:in"?: components["parameters"]["IdInParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
