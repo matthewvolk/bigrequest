@@ -8,6 +8,11 @@
 /** WithRequired type helpers */
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
+/** OneOf type helpers */
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+
 export interface paths {
   "/catalog/products": {
     /**
@@ -39,6 +44,7 @@ export interface paths {
      * - `type`
      * - `weight`
      * - `price`
+     * - `categories` (required when you enable the V2 product experience in the control panel)
      *
      * **Read-Only Fields**
      * - `id`
@@ -308,9 +314,6 @@ export interface paths {
     /**
      * Get Product Custom Fields
      * @description Returns a list of product *Custom Fields*. You can pass in optional parameters.
-     *
-     * **Note:**
-     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getProductCustomFields"];
     /**
@@ -330,9 +333,6 @@ export interface paths {
      * **Limits**
      * - 200 custom fields per product limit.
      * - 250 characters per custom field limit.
-     *
-     * **Note:**
-     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createProductCustomField"];
     parameters: {
@@ -345,9 +345,6 @@ export interface paths {
     /**
      * Get a Product Custom Field
      * @description Returns a *Custom Field*.
-     *
-     * **Note:**
-     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     get: operations["getProductCustomField"];
     /**
@@ -366,15 +363,11 @@ export interface paths {
      *  **Limits**
      * - 200 custom fields per product limit.
      * - 250 characters per custom field limit.
-     * - 40 concurrent requests default rate limit.
      */
     put: operations["updateProductCustomField"];
     /**
      * Delete a Product Custom Field
      * @description Deletes a product *Custom Field*.
-     *
-     * **Note:**
-     * The default rate limit for this endpoint is 40 concurrent requests.
      */
     delete: operations["deleteProductCustomField"];
     parameters: {
@@ -883,6 +876,7 @@ export interface components {
       product_id?: number;
       /** @description Variant ID */
       id?: number;
+      /** @description A unique user-defined alphanumeric product code/stock keeping unit (SKU). The SKU is always unique regardless of the letter case for both products and variants. */
       sku?: string;
       /** @example 70 */
       sku_id?: number;
@@ -1051,33 +1045,30 @@ export interface components {
      */
     productImage_Base: {
       /**
-       * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+       * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
        *
-       * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+       * Cannot be used with `image_file`.
        */
-      image_file?: string;
+      image_url?: string;
       /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
       is_thumbnail?: boolean;
       /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
       sort_order?: number;
       /** @description The description for the image. */
       description?: string;
+      /**
+       * Format: date-time
+       * @description The date on which the product image was modified.
+       */
+      date_modified?: string;
     };
     /**
-     * productImage_Put
-     * @description The model for a PUT to update applicable Product Image fields.
+     * productImage_Post_Put
+     * @description The model for a POST or PUT to create  or update applicable Product Image fields.
      */
-    productImage_Put: {
+    productImage_Post_Put: {
       /** @description The unique numeric identifier for the product with which the image is associated. */
       product_id?: number;
-      /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
-      url_zoom?: string;
-      /** @description The standard URL for this image. By default, this is used for product-page images. */
-      url_standard?: string;
-      /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
-      url_thumbnail?: string;
-      /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
-      url_tiny?: string;
     } & components["schemas"]["productImage_Base"];
     /**
      * productVideo_Base
@@ -1130,7 +1121,7 @@ export interface components {
      * product_Put
      * @description The model for a PUT to update a product.
      */
-    product_Put: Record<string, never> & components["schemas"]["product_Base"];
+    product_Put: Record<string, never> & components["schemas"]["product_Base_PUT"];
     /**
      * metafield_Base
      * @description Metafield for products, categories, variants, and brands; the max number of metafields allowed on each is 250. For more information, see [Platform Limits](https://support.bigcommerce.com/s/article/Platform-Limits) in the Help Center.
@@ -1678,7 +1669,7 @@ export interface components {
     product_Put_Collection: ({
         /** @description Unique ID of the *Product*. Read-Only. */
         id: number;
-      } & components["schemas"]["product_Base"])[];
+      } & components["schemas"]["product_Base_PUT"])[];
     /**
      * config_Full
      * @description The values for option config can vary based on the Modifier created.
@@ -1813,12 +1804,11 @@ export interface components {
       };
     };
     /**
-     * product_Base
-     * @description Shared `Product` properties used in:
+     * product_Base_POST
+     * @description `Product` properties used in:
      * * `POST`
-     * * `PUT`
      */
-    product_Base: {
+    product_Base_POST: {
       /**
        * @description A unique product name.
        *
@@ -1833,7 +1823,7 @@ export interface components {
        */
       type: "physical" | "digital";
       /**
-       * @description A unique user-defined alphanumeric product code/stock keeping unit (SKU).
+       * @description A unique user-defined alphanumeric product code/stock keeping unit (SKU). The SKU is always unique regardless of the letter case for both products and variants.
        *
        * @example SM-13
        */
@@ -1869,6 +1859,250 @@ export interface components {
        * @description The price of the product. The price should include or exclude tax, based on the store settings.
        */
       price: number;
+      /**
+       * Format: float
+       * @description The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
+       */
+      cost_price?: number;
+      /**
+       * Format: float
+       * @description The retail cost of the product. If entered, the retail cost price will be shown on the product page.
+       */
+      retail_price?: number;
+      /**
+       * Format: float
+       * @description If entered, the sale price will be used instead of value in the price field when calculating the productʼs cost.
+       */
+      sale_price?: number;
+      /** @description Minimum Advertised Price */
+      map_price?: number;
+      /** @description The ID of the tax class applied to the product. (NOTE: Value ignored if automatic tax is enabled.) */
+      tax_class_id?: number;
+      /** @description Tax Codes, such as AvaTax System Tax Codes, identify products and services that fall into special sales-tax categories. By using these codes, merchants who subscribe to a tax provider integration, such as BigCommerceʼs Avalara Premium, can calculate sales taxes more accurately. Stores without a tax provider will ignore the code when calculating sales tax. Do not pass more than one code. The codes are case-sensitive. For details, please see the tax providerʼs documentation. */
+      product_tax_code?: string;
+      /** @description An array of IDs for the categories to which this product belongs. You will overwrite all product categories when updating a product and supplying an array of categories. The limit is 1,000 ID values. When you enable the catalog V2 product experience in the control panel, you must include the categories array in the request body. */
+      categories?: number[];
+      /** @description You can add a product to an existing brand during a product /PUT or /POST. Use either the `brand_id` or the `brand_name` field. The response body can include `brand_id`. */
+      brand_id?: number;
+      /**
+       * @description You can create the brand during a product PUT or POST request. If the brand already exists, the product /PUT or /POST request adds the product to the brand. If not, the product /PUT or /POST request creates the brand and then adds the product to the brand. Brand name is not case-sensitive; "Common Good" and "Common good" are the same. Use either the `brand_id` or the `brand_name` field. The response body does not include `brand_name`.
+       * @example Common Good
+       */
+      brand_name?: string;
+      /**
+       * @description Current inventory level of the product. You must track inventory by _product_ for this to take effect (see the `inventory_tracking` field). The Catalog API returns the inventory for only the default location.
+       *
+       * The inventory for a product cannot exceed 2,147,483,647 in the catalog. If you exceed the limit, the store sets the inventory level to the limit.
+       *
+       * The Catalog API handles limits in a different way than the Inventory API. For more information, see [Limit handling](/docs/store-operations/catalog/inventory-adjustments#limit-handling-in-inventory-versus-catalog-api).
+       */
+      inventory_level?: number;
+      /** @description Inventory warning level for the product. When the productʼs inventory level drops below the warning level, the store owner will be informed. Simple inventory tracking must be enabled (see the `inventory_tracking` field) for this to take any effect. */
+      inventory_warning_level?: number;
+      /**
+       * @description The type of inventory tracking for the product. Values are: `none` - inventory levels will not be tracked; `product` - inventory levels will be tracked using the `inventory_level` and `inventory_warning_level` fields; `variant` - inventory levels will be tracked based on variants, which maintain their own warning levels and inventory levels.
+       *
+       * @enum {string}
+       */
+      inventory_tracking?: "none" | "product" | "variant";
+      /**
+       * Format: float
+       * @description A fixed shipping cost for the product. If defined, this value will be used during checkout instead of normal shipping-cost calculation.
+       */
+      fixed_cost_shipping_price?: number;
+      /** @description Flag used to indicate whether the product has free shipping. If `true`, the shipping cost for the product will be zero. */
+      is_free_shipping?: boolean;
+      /** @description Flag to determine whether the product should be displayed to customers browsing the store. If `true`, the product will be displayed. If `false`, the product will be hidden from view. */
+      is_visible?: boolean;
+      /** @description Flag to determine whether the product should be included in the `featured products` panel when viewing the store. */
+      is_featured?: boolean;
+      /** @description An array of IDs for the related products. */
+      related_products?: number[];
+      /** @description Warranty information displayed on the product page. Can include HTML formatting. */
+      warranty?: string;
+      /** @description The BIN picking number for the product. */
+      bin_picking_number?: string;
+      /** @description The layout template file used to render this product category. This field is writable only for stores with a Blueprint theme applied. For stores with a Stencil theme applied, see [Custom Template Associations](/docs/rest-content/custom-template-associations). */
+      layout_file?: string;
+      /** @description The product UPC code, which is used in feeds for shopping comparison sites and external channel integrations. */
+      upc?: string;
+      /** @description A comma-separated list of keywords that can be used to locate the product when searching the store. */
+      search_keywords?: string;
+      /** @description Availability text displayed on the checkout page, under the product title. Tells the customer how long it will normally take to ship this product, such as: 'Usually ships in 24 hours.' */
+      availability_description?: string;
+      /**
+       * @description Availability of the product. (Corresponds to the productʼs [Purchasability](https://support.bigcommerce.com/s/article/Adding-Products-v3?language=en_US#sections) section in the control panel.) Supported values: `available` - the product is available for purchase; `disabled` - the product is listed on the storefront, but cannot be purchased; `preorder` - the product is listed for pre-orders.
+       *
+       * @enum {string}
+       */
+      availability?: "available" | "disabled" | "preorder";
+      /**
+       * @description Type of gift-wrapping options. Values: `any` - allow any gift-wrapping options in the store; `none` - disallow gift-wrapping on the product; `list` – provide a list of IDs in the `gift_wrapping_options_list` field.
+       *
+       * Always included in the response body; not applicable for the `include_fields` and `exclude_fields` query parameters.
+       *
+       * @enum {string}
+       */
+      gift_wrapping_options_type?: "any" | "none" | "list";
+      /**
+       * @description A list of gift-wrapping option IDs.
+       *
+       * Always included in the response body; not applicable for the `include_fields` and `exclude_fields` query parameters.
+       */
+      gift_wrapping_options_list?: number[];
+      /** @description Priority to give this product when included in product lists on category pages and in search results. Lower integers will place the product closer to the top of the results. */
+      sort_order?: number;
+      /**
+       * @description The product condition. Will be shown on the product page if the `is_condition_shown` fieldʼs value is `true`. Possible values: `New`, `Used`, `Refurbished`.
+       *
+       * @enum {string}
+       */
+      condition?: "New" | "Used" | "Refurbished";
+      /** @description Flag used to determine whether the product condition is shown to the customer on the product page. */
+      is_condition_shown?: boolean;
+      /** @description The minimum quantity an order must contain, to be eligible to purchase this product. */
+      order_quantity_minimum?: number;
+      /** @description The maximum quantity an order can contain when purchasing the product. */
+      order_quantity_maximum?: number;
+      /** @description Custom title for the product page. If not defined, the product name will be used as the meta title. */
+      page_title?: string;
+      /** @description Custom meta keywords for the product page. If not defined, the storeʼs default keywords will be used. */
+      meta_keywords?: string[];
+      /** @description Custom meta description for the product page. If not defined, the storeʼs default meta description will be used. */
+      meta_description?: string;
+      /**
+       * @deprecated
+       * @description The number of times the product has been viewed.
+       */
+      view_count?: number;
+      /**
+       * Format: date-time
+       * @description Pre-order release date. See the `availability` field for details on setting a productʼs availability to accept pre-orders.
+       */
+      preorder_release_date?: string | null;
+      /** @description Custom expected-date message to display on the product page. If undefined, the message defaults to the storewide setting. Can contain the `%%DATE%%` placeholder, which will be substituted for the release date. */
+      preorder_message?: string;
+      /**
+       * @description If set to true then on the preorder release date the preorder status will automatically be removed.
+       * If set to false, then on the release date the preorder status **will not** be removed. It will need to be changed manually either in the
+       * control panel or using the API. Using the API set `availability` to `available`.
+       */
+      is_preorder_only?: boolean;
+      /** @description False by default, indicating that this productʼs price should be shown on the product page. If set to `true`, the price is hidden. (NOTE: To successfully set `is_price_hidden` to `true`, the `availability` value must be `disabled`.) */
+      is_price_hidden?: boolean;
+      /** @description By default, an empty string. If `is_price_hidden` is `true`, the value of `price_hidden_label` is displayed instead of the price. (NOTE: To successfully set a non-empty string value with `is_price_hidden` set to `true`, the `availability` value must be `disabled`.) */
+      price_hidden_label?: string;
+      custom_url?: components["schemas"]["customUrl_Full"];
+      /**
+       * @description Type of product, defaults to `product`.
+       *
+       * @enum {string}
+       */
+      open_graph_type?: "product" | "album" | "book" | "drink" | "food" | "game" | "movie" | "song" | "tv_show";
+      /** @description Title of the product, if not specified the product name will be used instead. */
+      open_graph_title?: string;
+      /** @description Description to use for the product, if not specified then the meta_description will be used instead. */
+      open_graph_description?: string;
+      /** @description Flag to determine if product description or open graph description is used. */
+      open_graph_use_meta_description?: boolean;
+      /** @description Flag to determine if product name or open graph name is used. */
+      open_graph_use_product_name?: boolean;
+      /** @description Flag to determine if product image or open graph image is used. */
+      open_graph_use_image?: boolean;
+      /** @description Global Trade Item Number */
+      gtin?: string;
+      /** @description Manufacturer Part Number */
+      mpn?: string;
+      /** @description the date when the Product had been imported */
+      date_last_imported?: string;
+      /**
+       * @description The total (cumulative) rating for the product.
+       *
+       * @example 3
+       */
+      reviews_rating_sum?: number;
+      /**
+       * @description The number of times the product has been rated.
+       *
+       * @example 4
+       */
+      reviews_count?: number;
+      /**
+       * @description The total quantity of this product sold.
+       *
+       * @example 80
+       */
+      total_sold?: number;
+      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. */
+      custom_fields?: components["schemas"]["productCustomField_Put"][];
+      bulk_pricing_rules?: ({
+          /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
+          id: number;
+        } & components["schemas"]["bulkPricingRule_Full"])[];
+      images?: components["schemas"]["productImage_Full"][];
+      /**
+       * @description The Catalog API integrates with third-party YouTube.
+       * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
+       */
+      videos?: components["schemas"]["productVideo_Full"][];
+      variants?: components["schemas"]["productVariant_Full"][];
+    };
+    /**
+     * product_Base_PUT
+     * @description `Product` properties used in:
+     * * `PUT`
+     */
+    product_Base_PUT: {
+      /**
+       * @description A unique product name.
+       *
+       * @example Smith Journal 13
+       */
+      name?: string;
+      /**
+       * @description The product type. One of: `physical` - a physical stock unit, `digital` - a digital download.
+       *
+       * @example physical
+       * @enum {string}
+       */
+      type?: "physical" | "digital";
+      /**
+       * @description A unique user-defined alphanumeric product code/stock keeping unit (SKU). The SKU is always unique regardless of the letter case for both products and variants.
+       *
+       * @example SM-13
+       */
+      sku?: string;
+      /**
+       * @description The product description, which can include HTML formatting.
+       *
+       * @example <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel metus ac est egestas porta sed quis erat. Integer id nulla massa. Proin vitae enim nisi. Praesent non dignissim nulla. Nulla mattis id massa ac pharetra. Mauris et nisi in dolor aliquam sodales. Aliquam dui nisl, dictum quis leo sit amet, rutrum volutpat metus. Curabitur libero nunc, interdum ac libero non, tristique porttitor metus. Ut non dignissim lorem, in vestibulum leo. Vivamus sodales quis turpis eget.</span></p>
+       */
+      description?: string;
+      /**
+       * Format: float
+       * @description Weight of the product, which can be used when calculating shipping costs. This is based on the unit set on the store.
+       */
+      weight?: number;
+      /**
+       * Format: float
+       * @description Width of the product, which can be used when calculating shipping costs.
+       */
+      width?: number;
+      /**
+       * Format: float
+       * @description Depth of the product, which can be used when calculating shipping costs.
+       */
+      depth?: number;
+      /**
+       * Format: float
+       * @description Height of the product, which can be used when calculating shipping costs.
+       */
+      height?: number;
+      /**
+       * Format: float
+       * @description The price of the product. The price should include or exclude tax, based on the store settings.
+       */
+      price?: number;
       /**
        * Format: float
        * @description The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
@@ -2043,7 +2277,7 @@ export interface components {
        * @example 80
        */
       total_sold?: number;
-      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. The default rate limit for this endpoint is 40 concurrent requests. */
+      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. */
       custom_fields?: components["schemas"]["productCustomField_Put"][];
       bulk_pricing_rules?: ({
           /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
@@ -2281,7 +2515,7 @@ export interface components {
        * @example 80
        */
       total_sold?: number;
-      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. The default rate limit for this endpoint is 40 concurrent requests. */
+      /** @description 200 maximum custom fields per product. 255 maximum characters per custom field. */
       custom_fields?: components["schemas"]["productCustomField_Put"][];
       bulk_pricing_rules?: ({
           /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
@@ -3036,7 +3270,7 @@ export interface components {
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
     /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
-    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields")[];
+    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels")[];
     IdMinParam?: number;
     IdMaxParam?: number;
     IdGreaterParam?: number;
@@ -3148,6 +3382,7 @@ export interface operations {
         /** @description Filter items by product ID. */
         id?: number;
         "id:in"?: components["parameters"]["IdInParam"];
+        "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
         "id:not_in"?: components["parameters"]["IdNotInParam"];
         include?: components["parameters"]["IncludeParam"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
@@ -3204,7 +3439,10 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: components["schemas"]["product_Full"][];
+            data?: (components["schemas"]["product_Full"] & {
+                /** @description The channels to which the product is assigned. This field only appears in the response if you include `channels` in the `include` query parameter. */
+                channels?: number[];
+              })[];
             meta?: components["schemas"]["metaCollection_Full"];
           };
         };
@@ -3416,6 +3654,7 @@ export interface operations {
    * - `type`
    * - `weight`
    * - `price`
+   * - `categories` (required when you enable the V2 product experience in the control panel)
    *
    * **Read-Only Fields**
    * - `id`
@@ -3444,7 +3683,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["product_Base"];
+        "application/json": components["schemas"]["product_Base_POST"];
       };
     };
     responses: {
@@ -3573,7 +3812,10 @@ export interface operations {
       200: {
         content: {
           "application/json": {
-            data?: components["schemas"]["product_Full"];
+            data?: components["schemas"]["product_Full"] & {
+              /** @description The channels to which the product is assigned. This field only appears in the response if you include `channels` in the `include` query parameter. */
+              channels?: number[];
+            };
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -3802,51 +4044,10 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": {
-          /** @description The unique numeric identifier for the product with which the image is associated. */
-          product_id?: number;
-          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
-          url_zoom?: string;
-          /** @description The standard URL for this image. By default, this is used for product-page images. */
-          url_standard?: string;
-          /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
-          url_thumbnail?: string;
-          /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
-          url_tiny?: string;
-          /**
-           * Format: date-time
-           * @description The date on which the product image was modified.
-           */
-          date_modified?: string;
-          /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
-          is_thumbnail?: boolean;
-          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
-          sort_order?: number;
-          /** @description The description for the image. */
-          description?: string;
-        } & {
-          /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
-          image_url?: string;
-          /**
-           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
-           *
-           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
-           */
-          image_file?: string;
-        };
+        "application/json": components["schemas"]["productImage_Post_Put"];
         "multipart/form-data": {
-          /** @description The unique numeric ID of the image; increments sequentially. */
-          id?: number;
           /** @description The unique numeric identifier for the product with which the image is associated. */
           product_id?: number;
-          /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
-          url_zoom?: string;
-          /** @description The standard URL for this image. By default, this is used for product-page images. */
-          url_standard?: string;
-          /** @description The thumbnail URL for this image. By default, this is the image size used on the category page and in side panels. */
-          url_thumbnail?: string;
-          /** @description The tiny URL for this image. By default, this is the image size used for thumbnails beneath the product image on a product page. */
-          url_tiny?: string;
           /**
            * Format: date-time
            * @description The date on which the product image was modified.
@@ -3858,13 +4059,10 @@ export interface operations {
           sort_order?: number;
           /** @description The description for the image. */
           description?: string;
-        } & {
-          /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
-          image_url?: string;
           /**
-           * @description The local path to the original image file uploaded to BigCommerce. A `multipart/form-data` media type.
+           * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
            *
-           * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file. Cannot be used with `image_url`.
            */
           image_file?: string;
         };
@@ -3876,7 +4074,7 @@ export interface operations {
         content: {
           "application/json": {
             /** Product Image */
-            data?: {
+            data?: OneOf<[{
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
@@ -3900,7 +4098,9 @@ export interface operations {
               sort_order?: number;
               /** @description The description for the image. */
               description?: string;
-            } & {
+              /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
+              image_url?: string;
+            }, {
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
@@ -3925,7 +4125,13 @@ export interface operations {
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
-            };
+              /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+              is_thumbnail?: boolean;
+              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+              sort_order?: number;
+              /** @description The description for the image. */
+              description?: string;
+            }]>;
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -4029,15 +4235,37 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["productImage_Put"];
+        "application/json": components["schemas"]["productImage_Post_Put"];
+        "multipart/form-data": {
+          /** @description The unique numeric identifier for the product with which the image is associated. */
+          product_id?: number;
+          /**
+           * Format: date-time
+           * @description The date on which the product image was modified.
+           */
+          date_modified?: string;
+          /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+          is_thumbnail?: boolean;
+          /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+          sort_order?: number;
+          /** @description The description for the image. */
+          description?: string;
+          /**
+           * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+           *
+           * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file. Cannot be used with `image_url`.
+           */
+          image_file?: string;
+        };
       };
     };
     responses: {
+      /** @description Success */
       200: {
         content: {
           "application/json": {
             /** Product Image */
-            data?: {
+            data?: OneOf<[{
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
@@ -4061,15 +4289,18 @@ export interface operations {
               sort_order?: number;
               /** @description The description for the image. */
               description?: string;
-            } & {
+              /** @description Must be a fully qualified URL path, including protocol. Limit of 8MB per file. */
+              image_url?: string;
+            }, {
               /** @description The unique numeric ID of the image; increments sequentially. */
               id?: number;
               /** @description The unique numeric identifier for the product with which the image is associated. */
               product_id?: number;
               /**
                * @description The local path to the original image file uploaded to BigCommerce. Use image_url when creating a product.
+               * A `multipart/form-data` media type.
                *
-               * Must be sent as a `multipart/form-data` field in the request body. Limit of 8 MB per file.
+               * Must be sent as a multipart/form-data field in the request body. Limit of 8 MB per file.
                */
               image_file?: string;
               /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
@@ -4085,7 +4316,13 @@ export interface operations {
                * @description The date on which the product image was modified.
                */
               date_modified?: string;
-            };
+              /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
+              is_thumbnail?: boolean;
+              /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
+              sort_order?: number;
+              /** @description The description for the image. */
+              description?: string;
+            }]>;
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -5203,9 +5440,6 @@ export interface operations {
   /**
    * Get Product Custom Fields
    * @description Returns a list of product *Custom Fields*. You can pass in optional parameters.
-   *
-   * **Note:**
-   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getProductCustomFields: {
     parameters: {
@@ -5244,9 +5478,6 @@ export interface operations {
    * **Limits**
    * - 200 custom fields per product limit.
    * - 250 characters per custom field limit.
-   *
-   * **Note:**
-   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   createProductCustomField: {
     parameters: {
@@ -5272,9 +5503,6 @@ export interface operations {
   /**
    * Get a Product Custom Field
    * @description Returns a *Custom Field*.
-   *
-   * **Note:**
-   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   getProductCustomField: {
     parameters: {
@@ -5311,7 +5539,6 @@ export interface operations {
    *  **Limits**
    * - 200 custom fields per product limit.
    * - 250 characters per custom field limit.
-   * - 40 concurrent requests default rate limit.
    */
   updateProductCustomField: {
     parameters: {
@@ -5338,9 +5565,6 @@ export interface operations {
   /**
    * Delete a Product Custom Field
    * @description Deletes a product *Custom Field*.
-   *
-   * **Note:**
-   * The default rate limit for this endpoint is 40 concurrent requests.
    */
   deleteProductCustomField: {
     parameters: {

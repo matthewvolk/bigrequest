@@ -53,7 +53,7 @@ export interface paths {
      *
      * To add a custom item use `custom_items`.
      *
-     * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
+     * By default, overriding a product's list_price makes it ineligible for V3 product-level promotions. In **Store Settings** under **Promotions and Coupons** in the control panel, you can change this behavior to allow promotions on overridden prices.
      *
      * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
      *
@@ -77,6 +77,7 @@ export interface paths {
      *
      * **Usage Notes**
      *
+     * * To use redirect URLs, first create the cart using the REST Management API or GraphQL Storefront API.
      * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
      * * A **Carts** redirect URL is valid for 30 days and may only be used once.
      * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
@@ -103,7 +104,7 @@ export interface paths {
      *
      * **Notes**
      *
-     * Currently, only updating `list_price` and `quantity` are supported. Updating a product’s `list_price` will make that item ineligible for V3 product-level promotions.
+     * Currently, only updating `list_price` and `quantity` are supported. By default, overriding a product's list_price makes it ineligible for V3 product-level promotions. In **Store Settings** under **Promotions and Coupons** in the control panel, you can change this behavior to allow promotions on overridden prices.
      *
      * If the product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
      *
@@ -1263,6 +1264,11 @@ export interface components {
        * @description The discounted amount applied within a given context.
        */
       discounted_amount?: number;
+      /**
+       * @description Display name of the coupon.
+       * @example 20% Off
+       */
+      display_name?: string;
     };
     /** Applied Discount */
     AppliedDiscount: {
@@ -2141,7 +2147,7 @@ export interface operations {
    *
    * To add a custom item use `custom_items`.
    *
-   * Overriding a product’s `list_price` will make that item ineligible for V3 product level promotions.
+   * By default, overriding a product's list_price makes it ineligible for V3 product-level promotions. In **Store Settings** under **Promotions and Coupons** in the control panel, you can change this behavior to allow promotions on overridden prices.
    *
    * If a product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
    *
@@ -2181,6 +2187,7 @@ export interface operations {
    *
    * **Usage Notes**
    *
+   * * To use redirect URLs, first create the cart using the REST Management API or GraphQL Storefront API.
    * * Redirect URLs can also be created with **Create a Cart** requests by appending `include=redirect_urls`.
    * * A **Carts** redirect URL is valid for 30 days and may only be used once.
    * * Redirect URLs point to either a shared checkout domain or a channel-specific domain, depending on the storefront configuration.
@@ -2222,7 +2229,7 @@ export interface operations {
    *
    * **Notes**
    *
-   * Currently, only updating `list_price` and `quantity` are supported. Updating a product’s `list_price` will make that item ineligible for V3 product-level promotions.
+   * Currently, only updating `list_price` and `quantity` are supported. By default, overriding a product's list_price makes it ineligible for V3 product-level promotions. In **Store Settings** under **Promotions and Coupons** in the control panel, you can change this behavior to allow promotions on overridden prices.
    *
    * If the product has modifiers, omit the `variant_id` and instead use the `option_selections` array to describe both the **variant** and the **modifier** selections.
    *
