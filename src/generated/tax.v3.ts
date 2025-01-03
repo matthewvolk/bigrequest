@@ -65,6 +65,25 @@ export interface components {
          * Merchants may enable any **configured** tax provider for storefront tax quotation.
          */
         configured?: boolean;
+        /** @description The countries and subdivisions in which this tax provider connection is active. */
+        target?: {
+          /**
+           * @description The list of country codes where the tax provider connection is active. ISO 3166-1 alpha-2.
+           * @example [
+           *   "AU",
+           *   "US"
+           * ]
+           */
+          country_codes?: string[];
+          /**
+           * @description The list of subdivision codes where the tax provider connection is active. ISO 3166-2.
+           * @example [
+           *   "AU-NSW",
+           *   "US-OH"
+           * ]
+           */
+          subdivision_codes?: string[];
+        };
       };
     };
   };
