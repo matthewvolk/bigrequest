@@ -458,7 +458,7 @@ export interface paths {
      *   "settings": {
      *     "rate": 5
      *   },
-     *   channel_ids: [1, 3]
+     *   "channel_ids": [1, 3]
      * }
      * ```
      *
@@ -524,7 +524,7 @@ export interface paths {
      *     "settings": {
      *         "rate": 8
      *     },
-     *     "channel_ids: [1]
+     *     "channel_ids": [1]
      * },
      * ```
      *
@@ -648,7 +648,7 @@ export interface paths {
      *   "settings": {
      *     "rate": 5
      *   },
-     *   channel_ids: [1, 3]
+     *   "channel_ids": [1, 3]
      * }
      * ```
      *
@@ -826,7 +826,7 @@ export interface paths {
      *   "settings": {
      *   "rate": 5
      *   },
-     *   channel_ids: [1, 3]
+     *   "channel_ids": [1, 3]
      * }
      * ```
      *
@@ -2334,7 +2334,7 @@ export interface operations {
    *   "settings": {
    *     "rate": 5
    *   },
-   *   channel_ids: [1, 3]
+   *   "channel_ids": [1, 3]
    * }
    * ```
    *
@@ -2428,7 +2428,7 @@ export interface operations {
    *     "settings": {
    *         "rate": 8
    *     },
-   *     "channel_ids: [1]
+   *     "channel_ids": [1]
    * },
    * ```
    *
@@ -2552,7 +2552,7 @@ export interface operations {
    *   "settings": {
    *     "rate": 5
    *   },
-   *   channel_ids: [1, 3]
+   *   "channel_ids": [1, 3]
    * }
    * ```
    *
@@ -2796,7 +2796,7 @@ export interface operations {
    *   "settings": {
    *   "rate": 5
    *   },
-   *   channel_ids: [1, 3]
+   *   "channel_ids": [1, 3]
    * }
    * ```
    *
