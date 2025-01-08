@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- [#500](https://github.com/matthewvolk/bigrequest/pull/500) [`608e1bd`](https://github.com/matthewvolk/bigrequest/commit/608e1bd426f81470d544b86c7eb45bfc755cd853) Thanks [@github-actions](https://github.com/apps/github-actions)! - bigcommerce/docs#723, bigcommerce/docs#727, bigcommerce/docs#730, bigcommerce/docs#682, bigcommerce/docs#731
+- [#500](https://github.com/matthewvolk/bigrequest/pull/500) [`608e1bd`](https://github.com/matthewvolk/bigrequest/commit/608e1bd426f81470d544b86c7eb45bfc755cd853) Thanks [@github-actions](https://github.com/apps/github-actions)! - bigcommerce/docs#723, bigcommerce/docs#727
 
 ## 0.0.49
 
