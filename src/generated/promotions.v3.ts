@@ -148,6 +148,11 @@ export interface components {
        * @example Buy Product X Get Free Shipping
        */
       name: string;
+      /**
+       * @description Customer-facing name for this rule, that the merchant want to display to customers.
+       * @example WOW!!! FREE SHIPPING for Product X
+       */
+      display_name?: string;
       /** @description Channels that the promotion targets. Empty array [] means targeting all the channels. In POST request, if omitted, this field defaults to an empty array [] value. */
       channels?: components["schemas"]["Channel"][];
       customer?: components["schemas"]["Customer"];

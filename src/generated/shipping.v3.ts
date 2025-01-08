@@ -57,7 +57,7 @@ export interface paths {
      * Update Shipping Settings
      * @description Updates shipping settings.
      */
-    post: operations["updateShippingSettings"];
+    put: operations["updateShippingSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -107,6 +107,11 @@ export interface components {
          * @enum {string}
          */
         country_list_strategy?: "DISPLAY_ALL_COUNTRIES" | "DISPLAY_ONLY_SHIPPABLE_COUNTRIES";
+        /**
+         * @description Message shown to the shopper during checkout when their order does not meet the merchant's shipping criteria.
+         * @example Unfortunately, one or more items in your cart can't be shipped to your location. Please choose a different delivery address.
+         */
+        out_of_zone_delivery_message?: string;
       };
     };
     /**

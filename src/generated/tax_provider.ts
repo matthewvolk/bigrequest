@@ -53,6 +53,8 @@ export interface paths {
      * Commit Tax Quote
      * @description Submit the quote request to be persisted by the enabled third-party tax provider. A commit operation is intended to be submitted once only, when the Order has been confirmed and paid.
      *
+     * Merchants may adjust when commit operations occur by adjusting the document submission strategy in their store tax settings. The selected document submission strategy will adjust whether order status or payment status is used to determine if the order is paid. For more information, see the [Tax Settings API Reference](/docs/rest-management/tax-settings).
+     *
      * > Server URL
      * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
      * > - The Try it feature is not currently supported for this endpoint.
@@ -474,6 +476,8 @@ export interface operations {
   /**
    * Commit Tax Quote
    * @description Submit the quote request to be persisted by the enabled third-party tax provider. A commit operation is intended to be submitted once only, when the Order has been confirmed and paid.
+   *
+   * Merchants may adjust when commit operations occur by adjusting the document submission strategy in their store tax settings. The selected document submission strategy will adjust whether order status or payment status is used to determine if the order is paid. For more information, see the [Tax Settings API Reference](/docs/rest-management/tax-settings).
    *
    * > Server URL
    * > - For supporting tax providers, the server URL contains the tax providerʼs profile field; for example, `your_profile.example.com`.
