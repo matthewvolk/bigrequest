@@ -1558,12 +1558,14 @@ export interface components {
        */
       refunded_amount?: string;
       /**
-       * @description The value of shipping cost, excluding tax. The value can't be negative. (Float, Float-As-String, Integer)
+       * @description The value of shipping cost, excluding tax. When specified in a POST or PUT request, the field `shipping_cost_inc_tax` is also required. The value can't be negative (Float, Float-As-String, Integer)
+       *
        * @example 0.0000
        */
       shipping_cost_ex_tax?: string;
       /**
-       * @description The value of shipping cost, including tax. The value can't be negative. (Float, Float-As-String, Integer)
+       * @description The value of shipping cost, including tax. When specified in a POST or PUT request, the field `shipping_cost_ex_tax` is also required. The value can't be negative. (Float, Float-As-String, Integer)
+       *
        * @example 0.0000
        */
       shipping_cost_inc_tax?: string;
