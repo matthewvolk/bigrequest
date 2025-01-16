@@ -43,7 +43,7 @@ export interface paths {
      * - 1,000 categories per product limit.
      * - 50 characters category name length.
      * - 8 levels of category depth limit.
-     * - 65,642 characters category description length limit.
+     * - 65,535 characters category description length limit.
      *
      *  **Note:**
      *  The default rate limit for this endpoint is 40 concurrent requests.
@@ -1186,7 +1186,7 @@ export interface operations {
    * - 1,000 categories per product limit.
    * - 50 characters category name length.
    * - 8 levels of category depth limit.
-   * - 65,642 characters category description length limit.
+   * - 65,535 characters category description length limit.
    *
    *  **Note:**
    *  The default rate limit for this endpoint is 40 concurrent requests.
