@@ -347,7 +347,7 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
+     * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
      *
      * Example request body:
      *
@@ -382,7 +382,7 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
+     * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
      *
      * Example request body:
      *
@@ -536,7 +536,7 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
+     * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
      *
      *
      * #### JSON Example
@@ -572,7 +572,7 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
+     * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
      *
      * #### JSON Example
      *
@@ -621,7 +621,7 @@ export interface paths {
      *
      * Object model to define ranges for shipping quotes. Units are defined in the parent object.
      *
-     * | Name | Type | Description |
+     * | Property | Type | Description |
      * | - | - | - |
      * | lower_limit | number | Lower limit for order total. |
      * | upper_limit | number | Upper limit for order total. |
@@ -716,7 +716,7 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
+     * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
      *
      *
      * Example response:
@@ -752,7 +752,7 @@ export interface paths {
      * | - | - | - |
      * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
      * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-     * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
+     * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
      *
      * Example response:
      *
@@ -1239,7 +1239,7 @@ export interface components {
        */
       name?: string;
       type?: components["schemas"]["ShippingMethodType"];
-      /** @description Depends on the shipping method type. See the [supported settings object](#supported-settings). */
+      /** @description Depends on the shipping method type. See the [supported settings object](#settings-objects). */
       settings?: {
         /**
          * @description Flat rate per order.
@@ -2223,7 +2223,7 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
+   * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
    *
    * Example request body:
    *
@@ -2258,7 +2258,7 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
+   * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
    *
    * Example request body:
    *
@@ -2440,7 +2440,7 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
+   * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
    *
    *
    * #### JSON Example
@@ -2476,7 +2476,7 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
+   * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
    *
    * #### JSON Example
    *
@@ -2525,7 +2525,7 @@ export interface operations {
    *
    * Object model to define ranges for shipping quotes. Units are defined in the parent object.
    *
-   * | Name | Type | Description |
+   * | Property | Type | Description |
    * | - | - | - |
    * | lower_limit | number | Lower limit for order total. |
    * | upper_limit | number | Upper limit for order total. |
@@ -2587,7 +2587,7 @@ export interface operations {
              */
             name?: string;
             type?: components["schemas"]["ShippingMethodType"];
-            /** @description Depends on the shipping method type. See the [supported settings object](#supported-settings). */
+            /** @description Depends on the shipping method type. See the [supported settings object](#settings-objects). */
             settings?: {
               [key: string]: unknown;
             };
@@ -2686,7 +2686,7 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
+   * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties depend on the default units set in the storeʼs control panel. |
    *
    *
    * Example response:
@@ -2722,7 +2722,7 @@ export interface operations {
    * | - | - | - |
    * | default_cost | number &#124; null | Default shipping cost, applied either as a percentage of the orderʼs total value or as a fixed amount. If default cost is not required, you can supply a value of null. |
    * | default_cost_type | string | How the default shipping cost is calculated; either `percentage_of_total` or `fixed_amount`. |
-   * | range | number | Array of [range](#range) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
+   * | range | number | Array of [range](#range-object--properties) objects. The units for these ranges' `lower_limit` and `upper_limit` properties are values in the storeʼs currency. |
    *
    * Example response:
    *
