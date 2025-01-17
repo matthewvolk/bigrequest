@@ -2309,6 +2309,18 @@ export interface operations {
           };
         };
       };
+      /** @description Service Unavailable. */
+      503: {
+        content: {
+          "application/json": {
+            /** @description 503 HTTP status code. */
+            status?: number;
+            /** @description The error title describing the particular error. */
+            title?: string;
+            type?: string;
+          };
+        };
+      };
     };
   };
   /**

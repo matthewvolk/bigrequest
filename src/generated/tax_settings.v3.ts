@@ -34,8 +34,11 @@ export interface components {
       tax_entered_with_prices?: boolean;
       /** @description Settings that describe how prices display at the global level. */
       price_display_settings?: {
-        /** @description Whether to show prices as tax inclusive or tax exclusive in the BigCommerce control panel. */
-        show_inclusive_in_control_panel?: boolean;
+        /**
+         * @description Whether to show prices as tax inclusive or tax exclusive in the BigCommerce control panel, or use the order's tax zone for price display.
+         * @enum {string}
+         */
+        control_panel_price_display_strategy?: "ZONE" | "INCLUSIVE" | "EXCLUSIVE";
         /**
          * @description Whether to show prices as tax inclusive or tax exclusive across all invoices, or use the shopperʼs tax zone for price display on invoices.
          * @default ZONE
