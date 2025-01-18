@@ -4352,6 +4352,12 @@ export interface operations {
           };
         };
       };
+      /** @description Product image was not valid. This is the result of missing required fields or invalid data. See the response for more details. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["errorResponse_422"];
+        };
+      };
     };
   };
   /**
