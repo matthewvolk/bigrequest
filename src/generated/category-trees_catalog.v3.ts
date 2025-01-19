@@ -25,6 +25,13 @@ export interface paths {
      * Create Categories
      * @description Creates new categories.
      *
+     * Limits:
+     * - 16,000 categories per store limit.
+     * - 1,000 categories per product limit.
+     * - 50 characters category name length.
+     * - 8 levels of category depth limit.
+     * - 65,535 characters category description length limit.
+     *
      * Creating a category requires:
      *  - `name`
      *  - `tree_id` or `parent_id`
@@ -578,6 +585,13 @@ export interface operations {
   /**
    * Create Categories
    * @description Creates new categories.
+   *
+   * Limits:
+   * - 16,000 categories per store limit.
+   * - 1,000 categories per product limit.
+   * - 50 characters category name length.
+   * - 8 levels of category depth limit.
+   * - 65,535 characters category description length limit.
    *
    * Creating a category requires:
    *  - `name`
