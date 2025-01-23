@@ -42,11 +42,8 @@ export interface paths {
      * - 16,000 categories per store limit.
      * - 1,000 categories per product limit.
      * - 50 characters category name length.
-     * - 8 levels of category depth limit.
+     * - 8 levels of child categories depth limit.
      * - 65,535 characters category description length limit.
-     *
-     *  **Note:**
-     *  The default rate limit for this endpoint is 40 concurrent requests.
      */
     post: operations["createCategory"];
     /**
@@ -1185,11 +1182,8 @@ export interface operations {
    * - 16,000 categories per store limit.
    * - 1,000 categories per product limit.
    * - 50 characters category name length.
-   * - 8 levels of category depth limit.
+   * - 8 levels of child categories depth limit.
    * - 65,535 characters category description length limit.
-   *
-   *  **Note:**
-   *  The default rate limit for this endpoint is 40 concurrent requests.
    */
   createCategory: {
     parameters: {
