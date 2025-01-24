@@ -87,6 +87,7 @@ export interface paths {
      * @description Uploads an image file to use as the storefront favicon. Supported MIME types include GIF, JPEG, and PNG.
      *
      *   - Channel ID can be used as a query parameter for updating channel-specific settings. If omitted, you will interact with the global settings only.
+     *   - The uploaded image can be up to 10 MB. Larger files result in an error.
      */
     post: operations["createSettingsFaviconImage"];
     parameters: {
@@ -1272,6 +1273,7 @@ export interface operations {
    * @description Uploads an image file to use as the storefront favicon. Supported MIME types include GIF, JPEG, and PNG.
    *
    *   - Channel ID can be used as a query parameter for updating channel-specific settings. If omitted, you will interact with the global settings only.
+   *   - The uploaded image can be up to 10 MB. Larger files result in an error.
    */
   createSettingsFaviconImage: {
     parameters: {
@@ -1294,6 +1296,10 @@ export interface operations {
     responses: {
       /** @description OK */
       204: {
+        content: never;
+      };
+      /** @description Failed to save! */
+      422: {
         content: never;
       };
     };
