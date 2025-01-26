@@ -2913,11 +2913,11 @@ export interface components {
     channel_id?: number;
     /** @description Shipping consignment ID. */
     shipping_consignment_id: number;
+    /** @description Should be specified along with `include=consignments` or `include=consignments.line_items` to return consignments in the supported object structure. The default array structure provided is legacy and may not be supported in the future. */
+    consignment_structure?: "object";
     /**
-     * @description * `consignments` - include the response returned from the request to the `/orders/{order_id}/consignments` endpoint.
-     *
-     * * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. This implies `include=consignments`.
-     *
+     * @description * `consignments` - include the response returned from the request to the `/orders/{order_id}/consignments` endpoint. You should also specify `consignment_structure=object` as a request parameter when including consignments. The default array structure provided is legacy and may not be supported in the future.
+     * * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. This implies `include=consignments`. You should also specify `consignment_structure=object` as a request parameter when including consignments. The default array structure provided is legacy and will be removed in the future.
      * * `fees` - include the response returned from the request to the `/orders/{order_id}/fees` endpoint.
      */
     order_includes?: ("consignments" | "consignments.line_items" | "fees")[];
@@ -2941,6 +2941,7 @@ export interface operations {
     parameters: {
       query?: {
         include?: components["parameters"]["order_includes"];
+        consignment_structure?: components["parameters"]["consignment_structure"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -3080,6 +3081,7 @@ export interface operations {
         sort?: components["parameters"]["sort"];
         channel_id?: components["parameters"]["channel_id"];
         include?: components["parameters"]["order_includes"];
+        consignment_structure?: components["parameters"]["consignment_structure"];
         external_order_id?: components["parameters"]["external_order_id"];
       };
       header: {
@@ -3127,6 +3129,7 @@ export interface operations {
     parameters: {
       query?: {
         include?: components["parameters"]["order_includes"];
+        consignment_structure?: components["parameters"]["consignment_structure"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
