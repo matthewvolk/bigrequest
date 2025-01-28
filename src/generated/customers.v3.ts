@@ -345,7 +345,7 @@ export interface paths {
   };
   "/customers/{customerId}/metafields/{metafieldId}": {
     /**
-     * Get Customer Metafields List
+     * Get a Customer Metafield
      * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
      */
     get: operations["getMetafieldsCustomerId"];
@@ -355,8 +355,8 @@ export interface paths {
      */
     put: operations["updateCustomerMetafield"];
     /**
-     * Delete Customer Metafields
-     * @description Deletes customer metafields. To delete customer metafields, use 'customerId' and 'metafieldId' in the query parameters.
+     * Delete a Customer Metafield
+     * @description Deletes a customer metafield. To delete a customer metafield, use 'customerId' and 'metafieldId' in the query parameters.
      */
     delete: operations["deleteCustomerMetafieldsId"];
   };
@@ -3287,7 +3287,7 @@ export interface operations {
     };
   };
   /**
-   * Get Customer Metafields List
+   * Get a Customer Metafield
    * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
    */
   getMetafieldsCustomerId: {
@@ -3363,8 +3363,8 @@ export interface operations {
     };
   };
   /**
-   * Delete Customer Metafields
-   * @description Deletes customer metafields. To delete customer metafields, use 'customerId' and 'metafieldId' in the query parameters.
+   * Delete a Customer Metafield
+   * @description Deletes a customer metafield. To delete a customer metafield, use 'customerId' and 'metafieldId' in the query parameters.
    */
   deleteCustomerMetafieldsId: {
     parameters: {
