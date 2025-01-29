@@ -3294,9 +3294,9 @@ export interface components {
      * @example "2024-07-18T00:00:00.000Z"
      */
     DateModifiedParam?: string;
-    /** @description Filter items by `date_modified`. For example, `date_modified:max=2020-06-15`. */
+    /** @description Filter items by `date_modified`. If the `date modified:max` does not include hours, minutes and seconds, the API automatically adds the current time of the request to the date. For example, `date_modified:max=2025-01-15` or `date_modified:max=2025-01-15T00:03:17Z`. */
     DateModifiedMaxParam?: string;
-    /** @description Filter items by `date_modified`. For example, `date_modified:min=2018-06-15`. */
+    /** @description Filter items by `date_modified`. If the `date modified:min` does not include hours, minutes and seconds, the API automatically adds the current time of the request to the date. For example, `date_modified:min=2025-01-15` or `date_modified:min=2025-01-15T00:03:17Z`. */
     DateModifiedMinParam?: string;
     /**
      * @description Filter items by date_last_imported.

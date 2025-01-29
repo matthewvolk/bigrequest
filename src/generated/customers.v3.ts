@@ -345,7 +345,7 @@ export interface paths {
   };
   "/customers/{customerId}/metafields/{metafieldId}": {
     /**
-     * Get Customer Metafields List
+     * Get a Customer Metafield
      * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
      */
     get: operations["getMetafieldsCustomerId"];
@@ -355,8 +355,8 @@ export interface paths {
      */
     put: operations["updateCustomerMetafield"];
     /**
-     * Delete Customer Metafields
-     * @description Deletes customer metafields. To delete customer metafields, use 'customerId' and 'metafieldId' in the query parameters.
+     * Delete a Customer Metafield
+     * @description Deletes a customer metafield. To delete a customer metafield, use 'customerId' and 'metafieldId' in the query parameters.
      */
     delete: operations["deleteCustomerMetafieldsId"];
   };
@@ -421,11 +421,40 @@ export interface components {
       links?: components["schemas"]["Links"];
     };
     /**
+     * Cursor Pagination
+     * @description Data about cursor pagination.
+     */
+    CursorPagination: {
+      /**
+       * Format: int32
+       * @description Total number of items in the collection response.
+       */
+      count?: number;
+      /**
+       * Format: int32
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       */
+      per_page?: number;
+      /** @description A string representing the starting point of the current page in the collection */
+      start_cursor?: string;
+      /** @description A string representing the ending point of the current page in the collection. */
+      end_cursor?: string;
+      links?: components["schemas"]["Links"];
+    };
+    /**
      * _metaCollection
      * @description Data about the response, including pagination and collection totals.
      */
     _metaCollection: {
       pagination?: components["schemas"]["Pagination"];
+    };
+    /**
+     * _metaCollection
+     * @description Data about the response, including pagination and collection totals. Both `pagination` and `cursor_pagination` would be returned in the first page. Only `pagination` would be returned when page is greater than 1. Only `cursor_pagination` would be returned when `before` or `after` is provided in the request.
+     */
+    _metaCollectionWithCursorPagination: {
+      pagination?: components["schemas"]["Pagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
     };
     /**
      * Response meta
@@ -1795,7 +1824,16 @@ export interface components {
       content: {
         "application/json": {
           data?: components["schemas"]["customer_Full"][];
-          meta?: components["schemas"]["_metaCollection"];
+          meta?: components["schemas"]["MetaOpen"];
+        };
+      };
+    };
+    /** @description Get Customer Collection Response */
+    GetCustomerCollectionResponse: {
+      content: {
+        "application/json": {
+          data?: components["schemas"]["customer_Full"][];
+          meta?: components["schemas"]["_metaCollectionWithCursorPagination"];
         };
       };
     };
@@ -2088,55 +2126,7 @@ export interface components {
               /** @description The Customer Address ID. */
               address_id: number;
             }]>)[];
-          /**
-           * Collection Meta
-           * @description Data about the response, including pagination and collection totals.
-           */
-          meta?: {
-            /**
-             * Pagination
-             * @description Data about the response, including pagination and collection totals.
-             */
-            pagination?: {
-              /**
-               * Format: int32
-               * @description Total number of items in the result set.
-               */
-              total?: number;
-              /**
-               * Format: int32
-               * @description Total number of items in the collection response.
-               */
-              count?: number;
-              /**
-               * Format: int32
-               * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-               */
-              per_page?: number;
-              /**
-               * Format: int32
-               * @description The page you are currently on within the collection.
-               */
-              current_page?: number;
-              /**
-               * Format: int32
-               * @description The total number of pages in the collection.
-               */
-              total_pages?: number;
-              /**
-               * Links
-               * @description Pagination links for the previous and next parts of the whole collection.
-               */
-              links?: {
-                /** @description Link to the previous page returned in the response. */
-                previous?: string;
-                /** @description Link to the current page returned in the response. */
-                current?: string;
-                /** @description Link to the next page returned in the response. */
-                next?: string;
-              };
-            };
-          };
+          meta?: components["schemas"]["_metaCollectionWithCursorPagination"];
         };
       };
     };
@@ -2304,7 +2294,7 @@ export interface operations {
   getCustomers: {
     parameters: {
       query?: {
-        /** @description Page number. `page=1` */
+        /** @description Page number (`page` will be ignored if you provide `before` or `after` in the request). For example `page=1`. */
         page?: number;
         /** @description Items count per page. `limit=50` */
         limit?: number;
@@ -2360,10 +2350,14 @@ export interface operations {
         include?: ("addresses" | "storecredit" | "attributes" | "formfields" | "shopper_profile_id" | "segment_ids")[];
         /** @description Sort items by date_created, date_modified, or last_name:* `date_created:asc` - date created, ascending* `date_created:desc` - date created, descending* `last_name:asc` - last name, ascending* `last_name:desc` - last name, descending * `date_modified:asc` - date modified, ascending* `date_modified:desc`- date modified, descending  Example: `sort=last_name:asc` */
         sort?: "date_created:asc" | "date_created:desc" | "last_name:asc" | "last_name:desc" | "date_modified:asc" | "date_modified:desc";
+        /** @description The cursor reference of the last entry for the previous page. Use the `end_cursor` value from the last response to get the next page (`end_cursor` is only returned on the first page or when the request contains query parameter `before` or `after`). For example `after=eyJpZCI6MjA0fQ`. */
+        after?: string;
+        /** @description The cursor reference of the first entry for the next page. Use the `start_cursor` value from the last response to get the previous page (`start_cursor` is only returned on the first page or when the request contains query parameter `before` or `after`). For example `before=eyJpZCI6MjA1fQ`. */
+        before?: string;
       };
     };
     responses: {
-      200: components["responses"]["CustomerCollectionResponse"];
+      200: components["responses"]["GetCustomerCollectionResponse"];
       /** @description The optional filter parameter was not valid. This is the result of missing required fields, or of invalid data. See the response for more details. */
       422: {
         content: {
@@ -3059,7 +3053,7 @@ export interface operations {
   getCustomersFormFieldValues: {
     parameters: {
       query?: {
-        /** @description Page number. `page=1` */
+        /** @description Page number (`page` will be ignored if you provide `before` or `after` in the request). For example `page=1`. */
         page?: number;
         /** @description Items count per page. `limit=50` */
         limit?: number;
@@ -3081,6 +3075,10 @@ export interface operations {
          *  * `picklist` - pick list field
          */
         field_type?: "checkboxes" | "date" | "multiline" | "numbers" | "password" | "radiobuttons" | "text" | "picklist";
+        /** @description The cursor reference of the last entry for the previous page. Use the `end_cursor` value from the last response to get the next page (`end_cursor` is only returned on the first page or when the request contains query parameter `before` or `after`). For example `after=eyJzZXNzaW9uSWQiOjM4LCJmaWVsZElkIjo0MH0`. */
+        after?: string;
+        /** @description The cursor reference of the first entry for the next page. Use the `start_cursor` value from the last response to get the previous page (`start_cursor` is only returned on the first page or when the request contains query parameter `before` or `after`). For example `before=eyJzZXNzaW9uSWQiOjgsImZpZWxkSWQiOjMxfQ`. */
+        before?: string;
       };
       header?: {
         Accept?: string;
@@ -3287,7 +3285,7 @@ export interface operations {
     };
   };
   /**
-   * Get Customer Metafields List
+   * Get a Customer Metafield
    * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
    */
   getMetafieldsCustomerId: {
@@ -3363,8 +3361,8 @@ export interface operations {
     };
   };
   /**
-   * Delete Customer Metafields
-   * @description Deletes customer metafields. To delete customer metafields, use 'customerId' and 'metafieldId' in the query parameters.
+   * Delete a Customer Metafield
+   * @description Deletes a customer metafield. To delete a customer metafield, use 'customerId' and 'metafieldId' in the query parameters.
    */
   deleteCustomerMetafieldsId: {
     parameters: {
