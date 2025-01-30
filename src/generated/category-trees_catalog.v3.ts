@@ -124,10 +124,10 @@ export interface components {
     };
     /** Create Categories */
     CreateCategories: ({
-        name: components["schemas"]["name"];
+        name?: components["schemas"]["name"];
         url?: components["schemas"]["url"];
-        parent_id: components["schemas"]["parent_id"];
-        tree_id: components["schemas"]["tree_id"];
+        parent_id?: components["schemas"]["parent_id"];
+        tree_id?: components["schemas"]["tree_id"];
       } & components["schemas"]["CategoryBase"])[];
     UpdateCategories: ({
         category_id: components["schemas"]["category_id"];
