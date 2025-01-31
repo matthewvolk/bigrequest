@@ -3260,7 +3260,7 @@ export interface operations {
           "application/json": components["schemas"]["MetaFieldCollectionPostPutResponses"];
         };
       };
-      /** @description Bad Request. Inupt is invalid. */
+      /** @description Bad Request. Input is invalid. */
       400: {
         content: {
           "application/json": {

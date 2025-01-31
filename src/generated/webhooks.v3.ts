@@ -2055,7 +2055,7 @@ export interface components {
     webhook_Put: {
       /**
        * @description Event you subscribe to.
-       * @example store/order/*
+       * @example store/order/created
        */
       scope?: string;
       /**
@@ -2077,7 +2077,7 @@ export interface components {
     webhook_Base: {
       /**
        * @description Event you subscribe to.
-       * @example store/order/*
+       * @example store/order/created
        */
       scope: string;
       /**
@@ -2095,7 +2095,7 @@ export interface components {
         [key: string]: string;
       } | null;
     };
-    webhook_Full: components["schemas"]["webhook_Base"] & {
+    webhook_Full: {
       /**
        * @description ID of the webhook.
        * @example 18048287
@@ -2121,7 +2121,7 @@ export interface components {
        * @example 1561488106
        */
       updated_at?: number;
-    };
+    } & components["schemas"]["webhook_Base"];
     /** @description Data about the response, including pagination and collection totals. */
     Pagination: {
       /** @description Total number of returned items across all pages. */
@@ -2281,9 +2281,7 @@ export interface components {
             /** @description The time the webhook was most recently updated, represented in UNIX epoch time. */
             updated_at?: number;
           };
-          meta?: {
-            pagination?: components["schemas"]["Pagination"];
-          };
+          meta?: unknown;
         };
       };
     };
@@ -2337,7 +2335,6 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["webhooks_Resp"];
-      400: components["responses"]["400_BadRequest"];
       401: components["responses"]["401_Unauthorized"];
     };
   };
@@ -2362,9 +2359,7 @@ export interface operations {
         content: {
           "application/json": {
             data?: components["schemas"]["webhook_Full"];
-            meta?: {
-              pagination?: components["schemas"]["Pagination"];
-            };
+            meta?: unknown;
           };
         };
       };
@@ -2389,7 +2384,6 @@ export interface operations {
     };
     responses: {
       200: components["responses"]["webhook_Resp"];
-      400: components["responses"]["400_BadRequest"];
       401: components["responses"]["401_Unauthorized"];
       404: components["responses"]["404_NotFound"];
     };
@@ -2463,7 +2457,7 @@ export interface operations {
                   store_hash?: string;
                   /**
                    * @description Event you subscribe to
-                   * @example store/order/*
+                   * @example store/order/created
                    */
                   scope?: string;
                   /** @description URL must be active, return a 200 response, and be served on port 443. Custom ports arenʼt currently supported. */
@@ -2519,7 +2513,6 @@ export interface operations {
           };
         };
       };
-      400: components["responses"]["400_BadRequest"];
       401: components["responses"]["401_Unauthorized"];
     };
   };
