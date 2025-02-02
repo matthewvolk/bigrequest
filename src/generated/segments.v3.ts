@@ -15,11 +15,17 @@ export interface paths {
     /**
      * Update Segments
      * @description Updates *Segments*.
+     *
+     *  **Limits**
+     *  * Limit of 10 concurrent requests.
      */
     put: operations["PutSegmentObjects"];
     /**
      * Create Segments
      * @description Creates *Segments*.
+     *
+     * **Limits**
+     * * Limit of 10 concurrent requests.
      */
     post: operations["SegmentsPostRequest"];
     /**
@@ -42,7 +48,10 @@ export interface paths {
     /**
      * Add Shopper Profiles to a Segment
      * @description Add *Shopper Profiles* to a specific *Segment*.
-     * A maximum number of *Shopper Profiles* per request is `50`, and up to three concurrent requests are allowed.
+     *
+     * **Limits**
+     * * Limit of *Shopper Profiles* per request is `50`.
+     * * Limit of 10 concurrent requests.
      */
     post: operations["PostShopperProfile"];
     /**
@@ -336,6 +345,9 @@ export interface operations {
   /**
    * Update Segments
    * @description Updates *Segments*.
+   *
+   *  **Limits**
+   *  * Limit of 10 concurrent requests.
    */
   PutSegmentObjects: {
     parameters: {
@@ -367,6 +379,9 @@ export interface operations {
   /**
    * Create Segments
    * @description Creates *Segments*.
+   *
+   * **Limits**
+   * * Limit of 10 concurrent requests.
    */
   SegmentsPostRequest: {
     parameters: {
@@ -464,7 +479,10 @@ export interface operations {
   /**
    * Add Shopper Profiles to a Segment
    * @description Add *Shopper Profiles* to a specific *Segment*.
-   * A maximum number of *Shopper Profiles* per request is `50`, and up to three concurrent requests are allowed.
+   *
+   * **Limits**
+   * * Limit of *Shopper Profiles* per request is `50`.
+   * * Limit of 10 concurrent requests.
    */
   PostShopperProfile: {
     parameters: {
