@@ -69,7 +69,7 @@ export interface components {
      * subscriber_Full
      * @description Full subscriber object returned in responses.
      */
-    subscriber_Full: components["schemas"]["subscriber_Base"] & {
+    subscriber_Full: components["schemas"]["subscriber_Base"] & ({
       /** @description The unique numeric ID of the subscriber; increments sequentially. */
       id?: number;
       /**
@@ -83,13 +83,13 @@ export interface components {
        */
       date_created?: string;
       /**
-       * @description Shows what active subscriptions a shopper may have. If the consents array is empty, the user has unsubscribed or didn’t enable the newsletter subscription checkbox during checkout.
+       * @description Shows the active subscriptions a shopper may have. If the consents array is empty, the user has unsubscribed or didn’t enable the newsletter subscription checkbox during checkout. The array will contain consent types like 'marketing_newsletter' and 'abandoned_cart'.
        * @example [
        *   "marketing_newsletter"
        * ]
        */
-      consents?: string[];
-    };
+      consents?: ("marketing_newsletter" | "abandoned_cart")[];
+    });
     /**
      * subscriber_Base
      * @description Common Subscriber properties.
@@ -107,6 +107,13 @@ export interface components {
       order_id?: number | null;
       /** @description The channel ID where the subscriber was created. */
       channel_id?: number;
+      /**
+       * @description Shows the active subscriptions a shopper may have. If the consents array is empty, the user has unsubscribed or didn’t enable the newsletter subscription checkbox during checkout. The array will contain consent types like 'marketing_newsletter' and 'abandoned_cart'.
+       * @example [
+       *   "abandoned_cart"
+       * ]
+       */
+      consents?: ("marketing_newsletter" | "abandoned_cart")[];
     };
     Subscriber: ({
       /** @description The unique numeric ID of the subscriber; increments sequentially. */

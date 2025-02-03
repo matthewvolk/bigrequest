@@ -1044,12 +1044,6 @@ export interface components {
      * @description Common ProductImage properties.
      */
     productImage_Base: {
-      /**
-       * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
-       *
-       * Cannot be used with `image_file`.
-       */
-      image_url?: string;
       /** @description Flag for identifying whether the image is used as the productʼs thumbnail. */
       is_thumbnail?: boolean;
       /** @description The order in which the image will be displayed on the product page. Higher integers give the image a lower priority. When updating, if the image is given a lower priority, all images with a `sort_order` the same as or greater than the imageʼs new `sort_order` value will have their `sort_order`s reordered. */
@@ -1069,6 +1063,12 @@ export interface components {
     productImage_Post_Put: {
       /** @description The unique numeric identifier for the product with which the image is associated. */
       product_id?: number;
+      /**
+       * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
+       *
+       * Cannot be used with `image_file`.
+       */
+      image_url?: string;
     } & components["schemas"]["productImage_Base"];
     /**
      * productVideo_Base
@@ -1613,6 +1613,12 @@ export interface components {
       id?: number;
       /** @description The unique numeric identifier for the product with which the image is associated. */
       product_id?: number;
+      /**
+       * @description The URL for an image displayed on the storefront when the conditions are applied. Limit of 8MB per file.
+       *
+       * Cannot be used with `image_file`.
+       */
+      image_url?: string;
       /** @description The zoom URL for this image. By default, this is used as the zoom image on product pages when zoom images are enabled. You should provide an image smaller than 1280x1280; otherwise, the API returns a resized image. */
       url_zoom?: string;
       /** @description The standard URL for this image. By default, this is used for product-page images. */
