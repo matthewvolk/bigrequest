@@ -261,6 +261,8 @@ export interface components {
      */
     RateResponsePayload: {
       quote_id: string;
+      /** @description Time-to-live (TTL) in seconds */
+      ttl?: number;
       messages: ({
           text: string;
           /** @enum {string} */
