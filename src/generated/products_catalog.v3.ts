@@ -379,6 +379,11 @@ export interface paths {
   };
   "/catalog/products/{product_id}/bulk-pricing-rules": {
     /**
+     * Get all Bulk Pricing Rules
+     * @description Returns all *Bulk Pricing Rules*. Optional parameters can be passed in.
+     */
+    get: operations["getAllBulkPricingRules"];
+    /**
      * Create a Bulk Pricing Rule
      * @description Creates a *Bulk Pricing Rule*.
      */
@@ -1313,6 +1318,34 @@ export interface components {
       is_customized?: boolean;
       /** @description Optional field. This field automatically creates a dynamic 301 redirect when a product URL change occurs with a PUT request. Existing dynamic redirects will automatically update to a new URL to avoid a loop. */
       create_redirect?: boolean;
+    };
+    /** bulkPricingRule_Response */
+    bulkPricingRule_Response: {
+      /**
+       * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. For `fixed` rules, the minimum quantity canʼt be less than two.
+       * Required in /POST.
+       *
+       * @example 10
+       */
+      quantity_min?: number;
+      /**
+       * @description The maximum inclusive quantity of a product to satisfy this rule. Must be greater than the `quantity_min` value – unless this field has a value of 0 (zero), in which case there will be no maximum bound for this rule.
+       * Required in /POST.
+       * @example 50
+       */
+      quantity_max?: number;
+      /**
+       * @description The type of adjustment that is made. Values: `price` - the adjustment amount per product; `percent` - the adjustment as a percentage of the original price; `fixed` - the adjusted absolute price of the product.
+       * Required in /POST.
+       * @example price
+       * @enum {string}
+       */
+      type?: "price" | "percent" | "fixed";
+      /**
+       * @description You can express the adjustment type as either a fixed dollar amount or a percentage. Send a number; the response will return a number for `price` and `fixed` adjustments.
+       * Divide the adjustment percentage by 100 and send the result in string format. For example, represent 10% as “.10”. The response will return a float value for both `price` and `percentage` adjustments.
+       */
+      amount?: number | string;
     };
     /** bulkPricingRule_Full */
     bulkPricingRule_Full: {
@@ -3255,6 +3288,8 @@ export interface components {
     DirectionParam?: "asc" | "desc";
     /** @description Field name to sort by. Note: Since ID increments when new products are added, you can use the ID value to sort by product create date. */
     SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsBulkPricingParam?: ("quantity_min" | "quantity_max" | "type" | "amount")[];
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParam?: ("name" | "type" | "sku" | "description" | "weight" | "width" | "depth" | "height" | "price" | "cost_price" | "retail_price" | "sale_price" | "map_price" | "tax_class_id" | "product_tax_code" | "calculated_price" | "categories" | "brand_id" | "option_set_id" | "option_set_display" | "inventory_level" | "inventory_warning_level" | "inventory_tracking" | "reviews_rating_sum" | "reviews_count" | "total_sold" | "fixed_cost_shipping_price" | "is_free_shipping" | "is_visible" | "is_featured" | "related_products" | "warranty" | "bin_picking_number" | "layout_file" | "upc" | "mpn" | "gtin" | "date_last_imported" | "search_keywords" | "availability" | "availability_description" | "condition" | "is_condition_shown" | "order_quantity_minimum" | "order_quantity_maximum" | "page_title" | "meta_keywords" | "meta_description" | "date_created" | "date_modified" | "view_count" | "preorder_release_date" | "preorder_message" | "is_preorder_only" | "is_price_hidden" | "price_hidden_label" | "custom_url" | "base_variant_id" | "open_graph_type" | "open_graph_title" | "open_graph_description" | "open_graph_use_meta_description" | "open_graph_use_product_name" | "open_graph_use_image")[];
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -5598,6 +5633,38 @@ export interface operations {
     };
   };
   /**
+   * Get all Bulk Pricing Rules
+   * @description Returns all *Bulk Pricing Rules*. Optional parameters can be passed in.
+   */
+  getAllBulkPricingRules: {
+    parameters: {
+      query?: {
+        include_fields?: components["parameters"]["IncludeFieldsBulkPricingParam"];
+        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        product_id: components["parameters"]["ProductIdParam"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: {
+              /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
+              id?: number;
+            } & components["schemas"]["bulkPricingRule_Response"];
+            meta?: components["schemas"]["metaCollection_Full"];
+          };
+        };
+      };
+    };
+  };
+  /**
    * Create a Bulk Pricing Rule
    * @description Creates a *Bulk Pricing Rule*.
    */
@@ -5622,8 +5689,8 @@ export interface operations {
           "application/json": {
             data?: {
               /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
-              id: number;
-            } & components["schemas"]["bulkPricingRule_Full"];
+              id?: number;
+            } & components["schemas"]["bulkPricingRule_Response"];
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -5637,7 +5704,7 @@ export interface operations {
   getBulkPricingRule: {
     parameters: {
       query?: {
-        include_fields?: components["parameters"]["IncludeFieldsParam"];
+        include_fields?: components["parameters"]["IncludeFieldsBulkPricingParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
       header: {
@@ -5655,7 +5722,7 @@ export interface operations {
             data?: {
               /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
               id: number;
-            } & components["schemas"]["bulkPricingRule_Full"];
+            } & components["schemas"]["bulkPricingRule_Response"];
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
@@ -5710,8 +5777,8 @@ export interface operations {
           "application/json": {
             data?: {
               /** @description Unique ID of the *Bulk Pricing Rule*. Read-Only. */
-              id: number;
-            } & components["schemas"]["bulkPricingRule_Full"];
+              id?: number;
+            } & components["schemas"]["bulkPricingRule_Response"];
             meta?: components["schemas"]["metaEmpty_Full"];
           };
         };
