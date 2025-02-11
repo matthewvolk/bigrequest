@@ -14,9 +14,11 @@ export interface paths {
   "/inventory/adjustments/absolute": {
     /**
      * Absolute Adjustment
-     * @description Override the existing inventory levels for an inventory item at a location. For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments). For payload limits, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance).
+     * @description Override the existing inventory levels for an inventory item at a location. Use absolute adjustments as the default method for updating inventory. This endpoint batches requests, making them more resource friendly than the [Catalog API](/docs/rest-catalog/products#update-products-batch). Absolute adjustments have lower complexity than [relative adjustments](/docs/rest-management/inventory/adjustments#relative-adjustment), which synchronize with orders.
      *
-     * Use absolute adjustments as the default method for updating inventory. This endpoint batches requests, making them more resource friendly than the [Catalog API](/docs/rest-catalog/products#update-products-batch). Absolute adjustments have lower complexity than [relative adjustments](/docs/rest-management/inventory/adjustments#relative-adjustment), which synchronize with orders.
+     * **Limits**
+     * * For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments).
+     * * Limit of 2000 items for payload length, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance) for more information.
      */
     put: operations["put-absolute-adjustment"];
     parameters: {
@@ -28,9 +30,11 @@ export interface paths {
   "/inventory/adjustments/relative": {
     /**
      * Relative Adjustment
-     * @description Add or subtract inventory for an inventory item at a location. For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments). For payload limits, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance).
+     * @description Add or subtract inventory for an inventory item at a location. Use this endpoint only when you do not know absolute quantities. For example, making order-related inventory changes through a third-party may require relative adjustments. Otherwise, use the [Absolute adjustment](/docs/rest-management/inventory/adjustments#absolute-adjustment) endpoint for updating inventory.
      *
-     * Use this endpoint only when you do not know absolute quantities. For example, making order-related inventory changes through a third-party may require relative adjustments. Otherwise, use the [Absolute adjustment](/docs/rest-management/inventory/adjustments#absolute-adjustment) endpoint for updating inventory.
+     * **Limits**
+     * * For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments).
+     * * Limit of 2000 items for payload length, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance) for more information.
      */
     post: operations["post-relative-adjustment"];
     parameters: {
@@ -43,6 +47,9 @@ export interface paths {
     /**
      * Get Inventory at Locations
      * @description Return a list of inventory and inventory settings for all items in all locations.
+     *
+     * **Limits**
+     * * Limit of 1000 items for payload length.
      */
     get: operations["get-inventory-items"];
     parameters: {
@@ -55,11 +62,18 @@ export interface paths {
     /**
      * Get Inventory at a Location
      * @description Return a list of inventory and inventory settings for all items in a location.
+     *
+     * **Limits**
+     * * Limit of 1000 items for payload length.
      */
     get: operations["get-location-inventory-items"];
     /**
      * Update Inventory Settings for a Location
-     * @description Update inventory settings for items at a location.
+     * @description
+     * Update inventory settings for items at a location.
+     *
+     * **Limits**
+     * * Limit of 2000 items for payload length.
      */
     put: operations["put-location-inventory-items"];
     parameters: {
@@ -457,9 +471,11 @@ export interface operations {
 
   /**
    * Absolute Adjustment
-   * @description Override the existing inventory levels for an inventory item at a location. For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments). For payload limits, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance).
+   * @description Override the existing inventory levels for an inventory item at a location. Use absolute adjustments as the default method for updating inventory. This endpoint batches requests, making them more resource friendly than the [Catalog API](/docs/rest-catalog/products#update-products-batch). Absolute adjustments have lower complexity than [relative adjustments](/docs/rest-management/inventory/adjustments#relative-adjustment), which synchronize with orders.
    *
-   * Use absolute adjustments as the default method for updating inventory. This endpoint batches requests, making them more resource friendly than the [Catalog API](/docs/rest-catalog/products#update-products-batch). Absolute adjustments have lower complexity than [relative adjustments](/docs/rest-management/inventory/adjustments#relative-adjustment), which synchronize with orders.
+   * **Limits**
+   * * For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments).
+   * * Limit of 2000 items for payload length, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance) for more information.
    */
   "put-absolute-adjustment": {
     parameters: {
@@ -490,9 +506,11 @@ export interface operations {
   };
   /**
    * Relative Adjustment
-   * @description Add or subtract inventory for an inventory item at a location. For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments). For payload limits, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance).
+   * @description Add or subtract inventory for an inventory item at a location. Use this endpoint only when you do not know absolute quantities. For example, making order-related inventory changes through a third-party may require relative adjustments. Otherwise, use the [Absolute adjustment](/docs/rest-management/inventory/adjustments#absolute-adjustment) endpoint for updating inventory.
    *
-   * Use this endpoint only when you do not know absolute quantities. For example, making order-related inventory changes through a third-party may require relative adjustments. Otherwise, use the [Absolute adjustment](/docs/rest-management/inventory/adjustments#absolute-adjustment) endpoint for updating inventory.
+   * **Limits**
+   * * For maximum inventory levels, see [Inventory adjustments](/docs/store-operations/catalog/inventory-adjustments#inventory-adjustments).
+   * * Limit of 2000 items for payload length, see [Optimizing performance](/docs/store-operations/catalog/inventory-adjustments#optimizing-performance) for more information.
    */
   "post-relative-adjustment": {
     parameters: {
@@ -524,6 +542,9 @@ export interface operations {
   /**
    * Get Inventory at Locations
    * @description Return a list of inventory and inventory settings for all items in all locations.
+   *
+   * **Limits**
+   * * Limit of 1000 items for payload length.
    */
   "get-inventory-items": {
     parameters: {
@@ -555,6 +576,9 @@ export interface operations {
   /**
    * Get Inventory at a Location
    * @description Return a list of inventory and inventory settings for all items in a location.
+   *
+   * **Limits**
+   * * Limit of 1000 items for payload length.
    */
   "get-location-inventory-items": {
     parameters: {
@@ -592,7 +616,11 @@ export interface operations {
   };
   /**
    * Update Inventory Settings for a Location
-   * @description Update inventory settings for items at a location.
+   * @description
+   * Update inventory settings for items at a location.
+   *
+   * **Limits**
+   * * Limit of 2000 items for payload length.
    */
   "put-location-inventory-items": {
     parameters: {

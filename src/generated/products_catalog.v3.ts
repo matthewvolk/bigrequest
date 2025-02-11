@@ -566,6 +566,10 @@ export interface paths {
     /**
      * Create Products Channel Assignments
      * @description Creates products channel assignments.
+     *
+     * Notes:
+     *  * Avoid parallel assignment requests if possible.
+     *  * Do not make parallel assignment requests with the same product IDs.
      */
     put: operations["createProductsChannelAssignments"];
     /**
@@ -6575,6 +6579,10 @@ export interface operations {
   /**
    * Create Products Channel Assignments
    * @description Creates products channel assignments.
+   *
+   * Notes:
+   *  * Avoid parallel assignment requests if possible.
+   *  * Do not make parallel assignment requests with the same product IDs.
    */
   createProductsChannelAssignments: {
     parameters: {
