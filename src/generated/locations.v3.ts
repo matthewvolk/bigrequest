@@ -10,16 +10,29 @@ export interface paths {
     /**
      * Get Locations
      * @description List locations. You can use optional filter parameters.
+     *
+     * **Limits**
+     * * Limit of 50 concurrent requests.
+     * * Limit of 1000 items for payload length.
      */
     get: operations["getLocations"];
     /**
      * Update Locations
-     * @description Update existing locations.
+     * @description
+     * Update existing locations.
+     *
+     * **Limits**
+     * * Limit of 50 concurrent requests.
+     * * Limit of 100 active locations.
      */
     put: operations["updateLocations"];
     /**
      * Create Locations
      * @description Create new locations.
+     *
+     * **Limits**
+     * * Limit of 50 concurrent requests.
+     * * Limit of 100 active locations.
      */
     post: operations["createLocations"];
     /**
@@ -994,6 +1007,10 @@ export interface operations {
   /**
    * Get Locations
    * @description List locations. You can use optional filter parameters.
+   *
+   * **Limits**
+   * * Limit of 50 concurrent requests.
+   * * Limit of 1000 items for payload length.
    */
   getLocations: {
     parameters: {
@@ -1026,7 +1043,12 @@ export interface operations {
   };
   /**
    * Update Locations
-   * @description Update existing locations.
+   * @description
+   * Update existing locations.
+   *
+   * **Limits**
+   * * Limit of 50 concurrent requests.
+   * * Limit of 100 active locations.
    */
   updateLocations: {
     parameters: {
@@ -1057,6 +1079,10 @@ export interface operations {
   /**
    * Create Locations
    * @description Create new locations.
+   *
+   * **Limits**
+   * * Limit of 50 concurrent requests.
+   * * Limit of 100 active locations.
    */
   createLocations: {
     parameters: {
