@@ -1445,7 +1445,7 @@ export interface components {
        */
       base_wrapping_cost?: string;
       /**
-       * @description Shows where the order originated. The channel_id will default to 1.
+       * @description Shows where the order originated. The channel_id defaults to 1. The value must match the ID of a valid and enabled channel. If the ID refers to a non-existing or disconnected channel, the POST and PUT `/v2/orders` endpoints return a validation error.
        * @example 1
        */
       channel_id?: number;
@@ -2088,7 +2088,7 @@ export interface components {
       base_wrapping_cost?: string;
       billing_address?: components["schemas"]["billingAddress_Put"];
       /**
-       * @description Shows where the order originated. The channel_id will default to 1.
+       * @description Shows where the order originated. The channel_id defaults to 1. The value must match the ID of a valid and enabled channel. If the ID refers to a non-existing or disconnected channel, the POST and PUT `/v2/orders` endpoints return a validation error.
        * @example 1
        */
       channel_id?: number;
