@@ -1126,6 +1126,7 @@ export interface components {
       /** @description Length of the video. This will be filled in according to data on a host site. */
       length?: string;
     };
+    IncludeParamBase: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels" | "videos")[];
     /**
      * product_Put
      * @description The model for a PUT to update a product.
@@ -2332,7 +2333,6 @@ export interface components {
        * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
        */
       videos?: components["schemas"]["productVideo_Full"][];
-      variants?: components["schemas"]["productVariant_Full"][];
     };
     /**
      * product_Base_response
@@ -2571,7 +2571,6 @@ export interface components {
        * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
        */
       videos?: components["schemas"]["productVideo_Full"][];
-      variants?: components["schemas"]["productVariant_Full"][];
     };
     /** metafield_Full */
     metafield_Full: {
@@ -3291,7 +3290,7 @@ export interface components {
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Field name to sort by. Note: Since ID increments when new products are added, you can use the ID value to sort by product create date. */
-    SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
+    SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold" | "calculated_price";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsBulkPricingParam?: ("quantity_min" | "quantity_max" | "type" | "amount")[];
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -3314,8 +3313,13 @@ export interface components {
     CategoriesInParam?: number[];
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
-    /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
-    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels")[];
+    /**
+     * @description A comma-separated list of sub-resources to return with a product object.
+     * When you specify `options` or `modifiers`, results are limited to 10 per page.
+     */
+    IncludeParamGetProducts?: components["schemas"]["IncludeParamBase"];
+    /** @description A comma-separated list of sub-resources to return with a product object. */
+    IncludeParamGetProduct?: components["schemas"]["IncludeParamBase"];
     IdMinParam?: number;
     IdMaxParam?: number;
     IdGreaterParam?: number;
@@ -3429,7 +3433,7 @@ export interface operations {
         "id:in"?: components["parameters"]["IdInParam"];
         "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
         "id:not_in"?: components["parameters"]["IdNotInParam"];
-        include?: components["parameters"]["IncludeParam"];
+        include?: components["parameters"]["IncludeParamGetProducts"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
         page?: components["parameters"]["PageParam"];
@@ -3842,7 +3846,7 @@ export interface operations {
   getProduct: {
     parameters: {
       query?: {
-        include?: components["parameters"]["IncludeParam"];
+        include?: components["parameters"]["IncludeParamGetProduct"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
