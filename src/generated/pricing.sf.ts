@@ -11,6 +11,8 @@ export interface paths {
      * Get Prices (Batch)
      * @description Calculate batch pricing for products for a specific channel, currency, and customer group.
      *
+     * The rounded prices in this endpoint's response will align with the currency's decimal precision as defined in the [currency](https://support.bigcommerce.com/s/article/Managing-Currencies?language=en_US#add) settings page.
+     *
      * **Limits**
      * * Limit of 50 concurrent requests.
      */
@@ -426,6 +428,8 @@ export interface operations {
   /**
    * Get Prices (Batch)
    * @description Calculate batch pricing for products for a specific channel, currency, and customer group.
+   *
+   * The rounded prices in this endpoint's response will align with the currency's decimal precision as defined in the [currency](https://support.bigcommerce.com/s/article/Managing-Currencies?language=en_US#add) settings page.
    *
    * **Limits**
    * * Limit of 50 concurrent requests.
