@@ -182,6 +182,9 @@ export interface paths {
     /**
      * Delete order level fees from a checkout.
      * @description Delete fees from a checkout.
+     *
+     * > #### Note
+     * > * The `Try It` feature is not currently supported for this endpoint.
      */
     delete: operations["CheckoutsFeesByCheckoutIdDelete"];
   };
@@ -1025,6 +1028,8 @@ export interface components {
       order_confirmation_use_custom_checkout_script?: boolean;
       custom_order_confirmation_script_url?: string;
       custom_checkout_supports_uco_settings?: boolean;
+      custom_checkout_sri_hash?: string;
+      custom_order_confirmation_sri_hash?: string;
     };
     /** Checkouts settings request */
     CheckoutsSettingsRequest: {
@@ -1036,6 +1041,10 @@ export interface components {
       custom_order_confirmation_script_url?: string;
       /** @description Boolean value that specifies whether this checkout supports Optimized One-Page Checkout settings. */
       custom_checkout_supports_uco_settings?: boolean;
+      /** @description The Subresource Integrity (SRI) hash for the custom checkout script URL. */
+      custom_checkout_sri_hash?: string;
+      /** @description The Subresource Integrity (SRI) hash for the custom order confirmation script URL. */
+      custom_order_confirmation_sri_hash?: string;
     };
     /** Pickup Option */
     PickupOption: {
@@ -1685,6 +1694,9 @@ export interface operations {
   /**
    * Delete order level fees from a checkout.
    * @description Delete fees from a checkout.
+   *
+   * > #### Note
+   * > * The `Try It` feature is not currently supported for this endpoint.
    */
   CheckoutsFeesByCheckoutIdDelete: {
     parameters: {

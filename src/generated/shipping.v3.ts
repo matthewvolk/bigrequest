@@ -50,17 +50,38 @@ export interface paths {
   "/shipping/settings": {
     /**
      * Get Shipping Settings
-     * @description Get shipping settings.
+     * @description Returns the global-level shipping settings.
      */
     get: operations["getShippingSettings"];
     /**
      * Update Shipping Settings
-     * @description Updates shipping settings.
+     * @description Updates the global-level shipping settings.
      */
     put: operations["updateShippingSettings"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
+      };
+    };
+  };
+  "/shipping/settings/channels/{channel_id}": {
+    /**
+     * Get Shipping Settings per Channel
+     * @description Returns shipping settings for a specific channel.
+     */
+    get: operations["getChannelShippingSettings"];
+    /**
+     * Update Shipping Settings per Channel
+     * @description Updates shipping settings for a specific channel.
+     */
+    put: operations["updateChannelShippingSettings"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        /** @description Channel ID */
+        channel_id: string;
       };
     };
   };
@@ -111,7 +132,16 @@ export interface components {
          * @description Message shown to the shopper during checkout when their order does not meet the merchant's shipping criteria.
          * @example Unfortunately, one or more items in your cart can't be shipped to your location. Please choose a different delivery address.
          */
-        out_of_zone_delivery_message?: string;
+        out_of_delivery_zone_message?: string;
+      };
+    };
+    channelShippingSettings: {
+      checkout?: {
+        /**
+         * @description Message shown to the shopper during checkout when their order does not meet the merchant's shipping criteria.
+         * @example Unfortunately, one or more items in your cart can't be shipped to your location. Please choose a different delivery address.
+         */
+        out_of_delivery_zone_message?: string;
       };
     };
     /**
@@ -421,7 +451,7 @@ export interface operations {
   };
   /**
    * Get Shipping Settings
-   * @description Get shipping settings.
+   * @description Returns the global-level shipping settings.
    */
   getShippingSettings: {
     parameters: {
@@ -442,7 +472,7 @@ export interface operations {
   };
   /**
    * Update Shipping Settings
-   * @description Updates shipping settings.
+   * @description Updates the global-level shipping settings.
    */
   updateShippingSettings: {
     parameters: {
@@ -462,6 +492,104 @@ export interface operations {
           "application/json": {
             data?: components["schemas"]["shippingSettings"];
             meta?: Record<string, never>;
+          };
+        };
+      };
+      /** @description Bad Request. Input is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
+        };
+      };
+      /** @description The request body does not meet the specification. */
+      422: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Get Shipping Settings per Channel
+   * @description Returns shipping settings for a specific channel.
+   */
+  getChannelShippingSettings: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+      path: {
+        /** @description Channel ID */
+        channel_id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["channelShippingSettings"];
+            meta?: Record<string, never>;
+          };
+        };
+      };
+    };
+  };
+  /**
+   * Update Shipping Settings per Channel
+   * @description Updates shipping settings for a specific channel.
+   */
+  updateChannelShippingSettings: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        /** @description Channel ID */
+        channel_id: string;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["channelShippingSettings"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["channelShippingSettings"];
+            meta?: Record<string, never>;
+          };
+        };
+      };
+      /** @description Bad Request. Input is invalid. */
+      400: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
+            detail?: string;
+          };
+        };
+      };
+      /** @description The request body does not meet the specification. */
+      422: {
+        content: {
+          "application/json": {
+            status?: number;
+            title?: string;
+            type?: string;
           };
         };
       };
