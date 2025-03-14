@@ -29,7 +29,7 @@ export interface paths {
      * - 16,000 categories per store limit.
      * - 1,000 categories per product limit.
      * - 50 characters category name length.
-     * - 8 levels of category depth limit.
+     * - 8 levels of child categories depth limit.
      * - 65,535 characters category description length limit.
      *
      * Creating a category requires:
@@ -63,7 +63,8 @@ export interface paths {
      * This single endpoint updates and creates category trees. If a tree object contains an ID, it is processed as an update operation using that ID. If you do not provide an ID, a new tree is created. The category tree `name` field is required to create trees, but is not required on the update.
      *
      * **Usage Notes**
-     * * `channel_id` is required to create a category tree. You can assign one `channel_id` to one category tree.
+     * * Channel ID in the `channels` field is required to create a category tree. You can only assign a category tree to one channel.
+     * * The `channels` field must be absent when updating a category tree. This field is currently unsupported during a category tree update.
      */
     put: operations["upsertCategoryTrees"];
     /**
@@ -590,7 +591,7 @@ export interface operations {
    * - 16,000 categories per store limit.
    * - 1,000 categories per product limit.
    * - 50 characters category name length.
-   * - 8 levels of category depth limit.
+   * - 8 levels of child categories depth limit.
    * - 65,535 characters category description length limit.
    *
    * Creating a category requires:
@@ -707,7 +708,8 @@ export interface operations {
    * This single endpoint updates and creates category trees. If a tree object contains an ID, it is processed as an update operation using that ID. If you do not provide an ID, a new tree is created. The category tree `name` field is required to create trees, but is not required on the update.
    *
    * **Usage Notes**
-   * * `channel_id` is required to create a category tree. You can assign one `channel_id` to one category tree.
+   * * Channel ID in the `channels` field is required to create a category tree. You can only assign a category tree to one channel.
+   * * The `channels` field must be absent when updating a category tree. This field is currently unsupported during a category tree update.
    */
   upsertCategoryTrees: {
     parameters: {
