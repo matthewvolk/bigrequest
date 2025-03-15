@@ -43,7 +43,6 @@ export interface paths {
      * * `status`
      * * `is_listable_from_ui`
      * * `is_visible`
-     * * `config_meta`
      *
      *
      * > #### Note
@@ -911,31 +910,6 @@ export interface components {
      * @enum {string}
      */
     VariantState: "active" | "disabled" | "error" | "pending" | "pending_disable" | "pending_delete" | "queued" | "rejected" | "submitted" | "deleted";
-    /** @description Optional channel configuration object. */
-    ChannelConfigMeta: {
-      /** @description A [channel app](/docs/integrations/channels#channel-apps) config object for optionally configuring the channelʼs user interface in the control panel. */
-      app?: {
-        /** @description The unique `id` given to an app registered in [DevTools](https://devtools.bigcommerce.com/); used to create links to the app in channel manager. `app.id` is optional; however, if youʼre building an app that creates or manages a channel, we recommend including it to ensure the user interface in the control panel works properly. Select partners who are promoted in the Channel Manager must build an app, and include the app ID in the create channel request. [Learn how to find an Appʼs ID](/docs/integrations/apps/guide/id). */
-        id?: number;
-        /**
-         * @deprecated
-         * @description Sections are now deprecated under config_meta. The new /channel-menus endpoints should be used instead. If set, when the app is loaded within the control panel, the navigation `sections` will be directly embedded in the control panel navigation.
-         */
-        sections?: {
-            /**
-             * @deprecated
-             * @description The title of the navigation section.
-             * @example "Settings"
-             */
-            title?: string;
-            /**
-             * @deprecated
-             * @description The value that will be passed to the appʼs iFrame in the URL and will allow the app to display the appropriate section within the app iFrame in the control panel.
-             */
-            query_path?: string;
-          }[];
-      };
-    };
     /** @description Details about currency assignments for a specific channel. */
     CurrencyNotRequiredWithChannelId: {
       channel_id?: components["schemas"]["ChannelId"];
@@ -954,7 +928,6 @@ export interface components {
       default_currency: components["schemas"]["DefaultCurrency"];
     };
     CreateChannelReq: {
-      config_meta?: components["schemas"]["ChannelConfigMeta"];
       external_id?: components["schemas"]["ExternalId"];
       is_listable_from_ui?: components["schemas"]["IsListableFromUI"];
       is_visible?: components["schemas"]["IsVisible"];
@@ -964,7 +937,6 @@ export interface components {
       platform: components["schemas"]["ChannelPlatform"];
     };
     UpdateChannelReq: {
-      config_meta?: components["schemas"]["ChannelConfigMeta"];
       external_id?: components["schemas"]["ExternalId"];
       is_listable_from_ui?: components["schemas"]["IsListableFromUI"];
       is_visible?: components["schemas"]["IsVisible"];
@@ -1016,7 +988,6 @@ export interface components {
       date_modified?: components["schemas"]["ChannelListingVariantDateModified"];
     };
     ChannelWithoutCurrencies: {
-      config_meta?: components["schemas"]["ChannelConfigMeta"];
       id: components["schemas"]["ChannelId"];
       external_id?: components["schemas"]["ExternalId"];
       is_listable_from_ui?: components["schemas"]["IsListableFromUI"];
@@ -1030,7 +1001,6 @@ export interface components {
       icon_url?: components["schemas"]["IconUrl"];
     };
     ChannelWithCurrencies: {
-      config_meta?: components["schemas"]["ChannelConfigMeta"];
       id?: components["schemas"]["ChannelId"];
       external_id?: components["schemas"]["ExternalId"];
       is_listable_from_ui?: components["schemas"]["IsListableFromUI"];
@@ -1756,7 +1726,6 @@ export interface operations {
    * * `status`
    * * `is_listable_from_ui`
    * * `is_visible`
-   * * `config_meta`
    *
    *
    * > #### Note
