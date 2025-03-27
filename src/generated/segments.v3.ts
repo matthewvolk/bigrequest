@@ -43,6 +43,8 @@ export interface paths {
     /**
      * Get All Shopper Profiles in a Segment
      * @description Returns a list of *Shopper Profiles* that are associated with a given *Segment*.
+     *
+     * **NOTE**: The `modify` Customers OAuth scope is a requirement for this endpoint.
      */
     get: operations["GetSegmentProfiles"];
     /**
@@ -453,6 +455,8 @@ export interface operations {
   /**
    * Get All Shopper Profiles in a Segment
    * @description Returns a list of *Shopper Profiles* that are associated with a given *Segment*.
+   *
+   * **NOTE**: The `modify` Customers OAuth scope is a requirement for this endpoint.
    */
   GetSegmentProfiles: {
     parameters: {
