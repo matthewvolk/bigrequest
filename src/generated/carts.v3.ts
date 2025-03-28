@@ -343,7 +343,7 @@ export interface components {
          * @description The theme of the gift certificate.
          * @enum {string}
          */
-        theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+        theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
         amount: number;
         quantity: number;
         /** Contact Entity */
@@ -372,7 +372,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -425,7 +425,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -478,7 +478,7 @@ export interface components {
        * @description The theme of the gift certificate.
        * @enum {string}
        */
-      theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+      theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
       amount: number;
       quantity: number;
       /** Contact Entity */
@@ -607,7 +607,7 @@ export interface components {
        * @description The theme of the gift certificate.
        * @enum {string}
        */
-      theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+      theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
       /** @description Value must be between 1.00 and 1,000.00 in the store’s default currency. */
       amount: number;
       is_taxable?: boolean;
@@ -629,7 +629,7 @@ export interface components {
       id?: string;
       /** @description Name provided for the gift certificate that will appear in the control panel. */
       name?: string;
-      /** @description The theme of the gift certificate. The following options are available:`birthday.html`, `boy.html`, `celebration.html`, `christmas.html`, `general.html`, and `girl.html`. */
+      /** @description The theme of the gift certificate. The following options are available:`Birthday`, `Boy`, `Celebration`, `Christmas`, `General`, and `Girl`. */
       theme?: string;
       /** @description Value must be between 1.00 and 1,000.00 in the store’s default currency. */
       amount?: number;
@@ -1398,7 +1398,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
           amount: number;
           quantity: number;
           /** Contact Entity */
@@ -1445,7 +1445,7 @@ export interface components {
            * @description The theme of the gift certificate.
            * @enum {string}
            */
-          theme: "birthday.html" | "boy.html" | "celebration.html" | "christmas.html" | "general.html" | "girl.html";
+          theme: "Birthday" | "Boy" | "Celebration" | "Christmas" | "General" | "Girl";
           amount: number;
           quantity: number;
           /** Contact Entity */
