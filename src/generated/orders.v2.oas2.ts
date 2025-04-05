@@ -1082,6 +1082,19 @@ export interface components {
        */
       readonly resource?: string;
     };
+    /** orderFees_Resource */
+    readonly orderFees_Resource: {
+      /**
+       * @description URL where you can use a GET request to get the order fees.
+       * @example https://api.bigcommerce.com/stores/{store_hash}/v2/orders/101/fees
+       */
+      readonly url?: string;
+      /**
+       * @description Path where you can use a GET request to get the order fees.
+       * @example /orders/101/fees
+       */
+      readonly resource?: string;
+    };
     /** products_Resource */
     readonly products_Resource: {
       /** @example https://api.bigcommerce.com/stores/{store_hash}/v2/orders/129/products */
@@ -1445,7 +1458,7 @@ export interface components {
        */
       base_wrapping_cost?: string;
       /**
-       * @description Shows where the order originated. The channel_id will default to 1.
+       * @description Shows where the order originated. The channel_id defaults to 1. The value must match the ID of a valid and enabled channel. If the ID refers to a non-existing or disconnected channel, the POST and PUT `/v2/orders` endpoints return a validation error.
        * @example 1
        */
       channel_id?: number;
@@ -1761,7 +1774,7 @@ export interface components {
        * @description A read-only value. Do not attempt to set or modify this value in a POST or PUT request.
        * @enum {string}
        */
-      payment_status?: "authorized" | "captured" | "capture pending" | "declined" | "held for review" | "paid" | "partially refunded" | "pending" | "refunded" | "void" | "void pending";
+      payment_status?: "authorized" | "captured" | "capture pending" | "declined" | "held for review" | "paid" | "partially refunded" | "pending" | "refunded" | "void" | "void pending" | "";
       /**
        * @description Represents the store credit that the shopper has redeemed on this individual order. This is a read-only value. Do not pass in a POST or PUT request. (Float, Float-As-String, Integer)
        * @example 0.0000
@@ -1820,6 +1833,11 @@ export interface components {
        */
       is_deleted?: boolean;
       /**
+       * @description Total tax amount for the order
+       * @example 25.0000
+       */
+      total_tax?: string;
+      /**
        * @description Indicate whether the order's base prices include tax.
        *
        * If true, the base prices are inclusive of tax, and the values of `subtotal_inc_tax`, `shipping_cost_inc_tax`, `handling_cost_inc_tax`, `wrapping_cost_inc_tax` and `total_inc_tax` are not estimated but actual values and can be reliable for accounting purposes.
@@ -1848,7 +1866,7 @@ export interface components {
        */
       status_id?: number;
       billing_address?: components["schemas"]["billingAddress_Resp"];
-      fees?: components["schemas"]["orderFees_Resp"][];
+      fees?: components["schemas"]["orderFees_Resource"] | components["schemas"]["orderFees_Resp"][];
     };
     /**
      * Custom product
@@ -2088,7 +2106,7 @@ export interface components {
       base_wrapping_cost?: string;
       billing_address?: components["schemas"]["billingAddress_Put"];
       /**
-       * @description Shows where the order originated. The channel_id will default to 1.
+       * @description Shows where the order originated. The channel_id defaults to 1. The value must match the ID of a valid and enabled channel. If the ID refers to a non-existing or disconnected channel, the POST and PUT `/v2/orders` endpoints return a validation error.
        * @example 1
        */
       channel_id?: number;
