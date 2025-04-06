@@ -2165,7 +2165,7 @@ export interface components {
     ContentType: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
-    /** @description Filter items by minimum datevcreated. For example, `date_created:min=2019-09-04T00:00:00` or `date_created:min=2019-09-04`. Returns metafields created after this date. */
+    /** @description Filter items by minimum date created. For example, `date_created:min=2019-09-04T00:00:00` or `date_created:min=2019-09-04`. Returns metafields created after this date. */
     date_created_min?: string;
     /** @description Filter items by maximum date created. For example, `date_created:max=2019-09-04T00:00:00` or `date_created:max=2019-09-04`. Returns metafields created before this date. */
     date_created_max?: string;
