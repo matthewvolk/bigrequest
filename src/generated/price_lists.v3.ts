@@ -409,7 +409,7 @@ export interface components {
     };
     /**
      * Collection Meta
-     * @description Data related the response, including pagination and collection totals.
+     * @description 'Contains data about paginating the response via cursors. If no pagination details are specified or if you only provide a limit, then both properties will be present. When a 'before' or 'after' cursor is provided, only the 'cursor_pagination' property will be present. When a 'page' parameter is provided, only the offset based 'pagination' property will be present.'
      */
     CollectionMeta: {
       /**
@@ -447,6 +447,35 @@ export interface components {
          * @example 1
          */
         total_pages?: number;
+      };
+      /** Cursor Pagination */
+      cursor_pagination?: {
+        /**
+         * Format: int32
+         * @description Total number of items in the collection response.
+         */
+        count?: number;
+        /**
+         * Format: int32
+         * @description The number of items that can be returned per page, determined by the limit parameter—whether explicitly set, defaulted, or capped at the maximum limit.
+         */
+        per_page?: number;
+        /** @description A string representing the starting point of the current page in the collection. */
+        start_cursor?: string;
+        /** @description A string representing the ending point of the current page in the collection. */
+        end_cursor?: string;
+        /**
+         * links
+         * @description Pagination links for the previous and next parts of the whole collection.
+         */
+        links?: {
+          /** @description Link to the previous page returned in the response. */
+          previous?: string;
+          /** @description Link to the current page returned in the response. */
+          current?: string;
+          /** @description Link to the next page returned in the response. */
+          next?: string;
+        };
       };
     };
     /**
@@ -518,8 +547,12 @@ export interface operations {
         date_modified?: string;
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
+        /** @description Controls the number of items per page in a limited (paginated) list of products. If you provide only a limit, the API returns both paginations while applying that limit. */
         limit?: number;
+        /** @description A cursor that can be used for backwards pagination. Will fetch results before the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'after' query parameter. */
+        before?: string;
+        /** @description A cursor that can be used for forwards pagination. Will fetch results after the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'before' query parameter. */
+        after?: string;
         "id:in"?: number[];
         "name:like"?: string;
         "date_created:max"?: string;
@@ -571,7 +604,7 @@ export interface operations {
               })[];
             /**
              * Collection Meta
-             * @description Data related to the response, including pagination and collection totals.
+             * @description 'Contains data about paginating the response via cursors. If no pagination details are specified or if you only provide a limit, then both properties will be present. When a 'before' or 'after' cursor is provided, only the 'cursor_pagination' property will be present. When a 'page' parameter is provided, only the offset based 'pagination' property will be present.'
              */
             meta?: {
               /**
@@ -609,6 +642,35 @@ export interface operations {
                  * @example 1
                  */
                 total_pages?: number;
+              };
+              /** Cursor Pagination */
+              cursor_pagination?: {
+                /**
+                 * Format: int32
+                 * @description Total number of items in the collection response.
+                 */
+                count?: number;
+                /**
+                 * Format: int32
+                 * @description The number of items that can be returned per page, determined by the limit parameter—whether explicitly set, defaulted, or capped at the maximum limit.
+                 */
+                per_page?: number;
+                /** @description A string representing the starting point of the current page in the collection. */
+                start_cursor?: string;
+                /** @description A string representing the ending point of the current page in the collection. */
+                end_cursor?: string;
+                /**
+                 * links
+                 * @description Pagination links for the previous and next parts of the whole collection.
+                 */
+                links?: {
+                  /** @description Link to the previous page returned in the response. */
+                  previous?: string;
+                  /** @description Link to the current page returned in the response. */
+                  current?: string;
+                  /** @description Link to the next page returned in the response. */
+                  next?: string;
+                };
               };
             };
           };
@@ -1010,8 +1072,12 @@ export interface operations {
         currency?: string;
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
+        /** @description Controls the number of items per page in a limited (paginated) list of products. If you provide only a limit, the API returns both paginations while applying that limit. */
         limit?: number;
+        /** @description A cursor that can be used for backwards pagination. Will fetch results before the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'after' query parameter. */
+        before?: string;
+        /** @description A cursor that can be used for forwards pagination. Will fetch results after the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'before' query parameter. */
+        after?: string;
         /** @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored. */
         include?: ("bulk_pricing_tiers" | "sku")[];
         /** @description Filter items by price. */
@@ -1169,7 +1235,7 @@ export interface operations {
               }))[];
             /**
              * Collection Meta
-             * @description Data about the response, including pagination and collection totals.
+             * @description 'Contains data about paginating the response via cursors. If no pagination details are specified or if you only provide a limit, then both properties will be present. When a 'before' or 'after' cursor is provided, only the 'cursor_pagination' property will be present. When a 'page' parameter is provided, only the offset based 'pagination' property will be present.'
              */
             meta?: {
               /**
@@ -1207,6 +1273,35 @@ export interface operations {
                  * @example 1
                  */
                 total_pages?: number;
+              };
+              /** Cursor Pagination */
+              cursor_pagination?: {
+                /**
+                 * Format: int32
+                 * @description Total number of items in the collection response.
+                 */
+                count?: number;
+                /**
+                 * Format: int32
+                 * @description The number of items that can be returned per page, determined by the limit parameter—whether explicitly set, defaulted, or capped at the maximum limit.
+                 */
+                per_page?: number;
+                /** @description A string representing the starting point of the current page in the collection. */
+                start_cursor?: string;
+                /** @description A string representing the ending point of the current page in the collection. */
+                end_cursor?: string;
+                /**
+                 * links
+                 * @description Pagination links for the previous and next parts of the whole collection.
+                 */
+                links?: {
+                  /** @description Link to the previous page returned in the response. */
+                  previous?: string;
+                  /** @description Link to the current page returned in the response. */
+                  current?: string;
+                  /** @description Link to the next page returned in the response. */
+                  next?: string;
+                };
               };
             };
           };
@@ -1441,6 +1536,14 @@ export interface operations {
       query?: {
         /** @description Sub-resources to include on a price record, in a comma-separated list. Valid expansions currently include `bulk_pricing_tiers` and `sku`. Other values will be ignored. */
         include?: ("bulk_pricing_tiers" | "sku")[];
+        /** @description Specifies the page number in a limited (paginated) list of products. */
+        page?: number;
+        /** @description Controls the number of items per page in a limited (paginated) list of products. If you provide only a limit, the API returns both paginations while applying that limit. */
+        limit?: number;
+        /** @description A cursor that can be used for backwards pagination. Will fetch results before the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'after' query parameter. */
+        before?: string;
+        /** @description A cursor that can be used for forwards pagination. Will fetch results after the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'before' query parameter. */
+        after?: string;
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1571,7 +1674,7 @@ export interface operations {
               }))[];
             /**
              * Collection Meta
-             * @description Data related to the response, including pagination and collection totals.
+             * @description 'Contains data about paginating the response via cursors. If no pagination details are specified or if you only provide a limit, then both properties will be present. When a 'before' or 'after' cursor is provided, only the 'cursor_pagination' property will be present. When a 'page' parameter is provided, only the offset based 'pagination' property will be present.'
              */
             meta?: {
               /**
@@ -1609,6 +1712,38 @@ export interface operations {
                  * @example 1
                  */
                 total_pages?: number;
+              };
+              /**
+               * Cursor Pagination
+               * @description Data about cursor pagination.
+               */
+              cursor_pagination?: {
+                /**
+                 * Format: int32
+                 * @description Total number of items in the collection response.
+                 */
+                count?: number;
+                /**
+                 * Format: int32
+                 * @description The number of items that can be returned per page, determined by the limit parameter—whether explicitly set, defaulted, or capped at the maximum limit.
+                 */
+                per_page?: number;
+                /** @description A string representing the starting point of the current page in the collection. */
+                start_cursor?: string;
+                /** @description A string representing the ending point of the current page in the collection. */
+                end_cursor?: string;
+                /**
+                 * links
+                 * @description Pagination links for the previous and next parts of the whole collection.
+                 */
+                links?: {
+                  /** @description Link to the previous page returned in the response. */
+                  previous?: string;
+                  /** @description Link to the current page returned in the response. */
+                  current?: string;
+                  /** @description Link to the next page returned in the response. */
+                  next?: string;
+                };
               };
             };
           };
@@ -2073,8 +2208,12 @@ export interface operations {
         "channel_id:in"?: number[];
         /** @description Specifies the page number in a limited (paginated) list of products. */
         page?: number;
-        /** @description Controls the number of items per page in a limited (paginated) list of products. */
+        /** @description Controls the number of items per page in a limited (paginated) list of products. If you provide only a limit, the API returns both paginations while applying that limit. */
         limit?: number;
+        /** @description A cursor that can be used for backwards pagination. Will fetch results before the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'after' query parameter. */
+        before?: string;
+        /** @description A cursor that can be used for forwards pagination. Will fetch results after the position corresponding to the cursor. Cannot be used with the 'page' query parameter. Cannot be used with the 'before' query parameter. */
+        after?: string;
       };
       header: {
         Accept: components["parameters"]["Accept"];
