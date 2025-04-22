@@ -613,7 +613,6 @@ export interface components {
      * * status
      * * is_listable_from_ui
      * * is_visible
-     * * config_meta
      *
      *
      * ```json filename="Example callback object" showLineNumbers

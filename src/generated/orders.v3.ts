@@ -1126,9 +1126,7 @@ export interface components {
      * RefundQuote_Post
      * @description Request body for refund quotes.
      */
-    RefundQuote_Post: {
-      items: components["schemas"]["ItemsRefund"][];
-    };
+    RefundQuote_Post: components["schemas"]["RefundQuote_ItemsRefund"] | components["schemas"]["RefundQuote_TaxAdjustmentAmount"];
     /** RefundQuote_Full */
     RefundQuote_Full: {
       /** @description ID of the order to be refunded. */
@@ -1206,9 +1204,16 @@ export interface components {
      * RefundRequest_Post
      * @description Request body for refund requests.
      */
-    RefundRequest_Post: {
+    RefundRequest_Post: components["schemas"]["RefundRequest_Post_Items"] | components["schemas"]["RefundRequest_Post_TaxAdjustmentAmount"];
+    /** Items Refund */
+    RefundRequest_Post_Items: {
       items: components["schemas"]["ItemsRefund"][];
       payments: components["schemas"]["PaymentRequest"][];
+      merchant_calculated_override?: components["schemas"]["MerchantOverride"];
+    };
+    /** Tax Adjustment Refund */
+    RefundRequest_Post_TaxAdjustmentAmount: {
+      tax_adjustment_amount: components["schemas"]["TaxAdjustmentAmount"];
       merchant_calculated_override?: components["schemas"]["MerchantOverride"];
     };
     RefundID_Get: {
@@ -1257,6 +1262,7 @@ export interface components {
             /** @description Message indicates why the payment was declined. */
             declined_message?: string;
           }[];
+        /** @description Array of items refunded. In cases when `tax_refund_adjustment` was used to create the refund, this array will be empty. */
         items?: ({
             /**
              * @description Type of item that was refunded.
@@ -1457,6 +1463,23 @@ export interface components {
       /** @description Total tax amount refunded back to the shopper. Use 0 value if there is no tax liability change for the refund or tax does not need to be recorded on the refund and would be handled externally. */
       total_tax: number;
     };
+    /**
+     * Tax Adjustment Amount
+     * Format: float
+     * @description Amount to be used when tax may have been overcharged for an order, such as when the value for a partial refund is overridden. This amount should be equal to the calculated overcharged value, or should be used with `merchant_calculated_override` to override the value. If not, this will result in a `422` error.
+     * @example 1.99
+     */
+    TaxAdjustmentAmount: number;
+    /** Items Refund */
+    RefundQuote_ItemsRefund: {
+      items: components["schemas"]["ItemsRefund"][];
+      merchant_calculated_override?: components["schemas"]["MerchantOverride"];
+    };
+    /** Tax Adjustment Refund */
+    RefundQuote_TaxAdjustmentAmount: {
+      tax_adjustment_amount: components["schemas"]["TaxAdjustmentAmount"];
+      merchant_calculated_override?: components["schemas"]["MerchantOverride"];
+    };
     /** Refund */
     Refund: {
       /** @description Refund resource ID. */
@@ -1477,7 +1500,7 @@ export interface components {
       total_tax?: number;
       /** @description Whether refund amount and tax are provided explicitly by merchant override. */
       uses_merchant_override_values?: boolean;
-      /** @description Array of items refunded. */
+      /** @description Array of items refunded. In cases when `tax_refund_adjustment` was used to create the refund, this array will be empty. */
       items?: components["schemas"]["RefundItem"][];
       /** @description An array of refund payments made to payment providers. */
       payments?: components["schemas"]["RefundPayment"][];
@@ -2165,7 +2188,7 @@ export interface components {
     ContentType: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
-    /** @description Filter items by minimum datevcreated. For example, `date_created:min=2019-09-04T00:00:00` or `date_created:min=2019-09-04`. Returns metafields created after this date. */
+    /** @description Filter items by minimum date created. For example, `date_created:min=2019-09-04T00:00:00` or `date_created:min=2019-09-04`. Returns metafields created after this date. */
     date_created_min?: string;
     /** @description Filter items by maximum date created. For example, `date_created:max=2019-09-04T00:00:00` or `date_created:max=2019-09-04`. Returns metafields created before this date. */
     date_created_max?: string;
