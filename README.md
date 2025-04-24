@@ -19,6 +19,15 @@ This module is available in two formats:
 npm i bigrequest
 ```
 
+Upon installation bigrequest will fetch the newest definitions keeping the package up-to-date always!
+
+## Updating the definitions
+We recommend using a github api key to avoid rate limiting
+
+```sh
+npx bigrequest generate [github api token]
+```
+
 ## Usage
 
 ```ts

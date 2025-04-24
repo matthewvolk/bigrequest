@@ -19,12 +19,16 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+      "generate": "./bin/generate.mjs"
+  },
   "scripts": {
-    "build": "tsup",
-    "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit",
-    "generate": "node src/generate.mjs",
-    "test": "echo \"No test specified\""
+      "build": "tsup",
+      "lint": "eslint. --max-warnings 0",
+      "check-types": "tsc --noEmit",
+      "generate": "generate",
+      "test": "echo \"No test specified\"",
+      "postinstall": "generate"
   },
   "dependencies": {
     "jose": "^5.1.3",

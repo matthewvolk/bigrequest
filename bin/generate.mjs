@@ -1,11 +1,17 @@
+#!/usr/bin/env node
+
 /**
  * Module dependencies
  */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import openapiTS from 'openapi-typescript';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * GitHub details
@@ -26,7 +32,7 @@ const ghRepoBranch = 'main';
  * pnpm run generate YOUR_TOKEN_HERE
  */
 
-const ghAccessToken = process.argv[2] ?? '';
+const ghAccessToken = process.argv[3] ? process.argv[3] : (process.argv[2] ?? '');
 
 /**
  * Relative path to parent folder in remote repository
@@ -92,7 +98,10 @@ async function generate() {
    * Absolute path of relative output path
    */
 
-  const outputDir = path.join(process.cwd(), relativeOutputPath);
+  const packageRoot = path.resolve(__dirname, '..');
+  const outputDir = path.join(packageRoot, relativeOutputPath);
+
+  console.info(`Generating files to ${outputDir}...`);
 
   /**
    * Create output directory to store type definition

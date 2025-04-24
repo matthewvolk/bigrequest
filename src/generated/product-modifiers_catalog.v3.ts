@@ -268,7 +268,7 @@ export interface components {
        */
       sort_order: number;
       /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
-      value_data?: unknown;
+      value_data?: Record<string, unknown> | null;
       adjusters?: components["schemas"]["adjusters_Full"];
     };
     /**

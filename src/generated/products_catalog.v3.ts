@@ -745,7 +745,7 @@ export interface components {
        */
       sort_order: number;
       /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
-      value_data?: unknown;
+      value_data?: Record<string, unknown> | null;
       adjusters?: components["schemas"]["adjusters_Full"];
     };
     /**
@@ -1038,7 +1038,7 @@ export interface components {
        */
       sort_order: number;
       /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexidecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
-      value_data?: unknown;
+      value_data?: Record<string, unknown> | null;
     };
     /**
      * productOptionOptionValue_Full
@@ -1126,6 +1126,7 @@ export interface components {
       /** @description Length of the video. This will be filled in according to data on a host site. */
       length?: string;
     };
+    IncludeParamBase: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels" | "videos")[];
     /**
      * product_Put
      * @description The model for a PUT to update a product.
@@ -2332,7 +2333,6 @@ export interface components {
        * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
        */
       videos?: components["schemas"]["productVideo_Full"][];
-      variants?: components["schemas"]["productVariant_Full"][];
     };
     /**
      * product_Base_response
@@ -2571,7 +2571,6 @@ export interface components {
        * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
        */
       videos?: components["schemas"]["productVideo_Full"][];
-      variants?: components["schemas"]["productVariant_Full"][];
     };
     /** metafield_Full */
     metafield_Full: {
@@ -3291,7 +3290,7 @@ export interface components {
     /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
     DirectionParam?: "asc" | "desc";
     /** @description Field name to sort by. Note: Since ID increments when new products are added, you can use the ID value to sort by product create date. */
-    SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold";
+    SortParam?: "id" | "name" | "sku" | "price" | "date_modified" | "date_last_imported" | "inventory_level" | "is_visible" | "total_sold" | "calculated_price";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsBulkPricingParam?: ("quantity_min" | "quantity_max" | "type" | "amount")[];
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
@@ -3314,8 +3313,13 @@ export interface components {
     CategoriesInParam?: number[];
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
-    /** @description A comma-separated list of sub-resources to return with a product object. When you specify `options` or `modifiers`, results are limited to 10 per page. */
-    IncludeParam?: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels")[];
+    /**
+     * @description A comma-separated list of sub-resources to return with a product object.
+     * When you specify `options` or `modifiers`, results are limited to 10 per page.
+     */
+    IncludeParamGetProducts?: components["schemas"]["IncludeParamBase"];
+    /** @description A comma-separated list of sub-resources to return with a product object. */
+    IncludeParamGetProduct?: components["schemas"]["IncludeParamBase"];
     IdMinParam?: number;
     IdMaxParam?: number;
     IdGreaterParam?: number;
@@ -3429,7 +3433,7 @@ export interface operations {
         "id:in"?: components["parameters"]["IdInParam"];
         "channel_id:in"?: components["parameters"]["ChannelIdInParam"];
         "id:not_in"?: components["parameters"]["IdNotInParam"];
-        include?: components["parameters"]["IncludeParam"];
+        include?: components["parameters"]["IncludeParamGetProducts"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
         page?: components["parameters"]["PageParam"];
@@ -3758,7 +3762,7 @@ export interface operations {
           };
         };
       };
-      /** @description `Product` was in conflict with another product. This is the result of duplicate unique values, such as name or SKU; a missing or invalid `category_id`, `brand_id`, or `tax_class id`; or a conflicting `bulk_pricing_rule`. */
+      /** @description `Product` conflicted with another product. This is the result of duplicate unique values, such as name or SKU; a missing or invalid `category_id`, `brand_id`, or `tax_class id`; or a conflicting `bulk_pricing_rule` or `custom_url`. */
       409: {
         content: {
           "application/json": {
@@ -3842,7 +3846,7 @@ export interface operations {
   getProduct: {
     parameters: {
       query?: {
-        include?: components["parameters"]["IncludeParam"];
+        include?: components["parameters"]["IncludeParamGetProduct"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
@@ -4786,12 +4790,6 @@ export interface operations {
       content: {
         "application/json": {
           /**
-           * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-           *
-           * @example 67
-           */
-          product_id?: number | null;
-          /**
            * @description The priority to give this rule when making adjustments to the product properties.
            *
            * @example 0
@@ -5210,12 +5208,6 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": {
-          /**
-           * @description The unique numeric ID of the product with which the rule is associated; increments sequentially.
-           *
-           * @example 67
-           */
-          product_id?: number | null;
           /**
            * @description The priority to give this rule when making adjustments to the product properties.
            *
