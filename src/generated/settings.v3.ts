@@ -474,14 +474,19 @@ export interface components {
      */
     AddressTypeEnumValues: "Home Office" | "Commercial Office" | "Retail" | "Warehouse";
     AnalyticsProvider: {
+      /** @description Web Analytics Provider ID. */
+      id?: number;
+      /** @description Channels ID */
+      channel_id?: number;
+      /** @description Web Analytics Provider title. */
+      name?: string;
       /** @description Web Analytics Provider code. */
       code?: string;
       /** @description Flag indicates if Web Analytics Provider is enabled or not. */
       enabled?: boolean;
-      /** @description Web Analytics Provider ID. */
-      id?: number;
-      /** @description Web Analytics Provider title. */
-      name?: string;
+      data_tag_enabled?: boolean;
+      version?: number;
+      api_secret?: string;
     };
     AnalyticsProviders: components["schemas"]["AnalyticsProvider"][];
     /** AvailableFilter */
@@ -1103,11 +1108,9 @@ export interface operations {
     requestBody?: {
       content: {
         "application/json": {
-          channel_id?: number;
           code?: string;
           data_tag_enabled?: boolean;
           enabled?: boolean;
-          id?: number;
           is_oauth_connected?: unknown;
           name?: string;
           version?: number;
