@@ -1,0 +1,24 @@
+name: Clean Nightly PRs 
+
+on:
+  workflow_dispatch: # Manual trigger
+  schedule:
+    - cron: '30 2 * * *' # Optional: Daily at 2:30 AM UTC
+
+jobs:
+  clean-nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up jq and uuidgen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq uuid-runtime
+
+      - name: Run cleanup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/clean_nightly.sh
