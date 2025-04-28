@@ -1,9 +1,9 @@
 name: Clean Nightly PRs 
 
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
   schedule:
-    - cron: '30 2 * * *' # Optional: Daily at 2:30 AM UTC
+    - cron: '30 2 * * *' # Daily at 2:30 AM UTC sometime after the nightly job
 
 jobs:
   clean-nightly:
@@ -22,3 +22,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bash .github/scripts/clean_nightly.sh
+
+      - name: Run prepare changeset script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/prepare_changeset.sh          

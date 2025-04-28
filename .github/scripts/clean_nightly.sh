@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # === CONFIGURATION ===
 GITHUB_TOKEN="$GITHUB_TOKEN"
 REPO_OWNER="matthewvolk"
@@ -65,5 +67,4 @@ for row in $(echo "$nightly_prs" | jq -r '. | @base64'); do
 done
 
 # === END ===
-
 echo "Done."

@@ -300,6 +300,7 @@ export interface components {
       name?: string;
       is_visible?: boolean;
       children?: components["schemas"]["CategoryNode"][];
+      url?: string;
     };
     MetaPaginationObject: {
       pagination?: {
