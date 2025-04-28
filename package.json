@@ -24,7 +24,7 @@
   },
   "scripts": {
       "build": "tsup",
-      "lint": "eslint. --max-warnings 0",
+      "lint": "eslint . --max-warnings 0",
       "check-types": "tsc --noEmit",
       "generate": "node bin/generate.mjs",
       "test": "echo \"No test specified\"",
