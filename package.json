@@ -28,7 +28,7 @@
       "check-types": "tsc --noEmit",
       "generate": "node bin/generate.mjs",
       "test": "echo \"No test specified\"",
-      "postinstall": "generate"
+      "postinstall": "node bin/generate.mjs"
   },
   "dependencies": {
     "jose": "^5.1.3",
