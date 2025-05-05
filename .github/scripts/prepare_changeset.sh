@@ -25,24 +25,45 @@ prs=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
 
 echo "Fetched $(echo "$prs" | jq '. | length') open PRs."
 
+# === Find nightly PRs ===
 nightly_prs=$(echo "$prs" | jq -r '.[] | select(.user.login == "github-actions[bot]" and 
     (.head.ref | type) == "string" and 
-    (.head.ref // "" | startswith("'"$BRANCH_PREFIX"'"))) | 
-    {number: .number, branch: .head.ref}')
+    (.head.ref // "" | startswith("'"$BRANCH_PREFIX"'")))')
+
 echo "Found $(echo "$nightly_prs" | jq -s '. | length') nightly PRs."
 
-# === Sort by PR number descending ===
-latest_branch=$(echo "$nightly_prs" | jq -s -r 'sort_by(.number) | reverse | .[0].branch')
+# === Sort by PR number descending and pick latest ===
+latest_pr=$(echo "$nightly_prs" | jq -s 'sort_by(.number) | reverse | .[0]')
 
-if [[ -z "$latest_branch" ]]; then
+latest_branch=$(echo "$latest_pr" | jq -r '.head.ref')
+branch_repo_fullname=$(echo "$latest_pr" | jq -r '.head.repo.full_name')
+branch_repo_clone_url=$(echo "$latest_pr" | jq -r '.head.repo.clone_url')
+
+if [[ -z "$latest_branch" || "$latest_branch" == "null" ]]; then
     echo "No nightly branches found. Exiting."
     exit 1
 fi
 
-echo "Checking out latest nightly branch: $latest_branch"
+echo "Latest branch: $latest_branch"
+echo "Branch source repo: $branch_repo_fullname"
+
+# === Add remote for PR source repo if needed ===
+remote_name="branch-remote"
+
+if ! git remote get-url "$remote_name" &> /dev/null; then
+    echo "Adding remote $remote_name -> $branch_repo_clone_url"
+    git remote add "$remote_name" "$branch_repo_clone_url"
+else
+    echo "Remote $remote_name already exists."
+fi
+
+# === Fetch the latest branch from its source repo ===
+echo "Fetching branch $latest_branch from $remote_name..."
+
+git fetch "$remote_name" "$latest_branch:$latest_branch"
 
 # === Checkout latest branch ===
-git fetch origin
+echo "Checking out $latest_branch..."
 
 git checkout "$latest_branch"
 
@@ -62,8 +83,8 @@ cat <<EOF > "$changeset_file"
 "bigrequest": patch
 ---
 
-Update generated types from bigcommerce/docs changes
+Update generated types based on bigcommerce/docs changes
 EOF
 
 # === END ===
-echo "Done."
+echo "✅ Done. Created changeset file: $changeset_file"
