@@ -8,6 +8,7 @@ REPO_OWNER="matthewvolk"
 REPO_NAME="bigrequest"
 API_URL="https://api.github.com"
 BRANCH_PREFIX="nightly-"
+TEMP_BACKUP_DIR="/tmp/bigrequest-scripts-backup" # REMOVE WHEN DONE
 
 # === DEBUG CHECKS ===
 echo "Running with configuration:"
@@ -47,6 +48,13 @@ fi
 echo "Latest branch: $latest_branch"
 echo "Branch source repo: $branch_repo_fullname"
 
+# === BACKUP SCRIPTS DIRECTORY BEFORE CHECKOUT REMOVE WHEN DONE ===
+if [[ -d ".github/scripts" ]]; then
+    echo "Backing up .github/scripts/ to $TEMP_BACKUP_DIR..."
+    rm -rf "$TEMP_BACKUP_DIR"
+    cp -r .github/scripts "$TEMP_BACKUP_DIR"
+fi
+
 # === Add remote for PR source repo if needed ===
 remote_name="branch-remote"
 
@@ -67,6 +75,13 @@ echo "Checking out $latest_branch..."
 
 git checkout "$latest_branch"
 
+# === RESTORE SCRIPTS DIRECTORY AFTER CHECKOUT ===
+if [[ -d "$TEMP_BACKUP_DIR" ]]; then
+    echo "Restoring .github/scripts/ from backup..."
+    mkdir -p .github
+    cp -r "$TEMP_BACKUP_DIR" .github/scripts
+fi
+
 # === Create .changeset directory if needed ===
 mkdir -p .changeset
 
@@ -83,7 +98,7 @@ cat <<EOF > "$changeset_file"
 "bigrequest": patch
 ---
 
-Update generated types based on bigcommerce/docs changes
+Update generated types from bigcommerce/docs changes
 EOF
 
 # === END ===
