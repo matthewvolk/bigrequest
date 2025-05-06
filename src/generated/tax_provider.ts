@@ -182,6 +182,8 @@ export interface components {
         customer_group_id: string;
         /** @description If applicable, the tax exemption code of the shopper’s customer account. A taxability code is intended to apply to multiple customers. This code should match the exemption codes provided by the third-party integration. */
         taxability_code?: string;
+        /** @description Any tax property values that have been associated with this customer. */
+        tax_properties?: components["schemas"]["request-item-tax-property"][];
       };
       /**
        * Format: date-time

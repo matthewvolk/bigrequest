@@ -94,6 +94,12 @@ export interface components {
        * @example "2022-07-21T19:33:57.000Z"
        */
       updated_at?: string;
+      /**
+       * @description The type of entity that the tax property can be associated with.
+       * @example PRODUCT
+       * @enum {string}
+       */
+      type?: "PRODUCT" | "CUSTOMER";
     };
     PropertyPOST: {
       /**
@@ -111,6 +117,13 @@ export interface components {
        * @example Food Industry
        */
       description?: string;
+      /**
+       * @description The type of entity that the tax property can be associated with. Default
+       * @default PRODUCT
+       * @example PRODUCT
+       * @enum {string}
+       */
+      type?: "PRODUCT" | "CUSTOMER";
     };
     PropertyPUT: {
       /**
