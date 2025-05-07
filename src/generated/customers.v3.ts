@@ -346,7 +346,7 @@ export interface paths {
   "/customers/{customerId}/metafields/{metafieldId}": {
     /**
      * Get a Customer Metafield
-     * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
+     * @description Returns a single *Customer Metafield*.
      */
     get: operations["getMetafieldsCustomerId"];
     /**
@@ -1383,6 +1383,7 @@ export interface components {
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
       data?: components["schemas"]["Metafield"][];
+      meta?: components["schemas"]["CollectionMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionPostPutResponses: {
@@ -2155,85 +2156,6 @@ export interface components {
               address_id: number;
             }]>)[];
           meta?: components["schemas"]["MetaOpen"];
-        };
-      };
-    };
-    /** @description Response payload for the BigCommerce API. */
-    MetafieldCollectionResponse: {
-      content: {
-        "application/json": {
-          items?: {
-            /**
-             * @description Unique ID of the *Metafield*. Read-Only.
-             * @example 0
-             */
-            id: number;
-            /**
-             * @description The key for the metafields.
-             * @example Staff Name
-             */
-            key: string;
-            /**
-             * @description The description for the metafield.
-             * @example Ronaldo
-             */
-            value: string;
-            /**
-             * @description Namespace for the metafield, for organizational purposes.
-             *
-             * @example Sales Department
-             */
-            namespace: string;
-            /**
-             * @description Determines the visibility and writeability of the field by other API consumers.
-             * | Value | Description |
-             * | :--- | :--- |
-             * | `app_only` | Private to the app that owns the field. |
-             * | `read` | Visible to other API consumers. |
-             * | `write` | Open for reading and writing by other API consumers. |
-             * | `read_and_sf_access` | Visible to other API consumers, including on storefront. |
-             * | `write_and_sf_access` | Open for reading and writing by other API consumers, including on storefront. |
-             *
-             * @enum {string}
-             */
-            permission_set: "app_only" | "read" | "write" | "read_and_sf_access" | "write_and_sf_access";
-            /**
-             * @description The type of resource with which the metafield is associated.
-             *
-             * @example cart
-             * @enum {string}
-             */
-            resource_type: "brand" | "product" | "variant" | "category" | "cart" | "channel" | "location" | "order" | "customer";
-            /**
-             * @description The unique identifier for the resource with which the metafield is associated.
-             *
-             * @example 0
-             */
-            resource_id: number;
-            /**
-             * @description Description for the metafields.
-             *
-             * @example order
-             */
-            description: string;
-            /**
-             * Format: date-time
-             * @description Date and time of the metafieldʼs creation.
-             * @example 2022-06-16T18:39:00+00:00
-             */
-            date_created: string;
-            /**
-             * Format: date-time
-             * @description Date and time when the metafield was last updated.
-             * @example 2022-06-16T18:39:00+00:00
-             */
-            date_modified: string;
-            /**
-             * @description Client ID for the metafield's creator.
-             * @example ramciw4fnoz87it3ynjfif2zrkil5p
-             */
-            owner_client_id?: string;
-          };
         };
       };
     };
@@ -3235,7 +3157,15 @@ export interface operations {
       };
     };
     responses: {
-      200: components["responses"]["MetafieldCollectionResponse"];
+      /** @description Response payload for the BigCommerce API. */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["metafield_Full"][];
+            meta?: components["schemas"]["metaCollection_Full"];
+          };
+        };
+      };
     };
   };
   /**
@@ -3287,7 +3217,7 @@ export interface operations {
   };
   /**
    * Get a Customer Metafield
-   * @description Lists available metafields for a customer. To retrieve the list, use `customerId` and `metafieldId` in the query parameters.
+   * @description Returns a single *Customer Metafield*.
    */
   getMetafieldsCustomerId: {
     parameters: {
@@ -3299,7 +3229,14 @@ export interface operations {
       };
     };
     responses: {
-      200: components["responses"]["MetafieldCollectionResponse"];
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["metafield_Full"];
+            meta?: components["schemas"]["metaEmpty_Full"];
+          };
+        };
+      };
       /** @description Not found (A metafield was not found with this query). */
       404: {
         content: {
