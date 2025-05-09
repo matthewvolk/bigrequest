@@ -116,7 +116,7 @@ export interface components {
        * @default false
        */
       tax_exempt?: boolean;
-      /** @description Merchants may opt to include additional properties that a tax provider can choose to support, factoring these values into tax calculation. */
+      /** @description Merchants may opt to include additional properties that a tax provider can choose to support, factoring these values into tax calculation. See [Tax Properties API](/docs/rest-management/tax-properties) for more information on configuring tax properties. */
       tax_properties?: components["schemas"]["request-item-tax-property"][];
     };
     /**
@@ -182,10 +182,12 @@ export interface components {
         customer_group_id: string;
         /** @description If applicable, the tax exemption code of the shopper’s customer account. A taxability code is intended to apply to multiple customers. This code should match the exemption codes provided by the third-party integration. */
         taxability_code?: string;
+        /** @description Any tax property values that have been associated with this customer. See [Tax Properties API](/docs/rest-management/tax-properties) for more information on configuring tax properties. */
+        tax_properties?: components["schemas"]["request-item-tax-property"][];
       };
       /**
        * Format: date-time
-       * @description ISO 8601 formatted date the shopper placed this order. Dates will be provided in UTC.
+       * @description ISO 8601 formatted date the shopper placed this order. Tax quotes are expected to reflect taxes applicable on this date. Dates will be provided in UTC.
        */
       transaction_date: string;
       /** @description One or more consignments containing items being purchased by the shopper, including shipping and handling fees that are charged for each consignment. Most orders will contain a single consignment (to a single shipping address), however the BigCommerce platform also supports "Multi-address orders" which allow shoppers to place a single order with items shipped to different addresses. */
