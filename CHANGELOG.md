@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.58
+
+### Patch Changes
+
+- [#626](https://github.com/matthewvolk/bigrequest/pull/626) [`9604b1d`](https://github.com/matthewvolk/bigrequest/commit/9604b1dc146ee61c8fc9fcdd50d937e82b19aeda) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Update README with guidance on installing package using `--save-exact`
+
 ## 0.0.57
 
 ### Patch Changes
