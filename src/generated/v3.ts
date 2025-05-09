@@ -39,6 +39,7 @@ import * as store_logs_v3 from './store_logs.v3';
 import * as storefront_tokens_v3 from './storefront_tokens.v3';
 import * as subscribers_v3 from './subscribers.v3';
 import * as tax_v3 from './tax.v3';
+import * as tax_customers_v3 from './tax_customers.v3';
 import * as tax_properties_v3 from './tax_properties.v3';
 import * as tax_rates_zones_v3 from './tax_rates_zones.v3';
 import * as tax_settings_v3 from './tax_settings.v3';
@@ -88,6 +89,7 @@ store_logs_v3.paths &
 storefront_tokens_v3.paths &
 subscribers_v3.paths &
 tax_v3.paths &
+tax_customers_v3.paths &
 tax_properties_v3.paths &
 tax_rates_zones_v3.paths &
 tax_settings_v3.paths &
