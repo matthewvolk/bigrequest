@@ -15,8 +15,11 @@ This module is available in two formats:
 
 ## Installation
 
+> **⚠️ Important ⚠️**
+> It's important to install this package with the `--save-exact` flag. Until this package reaches version `1.0.0`, there may be breaking changes released with patch/minor versions.
+
 ```sh
-npm i bigrequest
+npm i bigrequest --save-exact
 ```
 
 ## Usage
