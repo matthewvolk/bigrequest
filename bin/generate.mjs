@@ -6,11 +6,13 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import openapiTS from 'openapi-typescript';
 
+// eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
 const __dirname = path.dirname(__filename);
 
 /**

@@ -22,9 +22,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bash .github/scripts/clean_nightly.sh
-
-      - name: Run prepare changeset script
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          bash .github/scripts/prepare_changeset.sh          
