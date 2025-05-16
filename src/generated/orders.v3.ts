@@ -1306,7 +1306,7 @@ export interface components {
       error?: string;
     };
     /** ItemsRefund */
-    ItemsRefund: components["schemas"]["AmountBoundItem"] | components["schemas"]["QuantityBoundItem"] | components["schemas"]["TaxExemptItem"] | components["schemas"]["FeeItem"];
+    ItemsRefund: components["schemas"]["QuantityBoundItem"] | components["schemas"]["AmountBoundItem"] | components["schemas"]["TaxExemptItem"] | components["schemas"]["FeeItem"];
     /** Payment Request */
     PaymentRequest: {
       /**
