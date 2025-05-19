@@ -454,7 +454,9 @@ export interface operations {
            */
           country_code?: string;
           /** @description The customer group ID that's relevant for any customer group pricing, tax values, etc. */
-          customer_group_id: number;
+          customer_group_id?: number;
+          /** @description The ID of the customer for whom to fetch prices. */
+          customer_id?: number;
           /** @description The items for which to fetch prices. */
           items: {
               /** @description The (required) product ID of the item. */
