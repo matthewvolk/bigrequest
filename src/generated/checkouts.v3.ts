@@ -274,6 +274,8 @@ export interface components {
            */
           code?: string;
         };
+        /** @description Indicates whether product prices are shown inclusive of sales tax. */
+        tax_included?: boolean;
         /**
          * Format: double
          * @description Sum of cart line-item amounts before cart-level discounts, coupons, or taxes are applied.
