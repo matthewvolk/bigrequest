@@ -4,41 +4,52 @@ set -euo pipefail
 REPO="bigcommerce/docs"
 PATH_FILTER="reference/"
 
-if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 <until_commit_sha>"
+UNTIL_COMMIT=$(git show origin/main:.last_commit)
+
+if [[ -z "$UNTIL_COMMIT" ]]; then
+  echo "❌ FATAL: No commit found in .last_commit file"
   exit 1
 fi
-UNTIL_COMMIT="$1"
 
 echo "🔍 Fetching commits for $REPO from HEAD until $UNTIL_COMMIT..."
 
-branch="main"
-all_commits=$(gh api "repos/$REPO/commits?sha=$branch" --paginate -q ".[].sha")
+commits=$(gh api "repos/$REPO/compare/$UNTIL_COMMIT...main" -q '.commits[].sha' | tac)
 
-found=0
-matching_commits=()
-for sha in $all_commits; do
-  if [[ "$sha" == "$UNTIL_COMMIT" ]]; then
-    break
-  fi
+commit_links=()
+matching_shas=()
 
-  files=$(gh api repos/$REPO/commits/$sha -q '.files[].filename')
+for sha in $commits; do
+  files=$(gh api "repos/$REPO/commits/$sha" --paginate -q '.files[].filename')
 
   while IFS= read -r file; do
     if [[ "$file" == *"$PATH_FILTER"* ]]; then
-      short_sha=$(echo "$sha" | cut -c1-7)
-      matching_commits+=("$REPO@$short_sha")
+      short_sha=$(git rev-parse --short "$sha")
+      commit_links+=("[bigcommerce/docs@\`$short_sha\`](https://github.com/bigcommerce/docs/commit/$sha)")
+      matching_shas+=("$sha")
       break
     fi
-  done <<< "$files"
+  done <<<"$files"
 done
 
-if [[ ${#matching_commits[@]} -eq 0 ]]; then
+if [[ ${#commit_links[@]} -eq 0 ]]; then
   echo "✅ No commits found that touch '$PATH_FILTER'"
 else
   echo ""
-  echo "📝 Commits touching '$PATH_FILTER':"
-  for entry in "${matching_commits[@]}"; do
-    echo "$entry"
-  done
+  echo "📝 Changelog:"
+  echo "${commit_links[*]}" | sed 's/ /, /g'
+
+  echo ""
+  echo "❓ Would you like to copy this to your clipboard? (y/N)"
+  read -r response
+
+  if [[ "$response" =~ ^[Yy]$ ]]; then
+    # TODO: write to changeset file
+    echo "${commit_links[*]}" | sed 's/ /, /g' | pbcopy
+    echo "✅ Copied to clipboard!"
+  fi
+
+  if [[ ${#matching_shas[@]} -gt 0 ]]; then
+    echo "${matching_shas[0]}" > .last_commit
+    echo "💾 Wrote most recent commit SHA (${matching_shas[0]}) to .last_commit"
+  fi
 fi
