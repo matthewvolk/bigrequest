@@ -34,9 +34,8 @@ export interface paths {
      *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      *
-     * <Callout type="warning">
-     * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-     * </Callout>
+     * > #### Warning
+     * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
      */
     put: operations["updateOrder"];
     /**
@@ -126,9 +125,8 @@ export interface paths {
      *
      * The V2 Orders API will not trigger the typical [Order Email](https://support.bigcommerce.com/s/article/Customizing-Emails?language=en_US) when creating orders. To create an order that does trigger this email, you can instead [create a cart](/docs/rest-management/carts/carts-single#create-a-cart) and [convert that cart into an order](/docs/rest-management/checkouts/checkout-orders#create-an-order).
      *
-     * <Callout type="warning">
-     * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-     * </Callout>
+     * > #### Warning
+     * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
      */
     post: operations["createOrder"];
     /**
@@ -3008,9 +3006,8 @@ export interface operations {
    *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    *
-   * <Callout type="warning">
-   * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-   * </Callout>
+   * > #### Warning
+   * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
    */
   updateOrder: {
     parameters: {
@@ -3155,9 +3152,8 @@ export interface operations {
    *
    * The V2 Orders API will not trigger the typical [Order Email](https://support.bigcommerce.com/s/article/Customizing-Emails?language=en_US) when creating orders. To create an order that does trigger this email, you can instead [create a cart](/docs/rest-management/carts/carts-single#create-a-cart) and [convert that cart into an order](/docs/rest-management/checkouts/checkout-orders#create-an-order).
    *
-   * <Callout type="warning">
-   * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-   * </Callout>
+   * > #### Warning
+   * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
    */
   createOrder: {
     parameters: {
