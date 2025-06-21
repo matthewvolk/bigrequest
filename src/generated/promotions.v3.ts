@@ -5,6 +5,9 @@
  */
 
 
+/** WithRequired type helpers */
+type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
+
 export interface paths {
   "/promotions": {
     /**
@@ -128,6 +131,11 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
+     * @description Describes which client originally created the promotion
+     * @enum {unknown}
+     */
+    readonly CreatedFrom: "react_ui" | "legacy_ui" | "api";
+    /**
      * PromotionBase
      * @description **Promotion**
      * A *promotion* is composed of a condition that a customer can satisfy (such as increasing their cart value above a certain amount or adding an item to their cart) and an action will take place (such as a discount on the customer’s order total, or a free item being added to their cart).
@@ -147,7 +155,7 @@ export interface components {
        * @description An internal name for this rule that the merchant can refer to.
        * @example Buy Product X Get Free Shipping
        */
-      name: string;
+      name?: string;
       /**
        * @description Customer-facing name for this rule, that the merchant want to display to customers.
        * @example WOW!!! FREE SHIPPING for Product X
@@ -157,7 +165,7 @@ export interface components {
       channels?: components["schemas"]["Channel"][];
       customer?: components["schemas"]["Customer"];
       /** @description An ordered list of rules to be executed until the first applicable one applies a discount successfully and the rest will be skipped. */
-      rules: components["schemas"]["Rule"][];
+      rules?: components["schemas"]["Rule"][];
       /**
        * @description A read-only count of the times this rule has been used by customers. A rule is considered to be used when a customer successfully checks out with a rule that has applied a discount to their cart.
        * @example 2
@@ -205,26 +213,106 @@ export interface components {
       schedule?: components["schemas"]["AvailabilityByWeekDay"];
     };
     /**
-     * Coupon Promotion
-     * @description **Coupon Promotion** A shopper must manually apply a *coupon promotion* to their cart.
+     * Patch Coupon Promotion
+     * @description A Partial **Coupon Promotion** that contains properties to patch.
      */
-    PromotionCoupon: components["schemas"]["PromotionBase"] & {
+    PatchCouponPromotion: components["schemas"]["PromotionBase"] & {
+      codes?: components["schemas"]["CouponCode"];
       /**
-       * @description This field only has effect when the `redemption_type` is `COUPON` and `can_be_used_with_other_promotions` is `false`:
-       * - When the property is set to "true", the coupon will override the applied automatic promotions if it provides a greater discount.
-       * - When the property is set to "false", the coupon will not be applied if automatic promotions are already applied.
-       *
-       * Trying to set the value of this field to "true" when the `redemption_type` is not `COUPON`, or when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
+       * @description This field only has effect when `can_be_used_with_other_promotions` is `false`:
+       * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
+       * - When the property is set to `fasle`, the coupon will not be applied if automatic promotions are already applied.
+       * Trying to set the value of this field to `true` when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
        * @default false
        * @example false
        */
       coupon_overrides_automatic_when_offering_higher_discounts?: boolean;
     };
+    DraftCouponPromotion: components["schemas"]["PromotionBase"] & {
+      codes?: components["schemas"]["CouponCode"];
+      /**
+       * @description This field only has effect when `can_be_used_with_other_promotions` is `false`:
+       * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
+       * - When the property is set to `fasle`, the coupon will not be applied if automatic promotions are already applied.
+       * Trying to set the value of this field when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
+       * @default false
+       * @example false
+       */
+      coupon_overrides_automatic_when_offering_higher_discounts?: boolean;
+      /**
+       * @description The type of the promotion. Promotions applied automatically have a value of `AUTOMATIC` whereas promotions requiring a coupon have a value of `COUPON`.
+       * @enum {string}
+       */
+      redemption_type: "COUPON";
+    };
     /**
-     * Automatic Promotion
-     * @description The store applies *automatic promotions* to a shopper’s cart once the promotion criteria are satisfied. The shopper cannot manually apply an *automatic promotion*.
+     * Saved Coupon Promotion
+     * @description **Coupon Promotion** A shopper must manually apply a *coupon promotion* to their cart.
      */
-    PromotionAutomatic: components["schemas"]["PromotionBase"];
+    SavedCouponPromotion: WithRequired<components["schemas"]["PromotionBase"] & {
+      /**
+       * @description An auto-generated unique identifier for the discount rule.
+       * @example 1
+       */
+      id?: number;
+      created_from?: components["schemas"]["CreatedFrom"];
+      codes?: components["schemas"]["CouponCode"];
+      /**
+       * @description This field only has effect when the `redemption_type` is `COUPON` and `can_be_used_with_other_promotions` is `false`:
+       * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
+       * - When the property is set to `fasle`, the coupon will not be applied if automatic promotions are already applied.
+       *
+       * Trying to set the value of this field to `true` when the `redemption_type` is not `COUPON`, or when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
+       * @default false
+       * @example false
+       */
+      coupon_overrides_automatic_when_offering_higher_discounts?: boolean;
+      /**
+       * @description The type of the promotion. Promotions applied automatically have a value of `AUTOMATIC` whereas promotions requiring a coupon have a value of `COUPON`.
+       * @enum {string}
+       */
+      redemption_type?: "COUPON";
+      multiple_codes?: {
+        /**
+         * @default false
+         * @example false
+         */
+        has_multiple_codes?: boolean;
+      };
+    }, "id" | "name" | "channels" | "created_from" | "customer" | "rules" | "notifications" | "stop" | "currency_code" | "redemption_type" | "current_uses" | "start_date" | "status" | "can_be_used_with_other_promotions" | "coupon_overrides_automatic_when_offering_higher_discounts">;
+    /**
+     * Patch Automatic Promotion
+     * @description A Partial **Automatic Promotion** that contains properties to patch.
+     */
+    PatchAutomaticPromotion: components["schemas"]["PromotionBase"];
+    /**
+     * Draft Automatic Promotion
+     * @description A draft **Automatic Promotion** to be created. The store applies *automatic promotions* to a shopper’s cart once the promotion criteria are satisfied. The shopper cannot manually apply an *automatic promotion*.
+     */
+    DraftAutomaticPromotion: WithRequired<components["schemas"]["PromotionBase"] & {
+      /**
+       * @description The type of the promotion. Promotions applied automatically have a value of `AUTOMATIC` whereas promotions requiring a coupon have a value of `COUPON`.
+       * @enum {string}
+       */
+      redemption_type?: "AUTOMATIC";
+    }, "redemption_type" | "name" | "rules">;
+    /**
+     * Saved Automatic Promotion
+     * @description The store applies *Automatic promotions* to a shopper’s cart once the promotion criteria are satisfied. The shopper cannot manually apply an *automatic promotion*.
+     */
+    SavedAutomaticPromotion: WithRequired<components["schemas"]["PromotionBase"] & {
+      /**
+       * @description The type of the promotion. Promotions applied automatically have a value of `AUTOMATIC` whereas promotions requiring a coupon have a value of `COUPON`.
+       * @enum {string}
+       */
+      redemption_type?: "AUTOMATIC";
+      /**
+       * @description An auto-generated unique identifier for the discount rule.
+       * @example 1
+       */
+      id?: number;
+      created_from?: components["schemas"]["CreatedFrom"];
+    }, "id" | "name" | "channels" | "created_from" | "customer" | "rules" | "notifications" | "stop" | "currency_code" | "redemption_type" | "current_uses" | "start_date" | "status" | "can_be_used_with_other_promotions">;
     /**
      * @description Specifies the requirements which make the customer eligible for the promotion.
      *
@@ -597,7 +685,7 @@ export interface components {
      * @description Contains data about the response including pagination and collection totals.
      */
     CollectionMeta: {
-      pagination?: components["schemas"]["Pagination"];
+      pagination: components["schemas"]["Pagination"];
     };
     /**
      * Pagination
@@ -605,17 +693,17 @@ export interface components {
      */
     Pagination: {
       /** @description Total number of items in the result set. */
-      total?: number;
+      total: number;
       /** @description Total number of items in the collection response. */
-      count?: number;
+      count: number;
       /** @description The amount of items returned in the collection per page, controlled by the limit of items per page parameter. */
-      per_page?: number;
+      per_page: number;
       /** @description The page you are currently on within the collection. */
-      current_page?: number;
+      current_page: number;
       /** @description The total number of pages in the collection. */
-      total_pages?: number;
+      total_pages: number;
       /** @description Pagination links for the previous and next parts of the whole collection. */
-      links?: {
+      links: {
         /** @description Link to the previous page returned in the response. */
         previous?: string;
         /** @description Link to the current page returned in the response. */
@@ -791,7 +879,7 @@ export interface components {
        * @description An auto-generated unique identifier for the coupon code.
        * @example 1
        */
-      id?: number;
+      id: number;
       /**
        * @description A unique code that can be used to manually apply a discount. Only letters, numbers, white spaces, underscores and hyphens are allowed.
        * @example TEST-COUPON-CODE
@@ -801,7 +889,7 @@ export interface components {
        * @description A read-only count of the times this coupon code has been used.
        * @example 2
        */
-      current_uses?: number;
+      current_uses: number;
       /**
        * @description The maximum number of times you can use this coupon code. The default value is 0, which represents unlimited uses.
        * @example 10
@@ -817,7 +905,7 @@ export interface components {
        * @description The date and time when this coupon code was created.
        * @example 2019-01-20T22:00:00.000Z
        */
-      created?: string;
+      created: string;
     };
     /**
      * Bulk Action Response Meta
@@ -1002,15 +1090,15 @@ export interface components {
     PromotionsCollectionResponse: {
       content: {
         "application/json": {
-          data?: (components["schemas"]["PromotionAutomatic"] | components["schemas"]["PromotionCoupon"])[];
-          meta?: components["schemas"]["CollectionMeta"];
+          data: (components["schemas"]["SavedAutomaticPromotion"] | components["schemas"]["SavedCouponPromotion"])[];
+          meta: components["schemas"]["CollectionMeta"];
         };
       };
     };
     PromotionsResponse: {
       content: {
         "application/json": {
-          data?: components["schemas"]["PromotionCoupon"] | components["schemas"]["PromotionAutomatic"];
+          data?: components["schemas"]["SavedCouponPromotion"] | components["schemas"]["SavedAutomaticPromotion"];
           /** @description Empty meta object, which may be used at a later time. */
           meta?: {
             [key: string]: unknown;
@@ -1135,7 +1223,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["PromotionCoupon"] | components["schemas"]["PromotionAutomatic"];
+        "application/json": components["schemas"]["DraftCouponPromotion"] | components["schemas"]["DraftAutomaticPromotion"];
       };
     };
     responses: {
@@ -1232,7 +1320,7 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        "application/json": components["schemas"]["PromotionCoupon"] | components["schemas"]["PromotionAutomatic"];
+        "application/json": components["schemas"]["PatchCouponPromotion"] | components["schemas"]["PatchAutomaticPromotion"];
       };
     };
     responses: {
