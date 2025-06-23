@@ -820,6 +820,8 @@ export interface components {
     };
   };
   parameters: {
+    /** @description Sort direction. Acceptable values are: `asc`, `desc`. */
+    DirectionQuery?: "asc" | "desc";
     /** @description The ID of the brand to which the resource belongs. */
     BrandIdPath: number;
     /** @description The ID of the `Metafield`. */
@@ -908,6 +910,7 @@ export interface operations {
         include_fields?: components["parameters"]["IncludeFieldsQuery"];
         exclude_fields?: components["parameters"]["ExcludeFieldsQuery"];
         sort?: components["parameters"]["SortQuery"];
+        direction?: components["parameters"]["DirectionQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
