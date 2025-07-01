@@ -1,0 +1,5 @@
+---
+'bigrequest': patch
+---
+
+[bigcommerce/docs@`a257a60`](https://github.com/bigcommerce/docs/commit/a257a60fb5ecd9b4b6d75ad8c8ef79e87fec3654), [bigcommerce/docs@`3fb83c6`](https://github.com/bigcommerce/docs/commit/3fb83c6e34fc3088af0e5581987675affc985a39), [bigcommerce/docs@`437099a`](https://github.com/bigcommerce/docs/commit/437099ab7a88eca621c8862b12b4445d36419243), [bigcommerce/docs@`79ba9a8`](https://github.com/bigcommerce/docs/commit/79ba9a8702b24ecf081559e40b4088e0f57e334c), [bigcommerce/docs@`3bbea51`](https://github.com/bigcommerce/docs/commit/3bbea514da585cde0c4cf8c51fb1d7df93c880e3), [bigcommerce/docs@`1b11a93`](https://github.com/bigcommerce/docs/commit/1b11a93882c27037f6a8477d0241c253074d6530), [bigcommerce/docs@`3c7c043`](https://github.com/bigcommerce/docs/commit/3c7c043a9e1b0de2027831da0a18797766f7a8a2), [bigcommerce/docs@`e15def5`](https://github.com/bigcommerce/docs/commit/e15def581819ada413f098a1a6ddc30b6784d742), [bigcommerce/docs@`40d1e4c`](https://github.com/bigcommerce/docs/commit/40d1e4c4dfb91a2526079cc6a717a0c4473413e7)

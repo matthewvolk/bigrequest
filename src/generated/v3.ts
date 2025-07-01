@@ -33,21 +33,11 @@ import * as redirects_v3 from './redirects.v3';
 import * as scripts_v3 from './scripts.v3';
 import * as segments_v3 from './segments.v3';
 import * as settings_v3 from './settings.v3';
-import * as shipping_v3 from './shipping.v3';
 import * as sites_v3 from './sites.v3';
 import * as store_logs_v3 from './store_logs.v3';
 import * as storefront_tokens_v3 from './storefront_tokens.v3';
 import * as subscribers_v3 from './subscribers.v3';
-import * as tax_v3 from './tax.v3';
-import * as tax_customers_v3 from './tax_customers.v3';
 import * as tax_properties_v3 from './tax_properties.v3';
-import * as tax_rates_zones_v3 from './tax_rates_zones.v3';
-import * as tax_settings_v3 from './tax_settings.v3';
-import * as tax_zone_check_v3 from './tax_zone_check.v3';
-import * as themes_v3 from './themes.v3';
-import * as webhooks_v3 from './webhooks.v3';
-import * as widgets_v3 from './widgets.v3';
-import * as wishlists_v3 from './wishlists.v3';
 
     export type v3paths =
       abandoned_cart_emails_v3.paths &
@@ -83,19 +73,9 @@ redirects_v3.paths &
 scripts_v3.paths &
 segments_v3.paths &
 settings_v3.paths &
-shipping_v3.paths &
 sites_v3.paths &
 store_logs_v3.paths &
 storefront_tokens_v3.paths &
 subscribers_v3.paths &
-tax_v3.paths &
-tax_customers_v3.paths &
-tax_properties_v3.paths &
-tax_rates_zones_v3.paths &
-tax_settings_v3.paths &
-tax_zone_check_v3.paths &
-themes_v3.paths &
-webhooks_v3.paths &
-widgets_v3.paths &
-wishlists_v3.paths;
+tax_properties_v3.paths;
   
