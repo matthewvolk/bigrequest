@@ -82,6 +82,9 @@ export interface paths {
     /**
      * Get a category tree
      * @description Returns a category tree.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 1 concurrent request.
      */
     get: operations["getCategoryTree"];
     parameters: {
@@ -767,6 +770,9 @@ export interface operations {
   /**
    * Get a category tree
    * @description Returns a category tree.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 1 concurrent request.
    */
   getCategoryTree: {
     parameters: {
