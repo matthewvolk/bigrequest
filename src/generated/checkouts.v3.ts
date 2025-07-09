@@ -219,6 +219,25 @@ export interface paths {
       };
     };
   };
+  "/checkouts/settings/channels/{channelId}": {
+    /**
+     * Get Channel-Specific Checkout Settings
+     * @description Returns the checkout settings for a given channel (storefront) by channelId.
+     */
+    get: operations["get-channel-checkout-settings"];
+    /**
+     * Update Channel-Specific Checkout Settings
+     * @description Updates the checkout settings for a given channel (storefront) by channelId.
+     *
+     * This endpoint will update all settings included in the request body. Any settings excluded will remain unchanged. All non-boolean
+     */
+    put: operations["put-channel-checkout-settings"];
+    parameters: {
+      path: {
+        channelId: number;
+      };
+    };
+  };
   "/checkouts/{checkoutId}/token": {
     /**
      * Create Checkout Token
@@ -1033,6 +1052,19 @@ export interface components {
       custom_checkout_sri_hash?: string;
       custom_order_confirmation_sri_hash?: string;
     };
+    /** Channel-Specific Checkouts Settings */
+    ChannelCheckoutsSettings: {
+      checkout_type?: string;
+      guest_checkout_type?: string;
+      guest_checkout_for_existing_accounts?: string;
+      policy_consent?: string;
+      order_confirmation_contact_email?: string;
+      is_order_terms_and_conditions_enabled?: boolean;
+      order_terms_and_conditions_type?: string;
+      order_terms_and_conditions_link?: string;
+      order_terms_and_conditions_textarea?: string;
+      should_redirect_to_storefront_for_auth?: boolean;
+    } & components["schemas"]["CheckoutsSettings"];
     /** Checkouts settings request */
     CheckoutsSettingsRequest: {
       /** @description Custom checkout script URL to replace our default checkout. To reset a store to optimized one-page checkout, pass an empty string for `custom_checkout_script_url` and `custom_order_confirmation_script_url`. */
@@ -1261,8 +1293,7 @@ export interface operations {
          *   "cart": {
          *     "discounts": [
          *       {
-         *         "discounted_amount": 10,
-         *         "name": "manual-discount"
+         *         "discounted_amount": 10
          *       }
          *     ]
          *   },
@@ -1274,8 +1305,6 @@ export interface operations {
             discounts?: {
                 /** @example 10 */
                 discounted_amount: number;
-                /** @example manual */
-                name?: string;
               }[];
             line_items?: {
                 /** @example 8edef915-8e8e-4ebd-bece-31fbb1191a7e */
@@ -1804,6 +1833,65 @@ export interface operations {
           };
           "WebDAV protocol": unknown;
         };
+      };
+    };
+  };
+  /**
+   * Get Channel-Specific Checkout Settings
+   * @description Returns the checkout settings for a given channel (storefront) by channelId.
+   */
+  "get-channel-checkout-settings": {
+    parameters: {
+      path: {
+        channelId: number;
+      };
+    };
+    responses: {
+      /** @description Channel checkout settings retrieved successfully */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["ChannelCheckoutsSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      /** @description Invalid channelId or invalid request */
+      422: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update Channel-Specific Checkout Settings
+   * @description Updates the checkout settings for a given channel (storefront) by channelId.
+   *
+   * This endpoint will update all settings included in the request body. Any settings excluded will remain unchanged. All non-boolean
+   */
+  "put-channel-checkout-settings": {
+    parameters: {
+      path: {
+        channelId: number;
+      };
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["ChannelCheckoutsSettings"];
+      };
+    };
+    responses: {
+      /** @description Channel checkout settings updated successfully */
+      200: {
+        content: {
+          "application/json": {
+            data?: components["schemas"]["ChannelCheckoutsSettings"];
+            meta?: components["schemas"]["MetaOpen"];
+          };
+        };
+      };
+      /** @description Invalid channelId or invalid request */
+      422: {
+        content: never;
       };
     };
   };
