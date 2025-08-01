@@ -184,6 +184,8 @@ export interface components {
     idin?: number[];
     /** @description ID of tax property. To target multiple tax properties, provide a comma-separated list of IDs such as `12,34,56`. */
     idin_required: number[];
+    /** @description Filter result by the type of tax property. To target multiple types, provide a comma-separated list of types such as `customer,product`. */
+    typein?: string[];
   };
   requestBodies: never;
   headers: never;
@@ -204,6 +206,7 @@ export interface operations {
     parameters: {
       query?: {
         "id:in"?: components["parameters"]["idin"];
+        "type:in"?: components["parameters"]["typein"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
