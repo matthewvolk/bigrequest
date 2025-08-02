@@ -3901,7 +3901,8 @@ export interface operations {
   updateProduct: {
     parameters: {
       query?: {
-        include_fields?: components["parameters"]["IncludeFieldsEnumParam"];
+        include?: components["parameters"]["IncludeParamGetProducts"];
+        include_fields?: components["parameters"]["IncludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
