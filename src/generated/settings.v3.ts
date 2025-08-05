@@ -213,11 +213,15 @@ export interface paths {
     /**
      * Get Locale Settings
      * @description Returns global locale settings.
+     *
+     * For stores with Catalyst channels, the `shopper_language_selection_method` field is deprecated. Using this endpoint on those stores will return a warning about the deprecation. For additional information, refer to [Locale Configuration](/docs/store-operations/settings/locales).
      */
     get: operations["getSettingsLocale"];
     /**
      * Update Locale Settings
      * @description Updates global locale settings.
+     *
+     * For stores with Catalyst channels, the `shopper_language_selection_method` field is deprecated. Using this endpoint on those stores will return a warning about the deprecation. For additional information, refer to [Locale Configuration](/docs/store-operations/settings/locales).
      */
     put: operations["updateSettingsLocale"];
   };
@@ -1598,6 +1602,8 @@ export interface operations {
   /**
    * Get Locale Settings
    * @description Returns global locale settings.
+   *
+   * For stores with Catalyst channels, the `shopper_language_selection_method` field is deprecated. Using this endpoint on those stores will return a warning about the deprecation. For additional information, refer to [Locale Configuration](/docs/store-operations/settings/locales).
    */
   getSettingsLocale: {
     parameters: {
@@ -1619,6 +1625,8 @@ export interface operations {
   /**
    * Update Locale Settings
    * @description Updates global locale settings.
+   *
+   * For stores with Catalyst channels, the `shopper_language_selection_method` field is deprecated. Using this endpoint on those stores will return a warning about the deprecation. For additional information, refer to [Locale Configuration](/docs/store-operations/settings/locales).
    */
   updateSettingsLocale: {
     parameters: {
