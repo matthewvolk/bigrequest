@@ -187,6 +187,7 @@ export interface components {
       /** @description The order the modifiers display on the product detail page. */
       sort_order?: number;
       config?: components["schemas"]["config_Full"];
+      /** @description Contains information about the values for modifier types with options. Certain fields are not used for specific modifier types. See [Option Values](#option-values) for more details. */
       option_values?: {
           /** @description The unique numeric ID of the value; increments sequentially. */
           id?: number;
@@ -242,6 +243,7 @@ export interface components {
        * @example Add-a-$5-Donation1535039590-191
        */
       name?: string;
+      /** @description Contains information about the values for modifier types with options. Certain fields are not used for specific modifier types. See [Option Values](#option-values) for more details. */
       option_values?: components["schemas"]["productModifierOptionValue_Full"][];
     };
     /**
@@ -267,7 +269,7 @@ export interface components {
        * @example 0
        */
       sort_order: number;
-      /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. If no data is available, returns `null`. */
+      /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated.  See [Option Values](#option-values) for more details. */
       value_data?: unknown;
       adjusters?: components["schemas"]["adjusters_Full"];
     };
@@ -363,10 +365,10 @@ export interface components {
     };
     /**
      * config_Full
-     * @description The values for option config can vary based on the Modifier created.
+     * @description The values for option config can vary based on the Modifier created. See [Configs](#configs) to learn more about the type-specific `config` fields.
      */
     config_Full: {
-      /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. */
+      /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
       default_value?: string;
       /** @description (checkbox) Flag for setting the checkbox to be checked by default. */
       checked_by_default?: boolean;
@@ -398,16 +400,12 @@ export interface components {
        * @enum {string}
        */
       file_types_mode?: "specific" | "all";
-      /**
-       * @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. Values:
-       *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
-       *   `other` - Allows file types defined in the `file_types_other` array.
-       */
+      /** @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`.  See [Supported File Types](#supported-file-types) for more details. */
       file_types_supported?: string[];
-      /** @description (file) A list of other file types allowed with the file upload option. */
+      /** @description (file) A list of other file types allowed with the file upload option. See [Supported File Types](#supported-file-types) for more details. */
       file_types_other?: string[];
       /**
-       * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
+       * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server. See [Configs](#configs) for more details.
        *
        * @example 5
        */
@@ -470,7 +468,7 @@ export interface components {
       /** @description (product_list, product_list_with_images) Flag to add the optional product's price to the main product's price. */
       product_list_adjusts_pricing?: boolean;
       /**
-       * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
+       * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. See [Configs](#configs) for more details.
        *
        * @example weight
        * @enum {string}
@@ -755,9 +753,9 @@ export interface operations {
           required: boolean;
           /** @description The order the modifiers display on the product detail page. */
           sort_order?: number;
-          /** @description The values for option config can vary based on the Modifier created. */
+          /** @description The values for option config can vary based on the Modifier created. See [Configs](#configs) to learn more about the type-specific `config` fields. */
           config?: {
-            /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. */
+            /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
             default_value?: string;
             /** @description (checkbox) Flag for setting the checkbox to be checked by default. */
             checked_by_default?: boolean;
@@ -789,16 +787,12 @@ export interface operations {
              * @enum {string}
              */
             file_types_mode?: "specific" | "all";
-            /**
-             * @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. Values:
-             *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
-             *   `other` - Allows file types defined in the `file_types_other` array.
-             */
+            /** @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. See [Supported File Types](#supported-file-types) for more details. */
             file_types_supported?: string[];
-            /** @description (file) A list of other file types allowed with the file upload option. */
+            /** @description (file) A list of other file types allowed with the file upload option. See [Supported File Types](#supported-file-types) for more details. */
             file_types_other?: string[];
             /**
-             * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
+             * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server. See [Configs](#configs) for more details.
              *
              * @example 5
              */
@@ -861,14 +855,14 @@ export interface operations {
             /** @description (product_list, product_list_with_images) Flag to add the optional product's price to the main product's price. */
             product_list_adjusts_pricing?: boolean;
             /**
-             * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
+             * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. See [Configs](#configs) for more details.
              *
              * @example weight
              * @enum {string}
              */
             product_list_shipping_calc?: "none" | "weight" | "package";
           };
-          /** @description Part of Modifier Value Response */
+          /** @description Contains information about the values for modifier types with options. Certain fields are not used for specific modifier types. See [Option Values](#option-values) for more details. */
           option_values?: ({
               /** @description The unique numeric ID of the value; increments sequentially. */
               id?: number;
@@ -926,10 +920,10 @@ export interface operations {
               sort_order?: number;
               /**
                * Option Config
-               * @description The values for option config can vary based on the Modifier created.
+               * @description The values for option config can vary based on the Modifier created. See [Configs](#configs) to learn more about the type-specific `config` fields.
                */
               config?: {
-                /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. */
+                /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
                 default_value?: string;
                 /** @description (checkbox) Flag for setting the checkbox to be checked by default. */
                 checked_by_default?: boolean;
@@ -961,16 +955,12 @@ export interface operations {
                  * @enum {string}
                  */
                 file_types_mode?: "specific" | "all";
-                /**
-                 * @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. Values:
-                 *   `images` - Allows upload of image MIME types (`bmp`, `gif`, `jpg`, `jpeg`, `jpe`, `jif`, `jfif`, `jfi`, `png`, `wbmp`, `xbm`, `tiff`). `documents` - Allows upload of document MIME types (`txt`, `pdf`, `rtf`, `doc`, `docx`, `xls`, `xlsx`, `accdb`, `mdb`, `one`, `pps`, `ppsx`, `ppt`, `pptx`, `pub`, `odt`, `ods`, `odp`, `odg`, `odf`).
-                 *   `other` - Allows file types defined in the `file_types_other` array.
-                 */
+                /** @description (file) The type of files allowed to be uploaded if the `file_type_option` is set to `specific`. See [Supported File Types](#supported-file-types) for more details. */
                 file_types_supported?: string[];
-                /** @description (file) A list of other file types allowed with the file upload option. */
+                /** @description (file) A list of other file types allowed with the file upload option. See [Supported File Types](#supported-file-types) for more details. */
                 file_types_other?: string[];
                 /**
-                 * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server.
+                 * @description (file) The maximum size for a file that can be used with the file upload option. This will still be limited by the server. See [Configs](#configs) for more details.
                  *
                  * @example 5
                  */
@@ -1033,13 +1023,14 @@ export interface operations {
                 /** @description (product_list, product_list_with_images) Flag to add the optional product's price to the main product's price. */
                 product_list_adjusts_pricing?: boolean;
                 /**
-                 * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. Values: `none` - don't adjust; `weight` - use shipping weight only; `package` - use weight and dimensions.
+                 * @description (product_list, product_list_with_images) How to factor the optional product's weight and package dimensions into the shipping quote. See [Configs](#configs) for more details.
                  *
                  * @example weight
                  * @enum {string}
                  */
                 product_list_shipping_calc?: "none" | "weight" | "package";
               };
+              /** @description Contains information about the values for modifier types with options. Certain fields are not used for specific modifier types. See [Option Values](#option-values) for more details. */
               option_values?: ({
                   /**
                    * @description The flag for preselecting a value as the default on the storefront. This field is not supported for swatch options/modifiers.
@@ -1059,7 +1050,7 @@ export interface operations {
                    * @example 0
                    */
                   sort_order: number;
-                  /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+                  /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. See [Option Values](#option-values) for more details. */
                   value_data?: Record<string, never>;
                   adjusters?: {
                     /** @description Adjuster for Complex Rules. */
@@ -1352,7 +1343,7 @@ export interface operations {
                * @example 0
                */
               sort_order: number;
-              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated.  See [Option Values](#option-values) for more details. */
               value_data?: Record<string, never>;
             } & ({
               adjusters?: {
@@ -1518,7 +1509,7 @@ export interface operations {
            * @example 0
            */
           sort_order: number;
-          /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+          /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated.  See [Option Values](#option-values) for more details. */
           value_data?: Record<string, never>;
         } & ({
           adjusters?: {
@@ -1604,7 +1595,7 @@ export interface operations {
                * @example 0
                */
               sort_order: number;
-              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated. The `swatch` type option can accept an array of `colors`, with up to three hexadecimal color keys; or an `image_url`, which is a full image URL path including protocol. The `product list` type option requires a `product_id`. The `checkbox` type option requires a boolean flag, called `checked_value`, to determine which value is considered to be the checked state. */
+              /** @description Extra data describing the value, based on the type of option or modifier with which the value is associated.  See [Option Values](#option-values) for more details. */
               value_data?: Record<string, never>;
             } & ({
               adjusters?: {
