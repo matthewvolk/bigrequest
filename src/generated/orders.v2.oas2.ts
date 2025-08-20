@@ -34,9 +34,8 @@ export interface paths {
      *
      * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
      *
-     * <Callout type="warning">
-     * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-     * </Callout>
+     * > #### Note
+     * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
      */
     put: operations["updateOrder"];
     /**
@@ -126,9 +125,10 @@ export interface paths {
      *
      * The V2 Orders API will not trigger the typical [Order Email](https://support.bigcommerce.com/s/article/Customizing-Emails?language=en_US) when creating orders. To create an order that does trigger this email, you can instead [create a cart](/docs/rest-management/carts/carts-single#create-a-cart) and [convert that cart into an order](/docs/rest-management/checkouts/checkout-orders#create-an-order).
      *
-     * <Callout type="warning">
-     * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-     * </Callout>
+     * If you are building an app that creates orders, it must include your app's ID in the `external_source` field of new orders to be approved for the App Marketplace. See [App Store Approval Requirements](/docs/integrations/apps/guide/requirements#functionality) to learn more.
+     *
+     * > #### Note
+     * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
      */
     post: operations["createOrder"];
     /**
@@ -957,10 +957,16 @@ export interface components {
        */
       order_address_id?: number;
       /**
-       * @description The unique numeric identifier of the tax rate.
+       * @deprecated
+       * @description The unique numeric identifier of the tax rate. This field has been deprecated, use sales_tax_id instead.
        * @example 1
        */
       tax_rate_id?: number;
+      /**
+       * @description A unique identifier for the applied tax rate. This may be a third-party tax provider's identifier.
+       * @example TaxId123
+       */
+      sales_tax_id?: string;
       /**
        * @description A unique numeric identifier for the tax class. If not provided or null, the default fee tax class from the control panel is used.
        * @example 0
@@ -1617,8 +1623,13 @@ export interface components {
        */
       tax_provider_id?: string;
       /**
-       * @description The customer’s locale.
-       * @example en
+       * @description The customer’s locale. The supported formats are:
+       * - 2-char lowercase characters. e.g., `en`
+       * - 3-char lowercase characters. e.g., `asa`
+       * - 5-char the language code is 2 lowercase characters and the region code is 2 uppercase characters, with `-` in the middle. e.g., `en-US`
+       * - 6-char the language code is 2 lowercase character and the region code is three digit number, with `-` in the middle. e.g., `es-419`
+       *
+       * @example en, asa, en-US, es-419
        */
       customer_locale?: string;
       /**
@@ -1727,7 +1738,11 @@ export interface components {
       id?: number;
       /** @description A read-only value representing the last modification of the order. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822 */
       date_modified?: string;
-      /** @description A read-only value representing the date of shipment. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822 */
+      /**
+       * @description A read-only value representing the date when the order is fully shipped. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822
+       *
+       * @example Wed, 25 Jun 2025 05:22:10 +0000
+       */
       date_shipped?: string;
       /**
        * @description The cart ID from which this order originated, if applicable. Correlates with the Cart API. This is a read-only field; do not set or modify its value in a POST or PUT request.
@@ -1864,7 +1879,7 @@ export interface components {
        * Allowed values: `www` (Desktop) | `iphone` (Iphone) | `ipad` (Ipad) | `android` (Android) | `mobile` (Mobile) | `manual` (manual order) | `external` (Orders API) | `checkout_api` (Checkout API) | `buybutton` (Buy Button) | `amazon` (Amazon) | `ebay` (Ebay) | `facebookshop` (Facebook Shop) | `facebookcheckout` (Facebook Checkout) | `facebookmarketplace` (Facebook Marketplace) | `pinterest` (Pinterest) | `socialshop` (Social Shop)
        */
       order_source?: string;
-      consignments?: components["schemas"]["orderConsignments_Resource"];
+      consignments?: components["schemas"]["orderConsignments_Resource"] | components["schemas"]["orderConsignment_Get"];
       products?: components["schemas"]["products_Resource"];
       shipping_addresses?: components["schemas"]["shippingAddresses_Resource"];
       coupons?: components["schemas"]["coupons_Resource"];
@@ -2267,8 +2282,13 @@ export interface components {
        */
       tax_provider_id?: string;
       /**
-       * @description The customer’s locale.
-       * @example en
+       * @description The customer’s locale. The supported formats are:
+       * - 2-char lowercase characters. e.g., `en`
+       * - 3-char lowercase characters. e.g., `asa`
+       * - 5-char the language code is 2 lowercase characters and the region code is 2 uppercase characters, with `-` in the middle. e.g., `en-US`
+       * - 6-char the language code is 2 lowercase character and the region code is three digit number, with `-` in the middle. e.g., `es-419`
+       *
+       * @example en, asa, en-US, es-419
        */
       customer_locale?: string;
       /**
@@ -2447,7 +2467,7 @@ export interface components {
        * @example recipient@email.com
        */
       recipient_email?: string;
-      line_items?: components["schemas"]["products_Resource"][];
+      line_items?: components["schemas"]["products_Resource"][] | components["schemas"]["orderProducts"][];
     };
     pickupConsignment_Get: {
       /**
@@ -2460,10 +2480,10 @@ export interface components {
        * @example 1
        */
       pickup_method_id?: number;
-    } & components["schemas"]["pickupConsignment_Base"] & {
+    } & components["schemas"]["pickupConsignment_Base"] & ({
       location?: components["schemas"]["pickupConsignmentLocation_Get"];
-      line_items?: components["schemas"]["products_Resource"][];
-    };
+      line_items?: components["schemas"]["products_Resource"][] | components["schemas"]["orderProducts"][];
+    });
     pickupConsignmentLocation_Get: {
       /**
        * @description ID of the location.
@@ -2477,8 +2497,8 @@ export interface components {
        * @example 99
        */
       id?: number;
-    } & components["schemas"]["shippingConsignment_Base"] & {
-      line_items?: components["schemas"]["products_Resource"][];
+    } & components["schemas"]["shippingConsignment_Base"] & ({
+      line_items?: components["schemas"]["products_Resource"][] | components["schemas"]["orderProducts"][];
       /**
        * @description The total number of items in the order.
        * @example 1
@@ -2552,7 +2572,7 @@ export interface components {
        */
       shipping_zone_name?: string;
       shipping_quotes?: components["schemas"]["shippingQuotesConsignment_Resource"];
-    };
+    });
     /** shippingConsignment_Base */
     shippingConsignment_Base: {
       /** @example Jane */
@@ -2614,7 +2634,7 @@ export interface components {
        * @example recipient@email.com
        */
       recipient_email?: string;
-      line_items?: components["schemas"]["products_Resource"][];
+      line_items?: components["schemas"]["products_Resource"][] | components["schemas"]["orderProducts"][];
     };
     /** orderFees_Resp */
     orderFees_Resp: {
@@ -2942,8 +2962,8 @@ export interface components {
     /** @description Should be specified along with `include=consignments` or `include=consignments.line_items` to return consignments in the supported object structure. The default array structure provided is legacy and may not be supported in the future. */
     consignment_structure?: "object";
     /**
-     * @description * `consignments` - include the response returned from the request to the `/orders/{order_id}/consignments` endpoint. You should also specify `consignment_structure=object` as a request parameter when including consignments. The default array structure provided is legacy and may not be supported in the future.
-     * * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. This implies `include=consignments`. You should also specify `consignment_structure=object` as a request parameter when including consignments. The default array structure provided is legacy and will be removed in the future.
+     * @description * `consignments` - include the response returned from the request to the `/orders/{order_id}/consignments` endpoint. Current default array structure is legacy and will be deprecated from **1 Feb 2026**. Specify `consignment_structure=object` as a request parameter when including consignments.
+     * * `consignments.line_items` - include the response returned from the request to the `/orders/{order_id}/products` endpoint in consignments. This will also includes the resources associated with `include=consignments`. Current default array structure is legacy and will be deprecated from **1 Feb 2026**. Specify `consignment_structure=object` as a request parameter when including consignments.
      * * `fees` - include the response returned from the request to the `/orders/{order_id}/fees` endpoint.
      */
     order_includes?: ("consignments" | "consignments.line_items" | "fees")[];
@@ -3008,9 +3028,8 @@ export interface operations {
    *
    * To learn more about creating or updating orders, see [Orders Overview](/docs/store-operations/orders).
    *
-   * <Callout type="warning">
-   * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-   * </Callout>
+   * > #### Note
+   * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
    */
   updateOrder: {
     parameters: {
@@ -3155,9 +3174,10 @@ export interface operations {
    *
    * The V2 Orders API will not trigger the typical [Order Email](https://support.bigcommerce.com/s/article/Customizing-Emails?language=en_US) when creating orders. To create an order that does trigger this email, you can instead [create a cart](/docs/rest-management/carts/carts-single#create-a-cart) and [convert that cart into an order](/docs/rest-management/checkouts/checkout-orders#create-an-order).
    *
-   * <Callout type="warning">
-   * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
-   * </Callout>
+   * If you are building an app that creates orders, it must include your app's ID in the `external_source` field of new orders to be approved for the App Marketplace. See [App Store Approval Requirements](/docs/integrations/apps/guide/requirements#functionality) to learn more.
+   *
+   * > #### Note
+   * > * If historical orders processed on another eCommerce platform are being migrated to BigCommerce, supply the `external_source` field with the code **M-MIG**. This code will exclude the historical orders from the store’s GMV/order count, which factors into pricing.
    */
   createOrder: {
     parameters: {
