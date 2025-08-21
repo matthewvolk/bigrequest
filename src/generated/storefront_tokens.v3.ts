@@ -16,6 +16,8 @@ export interface paths {
      *
      * **Required Scopes**
      * * `Manage` `Storefront API Tokens`
+     *
+     * > NOTE: While neither `channel_id` nor `channel_ids` is labelled as required, one must be included in the request body. Including neither will throw an error, and including both will result in unexpected behaviors.
      */
     post: operations["createToken"];
     /**
@@ -36,6 +38,8 @@ export interface paths {
      *
      * **Required Scopes**
      * * `Manage` `Storefront API Customer Impersonation Tokens`
+     *
+     * > NOTE: While neither `channel_id` nor `channel_ids` is labelled as required, one must be included in the request body. Including neither will throw an error, and including both will result in unexpected behaviors.
      */
     post: operations["createTokenWithCustomerImpersonation"];
     parameters: {
@@ -56,7 +60,7 @@ export interface components {
        * @example 1885635176
        */
       expires_at: number;
-    } & (components["schemas"]["Channels"] | components["schemas"]["Channel"]), "expires_at">;
+    } & components["schemas"]["Channels"] & components["schemas"]["Channel"], "expires_at">;
     TokenPostSimple: {
       /** @description List of allowed domains for Cross-Origin Request Sharing. Currently accepts a maximum of two domains per created token. */
       allowed_cors_origins?: string[];
@@ -78,7 +82,7 @@ export interface components {
        * @description Channel ID that is valid for the requested token. Use this field to enter a channel ID. Do not use this field if you have more than one channel. We support this field for backwards compatibility, but `channel_ids` is preferred. You can not use both `channel_id` and `channel_ids` in your request.
        * @example 1
        */
-      channel_id: number;
+      channel_id?: number;
     };
     /** channel_ids */
     Channels: {
@@ -89,7 +93,7 @@ export interface components {
        *   1
        * ]
        */
-      channel_ids: number[];
+      channel_ids?: number[];
     };
     ErrorResponse: components["schemas"]["BaseError"] & {
       errors?: components["schemas"]["DetailedErrors"];
@@ -136,6 +140,8 @@ export interface operations {
    *
    * **Required Scopes**
    * * `Manage` `Storefront API Tokens`
+   *
+   * > NOTE: While neither `channel_id` nor `channel_ids` is labelled as required, one must be included in the request body. Including neither will throw an error, and including both will result in unexpected behaviors.
    */
   createToken: {
     parameters: {
@@ -146,15 +152,6 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        /**
-         * @example {
-         *   "allowed_cors_origins": [
-         *     "https://www.yourstorefront.com"
-         *   ],
-         *   "channel_id": 1,
-         *   "expires_at": 1885635176
-         * }
-         */
         "application/json": components["schemas"]["TokenPostSimple"] & components["schemas"]["TokenPostImpersonation"];
       };
     };
@@ -222,6 +219,8 @@ export interface operations {
    *
    * **Required Scopes**
    * * `Manage` `Storefront API Customer Impersonation Tokens`
+   *
+   * > NOTE: While neither `channel_id` nor `channel_ids` is labelled as required, one must be included in the request body. Including neither will throw an error, and including both will result in unexpected behaviors.
    */
   createTokenWithCustomerImpersonation: {
     parameters: {
