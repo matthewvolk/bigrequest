@@ -115,7 +115,6 @@ export interface paths {
      * *   `type`
      * *   `name`
      * *   `link` (for a page of `type: link`)
-     * *   `feed` (for a page of `type: rss_feed`)
      * *   `body` (for a page of `type: raw`)
      *
      * **Read Only Fields**
@@ -842,12 +841,11 @@ export interface components {
       /**
        * @description `page`: free-text page
        * `link`: link to another web address
-       * `rss_feed`: syndicated content from an RSS feed
        * `contact_form`: When the store’s contact form is used
        *
        * @enum {string}
        */
-      type: "page" | "rss_feed" | "contact_form" | "raw" | "link";
+      type: "page" | "contact_form" | "raw" | "link";
       /** @description Description contained within this page’s `<meta/>` element. */
       meta_description?: string;
       /**
@@ -892,8 +890,6 @@ export interface components {
        * @example page.html
        */
       layout_file?: string;
-      /** @description If page type is `rss_feed` then this field is visible. Required in POST required for `rss page` type. */
-      feed?: string;
       /** @description If page type is `link` this field is returned. Required in  POST to create a `link` page. */
       link?: string;
       /**
@@ -946,12 +942,11 @@ export interface components {
       /**
        * @description `page`: free-text page
        * `link`: link to another web address
-       * `rss_feed`: syndicated content from an RSS feed
        * `contact_form`: When the store’s contact form is used
        *
        * @enum {string}
        */
-      type?: "page" | "rss_feed" | "contact_form" | "raw" | "link";
+      type?: "page" | "contact_form" | "raw" | "link";
       /**
        * @description Where the page’s type is a contact form - object whose members are the fields enabled (in the control panel) for storefront display. Possible members are:`fullname` - full name of the customer submitting the form; `phone` - customer’s phone number, as submitted on the form; `companyname`- customer’s submitted company name; `orderno`- customer’s submitted order number; `rma` - customer’s submitted RMA (Return Merchandise Authorization) number.
        * @example fullname,companyname,phone,orderno,rma
@@ -999,8 +994,6 @@ export interface components {
        * @example /contact-us/
        */
       url?: string;
-      /** @description If page type is `rss_feed`, then this field is visible. */
-      feed?: string;
       /** @description If page type is `link`, this field is returned. */
       link?: string;
     };
@@ -1280,7 +1273,6 @@ export interface operations {
    * *   `type`
    * *   `name`
    * *   `link` (for a page of `type: link`)
-   * *   `feed` (for a page of `type: rss_feed`)
    * *   `body` (for a page of `type: raw`)
    *
    * **Read Only Fields**
