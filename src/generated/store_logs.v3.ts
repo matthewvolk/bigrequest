@@ -111,6 +111,10 @@ export interface operations {
         "severity:max"?: number;
         /** @description A comma-separated list of log IDs by which to filter. For example, `?id:in=3,4,6`. */
         "id:in"?: number[];
+        /** @description The log key by which to sort results. If left blank, results will be reported in order of creation. This parameter is case-sensitive. */
+        sort?: "date_created" | "type";
+        /** @description The direction in which to sort results. Defaults to ascending (`asc`). This parameter is case-sensitive. */
+        direction?: "asc" | "desc";
       };
     };
     responses: {
