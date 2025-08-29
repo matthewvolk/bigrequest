@@ -23,6 +23,8 @@ export interface paths {
     /**
      * Create Pages
      * @description Creates one or more content pages. This endpoint supports bulk operations.
+     *
+     * Web pages created via this endpoint are subject to the 4000 web page platform limit. Attempting to create pages over the limit will return an error. For more information on platform limits, see [Platform Limits (Help Center)](https://support.bigcommerce.com/s/article/Platform-Limits).
      */
     post: operations["createPages"];
     /**
@@ -134,7 +136,7 @@ export interface components {
      * @description Response payload for the BigCommerce API.
      */
     PagesCollectionResponse: {
-      data?: (components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"])[];
+      data?: (components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"])[];
       meta?: components["schemas"]["ResponseMeta"];
     };
     /**
@@ -142,7 +144,7 @@ export interface components {
      * @description Response payload for a single content page.
      */
     SinglePageResponse: {
-      data?: components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"];
+      data?: components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"];
       meta?: components["schemas"]["ResponseMeta"];
     };
     /** @description Properties of the page modification request body. */
@@ -185,7 +187,7 @@ export interface components {
        * @example page
        * @enum {string}
        */
-      type?: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
+      type?: "page" | "raw" | "contact_form" | "link" | "blog";
       /**
        * @description HTML or variable that populates the element of this page, in default/desktop view. Required in a `POST` request if the page type is `raw`.
        *
@@ -199,8 +201,6 @@ export interface components {
       /** @description Applicable when the page type is `contact_form`: contact email address that receives messages sent via the form. Must be unique. */
       email?: string;
       meta_title?: string | null;
-      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `feed`. */
-      feed?: string;
       /** @description Required in a `POST` request to create a link if the page type is `link`. */
       link?: string;
       /**
@@ -274,7 +274,7 @@ export interface components {
        * @example page
        * @enum {string}
        */
-      type: "page" | "raw" | "contact_form" | "feed" | "link" | "blog";
+      type: "page" | "raw" | "contact_form" | "link" | "blog";
       /**
        * @description Determines whether this page loads at the siteʼs root route. For example, at `https://example.com/`.
        * @default false
@@ -331,14 +331,6 @@ export interface components {
        */
       contact_fields?: string;
     });
-    /**
-     * feed
-     * @description `type: feed`.  Makes RSS-syndicated content feeds available in the menu of other pages that contain markup. No page body.
-     */
-    typeFeed: components["schemas"]["anyTypePage"] & components["schemas"]["pageMeta"] & components["schemas"]["searchKeywords"] & {
-      /** @description The URL of the RSS feed. Required in a `POST` request if the page type is `feed`. */
-      feed: string;
-    };
     /**
      * raw
      * @description `type: raw`. A user-defined page with a body that contains HTML markup or other stringified code.
@@ -408,7 +400,7 @@ export interface components {
     HTTP201CreatePages: {
       content: {
         "application/json": {
-          data?: components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"];
+          data?: components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"];
           meta?: components["schemas"]["ResponseMeta"];
         };
       };
@@ -540,6 +532,8 @@ export interface operations {
   /**
    * Create Pages
    * @description Creates one or more content pages. This endpoint supports bulk operations.
+   *
+   * Web pages created via this endpoint are subject to the 4000 web page platform limit. Attempting to create pages over the limit will return an error. For more information on platform limits, see [Platform Limits (Help Center)](https://support.bigcommerce.com/s/article/Platform-Limits).
    */
   createPages: {
     parameters: {
@@ -553,7 +547,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"]) | ((components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeFeed"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"])[]);
+        "application/json": (components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"]) | ((components["schemas"]["typePage"] | components["schemas"]["typeBlog"] | components["schemas"]["typeContactForm"] | components["schemas"]["typeRaw"] | components["schemas"]["typeLink"])[]);
       };
     };
     responses: {
