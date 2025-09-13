@@ -32,12 +32,6 @@ echo "🧹 PRs to be closed and their branches deleted:"
 echo "$to_delete" | jq -r '.[] | "🗑️ Close PR #\(.number): \(.title) (branch: \(.headRefName), created \(.createdAt))"'
 echo ""
 
-read -p "❓ Proceed with deletion of the above PRs and branches? (y/N): " confirm
-if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-  echo "❌ Aborted by user."
-  exit 1
-fi
-
 echo ""
 echo "🚧 Starting deletion..."
 echo "$to_delete" | jq -c '.[]' | while read -r pr; do

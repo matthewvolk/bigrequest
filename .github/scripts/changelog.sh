@@ -4,6 +4,7 @@ set -euo pipefail
 REPO="bigcommerce/docs"
 PATH_FILTER="reference/"
 
+git fetch --no-tags --depth=1 origin main
 UNTIL_COMMIT=$(git show origin/main:.last_commit)
 
 if [[ -z "$UNTIL_COMMIT" ]]; then
@@ -39,14 +40,23 @@ else
   echo "${commit_links[*]}" | sed 's/ /, /g'
 
   echo ""
-  echo "❓ Would you like to copy this to your clipboard? (y/N)"
-  read -r response
+  
+  # Get current git branch name for unique filename
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+  # Replace any special characters with hyphens for safe filename
+  safe_branch_name=$(echo "$branch_name" | sed 's/[^a-zA-Z0-9]/-/g')
+  changeset_file=".changeset/${safe_branch_name}.md"
+  
+  # Create the changeset file
+  cat > "$changeset_file" << EOF
+---
+'bigrequest': patch
+---
 
-  if [[ "$response" =~ ^[Yy]$ ]]; then
-    # TODO: write to changeset file
-    echo "${commit_links[*]}" | sed 's/ /, /g' | pbcopy
-    echo "✅ Copied to clipboard!"
-  fi
+$(echo "${commit_links[*]}" | sed 's/ /, /g')
+EOF
+  
+  echo "✅ Created changeset file: $changeset_file"
 
   if [[ ${#matching_shas[@]} -gt 0 ]]; then
     echo "${matching_shas[0]}" > .last_commit
