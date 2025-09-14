@@ -67,7 +67,7 @@ jobs:
       - if: ${{ steps.status.outputs.changes == 'true' }}
         name: Create changeset and update .last_commit
         run: |
-          chmod +x scripts/changelog.sh
+          chmod +x .github/scripts/changelog.sh
           .github/scripts/changelog.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -104,7 +104,7 @@ jobs:
       - if: ${{ steps.status.outputs.changes == 'true' }}
         name: Clean up stale [nightly] PRs
         run: |
-          chmod +x scripts/cleanup_gh.sh
+          chmod +x .github/scripts/cleanup_gh.sh
           .github/scripts/cleanup_gh.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
