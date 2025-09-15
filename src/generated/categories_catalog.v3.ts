@@ -220,16 +220,19 @@ export interface paths {
      * @description Returns a list of products and their sort order for a specific category.
      *
      * **Limits**
-     * * page=2&limit=250 will return page 2 of the results with 250 items per page.
+     *
+     * - page=2&limit=250 will return page 2 of the results with 250 items per page.
      *
      * **Usage Notes**
+     *
+     * * Product sort order only takes effect on the storefront when sorting by **Featured Items** in the category. See [Sort Order](https://support.bigcommerce.com/s/article/Sort-Order) for more information.
      * * Data pairs are displayed in ascending order based on products' `sort_order` values.
      * * `null` values are allowed for products without specified `sort_order` values.
      * * Products with `sort_order` value of `null` will be displayed after products with valid numerical values.
      * * The priorities for determining product sort order on a storefront are the following:
-     *   - Priority 1: Manually specified sort order on Category Level (API).
-     *   - Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
-     *   - Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
+     *     * Priority 1: Manually specified sort order on Category Level (API).
+     *     * Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
+     *     * Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
      */
     get: operations["getCategorySortOrders"];
     /**
@@ -520,17 +523,17 @@ export interface components {
        */
       date_modified?: string;
     });
-    /**
-     * productSortOrder
-     * @description The relative priority of the product among other products inside the category.
-     */
+    /** productSortOrder */
     productSortOrder: {
       /**
        * @description The ID of the associated product.
        * @example 99
        */
       product_id: number;
-      /** @example 4 */
+      /**
+       * @description The relative priority of the product among other products inside the category.
+       * @example 4
+       */
       sort_order: number;
     };
     /** Category */
@@ -2095,16 +2098,19 @@ export interface operations {
    * @description Returns a list of products and their sort order for a specific category.
    *
    * **Limits**
-   * * page=2&limit=250 will return page 2 of the results with 250 items per page.
+   *
+   * - page=2&limit=250 will return page 2 of the results with 250 items per page.
    *
    * **Usage Notes**
+   *
+   * * Product sort order only takes effect on the storefront when sorting by **Featured Items** in the category. See [Sort Order](https://support.bigcommerce.com/s/article/Sort-Order) for more information.
    * * Data pairs are displayed in ascending order based on products' `sort_order` values.
    * * `null` values are allowed for products without specified `sort_order` values.
    * * Products with `sort_order` value of `null` will be displayed after products with valid numerical values.
    * * The priorities for determining product sort order on a storefront are the following:
-   *   - Priority 1: Manually specified sort order on Category Level (API).
-   *   - Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
-   *   - Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
+   *     * Priority 1: Manually specified sort order on Category Level (API).
+   *     * Priority 2: Manually specified sort order on Product (Global) Level (UI/API).
+   *     * Priority 3: Default sorting by Product ID (newly added products go first) (UI/API).
    */
   getCategorySortOrders: {
     parameters: {
