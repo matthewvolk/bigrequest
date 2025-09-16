@@ -26,6 +26,8 @@ export interface paths {
      *
      * **Notes**
      * It takes two separate requests to create a new checkbox modifier with option values. Perform a request to create a modifier, then perform a second request to update option values.
+     *
+     * Date modifiers are required to be provided in [ISO-8601 ATOM](https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom) format. Excluding them in a request will throw a server error.
      */
     post: operations["createProductModifier"];
     parameters: {
@@ -46,6 +48,8 @@ export interface paths {
     /**
      * Update a product modifier
      * @description Updates a product modifier.
+     *
+     * Date modifiers are required to be provided in [ISO-8601 ATOM](https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom) format. Excluding them in a request will throw a server error.
      */
     put: operations["updateProductModifier"];
     /**
@@ -368,7 +372,7 @@ export interface components {
      * @description The values for option config can vary based on the Modifier created. See [Configs](#configs) to learn more about the type-specific `config` fields.
      */
     config_Full: {
-      /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
+      /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601 ATOM formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
       default_value?: string;
       /** @description (checkbox) Flag for setting the checkbox to be checked by default. */
       checked_by_default?: boolean;
@@ -385,12 +389,12 @@ export interface components {
       date_limit_mode?: "earliest" | "range" | "latest";
       /**
        * Format: date
-       * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
+       * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 ATOM formatted string.
        */
       date_earliest_value?: string;
       /**
        * Format: date
-       * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
+       * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 ATOM formatted string.
        */
       date_latest_value?: string;
       /**
@@ -569,6 +573,8 @@ export interface operations {
    *
    * **Notes**
    * It takes two separate requests to create a new checkbox modifier with option values. Perform a request to create a modifier, then perform a second request to update option values.
+   *
+   * Date modifiers are required to be provided in [ISO-8601 ATOM](https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom) format. Excluding them in a request will throw a server error.
    */
   createProductModifier: {
     parameters: {
@@ -727,6 +733,8 @@ export interface operations {
   /**
    * Update a product modifier
    * @description Updates a product modifier.
+   *
+   * Date modifiers are required to be provided in [ISO-8601 ATOM](https://www.php.net/manual/en/class.datetimeinterface.php#datetimeinterface.constants.atom) format. Excluding them in a request will throw a server error.
    */
   updateProductModifier: {
     parameters: {
@@ -755,7 +763,7 @@ export interface operations {
           sort_order?: number;
           /** @description The values for option config can vary based on the Modifier created. See [Configs](#configs) to learn more about the type-specific `config` fields. */
           config?: {
-            /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
+            /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601 ATOM formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
             default_value?: string;
             /** @description (checkbox) Flag for setting the checkbox to be checked by default. */
             checked_by_default?: boolean;
@@ -772,12 +780,12 @@ export interface operations {
             date_limit_mode?: "earliest" | "range" | "latest";
             /**
              * Format: date
-             * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
+             * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 ATOM formatted string.
              */
             date_earliest_value?: string;
             /**
              * Format: date
-             * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
+             * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 ATOM formatted string.
              */
             date_latest_value?: string;
             /**
@@ -923,7 +931,7 @@ export interface operations {
                * @description The values for option config can vary based on the Modifier created. See [Configs](#configs) to learn more about the type-specific `config` fields.
                */
               config?: {
-                /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
+                /** @description (date, text, multi_line_text, numbers_only_text) The default value. Shown on a date option as an ISO-8601 ATOM formatted string, or on a text option as a string. See [Configs](#configs) for more details. */
                 default_value?: string;
                 /** @description (checkbox) Flag for setting the checkbox to be checked by default. */
                 checked_by_default?: boolean;
@@ -940,12 +948,12 @@ export interface operations {
                 date_limit_mode?: "earliest" | "range" | "latest";
                 /**
                  * Format: date
-                 * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 formatted string.
+                 * @description (date) The earliest date allowed to be entered on the date option, as an ISO-8601 ATOM formatted string.
                  */
                 date_earliest_value?: string;
                 /**
                  * Format: date
-                 * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 formatted string.
+                 * @description (date) The latest date allowed to be entered on the date option, as an ISO-8601 ATOM formatted string.
                  */
                 date_latest_value?: string;
                 /**
