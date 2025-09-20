@@ -1482,7 +1482,7 @@ export interface components {
        * @example Thank you
        */
       customer_message?: string;
-      /** @description The date the order was created, formatted in the RFC-2822 standard. You set this attribute on Order creation (POST) to support the migration of historical orders. If you do not provide a value, then it will default to the current date/time. e.g., `Tue, 20 Nov 2012 00:00:00 +0000`. */
+      /** @description The date the order was created, formatted in the RFC-2822 standard. You set this attribute on Order creation (POST) to support the migration of historical orders. If you do not provide a value, then it will default to the current date/time. e.g., `Tue, 20 Nov 2012 00:00:00 +0000`. This date time is always in UTC in the api response. */
       date_created?: string;
       /**
        * @description Amount of discount for this transaction. The value can't be negative. (Float, Float-As-String, Integer)
@@ -1736,7 +1736,7 @@ export interface components {
        * @example 118
        */
       id?: number;
-      /** @description A read-only value representing the last modification of the order. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822 */
+      /** @description A read-only value representing the last modification of the order. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822. This date time is always in UTC in the api response. */
       date_modified?: string;
       /**
        * @description A read-only value representing the date when the order is fully shipped. Do not attempt to modify or set this value in a POST or PUT request. RFC-2822

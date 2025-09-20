@@ -1185,6 +1185,10 @@ export interface operations {
         from_email?: string;
         page?: number;
         limit?: number;
+        /** @description Field to sort results by. */
+        sort?: "id";
+        /** @description Sort direction. Defaults to asc. */
+        direction?: "asc" | "desc";
       };
       header: {
         Accept: components["parameters"]["Accept"];
