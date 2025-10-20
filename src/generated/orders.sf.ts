@@ -80,7 +80,14 @@ export interface components {
       /** @description Shopperʼs provided message for the order. */
       customerMessage?: string;
       shippingCostTotal?: number;
+      /** @description Estimated total shipping cost before any shipping discounts have been applied. */
       shippingCostBeforeDiscount?: number;
+      /**
+       * @description The total shipping cost to be shown to shopper in the summary as struck-through.
+       * - If the entered-price and display-price have the same tax setting (e.g.: both are tax-inclusive), this field will be the estimated total shipping cost before any coupons applied (but after automatic promotions applied).
+       * - If the entered-price and display-price have different tax setting (e.g.: one is tax-inclusive, and one is tax-exclusive), this field will be the estimated total shipping cost before any discounts applied, similar to the `shippingCostBeforeDiscount`.
+       */
+      comparisonShippingCost?: number;
       handlingCostTotal?: number;
       customerCanBeCreated?: boolean;
       taxes?: {
@@ -549,6 +556,14 @@ export interface components {
       costTax?: number;
       /** @example 2 */
       costTaxClassId?: number;
+      /** @description Estimated consignment shipping cost before any shipping discounts have been applied. */
+      shippingCostBeforeDiscount?: number;
+      /**
+       * @description The consignment shipping cost to be shown to shopper in the summary as struck-through.
+       * - If the entered-price and display-price have the same tax setting (e.g.: both are tax-inclusive), this field will be the estimated shipping cost before any coupons applied (but after automatic promotions applied).
+       * - If the entered-price and display-price have different tax setting (e.g.: one is tax-inclusive, and one is tax-exclusive), this field will be the estimated shipping cost before any discounts applied, similar to the `shippingCostBeforeDiscount`.
+       */
+      comparisonShippingCost?: number;
       /** @example 0 */
       baseHandlingCost?: number;
       /** @example 0 */
