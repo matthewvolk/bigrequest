@@ -1456,6 +1456,8 @@ export interface components {
      * - bypass any tax correction due to tax rate/providers changes between when a customer places an order and a merchant initiates a refund
      * - use explicit values calculated by external systems (e.g., merchants' own Extended Producer Responsibility or Order Management System)
      *
+     * When using this when submitting refunds, please update the amount in payments section of the request payload to match the override value.
+     *
      * Note: when using the override, BC internal tax based refund calculation is skipped and therefore order/taxes records are not updated.
      */
     MerchantOverride: {
@@ -1473,12 +1475,10 @@ export interface components {
     /** Items Refund */
     RefundQuote_ItemsRefund: {
       items: components["schemas"]["ItemsRefund"][];
-      merchant_calculated_override?: components["schemas"]["MerchantOverride"];
     };
     /** Tax Adjustment Refund */
     RefundQuote_TaxAdjustmentAmount: {
       tax_adjustment_amount: components["schemas"]["TaxAdjustmentAmount"];
-      merchant_calculated_override?: components["schemas"]["MerchantOverride"];
     };
     /** Refund */
     Refund: {
