@@ -1474,6 +1474,11 @@ export interface components {
         name?: string;
         quantity?: number;
         list_price?: number;
+        /**
+         * Format: uri
+         * @description Image of the product or variant.
+         */
+        image_url?: string;
       }[];
     /** @description Represents all settings related to the shopping cart functionality of a store. */
     CartSettings: {

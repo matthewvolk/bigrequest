@@ -1026,6 +1026,8 @@ export interface components {
     ContentType: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
+    /** @description A comma-separated list of entity ID values that filter results to metafields that belong to one of the matching entities. */
+    MetafieldResourceParam?: string;
     /** @description Filter based on a metafieldʼs key. */
     MetafieldKeyParam?: string;
     /** @description Filter based on comma-separated metafieldʼs keys. Could be used with vanilla `key` query parameter. */
@@ -1309,6 +1311,7 @@ export interface operations {
         limit?: components["parameters"]["LimitParam"];
         key?: components["parameters"]["MetafieldKeyParam"];
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "resource_id:in"?: components["parameters"]["MetafieldResourceParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
