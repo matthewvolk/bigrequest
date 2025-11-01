@@ -1045,6 +1045,10 @@ export interface components {
       /**
        * Format: date-time
        * @description The date of which the customer consent was last updated.
+       *
+       * > NOTE
+       * >
+       * > Currently, this field returns the time of the current API Call, not the time of last update. For PUT requests, this is typically accurate; however, it will not be accurate for GET requests.
        */
       updated_at?: string;
     };

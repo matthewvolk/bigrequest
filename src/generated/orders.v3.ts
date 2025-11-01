@@ -1465,7 +1465,7 @@ export interface components {
        * Amount
        * Format: float
        * @description A non-negative 2 decimal place rounded value that represents the amount that to be used as override for the refund.
-       * @example 2.99
+       * @example 9.99
        */
       total_amount: number;
       /** @description Total tax amount refunded back to the shopper. Use 0 value if there is no tax liability change for the refund or tax does not need to be recorded on the refund and would be handled externally. */
