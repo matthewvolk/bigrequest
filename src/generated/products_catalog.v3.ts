@@ -3315,6 +3315,10 @@ export interface components {
     CategoriesInParam?: number[];
     /** @description Pass a comma-separated list to filter by one or more channel IDs. */
     ChannelIdInParam?: number[];
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    CustomFieldsIncludeFieldsParam?: ("name" | "value")[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    CustomFieldsExcludeFieldsParam?: ("name" | "value")[];
     /**
      * @description A comma-separated list of sub-resources to return with a product object.
      * When you specify `options` or `modifiers`, results are limited to 10 per page.
@@ -5490,8 +5494,8 @@ export interface operations {
   getProductCustomFields: {
     parameters: {
       query?: {
-        include_fields?: components["parameters"]["IncludeFieldsParam"];
-        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        include_fields?: components["parameters"]["CustomFieldsIncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["CustomFieldsExcludeFieldsParam"];
         page?: components["parameters"]["PageParam"];
         limit?: components["parameters"]["LimitParam"];
       };
@@ -5553,8 +5557,8 @@ export interface operations {
   getProductCustomField: {
     parameters: {
       query?: {
-        include_fields?: components["parameters"]["IncludeFieldsParam"];
-        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        include_fields?: components["parameters"]["CustomFieldsIncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["CustomFieldsExcludeFieldsParam"];
       };
       path: {
         product_id: components["parameters"]["ProductIdParam"];
