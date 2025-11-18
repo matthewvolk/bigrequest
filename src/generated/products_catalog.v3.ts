@@ -1126,7 +1126,7 @@ export interface components {
       /** @description Length of the video. This will be filled in according to data on a host site. */
       length?: string;
     };
-    IncludeParamBase: ("bulk_pricing_rules" | "reviews" | "modifiers" | "options" | "parent_relations" | "custom_fields" | "channels" | "videos")[];
+    IncludeParamBase: ("bulk_pricing_rules" | "channels" | "custom_fields" | "images" | "modifiers" | "options" | "parent_relations" | "primary_image" | "reviews" | "variants" | "videos")[];
     /**
      * product_Put
      * @description The model for a PUT to update a product.
