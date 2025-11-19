@@ -26,6 +26,7 @@ export interface paths {
      *
      * **Limits**
      * * Limit of 10 concurrent requests.
+     * * Max total segements allowed per store is 1000.
      */
     post: operations["SegmentsPostRequest"];
     /**
@@ -384,6 +385,7 @@ export interface operations {
    *
    * **Limits**
    * * Limit of 10 concurrent requests.
+   * * Max total segements allowed per store is 1000.
    */
   SegmentsPostRequest: {
     parameters: {
