@@ -120,6 +120,29 @@ export interface paths {
      */
     post: operations["generatePromotionCodesBatch"];
   };
+  "/promotions/codes": {
+    /**
+     * Get A Coupon Code
+     * @description Get a coupon with a given coupon code.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
+     */
+    get: operations["getCouponCodeByCode"];
+    /**
+     * Delete A Coupon Code
+     * @description Deletes a coupon with a given coupon code.
+     *
+     * **Note:**
+     * The default rate limit for this endpoint is 40 concurrent requests.
+     */
+    delete: operations["deleteCouponCodeByCode"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+  };
   "/promotions/{promotion_id}/codes/{code_id}": {
     /**
      * Delete A Coupon Code
@@ -1215,8 +1238,16 @@ export interface components {
     NameQuery?: string;
     /** @description Filter items by both name or code. */
     Query?: string;
-    /** @description Filter items by `code`. */
+    /**
+     * @description Filter items by `code`.
+     * @example TEST_COUPON
+     */
     CodeQuery?: string;
+    /**
+     * @description Filter items by `code`.
+     * @example TEST_COUPON
+     */
+    CodeQueryRequired: string;
     /** @description Filter items by `currency_code`. */
     CurrencyCodeQuery?: string;
     /** @description Filter items by `redemption type` */
@@ -1452,6 +1483,7 @@ export interface operations {
         after?: components["parameters"]["AfterCursorQuery"];
         page?: components["parameters"]["DeprecatedPageQuery"];
         limit?: components["parameters"]["LimitQuery"];
+        code?: components["parameters"]["CodeQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1515,6 +1547,7 @@ export interface operations {
     parameters: {
       query: {
         "id:in": components["parameters"]["IdInQuery"];
+        code?: components["parameters"]["CodeQuery"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1595,6 +1628,50 @@ export interface operations {
       422: {
         content: {
           "application/json": components["schemas"]["ErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Get A Coupon Code
+   * @description Get a coupon with a given coupon code.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
+   */
+  getCouponCodeByCode: {
+    parameters: {
+      query: {
+        code: components["parameters"]["CodeQueryRequired"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      200: components["responses"]["PromotionCodesCollectionResponse"];
+    };
+  };
+  /**
+   * Delete A Coupon Code
+   * @description Deletes a coupon with a given coupon code.
+   *
+   * **Note:**
+   * The default rate limit for this endpoint is 40 concurrent requests.
+   */
+  deleteCouponCodeByCode: {
+    parameters: {
+      query: {
+        code: components["parameters"]["CodeQueryRequired"];
+      };
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    responses: {
+      /** @description The deletion was successful or the resource does not exist. */
+      204: {
+        content: {
         };
       };
     };
