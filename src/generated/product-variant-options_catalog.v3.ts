@@ -416,6 +416,10 @@ export interface components {
     IncludeFieldsParam?: string[];
     /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
     ExcludeFieldsParam?: string[];
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    ProductOptionValueIncludeFieldsParam?: ("label" | "sort_order" | "value_data" | "is_default")[];
+    /** @description Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot be excluded. */
+    ProductOptionValueExcludeFieldsParam?: ("label" | "sort_order" | "value_data" | "is_default")[];
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the response body. */
     Accept: string;
     /** @description The [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) of the request body. */
@@ -1437,8 +1441,8 @@ export interface operations {
       query?: {
         page?: components["parameters"]["PageParam"];
         limit?: components["parameters"]["LimitParam"];
-        include_fields?: components["parameters"]["IncludeFieldsParam"];
-        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        include_fields?: components["parameters"]["ProductOptionValueIncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ProductOptionValueExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -1594,8 +1598,8 @@ export interface operations {
   getProductVariantOptionValue: {
     parameters: {
       query?: {
-        include_fields?: components["parameters"]["IncludeFieldsParam"];
-        exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
+        include_fields?: components["parameters"]["ProductOptionValueIncludeFieldsParam"];
+        exclude_fields?: components["parameters"]["ProductOptionValueExcludeFieldsParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
