@@ -57,10 +57,15 @@ export interface paths {
   };
   "/pricelists/records": {
     /**
-     * Create Batch of Price Lists Records
-     * @description Creates a batch of `Price Lists Records`; may include price list records from more than one price list.  Concurrency limit of 1.
+     * Create or Update Batch of Price Lists Records
+     * @description Creates or updates a batch of `Price Lists Records`; may include price list records from more than one price list. Concurrency limit of 1. It is advised to use POST to get better performance when creating price records.
      */
     put: operations["upsertPriceListsRecords"];
+    /**
+     * Create Batch of Price Lists Records
+     * @description Creates a batch of `Price Lists Records`; may include price list records from more than one price list. Concurrency limit of 10, batch size of 100. Will error out if any record in the batch already exists; use PUT to batch update existing records.
+     */
+    post: operations["createPriceListsRecords"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -90,6 +95,20 @@ export interface paths {
      * * When updating a product with variants, or multiple SKUs, don't include records for the parent product SKU.
      */
     put: operations["upsertPriceListRecords"];
+    /**
+     * Create Price List Records
+     * @description Creates *Price List Records*.
+     *
+     * **Required Fields**
+     * * currency
+     * * one of `variant_id` or `sku`
+     *
+     * **Notes**
+     * * Batch requests support up to 100 items per request.
+     * * Up to 10 concurrent batch create requests are supported with this API. Running more than the allowed concurrent requests in parallel on the **same store** will cause a `429` error, and your additional requests will fail. You are encouraged to run requests sequentially with as many records per request as possible to maximize performance.
+     * * When creating a product with variants, or multiple SKUs, don't include records for the parent product SKU.
+     */
+    post: operations["createPriceListRecords"];
     /**
      * Delete a Price List Record
      * @description Deletes a *Price List Record*. Deleting the records does not delete the Price List. Optional parameters can be passed in.
@@ -1024,8 +1043,8 @@ export interface operations {
     };
   };
   /**
-   * Create Batch of Price Lists Records
-   * @description Creates a batch of `Price Lists Records`; may include price list records from more than one price list.  Concurrency limit of 1.
+   * Create or Update Batch of Price Lists Records
+   * @description Creates or updates a batch of `Price Lists Records`; may include price list records from more than one price list. Concurrency limit of 1. It is advised to use POST to get better performance when creating price records.
    */
   upsertPriceListsRecords: {
     parameters: {
@@ -1039,13 +1058,43 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success response for batch PUT of `Price Records`. */
+      /** @description Success response for batch PUT of `Price List Records`. */
       200: {
         content: {
           "application/json": components["schemas"]["SuccessBatchResponse"];
         };
       };
       /** @description Error response for batch PUT of `Price Records`.  May include errors during partial update in non-strict mode. */
+      422: {
+        content: {
+          "application/json": components["schemas"]["PriceRecordBatchErrorResponse"];
+        };
+      };
+    };
+  };
+  /**
+   * Create Batch of Price Lists Records
+   * @description Creates a batch of `Price Lists Records`; may include price list records from more than one price list. Concurrency limit of 10, batch size of 100. Will error out if any record in the batch already exists; use PUT to batch update existing records.
+   */
+  createPriceListsRecords: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PriceRecordBatchItem"][];
+      };
+    };
+    responses: {
+      /** @description Success response for batch POST of `Price List Records`. */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SuccessBatchResponse"];
+        };
+      };
+      /** @description Error response for batch POST of `Price List Records`. May include errors during partial create. */
       422: {
         content: {
           "application/json": components["schemas"]["PriceRecordBatchErrorResponse"];
@@ -1438,6 +1487,177 @@ export interface operations {
         };
       };
       /** @description Error response for batch PUT of `Price Records`. May include errors during partial update in non-strict mode. */
+      422: {
+        content: {
+          "application/json": {
+            batch_errors?: {
+                /**
+                 * Price Record Identifiers
+                 * @description Price Record object used in batch create or update.
+                 */
+                data?: {
+                  /**
+                   * @description The Price List with which this price set is associated.
+                   *
+                   * @example 2
+                   */
+                  price_list_id?: number;
+                  /**
+                   * @description The variant ID with which this price set is associated. Either `variant_id` or `sku` is required.
+                   *
+                   * @example 325
+                   */
+                  variant_id?: number;
+                  /** @description The variant with which this price set is associated. Either `sku` or `variant_id` is required. */
+                  sku?: string;
+                  /**
+                   * Format: ISO-4217
+                   * @description The 3-letter currency code with which this price set is associated.
+                   *
+                   * @example usd
+                   */
+                  currency?: string;
+                };
+                /** Detailed Errors */
+                field_errors?: {
+                  [key: string]: unknown;
+                };
+              }[];
+          };
+        };
+      };
+      /** @description Allowed number of requests exceeded. */
+      429: {
+        content: {
+          "application/json": components["schemas"]["ErrorResponse"];
+          "examples": unknown;
+        };
+      };
+    };
+  };
+  /**
+   * Create Price List Records
+   * @description Creates *Price List Records*.
+   *
+   * **Required Fields**
+   * * currency
+   * * one of `variant_id` or `sku`
+   *
+   * **Notes**
+   * * Batch requests support up to 100 items per request.
+   * * Up to 10 concurrent batch create requests are supported with this API. Running more than the allowed concurrent requests in parallel on the **same store** will cause a `429` error, and your additional requests will fail. You are encouraged to run requests sequentially with as many records per request as possible to maximize performance.
+   * * When creating a product with variants, or multiple SKUs, don't include records for the parent product SKU.
+   */
+  createPriceListRecords: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+      path: {
+        /** @description The ID of the `Price List` requested. */
+        price_list_id: number;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": ({
+            /**
+             * @description The variant ID with which this price set is associated. Either `variant_id` or `sku` is required.
+             *
+             * @example 331
+             */
+            variant_id?: number;
+            /**
+             * @description The SKU for the variant with which this price set is associated. Either `sku` or `variant_id` is required.
+             *
+             * @example SMB-123
+             */
+            sku?: string;
+            /**
+             * Format: ISO-4217
+             * @description The 3-letter currency code with which this price set is associated.
+             *
+             * @example usd
+             */
+            currency?: string;
+          } & ({
+            /**
+             * Format: double
+             * @description The list price for the variant mapped in a Price List. Overrides any existing or Catalog list price for the variant/product.
+             *
+             * @example 3.99
+             */
+            price?: number;
+            /**
+             * Format: double
+             * @description The sale price for the variant mapped in a Price List. Overrides any existing or Catalog sale price for the variant/product. If empty, the sale price will be treated as not being set on this variant.
+             *
+             * @example 3.49
+             */
+            sale_price?: number;
+            /**
+             * Format: double
+             * @description The retail price for the variant mapped in a Price List. Overrides any existing or Catalog retail price for the variant/product. If empty, the retail price will be treated as not being set on this variant.
+             *
+             * @example 4.99
+             */
+            retail_price?: number;
+            /**
+             * Format: double
+             * @description The MAP (Minimum Advertised Price) for the variant mapped in a Price List. Overrides any existing or Catalog MAP price for the variant/product. If empty, the MAP price will be treated as not being set on this variant.
+             *
+             * @example 2.5
+             */
+            map_price?: number;
+            bulk_pricing_tiers?: ({
+                /**
+                 * @description The minimum quantity of associated variant in the cart needed to qualify for the pricing of this tier.
+                 *
+                 * @example 1
+                 */
+                quantity_min?: number;
+                /**
+                 * @description The maximum allowed quantity of associated variant in the cart to qualify for the pricing of this tier.
+                 *
+                 * @example 10
+                 */
+                quantity_max?: number;
+                /**
+                 * @description The type of adjustment that is made. Acceptable values: price – the adjustment amount per product; percent – the adjustment as a percentage of the original price; fixed – the adjusted absolute price of the product.
+                 *
+                 * @example price
+                 * @enum {string}
+                 */
+                type?: "fixed" | "price" | "percent";
+                /**
+                 * Format: double
+                 * @description The price adjustment amount. This value along with the type will decide the price per variant for the pricing tier.
+                 *
+                 * @example 3
+                 */
+                amount?: number;
+              })[];
+            /**
+             * @description The SKU code associated with this `Price Record` if requested and it exists.
+             *
+             * @example SMB-123
+             */
+            sku?: string;
+          }))[];
+      };
+    };
+    responses: {
+      /** @description Success response for batch POST of `Price List Records`. */
+      200: {
+        content: {
+          "application/json": {
+            data?: Record<string, never>;
+            meta?: Record<string, never>;
+          };
+        };
+      };
+      /** @description Error response for batch POST of `Price List Records`. May include errors during partial create in non-strict mode. */
       422: {
         content: {
           "application/json": {
