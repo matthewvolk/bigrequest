@@ -129,7 +129,7 @@ export interface paths {
      * @description Creates a brand image.
      *
      * **Required Fields**
-     * - image_file: Form posts are the only accepted upload option. For more information on how to upload an image see [Adding product images](docs/store-operations/catalog#adding-product-images). NOTE:  Ensure you set the `Content-Type` header to `multipart/form-data; boundary=--example-boundary--` and set the correct URL for this endpoint.
+     * - image_file: Form posts are the only accepted upload option. For more information on how to upload an image see [Adding product images](/docs/store-operations/catalog#adding-product-images). NOTE:  Ensure you set the `Content-Type` header to `multipart/form-data; boundary=--example-boundary--` and set the correct URL for this endpoint.
      *
      * **Read-Only Fields**
      * - id
@@ -1690,7 +1690,7 @@ export interface operations {
    * @description Creates a brand image.
    *
    * **Required Fields**
-   * - image_file: Form posts are the only accepted upload option. For more information on how to upload an image see [Adding product images](docs/store-operations/catalog#adding-product-images). NOTE:  Ensure you set the `Content-Type` header to `multipart/form-data; boundary=--example-boundary--` and set the correct URL for this endpoint.
+   * - image_file: Form posts are the only accepted upload option. For more information on how to upload an image see [Adding product images](/docs/store-operations/catalog#adding-product-images). NOTE:  Ensure you set the `Content-Type` header to `multipart/form-data; boundary=--example-boundary--` and set the correct URL for this endpoint.
    *
    * **Read-Only Fields**
    * - id
