@@ -1311,7 +1311,7 @@ export interface operations {
          *   "meta_description": "string",
          *   "is_homepage": false,
          *   "is_customers_only": false,
-         *   "search_keywords": "string",
+         *   "search_keywords": "contact, support, help",
          *   "has_mobile_version": false,
          *   "mobile_body": "0",
          *   "url": "/contact-us/"

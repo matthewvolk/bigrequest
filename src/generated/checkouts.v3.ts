@@ -264,7 +264,7 @@ export interface components {
     Checkout: {
       /**
        * Format: uuid
-       * @example 497f6eca-6276-4993-bfeb-53cbbbba6f08
+       * @example 76f1bfe4-dbbe-4018-8ee6-2e3c36bf1518
        */
       id?: string;
       /** Cart */
@@ -272,7 +272,7 @@ export interface components {
         /**
          * Format: uuid
          * @description Cart ID, provided after creating a cart with a POST request.
-         * @example 497f6eca-6276-4993-bfeb-53cbbbba6f08
+         * @example 76f1bfe4-dbbe-4018-8ee6-2e3c36bf1518
          */
         id?: string;
         /**
