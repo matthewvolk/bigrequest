@@ -78,6 +78,12 @@ export interface components {
        * @enum {string}
        */
       document_submission_strategy?: "ON_PAYMENT_CAPTURE" | "ON_ORDER_CREATION";
+      /**
+       * @description This setting affects the rounding behaviour of tax amounts calculated by the basic tax provider. The NO_ROUNDING option offers a high accuracy total tax amount for orders. The RATE_ROUNDING option means every resulting tax rate amount has been rounded based on the active currency's precision settings. Note that tax is always calculated on the line item amount after discounts.
+       * @default RATE_ROUNDING
+       * @enum {string}
+       */
+      rounding_strategy?: "NO_ROUNDING" | "RATE_ROUNDING";
     };
     /**
      * Response meta

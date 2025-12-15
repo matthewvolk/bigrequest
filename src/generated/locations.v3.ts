@@ -317,7 +317,7 @@ export interface components {
         /**
          * Format: email
          * @description Email of the location.
-         * @example test@example.com
+         * @example admin@example.com
          */
         email?: string;
         /**
@@ -448,7 +448,7 @@ export interface components {
           /**
            * Format: email
            * @description Email of the location.
-           * @example test@example.com
+           * @example admin@example.com
            */
           email?: string;
           /**
@@ -549,7 +549,7 @@ export interface components {
           /**
            * Format: email
            * @description Email of the location.
-           * @example test@example.com
+           * @example admin@example.com
            */
           email: string;
           /**
