@@ -682,7 +682,7 @@ export interface components {
       /**
        * Format: uri
        * @description The product URL.
-       * @example http://your-store-url.mybigcommerce.com/your-product/
+       * @example https://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
@@ -829,7 +829,7 @@ export interface components {
       /**
        * Format: uri
        * @description The product URL.
-       * @example http://your-store-url.mybigcommerce.com/your-product/
+       * @example https://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
@@ -968,7 +968,7 @@ export interface components {
       /**
        * Format: uri
        * @description The product URL.
-       * @example http://your-store-url.mybigcommerce.com/your-product/
+       * @example https://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**
@@ -1550,7 +1550,7 @@ export interface components {
       /**
        * Format: uri
        * @description The product URL.
-       * @example http://your-store-url.mybigcommerce.com/your-product/
+       * @example https://your-store-url.mybigcommerce.com/your-product/
        */
       url?: string;
       /**

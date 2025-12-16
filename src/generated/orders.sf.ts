@@ -32,7 +32,10 @@ export interface components {
     };
     /** Order */
     Order: {
-      /** Format: double */
+      /**
+       * Format: double
+       * @description Unique identifier for the order.
+       */
       orderId?: number;
       /**
        * Format: uuid
@@ -68,6 +71,7 @@ export interface components {
       coupons?: components["schemas"]["AppliedCoupon"][];
       /** @description Array of `LineItem` objects. */
       lineItems?: components["schemas"]["OrderLineItem"][];
+      /** @description Unique identifier for the customer who placed the order. */
       customerId?: string;
       billingAddress?: components["schemas"]["AddressProperties"];
       status?: components["schemas"]["Status"];
@@ -226,6 +230,7 @@ export interface components {
     };
     /** Gift Wrapping */
     GiftWrapping: {
+      /** @description Name of the gift certificate or coupon. */
       name?: string;
       message?: string;
       /** Format: double */
@@ -580,7 +585,10 @@ export interface components {
       shippingZoneName?: string;
       customFields?: components["schemas"]["ConsignmentFormField"][];
     };
-    /** ConsignmentLineItem */
+    /**
+     * ConsignmentLineItem
+     * @description Line item identifier within a consignment.
+     */
     ConsignmentLineItem: {
       /** @example 4 */
       id?: number;
@@ -636,6 +644,7 @@ export interface components {
     };
   };
   responses: {
+    /** @description Response containing order data. */
     order_Resp: {
       content: {
         "application/json": components["schemas"]["Order"];

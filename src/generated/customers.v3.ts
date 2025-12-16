@@ -944,8 +944,8 @@ export interface components {
      *   "state_or_province": "California",
      *   "form_fields": [
      *     {
-     *       "name": "test",
-     *       "value": "test"
+     *       "name": "custom_field_1",
+     *       "value": "Custom value"
      *     }
      *   ]
      * }
