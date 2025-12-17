@@ -35,6 +35,7 @@ import * as segments_v3 from './segments.v3';
 import * as settings_v3 from './settings.v3';
 import * as shipping_v3 from './shipping.v3';
 import * as sites_v3 from './sites.v3';
+import * as store_information_v3 from './store_information.v3';
 import * as store_logs_v3 from './store_logs.v3';
 import * as storefront_tokens_v3 from './storefront_tokens.v3';
 import * as subscribers_v3 from './subscribers.v3';
@@ -85,6 +86,7 @@ segments_v3.paths &
 settings_v3.paths &
 shipping_v3.paths &
 sites_v3.paths &
+store_information_v3.paths &
 store_logs_v3.paths &
 storefront_tokens_v3.paths &
 subscribers_v3.paths &
