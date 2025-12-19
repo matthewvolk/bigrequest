@@ -1,14 +1,10 @@
 name: release
-
 on:
   push:
     branches:
       - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-permissions:
-  id-token: write
 
 jobs:
   release:
