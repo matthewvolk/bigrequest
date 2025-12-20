@@ -34,7 +34,7 @@ export interface paths {
      *
      * **Notes**
      *
-     * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
+     * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="https://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
      * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
      * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
      */
@@ -1076,7 +1076,7 @@ export interface operations {
    *
    * **Notes**
    *
-   * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="http://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
+   * * When including `published_date` in a request, supply it as a flat date string (not an object) in valid <a href="https://tools.ietf.org/html/rfc2822#section-3.3" target="_blank">RFC 2822</a>. The following example request includes a `published_date` in RFC 2822 format.
    * * Blog posts default to draft status. To publish blog posts to the storefront, set the `is_published` property to `true`.
    * * If a custom URL is not provided, the post’s URL will be generated based on the value of `title`.
    */
