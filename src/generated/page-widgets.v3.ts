@@ -702,12 +702,12 @@ export interface components {
   };
   headers: {
     /**
-     * @description An [RFC 2822](a href="http://tools.ietf.org/html/rfc2822#section-3.3) date.
+     * @description An [RFC 2822](https://tools.ietf.org/html/rfc2822#section-3.3) date.
      * @example Tue, 15 Nov 2011 12:45:26 GMT
      */
     Date: string;
     /**
-     * @description An [RFC 2822](a href="http://tools.ietf.org/html/rfc2822#section-3.3) date. The date the resource was last modified.
+     * @description An [RFC 2822](https://tools.ietf.org/html/rfc2822#section-3.3) date. The date the resource was last modified.
      * @example Tue, 15 Nov 2011 12:45:26 GMT
      */
     "Last-Modified": string;
