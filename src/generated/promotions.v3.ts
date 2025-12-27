@@ -701,6 +701,7 @@ export interface components {
       shipping?: {
         /** @description Set this property to true to provide a separate free shipping method. Read-Only. */
         free_shipping?: boolean;
+        /** @description List of shipping zone IDs to which free shipping can apply, or '*' for all zones. */
         zone_ids: "*" | number[];
       };
     };
@@ -1084,7 +1085,10 @@ export interface components {
        */
       daily_end_time: string;
     };
-    /** CustomerSegmentLimitation */
+    /**
+     * CustomerSegmentLimitation
+     * @description Specifies customer segment limitations for the promotion.
+     */
     CustomerSegmentLimitation: components["schemas"]["CustomerSegmentIdLimitation"] | components["schemas"]["NotCustomerSegmentLimitation"] | components["schemas"]["AndCustomerSegmentLimitation"] | components["schemas"]["OrCustomerSegmentLimitation"];
     /** CustomerSegmentIdLimitation */
     CustomerSegmentIdLimitation: {
@@ -1138,6 +1142,7 @@ export interface components {
     };
   };
   responses: {
+    /** @description Response for bulk delete operations on promotions. */
     BulkDeleteResponse: {
       content: {
         "application/json": {

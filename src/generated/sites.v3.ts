@@ -206,7 +206,7 @@ export interface components {
     put_Site: {
       /**
        * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
-       * @example http://kittens.mybigcommerce.com/
+       * @example https://kittens.mybigcommerce.com/
        */
       url?: string;
     };
@@ -214,7 +214,7 @@ export interface components {
       id?: number;
       /**
        * @description The fully qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
-       * @example http://kittens.mybigcommerce.com/
+       * @example https://kittens.mybigcommerce.com/
        */
       url?: string;
       /** @description The channel to which this site is attached. Each site belongs to a single channel, and each channel can have either zero or more sites. */
@@ -300,7 +300,7 @@ export interface components {
     post_Site: {
       /**
        * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
-       * @example http://kittens.mybigcommerce.com/
+       * @example https://kittens.mybigcommerce.com/
        */
       url?: string;
       /** @description The channel this site is attached to. Each site belongs to a single channel, and each channel can have either zero or one sites. */
@@ -403,7 +403,7 @@ export interface components {
     SiteCreate: {
       /**
        * @description The Fully Qualified URL (including host and scheme) where this site is hosted. All URLs generated for this site will be appended to this.
-       * @example http://kittens.mybigcommerce.com/
+       * @example https://kittens.mybigcommerce.com/
        */
       url?: string;
       /** @description The channel this site is attached to. Each site belongs to a single channel, and each channel can have either zero or one sites. */
