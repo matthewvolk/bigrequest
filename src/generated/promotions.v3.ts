@@ -618,6 +618,7 @@ export interface components {
     CartValueAction: {
       cart_value?: {
         discount: components["schemas"]["Discount"];
+        maximum_allowed_discount_amount?: components["schemas"]["MaximumAllowedDiscountAmount"];
       };
     };
     /**
@@ -667,6 +668,7 @@ export interface components {
     CartItemsAction: {
       cart_items?: {
         discount: components["schemas"]["Discount"];
+        maximum_allowed_discount_amount?: components["schemas"]["MaximumAllowedDiscountAmount"];
         /**
          * @description Set this value to true to distribute the discount as a total among matching items. By default, the discount applies to each item.
          * Example: If set to false, the discount is $10 and you have 2 eligible items for this discount in the cart, both items will be discounted by $10, with a total of $20 off the order.
@@ -701,6 +703,7 @@ export interface components {
       shipping?: {
         /** @description Set this property to true to provide a separate free shipping method. Read-Only. */
         free_shipping?: boolean;
+        /** @description List of shipping zone IDs to which free shipping can apply, or '*' for all zones. */
         zone_ids: "*" | number[];
       };
     };
@@ -715,14 +718,14 @@ export interface components {
      */
     PercentageDiscount: {
       /** @description The amount of discount (percentage off) to apply. */
-      percentage_amount?: string;
+      percentage_amount: string;
     };
     /**
      * Fixed Discount
      * @description **Fixed Discount**
      */
     FixedDiscount: {
-      fixed_amount?: components["schemas"]["Money"];
+      fixed_amount: components["schemas"]["Money"];
     };
     /**
      * Money
@@ -731,6 +734,16 @@ export interface components {
      * @example 12.95
      */
     Money: string;
+    /**
+     * @description The maximum monetary value that can be applied as a discount. It can take value from 1 to 10000000.
+     * The application of this maximum depends on the discount type:
+     *   - Discount on shipping: the max limit is distributed to the first number of shipping destinations until it is reached
+     *   - Discount on products: the max limit is distributed to the first number of eligible products until it is reached
+     *   - Discount on order subtotal: the max limit is checked against the order discount value
+     *
+     * @example 10
+     */
+    MaximumAllowedDiscountAmount: string | null;
     /**
      * Collection Meta
      * @description Contains data about paginating the response via cursors. If no pagination details are specified, then both properties will be present.  When a 'before' or 'after' cursor is provided, only the 'cursor_pagination' property will be present. When a 'page' parameter is provided, only the offset based 'pagination' property will be present.
@@ -1084,7 +1097,10 @@ export interface components {
        */
       daily_end_time: string;
     };
-    /** CustomerSegmentLimitation */
+    /**
+     * CustomerSegmentLimitation
+     * @description Specifies customer segment limitations for the promotion.
+     */
     CustomerSegmentLimitation: components["schemas"]["CustomerSegmentIdLimitation"] | components["schemas"]["NotCustomerSegmentLimitation"] | components["schemas"]["AndCustomerSegmentLimitation"] | components["schemas"]["OrCustomerSegmentLimitation"];
     /** CustomerSegmentIdLimitation */
     CustomerSegmentIdLimitation: {
@@ -1138,6 +1154,7 @@ export interface components {
     };
   };
   responses: {
+    /** @description Response for bulk delete operations on promotions. */
     BulkDeleteResponse: {
       content: {
         "application/json": {
