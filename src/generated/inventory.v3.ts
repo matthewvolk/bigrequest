@@ -147,6 +147,7 @@ export interface components {
         };
       };
     };
+    /** @description Request payload for relative inventory adjustments. */
     AdjustmentsRelativeRequest: {
       /**
        * @description Reason for the adjustment operation.
