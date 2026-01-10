@@ -275,7 +275,6 @@ export interface components {
      * @description A draft **Coupon Promotion** to be created. A shopper must manually apply a *coupon promotion* to their cart.
      */
     DraftCouponPromotion: components["schemas"]["PromotionBase"] & ({
-      codes?: components["schemas"]["CouponCode"];
       /**
        * @description This field only has effect when `can_be_used_with_other_promotions` is `false`:
        * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
