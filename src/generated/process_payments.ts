@@ -168,24 +168,27 @@ export interface operations {
     };
     responses: {
       /** @description Payment has been successfully processed */
-      202: {
+      201: {
         content: {
           "application/json": {
-            /** @description Identifier for this transaction */
-            id?: string;
-            /**
-             * Transaction Type
-             * @description Transaction type for this payment
-             * @example authorization
-             * @enum {string}
-             */
-            transaction_type?: "authorization" | "purchase";
-            /**
-             * Status
-             * @description Status to indicate a success response
-             * @enum {string}
-             */
-            status?: "success" | "pending";
+            /** Process Payment Transaction */
+            data?: {
+              /** @description Identifier for this transaction */
+              id?: string;
+              /**
+               * Transaction Type
+               * @description Transaction type for this payment
+               * @example authorization
+               * @enum {string}
+               */
+              transaction_type?: "authorization" | "purchase";
+              /**
+               * Status
+               * @description Status to indicate a success response
+               * @enum {string}
+               */
+              status?: "success" | "pending";
+            };
           };
         };
       };
