@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.68
+
+### Patch Changes
+
+- [#842](https://github.com/matthewvolk/bigrequest/pull/842) [`4be7cf5`](https://github.com/matthewvolk/bigrequest/commit/4be7cf5ae035b7c15aff401620316ea5ae5db327) Thanks [@github-actions](https://github.com/apps/github-actions)! - [bigcommerce/docs@`3378224`](https://github.com/bigcommerce/docs/commit/33782242cfb16465fa8d650f898ca6dd570d0ba9), [bigcommerce/docs@`da1a459`](https://github.com/bigcommerce/docs/commit/da1a4596ee4d0f913bb3b767e49ec3f104412fff), [bigcommerce/docs@`8e2b182`](https://github.com/bigcommerce/docs/commit/8e2b182b38c68257b510cc367f770367c7234595), [bigcommerce/docs@`8cd6b5e`](https://github.com/bigcommerce/docs/commit/8cd6b5edd45a8861386b8bbf5a0de3d9d45bd1d5), [bigcommerce/docs@`de1ed89`](https://github.com/bigcommerce/docs/commit/de1ed89ff24acc4bc5de7ec5b90765b15bc42ea4), [bigcommerce/docs@`7ab9b4a`](https://github.com/bigcommerce/docs/commit/7ab9b4a850bfb0b2e0a9d790cb4f96f0b21a99c3)
+
 ## 0.0.67
 
 ### Patch Changes
