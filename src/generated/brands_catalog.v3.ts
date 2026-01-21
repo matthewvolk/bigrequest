@@ -995,7 +995,7 @@ export interface operations {
            */
           custom_url?: {
             /**
-             * @description Brand URL on the storefront.
+             * @description Brand URL on the storefront. Only letters, numbers, dots (.), dashes (-), underscores (_), and forward slashes (/) are allowed. Must be 1-1024 characters, consisting of segments divided by "/". Each segment must be 1-256 characters.
              *
              * @example /shoes
              */
@@ -1067,7 +1067,7 @@ export interface operations {
                */
               custom_url?: {
                 /**
-                 * @description Brand URL on the storefront.
+                 * @description Brand URL on the storefront. Must be 1-1024 characters, consisting of segments divided by "/". Each segment must be 1-256 characters.
                  *
                  * @example /shoes
                  */
@@ -1259,7 +1259,7 @@ export interface operations {
            */
           custom_url?: {
             /**
-             * @description Brand URL on the storefront.
+             * @description Brand URL on the storefront. Only letters, numbers, dots (.), dashes (-), underscores (_), and forward slashes (/) are allowed. Must be 1-1024 characters, consisting of segments divided by "/". Each segment must be 1-256 characters.
              *
              * @example /shoes
              */
@@ -1331,7 +1331,7 @@ export interface operations {
                */
               custom_url?: {
                 /**
-                 * @description Brand URL on the storefront.
+                 * @description Brand URL on the storefront. Must be 1-1024 characters, consisting of segments divided by "/". Each segment must be 1-256 characters.
                  *
                  * @example /shoes
                  */
