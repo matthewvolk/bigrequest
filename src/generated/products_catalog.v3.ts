@@ -1355,8 +1355,7 @@ export interface components {
     /** bulkPricingRule_Full */
     bulkPricingRule_Full: {
       /**
-       * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. For `fixed` rules, the minimum quantity canʼt be less than two.
-       * Required in /POST.
+       * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. Required in /POST.
        *
        * @example 10
        */
