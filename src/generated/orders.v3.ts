@@ -483,6 +483,57 @@ export interface components {
         next?: string;
       };
     };
+    /**
+     * CursorPagination
+     * @description Data about the response, including cursor pagination and collection totals.
+     */
+    CursorPagination: {
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description Cursor that is referring to a start of current page.
+       *
+       * @example aWQ6Nw==
+       */
+      start_cursor?: string;
+      /**
+       * @description Cursor that is referring to a end of current page. Should be used to fetch next page.
+       *
+       * @example aWQ6Nw==
+       */
+      end_cursor?: string;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /**
+         * @description Cursor to the previous page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        previous?: string;
+        /**
+         * @description Cursor to the current page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        current?: string;
+        /**
+         * @description Cursor to the next page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        next?: string;
+      };
+    };
     /** ReceivedItems_Put */
     ReceivedItems_Put: {
         /**
@@ -580,58 +631,11 @@ export interface components {
     };
     /**
      * Collection Meta
-     * @description Data about the response, including pagination and collection totals.
+     * @description Data about the response, including pagination (for a first page and off) and collection totals.
      */
     CollectionMeta: {
-      /**
-       * Pagination
-       * @description Data about the response, including pagination and collection totals.
-       */
-      pagination?: {
-        /**
-         * @description Total number of items in the result set.
-         *
-         * @example 36
-         */
-        total?: number;
-        /**
-         * @description Total number of items in the collection response.
-         *
-         * @example 36
-         */
-        count?: number;
-        /**
-         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *
-         * @example 50
-         */
-        per_page?: number;
-        /**
-         * @description The page you are currently on within the collection.
-         *
-         * @example 1
-         */
-        current_page?: number;
-        /**
-         * @description The total number of pages in the collection.
-         *
-         * @example 1
-         */
-        total_pages?: number;
-        /** @description Pagination links for the previous and next parts of the whole collection. */
-        links?: {
-          /** @description Link to the previous page returned in the response. */
-          previous?: string;
-          /**
-           * @description Link to the current page returned in the response.
-           *
-           * @example ?page=1&limit=50
-           */
-          current?: string;
-          /** @description Link to the next page returned in the response. */
-          next?: string;
-        };
-      };
+      pagination?: components["schemas"]["Pagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
     };
     /** Meta */
     Meta: {
@@ -1981,6 +1985,7 @@ export interface components {
           data?: components["schemas"]["Return_Full"];
           meta?: {
             pagination?: components["schemas"]["Pagination"];
+            cursor_pagination?: components["schemas"]["CursorPagination"];
           };
         };
       };
@@ -2222,6 +2227,10 @@ export interface components {
     DirectionParam?: "asc" | "desc";
     /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
     IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date_modified")[];
+    /** @description A cursor indicating where to start retrieving the previous page of results. Use this parameter to paginate backward. Not required for the initial request. For subsequent requests, use the end_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the after parameter. */
+    BeforeCursorParam?: string;
+    /** @description A cursor indicating where to start retrieving the next page of results. Use this parameter to paginate forward. Not required for the initial request. For subsequent requests, use the start_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the before parameter. */
+    AfterCursorParam?: string;
   };
   requestBodies: never;
   headers: never;
@@ -2543,8 +2552,19 @@ export interface operations {
         page?: components["parameters"]["PageParam"];
         limit?: components["parameters"]["LimitParam"];
         key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
         direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        date_created?: components["parameters"]["date_created"];
+        date_modified?: components["parameters"]["date_modified"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];
@@ -2896,6 +2916,8 @@ export interface operations {
         "date_created:max"?: components["parameters"]["date_created_max"];
         "date_modified:min"?: components["parameters"]["date_modified_min"];
         "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
       };
     };
     responses: {
