@@ -60,6 +60,106 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     /**
+     * Pagination
+     * @description Data about the response, including pagination and collection totals.
+     */
+    Pagination: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 36
+       */
+      total?: number;
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description The page you are currently on within the collection.
+       *
+       * @example 1
+       */
+      current_page?: number;
+      /**
+       * @description The total number of pages in the collection.
+       *
+       * @example 1
+       */
+      total_pages?: number;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /** @description Link to the previous page returned in the response. */
+        previous?: string;
+        /**
+         * @description Link to the current page returned in the response.
+         *
+         * @example ?page=1&limit=50
+         */
+        current?: string;
+        /** @description Link to the next page returned in the response. */
+        next?: string;
+      };
+    };
+    /**
+     * CursorPagination
+     * @description Data about the response, including cursor pagination and collection totals.
+     */
+    CursorPagination: {
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description Cursor that is referring to a start of current page.
+       *
+       * @example aWQ6Nw==
+       */
+      start_cursor?: string;
+      /**
+       * @description Cursor that is referring to a end of current page. Should be used to fetch next page.
+       *
+       * @example aWQ6Nw==
+       */
+      end_cursor?: string;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /**
+         * @description Cursor to the previous page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        previous?: string;
+        /**
+         * @description Cursor to the current page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        current?: string;
+        /**
+         * @description Cursor to the next page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        next?: string;
+      };
+    };
+    /**
      * Not Found
      * @description Error payload for the BigCommerce API.
      */
@@ -345,55 +445,8 @@ export interface components {
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
-      /**
-       * Pagination
-       * @description Data about the response, including pagination and collection totals.
-       */
-      pagination?: {
-        /**
-         * @description Total number of items in the result set.
-         *
-         * @example 36
-         */
-        total?: number;
-        /**
-         * @description Total number of items in the collection response.
-         *
-         * @example 36
-         */
-        count?: number;
-        /**
-         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *
-         * @example 50
-         */
-        per_page?: number;
-        /**
-         * @description The page you are currently on within the collection.
-         *
-         * @example 1
-         */
-        current_page?: number;
-        /**
-         * @description The total number of pages in the collection.
-         *
-         * @example 1
-         */
-        total_pages?: number;
-        /** @description Pagination links for the previous and next parts of the whole collection. */
-        links?: {
-          /** @description Link to the previous page returned in the response. */
-          previous?: string;
-          /**
-           * @description Link to the current page returned in the response.
-           *
-           * @example ?page=1&limit=50
-           */
-          current?: string;
-          /** @description Link to the next page returned in the response. */
-          next?: string;
-        };
-      };
+      pagination?: components["schemas"]["Pagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
       [key: string]: unknown;
     };
     /**
@@ -404,6 +457,20 @@ export interface components {
   };
   responses: never;
   parameters: {
+    /** @description Fields to include, in a comma-separated list. The ID and the specified fields will be returned. */
+    IncludeFieldsParamMetafields?: ("resource_id" | "key" | "value" | "namespace" | "permission_set" | "resource_type" | "description" | "owner_client_id" | "date_created" | "date modified")[];
+    /** @description 'Query parameter that lets you filter by the minimum date created, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created after this date.' */
+    date_created_min?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date created, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields created before this date.' */
+    date_created_max?: string;
+    /** @description 'Query parameter that lets you filter by the maximum date modified, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified before this date.' */
+    date_modified_max?: string;
+    /** @description 'Query parameter that lets you filter by the minimum date modified, for example, `2024-05-14T09:34:00`, `2024-05-14T09:34:00` or `2024-05-14`. Returns metafields modified after this date.' */
+    date_modified_min?: string;
+    /** @description A cursor indicating where to start retrieving the previous page of results. Use this parameter to paginate backward. Not required for the initial request. For subsequent requests, use the end_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the after parameter. */
+    BeforeCursorParam?: string;
+    /** @description A cursor indicating where to start retrieving the next page of results. Use this parameter to paginate forward. Not required for the initial request. For subsequent requests, use the start_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the before parameter. */
+    AfterCursorParam?: string;
     ContentType?: string;
     /** @description Specifies the page number in a limited (paginated) list of products. */
     PageParam?: number;
@@ -448,7 +515,14 @@ export interface operations {
         "key:in"?: components["parameters"]["MetafieldKeyInParam"];
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
         "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
         direction?: components["parameters"]["DirectionParam"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
       };
     };
     responses: {
