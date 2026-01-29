@@ -137,6 +137,22 @@ export interface paths {
      */
     post: operations["createCategoryMetafield"];
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -285,6 +301,106 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /**
+     * Pagination
+     * @description Data about the response, including pagination and collection totals.
+     */
+    Pagination: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 36
+       */
+      total?: number;
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description The page you are currently on within the collection.
+       *
+       * @example 1
+       */
+      current_page?: number;
+      /**
+       * @description The total number of pages in the collection.
+       *
+       * @example 1
+       */
+      total_pages?: number;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /** @description Link to the previous page returned in the response. */
+        previous?: string;
+        /**
+         * @description Link to the current page returned in the response.
+         *
+         * @example ?page=1&limit=50
+         */
+        current?: string;
+        /** @description Link to the next page returned in the response. */
+        next?: string;
+      };
+    };
+    /**
+     * CursorPagination
+     * @description Data about the response, including cursor pagination and collection totals.
+     */
+    CursorPagination: {
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description Cursor that is referring to a start of current page.
+       *
+       * @example aWQ6Nw==
+       */
+      start_cursor?: string;
+      /**
+       * @description Cursor that is referring to a end of current page. Should be used to fetch next page.
+       *
+       * @example aWQ6Nw==
+       */
+      end_cursor?: string;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /**
+         * @description Cursor to the previous page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        previous?: string;
+        /**
+         * @description Cursor to the current page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        current?: string;
+        /**
+         * @description Cursor to the next page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        next?: string;
+      };
+    };
     /**
      * category_Full
      * @description Common Category object properties.
@@ -728,7 +844,7 @@ export interface components {
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse: {
       data?: components["schemas"]["Metafield"][];
-      meta?: components["schemas"]["CollectionMeta"];
+      meta?: components["schemas"]["BatchPaginationCollectionMeta"];
     };
     /** @description Response payload for the BigCommerce API. */
     MetaFieldCollectionResponse_POST_PUT: {
@@ -853,6 +969,15 @@ export interface components {
      * }
      */
     ErrorDetail: {
+      [key: string]: unknown;
+    };
+    /**
+     * Collection Meta
+     * @description Data about the response, including pagination and collection totals.
+     */
+    BatchPaginationCollectionMeta: {
+      pagination?: components["schemas"]["Pagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
       [key: string]: unknown;
     };
     /**
@@ -1019,6 +1144,10 @@ export interface components {
     };
   };
   parameters: {
+    /** @description A cursor indicating where to start retrieving the previous page of results. Use this parameter to paginate backward. Not required for the initial request. For subsequent requests, use the end_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the after parameter. */
+    BeforeCursorParam?: string;
+    /** @description A cursor indicating where to start retrieving the next page of results. Use this parameter to paginate forward. Not required for the initial request. For subsequent requests, use the start_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the before parameter. */
+    AfterCursorParam?: string;
     /** @description The ID of the `Category` to which the resource belongs. */
     CategoryIdParam: number;
     /** @description The ID of the `Metafield`. */
@@ -1714,6 +1843,20 @@ export interface operations {
   getCategoryMetafields: {
     parameters: {
       query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
         id?: components["parameters"]["IdMetafieldQueryParam"];
         "id:in"?: components["parameters"]["IdInParam"];
         "id:not_in"?: components["parameters"]["IdNotInParam"];
@@ -1721,10 +1864,6 @@ export interface operations {
         "id:max"?: components["parameters"]["IdMaxParam"];
         "id:greater"?: components["parameters"]["IdGreaterParam"];
         "id:less"?: components["parameters"]["IdLessParam"];
-        key?: components["parameters"]["MetafieldKeyParam"];
-        namespace?: components["parameters"]["MetafieldNamespaceParam"];
-        page?: components["parameters"]["PageParam"];
-        limit?: components["parameters"]["LimitParam"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
       };
@@ -1763,6 +1902,22 @@ export interface operations {
    */
   createCategoryMetafield: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
@@ -2213,6 +2368,8 @@ export interface operations {
         "date_modified:max"?: components["parameters"]["date_modified_max"];
         "date_created:min"?: components["parameters"]["date_created_min"];
         "date_created:max"?: components["parameters"]["date_created_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
       };
       header: {
         Accept: components["parameters"]["Accept"];

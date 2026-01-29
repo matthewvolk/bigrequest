@@ -394,52 +394,99 @@ export interface components {
      */
     Pagination: {
       /**
-       * Format: int32
        * @description Total number of items in the result set.
+       *
+       * @example 36
        */
       total?: number;
       /**
-       * Format: int32
        * @description Total number of items in the collection response.
+       *
+       * @example 36
        */
       count?: number;
       /**
-       * Format: int32
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
        */
       per_page?: number;
       /**
-       * Format: int32
        * @description The page you are currently on within the collection.
+       *
+       * @example 1
        */
       current_page?: number;
       /**
-       * Format: int32
        * @description The total number of pages in the collection.
+       *
+       * @example 1
        */
       total_pages?: number;
-      links?: components["schemas"]["Links"];
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /** @description Link to the previous page returned in the response. */
+        previous?: string;
+        /**
+         * @description Link to the current page returned in the response.
+         *
+         * @example ?page=1&limit=50
+         */
+        current?: string;
+        /** @description Link to the next page returned in the response. */
+        next?: string;
+      };
     };
     /**
-     * Cursor Pagination
-     * @description Data about cursor pagination.
+     * CursorPagination
+     * @description Data about the response, including cursor pagination and collection totals.
      */
     CursorPagination: {
       /**
-       * Format: int32
        * @description Total number of items in the collection response.
+       *
+       * @example 36
        */
       count?: number;
       /**
-       * Format: int32
        * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
        */
       per_page?: number;
-      /** @description A string representing the starting point of the current page in the collection */
+      /**
+       * @description Cursor that is referring to a start of current page.
+       *
+       * @example aWQ6Nw==
+       */
       start_cursor?: string;
-      /** @description A string representing the ending point of the current page in the collection. */
+      /**
+       * @description Cursor that is referring to a end of current page. Should be used to fetch next page.
+       *
+       * @example aWQ6Nw==
+       */
       end_cursor?: string;
-      links?: components["schemas"]["Links"];
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /**
+         * @description Cursor to the previous page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        previous?: string;
+        /**
+         * @description Cursor to the current page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        current?: string;
+        /**
+         * @description Cursor to the next page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        next?: string;
+      };
     };
     /**
      * _metaCollection
@@ -1537,55 +1584,8 @@ export interface components {
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
-      /**
-       * Pagination
-       * @description Data about the response, including pagination and collection totals.
-       */
-      pagination?: {
-        /**
-         * @description Total number of items in the result set.
-         *
-         * @example 36
-         */
-        total?: number;
-        /**
-         * @description Total number of items in the collection response.
-         *
-         * @example 36
-         */
-        count?: number;
-        /**
-         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *
-         * @example 50
-         */
-        per_page?: number;
-        /**
-         * @description The page you are currently on within the collection.
-         *
-         * @example 1
-         */
-        current_page?: number;
-        /**
-         * @description The total number of pages in the collection.
-         *
-         * @example 1
-         */
-        total_pages?: number;
-        /** @description Pagination links for the previous and next parts of the whole collection. */
-        links?: {
-          /** @description Link to the previous page returned in the response. */
-          previous?: string;
-          /**
-           * @description Link to the current page returned in the response.
-           *
-           * @example ?page=1&limit=50
-           */
-          current?: string;
-          /** @description Link to the next page returned in the response. */
-          next?: string;
-        };
-      };
+      pagination?: components["schemas"]["Pagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
       [key: string]: unknown;
     };
     /** @description Common Metafield properties. */
@@ -2170,6 +2170,10 @@ export interface components {
     };
   };
   parameters: {
+    /** @description A cursor indicating where to start retrieving the previous page of results. Use this parameter to paginate backward. Not required for the initial request. For subsequent requests, use the end_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the after parameter. */
+    BeforeCursorParam?: string;
+    /** @description A cursor indicating where to start retrieving the next page of results. Use this parameter to paginate forward. Not required for the initial request. For subsequent requests, use the start_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the before parameter. */
+    AfterCursorParam?: string;
     /** @description The ID of the metafield belonging to the customer. The metafieldId is a generated response when sending a POST query to the Create a Customer Metafields endpoint. */
     metafieldId: number;
     /** @description The ID of the customer. */
@@ -3156,6 +3160,22 @@ export interface operations {
    */
   getCustomersMetafields: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
+      };
       path: {
         customerId: components["parameters"]["customerId"];
       };
@@ -3345,6 +3365,8 @@ export interface operations {
         "date_modified:max"?: components["parameters"]["date_modified_max"];
         "date_created:min"?: components["parameters"]["date_created_min"];
         "date_created:max"?: components["parameters"]["date_created_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
       };
     };
     responses: {
