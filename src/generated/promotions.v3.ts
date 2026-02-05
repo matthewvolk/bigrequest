@@ -252,15 +252,8 @@ export interface components {
      */
     PatchCouponPromotion: components["schemas"]["PromotionBase"] & ({
       codes?: components["schemas"]["CouponCode"];
-      /**
-       * @description This field only has effect when `can_be_used_with_other_promotions` is `false`:
-       * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
-       * - When the property is set to `fasle`, the coupon will not be applied if automatic promotions are already applied.
-       * Trying to set the value of this field to `true` when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
-       * @default false
-       * @example false
-       */
-      coupon_overrides_automatic_when_offering_higher_discounts?: boolean;
+      coupon_overrides_other_promotions?: components["schemas"]["CouponOverridesOtherPromotions"];
+      coupon_overrides_automatic_when_offering_higher_discounts?: components["schemas"]["CouponOverridesAutomaticWhenOfferingHigherDiscounts"];
       /**
        * @description The type of the coupon promotion, whether it will have single or multiple codes.
        *
@@ -275,15 +268,9 @@ export interface components {
      * @description A draft **Coupon Promotion** to be created. A shopper must manually apply a *coupon promotion* to their cart.
      */
     DraftCouponPromotion: components["schemas"]["PromotionBase"] & ({
-      /**
-       * @description This field only has effect when `can_be_used_with_other_promotions` is `false`:
-       * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
-       * - When the property is set to `fasle`, the coupon will not be applied if automatic promotions are already applied.
-       * Trying to set the value of this field when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
-       * @default false
-       * @example false
-       */
-      coupon_overrides_automatic_when_offering_higher_discounts?: boolean;
+      codes?: components["schemas"]["CouponCode"];
+      coupon_overrides_other_promotions?: components["schemas"]["CouponOverridesOtherPromotions"];
+      coupon_overrides_automatic_when_offering_higher_discounts?: components["schemas"]["CouponOverridesAutomaticWhenOfferingHigherDiscounts"];
       /**
        * @description The type of the promotion. Promotions applied automatically have a value of `AUTOMATIC` whereas promotions requiring a coupon have a value of `COUPON`.
        * @enum {string}
@@ -309,16 +296,8 @@ export interface components {
       id?: number;
       created_from?: components["schemas"]["CreatedFrom"];
       codes?: components["schemas"]["CouponCode"];
-      /**
-       * @description This field only has effect when the `redemption_type` is `COUPON` and `can_be_used_with_other_promotions` is `false`:
-       * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
-       * - When the property is set to `fasle`, the coupon will not be applied if automatic promotions are already applied.
-       *
-       * Trying to set the value of this field to `true` when the `redemption_type` is not `COUPON`, or when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
-       * @default false
-       * @example false
-       */
-      coupon_overrides_automatic_when_offering_higher_discounts?: boolean;
+      coupon_overrides_other_promotions?: components["schemas"]["CouponOverridesOtherPromotions"];
+      coupon_overrides_automatic_when_offering_higher_discounts?: components["schemas"]["CouponOverridesAutomaticWhenOfferingHigherDiscounts"];
       /**
        * @description The type of the promotion. Promotions applied automatically have a value of `AUTOMATIC` whereas promotions requiring a coupon have a value of `COUPON`.
        * @enum {string}
@@ -337,7 +316,7 @@ export interface components {
        * @enum {string}
        */
       coupon_type?: "SINGLE" | "BULK";
-    }), "id" | "name" | "channels" | "created_from" | "customer" | "rules" | "notifications" | "stop" | "currency_code" | "redemption_type" | "current_uses" | "start_date" | "status" | "can_be_used_with_other_promotions" | "coupon_overrides_automatic_when_offering_higher_discounts" | "coupon_type">;
+    }), "id" | "name" | "channels" | "created_from" | "customer" | "rules" | "notifications" | "stop" | "currency_code" | "redemption_type" | "current_uses" | "start_date" | "status" | "can_be_used_with_other_promotions" | "coupon_overrides_other_promotions" | "coupon_type">;
     /**
      * Patch Automatic Promotion
      * @description A Partial **Automatic Promotion** that contains properties to patch.
@@ -1146,6 +1125,28 @@ export interface components {
     NotCustomerSegmentLimitation3: {
       not: components["schemas"]["CustomerSegmentIdLimitation"];
     };
+    /**
+     * CouponOverridesAutomaticWhenOfferingHigherDiscounts
+     * @deprecated
+     * @description This property has been deprecated and `coupon_overrides_other_promotions` should be used instead.
+     * This field only has effect when the `redemption_type` is `COUPON` and `can_be_used_with_other_promotions` is `false`:
+     * - When the property is set to `true`, the coupon will override the applied automatic promotions if it provides a greater discount.
+     * - When the property is set to `false`, the coupon will not be applied if automatic promotions are already applied.
+     * Trying to set the value of this field to `true` when the `redemption_type` is not `COUPON`, or when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
+     * @default false
+     * @example false
+     */
+    CouponOverridesAutomaticWhenOfferingHigherDiscounts: boolean;
+    /**
+     * CouponOverridesOtherPromotions
+     * @description - When this property is set to `true`, the coupon will always override all applied promotions, including both automatic and coupon promotions.
+     * - When this property is set to `false`, the coupon will not be applied if any promotions are already applied.
+     *
+     * N.B.: This field only has effect when `can_be_used_with_other_promotions` is `false`. Trying to set the value of this field when `can_be_used_with_other_promotions` is `true` will yield a 422 error response.
+     * @default false
+     * @example false
+     */
+    CouponOverridesOtherPromotions: boolean;
     /** Channel */
     Channel: {
       /** @example 1 */
