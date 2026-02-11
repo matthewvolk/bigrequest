@@ -99,6 +99,36 @@ export interface components {
           amount?: number;
         }[];
       taxTotal?: number;
+      /**
+       * @description The total amount of all discounts applied to the order.
+       * @example 25.5
+       */
+      totalDiscount?: number;
+      /**
+       * @description The total discount amount to display to the shopper, which excludes the product-level automatic discounts and shipping automatic discounts.
+       * @example 25.5
+       */
+      displayDiscountTotal?: number;
+      /**
+       * @description Total discount amount from automatic promotions applied at the order level.
+       * @example 10
+       */
+      orderBasedAutoDiscountTotal?: number;
+      /**
+       * @description Total discount amount from manually applied discounts.
+       * @example 5
+       */
+      manualDiscountTotal?: number;
+      /**
+       * @description Subtotal of all line items after automatic product-level discounts have been applied.
+       * @example 89.5
+       */
+      productAutoDiscountedSubtotal?: number;
+      /**
+       * @description Total discount amount from automatic product-level discounts.
+       * @example 10.5
+       */
+      productBasedAutoDiscountTotal?: number;
       /** @description ID of the channel which the order belongs to. */
       channelId?: number;
       consignments?: components["schemas"]["Consignments"];
@@ -432,78 +462,6 @@ export interface components {
       extendedSalePrice?: number;
       /** @description the product type - physical or digital */
       type?: string;
-    };
-    order_Nate: {
-      orderId?: number;
-      cartId?: string;
-      currency?: {
-        name?: string;
-        code?: string;
-        symbol?: string;
-        decimalPlaces?: number;
-      };
-      isTaxIncluded?: boolean;
-      baseAmount?: number;
-      discountAmount?: number;
-      orderAmount?: number;
-      orderAmountAsInteger?: number;
-      shippingCostTotal?: number;
-      shippingCostBeforeDiscount?: number;
-      handlingCostTotal?: number;
-      coupons?: Record<string, never>[];
-      lineItems?: {
-        physicalItems?: {
-            id?: number;
-            productId?: number;
-            name?: string;
-            sku?: string;
-            quantity?: number;
-            isTaxable?: boolean;
-            imageUrl?: string;
-            discounts?: Record<string, never>[];
-            discountAmount?: number;
-            /** @description The product's brand. */
-            brand?: string;
-            listPrice?: number;
-            salePrice?: number;
-            extendedListPrice?: number;
-            extendedSalePrice?: number;
-            extendedComparisonPrice?: number;
-            categories?: Record<string, never>[];
-            type?: string;
-            variantId?: number;
-          }[];
-        digitalItems?: Record<string, never>[];
-        giftCertificates?: Record<string, never>[];
-      };
-      customerId?: number;
-      billingAddress?: {
-        firstName?: string;
-        lastName?: string;
-        email?: string;
-        company?: string;
-        address1?: string;
-        address2?: string;
-        city?: string;
-        stateOrProvince?: string;
-        stateOrProvinceCode?: string;
-        country?: string;
-        countryCode?: string;
-        postalCode?: string;
-        phone?: string;
-        customFields?: Record<string, never>[];
-      };
-      status?: string;
-      customerCanBeCreated?: boolean;
-      hasDigitalItems?: boolean;
-      isDownloadable?: boolean;
-      isComplete?: boolean;
-      customerMessage?: string;
-      taxes?: {
-          name?: string;
-          amount?: number;
-        }[];
-      taxTotal?: number;
     };
     /**
      * Consignments
