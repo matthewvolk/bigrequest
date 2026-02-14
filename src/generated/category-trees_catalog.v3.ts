@@ -215,7 +215,7 @@ export interface components {
     };
     CategoryTree: {
       data?: components["schemas"]["Tree"][];
-      meta?: components["schemas"]["metaEmpty_Full"];
+      meta?: components["schemas"]["MetaData"];
     };
     MetaPagination: {
       pagination?: {
