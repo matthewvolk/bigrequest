@@ -450,6 +450,22 @@ export interface paths {
      */
     post: operations["createProductMetafield"];
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
       };
@@ -657,6 +673,106 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /**
+     * Pagination
+     * @description Data about the response, including pagination and collection totals.
+     */
+    Pagination: {
+      /**
+       * @description Total number of items in the result set.
+       *
+       * @example 36
+       */
+      total?: number;
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description The page you are currently on within the collection.
+       *
+       * @example 1
+       */
+      current_page?: number;
+      /**
+       * @description The total number of pages in the collection.
+       *
+       * @example 1
+       */
+      total_pages?: number;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /** @description Link to the previous page returned in the response. */
+        previous?: string;
+        /**
+         * @description Link to the current page returned in the response.
+         *
+         * @example ?page=1&limit=50
+         */
+        current?: string;
+        /** @description Link to the next page returned in the response. */
+        next?: string;
+      };
+    };
+    /**
+     * CursorPagination
+     * @description Data about the response, including cursor pagination and collection totals.
+     */
+    CursorPagination: {
+      /**
+       * @description Total number of items in the collection response.
+       *
+       * @example 36
+       */
+      count?: number;
+      /**
+       * @description The amount of items returned in the collection per page, controlled by the limit parameter.
+       *
+       * @example 50
+       */
+      per_page?: number;
+      /**
+       * @description Cursor that is referring to a start of current page.
+       *
+       * @example aWQ6Nw==
+       */
+      start_cursor?: string;
+      /**
+       * @description Cursor that is referring to a end of current page. Should be used to fetch next page.
+       *
+       * @example aWQ6Nw==
+       */
+      end_cursor?: string;
+      /** @description Pagination links for the previous and next parts of the whole collection. */
+      links?: {
+        /**
+         * @description Cursor to the previous page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        previous?: string;
+        /**
+         * @description Cursor to the current page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        current?: string;
+        /**
+         * @description Cursor to the next page returned in the response.
+         *
+         * @example ?page=1&after=aWQ6Nw%3D%3D
+         */
+        next?: string;
+      };
+    };
     modifierCondition: {
       /**
        * @description Use the [get all product modifiers](/docs/rest-catalog/product-modifiers#get-all-product-modifiers) endpoint to determine the `option_values` `id`. The `option_values` `id` is the `modifier_value_id`.
@@ -1355,8 +1471,7 @@ export interface components {
     /** bulkPricingRule_Full */
     bulkPricingRule_Full: {
       /**
-       * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. For `fixed` rules, the minimum quantity canʼt be less than two.
-       * Required in /POST.
+       * @description The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero. Required in /POST.
        *
        * @example 10
        */
@@ -1705,6 +1820,19 @@ export interface components {
        * @description The date on which the product image was modified.
        */
       date_modified?: string;
+    };
+    /** ParentRelation */
+    ParentRelation: {
+      /**
+       * @description Type of relation
+       *
+       * @enum {string}
+       */
+      type?: "variant_option" | "modifier";
+      /** @description The unique numerical ID of the parent product that is related to this product as a variant or a modifier. */
+      product_id?: number;
+      /** @description The unique numeric ID of the variant option or modifier that defines the relationship between the parent product and this product. */
+      attribute_id?: number;
     };
     /**
      * product_Put_Collection
@@ -2571,6 +2699,8 @@ export interface components {
        * The [YouTube Terms of Service](https://www.youtube.com/t/terms) and [Google Privacy Policy](https://policies.google.com/privacy) apply, as indicated in our [Privacy Policy](https://www.bigcommerce.com/privacy/) and [Terms of Service](https://www.bigcommerce.com/terms/).
        */
       videos?: components["schemas"]["productVideo_Full"][];
+      /** @description An array of parent relations for this product. Returns an empty array if there are no parent relations. This field is only populated when the `parent_relations` value is included in the `include` query parameter. */
+      parent_relations?: readonly components["schemas"]["ParentRelation"][];
     };
     /** metafield_Full */
     metafield_Full: {
@@ -2900,55 +3030,8 @@ export interface components {
      * @description Data about the response, including pagination and collection totals.
      */
     CollectionMeta: {
-      /**
-       * Pagination
-       * @description Data about the response, including pagination and collection totals.
-       */
-      pagination?: {
-        /**
-         * @description Total number of items in the result set.
-         *
-         * @example 36
-         */
-        total?: number;
-        /**
-         * @description Total number of items in the collection response.
-         *
-         * @example 36
-         */
-        count?: number;
-        /**
-         * @description The amount of items returned in the collection per page, controlled by the limit parameter.
-         *
-         * @example 50
-         */
-        per_page?: number;
-        /**
-         * @description The page you are currently on within the collection.
-         *
-         * @example 1
-         */
-        current_page?: number;
-        /**
-         * @description The total number of pages in the collection.
-         *
-         * @example 1
-         */
-        total_pages?: number;
-        /** @description Pagination links for the previous and next parts of the whole collection. */
-        links?: {
-          /** @description Link to the previous page returned in the response. */
-          previous?: string;
-          /**
-           * @description Link to the current page returned in the response.
-           *
-           * @example ?page=1&limit=50
-           */
-          current?: string;
-          /** @description Link to the next page returned in the response. */
-          next?: string;
-        };
-      };
+      pagination?: components["schemas"]["Pagination"];
+      cursor_pagination?: components["schemas"]["CursorPagination"];
       [key: string]: unknown;
     };
     /** @description Common Metafield properties. */
@@ -3247,6 +3330,10 @@ export interface components {
     };
   };
   parameters: {
+    /** @description A cursor indicating where to start retrieving the previous page of results. Use this parameter to paginate backward. Not required for the initial request. For subsequent requests, use the end_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the after parameter. */
+    BeforeCursorParam?: string;
+    /** @description A cursor indicating where to start retrieving the next page of results. Use this parameter to paginate forward. Not required for the initial request. For subsequent requests, use the start_cursor value returned in meta.cursor_pagination from the previous response. Works with limit, direction, and other supported query parameters. When specified, offset-based pagination (page) is ignored. Cannot be used in combination with the before parameter. */
+    AfterCursorParam?: string;
     /** @description The ID of the `Product` to which the resource belongs. */
     ProductIdParam: number;
     /** @description The ID of the `review` that is being operated on. */
@@ -5879,7 +5966,17 @@ export interface operations {
         page?: components["parameters"]["PageParam"];
         limit?: components["parameters"]["LimitParam"];
         key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
         namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
         include_fields?: components["parameters"]["IncludeFieldsParam"];
         exclude_fields?: components["parameters"]["ExcludeFieldsParam"];
         "resource_id:in"?: components["parameters"]["MetafieldResourceParam"];
@@ -5916,6 +6013,22 @@ export interface operations {
    */
   createProductMetafield: {
     parameters: {
+      query?: {
+        page?: components["parameters"]["PageParam"];
+        limit?: components["parameters"]["LimitParam"];
+        key?: components["parameters"]["MetafieldKeyParam"];
+        "key:in"?: components["parameters"]["MetafieldKeyInParam"];
+        namespace?: components["parameters"]["MetafieldNamespaceParam"];
+        "namespace:in"?: components["parameters"]["MetafieldNamespaceInParam"];
+        direction?: components["parameters"]["DirectionParam"];
+        include_fields?: components["parameters"]["IncludeFieldsParamMetafields"];
+        "date_created:min"?: components["parameters"]["date_created_min"];
+        "date_created:max"?: components["parameters"]["date_created_max"];
+        "date_modified:min"?: components["parameters"]["date_modified_min"];
+        "date_modified:max"?: components["parameters"]["date_modified_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
+      };
       header: {
         Accept: components["parameters"]["Accept"];
         "Content-Type": components["parameters"]["ContentType"];
@@ -6828,6 +6941,8 @@ export interface operations {
         "date_modified:max"?: components["parameters"]["date_modified_max"];
         "date_created:min"?: components["parameters"]["date_created_min"];
         "date_created:max"?: components["parameters"]["date_created_max"];
+        before?: components["parameters"]["BeforeCursorParam"];
+        after?: components["parameters"]["AfterCursorParam"];
       };
     };
     responses: {
