@@ -65,6 +65,12 @@ export interface components {
          * Merchants may enable any **configured** tax provider for storefront tax quotation.
          */
         configured?: boolean;
+        /**
+         * @description When supported by the tax provider configuration, the profile value is used to generate a unique Tax Provider API request URL for this connection.
+         *
+         * If not set, this value will be blank. Please ensure merchants set this value if using dynamic request URLs, blank values cannot generate valid URLs.
+         */
+        profile?: string;
         /** @description The countries and subdivisions in which this tax provider connection is active. */
         target?: {
           /**
