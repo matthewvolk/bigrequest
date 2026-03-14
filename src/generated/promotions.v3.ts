@@ -974,7 +974,7 @@ export interface components {
        * @description A unique, 16-character code that can be used to manually apply a discount. The code consists of randomly generated capital letters and numbers.
        * @example OMHYFQ4S26EY63UW
        */
-      code?: string;
+      code: string;
     };
     /**
      * Bulk Action Response Meta
@@ -1168,7 +1168,7 @@ export interface components {
     BulkCouponCodesResponse: {
       content: {
         "application/json": {
-          data?: {
+          data: {
             /**
              * Format: date-time
              * @description The date and time when the codes were created.
@@ -1618,6 +1618,42 @@ export interface operations {
            * @example 5
            */
           max_uses_per_customer?: number;
+          /**
+           * @description The fixed text that will appear at the beginning of every generated coupon code. Only capital letters, numbers, underscores and hyphens are allowed.
+           * @example PRE
+           */
+          prefix?: string;
+          /**
+           * @description The fixed text that will appear at the end of every generated coupon code. Only capital letters, numbers, underscores and hyphens are allowed.
+           * @example POST
+           */
+          suffix?: string;
+          /**
+           * @description An optional single character (_ or -) that will be placed between the prefix and the randomly generated code, and again between the randomly generated code and the suffix. It will only be applied if a valid prefix or suffix is present.
+           * @example _
+           */
+          delimiter?: string;
+          /**
+           * @description An optional array of single length string elements to exclude from the randomly generated part. Only capital letters and numbers are allowed. The default value is an empty array [].
+           * @example [
+           *   "1",
+           *   "2",
+           *   "3",
+           *   "4",
+           *   "5",
+           *   "A",
+           *   "B",
+           *   "C",
+           *   "D",
+           *   "E"
+           * ]
+           */
+          exclude_characters?: string[];
+          /**
+           * @description The length of the random string to be generated for each coupon code. The value must be between 6 and 16. The default length is 16. The total length of each generated coupon code is calculated as `code_length + length of prefix with delimiter + length of suffix with delimiter`. The maximum total length of a coupon code is 50.
+           * @example 10
+           */
+          code_length?: number;
         };
       };
     };
