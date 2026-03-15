@@ -65,6 +65,7 @@ export interface paths {
      * **Usage Notes**
      * * Channel ID in the `channels` field is required to create a category tree. You can only assign a category tree to one channel.
      * * The `channels` field must be absent when updating a category tree. This field is currently unsupported during a category tree update.
+     * * Batches are limited to 50 trees.
      */
     put: operations["upsertCategoryTrees"];
     /**
@@ -714,6 +715,7 @@ export interface operations {
    * **Usage Notes**
    * * Channel ID in the `channels` field is required to create a category tree. You can only assign a category tree to one channel.
    * * The `channels` field must be absent when updating a category tree. This field is currently unsupported during a category tree update.
+   * * Batches are limited to 50 trees.
    */
   upsertCategoryTrees: {
     parameters: {
@@ -736,6 +738,11 @@ export interface operations {
       };
       401: components["responses"]["UnauthorizedError"];
       403: components["responses"]["GeneralError"];
+      413: {
+        content: {
+          "application/json": unknown;
+        };
+      };
       /** @description The Channel was not valid. See the response for more details. */
       422: {
         content: {
