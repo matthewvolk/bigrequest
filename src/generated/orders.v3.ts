@@ -836,8 +836,24 @@ export interface components {
        * @description The date/time of the transaction in ISO-8601 format.
        */
       date_created?: string;
-      /** @description This field contains internal BigPay token for stored card that is then mapped to the actual third-party token. We currently do not offer a way to get third party tokens.These tokens are read-only and do not return any information about the payment. */
+      /** @description This field contains the internal BigPay token for the stored card, mapped to the third-party token. When the optional feature to expose provider tokens is enabled, the payment provider's instrument token and customer identifier are exposed via `provider_instrument_token` and `provider_customer_id`. These tokens are read-only and do not return any information about the payment. */
       payment_instrument_token?: string | null;
+      /**
+       * @description **(Beta)**
+       *
+       * The payment provider's instrument token associated with the stored instrument used to process this transaction, if applicable.
+       *
+       * **Note:** This field is connected to an optional feature and may not be returned when using this endpoint. If your implementation requires access to this field, please reach out to support or your account manager to enable the inclusion of a provider token here.
+       */
+      provider_instrument_token?: string | null;
+      /**
+       * @description **(Beta)**
+       *
+       * The payment provider's customer identifier associated with the stored instrument used to process this transaction, if applicable.
+       *
+       * **Note:** This field is connected to an optional feature and may not be returned when using this endpoint. If your implementation requires access to this field, please reach out to support or your account manager to enable the inclusion of a provider customer id here.
+       */
+      provider_customer_id?: string | null;
       /**
        * AVS Results
        * @description Address Verification Service (AVS) result from the payment gateway.
