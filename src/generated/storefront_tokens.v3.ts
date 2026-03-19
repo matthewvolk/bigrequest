@@ -12,7 +12,9 @@ export interface paths {
   "/storefront/api-token": {
     /**
      * Create a Token
-     * @description Creates a Storefront API token.
+     * @description Creates a Storefront API token. This endpoint creates storefront tokens that support CORS via `allowed_cors_origins` and are intended for browser-based applications.
+     *
+     * For server-to-server integrations, you must use the [private token endpoint](#operation/createPrivateToken) instead.
      *
      * **Required Scopes**
      * * `Manage` `Storefront API Tokens`
@@ -22,9 +24,26 @@ export interface paths {
     post: operations["createToken"];
     /**
      * Revoke a Token
-     * @description Revoke access for a Storefront API token. Only revoke compromised tokens under emergency situations. Let uncompromised short-lived tokens expire naturally, as you do not need to revoke these.
+     * @description Revoke access for a storefront API token or a private API token. Only revoke compromised tokens under emergency situations. Let uncompromised short-lived tokens expire naturally, as you do not need to revoke these.
      */
     delete: operations["revokeToken"];
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+      };
+    };
+  };
+  "/storefront/api-token-private": {
+    /**
+     * Create a Private API Token
+     * @description Creates a private token for server-to-server integrations. Private tokens are always stateless (no session required) and provide better performance for server-to-server use cases. The API will reject private token-authenticated requests that originate from web browsers.
+     *
+     * **Required Scopes**
+     * * `Manage` `Storefront API Tokens`
+     *
+     * > NOTE: While neither `channel_id` nor `channel_ids` is labelled as required, one must be included in the request body. Including neither will throw an error, and including both will result in unexpected behaviors.
+     */
+    post: operations["createPrivateToken"];
     parameters: {
       header: {
         Accept: components["parameters"]["Accept"];
@@ -61,6 +80,10 @@ export interface components {
        */
       expires_at: number;
     } & components["schemas"]["Channels"] & components["schemas"]["Channel"], "expires_at">;
+    TokenPostPrivate: components["schemas"]["TokenPostImpersonation"] & ({
+      /** @description Access scope identifiers. Required for private tokens. Include all scopes required by the GraphQL fields you need. See [Private token access scopes](/docs/start/authentication/graphql-storefront#private-token-access-scopes). */
+      scopes: ("Unauthenticated" | "Customer" | "B2B")[];
+    });
     TokenPostSimple: {
       /** @description List of allowed domains for Cross-Origin Request Sharing. Currently accepts a maximum of two domains per created token. */
       allowed_cors_origins?: string[];
@@ -136,7 +159,9 @@ export interface operations {
 
   /**
    * Create a Token
-   * @description Creates a Storefront API token.
+   * @description Creates a Storefront API token. This endpoint creates storefront tokens that support CORS via `allowed_cors_origins` and are intended for browser-based applications.
+   *
+   * For server-to-server integrations, you must use the [private token endpoint](#operation/createPrivateToken) instead.
    *
    * **Required Scopes**
    * * `Manage` `Storefront API Tokens`
@@ -180,7 +205,7 @@ export interface operations {
   };
   /**
    * Revoke a Token
-   * @description Revoke access for a Storefront API token. Only revoke compromised tokens under emergency situations. Let uncompromised short-lived tokens expire naturally, as you do not need to revoke these.
+   * @description Revoke access for a storefront API token or a private API token. Only revoke compromised tokens under emergency situations. Let uncompromised short-lived tokens expire naturally, as you do not need to revoke these.
    */
   revokeToken: {
     parameters: {
@@ -191,7 +216,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description A storefront API token revocation has been scheduled. */
+      /** @description A storefront API token or private API token revocation has been scheduled. */
       200: {
         content: {
         };
@@ -207,6 +232,50 @@ export interface operations {
         };
       };
       /** @description Invalid JWT Token provided or missing JWT token header */
+      422: {
+        content: {
+        };
+      };
+    };
+  };
+  /**
+   * Create a Private API Token
+   * @description Creates a private token for server-to-server integrations. Private tokens are always stateless (no session required) and provide better performance for server-to-server use cases. The API will reject private token-authenticated requests that originate from web browsers.
+   *
+   * **Required Scopes**
+   * * `Manage` `Storefront API Tokens`
+   *
+   * > NOTE: While neither `channel_id` nor `channel_ids` is labelled as required, one must be included in the request body. Including neither will throw an error, and including both will result in unexpected behaviors.
+   */
+  createPrivateToken: {
+    parameters: {
+      header: {
+        Accept: components["parameters"]["Accept"];
+        "Content-Type": components["parameters"]["ContentType"];
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TokenPostPrivate"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["Token_Full"];
+        };
+      };
+      /** @description Unauthorized - the v3 Auth client ID or token in the request are not a valid combination for this store. */
+      401: {
+        content: {
+        };
+      };
+      /** @description Missing scope - the v3 Auth token is valid but does not have proper permissions to access this endpoint. */
+      403: {
+        content: {
+        };
+      };
+      /** @description Invalid JSON request body - missing or invalid data. */
       422: {
         content: {
         };
