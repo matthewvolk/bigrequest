@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["openapi-typescript-helpers", "node"]
+  },
+  "include": ["src/**/*.test.ts"],
+  "exclude": []
+}
