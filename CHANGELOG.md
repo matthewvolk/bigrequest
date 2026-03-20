@@ -1,5 +1,11 @@
 # bigrequest
 
+## 0.0.71
+
+### Patch Changes
+
+- [#902](https://github.com/matthewvolk/bigrequest/pull/902) [`7ebfdac`](https://github.com/matthewvolk/bigrequest/commit/7ebfdac85f7b93589c43720a558ca8b0bfd1cf1a) Thanks [@JustinHillFeedo](https://github.com/JustinHillFeedo)! - Fix array query parameter serialization for BigCommerce API compatibility. Arrays are now serialized as CSV (`type:in=marketing,marketplace`) instead of using repeated keys (`type:in=marketing&type:in=marketplace`), which BigCommerce silently ignores beyond the first value.
+
 ## 0.0.70
 
 ### Patch Changes
