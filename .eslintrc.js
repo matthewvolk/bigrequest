@@ -13,5 +13,15 @@ module.exports = {
         '@typescript-eslint/naming-convention': ['off'],
       },
     },
+    {
+      files: ['**/*.test.ts'],
+      parserOptions: {
+        project: require('path').join(__dirname, 'tsconfig.test.json'),
+      },
+      rules: {
+        '@typescript-eslint/no-unsafe-call': 'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+      },
+    },
   ],
 };

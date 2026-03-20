@@ -1,7 +1,8 @@
 import { oauth } from './oauth';
-import { rest } from './rest';
+import { bigcommerceQuerySerializer, rest } from './rest';
 
 const bigrequest = {
+  bigcommerceQuerySerializer,
   oauth,
   rest,
 };

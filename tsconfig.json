@@ -10,5 +10,6 @@
     "skipLibCheck": true,
     "types": ["openapi-typescript-helpers"]
   },
-  "include": ["src/**/*.ts", "tsup.config.ts"]
+  "include": ["src/**/*.ts", "tsup.config.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }
