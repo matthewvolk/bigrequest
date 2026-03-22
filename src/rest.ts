@@ -1,4 +1,4 @@
-import createClient from 'openapi-fetch';
+import { createPathBasedClient } from 'openapi-fetch';
 import { z } from 'zod';
 
 import { BigRequestError } from './error';
@@ -51,12 +51,12 @@ export const rest = ({ storeHash, accessToken }: { storeHash: string; accessToke
   }
 
   return {
-    v2: createClient<v2paths>({
+    v2: createPathBasedClient<v2paths>({
       baseUrl: `https://api.bigcommerce.com/stores/${restConfig.data.storeHash}/v2`,
       headers: { 'x-auth-token': restConfig.data.accessToken },
       querySerializer: bigcommerceQuerySerializer,
     }),
-    v3: createClient<v3paths>({
+    v3: createPathBasedClient<v3paths>({
       baseUrl: `https://api.bigcommerce.com/stores/${restConfig.data.storeHash}/v3`,
       headers: { 'x-auth-token': restConfig.data.accessToken },
       querySerializer: bigcommerceQuerySerializer,
