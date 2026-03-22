@@ -1,5 +1,38 @@
 # bigrequest
 
+## 0.0.72
+
+### Patch Changes
+
+- [#904](https://github.com/matthewvolk/bigrequest/pull/904) [`ab5e70a`](https://github.com/matthewvolk/bigrequest/commit/ab5e70a8b29e3c44fd8a3d855e7c7a4f8f682b39) Thanks [@matthewvolk](https://github.com/matthewvolk)! - Switch REST client from method-based to path-based API via `createPathBasedClient` from `openapi-fetch`. The call syntax changes from method-first to path-first:
+
+  **Before:**
+
+  ```ts
+  const client = bigrequest.rest({ storeHash, accessToken });
+  const res = await client.v3.GET('/content/scripts');
+  await client.v3.POST('/content/scripts', { body: { name: 'My Script' } });
+  await client.v3.PUT(`/content/scripts/${uuid}`, { body: { html: '...' } });
+  await client.v3.DELETE(`/content/scripts/${uuid}`);
+  ```
+
+  **After:**
+
+  ```ts
+  const client = bigrequest.rest({ storeHash, accessToken });
+  const res = await client.v3['/content/scripts'].GET();
+  await client.v3['/content/scripts'].POST({ body: { name: 'My Script' } });
+  await client.v3['/content/scripts/{uuid}'].PUT({
+    params: { path: { uuid } },
+    body: { html: '...' },
+  });
+  await client.v3['/content/scripts/{uuid}'].DELETE({
+    params: { path: { uuid } },
+  });
+  ```
+
+  Path parameters now use the OpenAPI template syntax (`{uuid}`) with a `params.path` object instead of JS template literal interpolation.
+
 ## 0.0.71
 
 ### Patch Changes
