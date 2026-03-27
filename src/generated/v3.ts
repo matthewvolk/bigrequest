@@ -15,6 +15,7 @@ import * as checkouts_v3 from './checkouts.v3';
 import * as custom_template_associations_v3 from './custom-template-associations.v3';
 import * as customers_v3 from './customers.v3';
 import * as email_templates_v3 from './email_templates.v3';
+import * as infrastructure_hosting_v3 from './infrastructure_hosting.v3';
 import * as inventory_v3 from './inventory.v3';
 import * as locations_v3 from './locations.v3';
 import * as orders_v3 from './orders.v3';
@@ -66,6 +67,7 @@ checkouts_v3.paths &
 custom_template_associations_v3.paths &
 customers_v3.paths &
 email_templates_v3.paths &
+infrastructure_hosting_v3.paths &
 inventory_v3.paths &
 locations_v3.paths &
 orders_v3.paths &
