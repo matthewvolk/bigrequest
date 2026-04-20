@@ -504,6 +504,41 @@ export interface components {
     Meta: {
       [key: string]: unknown;
     };
+    /**
+     * Service Unavailable Error
+     * @description Returned when the service is temporarily unavailable.
+     */
+    ServiceUnavailableError: {
+      /** @description Top-level error wrapper. */
+      error?: {
+        /**
+         * @description Error code identifying the type of failure.
+         * @example SERVICE_DEGRADED
+         */
+        code?: string;
+        /**
+         * @description Human-readable summary of the error.
+         * @example Service temporarily unavailable
+         */
+        message?: string;
+        /**
+         * @description Additional information about the error.
+         * @example We're unable to process your request right now, please retry later
+         */
+        details?: string;
+        /**
+         * @description Number of seconds to wait before retrying the request.
+         * @example 30
+         */
+        retry_after_seconds?: number;
+        /**
+         * Format: date-time
+         * @description ISO 8601 timestamp of when the error occurred.
+         * @example 2024-01-01T00:00:00.000Z
+         */
+        timestamp?: string;
+      };
+    };
     /** Error Response */
     ErrorResponse: {
       /** @description The HTTP status code. */
@@ -832,6 +867,12 @@ export interface operations {
           } | null;
         };
       };
+      /** @description Service temporarily unavailable. */
+      503: {
+        content: {
+          "application/json": components["schemas"]["ServiceUnavailableError"];
+        };
+      };
     };
   };
   /**
@@ -1039,6 +1080,12 @@ export interface operations {
       /** @description Action has been enacted and no further information is to be supplied. `null` is returned. */
       204: {
         content: never;
+      };
+      /** @description Service temporarily unavailable. */
+      503: {
+        content: {
+          "application/json": components["schemas"]["ServiceUnavailableError"];
+        };
       };
     };
   };
@@ -1741,6 +1788,12 @@ export interface operations {
           };
         };
       };
+      /** @description Service temporarily unavailable. */
+      503: {
+        content: {
+          "application/json": components["schemas"]["ServiceUnavailableError"];
+        };
+      };
     };
   };
   /**
@@ -2399,6 +2452,12 @@ export interface operations {
     responses: {
       204: {
         content: {
+        };
+      };
+      /** @description Service temporarily unavailable. */
+      503: {
+        content: {
+          "application/json": components["schemas"]["ServiceUnavailableError"];
         };
       };
     };
