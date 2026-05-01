@@ -441,8 +441,16 @@ export interface components {
           /** @description Text displayed on the storefront for the promotion. */
           text?: string;
         })[];
-      /** @description The shipping cost before discounts are applied. */
+      /**
+       * Format: float
+       * @description Total shipping cost for the checkout before discounts are applied.
+       */
       shippingCostBeforeDiscount?: number;
+      /**
+       * Format: float
+       * @description Total shipping cost for the checkout after automatic promotions are applied.
+       */
+      comparisonShippingCost?: number;
       /**
        * Format: float
        * @description Shipping cost before any discounts are applied.
@@ -694,6 +702,16 @@ export interface components {
        * @description The shipping cost for this consignment.
        */
       shippingCost?: number;
+      /**
+       * Format: double
+       * @description This consignment's shipping cost before discounts are applied.
+       */
+      shippingCostBeforeDiscount?: number;
+      /**
+       * Format: double
+       * @description This consignment's shipping cost after automatic promotions are applied.
+       */
+      comparisonShippingCost?: number;
       lineItemIds?: string[];
     };
     /** consignmentAvailableShippingOptions */
